@@ -1,0 +1,45 @@
+// 字體大小-手機
+@mixin caption-title($caption-h1, $caption-color, $spacing-h1) {
+    font: $caption-h1;
+    color: $caption-color;
+    letter-spacing: $spacing-h1;
+    text-decoration: none;
+}
+// 字體大小-575斷點
+@mixin caption-s-title($caption-s-h1, $caption-color, $spacing-h1) {
+    font: $caption-s-h1;
+    color: $caption-color;
+    letter-spacing: $spacing-h1;
+    text-decoration: none;
+}
+// 字體大小-1024斷點
+@mixin caption-m-title($caption-m-h1, $caption-color, $spacing-h1) {
+    font: $caption-m-h1;
+    color: $caption-color;
+    letter-spacing: $spacing-h1;
+    text-decoration: none;
+}
+// 字體大小-1199斷點
+@mixin caption-l-title($caption-l-h1, $caption-color, $spacing-h1) {
+    font: $caption-l-h1;
+    color: $caption-color;
+    letter-spacing: $spacing-h1;
+    text-decoration: none;
+}
+
+//斷點設定
+@mixin s($s-breakpoint) {
+    @media all and (min-width:$s-breakpoint){
+        @content;
+    }
+}
+@mixin m($m-breakpoint) {
+    @media all and (min-width:$m-breakpoint){
+        @content;
+    }
+}
+@mixin l($l-breakpoint) {
+    @media all and (min-width:$l-breakpoint){
+        @content;
+    }
+}

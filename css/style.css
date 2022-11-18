@@ -1,0 +1,258 @@
+@import url("https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap");
+body {
+  background: linear-gradient(109.69deg, #12181E 16.49%, #13181F 26.68%, #151A23 36.59%, #181D24 41.08%, #1D2229 48.97%, #21282E 55.3%, #242B32 61.38%, #262D35 68.74%, #262D35 75.3%, #262D35 80.67%, #263038 86.99%);
+}
+
+section {
+  margin: 50px 0;
+}
+
+h1 {
+  font: 600 36px/1.2 "Poppins", sans-serif;
+  color: #EEEEEE;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+@media all and (min-width: 575px) {
+  h1 {
+    font: 600 36px/1.2 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1023px) {
+  h1 {
+    font: 600 48px/1.2 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1199px) {
+  h1 {
+    font: 600 60px/40px "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+
+h2 {
+  font: 600 32px/1.4 "Poppins", sans-serif;
+  color: #EEEEEE;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+@media all and (min-width: 575px) {
+  h2 {
+    font: 600 32px/1.4 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1023px) {
+  h2 {
+    font: 600 40px/1.4 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1199px) {
+  h2 {
+    font: 600 52px/40px "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+
+h3 {
+  font: 500 28px/1.4 "Poppins", sans-serif;
+  color: #EEEEEE;
+  letter-spacing: 2px;
+  text-decoration: none;
+}
+@media all and (min-width: 575px) {
+  h3 {
+    font: 500 28px/1.4 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1023px) {
+  h3 {
+    font: 500 36px/1.4 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1199px) {
+  h3 {
+    font: 500 48px/40px "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+
+h4 {
+  font: 500 24px/1.4 "Poppins", sans-serif;
+  color: #EEEEEE;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+@media all and (min-width: 575px) {
+  h4 {
+    font: 500 24px/1.4 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1023px) {
+  h4 {
+    font: 500 28px/1.4 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1199px) {
+  h4 {
+    font: 500 40px/30px "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+
+h5 {
+  font: 500 20px/1.4 "Poppins", sans-serif;
+  color: #EEEEEE;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+@media all and (min-width: 575px) {
+  h5 {
+    font: 500 20px/1.4 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1023px) {
+  h5 {
+    font: 500 24px/1.4 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1199px) {
+  h5 {
+    font: 500 32px/30px "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+
+h6 {
+  font: 500 20px/1.4 "Poppins", sans-serif;
+  color: #EEEEEE;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+@media all and (min-width: 575px) {
+  h6 {
+    font: 500 20px/1.4 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1023px) {
+  h6 {
+    font: 500 24px/1.4 "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1199px) {
+  h6 {
+    font: 500 32px/30px "Poppins", sans-serif;
+    color: #EEEEEE;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+
+p {
+  font: 300 16px/1.4 "Poppins", sans-serif;
+  color: #e8e8e8;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+@media all and (min-width: 575px) {
+  p {
+    font: 300 16px/1.4 "Poppins", sans-serif;
+    color: #e8e8e8;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1023px) {
+  p {
+    font: 300 16px/1.4 "Poppins", sans-serif;
+    color: #e8e8e8;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1199px) {
+  p {
+    font: 300 18px/30px "Poppins", sans-serif;
+    color: #e8e8e8;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+
+a {
+  font: 300 16px/1.4 "Poppins", sans-serif;
+  color: #e8e8e8;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+@media all and (min-width: 575px) {
+  a {
+    font: 300 20px/1.4 "Poppins", sans-serif;
+    color: #e8e8e8;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1023px) {
+  a {
+    font: 300 20px/1.4 "Poppins", sans-serif;
+    color: #e8e8e8;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+@media all and (min-width: 1199px) {
+  a {
+    font: 300 20px/30px "Poppins", sans-serif;
+    color: #e8e8e8;
+    letter-spacing: 2px;
+    text-decoration: none;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

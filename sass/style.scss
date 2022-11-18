@@ -1,0 +1,110 @@
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@200;300;400;500;600;700;800&display=swap');
+// @import url('https://fonts.cdnfonts.com/css/avantgarde-md-bt');
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap');
+@import './base/color';
+@import './base/font';
+@import './base/common';
+@import './component/btn';
+@import './mixin/mixin';
+body {
+    background: $bg-color;
+}
+section {
+    margin: $section;
+}
+h1 {
+    @include caption-title($caption-h1, $caption-color, $spacing-h1);
+    @include s($s-breakpoint) {
+        @include caption-s-title($caption-s-h1, $caption-color, $spacing-h1)
+    } 
+    @include m($m-breakpoint) {
+        @include caption-m-title($caption-m-h1, $caption-color, $spacing-h1)
+    } 
+    @include l($l-breakpoint) {
+        @include caption-l-title($caption-l-h1, $caption-color, $spacing-h1)
+    } 
+};
+h2 {
+    @include caption-title($caption-h2, $caption-color, $spacing-h2);
+    @include s($s-breakpoint) {
+        @include caption-s-title($caption-s-h2, $caption-color, $spacing-h1)
+    }
+    @include m($m-breakpoint) {
+        @include caption-m-title($caption-m-h2, $caption-color, $spacing-h1)
+    }  
+    @include l($l-breakpoint) {
+        @include caption-l-title($caption-l-h2, $caption-color, $spacing-h1)
+    } 
+};
+h3 {
+    @include caption-title($caption-h3, $caption-color, $spacing-h3);
+    @include s($s-breakpoint) {
+        @include caption-s-title($caption-s-h3, $caption-color, $spacing-h1)
+    }
+    @include m($m-breakpoint) {
+        @include caption-m-title($caption-m-h3, $caption-color, $spacing-h1)
+    }  
+    @include l($l-breakpoint) {
+        @include caption-l-title($caption-l-h3, $caption-color, $spacing-h1)
+    } 
+}
+h4 {
+    @include caption-title($caption-h4, $caption-color, $spacing-h4);
+    @include s($s-breakpoint) {
+        @include caption-s-title($caption-s-h4, $caption-color, $spacing-h1)
+    }
+    @include m($m-breakpoint) {
+        @include caption-m-title($caption-m-h4, $caption-color, $spacing-h1)
+    }  
+    @include l($l-breakpoint) {
+        @include caption-l-title($caption-l-h4, $caption-color, $spacing-h1)
+    } 
+}
+h5 {
+    @include caption-title($caption-h5, $caption-color, $spacing-h5);
+    @include s($s-breakpoint) {
+        @include caption-s-title($caption-s-h5, $caption-color, $spacing-h1)
+    }
+    @include m($m-breakpoint) {
+        @include caption-m-title($caption-m-h5, $caption-color, $spacing-h1)
+    }  
+    @include l($l-breakpoint) {
+        @include caption-l-title($caption-l-h5, $caption-color, $spacing-h1)
+    } 
+}
+h6 {
+    @include caption-title($caption-h5, $caption-color, $spacing-h6);
+    @include s($s-breakpoint) {
+        @include caption-s-title($caption-s-h5, $caption-color, $spacing-h1)
+    }
+    @include m($m-breakpoint) {
+        @include caption-m-title($caption-m-h5, $caption-color, $spacing-h1)
+    }  
+    @include l($l-breakpoint) {
+        @include caption-l-title($caption-l-h5, $caption-color, $spacing-h1)
+    } 
+}
+p {
+    @include caption-title($caption-p, $txt-color, $spacing-p);
+    @include s($s-breakpoint) {
+        @include caption-s-title($caption-s-p, $txt-color, $spacing-h1)
+    }
+    @include m($m-breakpoint) {
+        @include caption-m-title($caption-m-p, $txt-color, $spacing-h1)
+    }  
+    @include l($l-breakpoint) {
+        @include caption-l-title($caption-l-p, $txt-color, $spacing-h1)
+    } 
+}
+a {
+    @include caption-title($caption-p, $txt-color, $spacing-p);
+    @include s($s-breakpoint) {
+        @include caption-s-title($caption-s-a, $txt-color, $spacing-h1)
+    }
+    @include m($m-breakpoint) {
+        @include caption-m-title($caption-m-a, $txt-color, $spacing-h1)
+    }  
+    @include l($l-breakpoint) {
+        @include caption-l-title($caption-l-a, $txt-color, $spacing-h1)
+    } 
+}
