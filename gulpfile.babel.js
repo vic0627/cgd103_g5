@@ -81,9 +81,11 @@ exports.js = jsminify;
 
 function jsConcat(){
     return src([
-        "./node_modules/gsap/dist/gsap.min.js"
+        "./node_modules/gsap/dist/gsap.min.js",
+        './node_modules/three/build/three.module.js',
     ])
     .pipe(concat("main.js"))
+    .pipe(uglify())
     .pipe(dest('dist/js'))
 }
 
@@ -97,7 +99,7 @@ const sass = require('gulp-sass')(require('sass'));
 const autoprefixer = require('gulp-autoprefixer');
 
 function styleSass() {
-    return src('src/sass/*.scss')
+    return src(['src/sass/*.scss', 'src/sass/**/*.scss', 'src/css/*.css'])
         .pipe(sass.sync().on('error', sass.logError))
         .pipe(autoprefixer({
             cascade: false

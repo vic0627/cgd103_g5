@@ -32,6 +32,11 @@
     "webpack-stream": "^7.0.0"
   },
   "dependencies": {
-    "gsap": "^3.11.3"
+    "cannon-es": "^0.20.0",
+    "gsap": "^3.11.3",
+    "jquery": "^3.6.1",
+    "jquery-ui": "^1.13.2",
+    "scrolltrigger": "^1.0.1",
+    "three": "^0.146.0"
   }
 }
