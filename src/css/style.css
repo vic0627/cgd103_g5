@@ -1,6 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600&family=Poppins:wght@400;500;600&display=swap");
 body {
   background: linear-gradient(109.69deg, #12181E 16.49%, #13181F 26.68%, #151A23 36.59%, #181D24 41.08%, #1D2229 48.97%, #21282E 55.3%, #242B32 61.38%, #262D35 68.74%, #262D35 75.3%, #262D35 80.67%, #263038 86.99%);
+  background-repeat: no-repeat;
 }
 
 section {
@@ -248,7 +249,7 @@ a {
 }
 @media all and (min-width: 1199px) {
   a {
-    font: 300 20px/40px "Poppins", sans-serif;
+    font: 300 20px/1.4 "Poppins", sans-serif;
     color: #e8e8e8;
     letter-spacing: 2px;
     text-decoration: none;

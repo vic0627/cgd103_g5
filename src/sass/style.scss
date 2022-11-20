@@ -6,8 +6,10 @@
 @import './base/common';
 @import './component/btn';
 @import './mixin/mixin';
+
 body {
     background: $bg-color;
+    background-repeat: no-repeat;
 }
 section {
     margin: $section;
