@@ -32,81 +32,93 @@ h2 {
         @include caption-s-title($caption-s-h2, $caption-color, $spacing-h1)
     }
     @include m($m-breakpoint) {
-        @include caption-m-title($caption-m-h2, $caption-color, $spacing-h1)
+        @include caption-m-title($caption-m-h2, $caption-color, $spacing-h2)
     }  
     @include l($l-breakpoint) {
-        @include caption-l-title($caption-l-h2, $caption-color, $spacing-h1)
+        @include caption-l-title($caption-l-h2, $caption-color, $spacing-h2)
     } 
 };
 h3 {
     @include caption-title($caption-h3, $caption-color, $spacing-h3);
     @include s($s-breakpoint) {
-        @include caption-s-title($caption-s-h3, $caption-color, $spacing-h1)
+        @include caption-s-title($caption-s-h3, $caption-color, $spacing-h3)
     }
     @include m($m-breakpoint) {
-        @include caption-m-title($caption-m-h3, $caption-color, $spacing-h1)
+        @include caption-m-title($caption-m-h3, $caption-color, $spacing-h3)
     }  
     @include l($l-breakpoint) {
-        @include caption-l-title($caption-l-h3, $caption-color, $spacing-h1)
+        @include caption-l-title($caption-l-h3, $caption-color, $spacing-h3)
     } 
 }
 h4 {
     @include caption-title($caption-h4, $caption-color, $spacing-h4);
     @include s($s-breakpoint) {
-        @include caption-s-title($caption-s-h4, $caption-color, $spacing-h1)
+        @include caption-s-title($caption-s-h4, $caption-color, $spacing-h4)
     }
     @include m($m-breakpoint) {
-        @include caption-m-title($caption-m-h4, $caption-color, $spacing-h1)
+        @include caption-m-title($caption-m-h4, $caption-color, $spacing-h4)
     }  
     @include l($l-breakpoint) {
-        @include caption-l-title($caption-l-h4, $caption-color, $spacing-h1)
+        @include caption-l-title($caption-l-h4, $caption-color, $spacing-h4)
     } 
 }
 h5 {
     @include caption-title($caption-h5, $caption-color, $spacing-h5);
     @include s($s-breakpoint) {
-        @include caption-s-title($caption-s-h5, $caption-color, $spacing-h1)
+        @include caption-s-title($caption-s-h5, $caption-color, $spacing-h5)
     }
     @include m($m-breakpoint) {
-        @include caption-m-title($caption-m-h5, $caption-color, $spacing-h1)
+        @include caption-m-title($caption-m-h5, $caption-color, $spacing-h5)
     }  
     @include l($l-breakpoint) {
-        @include caption-l-title($caption-l-h5, $caption-color, $spacing-h1)
+        @include caption-l-title($caption-l-h5, $caption-color, $spacing-h5)
     } 
 }
 h6 {
     @include caption-title($caption-h5, $caption-color, $spacing-h6);
     @include s($s-breakpoint) {
-        @include caption-s-title($caption-s-h5, $caption-color, $spacing-h1)
+        @include caption-s-title($caption-s-h5, $caption-color, $spacing-h6)
     }
     @include m($m-breakpoint) {
-        @include caption-m-title($caption-m-h5, $caption-color, $spacing-h1)
+        @include caption-m-title($caption-m-h5, $caption-color, $spacing-h6)
     }  
     @include l($l-breakpoint) {
-        @include caption-l-title($caption-l-h5, $caption-color, $spacing-h1)
+        @include caption-l-title($caption-l-h5, $caption-color, $spacing-h6)
     } 
 }
 p {
     @include caption-title($caption-p, $txt-color, $spacing-p);
     @include s($s-breakpoint) {
-        @include caption-s-title($caption-s-p, $txt-color, $spacing-h1)
+        @include caption-s-title($caption-s-p, $txt-color, $spacing-h6)
     }
     @include m($m-breakpoint) {
-        @include caption-m-title($caption-m-p, $txt-color, $spacing-h1)
+        @include caption-m-title($caption-m-p, $txt-color, $spacing-h6)
     }  
     @include l($l-breakpoint) {
-        @include caption-l-title($caption-l-p, $txt-color, $spacing-h1)
+        @include caption-l-title($caption-l-p, $txt-color, $spacing-h6)
     } 
 }
 a {
     @include caption-title($caption-p, $txt-color, $spacing-p);
     @include s($s-breakpoint) {
-        @include caption-s-title($caption-s-a, $txt-color, $spacing-h1)
+        @include caption-s-title($caption-s-a, $txt-color, $spacing-h6)
     }
     @include m($m-breakpoint) {
-        @include caption-m-title($caption-m-a, $txt-color, $spacing-h1)
+        @include caption-m-title($caption-m-a, $txt-color, $spacing-h6)
     }  
     @include l($l-breakpoint) {
-        @include caption-l-title($caption-l-a, $txt-color, $spacing-h1)
+        @include caption-l-title($caption-l-a, $txt-color, $spacing-h6)
     } 
+}
+span {
+    @include caption-title($caption-span, $caption-color, $spacing-p);
+    @include s($s-breakpoint) {
+        @include caption-s-title($caption-s-span, $caption-color, $spacing-h6)
+    }
+    @include m($m-breakpoint) {
+        @include caption-m-title($caption-m-span, $caption-color, $spacing-h6)
+    }  
+    @include l($l-breakpoint) {
+        @include caption-l-title($caption-l-span, $caption-color, $spacing-h6)
+    }
 }
