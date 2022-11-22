@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/src/css/style.css">
+    <title>store</title>
+</head>
+<body>
+    
+    <!-- banner -->
+    <section class="banner">
+        <h1>new product</h1>
+        <div class="img_box">
+            <img src="/image/new2.jpg" alt="new2">
+        </div>
+    </section>
+    <!-- step_slider -->
+    <section class="step_wrapper">
+        <h2>CUSTOMIZE STEP</h2>
+        <div class="step_container">
+            <div class="sliderDiv">
+                <article class="slider active">
+                    <img src="/image/propellor01.png" alt="propellor01">
+                    <p>1. Choose your own color and wing</p>
+                </article>
+                <article class="slider">
+                    <img src="/image/propellor02.png" alt="propellor02">
+                    <p>2. Choose your own color and wing</p>
+                </article>
+                <article class="slider">
+                    <img src="/image/propellor03.png" alt="propellor03">
+                    <p>3. Choose your own color and wing</p>
+                </article>
+                <article class="slider">
+                    <img src="/image/propellor04.png" alt="propellor04">
+                    <p>4. Choose your own color and wing</p>
+                </article>
+            </div>
+            <!-- controller -->
+            <nav class="controls" >
+                <button type="" class="button">step 1</button>
+                <button type="" class="button">step 2</button>
+                <button type="" class="button">step 3</button>
+                <button type="" class="button">step 4</button>
+            </nav>
+        </div>
+    </section>
+
+    <!-- all_product -->
+    <div class="all_product">
+        <h2>All Product</h2>
+        <div class="allProduct_container">
+            <div class="card p1">
+                <div class="product_box">
+                    <div class="title">Title</div>
+                    <div class="pic">
+                        <img src="/image/1_revised.png" alt="">
+                        <div class="spotlightFront"></div>
+                        <div class="spotlightBack"></div>
+                    </div>
+                    <div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique ab obcaecati, ut possimus officiis velit adipisci voluptate nulla vel, eum reprehenderit sint praesentium voluptatum corporis laborum culpa! Ipsum, corrupti nihil?</div>
+                    <div class="btn_group">
+                        <a class="btn">Order Now</a>
+                        <a class="btn">Add cart</a>
+                    </div>
+                </div>
+            </div>        
+            <div class="card p2">
+                <div class="product_box">
+                    <div class="title">Title</div>
+                    <div class="pic">
+                        <img src="/image/1_revised.png" alt="">
+                        <div class="spotlightFront"></div>
+                        <div class="spotlightBack"></div>
+                    </div>
+                    <div class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique ab obcaecati, ut possimus officiis velit adipisci voluptate nulla vel, eum reprehenderit sint praesentium voluptatum corporis laborum culpa! Ipsum, corrupti nihil?</div>
+                    <div class="btn_group">
+                        <a class="btn">Order Now</a>
+                        <a class="btn">Add cart</a>
+                    </div>
+                </div>
+            </div>        
+        </div>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script>
+        (function(){
+            function controls(){
+                $(this).addClass('selected').siblings('button').removeClass('selected');
+                $('.sliderDiv').animate({
+                    top: -$('.step_container').height() * $(this).index()
+                },450);
+            }
+
+            const runAnim = ()=>{
+                const button = document.querySelectorAll('.button');
+
+                if(button){
+                    for(var i = 0;i< button.length ; i++){
+                        button[i].addEventListener('click',controls,false);
+                    }
+                }
+            }
+            runAnim();
+        })();
+     </script>   
+</body>
+</html>
