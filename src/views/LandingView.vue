@@ -129,7 +129,7 @@ const mouse3d = () => {
 @import '@/sass/base/_color.scss';
 @import '@/sass/base/_common.scss';
 @import '@/sass/base/_font.scss';
-@import '@/sass/mixin/_mixin.scss';;
+@import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
 
 #land3d{
@@ -146,7 +146,6 @@ h2{
     left: 0;
     right: 0;
     margin: 0 auto;
-    color: transparent;
 }
 h2 ~ h2, .buttons ~ .buttons{
     display: none;
@@ -155,11 +154,14 @@ h2 ~ h2, .buttons ~ .buttons{
 .spanH2{
     display: inline-block;
     width: 32px;
+    font: $caption-h2;
+    color: transparent;
     text-transform: uppercase;
     -webkit-text-stroke: 1px #fff;
     -webkit-box-reflect: below 5px linear-gradient(transparent, #eee);
     @include m($m-breakpoint) {
         width: 48px;
+        font: $caption-l-h2;
     }
 }
 
