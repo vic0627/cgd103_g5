@@ -3,7 +3,7 @@
 @import '../base/font';
 @import '../mixin/mixin';
 @mixin primaryBtn($width){
-    @include caption-title($caption-a, $blue, $spacing-p);
+    @include caption-title($caption-a, $fff, $spacing-p);
     display: block;
     width: $width + 4px;
     height: 27px;
@@ -20,13 +20,13 @@
         display: block;
         margin-top: 45px;
         line-height: 1.1;
+        color: $blue;
         opacity: 1;
         transition: all .3s;
     }
     &::before, &::after{
         content: attr(data-title);
         display: block;
-        color: $fff;
         position: absolute;
         width: $width + 4px;
         padding: 80px 15px;
