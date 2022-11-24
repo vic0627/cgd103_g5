@@ -11,6 +11,9 @@ body {
     background: $bg-color;
     background-repeat: no-repeat;
 }
+::-webkit-scrollbar {
+    display: none;
+}
 section {
     margin: $section;
 }
