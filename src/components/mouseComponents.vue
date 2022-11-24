@@ -1,7 +1,9 @@
-<script setup></script>
+<script setup>
+const ww = window.innerWidth;
+</script>
 
 <template>
-    <div id="mouse"></div>
+    <div id="mouse" v-if="ww>1024"></div>
 </template>
 
 <style lang="scss" scoped>

@@ -1,6 +1,4 @@
 <script setup>
-import gsap from "gsap";
-import headerComponentsVue from '@/components/headerComponents.vue';
 </script>
 
 <template>
@@ -8,5 +6,4 @@ import headerComponentsVue from '@/components/headerComponents.vue';
 </template>
 
 <style scoped>
-
 </style>

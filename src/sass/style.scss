@@ -9,6 +9,9 @@
 body {
     background: $bg-color;
 }
+::-webkit-scrollbar {
+    display: none;
+}
 section {
     margin: $section;
 }
