@@ -11,7 +11,7 @@
         border-radius: 50%;
         box-shadow: 0 0 20px 4px #fff;
         backdrop-filter: invert(100%);
-        position: fixed;
+        position: absolute;
         z-index: 99;
         pointer-events: none;
         transform-style: preserve-3d;      
