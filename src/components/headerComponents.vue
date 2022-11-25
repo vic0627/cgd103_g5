@@ -15,7 +15,6 @@
         <router-link class="anchor" to="/race">Race</router-link>
         <router-link class="anchor" to="/member">Member</router-link>
     </nav>
-    <router-view />
 </template>
 
 <style lang="scss" scoped>
