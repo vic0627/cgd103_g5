@@ -5,9 +5,20 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+<<<<<<< HEAD
+      name: 'home',
+      component: HomeView
+    },
+    // {
+    //   path: '/landing',
+    //   name: 'landing',
+    //   component: () => import('../views/LandingView.vue')
+    // },
+=======
       name: 'landing',
       component: () => import('../views/LandingView.vue')
     },
+>>>>>>> origin/dev
     {
       path: '/home',
       name: 'home',
