@@ -1,11 +1,9 @@
 import { ref, onMounted, onUnmounted } from 'vue';
-
+export let x , y;
 export function useMousePosition (e) {
-    const x = ref(0),
-          y = ref(0);
     const mouseE = (e) => {
-        x.value = e.pageX;
-        y.value = e.pageY;
+        x = e.pageX;
+        y = e.pageY;
     };
     onMounted(()=> {
         window.addEventListener('mousemove', mouseE);
@@ -13,5 +11,4 @@ export function useMousePosition (e) {
     onUnmounted(()=> {
         window.removeEventListener('mousemove', mouseE);
     });
-    return {x, y};
-}
+};

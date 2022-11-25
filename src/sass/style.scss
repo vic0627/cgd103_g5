@@ -12,6 +12,9 @@ body {
     background-repeat: no-repeat;
     
 }
+::-webkit-scrollbar {
+    display: none;
+}
 section {
     margin: $section;
 }
