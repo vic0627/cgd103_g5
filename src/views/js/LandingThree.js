@@ -19,7 +19,6 @@ export function sceneInit () {
     renderer.shadowMap.enabled = true;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.setSize(ww, wh);
-    renderer.setSize(ww, wh);
     camera = new THREE.PerspectiveCamera(60, ww / wh, 0.001, 1000);
     camera.position.set(0,.01,10);
     const planeGeometry = new THREE.PlaneGeometry(60, 60);
