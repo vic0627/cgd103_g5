@@ -4,6 +4,10 @@ body {
   background-repeat: no-repeat;
 }
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 section {
   margin: 50px 0;
 }
