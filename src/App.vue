@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <router-view></router-view>
+  <headerComponentsVue />
 </template>
 
 <style scoped>
