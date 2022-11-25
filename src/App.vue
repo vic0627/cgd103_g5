@@ -1,11 +1,9 @@
 <script setup>
-import headerComponentsVue from '@/components/headerComponents.vue';
 </script>
 
 <template>
-  <headerComponentsVue />
+  <router-view></router-view>
 </template>
 
 <style scoped>
-
 </style>
