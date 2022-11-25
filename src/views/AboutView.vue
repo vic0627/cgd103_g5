@@ -1,7 +1,4 @@
 <script setup>
-<<<<<<< HEAD
-
-=======
 import video_01 from '@/assets/video/about/video_01.mp4'
 import { onMounted } from 'vue';
 import mouseComponentsVue from '../components/mouseComponents.vue';
@@ -9,7 +6,6 @@ import * as MOUSE from '@/composables/useMouseMove';
 onMounted(()=> {
     MOUSE.useMouseMove();
 });
->>>>>>> 2f847c4a6dc65587ce316b18945c604f64e49247
 </script>
 
 
@@ -114,9 +110,6 @@ onMounted(()=> {
 <mouseComponentsVue />
 </template>
 
-<<<<<<< HEAD
-<style scoped lang="scss">
-=======
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
 .btn{
@@ -215,7 +208,6 @@ onMounted(()=> {
     opacity: 1;
   }
 }
->>>>>>> 2f847c4a6dc65587ce316b18945c604f64e49247
 
 .team_spirit {
   width: 100%;
