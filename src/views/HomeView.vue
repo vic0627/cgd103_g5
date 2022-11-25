@@ -10,11 +10,6 @@ onMounted(()=> {
 
 
 <template>
-<<<<<<< HEAD
-</template>
-
-<style>
-=======
     <!-- <headerComponents/> -->
     <header class="home1">
         <h2>Mavic 2 Zoom</h2>
@@ -51,5 +46,4 @@ onMounted(()=> {
     z-index: 2;
     }
 }
->>>>>>> Felix
 </style>
