@@ -48,22 +48,24 @@ const mousePlay = (e) => {
     if (ww>1024) {
         let mouseX = (x-e.target.offsetLeft-e.target.parentNode.offsetLeft-24)*-1;
         let mouseY = (y-e.target.parentNode.offsetTop-27.5)*-1;
-        let spanT = gsap.timeline();
-        spanT.to(e.target, {
+        gsap.to(e.target, {
             x: mouseX,
             y: mouseY,
-            rotateX: 1.5*mouseY+'deg',
-            rotateY: -1.5*mouseX+'deg',
+            rotateX: -1.2*mouseY+'deg',
+            rotateY: 2*mouseX+'deg',
             duration:.3,
         });
-        spanT.to(e.target, {
-            x: 0,
-            y: 0,
-            rotateX: 0+'deg',
-            rotateY: 0+'deg',
-            duration:1,
-        });
+        console.log(mouseX);
     };
+};
+const mouseOut = (e) => {
+    gsap.to(e.target, {
+        x: 0,
+        y: 0,
+        rotateX: 0+'deg',
+        rotateY: 0+'deg',
+        duration:1,
+    });
 };
 const mouse3d = () => {
     if (ww>1024) {
@@ -97,7 +99,7 @@ const mouse3d = () => {
     <mouseComponentsVue />
     <canvas id="land3d"></canvas>
     <h2 id="frontTitle">
-        <span @mousemove="mousePlay" class="spanH2" v-for="i in forestage" :key="i">{{ i }}</span>
+        <span @mouseover="mousePlay" @mouseout="mouseOut" class="spanH2" v-for="i in forestage" :key="i">{{ i }}</span>
     </h2>
     <div class="buttons" id="frontButtons">
         <a data-title="To Backstage" class="btnSecond" @click="toBack" @mouseenter="MOUSE.mouseFocus"
@@ -110,7 +112,7 @@ const mouse3d = () => {
         </router-link>
     </div>
     <h2 id="backTitle">
-        <span @mousemove="mousePlay" class="spanH2" v-for="i in backstage" :key="i">{{ i }}</span>
+        <span @mouseover="mousePlay" @mouseout="mouseOut" class="spanH2" v-for="i in backstage" :key="i">{{ i }}</span>
     </h2>
     <div class="buttons" id="backButtons">
         <a data-title="To Frontstage" class="btnSecond" @click="toFront"  @mouseenter="MOUSE.mouseFocus"
@@ -156,6 +158,7 @@ h2 ~ h2, .buttons ~ .buttons{
     width: 32px;
     font: $caption-h2;
     color: transparent;
+    transform: perspective(300px);
     text-transform: uppercase;
     -webkit-text-stroke: 1px #fff;
     -webkit-box-reflect: below 5px linear-gradient(transparent, #eee);

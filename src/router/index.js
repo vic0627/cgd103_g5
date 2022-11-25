@@ -31,7 +31,7 @@ const router = createRouter({
     {
       path: '/shopInfo',
       name: 'shopInfo',
-      component:  () => import('../views/shopInfoView.vue')
+      component:  () => import('../views/shopInfoViewB.vue')
     },
     {
       path: '/cart',
