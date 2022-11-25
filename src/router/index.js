@@ -1,13 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
       path: '/',
+      name: 'landing',
+      component: () => import('../views/LandingView.vue')
+    },
+    {
+      path: '/home',
       name: 'home',
-      component: HomeView
+      component: () => import('../views/HomeView.vue')
     },
     {
       path: '/about',
@@ -25,9 +29,9 @@ const router = createRouter({
       component:  () => import('../views/shopView.vue')
     },
     {
-      path: '/shop/shopInfo',
+      path: '/shopInfo',
       name: 'shopInfo',
-      component:  () => import('../views/shopInfoView.vue')
+      component:  () => import('../views/shopInfoViewB.vue')
     },
     {
       path: '/cart',

@@ -1,15 +1,9 @@
 <script setup>
-
-import headerComponentsVue from '@/components/headerComponents.vue';
-import {reactive,ref} from "vue";
-
-
 </script>
 
 <template>
-  <headerComponentsVue />
+  <router-view></router-view>
 </template>
 
-<style scoped="scss">
-
+<style scoped>
 </style>
