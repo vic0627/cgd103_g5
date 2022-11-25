@@ -1,4 +1,4 @@
-import { onMounted } from 'vue';
+/* import { onMounted } from 'vue'; */
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import droneUrl from '@/assets/model3d/flying_drone/flying_drone.glb';
@@ -90,4 +90,4 @@ function windowResize () {
         camera.aspect = ww / wh;
         renderer.setSize(ww, wh);
     });
-};
+};;
