@@ -3,7 +3,7 @@
 <template>
   <main>
     <!-- banner -->
-    <section class="banner">
+    <div class="banner">
       <div class="banner_img">
         <img src="../assets/images/race/banner01.jpg" alt="banner" />
       </div>
@@ -19,7 +19,7 @@
       <div class="banner_word">
         <h2>CONTEST</h2>
       </div>
-    </section>
+    </div>
 
     <!-- race list -->
     <!-- background img -->
@@ -33,9 +33,16 @@
 
 .banner {
   margin: 0;
+  position: relative;
   .banner_img {
     width: 100%;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-animation: round 20s linear infinite;
+    animation: round 20s linear infinite;
     img {
       width: 100%;
     }
@@ -46,5 +53,49 @@
     left: 50%;
     transform: translate(-50%, 0%);
   }
+}
+@-webkit-keyframes round {
+  5% {
+    opacity: 1;
+    filter: alpha(opacity=100);
+  }
+  25% {
+    opacity: 1;
+    filter: alpha(opacity=100);
+  }
+  50% {
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+}
+@keyframes round {
+  5% {
+    opacity: 1;
+    filter: alpha(opacity=100);
+  }
+  25% {
+    opacity: 1;
+    filter: alpha(opacity=100);
+  }
+  50% {
+    opacity: 0;
+    filter: alpha(opacity=0);
+  }
+}
+.banner_img:nth-child(1) {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+.banner_img:nth-child(2) {
+  -webkit-animation-delay: 5s;
+  animation-delay: 5s;
+}
+.banner_img:nth-child(3) {
+  -webkit-animation-delay: 10s;
+  animation-delay: 10s;
+}
+.banner_img:nth-child(4) {
+  -webkit-animation-delay: 15s;
+  animation-delay: 15s;
 }
 </style>
