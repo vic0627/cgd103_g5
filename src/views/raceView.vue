@@ -4,20 +4,20 @@
   <main>
     <!-- banner -->
     <section class="banner">
-      <div>
+      <div class="banner_img">
         <img src="../assets/images/race/banner01.jpg" alt="banner" />
       </div>
-
-      <div>
+      <div class="banner_img">
         <img src="../assets/images/race/banner02.jpg" alt="banner" />
       </div>
-
-      <div>
+      <div class="banner_img">
         <img src="../assets/images/race/banner03.jpg" alt="banner" />
       </div>
-
-      <div>
+      <div class="banner_img">
         <img src="../assets/images/race/banner04.jpg" alt="banner" />
+      </div>
+      <div class="banner_word">
+        <h2>CONTEST</h2>
       </div>
     </section>
 
@@ -32,19 +32,19 @@
 @import "../sass/component/_btn.scss";
 
 .banner {
-  margin: 30px auto;
-  width: 100%;
-  //   height: 60px;
-  position: relative;
-  box-shadow: #666 0 0 5px;
-  dev {
+  margin: 0;
+  .banner_img {
+    width: 100%;
+    position: relative;
+    img {
+      width: 100%;
+    }
+  }
+  .banner_word {
     position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    filter: alpha(opacity=0);
-    -webkit-animation: round 25s linear infinite;
-    animation: round 25s linear infinite;
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%, 0%);
   }
 }
 </style>

@@ -19,7 +19,7 @@
 <style lang="scss" scoped>
 nav {
   width: 100%;
-  height: 60px;
+  // height: 60px;
   background: #000;
   .anchor {
     color: #fff;
