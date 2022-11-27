@@ -1,24 +1,30 @@
 <script setup></script>
 
 <template>
-  <!-- 內容 -->
-
-  <main class="wrapper">
-    <!-- banner -->
-    <div class="banner">
+  <main>
+    <section class="banner">
       <div class="banner_pic">
-        <img src="../assets/images/race/contest01.png" alt="contestPic" />
+        <img src="../assets/images/race/place01.png" alt="banner_pic1" />
       </div>
-    </div>
+      <div class="banner_title">
+        <!-- <h2>Contest</h2> -->
+      </div>
+      <div class="banner_word">
+        <span></span>
+      </div>
+    </section>
   </main>
 </template>
 
 <style lang="scss" scoped>
-// banner
-
-.banner_pic {
-  img {
-    width: 100%;
+section {
+  margin-top: 0;
+  .banner_pic {
+    width: 1440px;
+    margin: 0 auto;
+    img {
+      width: 100%;
+    }
   }
 }
 </style>
