@@ -2,28 +2,49 @@
 
 <template>
   <main>
+    <!-- banner -->
     <section class="banner">
-      <div class="banner_pic">
-        <img src="../assets/images/race/place01.png" alt="banner_pic1" />
+      <div class="test">
+        <!-- <img src="../assets/images/race/banner01.jpg" alt="banner" /> -->
       </div>
-      <div class="banner_title">
-        <!-- <h2>Contest</h2> -->
+
+      <div>
+        <!-- <img src="../assets/images/race/banner02.jpg" alt="banner" /> -->
       </div>
-      <div class="banner_word">
-        <span></span>
+
+      <div>
+        <!-- <img src="../assets/images/race/banner03.jpg" alt="banner" /> -->
+      </div>
+
+      <div>
+        <!-- <img src="../assets/images/race/banner04.jpg" alt="banner" /> -->
       </div>
     </section>
+
+    <!-- race list -->
+    <!-- background img -->
+    <!-- practise point -->
   </main>
 </template>
 
 <style lang="scss" scoped>
+@import "../sass/style.scss";
+@import "../sass/component/_btn.scss";
+.test {
+  background-image: url(../assets/images/race/banner01.jpg);
+}
 section {
-  margin-top: 0;
-  .banner_pic {
-    width: 1440px;
-    margin: 0 auto;
-    img {
+  margin: 0;
+  //banner
+  .banner {
+    width: 100vw;
+    height: 650px;
+    overflow: hidden;
+    position: relative;
+    background-color: black;
+    dev {
       width: 100%;
+      background-position: center center;
     }
   }
 }
