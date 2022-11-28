@@ -16,7 +16,7 @@
       <div class="banner_img">
         <img src="../assets/images/race/banner04.jpg" alt="banner" />
       </div>
-      <div class="banner_word">
+      <div class="banner_title">
         <h2>CONTEST</h2>
       </div>
     </div>
@@ -47,7 +47,7 @@
       width: 100%;
     }
   }
-  .banner_word {
+  .banner_title {
     position: absolute;
     top: 5%;
     left: 50%;
