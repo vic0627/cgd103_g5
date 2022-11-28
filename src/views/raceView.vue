@@ -51,10 +51,10 @@ section {
 // banner
 .banner {
   margin: 0;
-  //   position: relative;
+  position: relative;
+  // position: absolute;
   .banner_img {
     width: 100%;
-
     top: 0;
     left: 0;
     opacity: 0;
