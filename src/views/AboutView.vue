@@ -1,5 +1,5 @@
 <script>
-import video_01 from '@/assets/video/about/video_01.mp4'
+import video_01 from '@/assets/video/about/video_01.mp4';
 import { onMounted } from 'vue';
 import mouseComponentsVue from '../components/mouseComponents.vue';
 import * as MOUSE from '@/composables/useMouseMove';

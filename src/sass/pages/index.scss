@@ -1,17 +1,17 @@
 .home1 {
     text-align: center;
-    padding-top: 4  0px;
+    padding-top: 90px;
 }
 .home1-btn {
     display: flex;
     justify-content: center;
 }
 #btn1 {
-    @include secondBtn(120px);
+    @include secondBtn(150px);
     margin: 20px;
 }
 #btn2 {
-    @include primaryBtn(120px);
+    @include primaryBtn(150px);
     margin: 20px;
 }
 .home1-pic img {
