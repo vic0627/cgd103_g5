@@ -7,6 +7,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "aos": "^3.0.0-beta.6",
     "cannon-es": "^0.20.0",
     "gsap": "^3.11.3",
     "jquery": "^3.6.1",

@@ -20,7 +20,7 @@
         <img src="../assets/images/race/banner04.jpg" alt="banner" />
       </div>
 
-      <div class="banner_title">
+      <div class="banner_title" data-aos="fade-up">
         <h2>CONTEST</h2>
       </div>
 
@@ -52,7 +52,6 @@ section {
 .banner {
   margin: 0;
   position: relative;
-  // position: absolute;
   .banner_img {
     width: 100%;
     top: 0;
@@ -63,16 +62,15 @@ section {
     animation: round 20s linear infinite;
     img {
       width: 100%;
-      position: absolute;
-      //   position: relative;
+      //   position: absolute;
     }
   }
-  .banner_title {
-    position: absolute;
-    top: 5%;
-    left: 50%;
-    transform: translate(-50%, 0%);
-  }
+  //   .banner_title {
+  //     position: absolute;
+  //     top: 10%;
+  //     left: 50%;
+  //     transform: translate(-50%, 0%);
+  //   }
 }
 @-webkit-keyframes round {
   5% {
