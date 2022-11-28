@@ -73,6 +73,11 @@ const router = createRouter({
       name: "register",
       component: () => import("../views/registerView.vue"),
     },
+    {
+      path: "/backend",
+      name: "backend",
+      component: () => import("../views/backend/backend.vue"),
+    }
   ],
 });
 
