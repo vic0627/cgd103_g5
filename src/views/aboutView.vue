@@ -1,27 +1,27 @@
 <script>
-import video_01 from '@/assets/video/about/video_01.mp4';
-import { onMounted } from 'vue';
-import mouseComponentsVue from '../components/mouseComponents.vue';
-import * as MOUSE from '@/composables/useMouseMove';
-import $ from 'jquery';
+import video_01 from '@/assets/video/about/video_01.mp4'
+import { onMounted, registerRuntimeCompiler } from 'vue';
+import Accordion from '../components/accordionComponents.vue';
+
+
+
+
 onMounted(()=> {
     MOUSE.useMouseMove();
-    plusSlide();
 });
-
-function plusSlide(){
-    $(this).css('left','500px');
-
+export default{
+  components:{
+    Accordion
+  }
 }
+
+
 
 
 </script>
 
 
 <template>
-
-  <!-- @mouseenter="MOUSE.mouseFocus()"
-  @mouseleave="MOUSE.mouseRe()" -->
     
   <!-- 01 video start -->
   <section class="video_box">
@@ -46,92 +46,228 @@ function plusSlide(){
         </div>
   </section>
   <!-- 01 video end -->
+  
+  <!-- v-motion :initial="{opacity:0,y:100}" :visibleOnce="{opacity:1,y:0}" -->
+  <!-- v-motion :initial="{opacity:0,y:100}" 
+    :visibleOnce="{
+      opacity:1,
+      y:0,
+      transition:{
+        duration: 200,
+        type: 'keyframes',
+        ease: 'easeIn',
+      }
+      }" -->
 
+  <!-- 02 start -->
+  <section class="pro_box">
+    <div class="pro_team">
+      <div class="pro_img">
+        <img src="../assets/images/About/img_us.jpg" alt="pro_img">
+      </div>
+      <div class="pro_word">
+        <h2>TEAM</h2>
+        <p class="pro_txt">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Blanditiis illo iure soluta dicta possimus modi perferendis ipsa consectetur sequi culpa!
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Blanditiis illo iure soluta dicta possimus modi perferendis ipsa consectetur sequi culpa!
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+        </p>
+        <p class="pro_txt">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
+          Blanditiis illo iure soluta dicta possimus modi.
+        </p>
+      </div>
+    </div>
+  </section>
 
-  <!-- <section class="team_spirit">
-    <div class="team_spirit_box">
-        <div class="spirit_img">
-            <img src="../assets/images/About/us02.jpg" alt="">
+  <!-- 02 end -->
+
+  <!-- 03 member start -->
+  <section class="member">
+    <div class="mem_title"><h2>MEMBER</h2></div>
+    <div class="member_box">
+        <div class="member_item">
+          <div class="member_img">
+            <img src="../assets/images/About/mem_03.jpg" alt="mem_img">
+          </div>
+          <div class="member_word">
+            <div class="member_txt">
+              <div class="mem_name">Anyu</div>
+              <span class="mem_small">Manager</span>
+            </div>
+          </div>
         </div>
-        <div class="spirit_word">
-            <p class="spirit_txt">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est impedit doloremque recusandae cupiditate vel, obcaecati atque dolorem distinctio veritatis expedita.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Est impedit doloremque recusandae cupiditate vel, obcaecati atque dolorem distinctio veritatis expedita.
-            </p>
+        <div class="member_item">
+          <div class="member_img">
+            <img src="../assets/images/About/mem_01.jpg" alt="mem_img">
+          </div>
+          <div class="member_word">
+            <div class="member_txt">
+              <div class="mem_name">Anyu</div>
+              <span class="mem_small">Photographer</span>
+            </div>
+          </div>
+        </div>
+        <div class="member_item">
+          <div class="member_img">
+            <img src="../assets/images/About/mem_02.jpg" alt="mem_img">
+          </div>
+          <div class="member_word">
+            <div class="member_txt">
+              <div class="mem_name">Siffin</div>
+              <span class="mem_small">Planning</span>
+            </div>
+          </div>
+        </div>
+        <div class="member_item">
+          <div class="member_img">
+            <img src="../assets/images/About/mem_04.jpg" alt="mem_img">
+          </div>
+          <div class="member_word">
+            <div class="member_txt">
+              <div class="mem_name">Wei Na</div>
+              <span class="mem_small">Design</span>
+            </div>
+          </div>
+        </div>
+        <div class="member_item">
+          <div class="member_img">
+            <img src="../assets/images/About/mem_05.jpg" alt="mem_img">
+          </div>
+          <div class="member_word">
+            <div class="member_txt">
+              <div class="mem_name">Andy</div>
+              <span class="mem_small">Engineer</span>
+            </div>
+          </div>
+        </div>
+        <div class="member_item">
+          <div class="member_img">
+            <img src="../assets/images/About/mem_06.jpg" alt="mem_img">
+          </div>
+          <div class="member_word">
+            <div class="member_txt">
+              <div class="mem_name">Charmy</div>
+              <span class="mem_small">Group Pet</span>
+            </div>
+          </div>
+        </div>
+        <div class="member_item">
+          <div class="member_img">
+            <img src="../assets/images/About/mem_08.jpg" alt="mem_img">
+          </div>
+          <div class="member_word">
+            <div class="member_txt">
+              <div class="mem_name">Jain</div>
+              <span class="mem_small">Assembler</span>
+            </div>
+          </div>
+        </div>
+        <div class="member_item">
+          <div class="member_img">
+            <img src="../assets/images/About/mem_09.jpg" alt="mem_img">
+          </div>
+          <div class="member_word">
+            <div class="member_txt">
+              <div class="mem_name">Thalia</div>
+              <span class="mem_small">Accounting</span>
+            </div>
+          </div>
         </div>
     </div>
-  </section> -->
-  <!-- 02 professional_team start -->
-  <!-- <section class="team_spirit">
-      <div class="team_spirit_box">
-        <div class="team_word">
-          <div class="team_img">
-            <img src="@/assets/images/about/img_us.jpg" alt="team_img">
-          </div>
-          <div class="team_title">
-            <h2>TEAM SPIRIT</h2>
-            <p class="team_txt">
-              Our team is like mixing a fresh cold brew decaf large decaf vanilla soy latte with a warm dead beer on a cold summer night - totally overrated but somehow after the third What a pleasure. We mixed a James Bond martini with the final season of Game of Thrones — and let's just say "special."
-              Join our team! We are great!
-            </p>
+  </section>
+  <!-- 03 member end -->
+
+  <!-- 04 logo start -->
+  <section class="logo">
+    <div class="logo_box">
+      <div class="logo_img">
+        <img src="../assets/images/About/g5_logo_grey.png" alt="logo">
+      </div>
+      <div class="logo_title">
+        <h2>LOGO DESIGN CONCEPT</h2>
+      </div>
+      <div class="logo_word">
+        <p class="logo_txt">
+          The pattern is inspired by eagles and propellers, with black and gray gradient colors, presenting customers with a technological, professional and luxurious consumption experience.
+        </p>
+        <p class="logo_txt">
+          The first word of the brand is E=Eagle, and Eagle. The overall tone is made of black and gray gradients, because eagles like to hunt in the daytime when the night is approaching and the sky begins to darken, giving customers a hunting and condescending feeling. The movement of the eagle is mainly by flying. First, it flaps its wings quickly, and then begins to glide, which symbolizes the proud posture of the FPV flying machine flying in the air.
+        </p>
+      </div>
+    </div>
+  </section>
+  <!-- 04 logo end -->
+
+  <!-- 05 store start -->
+  <section class="store_rofile">
+    <h2>CONTACT INFO</h2>
+    <div class="store_container">
+      <div class="box">
+        <div class="thumb">
+          <img src="../assets/images/About/store_01.jpg" alt="store_img">
+        </div>
+        <div class="details">
+          <div class="content">
+            <img src="../assets/images/About/call.png" alt="call_number">
+            <p>Tel Number</p>
+            <p>123456789</p>
           </div>
         </div>
       </div>
-  </section> -->
-
-  <!-- 02 professional_team end -->
-
-  <!-- 03 team_partner start -->
-  <section class="team_partner">
-    <div class="team_partner_box">
-        <div class="team_partner_tit">
-            <h2>TEAM PARTNER</h2>
+      <div class="box">
+        <div class="thumb">
+          <img src="../assets/images/About/store_02.jpg" alt="store_img">
         </div>
-      <div class="partner_word">
-
-        <div class="partner_img">
-
-          <div class="partner_img_box current">
-            <img src="../assets/images/about/dog.jpg" alt="dog_img">
-          </div>
-
-          <div class="partner_img_box">
-            <img src="../assets/images/about/dog.jpg" alt="dog_img">
-          </div>
-
-          <div class="partner_img_box">
-            <img src="../assets/images/about/dog.jpg" alt="dog_img">
-          </div>
-
-          <div class="partner_img_box">
-            <img src="../assets/images/about/dog.jpg" alt="dog_img">
-          </div>
-        </div>
-        <div class="partner_prev" onclick="plusSlide(-1)">&#10094;</div>
-        <div class="partner_next" onclick="plusSlide(1)">&#10095;</div>
-        <div class="partner_title">
-          <div class="partner_txt">
-            <span class="bdquo">&bdquo;</span>
-            <p class="partner_name">Coffee</p>
-            <p class="partner_small">is a manager who loves to eat</p>
-            <p><span class="dfpv">DFPV</span>&nbsp; Leisure Director</p>
+        <div class="details">
+          <div class="content">
+            <img src="../assets/images/About/email.png" alt="email">
+            <p>Email</p>
+            <p>EFPV@gmail.com</p>
           </div>
         </div>
       </div>
-      <div class="partner_btn">
-        <div class="partner_btn_box">
-          <span class="par_btns" onclick="currentSlide(1)"></span>
-          <span class="par_btns" onclick="currentSlide(2)"></span>
-          <span class="par_btns" onclick="currentSlide(3)"></span>
-          <span class="par_btns" onclick="currentSlide(4)"></span>
+      <div class="box">
+        <div class="thumb">
+          <img src="../assets/images/About/store_03.jpg" alt="store_img">
+        </div>
+        <div class="details">
+          <div class="content">
+            <img src="../assets/images/About/placeholder.png" alt="address">
+            <p>Address</p>
+            <p>No. 46, Fuxing Road, Zhongli District</p>
+          </div>
+        </div>
+      </div>
+      <div class="box">
+        <div class="thumb">
+          <img src="../assets/images/About/store_04.png" alt="store_img">
+        </div>
+        <div class="details">
+          <div class="content">
+            <img src="../assets/images/About/clock.png" alt="time">
+            <p>Business Hours</p>
+            <p>09:00AM - 21:00PM</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
-  
+  <!-- 05 store end -->
+
+  <!-- 06 map start -->
+  <section class="faqs">
+    <h2>FAQ</h2>
+    <Accordion />
+  </section>
+
+  <!-- 06 map end -->
 
 
-<mouseComponentsVue />
+  <!-- 07 FAQ start -->
+  <!-- 07 FAQ end -->
 </template>
 
 <style lang="scss" scoped>
@@ -189,29 +325,29 @@ function plusSlide(){
         transform: translateY(-100vh);
         animation: word 3.5s forwards;
         &:nth-child(2) {
-          animation-delay: 0.7s;
+          animation-delay: 0.2s;
         }
         &:nth-child(3) {
-          animation-delay: 1.4s;
+          animation-delay: 0.9s;
         }
         &:nth-child(4) {
-          animation-delay: 2.1s;
+          animation-delay: 1.6s;
         }
         &:nth-child(5) {
-          animation-delay: 2.8s;
+          animation-delay: 2.3s;
         }
         &:nth-child(6) {
-          animation-delay: 3.5s;
+          animation-delay: 3s;
         }
         &:nth-child(7) {
-          animation-delay: 4.2s;
+          animation-delay: 3.7s;
         }
       }
       p {
         color: #fff;
         display: inline-block;
         position: relative;
-        animation: small_word 4.5s 5.5s forwards;
+        animation: small_word 4s 4.4s forwards;
         opacity: 0;
       }
     }
@@ -233,176 +369,470 @@ function plusSlide(){
   }
 }
 
-// .team_spirit {
-//   width: 100%;
-//     .team_spirit_box{
-//       width: 100%;
-//       max-width: 1200px;
-//       margin: 50px auto;
-//       justify-content: center;
-//       align-items: center;
-//       .team_word{
-//         text-align: center;
-//         display: block;
-//         margin: 50px 0;
-        
-//         .team_title{
-//           margin: 0 10px;
-//           h2{
-//             margin-top: 10px;
-//           }
-//           p{
-//             padding: 15px;
-//         }
-//         }
-//       }
-//       .team_img{
-//         width: 95%;
-//         margin: auto;
-//         img {
-//           width: 100%;
-//           border-radius: 10px;
-//           object-fit: cover;
-//         }
-//       }
-//       @include m($m-breakpoint){
-//         .team_word{
-//           display: flex;
-//           padding: 0 10px;
-//           text-align: left;
-//           h2{
-//             margin-left: 15px;
-//           }
-//           .team_img{
-//             img {
-//               width: 550px;
-//               border-radius: 10px;
-//               object-fit: cover;
-//             }
-//           }
-//         }
-//       }
-//   }
-// }
-
-.team_partner {
+.pro_box {
   width: 100%;
-  .team_partner_box{
+  .pro_team {
     width: 100%;
     max-width: 1200px;
-    height: 100vh;
-    margin: 0 auto;
+    margin: auto;
     justify-content: center;
     align-items: center;
-    .team_partner_tit{
-        text-align: center;
+    display: block;
+    transition: 5s;
+    transform-origin: left;
+    transform: scaleX(1);
+    .pro_img{
+      width: 350px;
+      margin: 15px 10px;
+      img {
+        width: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
     }
-    .partner_word{
+    .pro_word {
       width: 100%;
-      overflow: hidden;
-      
-      .partner_img{
-        position: relative;
-        width: 400%;
-        height: 300px;
-        margin: 50px auto;
-        justify-content: center;
-        align-items: center;
-        display: flex;
-        .partner_img_box{
+      text-align: center;
+      h2 {
+      text-align: center;
+      margin: 15px 0;
+      }
+      p{
+        margin: 5px 0;
+      }
+    }
+  }
+  @include m($m-breakpoint){
+    .pro_team {
+      display:flex;
+      .pro_img{
+        width: 1000px;
+        img{
           width: 100%;
-          position: relative;
-          text-align: center;
-          border-radius: 100%;
-          img{
-            width:250px;
-            height: 250px;
-            border-radius: 100%;
-            object-fit: cover;
-          }
+          height: 350px;
         }
       }
-      .partner_prev{
-          width: 40px;
-          height: 60px;
-          font-size: 50px;
-          color: #fff;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          position: absolute;
-          left: 0;
-          &:hover,.actives{
-            color: $blue;
-          }
+      .pro_word {
+        h2 {
+        text-align: center;
+        margin: 5px 0;
         }
-        .partner_next{
-          width: 40px;
-          height: 60px;
-          font-size: 50px;
-          color: #fff;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          cursor: pointer;
-          position: absolute;
-          right: 0;
-          &:hover{
-            color: $blue;
-          }
+        p{
+          padding: 5px 10px;
         }
-      .partner_title{
+      }
+    }
+  }
+
+  @include l($l-breakpoint){
+    .pro_team {
+      .pro_img{
+        width: 1000px;
+        img{
           width: 100%;
-          margin-top: 15px;
+          height: 400px;
+        }
+      }
+    }
+  }
+ 
+}
+
+.member{
+  width: 100%;
+  .mem_title{
+    width: 100%;
+    margin: 15px 0;
+    text-align: center;
+  }
+  .member_box {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    .member_item {
+      width: 165px;
+      height: 300px;
+      margin: 10px 10px;
+      .member_img{
+        width: 165px;
+        height: 220px;
+        border-radius: 5px;
+        border: 1px solid rgba(154, 154, 154, 0.475);
+        img{
+          width: 100%;
+          height: 220px;
+          border-radius: 5px;
+          object-fit: cover;
+        }
+      }
+      .member_word{
+        width: 165px;
+        height: 75px;
+        display: flex;
+        text-align: center;
+        .member_txt{
+          width: 100%;
           text-align: center;
-          p{
-            margin: 15px 0;
+          .mem_name{
+            color: #fff;
+            font-size: 20px;
+            margin: 10px 0;
+            font-family: 'Poppins', sans-serif;
           }
           span{
             color: $blue;
-            font-weight: 800;
+            font-size: 15px;
+            margin-left: 5px;
+          }
+        }
+      }
+    }
+    @include m($m-breakpoint){
+        .member_item{
+          width: 300px;
+          height: 350px;
+          .member_img{
+            width: 300px;
+            height: 280px;
+            img{
+              width: 300px;
+              height: 280px;
+            }
+          }
+          .member_word{
+            width: 300px;
           }
       }
     }
-    .partner_btn{
-      position: relative;
+
+    @include l($l-breakpoint){
+        .member_item{
+          width: 380px;
+          height: 420px;
+          .member_img{
+            width: 380px;
+            height: 340px;
+            img{
+              width: 380px;
+              height: 340px;
+            }
+          }
+          .member_word{
+            width: 380px;
+          }
+      }
+    }
+  }
+}
+
+.logo{
+  width: 100%;
+  padding: 20px 0;
+  background-color: rgba(255, 255, 255, 0.033);
+  .logo_box{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    .logo_img{
       width: 300px;
-      margin: 20px auto;
-      height: 25px;
-      .partner_btn_box{
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        .par_btns{
-          width: 15px;
-          height: 15px;
-          margin: 0 5px;
-          border-radius: 100%;
-          background-color: rgb(155, 155, 155);
-          cursor: pointer;
-          transition:background-color 0.4s ease;
-          &:hover {
+      margin: auto;
+      height: 220px;
+      img{
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+    @include m($m-breakpoint){
+        .logo_img{
+          width: 400px;
+          height: 300px;
+          margin: 15px auto;
+        }
+      }
+    .logo_title{
+      margin: 15px auto;
+      text-align: center;
+    }
+    .logo_word{
+      width: 100%;
+      margin: auto;
+      text-align: center;
+      p{
+        padding: 10px;
+        margin: 10px;
+      }
+    }
+    @include m($m-breakpoint){
+      .logo_word{
+      p{
+        padding: 10px;
+        margin: 20px 10px;
+      }
+    }
+    }
+  }
+  
+}
+
+// store start
+.store_rofile{
+    width: 100%;
+    h2{
+      text-align: center;
+    }
+    .store_container{
+      height: auto;
+      width: 100%;
+      padding: 20px;
+      top: 0;
+      left: 0;
+      transform: translate(0);
+      box-sizing: border-box;
+      display: initial;
+      justify-content: center;
+      .box{
+        position: relative;
+        width: 90%;
+        margin: auto;
+        height: 250px;
+        float: none;
+        background-color: #ccc;
+        transition: 0.5s;
+        &:nth-child(odd) .thumb{
+            bottom: 0;
+            left: 0;
+        }
+        &:nth-child(even) .details{
+            bottom: 0;
+            left: 0;
+        }
+        &:nth-child(1) .details{
+            background-color: #000;
+        }
+        &:nth-child(2) .details{
             background-color: $blue;
+        }
+        &:nth-child(3) .details{
+            background-color: $ored;
+        }
+        &:nth-child(4) .details{
+            background-color: $purple;
+        }
+        &:hover{
+          transform: scale(1.1);
+          z-index: 1;
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        &:hover .content{
+          top: calc(50%);
+        }
+        .thumb{
+          position: absolute;
+          width: 100%;
+          height: 250px;
+          overflow: hidden;
+          display: none;
+          img{
+            width: 100%;
+            height: 250px;
+          }
+        }
+        .details{
+          position: absolute;
+          width: 100%;
+          height: 250px;
+          overflow: hidden;
+          background-color: #000;
+          .content{
+            position: absolute;
+            top: calc(50% + 16px);
+            transform: translateY(-50%);
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            transition: 0.5s;
+            p{
+              padding: 10px 0;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+}
+
+@include m($m-breakpoint){
+  .store_rofile{
+    width: 100%;
+    .store_container{
+      height: auto;
+      width: 100%;
+      padding: 20px;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      .box{
+        position: relative;
+        width: 300px;
+        height: 250px;
+        background-color: #ccc;
+        transition: 0.5s;
+        &:nth-child(odd) .thumb{
+            bottom: 0;
+            left: 0;
+        }
+        &:nth-child(even) .details{
+            bottom: 0;
+            left: 0;
+        }
+        &:nth-child(1) .details{
+            background-color: #000;
+        }
+        &:nth-child(2) .details{
+            background-color: $blue;
+        }
+        &:nth-child(3) .details{
+            background-color: $ored;
+        }
+        &:nth-child(4) .details{
+            background-color: $purple;
+        }
+        &:hover{
+          transform: scale(1.1);
+          z-index: 1;
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        &:hover .content{
+          top: calc(50%);
+        }
+        .thumb{
+          position: absolute;
+          width: 100%;
+          height: 250px;
+          overflow: hidden;
+          img{
+            width: 100%;
+            height: 250px;
+          }
+        }
+        .details{
+          position: absolute;
+          width: 100%;
+          height: 250px;
+          overflow: hidden;
+          background-color: #000;
+          .content{
+            position: absolute;
+            top: calc(50% + 16px);
+            transform: translateY(-50%);
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            transition: 0.5s;
+            p{
+              padding: 10px 0;
+              margin: 0;
+            }
           }
         }
       }
     }
   }
-  @include l($l-breakpoint) {
-    .partner_word{
-      width: 1200px;
-      overflow: hidden;
-      position: relative;
-      .partner_img{
-        width: 500%;
-    }
-    }
-  }
-      
 }
 
+@include l($l-breakpoint){
+  .store_rofile{
+    width: 100%;
+    .store_container{
+      height: 500px;
+      width: 1200px;
+      margin: auto;
+      display: flex;
+      .box{
+        position: relative;
+        width: 300px;
+        height: 500px;
+        background-color: #ccc;
+        transition: 0.5s;
+       
+        &:nth-child(odd) .thumb{
+            bottom: 0;
+            left: 0;
+        }
+        &:nth-child(even) .details{
+            bottom: 0;
+            left: 0;
+        }
+        &:nth-child(1) .details{
+            background-color: #000;
+        }
+        &:nth-child(2) .details{
+            background-color: $blue;
+        }
+        &:nth-child(3) .details{
+            background-color: $ored;
+        }
+        &:nth-child(4) .details{
+            background-color: $purple;
+        }
+        &:hover{
+          transform: scale(1.1);
+          z-index: 1;
+          box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+        }
+        &:hover .content{
+          top: calc(50%);
+        }
+        .thumb{
+          position: absolute;
+          width: 100%;
+          height: 250px;
+          overflow: hidden;
+          display: block;
+          img{
+            width: 100%;
+            height: 250px;
+          }
+        }
+        .details{
+          position: absolute;
+          width: 100%;
+          height: 250px;
+          overflow: hidden;
+          background-color: #000;
+          .content{
+            position: absolute;
+            top: calc(50% + 16px);
+            transform: translateY(-50%);
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            text-align: center;
+            transition: 0.5s;
+            p{
+              padding: 10px 0;
+              margin: 0;
+            }
+          }
+        }
+      }
+    }
+    
+  }
+}
 
+// store end
+
+.faqs{
+  width: 100%;
+  h2{
+    text-align: center;
+  } 
+}
 </style>
