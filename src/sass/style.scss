@@ -5,6 +5,7 @@
 @import './base/font';
 @import './base/common';
 @import './component/btn';
+@import './pages/index.scss';
 @import './mixin/mixin';
 
 
@@ -116,15 +117,11 @@ a {
     } 
 }
 span {
-    @include caption-title($caption-span, $caption-color, $spacing-p);
-    @include s($s-breakpoint) {
-        @include caption-s-title($caption-s-span, $caption-color, $spacing-h6)
-    }
-    @include m($m-breakpoint) {
-        @include caption-m-title($caption-m-span, $caption-color, $spacing-h6)
-    }  
-    @include l($l-breakpoint) {
-        @include caption-l-title($caption-l-span, $caption-color, $spacing-h6)
-    }
+    @include caption-span($caption-span, $caption-color, $spacing-h1);
 }
-
+li {
+    @include caption-li($caption-li,$caption-color, $spacing-h1);
+}
+ul {
+    @include caption-li($caption-li,$caption-color, $spacing-h1);
+}

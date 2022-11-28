@@ -1,0 +1,29 @@
+.home1 {
+    text-align: center;
+    padding-top: 90px;
+}
+.home1-btn {
+    display: flex;
+    justify-content: center;
+}
+#btn1 {
+    @include secondBtn(150px);
+    margin: 20px;
+}
+#btn2 {
+    @include primaryBtn(150px);
+    margin: 20px;
+}
+.home1-pic img {
+    margin: 40px 0;
+    width: 50%;
+}
+.home2 {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    .home2-txt,.home2-pic {
+        width: 590px;
+        margin: 10px;
+    }
+} 
