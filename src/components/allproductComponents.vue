@@ -1,44 +1,63 @@
 <script>
 //draggle func
-const sliderContainer = document.querySelector('.card_slider');
-const slider = document.querySelector('.card_slider_items');
-let clicked = false;
-let xAxis,x;// xAxis = x軸方向 , x = 滑鼠點到x的位置
+// const sliderContainer = document.querySelector('.card_slider');
+// const slider = document.querySelector('.card_slider_items');
+// let clicked = false;
+// let xAxis,x;// xAxis = x軸方向 , x = 滑鼠點到x的位置
 
-sliderContainer.addEventListener('mouseup',()=>{
-    sliderContainer.style.cursor = `grab`;
-})
+// sliderContainer.addEventListener('mouseup',()=>{
+//     sliderContainer.style.cursor = `grab`;
+// })
 
-sliderContainer.addEventListener('mousedown', (e) => {
-    clicked = true;
-    xAxis = e.offsetX - slider.offsetLeft;
-    sliderContainer.style.cursor = `grabbing`;
-})
+// sliderContainer.addEventListener('mousedown', (e) => {
+//     clicked = true;
+//     xAxis = e.offsetX - slider.offsetLeft;
+//     sliderContainer.style.cursor = `grabbing`;
+// })
 
-window.addEventListener('mouseup',()=>{
-    clicked = false
-})
+// window.addEventListener('mouseup',()=>{
+//     clicked = false
+// })
 
-sliderContainer.addEventListener('mousemove', (e) => {
-    if(!clicked) return;
-    e.preventDefault();
+// sliderContainer.addEventListener('mousemove', (e) => {
+//     if(!clicked) return;
+//     e.preventDefault();
 
-    x =  e.offsetX;
-    slider.style.left = `${x - xAxis}px`;
+//     x =  e.offsetX;
+//     slider.style.left = `${x - xAxis}px`;
 
-    resize();
-})
+//     resize();
+// })
 
-function resize(){
-    let sliderContainerOut = sliderContainer.getBoundingClientRect();
-    let sliderIn = slider.getBoundingClientRect();
+// function resize(){
+//     let sliderContainerOut = sliderContainer.getBoundingClientRect();
+//     let sliderIn = slider.getBoundingClientRect();
 
-    if(parseInt(slider.style.left) >0){
-        slider.style.left = `0px`;
-    }else if(sliderIn.right < sliderContainerOut.right){
-        slider.style.left = `-${sliderIn.width - sliderContainerOut.width }px`
+//     if(parseInt(slider.style.left) >0){
+//         slider.style.left = `0px`;
+//     }else if(sliderIn.right < sliderContainerOut.right){
+//         slider.style.left = `-${sliderIn.width - sliderContainerOut.width }px`
+//     }
+// } 
+
+//slide func
+function controls(){
+    $(this).addClass('selected').siblings('.btn').removeClass('selected');
+    $('.step_container').animate({
+        top: -(($('.step_container').height() * $(this).index() )-80* $(this).index())
+    },450);
+    runAnim();
+}
+
+const runAnim = ()=>{
+    const button = document.querySelectorAll('.btn');
+
+    if(button){
+        for(var i = 0;i< button.length ; i++){
+            button[i].addEventListener('click',controls,false);
+        }
     }
-} 
+}
 
 
 </script>
@@ -72,6 +91,12 @@ function resize(){
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
+@import '@/sass/base/_color.scss';
+@import '@/sass/base/_common.scss';
+@import '@/sass/base/_font.scss';
+@import '@/sass/mixin/_mixin.scss';
+@import '@/sass/component/_btn.scss';
+
 .arrow_box{
         width: 100%;
         .arrow{
@@ -143,7 +168,7 @@ function resize(){
                         position: relative;
                         top: 20px;
                         left: 15px;
-                        font:$caption-s-span ;
+                        font:$caption-s-h5 ;
                     }
                 } 
                 .tra{
@@ -223,7 +248,7 @@ function resize(){
                         display: flex;
                         justify-content: center;
                         .btnPrimary{
-                            font: $caption-s-span;
+                            font: $caption-s-h5;
                             @include primaryBtn(100px);
                                 margin: 20px;
                             @include m($m-breakpoint) {
@@ -231,7 +256,7 @@ function resize(){
                             }
                         }
                         .btnSecond{
-                            font: $caption-s-span;
+                            font: $caption-s-h5;
                             @include secondBtn(100px);
                                 margin: 20px;
                             @include m($m-breakpoint) {
