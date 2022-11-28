@@ -18,7 +18,6 @@ onMounted(() => {
     animation();
     if (ww>1024) {
         window.addEventListener('mousemove', mouse3d);
-        MOUSE.useMouseMove();
     };
     gsap.to(camera.position, {
         x: 0,
@@ -96,13 +95,12 @@ const mouse3d = () => {
 </script>
 
 <template>
-    <mouseComponentsVue />
     <canvas id="land3d"></canvas>
     <h2 id="frontTitle">
         <span @mouseover="mousePlay" @mouseout="mouseOut" class="spanH2" v-for="i in forestage" :key="i">{{ i }}</span>
     </h2>
     <div class="buttons" id="frontButtons">
-        <a data-title="To Backstage" class="btnSecond" @click="toBack" @mouseenter="MOUSE.mouseFocus"
+        <a data-title="To Backstage" class="btnSecond" @click="toBack" @mousemove="MOUSE.mouseFocus"
         @mouseleave="MOUSE.mouseRe">
             <span>To Backstage</span>
         </a>
@@ -115,7 +113,7 @@ const mouse3d = () => {
         <span @mouseover="mousePlay" @mouseout="mouseOut" class="spanH2" v-for="i in backstage" :key="i">{{ i }}</span>
     </h2>
     <div class="buttons" id="backButtons">
-        <a data-title="To Frontstage" class="btnSecond" @click="toFront"  @mouseenter="MOUSE.mouseFocus"
+        <a data-title="To Frontstage" class="btnSecond" @click="toFront"  @mousemove="MOUSE.mouseFocus"
         @mouseleave="MOUSE.mouseRe">
             <span>To Frontstage</span>
         </a>
