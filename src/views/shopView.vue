@@ -23,24 +23,7 @@ onMounted(()=>{
     resize();
 })
 
-//slide func
-function controls(){
-    $(this).addClass('selected').siblings('.btn').removeClass('selected');
-    $('.step_container').animate({
-        top: -(($('.step_container').height() * $(this).index() )-80* $(this).index())
-    },450);
-    runAnim();
-}
 
-const runAnim = ()=>{
-    const button = document.querySelectorAll('.btn');
-
-    if(button){
-        for(var i = 0;i< button.length ; i++){
-            button[i].addEventListener('click',controls,false);
-        }
-    }
-}
 
 //tab func
 // function GethashID(hashIDName){
@@ -257,7 +240,11 @@ const runAnim = ()=>{
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
-
+@import '@/sass/base/_color.scss';
+@import '@/sass/base/_common.scss';
+@import '@/sass/base/_font.scss';
+@import '@/sass/mixin/_mixin.scss';
+@import '@/sass/component/_btn.scss';
 
 //banner
 .banner{
@@ -307,7 +294,7 @@ const runAnim = ()=>{
         background-color: transparent;
         border: none;
         .btnPrimary{
-            font: $caption-s-span;
+            font: $caption-s-h5;
             @include primaryBtn(100px);
                 margin: 20px;
             @include m($m-breakpoint) {
@@ -531,7 +518,7 @@ const runAnim = ()=>{
                         position: relative;
                         top: 20px;
                         left: 15px;
-                        font:$caption-s-span ;
+                        font:$caption-s-h5 ;
                     }
                 } 
                 .tra{
@@ -617,7 +604,7 @@ const runAnim = ()=>{
                             display: flex;
                             justify-content: center;
                             .btnPrimary{
-                                font: $caption-s-span;
+                                font: $caption-s-h5;
                                 @include primaryBtn(100px);
                                     margin: 20px;
                                 @include m($m-breakpoint) {
@@ -625,7 +612,7 @@ const runAnim = ()=>{
                                 }
                             }
                             .btnSecond{
-                                font: $caption-s-span;
+                                font: $caption-s-h5;
                                 @include secondBtn(100px);
                                     margin: 20px;
                                 @include m($m-breakpoint) {
@@ -738,7 +725,7 @@ const runAnim = ()=>{
                     display: flex;
                     justify-content: center;
                     .btnPrimary{
-                        font: $caption-s-span;
+                        font: $caption-s-h5;
                         @include primaryBtn(100px);
                             margin: 20px;
                         @include m($m-breakpoint) {

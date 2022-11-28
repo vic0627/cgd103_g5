@@ -3,12 +3,6 @@ import video_01 from '@/assets/video/about/video_01.mp4'
 import { onMounted, registerRuntimeCompiler } from 'vue';
 import Accordion from '../components/accordionComponents.vue';
 
-
-
-
-onMounted(()=> {
-    MOUSE.useMouseMove();
-});
 export default{
   components:{
     Accordion
@@ -257,17 +251,16 @@ export default{
   </section>
   <!-- 05 store end -->
 
-  <!-- 06 map start -->
+  <!-- 06 FAQ start -->
   <section class="faqs">
     <h2>FAQ</h2>
     <Accordion />
   </section>
 
-  <!-- 06 map end -->
+  <!-- 06 FAQ end -->
 
 
-  <!-- 07 FAQ start -->
-  <!-- 07 FAQ end -->
+  
 </template>
 
 <style lang="scss" scoped>
