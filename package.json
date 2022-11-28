@@ -14,7 +14,6 @@
     "jquery": "^3.6.1",
     "leaflet": "^1.9.3",
     "three": "^0.146.0",
-    "view-ui-plus": "^1.3.1",
     "vue": "^3.2.41",
     "vue-collapsed": "^0.9.9",
     "vue-router": "^4.1.5"
