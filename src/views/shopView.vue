@@ -1,5 +1,5 @@
 <script setup>
-// import headerComponentsVue from '@/components/headerComponents.vue';
+import headerComponentsVue from '@/components/headerComponents.vue';
 import $ from 'jquery';
 import {reactive,ref, onMounted} from "vue";
 // const title = reactive({
