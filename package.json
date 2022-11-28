@@ -7,11 +7,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@vueuse/motion": "^2.0.0-beta.12",
+    "aos": "^2.3.4",
     "cannon-es": "^0.20.0",
     "gsap": "^3.11.3",
     "jquery": "^3.6.1",
+    "leaflet": "^1.9.3",
     "three": "^0.146.0",
     "vue": "^3.2.41",
+    "vue-collapsed": "^0.9.9",
     "vue-router": "^4.1.5"
   },
   "devDependencies": {
