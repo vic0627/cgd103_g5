@@ -7,36 +7,54 @@
       <div class="banner_img">
         <img src="../assets/images/race/banner01.jpg" alt="banner" />
       </div>
+
       <div class="banner_img">
         <img src="../assets/images/race/banner02.jpg" alt="banner" />
       </div>
+
       <div class="banner_img">
         <img src="../assets/images/race/banner03.jpg" alt="banner" />
       </div>
+
       <div class="banner_img">
         <img src="../assets/images/race/banner04.jpg" alt="banner" />
       </div>
+
       <div class="banner_title">
         <h2>CONTEST</h2>
       </div>
+
+      <div class="test"></div>
     </div>
 
     <!-- race list -->
+
+    <section class="raceList">
+      <div class="box">
+        <p>123</p>
+      </div>
+    </section>
     <!-- background img -->
+    <section class="backgroundImage"></section>
     <!-- practise point -->
+    <section class="practisePoint"></section>
   </main>
 </template>
 
 <style lang="scss" scoped>
 @import "../sass/style.scss";
 @import "../sass/component/_btn.scss";
+section {
+  margin: 0;
+}
 
+// banner
 .banner {
   margin: 0;
-  position: relative;
+  //   position: relative;
   .banner_img {
     width: 100%;
-    position: absolute;
+
     top: 0;
     left: 0;
     opacity: 0;
@@ -45,6 +63,8 @@
     animation: round 20s linear infinite;
     img {
       width: 100%;
+      position: absolute;
+      //   position: relative;
     }
   }
   .banner_title {
@@ -97,5 +117,9 @@
 .banner_img:nth-child(4) {
   -webkit-animation-delay: 15s;
   animation-delay: 15s;
+}
+
+//background img
+.backgroundImage {
 }
 </style>
