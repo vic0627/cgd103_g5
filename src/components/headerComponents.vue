@@ -14,14 +14,19 @@
         <router-link class="anchor" to="/showcase">Showcase</router-link>
         <router-link class="anchor" to="/race">Race</router-link>
         <router-link class="anchor" to="/member">Member</router-link>
+        <router-link class="anchor" to="/signin">Signin</router-link>
+        <router-link class="anchor" to="/register">register</router-link>
     </nav>
 </template>
 
 <style lang="scss" scoped>
   nav{
+    z-index: 10000;  //extra
     width: 100%;
     height: 60px;
     background: #000;
+    position: fixed; //extra
+    top: 0;  //extra
     .anchor{
       color: #fff;
       display: inline-block;
