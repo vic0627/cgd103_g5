@@ -13,6 +13,8 @@
     <router-link class="anchor" to="/showcase">Showcase</router-link>
     <router-link class="anchor" to="/race">Race</router-link>
     <router-link class="anchor" to="/member">Member</router-link>
+    <router-link class="anchor" to="/signin">signin</router-link>
+    <router-link class="anchor" to="/register">register</router-link>
   </nav>
 </template>
 
