@@ -3,21 +3,7 @@ import { ref, onMounted } from 'vue';
 import $ from 'jquery';
 import navComponentsVue from '@/components/navComponents.vue';
 onMounted(()=> {
-//   const actionBtn = document.querySelector('.nav-btn-js');
-//   actionBtn.addEventListener('click', () => {
-//     if (!revealerNav.isRevealed()) {
-//       revealerNav.reveal();
-//       actionBtn.setAttribute('data-open', true);
-//     } else {
-//       revealerNav.hide();
-//       actionBtn.setAttribute('data-open', false);
-//     }
-//   });
-//   const customIcon = {
-//     icon1: "@/assets/images/home/cusIcon1.png",
-//     icon2: "@/assets/images/home/cusIcon2.png",
-//     icon3: "@/assets/images/home/cusIcon3.png"
-// };
+
 });
 
 // const customIcon = {
@@ -37,11 +23,11 @@ onMounted(()=> {
         <h2>Mavic 2 Zoom</h2>
         <p>24~28 mm Optical Zoom Camers Ulitimate Flexibility</p>
         <div class="home1-btn">
-            <a href="#" class="btn" id="btn1" data-title="Learn"  @mouseenter="MOUSE.mouseFocus()" @mouseleave="MOUSE.mouseRe()">
+            <a href="#" class="btnFirst" id="btn1" data-title="Learn"  >
                 <span>Learn</span>
             </a>
-            <mouseComponentsVue />
-            <a href="#" class="btn" id="btn2" data-title="Buy now"  @mouseenter="MOUSE.mouseFocus()" @mouseleave="MOUSE.mouseRe()">
+            <!-- <mouseComponentsVue /> -->
+            <a href="#" class="btnSecond" id="btn2" data-title="Buy now">
                 <span>Buy now</span>
             </a>
             <!-- <mouseComponentsVue /> -->
@@ -77,7 +63,7 @@ onMounted(()=> {
                     </div>
                 </div>
                 <div class="customBtn">
-                    <a href="#" class="btn" id="btn1" data-title="Learn"  @mouseenter="MOUSE.mouseFocus()" @mouseleave="MOUSE.mouseRe()">
+                    <a href="#" class="btn" id="btn1" data-title="Learn">
                         <span>Learn</span>
                     </a>
                 </div>
@@ -101,7 +87,7 @@ onMounted(()=> {
                         <h4>Stay Flying Longer-Up to 60mins</h4>
                         <p>You can preview your design in real time.</p>
                         <div class="accBtn">
-                        <a href="#" class="btn" id="btn1" data-title="Learn"  @mouseenter="MOUSE.mouseFocus()" @mouseleave="MOUSE.mouseRe()">
+                        <a href="#" class="btn" id="btn1" data-title="Learn">
                             <span>Learn</span>
                         </a>
                     </div>
@@ -123,7 +109,7 @@ onMounted(()=> {
                         <p>You can preview your design in real time.</p>
                     </div>
                     <div class="accBtn">
-                        <a href="#" class="btn" id="btn1" data-title="Learn"  @mouseenter="MOUSE.mouseFocus()" @mouseleave="MOUSE.mouseRe()">
+                        <a href="#" class="btn" id="btn1" data-title="Learn">
                             <span>Learn</span>
                         </a>
                     </div>
@@ -144,7 +130,7 @@ onMounted(()=> {
                         <p>You can preview your design in real time.</p>
                     </div>
                     <div class="accBtn">
-                        <a href="#" class="btn" id="btn1" data-title="Learn"  @mouseenter="MOUSE.mouseFocus()" @mouseleave="MOUSE.mouseRe()">
+                        <a href="#" class="btn" id="btn1" data-title="Learn">
                             <span>Learn</span>
                         </a>
                     </div>
@@ -163,7 +149,7 @@ onMounted(()=> {
                 <img src="@/assets/images/home/homeAbout.jpg" alt="">
             </div> -->
             <div class="aboutBtn">
-                <a href="#" class="btn" id="btn1" data-title="Learn"  @mouseenter="MOUSE.mouseFocus()" @mouseleave="MOUSE.mouseRe()">
+                <a href="#" class="btn" id="btn1" data-title="Learn">
                     <span>Learn</span>
                 </a>
             </div>
@@ -176,7 +162,7 @@ onMounted(()=> {
                 <h2>GAME</h2>
                 <h3>RACING AND FREESTYLE</h3>
                 <div class="gameBtn">
-                    <a href="#" class="btn" id="btn1" data-title="Learn"  @mouseenter="MOUSE.mouseFocus()" @mouseleave="MOUSE.mouseRe()">
+                    <a href="#" class="btn" id="btn1" data-title="Learn">
                         <span>Learn</span>
                     </a>
                 </div>
@@ -198,7 +184,7 @@ onMounted(()=> {
             <div class="homeContest-txt">
                 <h5>DRL Vegas Championship Race</h5>
                 <p>Thursday, Nov 17th 2022</p>
-                 <a href="#" class="btn" id="btn1" data-title="Learn"  @mouseenter="MOUSE.mouseFocus()" @mouseleave="MOUSE.mouseRe()">
+                 <a href="#" class="btn" id="btn1" data-title="Learn">
                 <span>Learn</span>
                 </a>
             </div>
