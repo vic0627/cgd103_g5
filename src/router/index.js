@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -9,56 +9,71 @@ const router = createRouter({
       component: () => import('../views/LandingView.vue')
     },
     {
-      path: '/home',
-      name: 'home',
-      component: () => import('../views/HomeView.vue')
+      path: "/home",
+      name: "home",
+      component: () => import("../views/HomeView.vue"),
     },
     {
-      path: '/news',
-      name: 'news',
-      component:  () => import('../views/newsView.vue')
+      path: "/about",
+      name: "about",
+      component: () => import("../views/aboutView.vue"),
     },
     {
-      path: '/shop',
-      name: 'shop',
-      component:  () => import('../views/shopView.vue')
+      path: "/news",
+      name: "news",
+      component: () => import("../views/newsView.vue"),
     },
     {
-      path: '/shopInfo',
-      name: 'shopInfo',
-      component:  () => import('../views/shopInfoViewB.vue')
+      path: "/shop",
+      name: "shop",
+      component: () => import("../views/shopView.vue"),
     },
     {
-      path: '/cart',
-      name: 'cart',
-      component:  () => import('../views/cartView.vue')
+      path: "/shopInfo",
+      name: "shopInfo",
+      component: () => import("../views/ShopInfoViewB.vue"),
     },
     {
-      path: '/game',
-      name: 'game',
-      component:  () => import('../views/gameView.vue')
+      path: "/cart",
+      name: "cart",
+      component: () => import("../views/cartView.vue"),
     },
     {
-      path: '/custom',
-      name: 'custom',
-      component:  () => import('../views/customView.vue')
+      path: "/game",
+      name: "game",
+      component: () => import("../views/gameView.vue"),
     },
     {
-      path: '/showcase',
-      name: 'showcase',
-      component:  () => import('../views/customView.vue')
+      path: "/custom",
+      name: "custom",
+      component: () => import("../views/customView.vue"),
     },
     {
-      path: '/race',
-      name: 'race',
-      component:  () => import('../views/raceView.vue')
+      path: "/showcase",
+      name: "showcase",
+      component: () => import("../views/showcaseView.vue"),
     },
     {
-      path: '/member',
-      name: 'member',
-      component:  () => import('../views/memberView.vue')
+      path: "/race",
+      name: "race",
+      component: () => import("../views/raceView.vue"),
     },
-  ]
-})
+    {
+      path: "/member",
+      name: "member",
+      component: () => import("../views/memberView.vue"),
+    },
+    {
+      path: "/signin",
+      name: "signin",
+      component: () => import("../views/signinView.vue"),
+    },
+    {
+      path: "/register",
+      name: "register",
+      component: () => import("../views/registerView.vue"),
+    },
+  ],
+});
 
-export default router
+export default router;

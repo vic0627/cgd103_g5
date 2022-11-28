@@ -27,6 +27,22 @@
     text-decoration: none;
 }
 
+//span特有
+@mixin caption-span($caption-span, $caption-color, $spacing-h1){
+    font-family: $caption-span;
+    color: $caption-color;
+    letter-spacing: $spacing-h1;
+    text-decoration: none;
+}
+//ul.li特有
+@mixin  caption-li($caption-li, $caption-color, $spacing-h1) {
+    font: $caption-li;
+    color: $caption-color;
+    letter-spacing: $spacing-h1;
+    text-decoration: none;
+}
+
+
 //斷點設定
 @mixin s($s-breakpoint) {
     @media all and (min-width:$s-breakpoint){
