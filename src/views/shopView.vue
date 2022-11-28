@@ -258,9 +258,7 @@ const runAnim = ()=>{
 <style scoped lang="scss">
 @import '@/sass/style.scss';
 
-*{
-    // outline: 1px solid black;
-}
+
 //banner
 .banner{
     width: 100%;
