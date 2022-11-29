@@ -1,59 +1,111 @@
-<script>
+<script setup>
 import $ from 'jquery';
-import { ref, onMounted } from 'vue';
-import all from '../components/allproductComponents.vue';
+import { ref,reactive, onMounted } from 'vue';
 
-const imgs = ref(
-    ["id: 1, src:'../src/assets/images/shop/accs01.png'",
-    "id: 2, src:'../src/assets/images/shop/accs02.png'",
-    "id: 3, src:'../src/assets/images/shop/accs03.png'",
-    "id: 4, src:'../src/assets/images/shop/accs04.png'"]
-)
-export default {
-    components:{
-        all
+
+
+const products = reactive([
+    {
+        "name" : 'p1', 
+        "title":'EFVP Mavic 1 Classic',
+        "price":'USD$999',
+        "src":'/images/shop/body_01.png'
+    },
+    {
+        "name" : 'p2', 
+        "title":'EFVP Mavic 2 Classic',
+        "price":'USD$888',
+        "src":'/images/shop/body_02.png'
+        
+    },
+    {
+        "name" : 'p3', 
+        "title":'EFVP Mavic 3 Classic',
+        "price":'USD$777',
+        "src":'/images/shop/body_03.png'
+        
+    },
+    {
+        "name" : 'p4', 
+        "title":'EFVP Mavic 4 Classic',
+        "price":'USD$666',
+        "src":'/images/shop/body_01.png'
+        
     }
-}
+])
+const steps = reactive([
+    {
+        "id" : "1",
+        "text" : "Choose your favorite color"
+    },
+    {
+        "id" : "2",
+        "text" : "Choose your favorite wing"
+    },
+    {
+        "id" : "3",
+        "text" : "Choose your favorite speed"
+    },
+
+])
+const accessories = reactive([
+    {
+        "name" : 'a1', 
+        "title":'EFVP propeller1',
+        "price":'USD$333',
+        "src":'/images/shop/accs01.png'
+    },
+    {
+        "name" : 'a2', 
+        "title":'EFVP propeller2',
+        "price":'USD$333',
+        "src":'/images/shop/accs02.png'
+    },
+    {
+        "name" : 'a3', 
+        "title":'EFVP propeller3',
+        "price":'USD$333',
+        "src":'/images/shop/accs03.png'
+    },
+    {
+        "name" : 'a4', 
+        "title":'EFVP propeller4',
+        "price":'USD$333',
+        "src":'/images/shop/accs04.png'
+    },
+])
+const bundle = reactive([
+    {
+        "name" : 'b1', 
+        "title":'EFVP bundle pro',
+        "price":'USD$1200',
+        "src":'/images/shop/bundle_01.png'
+    },
+    {
+        "name" : 'b1', 
+        "title":'EFVP bundle pro',
+        "price":'USD$1200',
+        "src":'/images/shop/bundle_01.png'
+    },
+    {
+        "name" : 'b1', 
+        "title":'EFVP bundle pro',
+        "price":'USD$1200',
+        "src":'/images/shop/bundle_01.png'
+    },
+    {
+        "name" : 'b1', 
+        "title":'EFVP bundle pro',
+        "price":'USD$1200',
+        "src":'/images/shop/bundle_01.png'
+    },
+
+])
 onMounted(()=>{
 
-    controls();
-
-    GethashID();
-
-    resize();
+    
 })
 
-
-
-//tab func
-// function GethashID(hashIDName){
-//     if(hashIDName){
-//         $('.tab li').find('a').each(function(){
-//             var idName = $(this).attr('href');
-//             if(idName == hashIDName){
-//                 var parentElm = $(this).parent();
-//                 $('.tab li').removeClass("active");
-//                 $(parentElm).addClass("active");
-//                 $('.area').removeClass("is-active");
-//                 $(hashIDName).addClass("is-active")
-//             }
-//         });
-//     }
-// }
-
-
-
-// $('.tab a').on('click',function(){
-//     var idName = $(this).attr('href');
-//     GethashID(idName);
-//     return false;
-// })
-// $(window).on('load',function(){
-//     $('.tab li:first-of-type').addClass("active");
-//     $('.area:first-of-type').addClass("is-active");
-//     var hashName = location.hash;
-//     GethashID(hashName);
-// })
 </script>
 
 <template>
@@ -65,134 +117,101 @@ onMounted(()=>{
         </h2>
         <div class="img_box">
             <img src="../assets/images/shop/new.jpg" alt="newProduct">
+            <img src="../assets/images/shop/new2.jpg" alt="newProduct">
         </div>
-        <a class="buttons">
-            <span class="btnPrimary" >Learn More</span>
-        </a>
+        <div class="buttons">
+            <a class="btnPrimary" data-title="Learn More">
+                <span>Learn More</span>
+            </a>
+        </div>
     </section>
     <!-- step -->
     <section class="step_wrapper">
             <h2><span>CUSTOMIZE STEP</span></h2>
+            <p>Create Your Special Style</p>
         <div class="step_container">
-            <div class="slide active">
-                1. Choose your own color and wing
-            </div>
-            <div class="slide">
-                2. Choose your own color and wing
-            </div>
-            <div class="slide">
-                3. Choose your own color and wing
-            </div>
-            <div class="slide">
-                4. Choose your own color and wing
-                <a class="btnSecond">Learn More</a>
+            <div v-for="num in steps" class="slide" :key="num">
+                <p>STEP {{num.id}}</p>
+                <p>{{num.text}}</p>
             </div>
         </div>
-            <!-- controller -->
-            <nav class="controls" >
-                <button type="" class="btn">step 1</button>
-                <button type="" class="btn">step 2</button>
-                <button type="" class="btn">step 3</button>
-                <button type="" class="btn">step 4</button>
-            </nav>
+            <div class="buttons">
+                <a class="btnPrimary" data-title="Learn More">
+                    <span>Learn More</span>
+                </a>
+            </div>
     </section>
     <!-- category -->
     <section class="category">
         <a class="c c1" href="#all_product">
-            <h4>ALL PRODUCT</h4>
+            <h5>ALL PRODUCT</h5>
         </a>
-        <a class="c c1" href="#accessories">
-            <h4>ACCESSORIES</h4>
+        <a class="c c2" href="#accessories">
+            <h5>ACCESSORIES</h5>
         </a>
-        <a class="c c1" href="#bundle">
-            <h4>BUNDLE</h4>
+        <a class="c c3" href="#bundle">
+            <h5>BUNDLE</h5>
         </a>
     </section>
     <!-- all product -->
     <section class="all_product" id="all_product">
-        <all />
+        <h2><span>ALL PRODUCT</span></h2>
+        <p>Select All You Need</p>
+        <div class="card_slider">
+            <!-- <div class="poly"><span>NEW</span></div> -->
+            <div class="tra"></div>
+            <div class="card_slider_items">
+                <div v-for= "item in products" class="card_slider_item" :key="item.name">
+                    <div class="product_box">
+                        <div class="img_box">
+                            <img :src="item.src" alt="">
+                            <div class="spotlightFront"></div>
+                            <div class="spotlightBack"></div>
+                        </div>
+                        <div class="detail_box">
+                            <h5 class="title">{{item.title}}</h5>
+                            <p class="price">{{item.price}}</p>
+                            <div class="buttons">
+                                <a class="btnPrimary" data-title="BUY NOW">BUY NOW</a>
+                                <a class="btnSecond" data-title="Learn More" >Learn More</a>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
-
     <!-- video -->
     <section class="video">
-        <h2><span>FEEL FREEDOM IN THE SKY</span></h2>
+        <h2>FEEL <span>FREEDOM</span> IN THE SKY</h2>
         <p><span>VDAF</span> visual focus technology</p>
     </section>
     <!--accessories  -->
     <section class="accessories" id="accessories">
         <h2><span>ACCESSORIES</span></h2>
+        <p>More Various Then You Think</p>
         <div class="card_slider">
+        <!-- <div class="poly"><span>NEW</span></div> -->
+        <div class="tra"></div>
             <div class="card_slider_items">
-                <div class="card_slider_item">
-                    <div class="poly"><span>NEW</span></div>
-                    <div class="tra"></div>
+                <div v-for="i in accessories" class="card_slider_item"  :key="i.name">
                     <div class="product_box">
                         <div class="img_box">
-                            <img src="../assets/images/shop/accs01.png" alt="">
+                            <img :src="i.src" alt="">
                             <div class="spotlightFront"></div>
                             <div class="spotlightBack"></div>                        
                         </div>
                         <div class="detail_box">
-                            <div class="title">EFVP Mavic 3 Classic</div>
-                            <div class="price">USD$999</div>
+                            <div class="title">{{i.title}}</div>
+                            <div class="price">{{i.price}}</div>
                             <div class="buttons">
-                                <a class="btnPrimary" >BUY NOW</a>
-                                <a class="btnSecond" >Learn More</a>
+                                <a class="btnPrimary" data-title="BUY NOW" >BUY NOW</a>
+                                <a class="btnSecond" data-title="Learn More" >Learn More</a>
                             </div>                    
                         </div>
                     </div>
                 </div>
-                <div class="card_slider_item">
-                    <div class="product_box">
-                        <div class="img_box">
-                            <img src="../assets/images/shop/accs02.png" alt="">
-                            <div class="spotlightFront"></div>
-                            <div class="spotlightBack"></div>                        
-                        </div>
-                        <div class="detail_box">
-                            <div class="title">EFVP Mavic 3 Classic</div>
-                            <div class="price">USD$999</div>
-                            <div class="buttons">
-                                <a class="btnPrimary" >BUY NOW</a>
-                                <a class="btnSecond" >Learn More</a>
-                            </div>                    
-                        </div>
-                    </div>
-                </div>
-                <div class="card_slider_item">
-                    <div class="product_box">
-                        <div class="img_box">
-                            <img src="../assets/images/shop/accs03.png" alt="">
-                            <div class="spotlightFront"></div>
-                            <div class="spotlightBack"></div>                        
-                        </div>
-                        <div class="detail_box">
-                            <div class="title">EFVP Mavic 3 Classic</div>
-                            <div class="price">USD$999</div>
-                            <div class="buttons">
-                                <a class="btnPrimary" >BUY NOW</a>
-                                <a class="btnSecond" >Learn More</a>
-                            </div>                    
-                        </div>
-                    </div>
-                </div>
-                <div class="card_slider_item">
-                    <div class="product_box">
-                        <div class="img_box">
-                            <img src="../assets/images/shop/accs01.png" alt="">
-                            <div class="spotlightFront"></div>
-                            <div class="spotlightBack"></div>                        
-                        </div>
-                        <div class="detail_box">
-                            <div class="title">EFVP Mavic 3 Classic</div>
-                            <div class="price">USD$999</div>
-                            <div class="buttons">
-                                <a class="btnPrimary" >BUY NOW</a>
-                                <a class="btnSecond" >Learn More</a>
-                            </div>                    
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
@@ -201,21 +220,21 @@ onMounted(()=>{
         <h2><span>BUNDLE</span></h2>
         <div class="wrapper">
             <ul class="tab">
-                <li><a href="#beginner">beginner</a></li>
-                <li><a href="#veteran">veteran</a></li>
+                <li><a @click="changePage" href="#beginner">beginner</a></li>
+                <li><a @click="changePage" href="#veteran">veteran</a></li>
             </ul>
         </div>
 
         <div id="beginner" class="area active">
             <div class="card_container">
-                <div class="card">
+                <div v-for="i in bundle" class="card" :key="i.name">
                     <div class="pic">
-                        <img src="../assets/images/shop/bundle_01.png" alt="">
+                        <img :src="i.src" alt="">
                     </div>
-                    <h3><span>EFVP Mavic bundle</span></h3>
-                    <p class="price">USD$333</p>
+                    <h3><span>{{i.title}}</span></h3>
+                    <p class="price">{{i.price}}</p>
                     <a class="buttons">
-                        <span class="btnPrimary" >BUY NOW</span>
+                        <span class="btnPrimary" data-title="BUY NOW" >BUY NOW</span>
                     </a>
                 </div>
             </div>
@@ -249,16 +268,22 @@ onMounted(()=>{
 //banner
 .banner{
     width: 100%;
-    height: 500px;
     position: relative;
-    
+    display: grid;
+    grid-template-columns: repeat(1,fr);
+    grid-template-rows: repeat(3,fr);
     h2{
+        grid-column: 1/1;
+        grid-row: 1/1;
         width: 100%;
         text-align: center;
         position: absolute;
-        top: 0;
-        padding: 20px 0;
-        margin: 0 auto;
+        top: 50%;
+        right: 0;
+        background-color: #ffffff80;
+        @include m($m-breakpoint){    
+            background-color: #12181E80;
+        }
         span{
             &:first-child{
                 font-weight: bold;
@@ -266,7 +291,9 @@ onMounted(()=>{
             font-size: $caption-s-h2;
             max-width: 200px;
             color: #444;
+            font-weight: normal;
             @include m($m-breakpoint) {
+                color: $fff;
                 font: $caption-m-h2;
                 font-weight: normal;
             }
@@ -276,44 +303,37 @@ onMounted(()=>{
             }
         }
     }
+   
     .img_box{
-        max-height: 500px;
+        @include m($m-breakpoint) {
+            display: flex;
+            width: 50%;
+        }
         img{
             width: 100%;
-            height: 100vh;
             object-fit: cover;
+            vertical-align: bottom;
         }
     }
     .buttons{
         width: 100%;
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        display: flex;
-        justify-content: space-around;
-        background-color: transparent;
-        border: none;
+        grid-column: 1/1;
+        grid-row: 3/3;
         .btnPrimary{
-            font: $caption-s-h5;
-            @include primaryBtn(100px);
-                margin: 20px;
-            @include m($m-breakpoint) {
-                margin: 0;
-            }
+            margin: 0 auto;
+            position: relative;
+            top: -50px;
+            @include primaryBtn (150px);
         }
+
     }
 }
 //step
 .step_wrapper{
     width: 100%;
-    height: 500px;
-    background-image: url('../assets/images/shop/bgImg1.PNG');
-    background-size: cover;
-    background-repeat: no-repeat;
-    overflow: hidden;
-    background-position: center;
     position: relative;
-    margin: 50px 0 0 0;
+    padding: 20px 0;
+
     h2{
     width: 100%;
     text-align: center;
@@ -330,119 +350,195 @@ onMounted(()=>{
         }
      }
     }
+    p{
+        &:first-child{
+            font:$caption-s-h4;
+            @include m($m-breakpoint) {
+                font: $caption-m-h4;
+            }
+        }
+        width: 100%;
+        text-align: center;
+        span{
+            font-weight: light;
+        }
+    }
     .step_container{
         position: relative;
-        // top: 20px;
-        max-width: 1000px;
-        max-height: 500px;
         margin: 0 auto;
-        // overflow: hidden;
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem;
         .slide{
-            background-color: #44444480;
-            box-shadow: 4px 10px 10px #fff;
-            max-width: 1200px;
-            height: 400px;
-            padding: 7rem 0 0 0 ;
-            margin: 10px 30px ;
-            box-sizing: border-box;
+            width: 200px;
+            line-height: 50px;
+            padding: 20px;
+            background: linear-gradient(98.29deg, #077AF9 10.1%, #9C4DD6 82.53%);
+            font: $caption-s-p;
             color: $txt-color;
+            box-sizing: border-box;
             text-align: center;
-            font: $caption-s-h4;
             z-index: 10;
-            &:last-child{
-                .btnSecond{
-                    @include secondBtn(100px);
-                    margin: 100px;
-                }    
+            border-radius: 20px;
+            @include m($m-breakpoint) {
+                width: 400px;
             }
         }
     }
-    .controls{
-        position: absolute;
-        bottom: 60px;
-        right: 40px;
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-        button{
-            background-color: transparent;
-            border: none;
-            color: #cccccc80;
-            &:before{
-                content: "| ";
-                opacity:0.5;
-            }
-            margin: 10px 0;
-        }
-        .selected{
-            color: $fff;
-            transform: scale(1.8);
-            opacity:1;
-        }
+}
+.buttons{
+    width: 100%;
+    .btnPrimary{
+        position: relative;
+        margin: 20px auto;
+        top: 0;
+        @include primaryBtn (150px);
+
+    }
+    .btnSecond{
+        position: relative;
+        margin: 0 auto;
+        top: 0;
+        @include secondBtn (150px);
+
     }
 }
 // category
 .category{
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    margin: 100px 0;
-    overflow: hidden;
     .c{
-        padding: 10px;
         text-align: center;
-        h4{
+        h5{
+            padding: 10px 0;
             width: 300px;
-            background-color: #12181E;
+            background-color: #324e68;
             border-radius: 50px;
-            box-shadow: 0 0 15px $blue;
+            margin: 10px 0;
+            &:hover{
+                background-color: #000;
+                box-shadow: 0 0 30px $blue;
+                transition: all .5s;
+            }
+            @include m($m-breakpoint) {
+                margin:  0 20px;    
+            }
         }
     }
 }
 //all product
 .all_product{
     width: 100%;
+    h2{
+        text-align: center;
+    }
+    p{
+        text-align: center;
+    }
+//     .poly{
+//         position: absolute;
+//         top: -10px;
+//         left: 10%;
+//         width: 80px;
+//         height: 100px;
+//         background-color: $ored;
+//         border-top-left-radius:20px ;
+//         border-top-right-radius:20px ;
+//         border-bottom-left-radius:20px ;
+//         border-bottom-right-radius:20px ;
+//         span{
+//             color: #f5f5f5;
+//             position: relative;
+//             top: 20px;
+//             left: 15px;
+//             font:$caption-s-h5 ;
+//         }
+//     } 
+//     .tra{
+//         position: absolute;
+//         top: -3px;
+//         left: 9%;
+//         width: 0;
+//         border-left: 50px solid transparent;
+//         border-right: 50px solid transparent;
+//         border-top:  50px solid #232A3E;
+// ;
+//         border-bottom:50px solid transparent ;
+//         color: #000;
+//         transform: rotate(180deg);          
+//     }
+    .card_slider{
+         width: 100%;
+         position: relative;
+        .card_slider_items{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            .card_slider_item{
+                width: 300px;
+                margin: 20px;
+                background-color: #232A3E;
+                border-radius:20px;
+                box-shadow: 0 0 10px #324e68;
+                &:first-child{
+                        box-shadow: 0 0 10px $ored;
+                }
+                .product_box{
+                    .img_box{
+                        width: 300px;
+                        img{
+                            width: 100%;
+
+                        }
+                    }
+                    .detail_box{
+                        margin: 20px;
+                        padding: 20px 0;
+                        color: #f5f5f5;
+                        text-align: center;
+                        .title,.price{
+                            padding: 10px 0;
+                        }
+                    }
+                }
+
+            }
+        }
+    }
 }
 //AD
 .video{
     width: 100%;
     height: 500px;
     object-position: center;
-    background: url(../assets/video/shop/fvp_video.gif);
+    background: url(../assets/images/shop/video.PNG);
     background-repeat: no-repeat;
     background-size: cover;
     filter: brightness(1.0);
     h2{
         width: 100%;
-        height: 350px;
-        position: relative;
+        line-height: 500px;
         margin:0 auto;
-        // background-color: #44444480;
-        span{  
-            font: $caption-s-h4;  
-            // color: #444; 
-            font-weight: bold; 
-            width: 324px;
-            height: 0;
-            position: absolute;
-            top: 100px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            margin: auto;
+        text-align: center;
+        color: #f5f5f5;
+        span{
+            color: $ored; 
+            font-size: 50px;
         }
     }
     p{
-        // width: 100%;
         text-align: center;
-        margin-top: -50px;
-        // margin-left: 10px;
+        margin-top: -150px;
         color: $fff;
+        font: $caption-h5;
         span{
-            overflow: hidden;
-            font-size: $caption-s-h2;
-            color: $brown;
-            font-weight: bold;
+            color: $ored;
+            font-weight: light;
+            font-size: 30px;
         }
     }
 }
@@ -465,43 +561,24 @@ onMounted(()=>{
         }
      }
     }
+    p{
+        text-align: center;
+    }
     .card_slider{
-        max-width: 1200px;
-        height: 850px;
-        overflow: hidden;
-        margin: 0 auto;
         .card_slider_items{
-            display: grid;
-            grid-template-columns: repeat(4,1fr);
-            grid-template-rows: repeat(3,1fr);
-            // max-width: 320px;
-
+            flex-wrap:wrap;
+            display: flex;
+            justify-content: center;
             .card_slider_item{
-                // max-width: 360px;
                 padding: 10px;
                 margin: 10px;
                 background-color: #232A3E;
+                border-radius: 20px;
                 box-sizing: border-box;
                 position: relative;
+                box-shadow: 0 0 10px #324e68;
                 &:first-child{
-                    grid-column:1/2 ;
-                    grid-row:1/3 ;
-                }
-                &:nth-child(2){
-                    grid-column:2/4 ;
-                    grid-row:1/2 ;
-                    .product_box{
-                        display: flex;
-                        flex-direction:row;
-                    }
-                }
-                &:nth-child(3){
-                    grid-column:2/3 ;
-                    grid-row:2/3 ;
-                }
-                &:nth-child(4){
-                    grid-column:3/4 ;
-                    grid-row:2/3 ;
+                        box-shadow: 0 0 10px $ored;
                 }
                 .poly{
                     position: absolute;
@@ -535,14 +612,8 @@ onMounted(()=>{
                     transform: rotate(180deg);          
                 }
                 .product_box{
-                    // max-width: 360px;
-                    height: 100%;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: center;
-                    align-items: center;
+                    max-width: 300px;  
                     .img_box{
-                        
                         display: flex;
                         flex-direction: column;
                         justify-content: space-between;
@@ -602,10 +673,11 @@ onMounted(()=>{
                         }
                         .buttons{
                             display: flex;
+                            flex-wrap: wrap;
                             justify-content: center;
                             .btnPrimary{
                                 font: $caption-s-h5;
-                                @include primaryBtn(100px);
+                                @include primaryBtn(150px);
                                     margin: 20px;
                                 @include m($m-breakpoint) {
                                     margin: 10px;
@@ -613,7 +685,7 @@ onMounted(()=>{
                             }
                             .btnSecond{
                                 font: $caption-s-h5;
-                                @include secondBtn(100px);
+                                @include secondBtn(150px);
                                     margin: 20px;
                                 @include m($m-breakpoint) {
                                     margin: 10px;
@@ -648,7 +720,6 @@ onMounted(()=>{
         width:100%;
         max-width: 960px;
         margin:30px auto;
-        // background:#fefefe;
         .tab{
             display: flex;
             flex-wrap: wrap;
@@ -672,34 +743,16 @@ onMounted(()=>{
         }
     }
     .area{
-        width: 100%;
-        // display: none;
-        opacity: 1;
+        // max-width: 1200px;
         margin: 0 auto;
         padding: 20px 0;
         background-color: #232A3E;
-        &.is-active{
-            display: block;
-            animation-name:displayAnime;
-            animation-duration: 2s;
-            animation-fill-mode: forwards;
-                @keyframes displayAnime {
-                    from{
-                        opacity: 0;
-                    }
-                    to{
-                        opacity: 1;
-                    }
-    
-                }
-            }
         .card_container{
             max-width: 1200px;
-            height: 400px;
             display: flex;
             justify-content: center;
             margin: 0 auto;
-            overflow: hidden;
+            // overflow: hidden;
             .card{
                 max-width: 300px;
                 height: 200px;
@@ -738,4 +791,6 @@ onMounted(()=>{
         }
     }
 }
+
+
 </style>
