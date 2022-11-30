@@ -46,7 +46,7 @@ const router = createRouter({
     {
       path: "/custom",
       name: "custom",
-      component: () => import("../views/customView.vue"),
+      component: () => import("../views/CustomizeView.vue"),
     },
     {
       path: "/showcase",
