@@ -255,6 +255,7 @@
         font-size: 15px;
         font-weight: 300;
         text-shadow: rgb(140, 140, 140) 0.1em 0.1em 0.1em;
+        user-select: none;
     }
 }
 </style>
