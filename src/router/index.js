@@ -92,6 +92,11 @@ const router = createRouter({
       path: "/backend",
       name: "backend",
       component: () => import("../views/backend/backend.vue"),
+    },
+    {
+      path: "/shoppingCartStep2",
+      name: "shoppingCartStep2",
+      component: () => import("../views/shoppingCartStep2.vue"),
     }
   ],
 });
