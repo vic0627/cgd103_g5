@@ -1,8 +1,6 @@
 <script>
-import { onMounted, registerRuntimeCompiler } from 'vue';
-
+import { onMounted, registerRuntimeCompiler, reactive } from 'vue';
 // import {useMotion} from '@vueuse/motion';
-
 
 export default{
     data:()=>({
@@ -17,6 +15,10 @@ export default{
         }
     }
 }
+
+</script>
+<script setup>
+import  newsComponentsVue from "@/components/newsComponents.vue";
 
 </script>
 
@@ -344,13 +346,13 @@ export default{
     </div>
 </section>
 <!-- 02 tag end -->
-
-
+<newsComponentsVue />
 
 </template>
 
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
+// @import '@/css/reset.css';
 .news{
     width: 100%;
     .news_banner_box{

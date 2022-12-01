@@ -46,7 +46,7 @@ const router = createRouter({
     {
       path: "/custom",
       name: "custom",
-      component: () => import("../views/customView.vue"),
+      component: () => import("../views/CustomizeView.vue"),
     },
     {
       path: "/showcase",
@@ -72,6 +72,21 @@ const router = createRouter({
       path: "/register",
       name: "register",
       component: () => import("../views/registerView.vue"),
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: () => import("../views/memProfile.vue"),
+    },
+    {
+      path: "/CustomizedOrders",
+      name: "CustomizedOrders",
+      component: () => import("../views/CustomizedOrders.vue"),
+    },
+    {
+      path: "/NormalOrders",
+      name: "NormalOrders",
+      component: () => import("../views/NormalOrders.vue"),
     },
     {
       path: "/backend",

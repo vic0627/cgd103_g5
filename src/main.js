@@ -26,7 +26,6 @@ app.use(router);
 app.mount("#app");
 =======
 const app = createApp(App)
-app.use(ViewUIPlus)
 app.use(router)
 app.mount('#app')
 >>>>>>> dev

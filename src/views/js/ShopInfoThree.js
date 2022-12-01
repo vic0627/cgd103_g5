@@ -4,9 +4,10 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import droneUrl from '@/assets/model3d/flying_drone/flying_drone.glb';
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 gsap.registerPlugin(ScrollTrigger);
 
-export let scene, renderer, camera, mixer, actionExplode, actionHover, actionStep, modelObj, directionalLight, spotLight1, spotLight2;
+export let scene, renderer, camera, mixer, actionExplode, actionHover, actionStep, modelObj, pointLight, spotLight1, spotLight2;
 
 export let clipHover, clipExplode, clipStep;
 
@@ -34,17 +35,20 @@ export function sceneInit () {
         roughness: 0,
         metalness: .9,
     });
-
+    /* const axesHelper = new THREE.AxesHelper( 5 );
+    scene.add( axesHelper ); */
     const color1 = new THREE.Color( 0xffffff );
     const color2 = new THREE.Color( 0x007ffb );
 
-    spotLight1 = new THREE.SpotLight(color1, 3, 10, .3, 1, 0);
-    spotLight1.position.set(0, 15, 0);
-    spotLight1.castShadow = true;
-    spotLight1.shadow.focus = 1;
-    if (modelObj) spotLight1.target = modelObj;
+    spotLight1 = new THREE.SpotLight(color1, 6, 100, .3, 1, 0);
+    spotLight1.position.set(5, 5, 5);
     scene.add(spotLight1);
-
+    spotLight2 = new THREE.SpotLight(color1, 3, 100, Math.PI/2, 0, 0);
+    spotLight2.position.set(-5, 5, -5);
+    scene.add(spotLight2);
+    pointLight = new THREE.PointLight( 0xDC9E7A, 2, 2, 2 ); 
+    pointLight.position.set(0,1,3);
+    scene.add( pointLight );
     let light1 = new THREE.AmbientLight(0xffffff, .1);   
     scene.add(light1);
 
@@ -81,6 +85,8 @@ export function sceneInit () {
     /* -------------------- */
     
 };
+
+
 const clock = new THREE.Clock();
 
 export function animation () {

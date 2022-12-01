@@ -7,11 +7,11 @@
     justify-content: center;
 }
 #btn1 {
-    @include secondBtn(150px);
+    @include secondBtn(120px);
     margin: 20px;
 }
 #btn2 {
-    @include primaryBtn(150px);
+    @include primaryBtn(120px);
     margin: 20px;
 }
 .home1-pic img {

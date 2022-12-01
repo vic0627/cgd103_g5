@@ -1,4 +1,4 @@
-<script>
+<script setup>
 
 </script>
 
@@ -6,6 +6,7 @@
 
 </template>
 
-<style>
+<style lang="scss">
+@import '@/sass/style.scss';
 
 </style>
