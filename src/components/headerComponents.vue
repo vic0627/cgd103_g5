@@ -15,6 +15,9 @@
     <router-link class="anchor" to="/member">Member</router-link>
     <router-link class="anchor" to="/signin">signin</router-link>
     <router-link class="anchor" to="/register">register</router-link>
+    <router-link class="anchor" to="/profile">profile</router-link>
+    <router-link class="anchor" to="/CustomizedOrders">CustomizedOrders</router-link>
+    <router-link class="anchor" to="/NormalOrders">NormalOrders</router-link>
   </nav>
 </template>
 
