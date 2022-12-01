@@ -145,7 +145,7 @@
     position: relative;
     width: 100%;
     .img_box{
-        background-image: url("../assets/images/register/pexels-oleksandr-pidvalnyi-1093232.jpeg");
+        background-image: url("../assets/images/register/pexels-tembela-bohle-2050720.jpeg");
         position: fixed;
         top: 0;
         left: 0;
@@ -162,7 +162,7 @@
             margin-left: auto;
             position: relative;
             width: 400px;
-            background-color: #fff;
+            background-color: rgb(36, 33, 66);
             box-shadow: 0 16px 32px rgb(0 0 0 / 10%);
             padding: 48px 32px;
             .logo{
