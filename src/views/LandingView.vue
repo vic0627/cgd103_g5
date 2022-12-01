@@ -3,8 +3,7 @@ import { ref, onMounted } from 'vue';
 import gsap from 'gsap';
 import { camera, sceneInit, windowResize, animation, directionalLight, toBack, toFront } from './js/LandingThree';
 import { useMousePosition, x, y } from '@/composables/useMousePosition';
-import mouseComponentsVue from '../components/mouseComponents.vue';
-import * as MOUSE from '@/composables/useMouseMove';
+import * as MOUSE from '../composables/useMouseMove';
 
 const ww =window.innerWidth, wh = window.innerHeight;
 useMousePosition();
@@ -117,7 +116,7 @@ const mouse3d = () => {
         @mouseleave="MOUSE.mouseRe">
             <span>To Frontstage</span>
         </a>
-        <router-link to="/" data-title="Enter" class="btnMain"  @mouseenter="MOUSE.mouseEnhance"
+        <router-link to="/backend" data-title="Enter" class="btnMain"  @mouseenter="MOUSE.mouseEnhance"
         @mouseleave="MOUSE.mouseRe">
             <span>Enter</span>
         </router-link>
@@ -190,6 +189,6 @@ h2 ~ h2, .buttons ~ .buttons{
     }
 }
 .btnSecond{
-    @include secondBtn(160px);
+    @include secondBtn(170px);
 }
 </style>
