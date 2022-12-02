@@ -2,10 +2,18 @@
 import video_01 from '@/assets/video/about/video_01.mp4'
 import { onMounted, registerRuntimeCompiler } from 'vue';
 import Accordion from '../components/accordionComponents.vue';
+import mem from '../components/memComponents.vue';
+
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+AOS.init();
+
+
 
 export default{
   components:{
-    Accordion
+    Accordion,
+    mem
   }
 }
 
@@ -18,7 +26,7 @@ export default{
 <template>
     
   <!-- 01 video start -->
-  <section class="video_box">
+  <section class="video_box" >
         <div class="top_video">
             <div class="video_word">
                 <span>A</span>
@@ -36,148 +44,47 @@ export default{
                 </div>
             </div>
             <video autoplay muted loop src="@/assets/video/about/video_01.mp4" id="bg-video"></video>
-            <!-- 影片上的標題+小字 -->
         </div>
   </section>
   <!-- 01 video end -->
+
+  <!-- <section class="top">
+    <top />
+  </section> -->
+
   
-  <!-- v-motion :initial="{opacity:0,y:100}" :visibleOnce="{opacity:1,y:0}" -->
-  <!-- v-motion :initial="{opacity:0,y:100}" 
-    :visibleOnce="{
-      opacity:1,
-      y:0,
-      transition:{
-        duration: 200,
-        type: 'keyframes',
-        ease: 'easeIn',
-      }
-      }" -->
-
   <!-- 02 start -->
-  <section class="pro_box">
-    <div class="pro_team">
-      <div class="pro_img">
-        <img src="../assets/images/About/img_us.jpg" alt="pro_img">
-      </div>
-      <div class="pro_word">
-        <h2>TEAM</h2>
-        <p class="pro_txt">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Blanditiis illo iure soluta dicta possimus modi perferendis ipsa consectetur sequi culpa!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Blanditiis illo iure soluta dicta possimus modi perferendis ipsa consectetur sequi culpa!
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-        </p>
-        <p class="pro_txt">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-          Blanditiis illo iure soluta dicta possimus modi.
-        </p>
-      </div>
+  <section class="team">
+    <div class="teambox" data-aos="fade-right"
+     data-aos-offset="300"
+     data-aos-easing="ease-in-sine">
+      <h2>TEAM</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
+      </p>
     </div>
+    <div class="imgbox" data-aos="fade-left" 
+     data-aos-offset="500"
+     data-aos-easing="ease-in-sine">
+        <img src="../assets/images/About/us02.jpg" alt="img">
+      </div>
   </section>
-
   <!-- 02 end -->
 
   <!-- 03 member start -->
   <section class="member">
-    <div class="mem_title"><h2>MEMBER</h2></div>
-    <div class="member_box">
-        <div class="member_item">
-          <div class="member_img">
-            <img src="../assets/images/About/mem_03.jpg" alt="mem_img">
-          </div>
-          <div class="member_word">
-            <div class="member_txt">
-              <div class="mem_name">Anyu</div>
-              <span class="mem_small">Manager</span>
-            </div>
-          </div>
-        </div>
-        <div class="member_item">
-          <div class="member_img">
-            <img src="../assets/images/About/mem_01.jpg" alt="mem_img">
-          </div>
-          <div class="member_word">
-            <div class="member_txt">
-              <div class="mem_name">Anyu</div>
-              <span class="mem_small">Photographer</span>
-            </div>
-          </div>
-        </div>
-        <div class="member_item">
-          <div class="member_img">
-            <img src="../assets/images/About/mem_02.jpg" alt="mem_img">
-          </div>
-          <div class="member_word">
-            <div class="member_txt">
-              <div class="mem_name">Siffin</div>
-              <span class="mem_small">Planning</span>
-            </div>
-          </div>
-        </div>
-        <div class="member_item">
-          <div class="member_img">
-            <img src="../assets/images/About/mem_04.jpg" alt="mem_img">
-          </div>
-          <div class="member_word">
-            <div class="member_txt">
-              <div class="mem_name">Wei Na</div>
-              <span class="mem_small">Design</span>
-            </div>
-          </div>
-        </div>
-        <div class="member_item">
-          <div class="member_img">
-            <img src="../assets/images/About/mem_05.jpg" alt="mem_img">
-          </div>
-          <div class="member_word">
-            <div class="member_txt">
-              <div class="mem_name">Andy</div>
-              <span class="mem_small">Engineer</span>
-            </div>
-          </div>
-        </div>
-        <div class="member_item">
-          <div class="member_img">
-            <img src="../assets/images/About/mem_06.jpg" alt="mem_img">
-          </div>
-          <div class="member_word">
-            <div class="member_txt">
-              <div class="mem_name">Charmy</div>
-              <span class="mem_small">Group Pet</span>
-            </div>
-          </div>
-        </div>
-        <div class="member_item">
-          <div class="member_img">
-            <img src="../assets/images/About/mem_08.jpg" alt="mem_img">
-          </div>
-          <div class="member_word">
-            <div class="member_txt">
-              <div class="mem_name">Jain</div>
-              <span class="mem_small">Assembler</span>
-            </div>
-          </div>
-        </div>
-        <div class="member_item">
-          <div class="member_img">
-            <img src="../assets/images/About/mem_09.jpg" alt="mem_img">
-          </div>
-          <div class="member_word">
-            <div class="member_txt">
-              <div class="mem_name">Thalia</div>
-              <span class="mem_small">Accounting</span>
-            </div>
-          </div>
-        </div>
-    </div>
+    <mem />
   </section>
   <!-- 03 member end -->
 
   <!-- 04 logo start -->
   <section class="logo">
     <div class="logo_box">
-      <div class="logo_img">
+      <div class="logo_img" data-aos="fade-up"
+     data-aos-duration="3000">
         <img src="../assets/images/About/g5_logo_grey.png" alt="logo">
       </div>
       <div class="logo_title">
@@ -249,6 +156,7 @@ export default{
       </div>
     </div>
   </section>
+
   <!-- 05 store end -->
 
   <!-- 06 FAQ start -->
@@ -265,6 +173,10 @@ export default{
 
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
+body{
+  scroll-behavior: smooth;
+}
+
 .btn{
     @include primaryBtn(120px);
     margin: 40px;
@@ -364,6 +276,7 @@ export default{
 
 .pro_box {
   width: 100%;
+  height: auto;
   .pro_team {
     width: 100%;
     max-width: 1200px;
@@ -397,12 +310,11 @@ export default{
   }
   @include m($m-breakpoint){
     .pro_team {
-      display:flex;
       .pro_img{
         width: 1000px;
         img{
           width: 100%;
-          height: 350px;
+          height: 500px;
         }
       }
       .pro_word {
@@ -420,106 +332,178 @@ export default{
   @include l($l-breakpoint){
     .pro_team {
       .pro_img{
-        width: 1000px;
+        width: 1200px;
         img{
           width: 100%;
-          height: 400px;
+          height: 600px;
         }
       }
     }
   }
  
 }
-
-.member{
+.team {
   width: 100%;
-  .mem_title{
+  .teambox{
     width: 100%;
-    margin: 15px 0;
+    margin: auto;
     text-align: center;
+    background-color: #515151af;
+    border-radius: 5px;
+    padding: 5px;
+    z-index: 1;
+    h2{
+      margin: 5px;
+    }
+    p{
+      margin: 5px;
+    }
   }
-  .member_box {
+  @include m($m-breakpoint){
+    .teambox{
+      transform: translateX(20px);
+      padding: 15px;
+    }
+  }
+  @include l($l-breakpoint){
+    .teambox{
+      transform: translateX(50px);
+      padding: 15px 20px;
+      height: 450px;
+      p{
+        margin-top: 15px;
+      }
+    }
+  }
+  .imgbox{
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-    .member_item {
-      width: 165px;
-      height: 300px;
-      margin: 10px 10px;
-      .member_img{
-        width: 165px;
-        height: 220px;
-        border-radius: 5px;
-        border: 1px solid rgba(154, 154, 154, 0.475);
+    margin: 30px auto;
+    text-align: center;
+    img{
+      width: 90%;
+      height: 350px;
+      object-fit: cover;
+      border-radius: 5px;
+    }
+  }
+  @include m($m-breakpoint){
+      .imgbox{
         img{
           width: 100%;
-          height: 220px;
-          border-radius: 5px;
-          object-fit: cover;
+          height: 500px;
         }
       }
-      .member_word{
-        width: 165px;
-        height: 75px;
-        display: flex;
-        text-align: center;
-        .member_txt{
-          width: 100%;
-          text-align: center;
-          .mem_name{
-            color: #fff;
-            font-size: 20px;
-            margin: 10px 0;
-            font-family: 'Poppins', sans-serif;
-          }
-          span{
-            color: $blue;
-            font-size: 15px;
-            margin-left: 5px;
-          }
-        }
-      }
-    }
-    @include m($m-breakpoint){
-        .member_item{
-          width: 300px;
-          height: 350px;
-          .member_img{
-            width: 300px;
-            height: 280px;
-            img{
-              width: 300px;
-              height: 280px;
-            }
-          }
-          .member_word{
-            width: 300px;
-          }
-      }
-    }
-
-    @include l($l-breakpoint){
-        .member_item{
-          width: 380px;
-          height: 420px;
-          .member_img{
-            width: 380px;
-            height: 340px;
-            img{
-              width: 380px;
-              height: 340px;
-            }
-          }
-          .member_word{
-            width: 380px;
-          }
-      }
-    }
   }
+  @include l($l-breakpoint){
+    .imgbox{
+      img{
+          width: 100%;
+          height: 850px;
+        }
+    }
+    
+  }
+}
+@include m($m-breakpoint){
+  .team{
+    display: flex;
+  }
+}
+.member{
+  width: 100%;
+  // .mem_title{
+  //   width: 100%;
+  //   margin: 15px 0;
+  //   text-align: center;
+  // }
+  // .member_box {
+  //   width: 100%;
+  //   max-width: 1200px;
+  //   margin: 0 auto;
+  //   display: flex;
+  //   flex-wrap: wrap;
+  //   justify-content: center;
+  //   align-items: center;
+  //   .member_item {
+  //     width: 165px;
+  //     height: 300px;
+  //     margin: 10px 10px;
+  //     opacity: 0.8;
+  //     transition: 0.8s;
+  //     &:hover {
+  //       opacity: 1;
+  //     }
+  //     .member_img{
+  //       width: 165px;
+  //       height: 220px;
+  //       border-radius: 5px;
+  //       border: 1px solid rgba(154, 154, 154, 0.475);
+  //       img{
+  //         width: 100%;
+  //         height: 220px;
+  //         border-radius: 5px;
+  //         object-fit: cover;
+  //       }
+  //     }
+  //     .member_word{
+  //       width: 165px;
+  //       height: 75px;
+  //       display: flex;
+  //       text-align: center;
+  //       .member_txt{
+  //         width: 100%;
+  //         text-align: center;
+  //         .mem_name{
+  //           color: #fff;
+  //           font-size: 20px;
+  //           margin: 10px 0;
+  //           font-family: 'Poppins', sans-serif;
+  //         }
+  //         span{
+  //           color: $blue;
+  //           font-size: 15px;
+  //           margin-left: 5px;
+  //         }
+  //       }
+  //     }
+  //   }
+  //   @include m($m-breakpoint){
+  //       .member_item{
+  //         width: 300px;
+  //         height: 350px;
+  //         .member_img{
+  //           width: 300px;
+  //           height: 280px;
+  //           img{
+  //             width: 300px;
+  //             height: 280px;
+  //           }
+  //         }
+  //         .member_word{
+  //           width: 300px;
+  //         }
+  //     }
+  //   }
+
+  //   @include l($l-breakpoint){
+  //       .member_item{
+  //         width: 380px;
+  //         height: 420px;
+  //         .member_img{
+  //           width: 380px;
+  //           height: 340px;
+  //           img{
+  //             width: 380px;
+  //             height: 340px;
+  //           }
+  //         }
+  //         .member_word{
+  //           width: 380px;
+  //         }
+  //     }
+  //   }
+  // }
 }
 
 .logo{
@@ -574,6 +558,7 @@ export default{
 // store start
 .store_rofile{
     width: 100%;
+    margin: 100px 0;
     h2{
       text-align: center;
     }
