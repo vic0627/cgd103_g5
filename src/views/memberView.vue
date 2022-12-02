@@ -38,23 +38,23 @@ export default{
                 <img src="../assets/images/member/mem_drone02.png" alt="drone">
                 <div class="drone_word">
                     <h3>FPV Name</h3>
-                    <router-link class="drone_more" to="/"><button>Leam more</button></router-link>
+                    <router-link class="drone_more" to="/machineView"><button>Leam more</button></router-link>
                 </div>
             </div>
         </div>
         <div class="mem_down">
             <div class="round_item">
-                <router-link class="anchor" to="/">
+                <router-link class="anchor" to="/profile">
                     <p>PROFILE</p>
                 </router-link>
             </div>
             <div class="round_item">
-                <router-link class="anchor" to="/">
+                <router-link class="anchor" to="/NormalOrders">
                     <p>NORMAL ORDERS</p>
                 </router-link>
             </div>
             <div class="round_item">
-                <router-link class="anchor" to="/">
+                <router-link class="anchor" to="/CustomizedOrders">
                     <p>CUSTOM ORDERS</p>
                 </router-link>
             </div>
@@ -90,7 +90,7 @@ export default{
                 height: 200px;
                 background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
                 margin: auto;
-                border-radius: 5px;
+                border-radius: 10px;
                 .badge{
                     position: absolute;
                     top: -15px;
