@@ -1,12 +1,17 @@
 <script>
 import { onMounted, registerRuntimeCompiler} from 'vue';
+import navComponentsVue from '@/components/navComponents.vue';
 
 // import {useMotion} from '@vueuse/motion';
-
+export default{
+  components:{
+    navComponentsVue
+  }
+}
 </script>
 
 <template>
-
+<navComponentsVue />
 <section class="member">
     <div class="member_box">
         <div class="member_top">
@@ -69,7 +74,6 @@ import { onMounted, registerRuntimeCompiler} from 'vue';
 
 .member{
     width: 100%;
-
     .member_box{
         width: 100%;
         max-width: 1200px;
@@ -112,6 +116,14 @@ import { onMounted, registerRuntimeCompiler} from 'vue';
                             color: #61451B;
                         }
                     } 
+                    @include l($l-breakpoint){
+                        .card_top_word{
+                            .head{
+                                width: 120px;
+                                height: 120px;
+                            }
+                        }
+                    }
                 }
                 .card_down {
                     display: flex;

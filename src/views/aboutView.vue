@@ -3,6 +3,8 @@ import video_01 from '@/assets/video/about/video_01.mp4'
 import { onMounted, registerRuntimeCompiler } from 'vue';
 import Accordion from '../components/accordionComponents.vue';
 import mem from '../components/memComponents.vue';
+import navComponentsVue from '@/components/navComponents.vue';
+
 
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -13,7 +15,8 @@ AOS.init();
 export default{
   components:{
     Accordion,
-    mem
+    mem,
+    navComponentsVue
   }
 }
 
@@ -24,7 +27,7 @@ export default{
 
 
 <template>
-    
+  <navComponentsVue />
   <!-- 01 video start -->
   <section class="video_box" >
         <div class="top_video">
@@ -55,9 +58,8 @@ export default{
   
   <!-- 02 start -->
   <section class="team">
-    <div class="teambox" data-aos="fade-right"
-     data-aos-offset="300"
-     data-aos-easing="ease-in-sine">
+    <div class="teambox" data-aos="fade-up"
+     data-aos-duration="3000">
       <h2>TEAM</h2>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
@@ -66,8 +68,8 @@ export default{
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
       </p>
     </div>
-    <div class="imgbox" data-aos="fade-left" 
-     data-aos-offset="500"
+    <div class="imgbox" data-aos="fade-up"
+     data-aos-duration="3000"
      data-aos-easing="ease-in-sine">
         <img src="../assets/images/About/us02.jpg" alt="img">
       </div>
@@ -174,6 +176,7 @@ export default{
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
 body{
+  overflow: hidden;
   scroll-behavior: smooth;
 }
 
@@ -345,7 +348,7 @@ body{
 .team {
   width: 100%;
   .teambox{
-    width: 100%;
+    width: 90%;
     margin: auto;
     text-align: center;
     background-color: #515151af;
