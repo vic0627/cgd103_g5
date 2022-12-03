@@ -47,7 +47,9 @@ onMounted(()=> {
         </nav>
         <div class="maincontent">
             <section class="maininfo">
-                <div class="meminfo"></div>
+                <div class="meminfo">
+                    <div class="memhead"></div>
+                </div>
                 <div class="memgrade"></div>
             </section>
             <section class="profiles-list">
