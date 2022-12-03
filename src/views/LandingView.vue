@@ -53,7 +53,6 @@ const mousePlay = (e) => {
             rotateY: 2*mouseX+'deg',
             duration:.3,
         });
-        console.log(mouseX);
     };
 };
 const mouseOut = (e) => {

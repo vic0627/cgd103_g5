@@ -5,11 +5,27 @@ export const fpv = {
     title: 'EFPV Eagle 5',
     price: '3,249',
     specification: {
-        a: '4/3 CMOS Hasselblad Camera',
-        b: '46 Minutes of Flight Time ',
-        c: 'Omnidirectional Obstacle Sensing',
-        d: '15km Max Transmission Range',
-        e: 'Advanced Return to Home',
+        a: {
+            id: 1,
+            text: 'Next Generation of FPV',
+        },
+        b: {
+            id: 2,
+            title: '46 Minutes of Flight Time',
+            text: 'With powerful flight performance and a Hasselblad camera, EFPV Eagle 5 Classic delivers the absolute essence of flagship imaging. Take it on any adventure to create unforgettable work.'
+        },
+        c: {
+            id: 3,
+            text: 'Omnidirectional Obstacle Sensing'
+        },
+        d: {
+            id: 4,
+            text: '15km Max Transmission Range'
+        },
+        e: {
+            id: 5,
+            text: 'Advanced Return to Home'
+        },
     },
     closer: {
         a: {

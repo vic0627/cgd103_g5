@@ -1,19 +1,23 @@
 <script setup>
 import gsap from 'gsap';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import * as PRO from './js/ShopInfoThree';
 import { useMousePosition, x, y } from '@/composables/useMousePosition';
 import { fpv } from './js/ShopInfoItem';
+import { body } from './js/CustomizeThree';
 useMousePosition();
-
+let ww = window.innerWidth, wh = window.innerHeight;
+let wrap, canvas, conatinerInfo, infoList, conatinerClose, closeH3, bgText, ws, co, cc0, cc1, cc2, cc3, cc4, infoListTotalH = 0;
+const wW = ref(window.innerWidth);
 onMounted(()=> {
-    const wrap = document.querySelector('.productInfoWrap');
-    const canvas = document.querySelector('#product3d');
-    const conatinerInfo = document.querySelector('.containerInfo');
-    const conatinerClose = document.querySelectorAll('.containerClose');
-    const closeH3 = document.querySelector('#closeH3');
-    const bgText = document.querySelectorAll('.bgText');
-    let ww = window.innerWidth, wh = window.innerHeight;
+    wrap = document.querySelector('.productInfoWrap');
+    canvas = document.querySelector('#product3d');
+    conatinerInfo = document.querySelector('.containerInfo');
+    infoList = document.querySelectorAll('.infoList');
+    for(let i=0; i<infoList.length-1; i++){
+        infoListTotalH += infoList[i].offsetHeight;
+    }
+    
     window.addEventListener('resize', ()=> {
         ww = window.innerWidth, wh = window.innerHeight;
     })
@@ -25,36 +29,58 @@ onMounted(()=> {
     wrap.addEventListener('scroll', ()=> {
         scrollModel();
     });
+    
+    const scrollInfo = () => {
+        const is = conatinerInfo.scrollTop;
+        const il0 = infoList[0].offsetHeight;
+        const il1 = infoList[1].offsetHeight;
+        const il2 = infoList[2].offsetHeight;
+        const il3 = infoList[3].offsetHeight;
+        if(is==conatinerInfo.scrollHeight-il3){
+            conatinerInfo.style.display = 'none';
+        };
+        if(is<il0){
+            gsap.to('.infoTitle', {
+                y: (100/il0)*is,
+                opacity: 1-(2/il0)*is,
+                scale: 1+(.2/il0)*is,
+                duration: 0,
+            })
+            gsap.to('.infoText1', {
+                y: (-60/il0)*is,
+                opacity: 1-(2/il0)*is,
+                scale: 1+(.2/il0)*is,
+                duration: 0,
+            })
+            gsap.to(PRO.camera, {
+                fov: 60-(10/il0)*is,
+                duration: 0,
+            })
+        }
+        if(is>=il0 && is<infoList[2].offsetTop){
+        }
+    };
+    conatinerInfo.addEventListener('scroll', ()=> {
+        scrollInfo();
+    });
     const scrollModel = () => {
-        const ws = wrap.scrollTop,
-            co = canvas.offsetHeight,
-            cc0 = conatinerClose[0].offsetHeight,
-            cc1 = conatinerClose[1].offsetHeight,
-            cc2 = conatinerClose[2].offsetHeight,
-            cc3 = conatinerClose[3].offsetHeight,
-            cc4 = conatinerClose[4].offsetHeight;
-        if(ws>co*.1){
-            gsap.to(conatinerInfo, {
-                y: -20,
-                opacity: 0,
-                duration: .5,
-            })
-            gsap.to('.controlPanel', {
-                y: -20,
-                opacity: 0,
-                duration: .5,
-            })
-        }else{
-            gsap.to(conatinerInfo, {
-                y: 0,
-                opacity: 1,
-                duration: .5,
-            })
-            gsap.to('.controlPanel', {
-                y: 0,
-                opacity: 1,
-                duration: .5,
-            })
+        conatinerClose = document.querySelectorAll('.containerClose');
+        closeH3 = document.querySelector('#closeH3');
+        bgText = document.querySelectorAll('.bgText');
+        ws = wrap.scrollTop;
+        co = canvas.offsetHeight;
+        cc0 = conatinerClose[0].offsetHeight;
+        cc1 = conatinerClose[1].offsetHeight;
+        cc2 = conatinerClose[2].offsetHeight;
+        cc3 = conatinerClose[3].offsetHeight;
+        cc4 = conatinerClose[4].offsetHeight;
+        if(ws == 0){
+            switch(conatinerInfo.style.display){
+                case 'block':
+                    conatinerInfo.style.display = 'none';
+                case 'none':
+                    conatinerInfo.style.display = 'block';
+            }
         }
         if(PRO.modelObj && ws>=co && ws<co+cc0/2){
             gsap.to(PRO.modelObj.position, {
@@ -99,7 +125,7 @@ onMounted(()=> {
         }
         if(ws>=co && ws<co+cc0){
             gsap.to(bgText[0], {
-                opacity: (2/cc0)*(ws-co),
+                opacity: Math.sin(Math.PI/(cc0)*(ws-co)),
                 top: (120/cc0)*(ws-co)+'%',
                 duration: 0,
             })
@@ -107,53 +133,83 @@ onMounted(()=> {
                 opacity: (1.8/cc0)*(ws-co),
                 duration: 0,
             })
+            gsap.to('.closeText1', {
+                opacity: 0,
+                duration: .3,
+            })
+            PRO.pointLight.intensity = 0;
+        }
+        if(ws>=co+cc0 && ws<co+cc0+cc1){
+            gsap.to('.closeText1', {
+                bottom: 50-(50/cc1)*(ws-co-cc0)+'%',
+                duration: 0,
+            })
+            gsap.to(PRO.camera, {
+                fov: 50+(40/cc1)*(ws-co-cc0),
+                duration: 0,
+            })
         }
         if(PRO.modelObj && ws>=co+cc0 && ws<co+cc0+cc1/10){
             PRO.actionExplode.stop();
+            PRO.glitchTrigger();
+            PRO.pointLight.intensity = 2;
+            setTimeout(()=> {
+                $$('.closeText1').style.opacity = 1;
+            }, 500);
             gsap.to(PRO.modelObj.position, {
                 x: .3,
                 y: .72,
                 z: 2.2,
-                duration: 0,
+                duration: .1,
             })
             gsap.to(PRO.modelObj.rotation, {
                 x: 0,
                 y: -.15*Math.PI,
                 z: 0,
-                duration: 0,
+                duration: .1,
             })
             gsap.to('body', {
                 background: 'linear-gradient(109.69deg, #12181E 16.49%, #13181F 26.68%, #151A23 36.59%, #181D24 41.08%, #1D2229 48.97%, #21282E 55.3%, #242B32 61.38%, #262D35 68.74%, #262D35 75.3%, #262D35 80.67%, #263038 86.99%)',
-                duration: .3,
+                duration: 0,
             })
         }
         if(PRO.modelObj && ws>=co+cc0+cc1/10 && ws<co+cc0+cc1/5){
-            gsap.to(PRO.modelObj.position, {
-                x: 0,
-                y: -1,
-                z: 0,
-                duration: 0,
+            gsap.to('.closeText1', {
+                opacity: 0,
+                duration: .3,
             })
-            gsap.to(PRO.modelObj.rotation, {
-                x: 0,
-                y: 0,
-                z: 0,
-                duration: 0,
+            gsap.to(PRO.modelObj.position, {
+                x: .3,
+                y: .5,
+                z: 2.2,
+                duration: .1,
             })
             gsap.to('body', {
                 background: '#000',
-                duration: .3,
+                duration: 0,
             })
             PRO.actionExplode.play();
             PRO.actionExplode.paused = true;
         }
         if(PRO.modelObj && ws>=co+cc0+cc1 && ws<=co+cc0+cc1+cc2){
             gsap.to(PRO.actionExplode, {
-                time: (PRO.clipExplode.duration/cc2/2)*(ws-co-cc0-cc1),
+                time: (PRO.clipExplode.duration/cc2)*(ws-co-cc0-cc1),
                 duration: .3,
             })
+            gsap.to(PRO.modelObj.position, {
+                x: .3-(.3/cc2)*(ws-co-cc0-cc1),
+                y: .5-(1.5/cc2)*(ws-co-cc0-cc1),
+                z: 2.2-(2.2/cc2)*(ws-co-cc0-cc1),
+                duration: 0,
+            })
+            gsap.to(PRO.modelObj.rotation, {
+                x: Math.sin((2*Math.PI/cc2)*(ws-co-cc0-cc1)),
+                y: (-.15*Math.PI)+(-1.85*Math.PI/cc2)*(ws-co-cc0-cc1),
+                z: 0,
+                duration: 0,
+            })
             gsap.to(bgText[1], {
-                opacity: (2/cc2)*(ws-co-cc0-cc1),
+                opacity: Math.sin(Math.PI/(cc2)*(ws-co-cc0-cc1)),
                 top: (120/cc2)*(ws-co-cc0-cc1)+'%',
                 duration: 0,
             })
@@ -161,11 +217,18 @@ onMounted(()=> {
                 opacity: (1.8/cc2)*(ws-co-cc0-cc1),
                 duration: 0,
             })
+            if(ws>=co+cc0+cc1+cc2/2){
+                gsap.to(PRO.camera, {
+                    fov: 90-(30/cc2)*(ws-co-cc0-cc1),
+                    duration: 0,
+                })
+            }
         }
         if(PRO.modelObj && ws>co+cc0+cc1+cc2 && ws<co+cc0+cc1+cc2+cc3/4){
+            PRO.actionStep.stop();
+            PRO.actionExplode.time = PRO.clipExplode.duration;
             PRO.actionExplode.play();
             PRO.actionExplode.paused = true;
-            PRO.actionStep.stop();
             gsap.to(PRO.modelObj.position, {
                 x: 0,
                 y: -1,
@@ -180,16 +243,22 @@ onMounted(()=> {
             })
         }else if(PRO.modelObj && ws>co+cc0+cc1+cc2+cc3/4 && ws<co+cc0+cc1+cc2+cc3/2){
             PRO.actionExplode.stop();
-            PRO.actionStep.time = 85;
+            gsap.to(PRO.modelObj.position, {
+                x: 0,
+                y: -.75,
+                z: 0,
+                duration: 0,
+            })
+            PRO.actionStep.time = 80;
             PRO.actionStep.play();
             PRO.actionStep.paused = true;
         }
         if(PRO.modelObj && ws>=co+cc0+cc1+cc2+cc3 && ws<=co+cc0+cc1+cc2+cc3+cc4/2){
             gsap.to(PRO.modelObj.position, {
                 x: 0,
-                y: -1,
+                y: -.75+(-.25*Math.PI/cc4/2)*(ws-co-cc0-cc1-cc2-cc3),
                 z: 0,
-                duration: .3,
+                duration: 0,
             })
             gsap.to(PRO.modelObj.rotation, {
                 x: (.65*Math.PI/cc4/2)*(ws-co-cc0-cc1-cc2-cc3),
@@ -198,7 +267,7 @@ onMounted(()=> {
                 duration: .3,
             })
             gsap.to(PRO.actionStep, {
-                time: 85+((PRO.clipStep.duration-85)/cc4/2)*(ws-co-cc0-cc1-cc2-cc3),
+                time: 84+((PRO.clipStep.duration-85)/cc4/2)*(ws-co-cc0-cc1-cc2-cc3),
                 duration: .3,
             })
             gsap.to(bgText[2], {
@@ -223,7 +292,15 @@ const log = (e) => {
     console.log(e);
 };
 
+const $$ = (e) => document.querySelector(e);
+
+const anounce = () => {
+    
+};
+
 const controls = (e) => {
+    
+    
     if(e===1){
         gsap.to(PRO.modelObj.rotation, {
             x: .15*Math.PI,
@@ -343,6 +420,10 @@ const controls = (e) => {
     }
 }
 
+const flowControls = () => {
+    /* if(containerInfo.scrollTop != ) */
+};
+
 const pointLightMove = () => {
     let ww = window.innerWidth, wh = window.innerHeight;
     if (ww>1024) {
@@ -361,30 +442,26 @@ const pointLightMove = () => {
 <template>
     <section class="productInfoWrap">
         <canvas id="product3d" class="product3d"></canvas>
-        <div class="controlPanel">
-            <span v-for="n in 4" :key="n" :class="`control control${n}`" @click="controls(n)"></span>
-        </div>
-        <div class="containerInfo">
-            <h2>{{ fpv.title }}</h2>
-            <h3>US ${{ fpv.price }}</h3>
-            <ol>
-                <li v-for="i in fpv.specification" :key="i">
-                    <p>{{ i }}</p>
-                </li>
-            </ol>
-            <router-link to="/showcase" class="btn" data-title="learn more">
-                <span>learn more</span>
-            </router-link>
-        </div>
+        
+        <ol  class="containerInfo">
+            <li v-for="i in fpv.specification" :key="i.id" :class="`infoList infoList${i.id}`">
+                <h2 v-if="i.id === 1" class="infoTitle">{{ fpv.title }}</h2>
+                <p :class="`infoText infoText${i.id}`">{{ i.text }}</p>
+                <router-link to="/" class="btn" data-title="learn more" v-if="i.id === 5">
+                    <span>learn more</span>
+                </router-link>
+                <div class="controlPanel" v-if="i.id === 2">
+                    <span v-for="n in 4" :key="n" :class="`control control${n}`" @click="controls(n)"></span>
+                </div>
+            </li>
+        </ol>
         <div :class="`containerClose containerClose${i.id}`" v-for="i in fpv.closer" :key="i">
             <h3 v-if="i.id===0" id="closeH3" class="closeH3">Take a Closer Look</h3>
             <p v-if="i.id===0 || i.id===2 || i.id===4" :class="`bgText bgText${i.id}`">{{ i.title }}</p>
-            <div v-if="i.id===1 || i.id===3" :class="`productImg productImg${i.id}`">
-                <img :src="i.src" :alt="`productImg${i.id}`">
-            </div>
             <div :class="`closeText closeText${i.id}`">
                 <h4>{{ i.title }}</h4>
                 <p>{{ i.text }}</p>
+                <p v-if="wW > 1024 && i.id == 1">Try to move your mouse around to discover!</p>
             </div>
         </div>
         <div class="containerBox">
@@ -404,6 +481,9 @@ const pointLightMove = () => {
 @import '@/sass/base/_font.scss';
 @import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
+*{
+    outline: 1px solid red;
+}
 .productInfoWrap{
     width: 100%;
     height: 100vh;
@@ -416,13 +496,8 @@ const pointLightMove = () => {
         position: sticky;
         top: 0;
         left: 0;
-        backdrop-filter: blur(1px);
     }
     .controlPanel{
-        position: absolute;
-        bottom: 40%;
-        left: 0;
-        right: 0;
         margin: 0 auto;
         width: 140px;
         z-index: 1;
@@ -440,51 +515,70 @@ const pointLightMove = () => {
         }
     }
     .containerInfo{
+        outline: 1px solid red;
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        margin: auto;
-        width: 90%;
-        max-width: 1200px;
-        height: 85%;
-        scroll-snap-align: start;
-        @include m($m-breakpoint) {
-            height: 90%;
-        }
-        h2{
-            margin: 70px 0 10px;
-        }
-        h3{
-           margin: 10px 0;
-        }
-        ol{
-            position: absolute;
-            width: 100%;
-            bottom: 10%;
+        margin: 0 auto;
+        overflow-y: auto;
+        width: 100%;
+        height: 100%;
+        .infoTitle{
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            position: sticky;
+            top: 20%;
+            z-index: -1;
+            line-height: 1;
+            text-shadow: 0 -3px 3px $black;
             @include m($m-breakpoint) {
-                width: 350px;
-                right: 0;
+                width: 90%;
+                font-size: 200px;
+                top: 25%;
             }
-            li{
-                text-align: right;
-                width: 100%;
+        }
+        .infoList{
+            outline: 1px solid red;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            p{
+                position: sticky;
+                width: 80%;
+                margin: 0 auto;
                 @include m($m-breakpoint) {
-                    text-align: left;
+                    font-size: 70px;
                 }
             }
         }
-        .btn{
-            @include secondBtn(150px);
-            position: absolute;
-            bottom: 0;
-            right: 0;
+        .infoList1{
+            height: 200%;
+        }
+        .infoText1{
+            line-height: 1;
+            text-align: center;
+            top: 65%;
+            text-shadow: 0 -3px 3px $black;
             @include m($m-breakpoint) {
-                right: 165px;
+                font-size: 70px;
             }
         }
     }
+    .btn{
+        @include secondBtn(150px);
+        display: none;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        @include m($m-breakpoint) {
+            right: 165px;
+        }
+    }
+
     .containerClose{
+        outline: 1px solid red;
         width: 90%;
         max-width: 1200px;
         margin: 0 auto;
@@ -497,14 +591,27 @@ const pointLightMove = () => {
             opacity: 0;
         }
         .closeText{
-            width: 50%;
+            width: 80%;
             position: absolute;
             bottom: 25%;
             text-shadow: 0 3px 3px $black;
             opacity: 0;
+            @include m($m-breakpoint) {
+                width: 50%;
+            }
         }
         .closeText0{
             left: 0;
+        }
+        .closeText1{
+            text-align: center;
+            bottom: 50%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            p:nth-last-child(1){
+                font: $caption-m-h4;
+            }
         }
         .closeText2{
             text-align: center;
@@ -517,12 +624,10 @@ const pointLightMove = () => {
             text-align: right;
         }
     }
-    .containerClose:nth-child(2n+1){
+    .containerClose:nth-child(2n){
         width: 100%;
         max-width: 100%;
         height: 100vh;
-        background: $black;
-        border-radius: 20px;
         scroll-snap-align: center;
         overflow: hidden;
     }
