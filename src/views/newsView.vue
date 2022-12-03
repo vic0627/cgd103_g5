@@ -1,8 +1,6 @@
 <script>
-import { onMounted, registerRuntimeCompiler } from 'vue';
-
+import { onMounted, registerRuntimeCompiler, reactive } from 'vue';
 // import {useMotion} from '@vueuse/motion';
-
 
 export default{
     data:()=>({
@@ -17,6 +15,10 @@ export default{
         }
     }
 }
+
+</script>
+<script setup>
+import  newsComponentsVue from "@/components/newsComponents.vue";
 
 </script>
 
@@ -344,13 +346,13 @@ export default{
     </div>
 </section>
 <!-- 02 tag end -->
-
-
+<newsComponentsVue />
 
 </template>
 
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
+// @import '@/css/reset.css';
 .news{
     width: 100%;
     .news_banner_box{
@@ -435,13 +437,9 @@ export default{
             .banner{
                 position: relative;
                 height: 800px;
-                background-attachment: fixed;
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: top center;
-                background-image: url(../assets/images/About/news_banner.jpg);
                 img{
-                    display: none;
+                    object-position: center 18%;
+                    object-fit: cover;
                 }
                 .banner_word{
                     width: 700px;

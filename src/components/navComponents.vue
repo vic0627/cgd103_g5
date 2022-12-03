@@ -1,33 +1,35 @@
 <script setup>
-import { ref, onMounted } from 'vue';
-const mainMenu = {
-    drones: "DRONES",
-    about: "ABOUT",
-    game: "GAME",
-    contest: "CONTEST",
-    news: "NEWS"
-}
+import { reactive, onMounted } from 'vue';
+const mainMenu = reactive([
+    {
+        "id": "shop",
+        "name": "DRONES",
+    },
+    {
+        "id": "about",
+        "name": "ABOUT",
+    },
+    {
+        "id": "game",
+        "name": "GAME",
+    },
+    {
+        "id": "race",
+        "name": "RACE",
+    },
+    {
+        "id": "news",
+        "name": "NEWS",
+    },
+])
 onMounted(() => {
-    console.log(mainMenu);
+    // console.log(mainMenu);
 })
 
 
 </script>
 
 <template>
-    <!-- <nav>
-        <router-link class="anchor" to="/">Home</router-link>
-        <router-link class="anchor" to="/about">About</router-link>
-        <router-link class="anchor" to="/news">News</router-link>
-        <router-link class="anchor" to="/shop">Shop</router-link>
-        <router-link class="anchor" to="/shop/shopInfo">shopInfo</router-link>
-        <router-link class="anchor" to="/cart">Cart</router-link>
-        <router-link class="anchor" to="/game">Game</router-link>
-        <router-link class="anchor" to="/custom">Custom</router-link>
-        <router-link class="anchor" to="/showcase">Showcase</router-link>
-        <router-link class="anchor" to="/race">Race</router-link>
-        <router-link class="anchor" to="/member">Member</router-link>
-    </nav> -->
     <header>
             <div class="header">
                 <div class="logo">
@@ -39,14 +41,15 @@ onMounted(() => {
                 <div class="wrapper">
                     <ul>
                         <li v-for="(item,index) in mainMenu" :key="index">
-                            <a href="#">{{item}}</a>
+                            <!-- <a href="#">{{item}}</a> -->
+                             <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
                         </li>
                     </ul>
                 </div>
                  <div class="menu">
                     <ul>
                         <li v-for="(item,index) in mainMenu" :key="index">
-                            <a href="#" class="navHover">{{item}}</a>
+                            <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
                         </li>
                     </ul>
                 </div>
@@ -199,7 +202,7 @@ header {
     height: 10%;
     margin: 15px 0;
 }
-.wrapper ul li a{
+.wrapper ul li .navHover{
     text-decoration: none;
     font-size: 30px;
     font-weight: 500;
@@ -228,10 +231,10 @@ header {
 //   z-index: -1;
 //   transition: transform 0.3s ease;
 // }
-.wrapper ul li a:hover:after{
+.wrapper ul li .navHover:hover:after{
     transform: scaleY(1);
 }
-.wrapper ul li a:hover{
+.wrapper ul li .navHover:hover{
     color: $blue;
     border-bottom: 2px solid $blue;
     transform: .6s cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -240,14 +243,14 @@ input[type="checkbox"]{
     display: none;
 }
 
-#active:checked ~ .wrapper ul li a{
+#active:checked ~ .wrapper ul li .navHover{
     opacity: 1;
 }
-.wrapper ul li a{
+.wrapper ul li .navHover{
     transition: opacity 1.2s, transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
     transform: translateX(100px);
 }
-#active:checked ~ .wrapper ul li a{
+#active:checked ~ .wrapper ul li .navHover{
 	transform: none;
 	transition-timing-function: ease, cubic-bezier(.1,1.3,.3,1);
     transition-delay: .6s;
