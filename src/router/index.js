@@ -4,9 +4,9 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'landing',
-      component: () => import('../views/LandingView.vue')
+      path: "/",
+      name: "landing",
+      component: () => import("../views/LandingView.vue"),
     },
     {
       path: "/home",
@@ -92,7 +92,12 @@ const router = createRouter({
       path: "/backend",
       name: "backend",
       component: () => import("../views/backend/backend.vue"),
-    }
+    },
+    {
+      path: "/apply",
+      name: "apply",
+      component: () => import("../views/applyView.vue"),
+    },
   ],
 });
 

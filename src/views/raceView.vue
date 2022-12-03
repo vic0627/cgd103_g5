@@ -35,7 +35,7 @@
 
     <div class="raceList">
       <div class="raceBox raceBox_w">
-        <div class="bxoBgi_w"></div>
+        <div class="boxBgi_w"></div>
         <div class="listWord">
           <div class="nation">
             <span class="nation_w">World</span>
@@ -67,7 +67,7 @@
 
           <div class="learn">
             <a
-              href="#"
+              href="../views/applyView.vue"
               class="btn"
               id="btn1"
               data-title="Learn"
@@ -80,7 +80,7 @@
         </div>
       </div>
       <div class="raceBox raceBox_t">
-        <div class="bxoBgi_t"></div>
+        <div class="boxBgi_t"></div>
         <div class="listWord">
           <div class="nation">
             <span class="nation_t">Taiwan</span>
@@ -112,7 +112,7 @@
 
           <div class="learn">
             <a
-              href="#"
+              href="../views/applyView.vue"
               class="btn"
               id="btn1"
               data-title="Learn"
@@ -125,7 +125,7 @@
         </div>
       </div>
       <div class="raceBox raceBox_w">
-        <div class="bxoBgi_w"></div>
+        <div class="boxBgi_w"></div>
         <div class="listWord">
           <div class="nation">
             <span class="nation_w">World</span>
@@ -157,7 +157,7 @@
 
           <div class="learn">
             <a
-              href="#"
+              href="../views/applyView.vue"
               class="btn"
               id="btn1"
               data-title="Learn"
@@ -170,7 +170,7 @@
         </div>
       </div>
       <div class="raceBox raceBox_t">
-        <div class="bxoBgi_t"></div>
+        <div class="boxBgi_t"></div>
         <div class="listWord">
           <div class="nation">
             <span class="nation_t">Taiwan</span>
@@ -202,7 +202,7 @@
 
           <div class="learn">
             <a
-              href="#"
+              href="../views/applyView.vue"
               class="btn"
               id="btn1"
               data-title="Learn"
@@ -215,7 +215,7 @@
         </div>
       </div>
       <div class="raceBox raceBox_w">
-        <div class="bxoBgi_w"></div>
+        <div class="boxBgi_w"></div>
         <div class="listWord">
           <div class="nation">
             <span class="nation_w">World</span>
@@ -247,7 +247,7 @@
 
           <div class="learn">
             <a
-              href="#"
+              href="../views/applyView.vue"
               class="btn"
               id="btn1"
               data-title="Learn"
@@ -260,7 +260,7 @@
         </div>
       </div>
       <div class="raceBox raceBox_t">
-        <div class="bxoBgi_t"></div>
+        <div class="boxBgi_t"></div>
         <div class="listWord">
           <div class="nation">
             <span class="nation_t">Taiwan</span>
@@ -292,7 +292,7 @@
 
           <div class="learn">
             <a
-              href="#"
+              href="../views/applyView.vue"
               class="btn"
               id="btn1"
               data-title="Learn"
@@ -305,7 +305,7 @@
         </div>
       </div>
       <div class="raceBox raceBox_w">
-        <div class="bxoBgi_w"></div>
+        <div class="boxBgi_w"></div>
         <div class="listWord">
           <div class="nation">
             <span class="nation_w">World</span>
@@ -337,7 +337,7 @@
 
           <div class="learn">
             <a
-              href="#"
+              href="../views/applyView.vue"
               class="btn"
               id="btn1"
               data-title="Learn"
@@ -350,7 +350,7 @@
         </div>
       </div>
       <div class="raceBox raceBox_t">
-        <div class="bxoBgi_t"></div>
+        <div class="boxBgi_t"></div>
         <div class="listWord">
           <div class="nation">
             <span class="nation_t">Taiwan</span>
@@ -382,7 +382,7 @@
 
           <div class="learn">
             <a
-              href="#"
+              href="../views/applyView.vue"
               class="btn"
               id="btn1"
               data-title="Learn"
@@ -407,7 +407,59 @@
     </div>
 
     <div class="pointBox">
-      <div class="bigtext"></div>
+      <div class="pointBgi">
+        <div class="bgi bgi1"></div>
+        <div class="bgi bgi2"></div>
+        <div class="bgi bgi3"></div>
+        <div class="bgi bgi4"></div>
+      </div>
+      <div class="bigtext">
+        <div class="text text1">
+          <h2>Taiwan</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+            quos unde adipisci itaque quaerat architecto. Dolor eaque eum
+            recusandae necessitatibus sed deserunt quae ullam quia mollitia qui
+            architecto eveniet iusto nesciunt hic voluptates incidunt a ab,
+            distinctio labore deleniti quisquam vitae. Laborum quidem illo
+            explicabo pariatur praesentium necessitatibus repellendus aliquam.
+          </p>
+        </div>
+        <div class="text text2">
+          <h2>Taiwan</h2>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio
+            autem esse modi expedita non numquam officia pariatur, nostrum
+            perferendis id eveniet quasi veritatis corporis. Nostrum eius vel
+            dolore, inventore unde veniam facere ab odio ipsum eaque iste
+            voluptas amet, qui aspernatur cupiditate. Reprehenderit mollitia
+            laboriosam incidunt illo et nostrum ad.
+          </p>
+        </div>
+        <div class="text text3">
+          <h2>Taiwan</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+            natus accusamus accusantium at ipsum quo hic id minus, odit
+            repudiandae dolore assumenda voluptatibus, expedita dicta
+            aspernatur, necessitatibus illum asperiores voluptatum laborum
+            possimus minima? Architecto eos ipsum similique accusamus cum ex
+            doloremque possimus ea est. Et libero culpa molestiae sunt
+            similique?
+          </p>
+        </div>
+        <div class="text text4">
+          <h2>Taiwan</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos
+            suscipit dolorum quod, illum id consequatur unde! Id nam corporis
+            molestiae, obcaecati harum at? Facilis, perferendis. Ratione
+            doloremque vel quidem adipisci, nemo accusantium voluptatem
+            architecto eius ex veniam! Eum adipisci sapiente earum modi ut,
+            expedita a, odio obcaecati aspernatur consectetur eligendi.
+          </p>
+        </div>
+      </div>
 
       <div class="practiseCard">
         <div class="card card1">
@@ -421,13 +473,12 @@
 
           <div class="cardContent">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure,
-              itaque. Modi officia sed cupiditate autem, beatae perspiciatis
-              consectetur accusantium aliquam in voluptates distinctio.
-              Deleniti, illum? Expedita corrupti perspiciatis sunt fugiat!
-              Accusamus sit illo, expedita sequi reiciendis laudantium soluta.
-              Ullam veritatis dignissimos voluptatum corporis dolor dolores nisi
-              maiores earum autem beatae.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
+              quos unde adipisci itaque quaerat architecto. Dolor eaque eum
+              recusandae necessitatibus sed deserunt quae ullam quia mollitia
+              qui architecto eveniet iusto nesciunt hic voluptates incidunt a
+              ab, distinctio labore deleniti quisquam vitae. Laborum quidem illo
+              explicabo pariatur praesentium necessitatibus repellendus aliquam.
             </p>
           </div>
         </div>
@@ -443,13 +494,12 @@
 
           <div class="cardContent">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure,
-              itaque. Modi officia sed cupiditate autem, beatae perspiciatis
-              consectetur accusantium aliquam in voluptates distinctio.
-              Deleniti, illum? Expedita corrupti perspiciatis sunt fugiat!
-              Accusamus sit illo, expedita sequi reiciendis laudantium soluta.
-              Ullam veritatis dignissimos voluptatum corporis dolor dolores nisi
-              maiores earum autem beatae.
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio
+              autem esse modi expedita non numquam officia pariatur, nostrum
+              perferendis id eveniet quasi veritatis corporis. Nostrum eius vel
+              dolore, inventore unde veniam facere ab odio ipsum eaque iste
+              voluptas amet, qui aspernatur cupiditate. Reprehenderit mollitia
+              laboriosam incidunt illo et nostrum ad.
             </p>
           </div>
         </div>
@@ -465,13 +515,13 @@
 
           <div class="cardContent">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure,
-              itaque. Modi officia sed cupiditate autem, beatae perspiciatis
-              consectetur accusantium aliquam in voluptates distinctio.
-              Deleniti, illum? Expedita corrupti perspiciatis sunt fugiat!
-              Accusamus sit illo, expedita sequi reiciendis laudantium soluta.
-              Ullam veritatis dignissimos voluptatum corporis dolor dolores nisi
-              maiores earum autem beatae.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+              natus accusamus accusantium at ipsum quo hic id minus, odit
+              repudiandae dolore assumenda voluptatibus, expedita dicta
+              aspernatur, necessitatibus illum asperiores voluptatum laborum
+              possimus minima? Architecto eos ipsum similique accusamus cum ex
+              doloremque possimus ea est. Et libero culpa molestiae sunt
+              similique?
             </p>
           </div>
         </div>
@@ -487,13 +537,12 @@
 
           <div class="cardContent">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure,
-              itaque. Modi officia sed cupiditate autem, beatae perspiciatis
-              consectetur accusantium aliquam in voluptates distinctio.
-              Deleniti, illum? Expedita corrupti perspiciatis sunt fugiat!
-              Accusamus sit illo, expedita sequi reiciendis laudantium soluta.
-              Ullam veritatis dignissimos voluptatum corporis dolor dolores nisi
-              maiores earum autem beatae.
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos
+              suscipit dolorum quod, illum id consequatur unde! Id nam corporis
+              molestiae, obcaecati harum at? Facilis, perferendis. Ratione
+              doloremque vel quidem adipisci, nemo accusantium voluptatem
+              architecto eius ex veniam! Eum adipisci sapiente earum modi ut,
+              expedita a, odio obcaecati aspernatur consectetur eligendi.
             </p>
           </div>
         </div>
@@ -601,17 +650,19 @@
   display: flex;
   overflow: scroll;
   @include l($l-breakpoint) {
-    overflow: visible;
+    margin: 0 20px;
+    width: calc(310px * 8);
+    overflow: hidden;
     &:hover {
       animation-play-state: paused;
     }
-    animation: scroll 0.1s linear infinite;
+    animation: scroll 5s linear infinite;
     @keyframes scroll {
       0% {
         transform: translateX(0);
       }
       100% {
-        transform: translateX(calc(-300px * 2));
+        transform: translateX(-310px * 4);
       }
     }
   }
@@ -621,7 +672,7 @@
     @include l($l-breakpoint) {
       min-width: 300px;
     }
-    .bxoBgi_w {
+    .boxBgi_w {
       background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
         url("../assets/images/race/contest01.png");
       backdrop-filter: blur(5px);
@@ -630,9 +681,9 @@
       background-size: cover;
       background-position: center center;
     }
-    .bxoBgi_t {
+    .boxBgi_t {
       background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
-        url("../assets/images/race/place01.png");
+        url("../assets/images/race/contest02.png");
       width: 100%;
       height: 100%;
       background-size: cover;
@@ -684,6 +735,10 @@
 .backgroundImage {
   width: 100%;
   height: 600px;
+  display: none;
+  @include l($l-breakpoint) {
+    display: block;
+  }
   .image {
     background-image: url("../assets/images/race/background image.png");
     width: 100%;
@@ -703,29 +758,112 @@
 
 .pointBox {
   display: flex;
+  width: 100%;
+
+  .pointBgi {
+    @include l($l-breakpoint) {
+      .bgi {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        position: absolute;
+        z-index: 1;
+      }
+      .bgi1 {
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0.7)
+          ),
+          url("../assets/images/race/point1.jpg");
+      }
+      .bgi2 {
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0.7)
+          ),
+          url("../assets/images/race/point2.jpg");
+      }
+      .bgi3 {
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0.7)
+          ),
+          url("../assets/images/race/point3.jpg");
+      }
+      .bgi4 {
+        background-image: linear-gradient(
+            rgba(0, 0, 0, 0.7),
+            rgba(0, 0, 0, 0.7)
+          ),
+          url("../assets/images/race/point4.jpg");
+      }
+    }
+  }
   .bigtext {
-    width: 460px;
-    height: 700px;
-    border: 1px solid red;
-    margin: 0 20px;
     display: none;
+    margin-top: 40px;
+    @include l($l-breakpoint) {
+      width: 460px;
+      display: block;
+      border: 1px solid rgb(220, 220, 220);
+      background-color: rgba(220, 220, 220, 0.1);
+      border-radius: 20px;
+      margin: 50px 20px 0 20px;
+      z-index: 2;
+      .text {
+        padding: 50px 20px;
+        h2 {
+          text-align: center;
+        }
+      }
+      .text2,
+      .text3,
+      .text4 {
+        display: none;
+      }
+    }
   }
   .practiseCard {
-    // display: flex;
-    gap: 30px;
     margin: 0 20px;
-    overflow: scroll;
+    z-index: 2;
+    @include l($l-breakpoint) {
+      margin-top: 100px;
+      display: flex;
+      overflow: hidden;
+    }
     .card {
-      min-width: 100%;
-      height: 550px;
-      border: 1px solid red;
-      padding: 20px;
       border-radius: 20px;
+      margin-bottom: 40px;
+      @include l($l-breakpoint) {
+        padding: 20px;
+        height: 500px;
+        border: 1px solid rgb(220, 220, 220);
+        margin-bottom: 0;
+        margin: 0 20px;
+        background-color: rgba(220, 220, 220, 0.1);
+        cursor: pointer;
+        &:hover {
+          background-color: rgba(220, 220, 220, 0.2);
+        }
+      }
       .cardPic {
-        width: 300px;
+        @include l($l-breakpoint) {
+          width: 300px;
+        }
         img {
           width: 100%;
           margin: 20px 0;
+        }
+      }
+      .cardContent {
+        @include l($l-breakpoint) {
+          width: 300px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-line-clamp: 6;
+          -webkit-box-orient: vertical;
         }
       }
     }
