@@ -33,364 +33,366 @@
       <h2>RECENT MATCHES</h2>
     </div>
 
-    <div class="raceList">
-      <div class="raceBox raceBox_w">
-        <div class="boxBgi_w"></div>
-        <div class="listWord">
-          <div class="nation">
-            <span class="nation_w">World</span>
-          </div>
+    <div class="racegg">
+      <div class="raceList">
+        <div class="raceBox raceBox_w">
+          <div class="boxBgi_w"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_w">World</span>
+            </div>
 
-          <div class="date">
-            <span>2022</span>
+            <div class="date">
+              <span>2022</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <br />
+              <br />
 
-            <span>|</span>
+              <span>|</span>
 
-            <br />
+              <br />
 
-            <span>2022</span>
+              <span>2022</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <span>10</span>
-          </div>
+              <span>10</span>
+            </div>
 
-          <div class="competitionName">
-            <h4>competition name</h4>
-          </div>
+            <div class="competitionName">
+              <h4>competition name</h4>
+            </div>
 
-          <div class="learn">
-            <a
-              href="../views/applyView.vue"
-              class="btn"
-              id="btn1"
-              data-title="Learn"
-              @mouseenter="MOUSE.mouseFocus()"
-              @mouseleave="MOUSE.mouseRe()"
-            >
-              <span>Learn</span>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="raceBox raceBox_t">
-        <div class="boxBgi_t"></div>
-        <div class="listWord">
-          <div class="nation">
-            <span class="nation_t">Taiwan</span>
-          </div>
-
-          <div class="date">
-            <span>2022</span>
-
-            <span>01</span>
-
-            <span>01</span>
-
-            <br />
-
-            <span>|</span>
-
-            <br />
-
-            <span>2022</span>
-
-            <span>01</span>
-
-            <span>10</span>
-          </div>
-
-          <div class="competitionName">
-            <h4>competition name</h4>
-          </div>
-
-          <div class="learn">
-            <a
-              href="../views/applyView.vue"
-              class="btn"
-              id="btn1"
-              data-title="Learn"
-              @mouseenter="MOUSE.mouseFocus()"
-              @mouseleave="MOUSE.mouseRe()"
-            >
-              <span>Learn</span>
-            </a>
+            <div class="learn">
+              <a
+                href="../views/applyView.vue"
+                class="btn"
+                id="btn1"
+                data-title="Learn"
+                @mouseenter="MOUSE.mouseFocus()"
+                @mouseleave="MOUSE.mouseRe()"
+              >
+                <span>Learn</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="raceBox raceBox_w">
-        <div class="boxBgi_w"></div>
-        <div class="listWord">
-          <div class="nation">
-            <span class="nation_w">World</span>
-          </div>
+        <div class="raceBox raceBox_t">
+          <div class="boxBgi_t"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_t">Taiwan</span>
+            </div>
 
-          <div class="date">
-            <span>2022</span>
+            <div class="date">
+              <span>2022</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <br />
+              <br />
 
-            <span>|</span>
+              <span>|</span>
 
-            <br />
+              <br />
 
-            <span>2022</span>
+              <span>2022</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <span>10</span>
-          </div>
+              <span>10</span>
+            </div>
 
-          <div class="competitionName">
-            <h4>competition name</h4>
-          </div>
+            <div class="competitionName">
+              <h4>competition name</h4>
+            </div>
 
-          <div class="learn">
-            <a
-              href="../views/applyView.vue"
-              class="btn"
-              id="btn1"
-              data-title="Learn"
-              @mouseenter="MOUSE.mouseFocus()"
-              @mouseleave="MOUSE.mouseRe()"
-            >
-              <span>Learn</span>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="raceBox raceBox_t">
-        <div class="boxBgi_t"></div>
-        <div class="listWord">
-          <div class="nation">
-            <span class="nation_t">Taiwan</span>
-          </div>
-
-          <div class="date">
-            <span>2022</span>
-
-            <span>01</span>
-
-            <span>01</span>
-
-            <br />
-
-            <span>|</span>
-
-            <br />
-
-            <span>2022</span>
-
-            <span>01</span>
-
-            <span>10</span>
-          </div>
-
-          <div class="competitionName">
-            <h4>competition name</h4>
-          </div>
-
-          <div class="learn">
-            <a
-              href="../views/applyView.vue"
-              class="btn"
-              id="btn1"
-              data-title="Learn"
-              @mouseenter="MOUSE.mouseFocus()"
-              @mouseleave="MOUSE.mouseRe()"
-            >
-              <span>Learn</span>
-            </a>
+            <div class="learn">
+              <a
+                href="../views/applyView.vue"
+                class="btn"
+                id="btn1"
+                data-title="Learn"
+                @mouseenter="MOUSE.mouseFocus()"
+                @mouseleave="MOUSE.mouseRe()"
+              >
+                <span>Learn</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="raceBox raceBox_w">
-        <div class="boxBgi_w"></div>
-        <div class="listWord">
-          <div class="nation">
-            <span class="nation_w">World</span>
-          </div>
+        <div class="raceBox raceBox_w">
+          <div class="boxBgi_w"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_w">World</span>
+            </div>
 
-          <div class="date">
-            <span>2022</span>
+            <div class="date">
+              <span>2022</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <br />
+              <br />
 
-            <span>|</span>
+              <span>|</span>
 
-            <br />
+              <br />
 
-            <span>2022</span>
+              <span>2022</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <span>10</span>
-          </div>
+              <span>10</span>
+            </div>
 
-          <div class="competitionName">
-            <h4>competition name</h4>
-          </div>
+            <div class="competitionName">
+              <h4>competition name</h4>
+            </div>
 
-          <div class="learn">
-            <a
-              href="../views/applyView.vue"
-              class="btn"
-              id="btn1"
-              data-title="Learn"
-              @mouseenter="MOUSE.mouseFocus()"
-              @mouseleave="MOUSE.mouseRe()"
-            >
-              <span>Learn</span>
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="raceBox raceBox_t">
-        <div class="boxBgi_t"></div>
-        <div class="listWord">
-          <div class="nation">
-            <span class="nation_t">Taiwan</span>
-          </div>
-
-          <div class="date">
-            <span>2022</span>
-
-            <span>01</span>
-
-            <span>01</span>
-
-            <br />
-
-            <span>|</span>
-
-            <br />
-
-            <span>2022</span>
-
-            <span>01</span>
-
-            <span>10</span>
-          </div>
-
-          <div class="competitionName">
-            <h4>competition name</h4>
-          </div>
-
-          <div class="learn">
-            <a
-              href="../views/applyView.vue"
-              class="btn"
-              id="btn1"
-              data-title="Learn"
-              @mouseenter="MOUSE.mouseFocus()"
-              @mouseleave="MOUSE.mouseRe()"
-            >
-              <span>Learn</span>
-            </a>
+            <div class="learn">
+              <a
+                href="../views/applyView.vue"
+                class="btn"
+                id="btn1"
+                data-title="Learn"
+                @mouseenter="MOUSE.mouseFocus()"
+                @mouseleave="MOUSE.mouseRe()"
+              >
+                <span>Learn</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="raceBox raceBox_w">
-        <div class="boxBgi_w"></div>
-        <div class="listWord">
-          <div class="nation">
-            <span class="nation_w">World</span>
-          </div>
+        <div class="raceBox raceBox_t">
+          <div class="boxBgi_t"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_t">Taiwan</span>
+            </div>
 
-          <div class="date">
-            <span>2022</span>
+            <div class="date">
+              <span>2022</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <br />
+              <br />
 
-            <span>|</span>
+              <span>|</span>
 
-            <br />
+              <br />
 
-            <span>2022</span>
+              <span>2022</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <span>10</span>
-          </div>
+              <span>10</span>
+            </div>
 
-          <div class="competitionName">
-            <h4>competition name</h4>
-          </div>
+            <div class="competitionName">
+              <h4>competition name</h4>
+            </div>
 
-          <div class="learn">
-            <a
-              href="../views/applyView.vue"
-              class="btn"
-              id="btn1"
-              data-title="Learn"
-              @mouseenter="MOUSE.mouseFocus()"
-              @mouseleave="MOUSE.mouseRe()"
-            >
-              <span>Learn</span>
-            </a>
+            <div class="learn">
+              <a
+                href="../views/applyView.vue"
+                class="btn"
+                id="btn1"
+                data-title="Learn"
+                @mouseenter="MOUSE.mouseFocus()"
+                @mouseleave="MOUSE.mouseRe()"
+              >
+                <span>Learn</span>
+              </a>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="raceBox raceBox_t">
-        <div class="boxBgi_t"></div>
-        <div class="listWord">
-          <div class="nation">
-            <span class="nation_t">Taiwan</span>
+        <div class="raceBox raceBox_w">
+          <div class="boxBgi_w"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_w">World</span>
+            </div>
+
+            <div class="date">
+              <span>2022</span>
+
+              <span>01</span>
+
+              <span>01</span>
+
+              <br />
+
+              <span>|</span>
+
+              <br />
+
+              <span>2022</span>
+
+              <span>01</span>
+
+              <span>10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>competition name</h4>
+            </div>
+
+            <div class="learn">
+              <a
+                href="../views/applyView.vue"
+                class="btn"
+                id="btn1"
+                data-title="Learn"
+                @mouseenter="MOUSE.mouseFocus()"
+                @mouseleave="MOUSE.mouseRe()"
+              >
+                <span>Learn</span>
+              </a>
+            </div>
           </div>
+        </div>
+        <div class="raceBox raceBox_t">
+          <div class="boxBgi_t"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_t">Taiwan</span>
+            </div>
 
-          <div class="date">
-            <span>2022</span>
+            <div class="date">
+              <span>2022</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <br />
+              <br />
 
-            <span>|</span>
+              <span>|</span>
 
-            <br />
+              <br />
 
-            <span>2022</span>
+              <span>2022</span>
 
-            <span>01</span>
+              <span>01</span>
 
-            <span>10</span>
+              <span>10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>competition name</h4>
+            </div>
+
+            <div class="learn">
+              <a
+                href="../views/applyView.vue"
+                class="btn"
+                id="btn1"
+                data-title="Learn"
+                @mouseenter="MOUSE.mouseFocus()"
+                @mouseleave="MOUSE.mouseRe()"
+              >
+                <span>Learn</span>
+              </a>
+            </div>
           </div>
+        </div>
+        <div class="raceBox raceBox_w">
+          <div class="boxBgi_w"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_w">World</span>
+            </div>
 
-          <div class="competitionName">
-            <h4>competition name</h4>
+            <div class="date">
+              <span>2022</span>
+
+              <span>01</span>
+
+              <span>01</span>
+
+              <br />
+
+              <span>|</span>
+
+              <br />
+
+              <span>2022</span>
+
+              <span>01</span>
+
+              <span>10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>competition name</h4>
+            </div>
+
+            <div class="learn">
+              <a
+                href="../views/applyView.vue"
+                class="btn"
+                id="btn1"
+                data-title="Learn"
+                @mouseenter="MOUSE.mouseFocus()"
+                @mouseleave="MOUSE.mouseRe()"
+              >
+                <span>Learn</span>
+              </a>
+            </div>
           </div>
+        </div>
+        <div class="raceBox raceBox_t">
+          <div class="boxBgi_t"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_t">Taiwan</span>
+            </div>
 
-          <div class="learn">
-            <a
-              href="../views/applyView.vue"
-              class="btn"
-              id="btn1"
-              data-title="Learn"
-              @mouseenter="MOUSE.mouseFocus()"
-              @mouseleave="MOUSE.mouseRe()"
-            >
-              <span>Learn</span>
-            </a>
+            <div class="date">
+              <span>2022</span>
+
+              <span>01</span>
+
+              <span>01</span>
+
+              <br />
+
+              <span>|</span>
+
+              <br />
+
+              <span>2022</span>
+
+              <span>01</span>
+
+              <span>10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>competition name</h4>
+            </div>
+
+            <div class="learn">
+              <a
+                href="../views/applyView.vue"
+                class="btn"
+                id="btn1"
+                data-title="Learn"
+                @mouseenter="MOUSE.mouseFocus()"
+                @mouseleave="MOUSE.mouseRe()"
+              >
+                <span>Learn</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -643,6 +645,14 @@
   padding-bottom: 50px;
 }
 
+.racegg {
+  @include l($l-breakpoint) {
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+  }
+}
+
 .raceList {
   max-width: 100%;
   height: 600px;
@@ -650,19 +660,20 @@
   display: flex;
   overflow: scroll;
   @include l($l-breakpoint) {
-    margin: 0 20px;
-    width: calc(310px * 8);
-    overflow: hidden;
+    margin: 0;
+    width: calc(300px * 8);
+    overflow: visible;
+    position: absolute;
     &:hover {
       animation-play-state: paused;
     }
-    animation: scroll 5s linear infinite;
+    animation: scroll 8s linear infinite;
     @keyframes scroll {
-      0% {
+      from {
         transform: translateX(0);
       }
-      100% {
-        transform: translateX(-310px * 4);
+      to {
+        transform: translateX(calc(-300px * 2));
       }
     }
   }
