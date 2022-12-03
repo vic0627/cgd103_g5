@@ -4,9 +4,9 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'landing',
-      component: () => import('../views/LandingView.vue')
+      path: "/",
+      name: "landing",
+      component: () => import("../views/LandingView.vue"),
     },
     {
       path: "/home",
@@ -32,6 +32,11 @@ const router = createRouter({
       path: "/shopInfo",
       name: "shopInfo",
       component: () => import("../views/ShopInfoViewB.vue"),
+    },
+    {
+      path: "/shopInfo2",
+      name: "shopInfo2",
+      component: () => import("../views/shopInfo2View.vue"),
     },
     {
       path: "/cart",
@@ -102,7 +107,7 @@ const router = createRouter({
       path: "/machineView",
       name: "machineView",
       component: () => import("../views/machineView.vue"),
-    }
+    },
   ],
 });
 
