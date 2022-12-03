@@ -3,41 +3,36 @@ import $ from 'jquery';
 import { ref,reactive, onMounted } from 'vue';
 import navComponentsVue from '@/components/navComponents.vue';
 
-
 const products = reactive([
     {
+        "id" : 1,
         "name" : 'p1', 
         "title":'EFVP Mavic 1 Classic',
-        "Original_Price":'USD$999',
-        "src": '/images/shop/body_01.png',
+        "Original_Price":'USD$900',
+        "src1": 
+        ['../../public/images/shop/body_01_blue.png','../../public/images/shop/body_01_black.png','../../public/images/shop/body_01_red.png'],
         "new":true,
         "sale":false 
     },
     {
+        "id" : 2,
         "name" : 'p2', 
         "title":'EFVP Mavic 2 Classic',
-        "Original_Price":'USD$888',
-        "src":'/images/shop/body_02.png',
+        "Original_Price":'USD$900',
+        "src2":['../../public/images/shop/body_02_red.png','../../public/images/shop/body_02_blue.png','../../public/images/shop/body_02_white.png'],
         "new":false,
         "sale":false
     },
     {
+        "id" : 3,
         "name" : 'p3', 
         "title":'EFVP Mavic 3 Classic',
-        "Original_Price":'USD$999',
+        "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
-        "src":'/images/shop/body_03.png',
+        "src3":['../../public/images/shop/body_03_white.png','../../public/images/shop/body_03_green.png','../../public/images/shop/body_03_blue.png'],
         "sale":true,
         "new":false,
     },
-    {
-        "name" : 'p4', 
-        "title":'EFVP Mavic 4 Classic',
-        "Original_Price":'USD$666',
-        "src":'/images/shop/body_01.png',
-        "new":false,
-        "sale":false
-    }
 ])
 const steps = reactive([
     {
@@ -66,30 +61,30 @@ const accessories = reactive([
     {
         "name" : 'a1', 
         "title":'EFVP propeller1',
-        "Original_Price":'USD$333',
+        "Original_Price":'USD$300',
         "src":'/images/shop/accs01.png',
         "new":true
     },
     {
         "name" : 'a2', 
         "title":'EFVP propeller2',
-        "Original_Price":'USD$333',
-        "Discount_Price":'USD$222',
+        "Original_Price":'USD$300',
+        "Discount_Price":'USD$200',
         "src":'/images/shop/accs02.png',
         "sale":true
     },
     {
         "name" : 'a3', 
         "title":'EFVP propeller3',
-        "Original_Price":'USD$333',
-        "Discount_Price":'USD$222',
+        "Original_Price":'USD$300',
+        "Discount_Price":'USD$200',
         "src":'/images/shop/accs03.png',
         "sale":true
     },
     {
         "name" : 'a4', 
         "title":'EFVP propeller4',
-        "Original_Price":'USD$333',
+        "Original_Price":'USD$300',
         "src":'/images/shop/accs04.png',
         "new":true
     },
@@ -125,25 +120,25 @@ const bundle_B = reactive([
     {
         "name" : 'b1', 
         "title":'EFVP bundle pro',
-        "price":'USD$1200',
+        "price":'USD$1400',
         "src":'../../public/images/shop/bundle_02.jpg'
     },
     {
         "name" : 'b2', 
         "title":'EFVP bundle pro',
-        "price":'USD$1200',
+        "price":'USD$1400',
         "src":'../../public/images/shop/bundle_02.jpg'
     },
     {
         "name" : 'b3', 
         "title":'EFVP bundle pro',
-        "price":'USD$1200',
+        "price":'USD$1400',
         "src":'../../public/images/shop/bundle_02.jpg'
     },
     {
         "name" : 'b4', 
         "title":'EFVP bundle pro',
-        "price":'USD$1200',
+        "price":'USD$1400',
         "src":'../../public/images/shop/bundle_02.jpg'
     },
 
@@ -152,10 +147,39 @@ onMounted(()=>{
 })
 // switch bundle_A / bundle_B
 const  view = ref(1);
-const  viewchange = (index) => {
+const  viewChange = (index) => {
     view.value = index ;
 }
+// switch pic in products
+// 宣告索引參數 count
+const count = ref({
+    1: 0,
+    2: 0,
+    3: 0,
+    4: 0,
+});
+//左側按鈕
+const prevPic = (id) => {
+    if(count.value[id]>0){
+        count.value[id]--;
+    }else{
+        count.value[id] = 0;
+    }
+}
+//右側按鈕
+const nextPic = (id) => {
+    if(count.value[id]<2){
+        count.value[id]++;
+    }else{
+        count.value[id] = 2;
+    }
+}
 
+//點按會換色
+const changeColor = ref({
+    isActive:true,
+    hasError:false
+});
 
 </script>
 
@@ -223,10 +247,9 @@ const  viewchange = (index) => {
                     <img v-if="item.sale == true" class ="sale" src="../assets/images/shop/sale_icon.PNG" alt="sale_icon">
                     <div class="product_box">
                         <div class="img_box">
-                            <img :src="item.src" alt="">
-                           <span></span>
-                           <span></span>
-                           <span></span>
+                            <button class="prev" id="prevBtn" @click="prevPic(item.id)">↼</button>
+                            <img :src="item[`src${item.id}`][count[item.id]]" alt="product_img">
+                            <button class="next" id="nextBtn" @click="nextPic(item.id)">⇀</button>
                         </div>
                         <div class="detail_box">
                             <h5 class="title">{{item.title}}</h5>
@@ -281,8 +304,8 @@ const  viewchange = (index) => {
         <h2><span>BUNDLE</span></h2>
         <p>Make You More Professional</p>
         <div class="wrapper">
-            <button href="beginner" @click="viewchange(1)">beginner</button>
-            <button href="veteran"  @click="viewchange(2)">veteran</button>
+            <button href="beginner" @click="viewChange(1)" :class="{ active: isActive, error: hasError }">beginner</button>
+            <button href="veteran"  @click="viewChange(2)">veteran</button>
         </div>
 
         <div  class="area active">
@@ -313,10 +336,6 @@ const  viewchange = (index) => {
                 </template>
             </div>
         </div>
-        <!-- <div   class="area">
-            <div class="card_container">
-            </div>
-        </div>     -->
     </section>
     <!-- bundle end-->
 
@@ -526,7 +545,7 @@ const  viewchange = (index) => {
         text-align: center;
         display: flex;
         &:before{
-            content: "|";
+            // content: "|";
             font-size: 50px;
             margin-top: 10px;
             color: #324e6880;
@@ -569,7 +588,6 @@ const  viewchange = (index) => {
                 background-color: #232A3E;
                 border-radius:10px;
                 box-shadow: 0 0 10px #324e68;
-               
                 img.new,img.sale{
                     position: absolute;
                     top: -10px;
@@ -584,24 +602,21 @@ const  viewchange = (index) => {
                     .img_box{
                         max-width: 300px;
                         height: 200px;
-                        // padding: 20px 0;
                         display: flex;
                         align-items: center;
-                        &::before{
-                            content:"<";
-                            color: #f5f5f5;
+                        button{
+                            background-color: transparent;
+                            border: none;
+                            color: rgb(116, 122, 142);
                             font-size: 30px;
-                        }
-                        &::after{
-                            content:">";
-                            color: #f5f5f5;
-                            font-size: 30px;
+                            margin-left: -13px;
                         }
                         img{
                             width: 80%;
-                            margin-left:25px ;
+                            margin-left:20px ;
                             object-fit: cover;
                             object-position: center 10px; 
+
 
                             transition: all .5s;
                             animation-name: move;
@@ -611,19 +626,19 @@ const  viewchange = (index) => {
                             animation-delay: 0;
                             @keyframes move {
                                 0%{
-                                    transform: translateY(0px);
+                                    transform: translateY(5px) ;
                                 }
                                 25%{
-                                    transform: translateY(-10px);
+                                    transform: translateY(-10px) ;
                                 }
                                 50%{
-                                    transform: translateY(-20px);
+                                    transform: translateY(-20px) ;
                                 }
                                 75%{
-                                    transform: translateY(-10px);
+                                    transform: translateY(-10px) ;
                                 }
                                 100%{
-                                    transform: translateY(0px);
+                                    transform: translateY(5px) ;
                                 }
                             }
                                              
@@ -643,11 +658,11 @@ const  viewchange = (index) => {
                         // padding: 20px 0;
                         color: #f5f5f5;
                         .title,.price{
-                            // padding: 10px;
                             text-align: left;
                         }
                         .price{
                             text-align: right;
+                            height: 30px;
                         }
                         .price.d{
                             text-decoration: line-through;
@@ -764,6 +779,7 @@ const  viewchange = (index) => {
                         }
                         .price{
                             text-align: right;
+                            height: 30px;
                         }
                         .price.d{
                             text-decoration: line-through;
@@ -828,24 +844,31 @@ p{
         display: flex;
         justify-content: center;
         button{
-        width: 100px;
-        height: 60px;
-        background-color: #324e68;
-        color: #f5f5f5;
-        border: none;
-        margin: 10px;
-        padding: 10px;
-        border-radius: 10px;
-        font-size: 20px;
+            &:focus{
+                background-color: #000;
+                box-shadow: 0 0 10px #077AF9;
+                color: #f5f5f5;
+            }
+
+            background-color: #324e68;
+            color: #f5f5f5;
+            border: none;
+            margin: 10px;
+            padding: 10px;
+            border-radius: 50px;
+            font-size: 20px;
+            padding: 20px;
+            max-width: 300px;
+            background-color: #324e68;
     }
 }
     .area{
-        // max-width: 1200px;
         margin: 0 auto;
         .card_container{
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
+            align-items: center;
             .card{
                 max-width: 300px;
                 margin: 10px;
@@ -854,14 +877,24 @@ p{
                 box-sizing: border-box;
                 border-radius: 10px;
                 box-shadow: 0 0 10px #324e68;
+
                 .pic{
                     max-width: 100%;
+                    height: 250px;
                     img{
                         width: 100%;
+                        height: 100%;
+                        object-fit: cover;
+                        object-position: center -10px;
                     }
                 }
                 h5{
-                    width: 100%;
+                    span{
+                        display: block;
+                        width: 100%;
+                        color: #fff;
+                        // background-color: #44444480;
+                    }
                 }
                 .price{
                     margin-top:10px;

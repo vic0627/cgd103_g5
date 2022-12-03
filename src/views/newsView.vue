@@ -437,13 +437,9 @@ import  newsComponentsVue from "@/components/newsComponents.vue";
             .banner{
                 position: relative;
                 height: 800px;
-                background-attachment: fixed;
-                background-repeat: no-repeat;
-                background-size: cover;
-                background-position: top center;
-                background-image: url(../assets/images/About/news_banner.jpg);
                 img{
-                    display: none;
+                    object-position: center 18%;
+                    object-fit: cover;
                 }
                 .banner_word{
                     width: 700px;
