@@ -6,6 +6,7 @@ import mem from '../components/memComponents.vue';
 import navComponentsVue from '@/components/navComponents.vue';
 
 
+
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init();
@@ -58,8 +59,7 @@ export default{
   
   <!-- 02 start -->
   <section class="team">
-    <div class="teambox" data-aos="fade-up"
-     data-aos-duration="3000">
+    <div class="teambox">
       <h2>TEAM</h2>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
@@ -68,11 +68,23 @@ export default{
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
       </p>
     </div>
-    <div class="imgbox" data-aos="fade-up"
-     data-aos-duration="3000"
-     data-aos-easing="ease-in-sine">
-        <img src="../assets/images/About/us02.jpg" alt="img">
-      </div>
+    <div class="imgbox" data-aos="fade-up" data-aos-duration="3000" data-aos-easing="ease-in-sine">
+      <img src="../assets/images/About/us02.jpg" alt="img">
+    </div>
+  </section>
+  <section class="team">
+    <div class="imgbox" data-aos="fade-up" data-aos-duration="3000" data-aos-easing="ease-in-sine">
+      <img src="../assets/images/About/us03.jpg" alt="img">
+    </div>
+    <div class="teambox text">
+      <h2>BELIEF</h2>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
+      </p>
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
+      </p>
+    </div>
   </section>
   <!-- 02 end -->
 
@@ -362,10 +374,14 @@ body{
       margin: 5px;
     }
   }
+  
   @include m($m-breakpoint){
     .teambox{
-      transform: translateX(20px);
+      transform: translateX(25px);
       padding: 15px;
+    }
+    .text{
+      transform: translateX(-25px);
     }
   }
   @include l($l-breakpoint){
@@ -376,6 +392,9 @@ body{
       p{
         margin-top: 15px;
       }
+    }
+    .text{
+      transform: translateX(-50px);
     }
   }
   .imgbox{
