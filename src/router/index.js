@@ -113,6 +113,11 @@ const router = createRouter({
       name: "machineView",
       component: () => import("../views/machineView.vue"),
     },
+    {
+      path: "/articleView",
+      name: "articleView",
+      component: () => import("../views/articleView.vue"),
+    },
   ],
 });
 
