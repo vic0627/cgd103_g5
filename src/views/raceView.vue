@@ -667,7 +667,7 @@
     &:hover {
       animation-play-state: paused;
     }
-    animation: scroll 8s linear infinite;
+    // animation: scroll 8s linear infinite;
     @keyframes scroll {
       from {
         transform: translateX(0);
