@@ -3,37 +3,7 @@ import $ from 'jquery';
 import { ref,reactive, onMounted } from 'vue';
 import navComponentsVue from '@/components/navComponents.vue';
 
-const products = reactive([
-    {
-        "id" : 1,
-        "name" : 'p1', 
-        "title":'EFVP Mavic 1 Classic',
-        "Original_Price":'USD$900',
-        "src1": 
-        ['../../public/images/shop/body_01_blue.png','../../public/images/shop/body_01_black.png','../../public/images/shop/body_01_red.png'],
-        "new":true,
-        "sale":false 
-    },
-    {
-        "id" : 2,
-        "name" : 'p2', 
-        "title":'EFVP Mavic 2 Classic',
-        "Original_Price":'USD$900',
-        "src2":['../../public/images/shop/body_02_red.png','../../public/images/shop/body_02_blue.png','../../public/images/shop/body_02_white.png'],
-        "new":false,
-        "sale":false
-    },
-    {
-        "id" : 3,
-        "name" : 'p3', 
-        "title":'EFVP Mavic 3 Classic',
-        "Original_Price":'USD$900',
-        "Discount_Price":'USD$888',
-        "src3":['../../public/images/shop/body_03_white.png','../../public/images/shop/body_03_green.png','../../public/images/shop/body_03_blue.png'],
-        "sale":true,
-        "new":false,
-    },
-])
+
 const steps = reactive([
     {
         "id" : "1",
@@ -57,35 +27,263 @@ const steps = reactive([
     }
 
 ])
+const products = reactive([
+    {
+        "id" : 1,
+        "name" : 'p1', 
+        "title":'EFVP Mavic 1 Green',
+        "Original_Price":'USD$900',
+        "src1": 
+        ['../../public/images/shop/body_01_green_1.png','../../public/images/shop//body_01_green_2.png','../../public/images/shop/body_01_green_3.png'],
+        "new":true,
+        "sale":false 
+    },
+    {
+        "id" : 2,
+        "name" : 'p2', 
+        "title":'EFVP Mavic 2 White',
+        "Original_Price":'USD$900',
+        "src2":['../../public/images/shop/body_01_white_1.png','../../public/images/shop//body_01_white_2.png','../../public/images/shop/body_01_white_3.png'],
+        "new":false,
+        "sale":false
+    },
+    {
+        "id" : 3,
+        "name" : 'p3', 
+        "title":'EFVP Mavic 3 Red',
+        "Original_Price":'USD$900',
+        "Discount_Price":'USD$888',
+        "src3":['../../public/images/shop/body_01_red_1.png','../../public/images/shop//body_01_red_2.png','../../public/images/shop/body_01_red_3.png'],
+        "sale":true,
+        "new":false,
+    },
+    {
+        "id" : 4,
+        "name" : 'p4', 
+        "title":'EFVP Mavic 4 Black',
+        "Original_Price":'USD$900',
+        "src4": 
+        ['../../public/images/shop/body_01_black _1.png','../../public/images/shop//body_01_black_2.png','../../public/images/shop/body_01_black_3.png'],
+        "new":true,
+        "sale":false 
+    },
+    {
+        "id" : 5,
+        "name" : 'p5', 
+        "title":'EFVP Mavic 5 Blue',
+        "Original_Price":'USD$900',
+        "src5":['../../public/images/shop/body_01_blue_1.png','../../public/images/shop//body_01_blue_2.png','../../public/images/shop/body_01_blue_3.png'],
+        "new":false,
+        "sale":false
+    },
+    {
+        "id" : 6,
+        "name" : 'p6', 
+        "title":'EFVP Charles 1 Red',
+        "Original_Price":'USD$900',
+        "Discount_Price":'USD$888',
+        "src6":['../../public/images/shop/body_02_red_1.png','../../public/images/shop//body_02_red_2.png','../../public/images/shop/body_02_red_3.png'],
+        "sale":true,
+        "new":false,
+    },
+    {
+        "id" : 7,
+        "name" : 'p7', 
+        "title":'EFVP Charles 2 White',
+        "Original_Price":'USD$900',
+        "src7": 
+        ['../../public/images/shop/body_02_white_1.png','../../public/images/shop//body_02_white_2.png','../../public/images/shop/body_02_white_3.png'],
+        "new":true,
+        "sale":false 
+    },
+    {
+        "id" : 8,
+        "name" : 'p8', 
+        "title":'EFVP Charles 3 Green',
+        "Original_Price":'USD$900',
+        "src8":['../../public/images/shop/body_02_green_1.png','../../public/images/shop//body_02_green_2.png','../../public/images/shop/body_02_green_3.png'],
+        "new":false,
+        "sale":false
+    },
+    {
+        "id" : 9,
+        "name" : 'p9', 
+        "title":'EFVP Charles 4 Blue',
+        "Original_Price":'USD$900',
+        "Discount_Price":'USD$888',
+        "src9":['../../public/images/shop/body_02_blue_1.png','../../public/images/shop//body_02_blue_2.png','../../public/images/shop/body_02_blue_3.png'],
+        "sale":true,
+        "new":false,
+    },
+    {
+        "id" : 10,
+        "name" : 'p10', 
+        "title":'EFVP Charles 5 Black',
+        "Original_Price":'USD$900',
+        "src10":['../../public/images/shop/body_02_black_1.png','../../public/images/shop//body_02_black_2.png','../../public/images/shop/body_02_black_3.png'],
+        "new":false,
+        "sale":false
+    },
+    {
+        "id" : 11,
+        "name" : 'p11', 
+        "title":'EFVP chacha 1 Red',
+        "Original_Price":'USD$900',
+        "Discount_Price":'USD$888',
+        "src11":['../../public/images/shop/body_03_red_1.png','../../public/images/shop//body_03_red_2.png','../../public/images/shop/body_03_red_3.png'],
+        "sale":true,
+        "new":false,
+    },
+    {
+        "id" : 12,
+        "name" : 'p12', 
+        "title":'EFVP chacha 2 White',
+        "Original_Price":'USD$900',
+        "Discount_Price":'USD$888',
+        "src12":['../../public/images/shop/body_03_white_1.png','../../public/images/shop//body_03_white_2.png','../../public/images/shop/body_03_white_3.png'],
+        "sale":true,
+        "new":false,
+    },
+    {
+        "id" : 13,
+        "name" : 'p13', 
+        "title":'EFVP chacha 3 Black',
+        "Original_Price":'USD$900',
+        "Discount_Price":'USD$888',
+        "src13":['../../public/images/shop/body_03_black_1.png','../../public/images/shop//body_03_black_2.png','../../public/images/shop/body_03_black_3.png'],
+        "sale":true,
+        "new":false,
+    },
+    {
+        "id" : 14,
+        "name" : 'p14', 
+        "title":'EFVP chacha 4 Blue',
+        "Original_Price":'USD$900',
+        "Discount_Price":'USD$888',
+        "src14":['../../public/images/shop/body_03_blue_1.png','../../public/images/shop//body_03_blue_2.png','../../public/images/shop/body_03_blue_3.png'],
+        "sale":true,
+        "new":false,
+    },
+])
 const accessories = reactive([
     {
+        "id" : 1,
         "name" : 'a1', 
-        "title":'EFVP propeller1',
+        "title":'EFVP round propeller black',
         "Original_Price":'USD$300',
-        "src":'/images/shop/accs01.png',
+        "src1":['../../public/images/shop/propellor_01_black_1.png','../../public/images/shop/propellor_01_black_2.png'],
         "new":true
     },
     {
+        "id" : 2,
         "name" : 'a2', 
-        "title":'EFVP propeller2',
+        "title":'EFVP round propeller blue',
         "Original_Price":'USD$300',
         "Discount_Price":'USD$200',
-        "src":'/images/shop/accs02.png',
+        "src2":['../../public/images/shop/propellor_01_blue_1.png','../../public/images/shop/propellor_01_blue_2.png'],
         "sale":true
     },
     {
+        "id" : 3,
         "name" : 'a3', 
-        "title":'EFVP propeller3',
+        "title":'EFVP round propeller green',
         "Original_Price":'USD$300',
         "Discount_Price":'USD$200',
-        "src":'/images/shop/accs03.png',
+        "src3":['../../public/images/shop/propellor_01_green_1.png','../../public/images/shop/propellor_01_green_2.png'],
         "sale":true
     },
     {
+        "id" : 4,
         "name" : 'a4', 
-        "title":'EFVP propeller4',
+        "title":'EFVP round propeller red',
         "Original_Price":'USD$300',
-        "src":'/images/shop/accs04.png',
+        "src4":['../../public/images/shop/propellor_01_red_1.png','../../public/images/shop/propellor_01_red_2.png',],
+        "new":true
+    },
+    {
+        "id" : 5,
+        "name" : 'a5', 
+        "title":'EFVP round propeller white',
+        "Original_Price":'USD$300',
+        "src5":['../../public/images/shop/propellor_01_white_1.png','../../public/images/shop/propellor_01_white_2.png',],
+        "new":true
+    },
+
+    {
+        "id" : 6,
+        "name" : 'a6', 
+        "title":'EFVP rect propeller black',
+        "Original_Price":'USD$300',
+        "src6":['../../public/images/shop/propellor_02_black_1.png','../../public/images/shop/propellor_02_black_2.png'],
+        "new":true
+    },
+    {
+        "id" : 7,
+        "name" : 'a2', 
+        "title":'EFVP rect propeller blue',
+        "Original_Price":'USD$300',
+        "Discount_Price":'USD$200',
+        "src7":['../../public/images/shop/propellor_02_blue_1.png','../../public/images/shop/propellor_02_blue_2.png'],
+        "sale":true
+    },
+    {
+        "id" : 8,
+        "name" : 'a8', 
+        "title":'EFVP rect propeller green',
+        "Original_Price":'USD$300',
+        "Discount_Price":'USD$200',
+        "src8":['../../public/images/shop/propellor_02_green_1.png','../../public/images/shop/propellor_02_green_2.png'],
+        "sale":true
+    },
+    {
+        "id" : 9,
+        "name" : 'a9', 
+        "title":'EFVP rect propeller red',
+        "Original_Price":'USD$300',
+        "src9":['../../public/images/shop/propellor_02_red_1.png','../../public/images/shop/propellor_02_red_2.png',],
+        "new":true
+    },
+    {
+        "id" : 10,
+        "name" : 'a10', 
+        "title":'EFVP rect propeller white',
+        "Original_Price":'USD$300',
+        "src10":['../../public/images/shop/propellor_02_white_1.png','../../public/images/shop/propellor_02_white_2.png'],
+        "new":true
+    },
+
+    {
+        "id" : 11,
+        "name" : 'a11', 
+        "title":'EFVP tri propeller black',
+        "Original_Price":'USD$300',
+        "src11":['../../public/images/shop/propellor_03_black_1.png','../../public/images/shop/propellor_03_black_2.png'],
+        "new":true
+    },
+    {
+        "id" : 12,
+        "name" : 'a12', 
+        "title":'EFVP tri propeller blue',
+        "Original_Price":'USD$300',
+        "Discount_Price":'USD$200',
+        "src12":['../../public/images/shop/propellor_03_blue_1.png','../../public/images/shop/propellor_03_blue_2.png'],
+        "sale":true
+    },
+    {
+        "id" : 13,
+        "name" : 'a13', 
+        "title":'EFVP tri propeller green',
+        "Original_Price":'USD$300',
+        "Discount_Price":'USD$200',
+        "src13":['../../public/images/shop/propellor_03_green_1.png','../../public/images/shop/propellor_03_green_2.png'],
+        "sale":true
+    },
+    {
+        "id" : 14,
+        "name" : 'a14', 
+        "title":'EFVP tri propeller red',
+        "Original_Price":'USD$300',
+        "src14":['../../public/images/shop/propellor_03_red_1.png','../../public/images/shop/propellor_03_red_2.png'],
         "new":true
     },
 ])
@@ -151,12 +349,23 @@ const  viewChange = (index) => {
     view.value = index ;
 }
 // switch pic in products
-// 宣告索引參數 count
+// 給初值 count
 const count = ref({
     1: 0,
     2: 0,
     3: 0,
     4: 0,
+    5: 0,
+    6: 0,
+    7: 0,
+    8: 0,
+    9: 0,
+    10: 0,
+    11: 0,
+    12: 0,
+    13: 0,
+    14: 0,
+    15: 0,
 });
 //左側按鈕
 const prevPic = (id) => {
@@ -165,21 +374,37 @@ const prevPic = (id) => {
     }else{
         count.value[id] = 0;
     }
-}
-//右側按鈕
+};
+//右側按鈕-機身
 const nextPic = (id) => {
     if(count.value[id]<2){
         count.value[id]++;
     }else{
         count.value[id] = 2;
     }
-}
+};
+//右側按鈕-零件
+const nextAsscPic = (id) => {
+    if(count.value[id]<1){
+        count.value[id]++;
+    }else{
+        count.value[id] = 1;
+    }
+};
 
-//點按會換色
-const changeColor = ref({
-    isActive:true,
-    hasError:false
-});
+$(document).ready(()=>{
+    $('.show').click(()=>{
+        $('.category').css('display','flex').slideDown();
+        $('.show').hide();
+    });
+    $('.hide').click(()=>{
+        $('.category').css('display','none').slideUp();
+        $('.show').show();
+    });
+    $('.show').blur(()=>{
+        $('.show').toggle();
+    })
+})
 
 </script>
 
@@ -204,7 +429,7 @@ const changeColor = ref({
     <!-- banner end-->
 
     <!-- step start-->
-    <section class="step_wrapper">
+    <section class="step_wrapper" id="customize">
             <h2><span>CUSTOMIZE STEP</span></h2>
             <p>Create Your Unique Style</p>
         <div class="step_container">
@@ -223,23 +448,31 @@ const changeColor = ref({
     <!-- step end-->
 
     <!-- category start-->
-    <section class="category">
-        <a class="c c1" href="#all_product">
-            <h5>ALL PRODUCT</h5>
-        </a>
-        <a class="c c2" href="#accessories">
-            <h5>ACCESSORIES</h5>
-        </a>
-        <a class="c c3" href="#bundle">
-            <h5>BUNDLE</h5>
-        </a>
+    <section class="category_box">
+        <p class="show">category</p>
+        <img class="show" src="../../public/images/shop/fvp_icon.png" alt="fvp_icon">
+        <section class="category">
+            <span class="hide">X</span>
+            <a class="c c1" href="#customize">
+                <h5>CUSTOMIZE</h5>
+            </a>
+            <a class="c c2" href="#fuselage">
+                <h5>FUSRLAGE</h5>
+            </a>
+            <a class="c c3" href="#accessories">
+                <h5>ACCESSORIES</h5>
+            </a>
+            <a class="c c4" href="#bundle">
+                <h5>BUNDLE</h5>
+            </a>       
+        </section>
     </section>
     <!-- category end-->
 
-    <!-- all product start-->
-    <section class="all_product" id="all_product">
-        <h2><span>ALL PRODUCT</span></h2>
-        <p>Select All You Need</p>
+    <!-- fuselage start-->
+    <section class="fuselage" id="fuselage">
+        <h2><span>FUSRLAGE</span></h2>
+        <p>Select All FUSRLAGE Product You favoraite</p>
         <div class="card_slider">
             <div class="card_slider_items">
                 <div v-for= "item in products" class="card_slider_item" :key="item.name">
@@ -266,7 +499,7 @@ const changeColor = ref({
             </div>
         </div>
     </section> 
-    <!-- all product end-->
+    <!-- fuselage end-->
 
     <!--accessories  start-->
     <section class="accessories" id="accessories">
@@ -279,7 +512,9 @@ const changeColor = ref({
                     <img v-if="i.sale == true" class ="sale" src="../assets/images/shop/sale_icon.PNG" alt="sale_icon">
                     <div class="product_box">
                         <div class="img_box">
-                            <img :src="i.src" alt="">                   
+                            <button class="prev" id="prevBtn" @click="prevPic(i.id)">↼</button>
+                            <img :src="i[`src${i.id}`][count[i.id]]" alt="product_img">
+                            <button class="next" id="nextBtn" @click="nextAsscPic(i.id)">⇀</button>               
                         </div>
                         <div class="detail_box">
                             <h5 class="title">{{i.title}}</h5>
@@ -304,7 +539,7 @@ const changeColor = ref({
         <h2><span>BUNDLE</span></h2>
         <p>Make You More Professional</p>
         <div class="wrapper">
-            <button href="beginner" @click="viewChange(1)" :class="{ active: isActive, error: hasError }">beginner</button>
+            <button href="beginner" @click="viewChange(1)" >beginner</button>
             <button href="veteran"  @click="viewChange(2)">veteran</button>
         </div>
 
@@ -424,6 +659,7 @@ const changeColor = ref({
     position: relative;
     padding: 20px 0;
     overflow: hidden;
+    
     h2{
     width: 100%;
     text-align: center;
@@ -502,7 +738,7 @@ const changeColor = ref({
             color: $txt-color;
             box-sizing: border-box;
             text-align: center;
-            z-index: 1;
+            z-index: -1;
             border-radius: 20px;
             &:hover{
                 background: #000;
@@ -526,70 +762,112 @@ const changeColor = ref({
         margin: 20px auto;
         top: 0;
         @include primaryBtn (150px);
-
     }
     .btnSecond{
         position: relative;
         margin: 0 auto;
         top: 0;
         @include secondBtn (150px);
-
     }
 }
 //category
-.category{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    .c{
-        text-align: center;
-        display: flex;
-        &:before{
-            // content: "|";
-            font-size: 50px;
-            margin-top: 10px;
-            color: #324e6880;
+.category_box{
+    position: fixed;
+    top: 50px;
+    z-index: 2;
+    p{
+        z-index: 2;
+        position: relative;
+        top: 30px;
+        left: -80px;
+        font-size: 14px;
+        color: #9C4DD6;
+        text-shadow: 5px 5px 10px;
+        margin-left: 5px;
+        font-weight: 900;
+        transform: rotate(-90deg);
+        @include m($m-breakpoint){
+            left: -75px;
+            top: 45px;
+            margin-left: 10px;
+            z-index: 2;
         }
-        h5{
-            padding: 20px;
-            max-width: 300px;
-            background-color: #324e68;
-            border-radius: 50px;
-            margin: 10px 0;
-            &:hover{
-                background-color: #000;
-                box-shadow: 0 0 30px $blue;
-                transition: all .5s;
-            }
-            @include m($m-breakpoint) {
-                margin:  0 20px;    
+    }
+    img{
+        z-index: 2;
+        width: 20%;
+        transform: rotate(-90deg);
+        margin-left: 5px;
+        @include m($m-breakpoint){
+            width: 30%;
+        }
+    }
+    .category{
+        display: none;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 10px;
+        z-index: 2;
+        background-color: #232A3E;
+        .hide{
+            color: #9C4DD6;
+            font-size: 40px;
+        }
+        .c{
+            text-align: center;
+            display: flex;
+            h5{
+                padding: 20px;
+                max-width: 300px;
+                // background-color: #324e6880;
+                border-radius: 50px;
+                margin: 10px 0;
+                &:hover{
+                    background-color: #000;
+                    box-shadow: 0 0 30px $blue;
+                    transition: all .5s;
+                }
+                @include m($m-breakpoint) {
+                    margin: 10px;    
+                }
             }
         }
     }
 }
-//all product
-.all_product{
+
+//fuselage
+.fuselage{
     width: 100%;
+    
     h2,p{
         text-align: center;
     }
     .card_slider{
          width: 100%;
+        
          .card_slider_items{
+            max-width: 1200px;
              display: flex;
              justify-content: center;
              align-items: center;
              flex-wrap: wrap;
+             margin: 0 auto;
+             
              .card_slider_item{
                 position: relative;
-                max-width: 300px;
-                padding: 10px;
+                // z-index: 0;
+                max-width: 280px;
+                padding: 10px 0;
                 margin: 10px;
                 background-color: #232A3E;
                 border-radius:10px;
                 box-shadow: 0 0 10px #324e68;
+                
                 img.new,img.sale{
                     position: absolute;
+                    z-index: 1;
                     top: -10px;
                     left: 0;
                     width: 50px;
@@ -597,23 +875,22 @@ const changeColor = ref({
                 .product_box{
                     display: flex;
                     flex-direction: column;
-                    justify-content: space-around;
-                    align-items: center;
+                    justify-content: center;
                     .img_box{
                         max-width: 300px;
                         height: 200px;
                         display: flex;
+                        justify-content: center;
                         align-items: center;
                         button{
                             background-color: transparent;
                             border: none;
                             color: rgb(116, 122, 142);
                             font-size: 30px;
-                            margin-left: -13px;
                         }
                         img{
                             width: 80%;
-                            margin-left:20px ;
+                            // margin-left:20px ;
                             object-fit: cover;
                             object-position: center 10px; 
 
@@ -699,18 +976,20 @@ const changeColor = ref({
     .card_slider{
         width: 100%;
         .card_slider_items{
+                max-width: 1200px;
                 flex-wrap: wrap;
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                margin: 0 auto;
             .card_slider_item{
-                max-width: 300px;
-                padding: 10px;
-                margin: 10px;
+                max-width: 280px;
+                margin: 10px ;
                 background-color: #232A3E;
                 border-radius: 10px;
                 box-sizing: border-box;
                 position: relative;
+                z-index: 1;
                 box-shadow: 0 0 10px #324e68;
                 img.new,img.sale{
                     position: absolute;
@@ -718,23 +997,21 @@ const changeColor = ref({
                     left: 0;
                     width: 50px;
                 }
-                
                 .product_box{
                     box-sizing: border-box;
                     @include m($m-breakpoint) {
                     } 
                     .img_box{
+                        height: 200px;
                         display: flex;
+                        justify-content: center;
                         align-items: center;
-                        &::before{
-                            content:"<";
-                            color:#f5f5f5 ;
+                        button{
+                            background-color: transparent;
+                            border: none;
+                            color: rgb(116, 122, 142);
                             font-size: 30px;
-                        }
-                        &::after{
-                            content:">";
-                            color: #f5f5f5;
-                            font-size: 30px;
+                            // margin-left: -13px;
                         }
                         img{
                             width: 80%;
@@ -863,6 +1140,7 @@ p{
     }
 }
     .area{
+        z-index: -1;
         margin: 0 auto;
         .card_container{
             display: flex;
