@@ -2,6 +2,8 @@
 import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
 import navComponentsVue from '@/components/navComponents.vue';
+import OrderStepVue from '../components/orderStep.vue';
+
 
 const customer1 = reactive(
     [
@@ -13,7 +15,8 @@ const customer1 = reactive(
             "OrderList":"EFPV Avata advance bundle",
             "OrderQty":2,
             "Address":"50 Hagiwara Tea Garden Dr, San Francisco, CA", 
-            "CreditCardNo":"01111 1111 1111 1111"  
+            "CreditCardNo":"01111 1111 1111 1111",
+            "isFirstClassMember": true 
         },
     ]
 )
@@ -34,108 +37,161 @@ const customer2 = reactive(
 </script>
 <template>
     <section class="member_detail">
-        <h2>SHOPPING CART</h2>  
-        <p>Confirm Detail</p>
-        <div class="check">
-            <input type="checkbox" name="" id="copyMemInfo">
-            <label for="copyMemInfo">same as membership infomation</label>
-        </div>
-        <template  v-for="info in customer2" :key="info.custNo">
-            <table class="confirm_detail">
-                <tr>
-                    <td>First Name</td>
-                    <td>{{info.FirstName}}</td>
-                    <td>Last Name</td>
-                    <td>{{info.LastName}}</td>
-                </tr>
-                <tr>
-                    <td>Phone</td>
-                    <td colspan="3">{{info.Phone}}</td>
-                </tr>
-                <tr>
-                    <td>Order List</td>
-                    <td>{{info.OrderList}}</td>
-                    <td colspan="2">BUY {{info.OrderQty}} Units</td>
-                </tr>
-                <tr>
-                    <td>Address</td>
-                    <td colspan="3">{{info.Address}}</td>
-                </tr>
-            </table>
-            <p>Payment</p>
-            <table class="payment">
-                <tr>
-                    <td>First Name</td>
-                    <td>{{info.FirstName}}</td>
-                    <td>Last Name</td>
-                    <td>{{info.LastName}}</td>
-                </tr>
-                <tr>
-                    <td>Credit Card No.</td>
-                    <td colspan="3">{{info.CreditCardNo}}</td>
-                </tr>
-            </table>
-        </template>
+        <h2>SHOPPING CART</h2> 
+        <OrderStepVue />    
+        <div class="detail_box">
+            <template  v-for="info in customer2" :key="info.custNo">
+                <p>Confirm Detail</p>
+                <div class="input_box">
+                    <input type="checkbox" name="checkbox" id="copyMemInfo" value="">
+                    <label for="copyMemInfo">same as membership information</label>
+                </div>
+                <!-- <label for="copyMemInfo"></label> -->
+                <table class="confirm_detail">
+                    <tr>
+                        <td class="title">First Name</td>
+                        <td>{{info.FirstName}}</td>
+                        <td class="title">Last Name</td>
+                        <td>{{info.LastName}}</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Phone</td>
+                        <td colspan="3">{{info.Phone}}</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Order List</td>
+                        <td>{{info.OrderList}}</td>
+                        <td colspan="2">BUY {{info.OrderQty}} Units</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Address</td>
+                        <td colspan="3">{{info.Address}}</td>
+                    </tr>
+                </table>
+                <p>Payment</p>
+                <table class="payment">
+                    <tr>
+                        <td class="title">First Name</td>
+                        <td>{{info.FirstName}}</td>
+                        <td class="title">Last Name</td>
+                        <td>{{info.LastName}}</td>
+                    </tr>
+                    <tr>
+                        <td class="title">Credit Card No.</td>
+                        <td colspan="3">{{info.CreditCardNo}}</td>
+                    </tr>
+                </table>
+            </template>
+            <div class="buttons">
+                <a class="btnPrimary" data-title="Pay Now">Pay Now</a>
+            </div>
+        </div>    
+        
     </section>
 </template>
 
 <style scoped lang="scss">
+@import '@/sass/style.scss';
+@import '@/sass/base/_color.scss';
+@import '@/sass/base/_common.scss';
+@import '@/sass/base/_font.scss';
+@import '@/sass/mixin/_mixin.scss';
+@import '@/sass/component/_btn.scss';
+
     .member_detail{
         max-width: 1200px;
-        margin: 0 auto;  
-        input,label{
-            width: 100%;
-            color: #f5f5f5;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; 
-            
-        }
-        h2,p{
+        // height: 100vh;
+        margin: 20px auto;  
+        text-align: center;
+        overflow: hidden;
+        font: $caption-p;
+        h2{
             width: 100%;
             text-align: center;
             margin: 20px auto;
         }
-        .confirm_detail{
-            background-color: #ffffff80;
-            max-width: 800;
-            padding: 20px auto;
-            margin: 20px auto;
-            // border: 1px solid brown;
-            tr{
-                // border: 1px solid brown;
-                line-height: 50px;
-                &:nth-child(even){
-                        background-color: #00000080;
-                    }
-                td{
-                    // border: 1px solid brown;
-                    padding: 20px;
-                    color: #f5f5f5;
-                    font-size: 20px;
-                }
-            }
-        }
-        .payment{
-            background-color: #ffffff80;
+
+        .detail_box{
             max-width: 800px;
-            padding: 20px auto;
+            height: 800px;
+            background-color: rgba(142, 142, 142, 0.19);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
             margin: 20px auto;
-            // border: 1px solid brown;
-            tr{
-                // border: 1px solid brown;
-                line-height: 50px;
-                &:nth-child(even){
-                        background-color: #00000080;
-                    }
-                td{
-                    // border: 1px solid brown;
-                    padding: 20px;
-                    color: #f5f5f5;
-                    font-size: 20px;
+            padding: 0 10px;
+            border-radius: 10px;
+            .input_box{
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                input{
+                    margin: 0 10px;
+                }
+                label{
+                    color: #ccc;
                 }
             }
+            .confirm_detail{
+                background-color: rgba(217, 217, 217, 0.32);
+                max-width: 800px;
+                margin: 20px auto;
+                
+                tr{
+                    border: 1px solid #ccc;
+                    // line-height: 30px;
+                    &:nth-child(even){
+                            background-color: #98989880;
+                        }
+                    td{
+                        &.title{
+                           color: rgb(228, 229, 225);
+                        }
+                        text-align: left;
+                        // border: 1px solid #ccc;
+                        padding: 5px ;
+                        color: #333 ;                       
+                        font-size: 20px;
+                    }
+                }
+            }
+            .payment{
+                background-color: #98989880;
+                max-width: 500px;
+                // padding: 20px;
+                margin: 20px auto;
+                @include m($m-breakpoint){
+                    width:65% ;
+                }
+                tr{
+                    border: 1px solid #ccc;
+                    line-height: 30px;
+                    &:nth-child(even){
+                        background-color: #98989880;
+                    }
+                    td{
+                        &.title{
+                           color: rgb(228, 229, 225);
+                        }
+                        text-align: left;
+                        padding: 10px;
+                        color: #333;
+                        font-size: 20px;
+                    }
+                }
+            }
+
         }
+        .buttons{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            .btnPrimary{
+                @include primaryBtn(100px);
+            }
+        }
+        
     }
 
        
