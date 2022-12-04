@@ -28,11 +28,11 @@ const router = createRouter({
       name: "shop",
       component: () => import("../views/shopView.vue"),
     },
-    {
+    /* {
       path: "/shopInfo",
       name: "shopInfo",
       component: () => import("../views/ShopInfoViewB.vue"),
-    },
+    }, */
     {
       path: "/cart",
       name: "cart",
@@ -51,7 +51,7 @@ const router = createRouter({
     {
       path: "/showcase",
       name: "showcase",
-      component: () => import("../views/showcaseView.vue"),
+      component: () => import("../views/ShowCaseView.vue"),
     },
     {
       path: "/race",

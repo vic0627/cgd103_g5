@@ -1,414 +1,900 @@
 <script setup>
-import { onMounted, registerRuntimeCompiler } from "vue";
+import gsap from 'gsap';
+import { onMounted, ref } from 'vue';
+import * as PRO from './js/ShopInfoThree';
+import { useMousePosition, x, y } from '@/composables/useMousePosition';
+import { fpv } from './js/ShopInfoItem';
+import { body } from './js/CustomizeThree';
+useMousePosition();
+let ww = window.innerWidth, wh = window.innerHeight;
+let wrap, canvas, conatinerInfo, infoList, conatinerClose, closeH3, bgText, ws, co, cc0, cc1, cc2, cc3, cc4, infoListTotalH = 0, el, wl;
+const wW = ref(window.innerWidth);
+onMounted(()=> {
+    wrap = $$('.productInfoWrap');
+    canvas = $$('#product3d');
+    conatinerInfo = $$('.containerInfo');
+    infoList = document.querySelectorAll('.infoList');
+    for(let i=0; i<infoList.length-1; i++){
+        infoListTotalH += infoList[i].offsetHeight;
+    }
+    scrollSum();
+    allFloat();
+    window.addEventListener('resize', ()=> {
+        ww = window.innerWidth, wh = window.innerHeight;
+    })
+    PRO.sceneInit();
+    PRO.animation();
+    window.addEventListener('mousemove', ()=> {
+        pointLightMove();
+    });
+    
+    wrap.addEventListener('scroll', ()=> {
+        el = $$('.specOl').getBoundingClientRect();
+        wl = $$('.productInfoWrap').getBoundingClientRect();
+        let sumWs = ws-co-cc0-cc1-cc2-cc3-cc4;
+        scrollModel();
+        log(sumWs)
+        if(el.top==0 || el.y==0 || el.bottom==$$('.specOl').offsetHeight || sumWs>=0){
+            $$('.specOl').style.pointerEvents = 'auto';
+        }else{
+            $$('.specOl').style.pointerEvents = 'none';
+        }
+    });
+    $$('.specOl').addEventListener('scroll', ()=> {
+        scrollSum();
+    });
+    const scrollModel = () => {
+        conatinerInfo = document.querySelectorAll('.conatinerInfo');
+        conatinerClose = document.querySelectorAll('.containerClose');
+        closeH3 = $$('#closeH3');
+        bgText = document.querySelectorAll('.bgText');
+        ws = wrap.scrollTop;
+        co = canvas.offsetHeight;
+        cc0 = conatinerClose[0].offsetHeight;
+        cc1 = conatinerClose[1].offsetHeight;
+        cc2 = conatinerClose[2].offsetHeight;
+        cc3 = conatinerClose[3].offsetHeight;
+        cc4 = conatinerClose[4].offsetHeight;
+        if(ws!=0){
+            gsap.to('.controlPanel', {
+                opacity: 0,
+                duration: .3,
+            })
+        }else{
+            gsap.to('.controlPanel', {
+                opacity: 1,
+                duration: .3,
+            })
+        }
+        if(ws<co){
+            gsap.to('.infoTitle', {
+                top: 20+(10/co)*ws+'%',
+                opacity: 1-(2/co)*ws,
+                scale: 1+(.2/co)*ws,
+                duration: 0,
+            })
+            gsap.to('.infoText', {
+                top: 60-(20/co)*ws+'%',
+                opacity: 1-(2/co)*ws,
+                scale: 1+(.2/co)*ws,
+                duration: 0,
+            })
+            gsap.to('.controlPanel', {
+                opacity: 1-(2/co)*ws,
+                duration: 0,
+            })
+            gsap.to('#closeH3', {
+                opacity: 0,
+                duration: 0,
+            })
+            gsap.to(PRO.camera, {
+                fov: 60-(10/co)*ws,
+                duration: 0,
+            })
+        }
+        if(PRO.modelObj && ws>=co && ws<co+cc0/2){
+            gsap.to(PRO.modelObj.position, {
+                x: .3/(cc0/2)*(ws-co),
+                y: .72/(cc0/2)*(ws-co),
+                z: 2.2/(cc0/2)*(ws-co),
+                duration: .3,
+            })
+            gsap.to(PRO.modelObj.rotation, {
+                x: 0,
+                y: -.15*Math.PI/(cc0/2)*(ws-co),
+                z: 0,
+                duration: .3,
+            })
+            gsap.to('.control1', {
+                background: '#fff',
+                duration: .3,
+            })
+            gsap.to('.control2', {
+                background: '#fff',
+                duration: .3,
+            })
+            gsap.to('.control3', {
+                background: '#fff',
+                duration: .3,
+            })
+            gsap.to('.control4', {
+                background: '#fff',
+                duration: .3,
+            })
+            gsap.to('#closeH3', {
+                y: (2500/cc0)*(ws-co),
+                opacity: Math.sin((3*Math.PI/cc0)*(ws-co)),
+                duration: 0,
+            })
+        }
+        if(ws>=co && ws<co+cc0){
+            gsap.to(bgText[0], {
+                opacity: Math.sin(Math.PI/(cc0)*(ws-co)),
+                top: (120/cc0)*(ws-co)+'%',
+                duration: 0,
+            })
+            gsap.to('.closeText0', {
+                opacity: (1.8/cc0)*(ws-co),
+                duration: 0,
+            })
+            gsap.to('.closeText1', {
+                opacity: 0,
+                duration: .3,
+            })
+            PRO.pointLight.intensity = 0;
+        }
+        if(ws>=co+cc0 && ws<co+cc0+cc1){
+            gsap.to('.closeText1', {
+                bottom: 50-(50/cc1)*(ws-co-cc0)+'%',
+                duration: 0,
+            })
+            gsap.to(PRO.camera, {
+                fov: 50+(40/cc1)*(ws-co-cc0),
+                duration: 0,
+            })
+        }
+        if(PRO.modelObj && ws>=co+cc0 && ws<co+cc0+cc1/10){
+            PRO.actionExplode.stop();
+            PRO.glitchTrigger();
+            PRO.pointLight.intensity = 2;
+            setTimeout(()=> {
+                $$('.closeText1').style.opacity = 1;
+            }, 500);
+            gsap.to(PRO.modelObj.position, {
+                x: .3,
+                y: .72,
+                z: 2.2,
+                duration: .1,
+            })
+            gsap.to(PRO.modelObj.rotation, {
+                x: 0,
+                y: -.15*Math.PI,
+                z: 0,
+                duration: .1,
+            })
+            gsap.to('body', {
+                background: 'linear-gradient(109.69deg, #12181E 16.49%, #13181F 26.68%, #151A23 36.59%, #181D24 41.08%, #1D2229 48.97%, #21282E 55.3%, #242B32 61.38%, #262D35 68.74%, #262D35 75.3%, #262D35 80.67%, #263038 86.99%)',
+                duration: 0,
+            })
+        }
+        if(PRO.modelObj && ws>=co+cc0+cc1/10 && ws<co+cc0+cc1/5){
+            gsap.to('.closeText1', {
+                opacity: 0,
+                duration: .3,
+            })
+            gsap.to(PRO.modelObj.position, {
+                x: .3,
+                y: .5,
+                z: 2.2,
+                duration: .1,
+            })
+            gsap.to('body', {
+                background: '#000',
+                duration: 0,
+            })
+            PRO.actionExplode.play();
+            PRO.actionExplode.paused = true;
+        }
+        if(PRO.modelObj && ws>=co+cc0+cc1 && ws<=co+cc0+cc1+cc2){
+            gsap.to(PRO.actionExplode, {
+                time: (PRO.clipExplode.duration/cc2)*(ws-co-cc0-cc1),
+                duration: .3,
+            })
+            gsap.to(PRO.modelObj.position, {
+                x: .3-(.3/cc2)*(ws-co-cc0-cc1),
+                y: .5-(1.5/cc2)*(ws-co-cc0-cc1),
+                z: 2.2-(2.2/cc2)*(ws-co-cc0-cc1),
+                duration: 0,
+            })
+            gsap.to(PRO.modelObj.rotation, {
+                x: Math.sin((2*Math.PI/cc2)*(ws-co-cc0-cc1)),
+                y: (-.15*Math.PI)+(-1.85*Math.PI/cc2)*(ws-co-cc0-cc1),
+                z: 0,
+                duration: 0,
+            })
+            gsap.to(bgText[1], {
+                opacity: Math.sin(Math.PI/(cc2)*(ws-co-cc0-cc1)),
+                top: (120/cc2)*(ws-co-cc0-cc1)+'%',
+                duration: 0,
+            })
+            gsap.to('.closeText2', {
+                opacity: (1.8/cc2)*(ws-co-cc0-cc1),
+                duration: 0,
+            })
+            if(ws>=co+cc0+cc1+cc2/2){
+                gsap.to(PRO.camera, {
+                    fov: 90-(30/cc2)*(ws-co-cc0-cc1),
+                    duration: 0,
+                })
+            }
+        }
+        if(PRO.modelObj && ws>co+cc0+cc1+cc2 && ws<co+cc0+cc1+cc2+cc3/4){
+            PRO.actionStep.stop();
+            PRO.actionExplode.time = PRO.clipExplode.duration;
+            PRO.actionExplode.play();
+            PRO.actionExplode.paused = true;
+            gsap.to(PRO.modelObj.position, {
+                x: 0,
+                y: -1,
+                z: 0,
+                duration: 0,
+            })
+            gsap.to(PRO.modelObj.rotation, {
+                x: 0,
+                y: 0,
+                z: 0,
+                duration: 0,
+            })
+        }else if(PRO.modelObj && ws>co+cc0+cc1+cc2+cc3/4 && ws<co+cc0+cc1+cc2+cc3/2){
+            PRO.actionExplode.stop();
+            gsap.to(PRO.modelObj.position, {
+                x: 0,
+                y: -.75,
+                z: 0,
+                duration: 0,
+            })
+            PRO.actionStep.time = 80;
+            PRO.actionStep.play();
+            PRO.actionStep.paused = true;
+        }
+        if(PRO.modelObj && ws>=co+cc0+cc1+cc2+cc3 && ws<=co+cc0+cc1+cc2+cc3+cc4/2){
+            gsap.to(PRO.modelObj.position, {
+                x: 0,
+                y: -.75+(-.25*Math.PI/cc4/2)*(ws-co-cc0-cc1-cc2-cc3),
+                z: 0,
+                duration: 0,
+            })
+            gsap.to(PRO.modelObj.rotation, {
+                x: (.65*Math.PI/cc4/2)*(ws-co-cc0-cc1-cc2-cc3),
+                y: (-.75*Math.PI/cc4/2)*(ws-co-cc0-cc1-cc2-cc3),
+                z: (.35*Math.PI/cc4/2)*(ws-co-cc0-cc1-cc2-cc3),
+                duration: .3,
+            })
+            gsap.to(PRO.actionStep, {
+                time: 84+((PRO.clipStep.duration-85)/cc4/2)*(ws-co-cc0-cc1-cc2-cc3),
+                duration: .3,
+            })
+            gsap.to(bgText[2], {
+                opacity: 1/(cc4/2)*(ws-co-cc0-cc1-cc2-cc3),
+                top: 60/(cc4/2)*(ws-co-cc0-cc1-cc2-cc3)+'%',
+                duration: 0,
+            })
+            gsap.to('.closeText4', {
+                opacity: (1.8/cc4)*(ws-co-cc0-cc1-cc2-cc3),
+                duration: 0,
+            })
+        }
+        if(PRO.modelObj && ws>=co+cc0+cc1+cc2+cc3+cc4/2){
+            PRO.actionHover.play();
+            gsap.to(PRO.modelObj.position, {
+                x: 0,
+                y: -1,
+                z: 0,
+                duration: .3,
+            })
+            gsap.to(PRO.modelObj.rotation, {
+                x: .5-(.35/cc4/2)*(ws-co-cc0-cc1-cc2-cc3+cc4/2),
+                y: -.6+(.6/cc4/2)*(ws-co-cc0-cc1-cc2-cc3+cc4/2),
+                z: .3-(.65/cc4/2)*(ws-co-cc0-cc1-cc2-cc3+cc4/2),
+                duration: .3,
+            })
+        }else{
+            PRO.actionHover.stop();
+        }
+    };
+
+    
+});
+
+const log = e => console.log(e);
+
+const $$ = e => document.querySelector(e);
+
+
+const controls = (e) => {
+    if(e===1){
+        gsap.to(PRO.modelObj.rotation, {
+            x: .15*Math.PI,
+            y: .15*Math.PI,
+            z: 0,
+            duration: .3,
+        })
+        gsap.to(PRO.modelObj.position, {
+            x: 0,
+            y: 0,
+            z: -1,
+            duration: .3,
+        })
+        gsap.to('.control1', {
+            background: '#9c4dd6',
+            duration: .3,
+        })
+        gsap.to('.control2', {
+            background: '#fff',
+            duration: .3,
+        })
+        gsap.to('.control3', {
+            background: '#fff',
+            duration: .3,
+        })
+        gsap.to('.control4', {
+            background: '#fff',
+            duration: .3,
+        })
+    }else if(e===2){
+        gsap.to(PRO.modelObj.rotation, {
+            x: .15*Math.PI,
+            y: -.75*Math.PI,
+            z: 0,
+            duration: .3,
+        })
+        gsap.to(PRO.modelObj.position, {
+            x: 0,
+            y: 0,
+            z: -1,
+            duration: .3,
+        })
+        gsap.to('.control1', {
+            background: '#fff',
+            duration: .3,
+        })
+        gsap.to('.control2', {
+            background: '#9c4dd6',
+            duration: .3,
+        })
+        gsap.to('.control3', {
+            background: '#fff',
+            duration: .3,
+        })
+        gsap.to('.control4', {
+            background: '#fff',
+            duration: .3,
+        })
+    }else if(e===3){
+        gsap.to(PRO.modelObj.rotation, {
+            x: .5*Math.PI,
+            y: Math.PI,
+            z: 0,
+            duration: .3,
+        })
+        gsap.to(PRO.modelObj.position, {
+            x: 0,
+            y: 0,
+            z: -1,
+            duration: .3,
+        })
+        gsap.to('.control1', {
+            background: '#fff',
+            duration: .3,
+        })
+        gsap.to('.control2', {
+            background: '#fff',
+            duration: .3,
+        })
+        gsap.to('.control3', {
+            background: '#9c4dd6',
+            duration: .3,
+        })
+        gsap.to('.control4', {
+            background: '#fff',
+            duration: .3,
+        })
+    }else{
+        gsap.to(PRO.modelObj.rotation, {
+            x: -.5*Math.PI,
+            y: 0,
+            z: 0,
+            duration: .3,
+        })
+        gsap.to(PRO.modelObj.position, {
+            x: 0,
+            y: 0,
+            z: 0,
+            duration: .3,
+        })
+        gsap.to('.control1', {
+            background: '#fff',
+            duration: .3,
+        })
+        gsap.to('.control2', {
+            background: '#fff',
+            duration: .3,
+        })
+        gsap.to('.control3', {
+            background: '#fff',
+            duration: .3,
+        })
+        gsap.to('.control4', {
+            background: '#9c4dd6',
+            duration: .3,
+        })
+    }
+}
+
+const pointLightMove = () => {
+    let ww = window.innerWidth, wh = window.innerHeight;
+    if (ww>1024) {
+        let pX = x*(2/ww)-1,
+            pY = 1-(y*(.5/wh));
+        gsap.to(PRO.pointLight.position, {
+            x: pX,
+            y: pY,
+            duration: .5,
+        });
+    }
+};
+
+let xxx, zzz;
+const scrollList = (e, delay = 0, dur = .1) => {
+    let os = $$('.specOl').scrollTop - (delay * $$('.specOl').offsetHeight);
+    xxx = Math.sin(os / $$('.specOl').offsetHeight * Math.PI);
+    zzz = Math.cos(os / $$('.specOl').offsetHeight * Math.PI);
+    let xrwd;
+    if(ww<576){
+        xrwd = 0;
+    }else{
+        xrwd = xxx;
+    }
+    if(zzz<0){
+        $$(e).style['z-index'] = '-1';
+        gsap.to($$(e).firstChild, {
+            filter: `blur(${-zzz*3}px) grayscale(80%)`,
+            duration: .3,
+        })
+    }else{
+        $$(e).style['z-index'] = '2';
+        gsap.to($$(e).firstChild, {
+            filter: `blur(0px) grayscale(80%)`,
+            duration: .3,
+        })
+    }
+    gsap.to(e, {
+        top: 50*($$('.specOl').scrollTop / $$('.specOl').offsetHeight)+'%',
+        rotateX: xrwd*10,
+        rotateY: 180*(os / $$('.specOl').offsetHeight),
+        rotateZ: -zzz*10,
+        left: 50+xxx*40+'%',
+        scale: (zzz+1)/2+.5,
+        duration: dur,
+    })
+    
+
+    gsap.to($$(e).lastChild, {
+        left: 0,
+        opacity: 0,
+        duration: .3,
+    })
+    gsap.to($$(e).lastChild.previousSibling, {
+        left: 0,
+        opacity: 0,
+        duration: .3,
+        delay: .3,
+    })
+
+    if(PRO.modelObj){
+        gsap.to(PRO.modelObj.rotation, {
+            x: .15,
+            y: -($$('.specOl').scrollTop / $$('.specOl').offsetHeight),
+            z: -.35,
+            duration: 1,
+        })
+        gsap.to(PRO.modelObj.position, {
+            x: 0,
+            y: -1-($$('.specOl').scrollTop / $$('.specOl').offsetHeight / 5),
+            z: 0,
+            duration: 1,
+        })
+    }
+    
+};
+const scrollSum = () => {
+    scrollList('.specLi1')
+    scrollList('.specLi2', .6)
+    scrollList('.specLi3', 1.2)
+    scrollList('.specLi4', 1.8)
+    scrollList('.specLi5', 2.4)
+    scrollList('.specLi6', 3)
+    scrollList('.specLi7', 3.6)
+    scrollList('.specLi8', 4.2)
+    scrollList('.specLi9', 4.8)
+    scrollList('.specLi10', 5.4)
+};
+const toImg = (e) => {
+    //let topPercent = (Number(e.target.parentNode.style.top.split('%')[0])/100);
+    //let movPercent = (window.innerHeight*topPercent);
+    if(e.target.style['z-index'] > 0){
+        e.target.style['z-index'] = 3;
+        gsap.to(e.target, {
+            left: 50+'%',
+            rotateX: 0,
+            rotateY: 0,
+            rotateZ: 0,
+            scale: 2,
+            duration: .3,
+        })
+        gsap.to(e.target.firstChild, {
+            filter: `blur(0px) grayscale(0%)`,
+            duration: .3,
+        })
+
+        gsap.to(e.target.firstChild.nextSibling, {
+            left: -15+'%',
+            opacity: 1,
+            duration: .3,
+            delay: .3,
+        })
+        gsap.to(e.target.lastChild, {
+            left: -10+'%',
+            opacity: 1,
+            duration: .3,
+            delay: .6,
+        })
+    }
+};
+let timelines = {};
+for(let i=1; i<=10; i++){
+    timelines[i] = new gsap.timeline({repeat:-1});
+};
+const float = (i,e) => {
+    let rand = Math.random()+1;
+    timelines[i].to(e, {
+        y: -20,
+        ease: 'none',
+        duration: rand,
+    })
+    timelines[i].to(e, {
+        y: 0,
+        ease: 'none',
+        duration: rand,
+    })
+}
+const allFloat = () => {
+    for(let i=1; i<=10; i++){
+        float(i, `.specLi${i}`);
+    }
+};
 </script>
 
 <template>
-  <main>
-    <!-- buyItBar? -->
-    <section class="buy">
-      <p>FPV PRO 2</p>
-      <div class="buttons">
-        <a class="btnPrimary" data-title="Purchase">
-          <span>Purchase</span>
-        </a>
-      </div>
+    <section class="productInfoWrap">
+        <canvas id="product3d" class="product3d"></canvas>
+        <ol  class="containerInfo">
+            <h2 class="infoTitle">{{ fpv.title }}</h2>
+            <p class="infoText">{{ fpv.subTitle }}</p>
+            <router-link to="/" class="btn" data-title="learn more">
+                <span>learn more</span>
+            </router-link>
+            <div class="controlPanel">
+                <span v-for="n in 4" :key="n" :class="`control control${n}`" @click="controls(n)"></span>
+            </div>
+        </ol>
+        <div :class="`containerClose containerClose${i.id}`" v-for="i in fpv.closer" :key="i">
+            <h3 v-if="i.id===0" id="closeH3" class="closeH3">Take a Closer Look</h3>
+            <p v-if="i.id===0 || i.id===2 || i.id===4" :class="`bgText bgText${i.id}`">{{ i.title }}</p>
+            <div :class="`closeText closeText${i.id}`">
+                <h4>{{ i.title }}</h4>
+                <p>{{ i.text }}</p>
+                <p v-if="wW > 1024 && i.id == 1" class="closeMouseMove">Try to move your mouse around to discover!</p>
+            </div>
+        </div>
+        <div class="containerSpec">
+            <ol class="specOl">
+                <li v-for="n in 10" :class="`specLi${n}`" @click.capture="toImg">
+                    <img :src="fpv.special.item[n].src">
+                    <h4 :class="`specH4${n}`">{{ fpv.special.item[n].title }}</h4>
+                    <p :class="`specP${n}`">{{ fpv.special.item[n].text }}</p>
+                </li>
+            </ol>
+        </div>
     </section>
-
-    <!-- nameAnimate -->
-    <div class="name">
-      <h2>FPV PRO 2</h2>
-    </div>
-
-    <!-- banner3d -->
-    <div class="ddd">
-      <p>reserved</p>
-    </div>
-
-    <!-- 簡介 -->
-    <!-- 最新產品的概述 -->
-    <article class="introduction">
-      <p>
-        With powerful flight performance and a Hasselblad camera, Mavic 3
-        Classic delivers the absolute essence of flagship imaging. Take it on
-        any adventure to create unforgettable work.
-      </p>
-    </article>
-
-    <!-- body -->
-    <!-- 換顏色 描述機殼尺寸 輕量化 耐撞 材質等 -->
-    <div class="colorSwitch">
-      <div class="colorSwitch_photo">
-        <div class="color_img">
-          <img src="../assets/images/showcase/color_test_01.png" alt="color" />
-        </div>
-
-        <div class="color_img">
-          <img src="../assets/images/showcase/color_test_02.png" alt="color" />
-        </div>
-
-        <div class="color_img">
-          <img src="../assets/images/showcase/color_test_03.png" alt="color" />
-        </div>
-
-        <div class="color_img">
-          <img src="../assets/images/showcase/color_test_04.png" alt="color" />
-        </div>
-      </div>
-      <div class="colorSwitch_word">
-        <section>
-          <span>Black</span>
-          <span>Navy</span>
-          <span>White</span>
-          <span>Red</span>
-        </section>
-      </div>
-    </div>
-    <article class="body_desc">
-      <!-- 機殼描述 -->
-      <p>
-        Newest carbon fiber chassis!<br />
-        <br />
-        Classic 5-inches chassis, easy to get started even if you are a rookie
-        driver in drone or you were not the EFPV user. The chassis only cost 500
-        gram so won't be a huge burden on your power system, also have a better
-        operability, on the other hand, you would allow to choose a better
-        camera like the one we bring to you!
-      </p>
-    </article>
-    <article class="body_end">
-      <p>
-        With carbon fiber chassis, our drone would be safe in collide or any
-        emergent situation, no way to destroy it and the controllers inside.
-        <!-- 旁邊放盾牌的小icon -->
-      </p>
-    </article>
-
-    飛控
-    <!-- 預想是放個圖跟簡介 詳述在內頁(像iphone像右滑過的按鈕那樣)-->
-
-    <!-- 10000Hz Electronic Speed Controllers -->
-
-    <!-- dji -->
-    <!-- Omnidirectional Obstacle Sensing 全向避障
-    With APAS 5.0, when flying, Mavic 3 Classic continually senses objects in all directions and bypasses [3] them quickly and smoothly. Even new pilots can fly confidently and safely, and create smooth footage even in complicated scenarios. -->
-
-    <!-- Extreme Precision 公寸級高精準度定位系統
-    Decimeter-level high-precision positioning makes Mavic 3 Classic extremely stable when hovering. This not only ensures clearer long-exposure shots, but also helps record smoother timelapse videos. -->
-
-    <!-- Cruise Control 定速巡航
-    Control Mavic 3 Classic to fly in any direction without having to continually press the control sticks. This not only makes long-distance flight more effortless, but also helps reduce shakes during manual control for smoother camera movement. -->
-
-    馬達
-    <!-- 更強力 轉速及速度上限 可達到的載重 -->
-    <!-- 輪播 -->
-    <!-- 2800kV 36000rpm -->
-    <!-- Stronger motors allow our drone to fly beyond the limit, it cost only 1.5s to accelerate over 100km/hr, and the max speed could be 160km/hr. -->
-
-    圖傳
-    <!-- 四張圖下滑時打開 分別是上面四像不同的優勢 -->
-    <!-- 上面那行是參考iphone的畫面 但後來從dji之後可能有點不夠 妳橫的如果也想這樣拉我再補資料給妳 -->
-    <!-- dji -->
-    <!-- Powerful Video Transmission
-
-    O3+ Transmission and Beyond
-    With a transmission distance of up to 15 km, [4] fly farther and more stably with peace of mind. O3+ transmission can transmit a 1080p/60fps live feed. [5] This means the camera view is displayed at specifications close to what the camera actually records. It also makes Mavic 3 Classic more responsive to your control.
-
-    1080p/60fps
-    Live Feed
-
-    15 km
-    Transmission Distance -->
-
-    電池
-    <!-- 46-Min Max Flight Time in Normal mode & 68-Min in Sport mode -->
-
-    <!-- Easy to charge your drone - using type-c connector so your don't need to bring another charger in your bag when you're enjoying your trip  -->
-    <!-- Fast charging speed -cost only a half hour to full charge your drone, won't waste a lot time when you're in an urgent project -->
-
-    GPS
-    <!-- dji -->
-    <!-- Advanced RTH 自動巡航
-    Always end on a high note with Advanced RTH. This updated auto-return function enables Mavic 3 Classic to automatically determine the optimal route back to its home point and execute it quickly. Mavic 3 Classic can fly to a designated altitude and then find a safe and efficient route back to its home point, combining the advantages of Advanced RTH and traditional RTH, allowing users to choose the best option according to their environment. -->
-
-    外接相機
-    <!-- 相機這段大部分是dji抓的 前幾段有出現的Hasselblad是品牌名 可能要換一下 -->
-    <!-- 這邊可以再去dji看一下 他主軸是放這個 下面還有很多資訊我沒全放 妳看妳哪邊用的到再去抓 -->
-    <!-- 放影片 -->
-    <!-- With powerful flight performance and a Hasselblad camera, Mavic 3 Classic delivers the absolute essence of flagship imaging. Take it on any adventure to create unforgettable work. -->
-
-    <!-- Hasselblad Camera, Create to Inspire  -->
-
-    <!-- The iconic Swedish brand Hasselblad designed and built the L2D-20c aerial camera just for the Mavic 3 Series, embedding a professional-grade 4/3 CMOS in an unbelievably compact space. Rigorous Hasselblad standards are applied to both hardware performance and software algorithms, bringing imaging quality to an entirely new level.  -->
-
-    <!-- 4/3     CMOS Hasselblad Camera 
-         5.1K    HD Video
-         20MP    Effective Pixels 
-         12-bit  RAW Image Color Depth 
-         12.8    Stops Native Dynamic
-         Range   f/2.8-f/11 Adjustable Aperture
-         24mm    Equivalent Focal Length 
-         VDAF    Vision Detection Auto Focus Technology -->
-
-    <!-- Professional Imaging
-
-         5.1K/50fps
-         Record sharper details. Supersampling technology empowers the recording of 4K/60fps footage.
-
-         4K/120fps
-         Both high resolution and high frame rate effortlessly deliver HD slow-motion videos.
-
-         10-bit D-Log
-         Delivers natural color gradations with more highlight and shadow details retained for greater flexibility when editing.
-
-         HLG
-         Provides higher dynamic range that suits a variety of devices and provides footage that does not require color tuning in post.
-
-         Night Shots
-         This video mode optimizes footage in low-light scenarios such as sunsets and sunrises, reducing noise for cleaner shots. -->
-  </main>
 </template>
 
 <style lang="scss" scoped>
-@import "@/sass/style.scss";
-@import "@/sass/component/_btn.scss";
+@import '@/sass/base/_color.scss';
+@import '@/sass/base/_common.scss';
+@import '@/sass/base/_font.scss';
+@import '@/sass/mixin/_mixin.scss';
+@import '@/sass/component/_btn.scss';
 
-// <!-- buyItBar? -->
-.buy {
-  width: 70vw;
-  margin-left: 15vw;
-  padding: 0 10px;
-
-  border-bottom: 1px solid #999;
-
-  display: flex;
-  justify-content: space-between;
-}
-// <!-- nameAnimate -->
-.name {
-  h2 {
+.productInfoWrap{
+    width: 100%;
+    height: 100vh;
     position: relative;
-    text-align: center;
+    overflow-y: auto;
+    /* scroll-snap-type: y mandatory; */
+    margin: 0;
+    touch-action: pan-y;
+    canvas.product3d{
+        position: sticky;
+        top: 0;
+        left: 0;
+    }
+    .controlPanel{
+        margin: 0 auto;
+        width: 140px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 25%;
+        z-index: 1;
+        @include m($m-breakpoint) {
+        }
+        .control{
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background: $fff;
+            border-radius: 50%;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+    }
+    .containerInfo{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 100%;
+        height: 100%;
+        .infoTitle{
+            width: 80%;
+            margin: 0 auto;
+            text-align: center;
+            position: sticky;
+            top: 20%;
+            z-index: -1;
+            line-height: 1;
+            text-shadow: 0 -3px 3px $black;
+            @include m($m-breakpoint) {
+                width: 90%;
+                font-size: 200px;
+                top: 25%;
+            }
+        }
+        p{
+            text-align: center;
+            position: sticky;
+            top: 60%;
+            width: 80%;
+            margin: 0 auto;
+            @include m($m-breakpoint) {
+                font-size: 70px;
+            }
+        }
+        .infoList1{
+            height: 200%;
+        }
+        .infoText1{
+            line-height: 1;
+            text-align: center;
+            top: 65%;
+            text-shadow: 0 -3px 3px $black;
+            @include m($m-breakpoint) {
+                font-size: 70px;
+            }
+        }
+    }
+    .btn{
+        @include secondBtn(150px);
+        display: none;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        @include m($m-breakpoint) {
+            right: 165px;
+        }
+    }
 
-    font-size: 70px;
-    font-weight: 500;
-    letter-spacing: 1.5;
-
+    .containerClose{
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+        height: 100vh * 2;
+        position: relative;
+        scroll-snap-align: end;
+        h3{
+            text-shadow: 0 -3px 3px $black;
+            text-align: center;
+            opacity: 0;
+        }
+        .closeText{
+            width: 80%;
+            position: absolute;
+            bottom: 25%;
+            text-shadow: 0 3px 3px $black;
+            opacity: 0;
+            @include m($m-breakpoint) {
+                width: 50%;
+            }
+        }
+        .closeText0{
+            left: 0;
+        }
+        .closeText1{
+            text-align: center;
+            bottom: 50%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+            .closeMouseMove{
+                font: $caption-m-h4;
+            }
+        }
+        .closeText2{
+            text-align: center;
+            right: 0;
+            left: 0;
+            margin: 0 auto;
+        }
+        .closeText4{
+            right: 0;
+            text-align: right;
+        }
+    }
+    .containerClose:nth-child(2n){
+        width: 100%;
+        max-width: 100%;
+        height: 100vh;
+        scroll-snap-align: center;
+        overflow: hidden;
+    }
+}
+.bgText{
+    font-size: 60px;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #DC9E7A33;
+    -webkit-text-stroke: 1px $brown;
+    -webkit-box-reflect: below 0px linear-gradient(transparent, #DC9E7A88);
+    word-break: break-all;
     opacity: 0;
-    animation: nameAnimation 1.5s;
-    animation-delay: 1s;
-  }
-  @keyframes nameAnimation {
-    0% {
-      display: block;
-      top: 100px;
-      opacity: 0;
-    }
-    80% {
-      top: 0;
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-}
-
-// <!-- banner3d -->
-.ddd {
-  height: 70vh;
-  p {
     text-align: center;
-    font-size: 50px;
-    line-height: 70vh;
-  }
-}
-// <!-- 簡介 -->
-.introduction {
-  margin: 350px 0 0 15vw;
-  width: 800px;
-  p {
-    font-size: 50px;
-    line-height: 70px;
-
-    font-weight: 800;
-
-    background: -webkit-linear-gradient(
-      323.14deg,
-      #007ffb 10.04%,
-      #9c4dd5 70.95%
-    );
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
-// <!-- body -->
-.colorSwitch {
-  margin-top: 300px;
-  background-color: transparent;
-
-  display: flex;
-}
-.colorSwitch_photo {
-  // margin: 0 0 0 150px;
-  position: relative;
-  left: 500px;
-  height: 600px;
-  // position: absolute;
-  .color_img {
-    width: 500px;
-    height: 400px;
+    position: absolute;
+    width: 100%;
+    max-width: 1200px;
     top: 0;
     left: 0;
-
-    position: absolute;
-    opacity: 0;
-
-    filter: alpha(opacity=0);
-    -webkit-animation: round 24s linear infinite;
-    animation: round 24s linear infinite;
-    img {
-      width: inherit;
-      height: inherit;
-
-      background-color: transparent;
-      top: 0;
+    right: 0;
+    margin: 0 auto;
+    z-index: -1;
+    @include m($m-breakpoint) {
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        font-size: 120px;
+        text-shadow: 0 0 100px $brown;
+        word-break: keep-all;
+        text-align: right;
     }
-  }
 }
-@-webkit-keyframes round {
-  4% {
-    opacity: 1;
-    filter: alpha(opacity=100);
-  }
-  20% {
-    opacity: 1;
-    filter: alpha(opacity=100);
-  }
-  24% {
-    opacity: 0;
-    filter: alpha(opacity=0);
-  }
-}
-@keyframes round {
-  4% {
-    opacity: 1;
-    filter: alpha(opacity=100);
-  }
-  20% {
-    opacity: 1;
-    filter: alpha(opacity=100);
-  }
-  24% {
-    opacity: 0;
-    filter: alpha(opacity=0);
-  }
-}
-.color_img:nth-child(1) {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-.color_img:nth-child(2) {
-  -webkit-animation-delay: 6s;
-  animation-delay: 6s;
-}
-.color_img:nth-child(3) {
-  -webkit-animation-delay: 12s;
-  animation-delay: 12s;
-}
-.color_img:nth-child(4) {
-  -webkit-animation-delay: 18s;
-  animation-delay: 18s;
-}
-
-.colorSwitch_word {
-  display: flex;
-  flex-direction: column;
-  margin-left: 300px;
-
-  span {
-    display: block;
-    margin-bottom: 30px;
-
-    font-size: 26px;
-    font-weight: 400;
-    color: #999;
-    -webkit-animation: wordRound 24s linear infinite;
-    animation: wordRound 24s linear infinite;
-
-    @-webkit-keyframes wordRound {
-      4% {
-        color: whitesmoke;
-        font-weight: 500;
-      }
-      35% {
-        color: #999;
-      }
+.bgText2{
+    color: #9C4DD633;
+    -webkit-text-stroke: 1px $purple;
+    -webkit-box-reflect: below 0px linear-gradient(transparent, #9C4DD688);
+    @include m($m-breakpoint) {
+        text-shadow: 0 0 100px $purple;
+        text-align: center;
     }
-    @keyframes wordRound {
-      4% {
-        color: whitesmoke;
-        font-weight: 500;
-      }
-      35% {
-        color: #999;
-      }
+}
+.bgText4{
+    color: #F25A2A33;
+    -webkit-text-stroke: 1px $ored;
+    -webkit-box-reflect: below 0px linear-gradient(transparent, #F25A2A88);
+    @include m($m-breakpoint) {
+        text-shadow: 0 0 100px $ored;
+        text-align: left;
     }
-  }
-  span:nth-child(1) {
-    -webkit-animation-delay: 0s;
-    animation-delay: 0s;
-  }
-  span:nth-child(2) {
-    -webkit-animation-delay: 6s;
-    animation-delay: 6s;
-  }
-  span:nth-child(3) {
-    -webkit-animation-delay: 12s;
-    animation-delay: 12s;
-  }
-  span:nth-child(4) {
-    -webkit-animation-delay: 18s;
-    animation-delay: 18s;
-  }
+}
+.containerSpec{
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    ol{
+        width: 100%;
+        height: 100%;
+        overflow-y: auto;
+        position: relative;
+    }
+    li{
+        width: 25%;
+        height: 10%;
+        list-style: none;
+        margin-left: -12.5%;
+        position: relative;
+        transform: perspective(1000px);
+        transform-style: preserve-3d;
+        cursor: pointer;
+        @media screen and (min-width: 576px) {
+            width: 25%;
+            height: 18.75%;
+            margin-left: -12.5%;
+        }
+        @media screen and (min-width: 1023px) {
+            width: 400px;
+            height: 300px;
+            margin-left: -200px;
+        }
+        img{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+            background-position-x: 0;
+            transform-origin: 0 100%;
+            pointer-events: none;
+        }
+        h4{
+            color: #fff;
+            position: absolute;
+            top: 10%;
+            left: 0;
+            width: 0px;
+            opacity: 0;
+            pointer-events: none;
+            font-size: 0;
+            @media screen and (min-width: 576px) {
+                width: 200px;
+                font-size: 16px;
+            }
+            @media screen and (min-width: 1023px) {
+                width: 400px;
+                font-size: 20px;
+            }
+        }
+        p{
+            color: #eee;
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 0px;
+            font-size: 0;
+            line-height: 1.2;
+            opacity: 0;
+            pointer-events: none;
+            @media screen and (min-width: 576px) {
+                top: 50%;
+                width: 200px;
+                font-size: 12px;
+            }
+            @media screen and (min-width: 1023px) {
+                top: 30%;
+                width: 300px;
+                font-size: 16px;
+            }
+        }
+    }
+    li:nth-child(1){
+        margin-top: 35vh;
+    }
+    li:nth-child(10){
+        margin-bottom: 100vh;
+        @media screen and (min-width: 576px) {
+            margin-bottom: 300vh;
+        }
+    }
 }
 
-.body_desc {
-  width: 500px;
-  margin: auto;
-  margin-top: -70px;
-  display: flex;
-  p {
-    font-size: 30px;
-    line-height: 42px;
-  }
-}
 
-.body_end {
-  width: 70vw;
-
-  margin: auto;
-  margin-top: 70px;
-
-  border-top: #999 solid 1px;
-  padding: 15px 0;
-
-  display: flex;
-  justify-content: flex-end;
-  p {
-    width: 400px;
-  }
-}
-// <!-- 飛控 -->
-
-// <!-- 機身 -->
-
-// <!-- 馬達 -->
-
-// <!-- 圖傳 -->
-
-// <!-- 電池 -->
-
-// <!-- GPS -->
-
-// <!-- 外接相機 -->
 </style>
