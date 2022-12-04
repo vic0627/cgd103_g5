@@ -27,7 +27,23 @@
     <div class="form">
       <h3>REGISTRATION FORM</h3>
 
-      <form action=""></form>
+      <form action="#">
+        <label for=""
+          >Name :
+          <input type="text" />
+          <input type="text" />
+        </label>
+
+        <label for="">
+          Phone :
+          <input type="text" />
+        </label>
+
+        <label for="">
+          address :
+          <input type="text" />
+        </label>
+      </form>
     </div>
   </section>
 </template>
@@ -59,5 +75,6 @@ section {
 
 .form {
   text-align: center;
+  color: white;
 }
 </style>

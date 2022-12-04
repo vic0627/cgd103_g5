@@ -128,6 +128,7 @@ const log = (e) => console.log(e);
 <template>
   <div class="backend">
     <aside class="asideNav">
+      <img src="../../assets/images/About/g5_logo_grey.png" alt="" />
       <div v-for="e in backendCategory" :key="e">
         <h2 v-if="e.tab === 'home'" @click="changeTab(e.tab)">{{ e.title }}</h2>
         <h3 v-else @click="changeShow(e)">{{ e.title }}</h3>
@@ -147,13 +148,14 @@ const log = (e) => console.log(e);
   width: 100%;
   height: 100vh;
   display: flex;
-  background-color: white;
+  background-color: #fff;
 }
 .asideNav {
   width: 15%;
   height: 100vh;
   overflow: auto;
   text-align: center;
+  background-color: #597897;
   h2 {
     margin: 40px 0;
     cursor: pointer;
@@ -161,13 +163,19 @@ const log = (e) => console.log(e);
   h3 {
     font-size: 32px;
     cursor: pointer;
-    background-color: black;
+    color: #000;
+    background-color: #fff;
+    margin: 0 20px 20px 20px;
   }
   ol {
     li {
       margin: 10px 0;
       cursor: pointer;
-      color: black;
+      color: #fff;
+      text-decoration: transparent;
+      &:hover {
+        text-decoration: underline #fff;
+      }
     }
   }
 }
