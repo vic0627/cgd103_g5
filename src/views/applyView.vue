@@ -28,19 +28,37 @@
       <h3>REGISTRATION FORM</h3>
 
       <form action="#">
-        <label for=""
-          >Name :
+        <label for="">
+          Name :
           <input type="text" />
           <input type="text" />
+        </label>
+
+        <label for="sex"
+          >Sex :
+          <input type="radio" name="sex" id="sex" value="male" />Male</label
+        >
+        <label for="sex"
+          ><input
+            type="radio"
+            name="sex"
+            id="sex"
+            value="female"
+          />Female</label
+        >
+
+        <label for="">
+          Email :
+          <input type="email" />
         </label>
 
         <label for="">
           Phone :
-          <input type="text" />
+          <input type="tel" />
         </label>
 
         <label for="">
-          address :
+          Address :
           <input type="text" />
         </label>
       </form>

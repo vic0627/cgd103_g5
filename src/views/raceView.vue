@@ -1,6 +1,10 @@
-<script setup></script>
+<script setup>
+import { ref, onMounted, reactive } from "vue";
+import navComponentsVue from "@/components/navComponents.vue";
+</script>
 
 <template>
+  <navComponentsVue />
   <!-- banner -->
   <section>
     <div class="banner">
@@ -417,7 +421,7 @@
       </div>
       <div class="bigtext">
         <div class="text text1">
-          <h2>Taiwan</h2>
+          <h3>Taiwan</h3>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
             quos unde adipisci itaque quaerat architecto. Dolor eaque eum
@@ -428,7 +432,7 @@
           </p>
         </div>
         <div class="text text2">
-          <h2>Taiwan</h2>
+          <h3>Taiwan</h3>
           <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio
             autem esse modi expedita non numquam officia pariatur, nostrum
@@ -439,7 +443,7 @@
           </p>
         </div>
         <div class="text text3">
-          <h2>Taiwan</h2>
+          <h3>Taiwan</h3>
           <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
             natus accusamus accusantium at ipsum quo hic id minus, odit
@@ -451,7 +455,7 @@
           </p>
         </div>
         <div class="text text4">
-          <h2>Taiwan</h2>
+          <h3>Taiwan</h3>
           <p>
             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos
             suscipit dolorum quod, illum id consequatur unde! Id nam corporis
@@ -466,7 +470,7 @@
       <div class="practiseCard">
         <div class="card card1">
           <div class="cardTitle">
-            <h2>Taiwan</h2>
+            <h3>Taiwan</h3>
           </div>
 
           <div class="cardPic">
@@ -487,7 +491,7 @@
 
         <div class="card card2">
           <div class="cardTitle">
-            <h2>Taiwan</h2>
+            <h3>Taiwan</h3>
           </div>
 
           <div class="cardPic">
@@ -508,7 +512,7 @@
 
         <div class="card card3">
           <div class="cardTitle">
-            <h2>Taiwan</h2>
+            <h3>Taiwan</h3>
           </div>
 
           <div class="cardPic">
@@ -530,7 +534,7 @@
 
         <div class="card card4">
           <div class="cardTitle">
-            <h2>Taiwan</h2>
+            <h3>Taiwan</h3>
           </div>
 
           <div class="cardPic">
@@ -558,6 +562,10 @@
 @import "../sass/component/_btn.scss";
 
 // banner
+
+section {
+  margin: 0;
+}
 
 .banner {
   margin: 0;
@@ -640,9 +648,13 @@
 
 //race list
 
+h2 {
+  margin: 50px 0;
+}
+
 .raceList_title {
   text-align: center;
-  padding-bottom: 50px;
+  // padding-bottom: 50px;
 }
 
 .racegg {
@@ -667,7 +679,7 @@
     &:hover {
       animation-play-state: paused;
     }
-    // animation: scroll 8s linear infinite;
+    animation: scroll 8s linear infinite;
     @keyframes scroll {
       from {
         transform: translateX(0);
