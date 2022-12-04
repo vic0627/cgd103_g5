@@ -122,6 +122,9 @@ const router = createRouter({
       path: "/articleView",
       name: "articleView",
       component: () => import("../views/articleView.vue"),
+      path: "/apply",
+      name: "apply",
+      component: () => import("../views/applyView.vue"),
     },
   ],
 });
