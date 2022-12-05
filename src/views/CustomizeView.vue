@@ -3,6 +3,7 @@ import { onMounted } from 'vue';
 import { droneModels, propellorModels } from './js/CustomizeGlb';
 import * as CUS from './js/CustomizeThree';
 import dashBoardComponent from '@/components/dashBoardComponent.vue';
+
 let ww = window.innerWidth;
 
 onMounted(()=> {
@@ -12,7 +13,8 @@ onMounted(()=> {
         canvasRe();
     });
     CUS.sceneInit();
-    CUS.animation(); 
+    CUS.animation();
+    
 });
 
 const canvasRe = () => {
@@ -33,7 +35,7 @@ const canvasRe = () => {
 <template>
     <section class="customize">
         <canvas id="customize3d"></canvas>
-        <dash-board-component />
+        <dash-board-component class="dashBoard"/>
         <div class="customizeControl">
             <div v-for="e in droneModels" :key="e.id" class="bodySelect">
                 <h3>{{ e.name }}</h3>
@@ -59,6 +61,9 @@ const canvasRe = () => {
 <style lang="scss" scoped>
 *{
     /* outline: 1px solid red; */
+}
+.dashBoard{
+    margin-left: 400px;
 }
 .customize{
     
