@@ -1,6 +1,4 @@
-<script setup>
-import outComponents from "../components/outComponents.vue";
-</script>
+<script></script>
 <template>
   <div>
     <h2>
