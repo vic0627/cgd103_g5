@@ -99,16 +99,6 @@ const router = createRouter({
       component: () => import("../views/backend/aboutBackend.vue"),
     },
     {
-      path: "/shoppingCartStep2",
-      name: "shoppingCartStep2",
-      component: () => import("../views/shoppingCartStep2.vue"),
-    },
-    {
-      path: "/orderComplete",
-      name: "orderComplete",
-      component: () => import("../views/orderComplete.vue"),
-    },
-    {
       path: "/machineView",
       name: "machineView",
       component: () => import("../views/machineView.vue"),
@@ -127,16 +117,9 @@ const router = createRouter({
       path: "/shoppingCartStep",
       name: "shoppingCartStep",
       component: () => import("../views/ShoppingCartStep.vue"),
-      children:[
-        {
-          path: "/Step2",
-          name: "/Step2",
-          component: () => import("../views//Step2.vue"),
-        }
-      ]
-    }
     }
   ],
 });
 
 export default router;
+``

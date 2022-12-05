@@ -544,10 +544,8 @@ $(document).ready(()=>{
         <h2><span>BUNDLE</span></h2>
         <p>Make You More Professional</p>
         <div class="wrapper">
-            <Transition>
-                <button href="beginner" @click="viewChange(1)" >beginner</button>
-                <button href="veteran"  @click="viewChange(2)">veteran</button>
-            </Transition>
+            <button href="beginner" @click="viewChange(1)" >beginner</button>
+            <button href="veteran"  @click="viewChange(2)">veteran</button>
         </div>
 
         <div  class="area active">
