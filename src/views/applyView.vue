@@ -71,16 +71,16 @@ import navComponentsVue from "@/components/navComponents.vue";
     </div>
 
     <div class="book">
-      <div class="learn">
+      <div class="Submit">
         <a
-          href="../views/applyView.vue"
+          href="#"
           class="btn"
           id="btn2"
-          data-title="Learn"
+          data-title="Submit"
           @mouseenter="MOUSE.mouseFocus()"
           @mouseleave="MOUSE.mouseRe()"
         >
-          <span>Learn</span>
+          <span>Submit</span>
         </a>
       </div>
     </div>
@@ -91,6 +91,11 @@ import navComponentsVue from "@/components/navComponents.vue";
 @import "../sass/style.scss";
 @import "../sass/component/_btn.scss";
 // Competition information
+
+header {
+  position: sticky;
+  top: 0;
+}
 
 section {
   // margin: 0;
@@ -104,7 +109,7 @@ section {
       width: 100%;
       margin-bottom: 50px;
       @include l($l-breakpoint) {
-        width: 90%;
+        width: 60vw;
         margin: auto;
         margin-bottom: 50px;
       }
@@ -114,6 +119,10 @@ section {
     }
     .racetext {
       text-align: center;
+      @include l($l-breakpoint) {
+        max-width: 1000px;
+        margin: auto;
+      }
     }
   }
 }
@@ -155,7 +164,7 @@ h3 {
   }
 }
 
-.learn {
+.Submit {
   display: flex;
   justify-content: center;
   margin-bottom: 50px;
