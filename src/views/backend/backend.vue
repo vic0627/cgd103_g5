@@ -168,7 +168,7 @@ const log = (e) => console.log(e);
     }
   }
   h3 {
-    font-size: 32px;
+    font-size: 26px;
     cursor: pointer;
     color: #000;
     background-color: #fff;

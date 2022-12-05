@@ -1,6 +1,9 @@
-<script setup></script>
+<script setup>
+import navComponentsVue from "@/components/navComponents.vue";
+</script>
 
 <template>
+  <navComponentsVue />
   <!-- Competition information -->
   <section>
     <div class="race">
@@ -31,41 +34,42 @@
         <div class="name">
           <label for="">
             Name :
-            <input type="text" />
-            <input type="text" />
+            <input class="shot" type="text" placeholder="First Name" />
+            <input class="shot" type="text" placeholder="Last Name" />
           </label>
         </div>
 
         <div class="sex">
-          <p style="display: inline">sex :</p>
+          <p class="ggg" style="display: inline">Sex :</p>
           <input type="radio" id="Male" name="sex" value="Male" />
-          <label for="Male">Male</label>
+          <label class="ggg" for="Male"> Male</label>
           <input type="radio" id="Female" name="sex" value="Female" />
-          <label for="Female">Female</label>
+          <label class="ggg" for="Female"> Female</label>
         </div>
 
         <div class="email">
           <label for="">
             Email :
-            <input type="email" />
+            <input class="long" type="email" />
           </label>
         </div>
 
         <div class="phone">
           <label for="">
             Phone :
-            <input type="tel" />
+            <input class="long" type="tel" />
           </label>
         </div>
 
         <div class="address">
           <label for="">
             Address :
-            <input type="text" />
+            <input class="long" type="text" />
           </label>
         </div>
       </form>
     </div>
+
     <div class="book">
       <div class="learn">
         <a
@@ -84,10 +88,12 @@
 </template>
 
 <style lang="scss" scoped>
+@import "../sass/style.scss";
+@import "../sass/component/_btn.scss";
 // Competition information
 
 section {
-  margin: 0;
+  // margin: 0;
   .race {
     margin: 0 20px;
     h2 {
@@ -97,6 +103,11 @@ section {
     .raceimg {
       width: 100%;
       margin-bottom: 50px;
+      @include l($l-breakpoint) {
+        width: 90%;
+        margin: auto;
+        margin-bottom: 50px;
+      }
       img {
         width: 100%;
       }
@@ -116,16 +127,37 @@ h3 {
 .form {
   text-align: center;
   color: white;
-  width: 100%;
   form {
     div {
       margin: auto;
       margin-bottom: 20px;
+      input {
+        height: 20px;
+      }
+      label {
+        font-size: 20px;
+      }
+      .ggg {
+        font-size: 20px;
+        margin-right: 33px;
+      }
+      .shot {
+        width: 100px;
+        margin-right: 18px;
+      }
+      .long {
+        width: 250px;
+      }
+    }
+    .address {
+      margin-right: 15px;
     }
   }
 }
 
-.book {
-  margin: auto;
+.learn {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
 }
 </style>
