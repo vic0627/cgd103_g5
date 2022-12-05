@@ -140,32 +140,32 @@ const changeView = (index) => {
             <div v-for="(item,index) in lastNews" :key="index">
                 <Transition name="tad" mode="out-in">
                 <div class="card" v-if="filter === 0">
-                    <router-link class="anchor" to="/"><img :src="item.src" :alt="item.id"></router-link>
+                    <router-link class="anchor" to="/articleView"><img :src="item.src" :alt="item.id"></router-link>
                     <div class="item_box">
                         <div class="item" >{{item.tagName}}</div>
                     </div>
                     <div class="title"><p>{{item.title}}</p></div>
-                    <router-link class="article" to="/"><button>Read more &rarr;</button></router-link>
+                    <router-link class="article" to="/articleView"><button>Read more &rarr;</button></router-link>
                 </div>
                 </Transition>
                 <Transition name="tad" mode="out-in">
                 <div class="card" v-if="filter === 1 && item.id === 1">
-                    <router-link class="anchor" to="/"><img :src="item.src" :alt="item.id"></router-link>
+                    <router-link class="anchor" to="/articleView"><img :src="item.src" :alt="item.id"></router-link>
                     <div class="item_box">
                         <div class="item" >{{item.tagName}}</div>
                     </div>
                     <div class="title"><p>{{item.title}}</p></div>
-                    <router-link class="article" to="/"><button>Read more &rarr;</button></router-link>
+                    <router-link class="article" to="/articleView"><button>Read more &rarr;</button></router-link>
                 </div>
                 </Transition>
                 <Transition name="tad" mode="out-in">
                 <div class="card" v-if="filter === 2 && item.id === 2">
-                    <router-link class="anchor" to="/"><img :src="item.src" :alt="item.id"></router-link>
+                    <router-link class="anchor" to="/articleView"><img :src="item.src" :alt="item.id"></router-link>
                     <div class="item_box">
                         <div class="item" >{{item.tagName}}</div>
                     </div>
                     <div class="title"><p>{{item.title}}</p></div>
-                    <router-link class="article" to="/"><button>Read more &rarr;</button></router-link>
+                    <router-link class="article" to="/articleView"><button>Read more &rarr;</button></router-link>
                 </div>
                 </Transition>
                 <Transition name="tad" mode="out-in">
@@ -175,17 +175,17 @@ const changeView = (index) => {
                         <div class="item" >{{item.tagName}}</div>
                     </div>
                     <div class="title"><p>{{item.title}}</p></div>
-                    <router-link class="article" to="/"><button>Read more &rarr;</button></router-link>
+                    <router-link class="article" to="/articleView"><button>Read more &rarr;</button></router-link>
                 </div>
                 </Transition>
                 <Transition name="tad" mode="out-in">
                 <div class="card" v-if="filter === 4 && item.id === 4">
-                    <router-link class="anchor" to="/"><img :src="item.src" :alt="item.id"></router-link>
+                    <router-link class="anchor" to="/articleView"><img :src="item.src" :alt="item.id"></router-link>
                     <div class="item_box">
                         <div class="item" >{{item.tagName}}</div>
                     </div>
                     <div class="title"><p>{{item.title}}</p></div>
-                    <router-link class="article" to="/"><button>Read more &rarr;</button></router-link>
+                    <router-link class="article" to="/articleView"><button>Read more &rarr;</button></router-link>
                 </div>
                 </Transition>
             </div>

@@ -1,10 +1,17 @@
 <script>
 import tabhome from "../../components/tabHome.vue";
-import tabdiscount from "../../components/tabdiscount.vue";
+import tabqrev from "../../components/tabqrev.vue";
+import tabqadd from "../../components/tabqadd.vue";
+import tabnewrevs from "../../components/tabnewrevs.vue";
+import tabnewadds from "../../components/tabnewadds.vue";
+
+
+
+
+
 export default {
   components: {
     tabhome,
-    tabdiscount,
   },
 };
 </script>
@@ -45,7 +52,7 @@ const backendCategory = ref({
     text: {
       a: {
         cn: "修改問題",
-        tab: "qfix",
+        tab: "qrev",
       },
       b: {
         cn: "新增問題",
@@ -59,11 +66,11 @@ const backendCategory = ref({
     text: {
       a: {
         cn: "消息內容修改",
-        tab: "newsfix",
+        tab: "newrevs",
       },
       b: {
         cn: "消息內容新增",
-        tab: "newsadd",
+        tab: "newadds",
       },
     },
   },

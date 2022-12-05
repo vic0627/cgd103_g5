@@ -1,9 +1,12 @@
 <script>
 import navComponentsVue from '@/components/navComponents.vue';
+import footerComponentsVue from '@/components/footerComponents.vue';
+
 
 export default{
   components:{
-    navComponentsVue
+    navComponentsVue,
+    footerComponentsVue
   }
 }
 
@@ -12,7 +15,7 @@ export default{
 <template>
 <navComponentsVue />
 
-<section class="article">
+<div class="article">
     <div class="title_box">
         <h2>TITLE</h2>
     </div>
@@ -39,7 +42,9 @@ export default{
             </p>
         </div>
     </div>
-</section>
+</div>
+<footerComponentsVue />
+
 </template>
 
 <style lang="scss" scoped>
@@ -49,6 +54,7 @@ body{
 }
 .article{
     width: 100%;
+    padding-top: 100px;
     overflow: hidden;
 
     .title_box{
