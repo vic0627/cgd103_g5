@@ -1,5 +1,7 @@
 <script setup>
-    import headerComponentsVue from '@/components/headerComponents.vue';
+    // import headerComponentsVue from '@/components/headerComponents.vue';
+    import navComponentsVue from '@/components/navComponents.vue';
+    import footerComponentsVue from '@/components/footerComponents.vue';
     // import { verify } from 'crypto';
     import {reactive,ref, onMounted} from "vue";
 
@@ -20,7 +22,7 @@
                 }
             }else{
                 document.querySelector('.unameinfo').textContent='';
-                document.querySelector('.unameinfo').style['color']='rgb(72, 72, 72)';
+                // document.querySelector('.unameinfo').style['color']='rgb(72, 72, 72)';
             }
         });
         //password verify
@@ -37,7 +39,7 @@
                 }
             }else{
                 document.querySelector('.pswinfo').textContent='The password must be eight characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.';
-                document.querySelector('.pswinfo').style['color']='rgb(72, 72, 72)';
+                document.querySelector('.pswinfo').style['color']='#888';
             }
         });
 
@@ -46,7 +48,8 @@
 </script>
 
 <template>
-        <headerComponentsVue />
+        <!-- <headerComponentsVue /> -->
+        <navComponentsVue />
         <section class="banner">
             <div class="img_box"></div>
             <div class="wrapper">
@@ -54,23 +57,23 @@
                     <a href="/home" class="logo"><img src="../assets/images/Signin/g5_logo_grey.png" alt=""></a>
                     <div class="login">
                         <h1>Log in to EFPV</h1>
-                        <div class="tab_panel">
+                        <form class="tab_panel" action="/member" method="get">
                             <label for="username">Email Address</label>
-                            <input type="email" name="username" id="username" maxlength="35">
+                            <input type="email" name="username" class="input-s" id="username" maxlength="35">
                             <span class="unameinfo"></span>
                             <label for="password">Password</label>
-                            <input type="password" name="password" id="password" maxlength="20">
-                            <span class="pswinfo">The password must be eight characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.</span>
+                            <input type="password" name="password" class="input-s" id="password" maxlength="20">
+                            <span class="pswinfo"></span>
                             <div class="login_info">
                                 <input type="checkbox" name="remember" id="remember">
                                 <label for="remember">Remember me</label>
                                 <a href="" class="forget_password">Forget Password?</a>
                             </div>
                             <div class="action">
-                                <button type="submit">submit</button>
+                                <button type="submit" >submit</button>
                                 <p>New user?<a href="/register">Create Your EFPV Account </a></p>
                             </div>
-                        </div>
+                        </form>
                         <div class="divider">
                             <span> or login with </span>
                         </div>
@@ -86,10 +89,11 @@
                     </div>
                 </main>
             </div>
+            <div class="bginfo">
+                <span>Shot On EFPV Avata Pro-View Combo</span>
+            </div>
         </section>
-        <div class="bginfo">
-            <span>Shot On EFPV Avata Pro-View Combo</span>
-        </div>
+        <footerComponentsVue />
 </template>
 
 
@@ -100,6 +104,24 @@ $text-color:#fff;
 $link-color:#7abcff;
 $btn-color:#007FFB;
 $bg-color:rgb(54, 54, 54);
+header{
+    top: 0;
+}
+.input-s{
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,.15);
+    height: 40px;
+    padding: 7px 11px;
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 8px;
+    border-radius: 4px;
+}
+span{
+    display: block;
+    padding: 5px 0;
+}
 .banner{
     position: relative;
     width: 100%;
@@ -119,7 +141,9 @@ $bg-color:rgb(54, 54, 54);
         margin: 0 auto;
         padding: 20px 16px;
         .container{
+            top: 50px;
             margin-left: auto;
+            margin-bottom: 50px;
             position: relative;
             width: 400px;
             background-color: $bg-color;
@@ -136,7 +160,7 @@ $bg-color:rgb(54, 54, 54);
                 h1{
                     font-size: 24px;
                     color: $text-color;
-                    padding-top: 24px;
+                    padding-top: 10px;
                     font-weight: 300;
                 }
                 .tab_panel{
@@ -144,18 +168,18 @@ $bg-color:rgb(54, 54, 54);
                             display: block;
                             margin-top: 24px;
                         }
-                        input[type="email"],input[type="password"]{
-                            box-sizing: border-box;
-                            width: 100%;
-                            border: 1px solid rgba(0,0,0,.15);
-                            height: 40px;
-                            padding: 7px 11px;
-                            font-size: 20px;
-                            line-height: 20px;
-                            // letter-spacing: -.02em;
-                            margin-top: 8px;
-                            border-radius: 4px;
-                        }
+                        // input[type="email"],input[type="password"]{
+                        //     box-sizing: border-box;
+                        //     width: 100%;
+                        //     border: 1px solid rgba(0,0,0,.15);
+                        //     height: 40px;
+                        //     padding: 7px 11px;
+                        //     font-size: 20px;
+                        //     line-height: 20px;
+                        //     // letter-spacing: -.02em;
+                        //     margin-top: 8px;
+                        //     border-radius: 4px;
+                        // }
                         .forget_password{
                             font-style: italic;
                             font-size: 12px;
@@ -254,7 +278,7 @@ $bg-color:rgb(54, 54, 54);
     }
 }
 .bginfo{
-    position: fixed;
+    position: sticky;
     left: 15px;
     bottom: 15px;
     width: 200px;
