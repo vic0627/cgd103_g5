@@ -2,30 +2,32 @@
 import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
 import navComponentsVue from '@/components/navComponents.vue';
-import OrderStepVue from '../components/orderStep.vue';
 
 </script>
-<template>   
+<template> 
     <section class="complete_order">
-        <h2>SHOPPING CART</h2>
-        <OrderStepVue /> 
         <div class="check_icon">
-            <img src="../assets/images/shop/checkIcon.png" alt="checkIcon">
+            <img src="../../assets/images/shop/checkIcon.png" alt="checkIcon">
         </div>
         <div class="some_words">
             <h3>Congratulation</h3>
             <h4>Wish you like our product~</h4>
             <h5>Wish see you again</h5>
         </div>
+        <p class="back">
+            <router-link class="anchor" to="/home">
+                back to home
+            </router-link>
+        </p>
     </section>
-
 </template>
 
 <style scoped lang="scss">
+@import '@/sass/style.scss';
     .complete_order{
         max-width: 800px;
-        // height: 100vh;
         margin: 0 auto;
+        padding: 10px;
         text-align: center;
         h2{
             width: 100%;
@@ -51,6 +53,14 @@ import OrderStepVue from '../components/orderStep.vue';
             h3,h4,h5{
                 padding: 20px;
             }
+        }
+    }
+    .back{
+        color: #f5f5f5;
+        line-height: 200px;
+        font-size: 24px;
+        @include m($m-breakpoint){
+            font-size: 30px;
         }
     }
 

@@ -79,14 +79,16 @@ const router = createRouter({
       component: () => import("../views/backend/backend.vue"),
     },
     {
-      path: "/shoppingCartStep2",
-      name: "shoppingCartStep2",
-      component: () => import("../views/shoppingCartStep2.vue"),
-    },
-    {
-      path: "/orderComplete",
-      name: "orderComplete",
-      component: () => import("../views/orderComplete.vue"),
+      path: "/shoppingCartStep",
+      name: "shoppingCartStep",
+      component: () => import("../views/ShoppingCartStep.vue"),
+      children:[
+        {
+          path: "/Step2",
+          name: "/Step2",
+          component: () => import("../views//Step2.vue"),
+        }
+      ]
     }
   ],
 });

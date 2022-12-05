@@ -473,6 +473,11 @@ $(document).ready(()=>{
     <section class="fuselage" id="fuselage">
         <h2><span>FUSRLAGE</span></h2>
         <p>Select All FUSRLAGE Product You favoraite</p>
+        <div class="search_box">
+            <label for="search"></label>
+            <input type="text" name="search" placeholder="search" id="search">
+            <button type="submit" value="submit">submit</button>
+        </div>
         <div class="card_slider">
             <div class="card_slider_items">
                 <div v-for= "item in products" class="card_slider_item" :key="item.name">
@@ -539,8 +544,10 @@ $(document).ready(()=>{
         <h2><span>BUNDLE</span></h2>
         <p>Make You More Professional</p>
         <div class="wrapper">
-            <button href="beginner" @click="viewChange(1)" >beginner</button>
-            <button href="veteran"  @click="viewChange(2)">veteran</button>
+            <Transition>
+                <button href="beginner" @click="viewChange(1)" >beginner</button>
+                <button href="veteran"  @click="viewChange(2)">veteran</button>
+            </Transition>
         </div>
 
         <div  class="area active">
@@ -776,6 +783,7 @@ $(document).ready(()=>{
     top: 50px;
     z-index: 2;
     p{
+        cursor: pointer;
         z-index: 2;
         position: relative;
         top: 30px;
@@ -789,20 +797,25 @@ $(document).ready(()=>{
         @include m($m-breakpoint){
             left: -75px;
             top: 45px;
+            margin-top: 15px;
             margin-left: 10px;
             z-index: 2;
         }
     }
     img{
+        cursor: pointer;
         z-index: 2;
         width: 20%;
         transform: rotate(-90deg);
         margin-left: 5px;
         @include m($m-breakpoint){
+            
             width: 30%;
+            margin-left: 0;
         }
     }
     .category{
+        width: 100%;
         display: none;
         flex-wrap: wrap;
         justify-content: center;
@@ -844,6 +857,23 @@ $(document).ready(()=>{
     h2,p{
         text-align: center;
     }
+    .search_box{
+        max-width: 1200px;
+        margin: 10px auto;
+        display: flex;
+        justify-content: center;
+        input{
+            background-color: transparent;
+            color: #e6e9f0;
+            border: 1px solid #444;
+        }
+        button{
+            background-color: transparent;
+            color: #e6e9f0;
+            border: 1px solid #444;
+        }
+    }
+
     .card_slider{
          width: 100%;
         
