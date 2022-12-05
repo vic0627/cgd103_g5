@@ -132,7 +132,8 @@ input{
             .meminfo{
                 width: 500px;
                 aspect-ratio: 16/9;
-                background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
+                // background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
+                background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
                 border-radius: 10px;
             }
             .memgrade{
