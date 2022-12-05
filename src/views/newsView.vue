@@ -142,6 +142,8 @@ import newsComponentsVue from "@/components/newsComponents.vue";
     position: relative;
     height: 800px;
     img {
+      width: 100%;
+      height: 800px;
       object-position: center 18%;
       object-fit: cover;
     }

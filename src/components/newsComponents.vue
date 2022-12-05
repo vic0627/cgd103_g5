@@ -230,6 +230,10 @@ const changeView = (index) => {
     padding: 10px 15px;
     margin: 10px;
     cursor: pointer;
+    transition: background 0.5s;
+    &:hover{
+        background: $blue;
+    }
 }
 
 

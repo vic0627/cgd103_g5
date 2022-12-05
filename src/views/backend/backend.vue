@@ -1,9 +1,9 @@
 <script>
 import tabhome from "../../components/tabHome.vue";
-import tabqrev from "../../components/tabqrev.vue";
-import tabqadd from "../../components/tabqadd.vue";
-import tabnewrevs from "../../components/tabnewrevs.vue";
-import tabnewadds from "../../components/tabnewadds.vue";
+import tabqrev from "../../components/tabqrev.vue";  //FAQ
+import tabqadd from "../../components/tabqadd.vue";  //FAQ
+import tabnewrevs from "../../components/tabnewrevs.vue"; //NEWS
+import tabnewadds from "../../components/tabnewadds.vue"; //NEWS
 
 
 
@@ -12,6 +12,10 @@ import tabnewadds from "../../components/tabnewadds.vue";
 export default {
   components: {
     tabhome,
+    tabqrev,
+    tabqadd,
+    tabnewrevs,
+    tabnewadds,
   },
 };
 </script>
