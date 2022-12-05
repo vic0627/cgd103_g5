@@ -94,21 +94,6 @@ const router = createRouter({
       component: () => import("../views/backend/backend.vue"),
     },
     {
-      path: "/aboutbackend",
-      name: "aboutbackend",
-      component: () => import("../views/backend/aboutBackend.vue"),
-    },
-    {
-      path: "/shoppingCartStep2",
-      name: "shoppingCartStep2",
-      component: () => import("../views/shoppingCartStep2.vue"),
-    },
-    {
-      path: "/orderComplete",
-      name: "orderComplete",
-      component: () => import("../views/orderComplete.vue"),
-    },
-    {
       path: "/machineView",
       name: "machineView",
       component: () => import("../views/machineView.vue"),
@@ -123,7 +108,13 @@ const router = createRouter({
       name: "apply",
       component: () => import("../views/applyView.vue"),
     },
+    {
+      path: "/shoppingCartStep",
+      name: "shoppingCartStep",
+      component: () => import("../views/ShoppingCartStep.vue"),
+    }
   ],
 });
 
 export default router;
+``

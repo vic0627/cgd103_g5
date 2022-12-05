@@ -31,33 +31,36 @@ onMounted(() => {
 
 <template>
     <header>
-            <div class="header">
-                <div class="logo">
+        <div class="header">
+            <div class="logo">
+                <router-link class="header-link" to="/home">
                     <img src="@/assets/images/home/g5_logo_EFVP_Horz.png" alt="LOGO">
-                </div>
-                <input type="checkbox" id="active">
-                <label for="active" class="menu-btn"><span></span></label>
-                <label for="active" class="close"></label>
-                <div class="wrapper">
-                    <ul>
-                        <li v-for="(item,index) in mainMenu" :key="index">
-                            <!-- <a href="#">{{item}}</a> -->
-                             <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
-                        </li>
-                    </ul>
-                </div>
-                 <div class="menu">
-                    <ul>
-                        <li v-for="(item,index) in mainMenu" :key="index">
-                            <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
-                        </li>
-                    </ul>
-                </div>
-                <div class="shop-cart">     
-                    <img src="@/assets/images/home/icon1.png" alt="cart1">
-                    <img src="@/assets/images/home/icon2.png" alt="cart2">
-                </div>
+                </router-link>
             </div>
+            <input type="checkbox" id="active">
+            <label for="active" class="menu-btn"><span></span></label>
+            <label for="active" class="close"></label>
+            <div class="wrapper">
+                <ul>
+                    <li v-for="(item,index) in mainMenu" :key="index">
+                        <!-- <a href="#">{{item}}</a> -->
+                            <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
+                    </li>
+                </ul>
+            </div>
+                <div class="menu">
+                <ul>
+                    <li v-for="(item,index) in mainMenu" :key="index">
+                        <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
+                    </li>
+                </ul>
+            </div>
+            <div class="shop-cart">  
+                <router-link to="/signin" class="shop"><img src="@/assets/images/home/icon1.png" alt="cart1"></router-link>   
+                <router-link to="/cart" class="shop"><img src="@/assets/images/home/icon2.png" alt="cart2">
+                </router-link>
+            </div>
+        </div>
     </header>
 </template>
 
@@ -69,25 +72,30 @@ header {
     position: fixed;
     z-index: 10;
     width: 100%;
-    height: 80px;
+    height: 70px;
     &::before{
         content: '';
         position: absolute;
         width: 100%;
-        height: 80px;
+        height: 70px;
         z-index: -1;
         background: rgba(#000,0.4);
         backdrop-filter:blur(20px);
     }
 }
+.header-link {
+    margin: auto;   
+    display: flex;
+}
 .header {
     display: flex;
-    height: 80px;
+    height: 70px;
     .logo {
         width: 60%;
         margin: 10px 20px;
         display: flex;
-        align-content: center;
+        // align-items: center;
+        // align-self: center;
         @include s($s-breakpoint) {
             width: 30%;
         }
@@ -108,15 +116,19 @@ header {
     .shop-cart {
         display: none;
         @include l($l-breakpoint) {
-            width: 200px;
+            width: 150px;
             display: flex;
             justify-content: flex-start;
             align-items: center;
-            img {
-                width: 30%;
+            .shop {
+                width: 40%;
+                img {
+                width: 60%;
                 height: 85%;
                 padding: 10px;
             }    
+            }
+            
         }
     }
 }
@@ -268,12 +280,12 @@ input[type="checkbox"]{
 
 
 @include l($l-breakpoint) {
-    header,.header {
-        height: 70px;
-        &::before {
-            height: 70px;
-        }
-    }
+    // header,.header {
+    //     height: 70px;
+    //     &::before {
+    //         height: 70px;
+    //     }
+    // }
     .header {
         width: 1200px;
         margin: 0 auto;
@@ -302,10 +314,12 @@ input[type="checkbox"]{
                 
                 &:hover{
                     color: $blue;
-                    transform: scale(1.05   );
+                    transform: scale(1.05);
                     transition: all 0.3s ease-in-out;
                 }
-           
+                &:focus {
+                    color: $blue;
+                }
                 &::before {
                     content: "";
                     left: 0;
@@ -319,7 +333,6 @@ input[type="checkbox"]{
                     
                 }
                 &:hover::before{
-                    
                     transform: translateX(0);
                     transition: transform 0.4s ease-in-out;
                 }

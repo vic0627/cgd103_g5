@@ -1,6 +1,9 @@
-<script setup></script>
+<script setup>
+import navComponentsVue from "@/components/navComponents.vue";
+</script>
 
 <template>
+  <navComponentsVue />
   <!-- Competition information -->
   <section>
     <div class="race">
@@ -28,39 +31,83 @@
       <h3>REGISTRATION FORM</h3>
 
       <form action="#">
-        <label for=""
-          >Name :
-          <input type="text" />
-          <input type="text" />
-        </label>
+        <div class="name">
+          <label for="">
+            Name :
+            <input class="shot" type="text" placeholder="First Name" />
+            <input class="shot" type="text" placeholder="Last Name" />
+          </label>
+        </div>
 
-        <label for="">
-          Phone :
-          <input type="text" />
-        </label>
+        <div class="sex">
+          <p class="ggg" style="display: inline">Sex :</p>
+          <input type="radio" id="Male" name="sex" value="Male" />
+          <label class="ggg" for="Male"> Male</label>
+          <input type="radio" id="Female" name="sex" value="Female" />
+          <label class="ggg" for="Female"> Female</label>
+        </div>
 
-        <label for="">
-          address :
-          <input type="text" />
-        </label>
+        <div class="email">
+          <label for="">
+            Email :
+            <input class="long" type="email" />
+          </label>
+        </div>
+
+        <div class="phone">
+          <label for="">
+            Phone :
+            <input class="long" type="tel" />
+          </label>
+        </div>
+
+        <div class="address">
+          <label for="">
+            Address :
+            <input class="long" type="text" />
+          </label>
+        </div>
       </form>
+    </div>
+
+    <div class="book">
+      <div class="learn">
+        <a
+          href="../views/applyView.vue"
+          class="btn"
+          id="btn2"
+          data-title="Learn"
+          @mouseenter="MOUSE.mouseFocus()"
+          @mouseleave="MOUSE.mouseRe()"
+        >
+          <span>Learn</span>
+        </a>
+      </div>
     </div>
   </section>
 </template>
 
 <style lang="scss" scoped>
+@import "../sass/style.scss";
+@import "../sass/component/_btn.scss";
 // Competition information
 
 section {
+  // margin: 0;
   .race {
     margin: 0 20px;
     h2 {
       text-align: center;
-      margin-bottom: 50px;
+      margin: 50px 0;
     }
     .raceimg {
       width: 100%;
       margin-bottom: 50px;
+      @include l($l-breakpoint) {
+        width: 90%;
+        margin: auto;
+        margin-bottom: 50px;
+      }
       img {
         width: 100%;
       }
@@ -73,8 +120,44 @@ section {
 
 //Registration Form
 
+h3 {
+  margin: 50px 0;
+}
+
 .form {
   text-align: center;
   color: white;
+  form {
+    div {
+      margin: auto;
+      margin-bottom: 20px;
+      input {
+        height: 20px;
+      }
+      label {
+        font-size: 20px;
+      }
+      .ggg {
+        font-size: 20px;
+        margin-right: 33px;
+      }
+      .shot {
+        width: 100px;
+        margin-right: 18px;
+      }
+      .long {
+        width: 250px;
+      }
+    }
+    .address {
+      margin-right: 15px;
+    }
+  }
+}
+
+.learn {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 50px;
 }
 </style>

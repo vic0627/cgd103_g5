@@ -7,7 +7,7 @@ export default {
 };
 </script>
 <script setup>
-import { ref, computed, markRaw } from 'vue';
+import { ref, computed, markRaw } from "vue";
 const backendCategory = ref({
   home: {
     title: "後臺首頁",
@@ -129,7 +129,11 @@ const log = (e) => console.log(e);
     <aside class="asideNav">
       <div v-for="e in backendCategory" :key="e">
         <h2 v-if="e.tab === 'home'">
-          <img src="../../assets/images/About/g5_logo_grey.png" alt="logoPic" @click="changeTab(e.tab)"/>
+          <img
+            src="../../assets/images/About/g5_logo_grey.png"
+            alt="logoPic"
+            @click="changeTab(e.tab)"
+          />
         </h2>
         <h3 v-else @click="changeShow(e)">{{ e.title }}</h3>
         <ol v-if="e.show === true">
@@ -157,11 +161,14 @@ const log = (e) => console.log(e);
   text-align: center;
   background-color: #597897;
   h2 {
-    margin: 40px 0;
+    margin: 20px;
     cursor: pointer;
+    img {
+      width: 150px;
+    }
   }
   h3 {
-    font-size: 32px;
+    font-size: 26px;
     cursor: pointer;
     color: #000;
     background-color: #fff;

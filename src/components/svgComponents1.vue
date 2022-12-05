@@ -12,32 +12,27 @@ onMounted(() => {});
 </script>
 
 <template>
-    <div class="line">
-        <img src="../assets/images/home/1.png" alt="">
+    <div class="circle">
+      <img src="../assets/images/home/2.png" alt="">
     </div>
-
 </template>
 
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
-.line {
-    // width: 600px;
-    // height: 500px;
+.circle {
     position: absolute;
-    width: 300px;
-    height: 300px;
     z-index: -1;
-    left: 0%;
+    left: 50%;
     bottom: 30%;
-    rotate: -10deg;
     img {
-        width: 100%;
+      width: 100%;
     }
     @include l($l-breakpoint){
-        left: 0%;
-        bottom: 25%;
+        left: 55%;
+        bottom: -30%;
+        rotate: -5deg;
         img {
-            width: 130%;
+          width: 100%;
         }
     }
 }

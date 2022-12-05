@@ -7,11 +7,18 @@
                 <p :class="step.textObj">{{step.text}}</p>
             </div>
         </div>
+        <KeepAlive>
+            <component :is="active"></component>
+        </KeepAlive>
+        <!-- <Step2/> -->
+        
     </div>
 </template>    
 
 <script setup>
 import {ref,reactive} from 'vue'
+import Step2 from '@/components/step/Step2.vue'
+const active = ref('Step3')
 const orderStep = reactive(
     [
     {
@@ -35,6 +42,7 @@ const orderStep = reactive(
         id:2,
         title:'Two',
         text:'CONFIRM DETAIL',
+        componentName: 'Step2',
         circleObj:{
             active_circle: true,
             unactive_circle: false,

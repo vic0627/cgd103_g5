@@ -10,10 +10,10 @@ div {
   height: 100vh;
 }
 h2 {
-  font-size: 80px;
+  font-size: 60px;
   color: #fff;
-  margin: 40px 50px;
-  padding: 20px 50px;
+  margin: 20px 20px;
+  padding: 20px 20px;
   background-color: #597897;
 }
 </style>

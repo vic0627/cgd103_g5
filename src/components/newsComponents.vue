@@ -1,134 +1,243 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue';
-
+import $ from 'jquery';
 onMounted(() => {
-//    tagGame();
+
 });
-
-
-const lastNews = reactive({
-    data: {
-        "id": 1,
-        "boolean": true,
-        "tagName": "Games",
+const lastNews = reactive([
+    {
+        "id": 3,
+        "tagName": "Photoshop",
         "title": "SkyPixel 8th style free ",
         "src": "/images/about/img_05.jpg",
-        "tag": {
-            "game": true,
-            "custom": true,
-            "photoshot": true,
-        },
     },
-    data2:{
-        "id": 2,
-        "tagName": "Customed",
+    {
+        "id": 1,
+        "tagName": "Travel",
         "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
         "src": "/images/about/img_06.jpg",
-        "tag": {
-            "game": true,
-            "custom": true,
-            "photoshot": true,
-        },
     },
-    data3:{
-        "id": 2,
-        "tagName": "Customed",
+    {
+        "id": 1,
+        "tagName": "Travel",
         "title": "Mens Casual Premium Slim Fit T-Shirts",
         "src": "/images/about/img_07.jpg",
-        "tag": {
-            "game": true,
-            "custom": true,
-            "photoshot": true,
-        },
     },
-    data4:{
-        "id": 3,
-        "tagName": "Photoshot",
+    {
+        "id": 2,
+        "tagName": "FPV",
         "title": "Mens Cotton Jacket",
         "src": "/images/about/img_08.jpg",
-        "tag": {
-            "game": true,
-            "custom": true,
-            "photoshot": true,
-        },
     },
-    data5:{
-        "id": 1,
-        "boolean": true,
-        "tagName": "Games",
+    {
+        "id": 4,
+        "tagName": "Customed",
         "title": "Sol Gold Petite Micropave",
         "src": "/images/about/img_09.jpg",
-        "tag": {
-            "game": true,
-            "custom": true,
-            "photoshot": true,
-        },
     },
-    data6:{
+    {
         "id": 1,
-        "tagName": "Games",
-        "boolean": true,
+        "tagName": "Travel",
         "title": "White Gold Plated Princess",
         "src": "/images/about/img_12.jpg",
-        "tag": {
-            "game": true,
-            "custom": true,
-            "photoshot": true,
-        },
     },
-})
-const view = reactive(true);
-// console.log(this.lastNews)
-    let cache = reactive(lastNews.data4.tag.game);
-    console.log(view)
-    console.log(cache)
-    // const 
-    const tagGame = computed((item) => {
-         item.data2.tag.game === true
-        
-    })
-    // return cache
+    //-------------------
+    {
+        "id": 1,
+        "tagName": "Travel",
+        "title": "Peak District cloud inversion leaves drone pilot speechless",
+        "src": "/images/news/news_04.jpg",
+    },
+    {
+        "id": 4,
+        "tagName": "Customed",
+        "title": "Drone footage shows deadly Brazil flooding",
+        "src": "/images/news/news_02.jpg",
+    },
+    {
+        "id": 2,
+        "tagName": "FPV",
+        "title": "Drones to track Walsall's off-road bikers",
+        "src": "/images/news/news_03.jpg",
+    },
+    {
+        "id": 1,
+        "tagName": "Travel",
+        "title": "Frequently Asked Questions About Time Travel",
+        "src": "/images/news/news_04.jpg",
+    },
+    {
+        "id": 2,
+        "tagName": "FPV",
+        "title": "UK drone pilots have 25 days to register with regulator",
+        "src": "/images/news/news_05.jpg",
+    },
+    {
+        "id": 1,
+        "tagName": "Travel",
+        "title": "A quintessentially Irish way to travel",
+        "src": "/images/news/news_06.jpg",
+    },
+    {
+        "id": 3,
+        "tagName": "Photoshop",
+        "title": "Frank Lampard photoshop used to promote New York park",
+        "src": "/images/news/news_07.jpg",
+    },
+    {
+        "id": 2,
+        "tagName": "FPV",
+        "title": "Drone racing: How it works",
+        "src": "/images/news/news_08.jpg",
+    },
+    {
+        "id": 3,
+        "tagName": "Photoshop",
+        "title": "Adobe Voco 'Photoshop-for-voice' causes concern",
+        "src": "/images/news/news_09.jpg",
+    },
+    {
+        "id": 4,
+        "tagName": "Customed",
+        "title": "Adult social care reform, Energy credit balances, Revolut fraud victims",
+        "src": "/images/news/news_10.jpg",
+    },
+    {
+        "id": 3,
+        "tagName": "Photoshop",
+        "title": "Tones, Drones and Arpeggios: The Magic of Minimalism",
+        "src": "/images/news/news_11.jpg",
+    },
+    {
+        "id": 3,
+        "tagName": "Photoshop",
+        "title": "Why mourners are opting to scatter ashes by drone",
+        "src": "/images/news/news_12.jpg",
+    },
+])
+
+// const view = ref(1);
+const vsc = ref(false);
+const filter = ref(0);
+const changeView = (index) => {
+    filter.value = index;
+}
+
 </script>
 
 <template>
-
-    <button @click="tagCustom">Customed</button>
-    <button @click="tagGame">Games</button>
-    <button @click="tagOutput">Output</button>
+    <div class="tab-tag">
+        <button class="tag" @click="changeView(1)">Travel</button>
+        <button class="tag" @click="changeView(2)">FPV</button>        
+        <button class="tag" @click="changeView(3)">Photoshot</button>
+         <button class="tag" @click="changeView(4)">Customed</button>
+        <button class="tag" @click="changeView(0)">ALL</button>    
+    </div>
 
     <div class="label">
         <div class="output_content_box cards">
         <div class="content">    
-            <div class="card" v-for="(item,index) in lastNews" :key="index"> 
-                <router-link class="anchor" to="/"><img :src="item.src" :alt="item.id"></router-link>
-                <div class="item_box">
-                    <div class="item" >{{item.tagName}}</div>
+            <div v-for="(item,index) in lastNews" :key="index">
+                <Transition name="tad" mode="out-in">
+                <div class="card" v-if="filter === 0">
+                    <router-link class="anchor" to="/"><img :src="item.src" :alt="item.id"></router-link>
+                    <div class="item_box">
+                        <div class="item" >{{item.tagName}}</div>
+                    </div>
+                    <div class="title"><p>{{item.title}}</p></div>
+                    <router-link class="article" to="/"><button>Read more &rarr;</button></router-link>
                 </div>
-                <div class="title"><p>{{item.title}}</p></div>
-                <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>  
+                </Transition>
+                <Transition name="tad" mode="out-in">
+                <div class="card" v-if="filter === 1 && item.id === 1">
+                    <router-link class="anchor" to="/"><img :src="item.src" :alt="item.id"></router-link>
+                    <div class="item_box">
+                        <div class="item" >{{item.tagName}}</div>
+                    </div>
+                    <div class="title"><p>{{item.title}}</p></div>
+                    <router-link class="article" to="/"><button>Read more &rarr;</button></router-link>
+                </div>
+                </Transition>
+                <Transition name="tad" mode="out-in">
+                <div class="card" v-if="filter === 2 && item.id === 2">
+                    <router-link class="anchor" to="/"><img :src="item.src" :alt="item.id"></router-link>
+                    <div class="item_box">
+                        <div class="item" >{{item.tagName}}</div>
+                    </div>
+                    <div class="title"><p>{{item.title}}</p></div>
+                    <router-link class="article" to="/"><button>Read more &rarr;</button></router-link>
+                </div>
+                </Transition>
+                <Transition name="tad" mode="out-in">
+                <div class="card" v-if="filter === 3 && item.id === 3">
+                    <router-link class="anchor" to="/"><img :src="item.src" :alt="item.id"></router-link>
+                    <div class="item_box">
+                        <div class="item" >{{item.tagName}}</div>
+                    </div>
+                    <div class="title"><p>{{item.title}}</p></div>
+                    <router-link class="article" to="/"><button>Read more &rarr;</button></router-link>
+                </div>
+                </Transition>
+                <Transition name="tad" mode="out-in">
+                <div class="card" v-if="filter === 4 && item.id === 4">
+                    <router-link class="anchor" to="/"><img :src="item.src" :alt="item.id"></router-link>
+                    <div class="item_box">
+                        <div class="item" >{{item.tagName}}</div>
+                    </div>
+                    <div class="title"><p>{{item.title}}</p></div>
+                    <router-link class="article" to="/"><button>Read more &rarr;</button></router-link>
+                </div>
+                </Transition>
             </div>
         </div>
         </div>
     </div>
-    <!-- <div class="label">
-        <div class="output_content_box cards">
-        <div class="content">    
-            <div class="card" v-for="(icon,index) in test" :key="index"> 
-                <router-link class="anchor" to="/"><img :src="icon.src" :alt="icon.id"></router-link>
-                <div class="item_box">
-                    <div class="item">{{icon.tagName}}</div>
-                </div>
-                <div class="title"><p>{{icon.title}}</p></div>
-                <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>  
-            </div>
-        </div>
-        </div>
-    </div> -->
+
 </template>
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
 @import '@/css/reset.css';
+.tad-enter-active {
+  animation: tad-in 1.5s;
+}
+.tad-leave-active {
+  animation: tad-in 0.5s reverse;
+}
+@keyframes tad-in {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
+.tab-tag {
+    width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+.tag {    border-radius: 10px;
+    background: transparent;
+    color: #eeeeee;
+    border: 2px solid #eeeeee;
+    padding: 10px 15px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+
+
+.display {
+    display: none;
+    color: red;
+}
 .newsPage {
     width: 1200px;
     margin: 0 auto;
