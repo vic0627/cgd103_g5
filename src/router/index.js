@@ -94,11 +94,6 @@ const router = createRouter({
       component: () => import("../views/backend/backend.vue"),
     },
     {
-      path: "/aboutbackend",
-      name: "aboutbackend",
-      component: () => import("../views/backend/aboutBackend.vue"),
-    },
-    {
       path: "/shoppingCartStep2",
       name: "shoppingCartStep2",
       component: () => import("../views/shoppingCartStep2.vue"),
