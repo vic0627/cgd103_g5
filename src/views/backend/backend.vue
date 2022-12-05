@@ -1,8 +1,12 @@
 <script>
 import tabhome from "../../components/tabHome.vue";
+import tabraceform from "../../components/tabraceform.vue";
+import tabracecategory from "../../components/tabracecategory.vue";
 export default {
   components: {
     tabhome,
+    tabraceform,
+    tabracecategory,
   },
 };
 </script>
@@ -81,11 +85,11 @@ const backendCategory = ref({
     text: {
       a: {
         cn: "賽事類別",
-        tab: "racetype",
+        tab: "racecategory",
       },
       b: {
         cn: "報名資料查詢",
-        tab: "racesearch",
+        tab: "raceform",
       },
     },
   },

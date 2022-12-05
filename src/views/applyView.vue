@@ -1,5 +1,6 @@
 <script setup>
 import navComponentsVue from "@/components/navComponents.vue";
+import footerComponentsVue from "@/components/footerComponents.vue";
 </script>
 
 <template>
@@ -85,6 +86,7 @@ import navComponentsVue from "@/components/navComponents.vue";
       </div>
     </div>
   </section>
+  <footerComponentsVue />
 </template>
 
 <style lang="scss" scoped>
