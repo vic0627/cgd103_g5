@@ -94,11 +94,6 @@ const router = createRouter({
       component: () => import("../views/backend/backend.vue"),
     },
     {
-      path: "/aboutbackend",
-      name: "aboutbackend",
-      component: () => import("../views/backend/aboutBackend.vue"),
-    },
-    {
       path: "/machineView",
       name: "machineView",
       component: () => import("../views/machineView.vue"),
