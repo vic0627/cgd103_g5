@@ -1,8 +1,10 @@
 <script>
 import tabhome from "../../components/tabHome.vue";
+import tabdiscount from "../../components/tabdiscount.vue";
 export default {
   components: {
     tabhome,
+    tabdiscount,
   },
 };
 </script>
