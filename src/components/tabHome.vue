@@ -1,11 +1,11 @@
-<script></script>
+<script setup>
+import outComponents from "../components/outComponents.vue";
+</script>
 <template>
   <div>
     <h2>
       Home
-      <span>
-        <router-link class="out" to="/">離開後台 &rarr;</router-link></span
-      >
+      <outComponents />
     </h2>
   </div>
 </template>
@@ -22,10 +22,6 @@ h2 {
   background-color: #597897;
   display: flex;
   justify-content: space-between;
-}
-.out {
-  font-size: 30px;
-  font-weight: bold;
-  color: #fff;
+  align-items: center;
 }
 </style>

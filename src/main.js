@@ -1,16 +1,16 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import router from './router'
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+// import outComponents from "./components/outComponents.vue";
 
-import navComponentsVue from './components/navComponents.vue';
-import footerComponentsVue from './components/footerComponents.vue';
+import navComponentsVue from "./components/navComponents.vue";
+import footerComponentsVue from "./components/footerComponents.vue";
 
+import "./css/reset.css";
+import "./sass/style.scss";
 
-import "./css/reset.css"
-import './sass/style.scss'
-
-const app = createApp(App)
-app.component('nav-component', navComponentsVue)
-app.component('footer-component', footerComponentsVue)
-app.use(router)
-app.mount('#app')
+const app = createApp(App);
+app.component("nav-component", navComponentsVue);
+app.component("footer-component", footerComponentsVue);
+app.use(router);
+app.mount("#app");

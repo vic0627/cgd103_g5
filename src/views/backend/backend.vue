@@ -161,6 +161,9 @@ const log = (e) => console.log(e);
 </template>
 
 <style lang="scss" scoped>
+outComponents {
+  width: 100px;
+}
 .backend {
   width: 100%;
   height: 100vh;
