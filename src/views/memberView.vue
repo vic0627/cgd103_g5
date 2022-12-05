@@ -2,7 +2,7 @@
 import { onMounted, registerRuntimeCompiler} from 'vue';
 import navComponentsVue from '@/components/navComponents.vue';
 
-// import {useMotion} from '@vueuse/motion';
+import {useMotion} from '@vueuse/motion';
 export default{
   components:{
     navComponentsVue
@@ -66,14 +66,18 @@ export default{
         </div>
     </div>
 </section>
-
 </template>
 
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
 
+section{
+    margin-top: 0;
+}
 .member{
     width: 100%;
+    padding-top: 100px;
+    cursor: pointer;
     .member_box{
         width: 100%;
         max-width: 1200px;
