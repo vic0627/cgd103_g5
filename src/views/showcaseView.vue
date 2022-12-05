@@ -5,10 +5,16 @@ import * as PRO from './js/ShopInfoThree';
 import { useMousePosition, x, y } from '@/composables/useMousePosition';
 import { fpv } from './js/ShopInfoItem';
 import { body } from './js/CustomizeThree';
+
+
+import { bodyInit } from '../composables/useOnunmounted';
+bodyInit();
+
 useMousePosition();
 let ww = window.innerWidth, wh = window.innerHeight;
 let wrap, canvas, conatinerInfo, infoList, conatinerClose, closeH3, bgText, ws, co, cc0, cc1, cc2, cc3, cc4, infoListTotalH = 0, el, wl;
 const wW = ref(window.innerWidth);
+
 onMounted(()=> {
     wrap = $$('.productInfoWrap');
     canvas = $$('#product3d');
@@ -583,6 +589,7 @@ const allFloat = () => {
 </script>
 
 <template>
+    <nav-component />
     <section class="productInfoWrap">
         <canvas id="product3d" class="product3d"></canvas>
         <ol  class="containerInfo">
@@ -617,6 +624,7 @@ const allFloat = () => {
             </ol>
         </div>
     </section>
+    <footer-component />
 </template>
 
 <style lang="scss" scoped>

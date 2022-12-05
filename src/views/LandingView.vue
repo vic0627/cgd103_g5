@@ -98,12 +98,10 @@ const mouse3d = () => {
         <span @mouseover="mousePlay" @mouseout="mouseOut" class="spanH2" v-for="i in forestage" :key="i">{{ i }}</span>
     </h2>
     <div class="buttons" id="frontButtons">
-        <a data-title="To Backstage" class="btnSecond" @click="toBack" @mousemove="MOUSE.mouseFocus"
-        @mouseleave="MOUSE.mouseRe">
+        <a data-title="To Backstage" class="btnSecond" @click="toBack">
             <span>To Backstage</span>
         </a>
-        <router-link to="/home" data-title="Enter" class="btnMain"  @mouseenter="MOUSE.mouseEnhance"
-        @mouseleave="MOUSE.mouseRe">
+        <router-link to="/home" data-title="Enter" class="btnMain">
             <span>Enter</span>
         </router-link>
     </div>
@@ -111,12 +109,10 @@ const mouse3d = () => {
         <span @mouseover="mousePlay" @mouseout="mouseOut" class="spanH2" v-for="i in backstage" :key="i">{{ i }}</span>
     </h2>
     <div class="buttons" id="backButtons">
-        <a data-title="To Frontstage" class="btnSecond" @click="toFront"  @mousemove="MOUSE.mouseFocus"
-        @mouseleave="MOUSE.mouseRe">
+        <a data-title="To Frontstage" class="btnSecond" @click="toFront">
             <span>To Frontstage</span>
         </a>
-        <router-link to="/backend" data-title="Enter" class="btnMain"  @mouseenter="MOUSE.mouseEnhance"
-        @mouseleave="MOUSE.mouseRe">
+        <router-link to="/backend" data-title="Enter" class="btnMain">
             <span>Enter</span>
         </router-link>
     </div>
