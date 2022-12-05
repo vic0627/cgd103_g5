@@ -1,8 +1,21 @@
 <script>
 import tabhome from "../../components/tabHome.vue";
+import tabqrev from "../../components/tabqrev.vue"; //FAQ
+import tabqadd from "../../components/tabqadd.vue"; //FAQ
+import tabnewrevs from "../../components/tabnewrevs.vue"; //NEWS
+import tabnewadds from "../../components/tabnewadds.vue"; //NEWS
+import tabraceform from "../../components/tabraceform.vue"; //RACE
+import tabracecategory from "../../components/tabracecategory.vue"; //RACE
+
 export default {
   components: {
     tabhome,
+    tabqrev,
+    tabqadd,
+    tabnewrevs,
+    tabnewadds,
+    tabraceform,
+    tabracecategory,
   },
 };
 </script>
@@ -43,7 +56,7 @@ const backendCategory = ref({
     text: {
       a: {
         cn: "修改問題",
-        tab: "qfix",
+        tab: "qrev",
       },
       b: {
         cn: "新增問題",
@@ -57,11 +70,11 @@ const backendCategory = ref({
     text: {
       a: {
         cn: "消息內容修改",
-        tab: "newsfix",
+        tab: "newrevs",
       },
       b: {
         cn: "消息內容新增",
-        tab: "newsadd",
+        tab: "newadds",
       },
     },
   },
@@ -81,11 +94,11 @@ const backendCategory = ref({
     text: {
       a: {
         cn: "賽事類別",
-        tab: "racetype",
+        tab: "racecategory",
       },
       b: {
         cn: "報名資料查詢",
-        tab: "racesearch",
+        tab: "raceform",
       },
     },
   },

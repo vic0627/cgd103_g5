@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, reactive } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
+import footerComponentsVue from "@/components/footerComponents.vue";
 </script>
 
 <template>
@@ -25,7 +26,7 @@ import navComponentsVue from "@/components/navComponents.vue";
       </div>
 
       <div class="banner_title">
-        <h2>CONTEST</h2>
+        <h2>RACE</h2>
       </div>
     </div>
   </section>
@@ -47,40 +48,33 @@ import navComponentsVue from "@/components/navComponents.vue";
             </div>
 
             <div class="date">
-              <span>2022</span>
+              <span class="span">2022</span>
 
-              <span>01</span>
+              <span class="span">01</span>
 
-              <span>01</span>
-
-              <br />
-
-              <span>|</span>
+              <span class="span">01</span>
 
               <br />
 
-              <span>2022</span>
+              <span class="span">|</span>
 
-              <span>01</span>
+              <br />
 
-              <span>10</span>
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
             </div>
 
             <div class="competitionName">
-              <h4>competition name</h4>
+              <h4>Competition Name</h4>
             </div>
 
             <div class="learn">
-              <a
-                href="../views/applyView.vue"
-                class="btn"
-                id="btn1"
-                data-title="Learn"
-                @mouseenter="MOUSE.mouseFocus()"
-                @mouseleave="MOUSE.mouseRe()"
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
               >
-                <span>Learn</span>
-              </a>
             </div>
           </div>
         </div>
@@ -92,40 +86,33 @@ import navComponentsVue from "@/components/navComponents.vue";
             </div>
 
             <div class="date">
-              <span>2022</span>
+              <span class="span">2022</span>
 
-              <span>01</span>
+              <span class="span">01</span>
 
-              <span>01</span>
-
-              <br />
-
-              <span>|</span>
+              <span class="span">01</span>
 
               <br />
 
-              <span>2022</span>
+              <span class="span">|</span>
 
-              <span>01</span>
+              <br />
 
-              <span>10</span>
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
             </div>
 
             <div class="competitionName">
-              <h4>competition name</h4>
+              <h4>Competition Name</h4>
             </div>
 
             <div class="learn">
-              <a
-                href="../views/applyView.vue"
-                class="btn"
-                id="btn1"
-                data-title="Learn"
-                @mouseenter="MOUSE.mouseFocus()"
-                @mouseleave="MOUSE.mouseRe()"
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
               >
-                <span>Learn</span>
-              </a>
             </div>
           </div>
         </div>
@@ -137,40 +124,33 @@ import navComponentsVue from "@/components/navComponents.vue";
             </div>
 
             <div class="date">
-              <span>2022</span>
+              <span class="span">2022</span>
 
-              <span>01</span>
+              <span class="span">01</span>
 
-              <span>01</span>
-
-              <br />
-
-              <span>|</span>
+              <span class="span">01</span>
 
               <br />
 
-              <span>2022</span>
+              <span class="span">|</span>
 
-              <span>01</span>
+              <br />
 
-              <span>10</span>
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
             </div>
 
             <div class="competitionName">
-              <h4>competition name</h4>
+              <h4>Competition Name</h4>
             </div>
 
             <div class="learn">
-              <a
-                href="../views/applyView.vue"
-                class="btn"
-                id="btn1"
-                data-title="Learn"
-                @mouseenter="MOUSE.mouseFocus()"
-                @mouseleave="MOUSE.mouseRe()"
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
               >
-                <span>Learn</span>
-              </a>
             </div>
           </div>
         </div>
@@ -182,40 +162,33 @@ import navComponentsVue from "@/components/navComponents.vue";
             </div>
 
             <div class="date">
-              <span>2022</span>
+              <span class="span">2022</span>
 
-              <span>01</span>
+              <span class="span">01</span>
 
-              <span>01</span>
-
-              <br />
-
-              <span>|</span>
+              <span class="span">01</span>
 
               <br />
 
-              <span>2022</span>
+              <span class="span">|</span>
 
-              <span>01</span>
+              <br />
 
-              <span>10</span>
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
             </div>
 
             <div class="competitionName">
-              <h4>competition name</h4>
+              <h4>Competition Name</h4>
             </div>
 
             <div class="learn">
-              <a
-                href="../views/applyView.vue"
-                class="btn"
-                id="btn1"
-                data-title="Learn"
-                @mouseenter="MOUSE.mouseFocus()"
-                @mouseleave="MOUSE.mouseRe()"
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
               >
-                <span>Learn</span>
-              </a>
             </div>
           </div>
         </div>
@@ -227,40 +200,33 @@ import navComponentsVue from "@/components/navComponents.vue";
             </div>
 
             <div class="date">
-              <span>2022</span>
+              <span class="span">2022</span>
 
-              <span>01</span>
+              <span class="span">01</span>
 
-              <span>01</span>
-
-              <br />
-
-              <span>|</span>
+              <span class="span">01</span>
 
               <br />
 
-              <span>2022</span>
+              <span class="span">|</span>
 
-              <span>01</span>
+              <br />
 
-              <span>10</span>
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
             </div>
 
             <div class="competitionName">
-              <h4>competition name</h4>
+              <h4>Competition Name</h4>
             </div>
 
             <div class="learn">
-              <a
-                href="../views/applyView.vue"
-                class="btn"
-                id="btn1"
-                data-title="Learn"
-                @mouseenter="MOUSE.mouseFocus()"
-                @mouseleave="MOUSE.mouseRe()"
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
               >
-                <span>Learn</span>
-              </a>
             </div>
           </div>
         </div>
@@ -272,40 +238,33 @@ import navComponentsVue from "@/components/navComponents.vue";
             </div>
 
             <div class="date">
-              <span>2022</span>
+              <span class="span">2022</span>
 
-              <span>01</span>
+              <span class="span">01</span>
 
-              <span>01</span>
-
-              <br />
-
-              <span>|</span>
+              <span class="span">01</span>
 
               <br />
 
-              <span>2022</span>
+              <span class="span">|</span>
 
-              <span>01</span>
+              <br />
 
-              <span>10</span>
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
             </div>
 
             <div class="competitionName">
-              <h4>competition name</h4>
+              <h4>Competition Name</h4>
             </div>
 
             <div class="learn">
-              <a
-                href="../views/applyView.vue"
-                class="btn"
-                id="btn1"
-                data-title="Learn"
-                @mouseenter="MOUSE.mouseFocus()"
-                @mouseleave="MOUSE.mouseRe()"
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
               >
-                <span>Learn</span>
-              </a>
             </div>
           </div>
         </div>
@@ -317,40 +276,33 @@ import navComponentsVue from "@/components/navComponents.vue";
             </div>
 
             <div class="date">
-              <span>2022</span>
+              <span class="span">2022</span>
 
-              <span>01</span>
+              <span class="span">01</span>
 
-              <span>01</span>
-
-              <br />
-
-              <span>|</span>
+              <span class="span">01</span>
 
               <br />
 
-              <span>2022</span>
+              <span class="span">|</span>
 
-              <span>01</span>
+              <br />
 
-              <span>10</span>
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
             </div>
 
             <div class="competitionName">
-              <h4>competition name</h4>
+              <h4>Competition Name</h4>
             </div>
 
             <div class="learn">
-              <a
-                href="../views/applyView.vue"
-                class="btn"
-                id="btn1"
-                data-title="Learn"
-                @mouseenter="MOUSE.mouseFocus()"
-                @mouseleave="MOUSE.mouseRe()"
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
               >
-                <span>Learn</span>
-              </a>
             </div>
           </div>
         </div>
@@ -362,40 +314,33 @@ import navComponentsVue from "@/components/navComponents.vue";
             </div>
 
             <div class="date">
-              <span>2022</span>
+              <span class="span">2022</span>
 
-              <span>01</span>
+              <span class="span">01</span>
 
-              <span>01</span>
-
-              <br />
-
-              <span>|</span>
+              <span class="span">01</span>
 
               <br />
 
-              <span>2022</span>
+              <span class="span">|</span>
 
-              <span>01</span>
+              <br />
 
-              <span>10</span>
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
             </div>
 
             <div class="competitionName">
-              <h4>competition name</h4>
+              <h4>Competition Name</h4>
             </div>
 
             <div class="learn">
-              <a
-                href="../views/applyView.vue"
-                class="btn"
-                id="btn1"
-                data-title="Learn"
-                @mouseenter="MOUSE.mouseFocus()"
-                @mouseleave="MOUSE.mouseRe()"
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
               >
-                <span>Learn</span>
-              </a>
             </div>
           </div>
         </div>
@@ -409,7 +354,7 @@ import navComponentsVue from "@/components/navComponents.vue";
   <!-- Aerial point  -->
   <section class="aerialPoint">
     <div class="aerialPoint_title">
-      <h2>Aerial Point</h2>
+      <h2>AERIAL POINT</h2>
     </div>
 
     <div class="pointBox">
@@ -555,11 +500,17 @@ import navComponentsVue from "@/components/navComponents.vue";
       </div>
     </div>
   </section>
+  <footerComponentsVue />
 </template>
 
 <style lang="scss" scoped>
 @import "../sass/style.scss";
 @import "../sass/component/_btn.scss";
+
+header {
+  position: sticky;
+  top: 0;
+}
 
 // banner
 
@@ -573,7 +524,7 @@ section {
   height: 176px;
   position: relative;
   @include l($l-breakpoint) {
-    height: 760px;
+    height: 690px;
   }
   .banner_img {
     width: 100%;
@@ -588,7 +539,7 @@ section {
   }
   .banner_title {
     position: absolute;
-    top: 50px;
+    top: 30px;
     left: 50%;
     transform: translate(-50%, -50%);
   }
@@ -734,8 +685,7 @@ h2 {
           font-weight: bold;
         }
       }
-      span {
-        // display: block;
+      .span {
         font-size: 30px;
         line-height: 4rem;
         font-weight: bold;

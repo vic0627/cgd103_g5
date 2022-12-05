@@ -4,6 +4,7 @@ import $ from 'jquery';
 import { ref, onMounted } from 'vue';
 
 onMounted(()=> {
+    $('.List-item>a').parent().siblings().find('ul').hide();
     $('.List-item>a').click(function (e) { 
         e.preventDefault();
         $(this).parent().siblings().find('ul').slideUp();
@@ -11,37 +12,39 @@ onMounted(()=> {
         // $(this).parent().siblings().find('a').removeClass('rmminus');
         // $(this).toggleClass('rmminus');
     });
-
 })
+
+const sidenav = ref({
+    account :{
+        title : "Account",
+        list : ["Profile Overview"],
+    },
+    order :{
+        title : "Orders",
+        list : ["Normal Orders","Customized Orders"],
+    },
+    racing :{
+        title : "Racing",
+        list : ["My Racing"],
+    },
+    person :{
+        title : "Personal Setting",
+        list : ["Payment"],
+    }
+});
+
+const isShow = ref(false)
+
 </script>
 
 <template>
     <headerComponentsVue />
     <div class="main">
-        <nav class="sidenav">
-            <li class="List-item">
-                <a href="">Account</a>
+        <nav class="sidenav" >
+            <li class="List-item" v-for="item in sidenav" :key="item">
+                <a href="">{{item.title}}</a>
                 <ul class="subitem">
-                    <li class="">Profile Overview</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Orders</a>
-                <ul class="subitem">
-                    <li class="">Normal Orders</li>
-                    <li class="">Customized Orders</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Racing</a>
-                <ul class="subitem">
-                    <li class="">My Racing</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Personal Setting</a>
-                <ul class="subitem">
-                    <li class="">Payment</li>
+                    <li class=""  v-for="i in item.list" :key="i" >{{i}}</li>
                 </ul>
             </li>
         </nav>
@@ -99,7 +102,8 @@ input{
             .meminfo{
                 width: 500px;
                 aspect-ratio: 16/9;
-                background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
+                // background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
+                background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
                 border-radius: 10px;
             }
             .memgrade{

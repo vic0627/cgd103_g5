@@ -1,11 +1,14 @@
 <script>
 import { onMounted, registerRuntimeCompiler} from 'vue';
 import navComponentsVue from '@/components/navComponents.vue';
+import footerComponentsVue from '@/components/footerComponents.vue';
+
 
 import {useMotion} from '@vueuse/motion';
 export default{
   components:{
-    navComponentsVue
+    navComponentsVue,
+    footerComponentsVue
   }
 }
 </script>
@@ -66,6 +69,8 @@ export default{
         </div>
     </div>
 </section>
+<footerComponentsVue />
+
 </template>
 
 <style lang="scss" scoped>

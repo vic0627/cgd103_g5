@@ -6,7 +6,7 @@
     <router-link class="anchor" to="/about">About</router-link>
     <router-link class="anchor" to="/news">News</router-link>
     <router-link class="anchor" to="/shop">Shop</router-link>
-    <router-link class="anchor" to="/shop/shopInfo">shopInfo</router-link>
+    <router-link class="anchor" to="/shopInfo">shopInfo</router-link>
     <router-link class="anchor" to="/cart">Cart</router-link>
     <router-link class="anchor" to="/game">Game</router-link>
     <router-link class="anchor" to="/custom">Custom</router-link>
