@@ -28,14 +28,9 @@ const router = createRouter({
       name: "shop",
       component: () => import("../views/shopView.vue"),
     },
-    /* {
+    {
       path: "/shopInfo",
       name: "shopInfo",
-      component: () => import("../views/ShopInfoViewB.vue"),
-    }, */
-    {
-      path: "/shopInfo2",
-      name: "shopInfo2",
       component: () => import("../views/shopInfo2View.vue"),
     },
     {
@@ -122,6 +117,8 @@ const router = createRouter({
       path: "/articleView",
       name: "articleView",
       component: () => import("../views/articleView.vue"),
+    },
+    {
       path: "/apply",
       name: "apply",
       component: () => import("../views/applyView.vue"),
