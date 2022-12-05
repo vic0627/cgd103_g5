@@ -51,7 +51,7 @@ const router = createRouter({
     {
       path: "/showcase",
       name: "showcase",
-      component: () => import("../views/ShowCaseView.vue"),
+      component: () => import("../views/showcaseView.vue"),
     },
     {
       path: "/race",
