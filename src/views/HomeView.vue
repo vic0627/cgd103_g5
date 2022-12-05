@@ -4,6 +4,9 @@ import $ from 'jquery';
 import Parallax from 'parallax-js';
 import navComponentsVue from '@/components/navComponents.vue';
 import svglineComponentsVue from '@/components/svglineComponents.vue';
+import svgComponents1Vue from '@/components/svgComponents1.vue';
+import footerComponentsVue from '@/components/footerComponents.vue';
+import slider from '@/components/test.vue';
 
 
 onMounted(()=> {
@@ -37,7 +40,7 @@ const view = ref(1);
 const changeView = (index) => {
     view.value = index
 }
-
+const isOpen = ref(true)
 </script>
 
 
@@ -59,10 +62,17 @@ const changeView = (index) => {
             <div class="drone layer" data-depth="0.1">
                 <img src="../assets/images/home/fly2.png" alt="">
             </div>
+            <!-- <svgComponents1Vue class="layer" data-depth="0.5" /> -->
         </div>
+        <div class="scroll">
+            <p>Scroll down</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" style="fill: rgba(238, 238, 238, 1);transform: ;msFilter:;"><path d="M11.975 22H12c3.859 0 7-3.14 7-7V9c0-3.841-3.127-6.974-6.981-7h-.06C8.119 2.022 5 5.157 5 9v6c0 3.86 3.129 7 6.975 7zM7 9a5.007 5.007 0 0 1 4.985-5C14.75 4.006 17 6.249 17 9v6c0 2.757-2.243 5-5 5h-.025C9.186 20 7 17.804 7 15V9z"></path><path d="M11 6h2v6h-2z"></path></svg>
+        </div>
+        <!-- <svglineComponentsVue /> -->
+        <!-- <svgComponents1Vue /> -->
     </div>
-
-    <svglineComponentsVue />
+<svglineComponentsVue :class="{svgWidth : isOpen}"/>
+<svgComponents1Vue />
     <section>
         <div class="home-custom">
             <div class="custom-pic">
@@ -96,10 +106,9 @@ const changeView = (index) => {
                     </a>
                 </div>
             </div>
-          
         </div>
     </section>
-
+    <!-- <svglineComponentsVue :class="{position : isOpen}"  /> -->
     <section>
         <div class="homeAcc">
             <h2>ACCESSORIES</h2>
@@ -109,7 +118,7 @@ const changeView = (index) => {
             <div class="homeAccWrap1">
                 <div class="mainAcc">
                     <div class="homeAccWrap1-pic">
-                        <img src="@/assets/images/home/homeAcc1.png" alt="">
+                        <img src="../assets/images/home/body_03_black_1.png" alt="">
                     </div>
                     <div class="homeAccWrap1-txt">
                         <h5>Stay Flying Longer-Up to 60mins</h5>
@@ -130,7 +139,7 @@ const changeView = (index) => {
             <div class="homeAccWrap2">
                  <div class="accSection">
                     <div class="homeAccWrap2-pic">
-                        <img src="@/assets/images/home/homeAcc3.png" alt="">  
+                        <img src="../assets/images/home/propellor_02_black_1.png" alt="">  
                     </div>
                     <div class="homeAccWrap2-txt">
                         <h6>Drone Remote controller</h6>
@@ -149,7 +158,7 @@ const changeView = (index) => {
             <div class="homeAccWrap2">
                 <div class="accSection">
                     <div class="homeAccWrap2-pic">
-                        <img src="@/assets/images/home/homeAcc3.png" alt="">  
+                        <img src="../assets/images/home/body_01_blue_1.png" alt="">  
                     </div>
                     <div class="homeAccWrap2-txt">
                         <h6>Drone Remote controller</h6>
@@ -164,14 +173,18 @@ const changeView = (index) => {
         </div>
     </section>
 
-    <section>
+    <section class="aboutSection">
         <div class="homeAbout">
             <h2>ABOUT US</h2>
-            <img src="../assets/images/home/g5_logo_grey.png" alt="">
-            <h3>RACING AND FREESTYLE</h3>
-            <p>We are highly motivated to present GOOD SLEEP to as many people aspossible. Our task is not just selling pillows.We are fully committed to provide fulfilling sleep. Good sleep bringshappiness, energy, and smiles. It is a simple fact.</p>
+            <div class="about-pic">
+                <img src="../assets/images/home/g5_logo_grey.png" alt="">
+            </div>
+            <div class="about-txt">
+                <h3>RACING AND FREESTYLE</h3>
+                <p>We are highly motivated to present GOOD SLEEP to as many people aspossible. Our task is not just selling pillows.We are fully committed to provide fulfilling sleep. Good sleep bringshappiness, energy, and smiles. It is a simple fact.</p>
+            </div>
             <!-- <div class="homeAbout-pic">
-                <img src="@/assets/images/home/homeAbout.jpg" alt="">
+                <img src="../assets/images/home/about.png" alt="">
             </div> -->
             <div class="aboutBtn">
                 <a href="#" class="btn" id="btn1" data-title="Learn">
@@ -203,16 +216,20 @@ const changeView = (index) => {
             <h2>CONTEST</h2>
         </div>
         <div class="homeRace">
+            <transition name="tad" mode="out-in">
             <div class="homeContest" v-if="view === 1">
                 <div class="homeContest-pic">
                     <img src="@/assets/images/home/contest.png" alt="">
                 </div>
                 <div class="homeContest-txt">
-                    <h5>DRL Vegas Championship Race</h5>
-                    <p>Thursday, Nov 17th 2022</p>
+                    <div class="contest-vue">
+                        <h5>DRL Vegas Championship Race</h5>
+                        <p>Thursday, Nov 17th 2022</p>
                         <a href="#" class="btn" id="btn1" data-title="Learn">
                     <span>Learn</span>
                     </a>
+                    </div>
+                   
                 </div>
             </div>
             <div class="homeContest" v-else-if="view === 2">
@@ -220,11 +237,13 @@ const changeView = (index) => {
                     <img src="/images/about/img_06.jpg" alt="">
                 </div>
                 <div class="homeContest-txt">
+                    <div class="contest-vue">
                     <h5>Miami 3-0-Fly Finals</h5>
                     <p>Sunday, Mar 26th 2023</p>
                         <a href="#" class="btn" id="btn1" data-title="Learn">
                     <span>Learn</span>
                     </a>
+                    </div>
                 </div>
             </div>
             <div class="homeContest" v-else-if="view === 3">
@@ -232,13 +251,16 @@ const changeView = (index) => {
                     <img src="/images/about/img_07.jpg" alt="">
                 </div>
                 <div class="homeContest-txt">
+                    <div class="contest-vue">
                     <h5>SIM Series - Alpine Valley</h5>
                     <p>Tuesday, Dec 6th 2022</p>
                         <a href="#" class="btn" id="btn1" data-title="Learn">
                     <span>Learn</span>
                     </a>
+                    </div>
                 </div>
             </div>
+            </transition>
             <div class="buttonDiv">
                 <button @click="changeView(1)" class="raceChange"><p>DRL</p></button>
                 <button @click="changeView(2)" class="raceChange"><p>Miami</p></button>
@@ -246,13 +268,41 @@ const changeView = (index) => {
             </div>
         </div>
     </section>
-
+    <slider />
+    <footerComponentsVue />
 </template>
 
-<style lang="scss">
-
+<style lang="scss" scoped>
 @import '@/sass/style.scss';
 @import '@/css/reset.css';
+
+
+.tad-enter-active {
+  animation: tad-in 1s;
+}
+.tad-leave-active {
+  animation: tad-in 0.5s reverse;
+}
+@keyframes tad-in {
+  0% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+//line.circle
+.svgWidth {
+    width: 300px;
+    height: 300px;
+}
+.position {
+    left: 95%;
+    bottom: -70%;
+}
 
 $center: center;
 $left: left;
@@ -280,13 +330,21 @@ $l-w:1200px;
         z-index: 2;
     }
 }
-
-
-
 //CUSTOMIZE
 section {
     width: 100%;
     margin: 40px auto;
+}
+.home1 {
+    position: relative;
+    overflow: hidden;
+}
+.scroll {
+    width: 100%;
+    position: relative;
+    p {
+        font-size: 12px;
+    }
 }
 .home-custom {
     width: 90%;
@@ -295,6 +353,7 @@ section {
     display: flex;
     align-content: center;
     height: 600px;
+    overflow: hidden;
     .custom-pic {
         width: 100%;
         position: absolute;
@@ -311,7 +370,7 @@ section {
         position: absolute;
         z-index: 2;
         width: 100%;
-        height: 100%;
+        height: 99.5%;
         border-radius: $img-radius;
     }
     }
@@ -374,8 +433,10 @@ section {
         width: 100%;
         display: flex;
         justify-content: center;
+         margin: 20px 0;
         img {
             width: 80%;
+            object-fit: contain;
         }
     }
 }
@@ -397,7 +458,8 @@ section {
         justify-content: center;
         border-radius: $img-radius;
         .homeAccWrap2-pic {
-            width: 95%;
+            width: 80%;
+            margin: 50px 0;
             img {
                 width: 100%;
                 object-fit: cover;
@@ -436,21 +498,35 @@ section {
     .aboutBtn {
         @include flexCenter($center);
     }
+    .about-txt {
+        margin: 0 auto;
+        width: 90%;
+        p {
+            line-height: 40px;
+        }
+    }
+    .about-pic {
+        margin: 50px;
+        img {
+            width: 80%;
+            @include s($s-breakpoint) {
+                width: 40%;
+            }
+        }
+    }
     .homeAbout-pic {
         position: absolute;
-        top: 0;
-        right: -90%;
+        top: 20%;
+        right: 0%;
         z-index: -1;
+        width: 70%;
+        height: 70%;
+        // border-radius: 50%;
         img {
-            width: 40%;
+            width: 100%;
             border-radius: 50%;
             // background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
-            box-shadow: inset 0px 0px 60px 80px #12181E;
-            &::before {
-                background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
-                position: absolute;
-            
-            }
+            // box-shadow: inset 0px 0px 60px 80px #12181E;
         }
      
     }
@@ -496,8 +572,8 @@ section {
             border-radius: $img-radius;
         }
     }
-    .homeContest-txt {
-        padding: 20px;
+    .homeContest-txt { 
+        // margin: 10px;
         width: 100%;
         background: #0F1F3D;
         border-radius: $img-radius;
@@ -505,24 +581,69 @@ section {
         z-index: 2;
         bottom: -20%;
         left: 0;
+        .contest-vue {
+            margin: 20px;
+        }
+    }
+}
+.homeRace {
+    position: relative;    
+    .buttonDiv {
+        position: absolute;
+        bottom: -30%;
+        margin-left: 10px;
+        .raceChange {
+            background-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding-top: 10px;
+            padding:  10px 20px 5px;
+            position: relative;
+            border-bottom: 3px solid #8a8a8a;
+            position: relative;
+            transition: all .3s cubic-bezier(.2, 0, 0, 1);
+            z-index: 1;
+            p {
+                &:hover {
+                    color: $blue;
+                }
+                &:focus  {
+                    color: $blue;
+                }
+            }
+            &::after {
+                content: "";
+                display: block;
+                height: 3px;
+                position: absolute;
+                bottom: 0;
+                right: 1.25rem;
+                left: 1.25rem;
+            }
+            &:hover:after {
+                background-color: $blue;
+                transition: all .3s cubic-bezier(.2, 0, 0, 1);
+                transform-origin: bottom center;
+                z-index: -1;
+                bottom: -3px;
+                right: 0;
+                left: 0;
+            }
+            &:focus::after {
+                background-color: $blue;
+                bottom: -3px;
+                right: 0;
+                left: 0;
+            }
+            &:focus p {
+                color: $blue;
+                transform: scale(1.02) 1s ease;
+            }
+        }
     }
 }
 
-
-//NEWS
-.newsSection {
-    margin-top: 130px;
-}
-#newSlider {
-    display: flex;
-    justify-content: center;
-    img {
-        width: 90%;
-        object-fit: cover;
-        border-radius: $img-radius;
-    }
-}
-
+//電腦版
 @include l($l-breakpoint) {
     //cusotom
     .custom-pic {
@@ -563,6 +684,13 @@ section {
             margin: 20px;
         }
     }
+    //about
+    .aboutSection {
+        margin: 120px auto;
+        .about-pic img {
+            width: 30%;
+        }
+    }
 
 
 
@@ -577,60 +705,13 @@ section {
     //contest
     .homeRace {
         width: 100%;
-        .raceChange {
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
-            padding-top: 10px;
-            padding:  10px 20px 5px;
-            position: relative;
-            border-bottom: 3px solid #8a8a8a;
-            position: relative;
-            transition: all .3s cubic-bezier(.2, 0, 0, 1);
-            z-index: 1;
-            p {
-                &:hover {
-                    color: $blue;
-                }
-                &:focus  {
-                    color: $blue;
-                }
-            }
-
-            &::after {
-                content: "";
-                display: block;
-                height: 3px;
-                position: absolute;
-                bottom: 0;
-                right: 1.25rem;
-                left: 1.25rem;
-            }
-            &:hover:after {
-                background-color: $blue;
-                transition: all .3s cubic-bezier(.2, 0, 0, 1);
-                transform-origin: bottom center;
-                z-index: -1;
-                bottom: -3px;
-                right: 0;
-                left: 0;
-            }
-            &:focus::after {
-                background-color: $blue;
-                bottom: -3px;
-                right: 0;
-                left: 0;
-            }
-            &:focus p {
-                color: $blue;
-                transform: scale(1.02) 1s ease;
-            }
+        .buttonDiv {
+            bottom: -15%;
         }
         
+        
     }
-    // .buttonDiv {
-    //     border-bottom: 3px solid #ccc
-    // }
+
     .homeContest {
         @include divCenter($l-w, $left);
         .homeContest-pic {

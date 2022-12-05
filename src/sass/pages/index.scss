@@ -7,12 +7,20 @@
     justify-content: center;
 }
 #btn1 {
-    @include secondBtn(120px);
-    margin: 20px;
+    @include secondBtn(100px);
+    margin: 20px 5px;
+    @include l($l-breakpoint){
+        margin: 20px 10px;
+        @include secondBtn(120px);
+    }
 }
 #btn2 {
-    @include primaryBtn(120px);
-    margin: 20px;
+    @include primaryBtn(100px);
+    margin: 20px 5px;
+    @include l($l-breakpoint){
+        margin: 20px 10px;
+        @include primaryBtn(120px);
+    }
 }
 .home1-pic img {
     margin: 40px 0;
@@ -27,3 +35,21 @@
         margin: 10px;
     }
 } 
+
+
+
+$center: center;
+$left: left;
+$l-w:1200px;
+@mixin titleStyle($center){
+    text-align: $center;
+}
+@mixin divCenter($l-w, $center){
+    width: $l-w;
+    margin: 20px auto;
+    text-align: $center;
+}
+@mixin flexCenter($center){
+    display: flex;
+    justify-content: $center;
+}

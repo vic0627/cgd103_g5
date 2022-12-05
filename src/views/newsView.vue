@@ -1,5 +1,6 @@
 <script>
 import { onMounted, registerRuntimeCompiler, reactive } from 'vue';
+import navComponentsVue from '@/components/navComponents.vue';
 // import {useMotion} from '@vueuse/motion';
 
 export default{
@@ -24,8 +25,8 @@ import  newsComponentsVue from "@/components/newsComponents.vue";
 
 <template>
 <!-- 01 banner start -->
-
-<section class="news">
+<navComponentsVue class="newsheader" />
+<div class="news">
     <div class="news_banner_box">
         <div class="banner">
             <img src="../assets/images/About/news_banner.jpg" alt="banner">
@@ -47,7 +48,7 @@ import  newsComponentsVue from "@/components/newsComponents.vue";
                 </div>
         </div>
     </div>
-</section>
+</div>
 
 <!-- 01 banner end -->
 
@@ -353,8 +354,14 @@ import  newsComponentsVue from "@/components/newsComponents.vue";
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
 // @import '@/css/reset.css';
+
+.newsheader {
+    color: $blue;
+    
+}
 .news{
     width: 100%;
+    padding-top: 40px;
     .news_banner_box{
         width: 100%;
         margin: auto;
