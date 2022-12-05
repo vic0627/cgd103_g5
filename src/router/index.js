@@ -123,6 +123,19 @@ const router = createRouter({
       name: "apply",
       component: () => import("../views/applyView.vue"),
     },
+    {
+      path: "/shoppingCartStep",
+      name: "shoppingCartStep",
+      component: () => import("../views/ShoppingCartStep.vue"),
+      children:[
+        {
+          path: "/Step2",
+          name: "/Step2",
+          component: () => import("../views//Step2.vue"),
+        }
+      ]
+    }
+    }
   ],
 });
 

@@ -2,7 +2,10 @@
 import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
 import navComponentsVue from '@/components/navComponents.vue';
-import OrderStepVue from '../components/orderStep.vue';
+import OrderStepVue from '@/components/orderStep.vue';
+import Step2 from '@/components/step/Step2.vue';
+import Step3 from '@/components/step/Step3.vue';
+// import Step3 from '@/components/step/Step3.vue';
 
 
 const customer1 = reactive(
@@ -38,7 +41,10 @@ const customer2 = reactive(
 <template>
     <section class="member_detail">
         <h2>SHOPPING CART</h2> 
-        <OrderStepVue />    
+        <OrderStepVue />  
+        <Step1></Step1>  
+        <Step2></Step2>
+        <Step3></Step3>
         <div class="detail_box">
             <template  v-for="info in customer2" :key="info.custNo">
                 <p>Confirm Detail</p>
@@ -83,7 +89,9 @@ const customer2 = reactive(
                 </table>
             </template>
             <div class="buttons">
-                <a class="btnPrimary" data-title="Pay Now">Pay Now</a>
+                <a class="btnPrimary" data-title="Pay Now">
+                    <router-link class="anchor" to="/orderComplete">Pay Now</router-link>
+                </a>
             </div>
         </div>    
         
@@ -98,101 +106,101 @@ const customer2 = reactive(
 @import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
 
-    .member_detail{
-        max-width: 1200px;
-        // height: 100vh;
-        margin: 20px auto;  
+.member_detail{
+    max-width: 1200px;
+    // height: 100vh;
+    margin: 20px auto;  
+    text-align: center;
+    overflow: hidden;
+    font: $caption-p;
+    h2{
+        width: 100%;
         text-align: center;
-        overflow: hidden;
-        font: $caption-p;
-        h2{
-            width: 100%;
-            text-align: center;
-            margin: 20px auto;
-        }
+        margin: 20px auto;
+    }
 
-        .detail_box{
-            max-width: 800px;
-            height: 800px;
-            background-color: rgba(142, 142, 142, 0.19);
+    .detail_box{
+        max-width: 800px;
+        height: 800px;
+        background-color: rgba(142, 142, 142, 0.19);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 20px auto;
+        padding: 0 10px;
+        border-radius: 10px;
+        .input_box{
+            width: 100%;
             display: flex;
-            flex-direction: column;
             justify-content: center;
+            input{
+                margin: 0 10px;
+            }
+            label{
+                color: #ccc;
+            }
+        }
+        .confirm_detail{
+            background-color: rgba(217, 217, 217, 0.32);
+            max-width: 800px;
             margin: 20px auto;
-            padding: 0 10px;
-            border-radius: 10px;
-            .input_box{
-                width: 100%;
-                display: flex;
-                justify-content: center;
-                input{
-                    margin: 0 10px;
-                }
-                label{
-                    color: #ccc;
-                }
-            }
-            .confirm_detail{
-                background-color: rgba(217, 217, 217, 0.32);
-                max-width: 800px;
-                margin: 20px auto;
-                
-                tr{
-                    border: 1px solid #ccc;
-                    // line-height: 30px;
-                    &:nth-child(even){
-                            background-color: #98989880;
-                        }
-                    td{
-                        &.title{
-                           color: rgb(228, 229, 225);
-                        }
-                        text-align: left;
-                        // border: 1px solid #ccc;
-                        padding: 5px ;
-                        color: #333 ;                       
-                        font-size: 20px;
-                    }
-                }
-            }
-            .payment{
-                background-color: #98989880;
-                max-width: 500px;
-                // padding: 20px;
-                margin: 20px auto;
-                @include m($m-breakpoint){
-                    width:65% ;
-                }
-                tr{
-                    border: 1px solid #ccc;
-                    line-height: 30px;
-                    &:nth-child(even){
+            table-layout: fixed;
+            tr{
+                border: 1px solid #ccc;
+                // line-height: 30px;
+                &:nth-child(even){
                         background-color: #98989880;
                     }
-                    td{
-                        &.title{
-                           color: rgb(228, 229, 225);
-                        }
-                        text-align: left;
-                        padding: 10px;
-                        color: #333;
-                        font-size: 20px;
+                td{
+                    &.title{
+                        color: rgb(228, 229, 225);
                     }
+                    text-align: left;
+                    // border: 1px solid #ccc;
+                    padding: 5px ;
+                    color: #333 ;                       
+                    font-size: 20px;
                 }
             }
-
         }
-        .buttons{
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin: 0 auto;
-            .btnPrimary{
-                @include primaryBtn(100px);
+        .payment{
+            background-color: #98989880;
+            max-width: 500px;
+            // padding: 20px;
+            margin: 20px auto;
+            @include m($m-breakpoint){
+                width:65% ;
+            }
+            tr{
+                border: 1px solid #ccc;
+                line-height: 30px;
+                &:nth-child(even){
+                    background-color: #98989880;
+                }
+                td{
+                    &.title{
+                        color: rgb(228, 229, 225);
+                    }
+                    text-align: left;
+                    padding: 10px;
+                    color: #333;
+                    font-size: 20px;
+                }
             }
         }
-        
+
     }
+    .buttons{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        .btnPrimary{
+            @include primaryBtn(100px);
+        }
+    }
+    
+}
 
        
 </style>
