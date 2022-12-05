@@ -4,9 +4,9 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
-      path: '/',
-      name: 'landing',
-      component: () => import('../views/LandingView.vue')
+      path: "/",
+      name: "landing",
+      component: () => import("../views/LandingView.vue"),
     },
     {
       path: "/home",
@@ -31,7 +31,7 @@ const router = createRouter({
     {
       path: "/shopInfo",
       name: "shopInfo",
-      component: () => import("../views/ShopInfoViewB.vue"),
+      component: () => import("../views/shopInfo2View.vue"),
     },
     {
       path: "/cart",
@@ -41,7 +41,7 @@ const router = createRouter({
     {
       path: "/game",
       name: "game",
-      component: () => import("../views/gameView.vue"),
+      component: () => import("../views/GameView.vue"),
     },
     {
       path: "/custom",
@@ -51,7 +51,7 @@ const router = createRouter({
     {
       path: "/showcase",
       name: "showcase",
-      component: () => import("../views/showcaseView.vue"),
+      component: () => import("../views/ShowCaseView.vue"),
     },
     {
       path: "/race",
@@ -94,15 +94,35 @@ const router = createRouter({
       component: () => import("../views/backend/backend.vue"),
     },
     {
+      path: "/aboutbackend",
+      name: "aboutbackend",
+      component: () => import("../views/backend/aboutBackend.vue"),
+    },
+    {
       path: "/shoppingCartStep2",
       name: "shoppingCartStep2",
       component: () => import("../views/shoppingCartStep2.vue"),
     },
     {
+      path: "/orderComplete",
+      name: "orderComplete",
+      component: () => import("../views/orderComplete.vue"),
+    },
+    {
       path: "/machineView",
       name: "machineView",
       component: () => import("../views/machineView.vue"),
-    }
+    },
+    {
+      path: "/articleView",
+      name: "articleView",
+      component: () => import("../views/articleView.vue"),
+    },
+    {
+      path: "/apply",
+      name: "apply",
+      component: () => import("../views/applyView.vue"),
+    },
   ],
 });
 
