@@ -1,13 +1,11 @@
 <script>
 import tabhome from "../../components/tabHome.vue";
-import tabqrev from "../../components/tabqrev.vue";  //FAQ
-import tabqadd from "../../components/tabqadd.vue";  //FAQ
+import tabqrev from "../../components/tabqrev.vue"; //FAQ
+import tabqadd from "../../components/tabqadd.vue"; //FAQ
 import tabnewrevs from "../../components/tabnewrevs.vue"; //NEWS
 import tabnewadds from "../../components/tabnewadds.vue"; //NEWS
-
-
-
-
+import tabraceform from "../../components/tabraceform.vue"; //RACE
+import tabracecategory from "../../components/tabracecategory.vue"; //RACE
 
 export default {
   components: {
@@ -16,6 +14,8 @@ export default {
     tabqadd,
     tabnewrevs,
     tabnewadds,
+    tabraceform,
+    tabracecategory,
   },
 };
 </script>
@@ -94,11 +94,11 @@ const backendCategory = ref({
     text: {
       a: {
         cn: "賽事類別",
-        tab: "racetype",
+        tab: "racecategory",
       },
       b: {
         cn: "報名資料查詢",
-        tab: "racesearch",
+        tab: "raceform",
       },
     },
   },

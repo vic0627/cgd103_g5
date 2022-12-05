@@ -2,7 +2,7 @@
 <template>
   <div>
     <h2>
-      Home
+      Racecategory
       <span>
         <router-link class="out" to="/">離開後台 &rarr;</router-link></span
       >
