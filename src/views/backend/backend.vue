@@ -127,9 +127,10 @@ const log = (e) => console.log(e);
 <template>
   <div class="backend">
     <aside class="asideNav">
-      <img src="../../assets/images/About/g5_logo_grey.png" alt="" />
       <div v-for="e in backendCategory" :key="e">
-        <h2 v-if="e.tab === 'home'" @click="changeTab(e.tab)">{{ e.title }}</h2>
+        <h2 v-if="e.tab === 'home'">
+          <img src="../../assets/images/About/g5_logo_grey.png" alt="logoPic" @click="changeTab(e.tab)"/>
+        </h2>
         <h3 v-else @click="changeShow(e)">{{ e.title }}</h3>
         <ol v-if="e.show === true">
           <li v-for="i in e.text" :key="i" @click="changeTab(i.tab)">
