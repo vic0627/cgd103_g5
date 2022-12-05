@@ -33,7 +33,7 @@ onMounted(()=> {
         wl = $$('.productInfoWrap').getBoundingClientRect();
         let sumWs = ws-co-cc0-cc1-cc2-cc3-cc4;
         scrollModel();
-        log(sumWs)
+        
         if(el.top==0 || el.y==0 || el.bottom==$$('.specOl').offsetHeight || sumWs>=0){
             $$('.specOl').style.pointerEvents = 'auto';
         }else{
@@ -42,6 +42,7 @@ onMounted(()=> {
     });
     $$('.specOl').addEventListener('scroll', ()=> {
         scrollSum();
+        log($$('.specOl').scrollTop)
     });
     const scrollModel = () => {
         conatinerInfo = document.querySelectorAll('.conatinerInfo');
@@ -477,6 +478,12 @@ const scrollList = (e, delay = 0, dur = .1) => {
         scale: (zzz+1)/2+.5,
         duration: dur,
     })
+    if(PRO.Rain){
+        gsap.to(PRO.Rain.rotation, {
+            x: -($$('.specOl').scrollTop / $$('.specOl').offsetHeight / 30),
+            duration: 1,
+        })
+    }
     
 
     gsap.to($$(e).lastChild, {
@@ -579,7 +586,10 @@ const allFloat = () => {
     <section class="productInfoWrap">
         <canvas id="product3d" class="product3d"></canvas>
         <ol  class="containerInfo">
-            <h2 class="infoTitle">{{ fpv.title }}</h2>
+            <h2 class="infoTitle">
+                EFPV Eagle
+                <span>5</span>
+            </h2>
             <p class="infoText">{{ fpv.subTitle }}</p>
             <router-link to="/" class="btn" data-title="learn more">
                 <span>learn more</span>
@@ -599,7 +609,7 @@ const allFloat = () => {
         </div>
         <div class="containerSpec">
             <ol class="specOl">
-                <li v-for="n in 10" :class="`specLi${n}`" @click.capture="toImg">
+                <li v-for="n in 10" :class="`specLi${n}`" @click.capture="toImg" :key="n">
                     <img :src="fpv.special.item[n].src">
                     <h4 :class="`specH4${n}`">{{ fpv.special.item[n].title }}</h4>
                     <p :class="`specP${n}`">{{ fpv.special.item[n].text }}</p>
@@ -670,6 +680,19 @@ const allFloat = () => {
                 width: 90%;
                 font-size: 200px;
                 top: 25%;
+            }
+            span{
+                @include m($m-breakpoint) {
+                    display: block;
+                    position: absolute;
+                    font-size: 700px;
+                    top: -60%;
+                    left: 0;
+                    right: 0;
+                    margin: 0 auto;
+                    z-index: -1;
+                    color: #9C4DD688;
+                }
             }
         }
         p{

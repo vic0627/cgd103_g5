@@ -3,19 +3,23 @@ import * as THREE from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
+import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader';
+import { DotScreenShader } from 'three/examples/jsm/shaders/DotScreenShader';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass';
-import { AfterimagePass } from 'three/examples/jsm/postprocessing/AfterimagePass';
 import droneUrl from '@/assets/model3d/flying_drone/flying_drone.glb';
 import gsap from 'gsap';
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export let scene, renderer, camera, mixer, actionExplode, actionHover, actionStep, modelObj, pointLight, spotLight1, spotLight2;
+export let scene, renderer, camera, mixer, actionExplode, actionHover, actionStep, modelObj, pointLight, spotLight1, spotLight2, Rain;
 
 export let clipHover, clipExplode, clipStep;
 
 let composer, glitchPass, afterimagePass;
+
+
 
 let ww = window.innerWidth, wh = window.innerHeight;
 
@@ -31,6 +35,7 @@ export function sceneInit () {
     });
     renderer.shadowMap.enabled = true;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.setPixelRatio( window.devicePixelRatio );
     renderer.setSize(ww, wh);
     camera = new THREE.PerspectiveCamera(60, ww / wh, 0.001, 1000);
     camera.position.set(0,1,3);
@@ -56,18 +61,44 @@ export function sceneInit () {
     pointLight.position.set(0,1,3);
     scene.add( pointLight );
 
+    const vertices = [];
+    for ( let i = 0; i < 1000; i ++ ) {
+            const x = THREE.MathUtils.randFloatSpread( 5 );
+            const y = THREE.MathUtils.randFloatSpread( 5 );
+            const z = THREE.MathUtils.randFloatSpread( 5 );
+            vertices.push( x, y, z );
+        }
+    const rain = new THREE.BufferGeometry();
+    rain.setAttribute( 'position', new THREE.Float32BufferAttribute( vertices, 3 ) );
+    const rainT = new THREE.PointsMaterial( { 
+        color: 0xc0c0c0,
+        size: .01,
+    } );
+    Rain = new THREE.Points( rain, rainT );
+    scene.add( Rain );
+
     composer = new EffectComposer( renderer );
 	composer.addPass( new RenderPass( scene, camera ) );
 
-	glitchPass = new GlitchPass();
+	glitchPass = new GlitchPass(32);
     glitchPass.goWild = true;
     glitchPass.curF = .5;
+
+    /* const effect1 = new ShaderPass( DotScreenShader );
+	effect1.uniforms[ 'scale' ].value = 4;
+    effect1.uniforms[ 'angle' ].value = Math.PI;
+	composer.addPass( effect1 );
+
+	const effect2 = new ShaderPass( RGBShiftShader );
+	effect2.uniforms[ 'amount' ].value = .1;
+	effect2.uniforms[ 'tDiffuse' ].value = .1;
+	composer.addPass( effect2 ); */
     /* ------模型導入------ */
     
     const loader = new GLTFLoader();
     loader.load(droneUrl, function ( gltf ) {
         modelObj = gltf.scene;
-        modelObj.position.set(0, -.3, 0);
+        modelObj.position.set(0, -.5, 0);
         modelObj.scale.set(1, 1, 1);
         mixer = new THREE.AnimationMixer(modelObj);
         const clips = gltf.animations;

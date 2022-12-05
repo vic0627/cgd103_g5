@@ -1,7 +1,8 @@
 <script setup>
 import { onMounted } from 'vue';
+import { droneModels, propellorModels } from './js/CustomizeGlb';
 import * as CUS from './js/CustomizeThree';
-
+import dashBoardComponent from '@/components/dashBoardComponent.vue';
 let ww = window.innerWidth;
 
 onMounted(()=> {
@@ -26,22 +27,24 @@ const canvasRe = () => {
         customize3d.height = 800;
     };
 };
+
 </script>
 
 <template>
     <section class="customize">
         <canvas id="customize3d"></canvas>
+        <dash-board-component />
         <div class="customizeControl">
-            <div v-for="e in 3" :key="e" class="bodySelect">
-                <h3>body{{e}}</h3>
+            <div v-for="e in droneModels" :key="e.id" class="bodySelect">
+                <h3>{{ e.name }}</h3>
                 <div class="colorControls">
-                    <div :class="`colorControl colorControl${n}`" v-for="n in 5" :key="n" @click="CUS.body(e,n)"></div>
+                    <div class="colorControl" v-for="n in droneModels[`body0${e.id}`].color" :key="n" @click="CUS.body(e.id, n)"></div>
                 </div>
             </div>
-            <div v-for="e in 3" :key="e" class="propellorSelect">
-                <h3>propellor{{e}}</h3>
+            <div v-for="e in propellorModels" :key="e" class="propellorSelect">
+                <h3>{{ e.name }}</h3>
                 <div class="colorControls">
-                    <div :class="`colorControl colorControl${n}`" v-for="n in 5" :key="n" @click="CUS.propellor(e,n)"></div>
+                    <div class="colorControl" v-for="n in propellorModels[`propellor0${e.id}`].color" :key="n" @click="CUS.propellor(e.id, n)"></div>
                 </div>
             </div>
             <div class="removeButtons">
@@ -54,11 +57,13 @@ const canvasRe = () => {
 </template>
 
 <style lang="scss" scoped>
+*{
+    /* outline: 1px solid red; */
+}
 .customize{
-    display: flex;
+    
 }
     #customize3d{
-        outline: 1px solid red;
     }
     .colorControls{
         
@@ -72,19 +77,19 @@ const canvasRe = () => {
             background: #fff;
             cursor: pointer;
         }
-        .colorControl1{
+        .colorControl:nth-child(1){
             background: black;
         }
-        .colorControl2{
+        .colorControl:nth-child(2){
             background: blue;
         }
-        .colorControl3{
+        .colorControl:nth-child(3){
             background: green;
         }
-        .colorControl4{
+        .colorControl:nth-child(4){
             background: red;
         }
-        .colorControl5{
+        .colorControl:nth-child(5){
             background: white;
         }
     }

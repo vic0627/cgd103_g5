@@ -1,7 +1,7 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import { droneModels } from './CustomizeGlb';
+import { droneModels, propellorModels } from './CustomizeGlb';
 import gsap from 'gsap';
 
 export let  scene, renderer, camera, modelObj, directionalLight, spotLight1, spotLight2, controls;
@@ -90,7 +90,7 @@ const bodyLoader = ( droneUrl, scale, x, y, z ) => {
 
 let bodyType, bodyScale, bodyX, bodyY, bodyZ;
 
-export const body = (e, color) => {
+export const body = (e, src) => {
     bodyType = e;
     bodyX = 0;
     bodyY = 0;
@@ -103,7 +103,8 @@ export const body = (e, color) => {
         bodyScale = .65;
         bodyY = -.3;
     }
-    bodyLoader(droneModels[`body0${e}`].color[color], bodyScale, bodyX, bodyY, bodyZ);
+    console.log()
+    bodyLoader(src, bodyScale, bodyX, bodyY, bodyZ);
 };
 
 
@@ -218,7 +219,7 @@ const propellorLoader4 = ( droneUrl, scale, x, y, z ) => {
     }, 500);
 };
 
-export const propellor = (e, color) => {
+export const propellor = (e, src) => {
     if(e===1){
         propellorScale = .35;
     }else if(e===2){
@@ -227,20 +228,20 @@ export const propellor = (e, color) => {
         propellorScale = .25;
     }
     if(bodyType===1){
-        propellorLoader1(droneModels[`propellor0${e}`].color[color], propellorScale, -.95, .25, .25);
-        propellorLoader2(droneModels[`propellor0${e}`].color[color], propellorScale, -.3, .25, .93);
+        propellorLoader1(src, propellorScale, -.95, .25, .25);
+        propellorLoader2(src, propellorScale, -.3, .25, .93);
         scene.remove( propellorObj3 );
         scene.remove( propellorObj4 );
     }else if(bodyType===2){
-        propellorLoader1(droneModels[`propellor0${e}`].color[color], propellorScale, -.9, .05, .7);
-        propellorLoader2(droneModels[`propellor0${e}`].color[color], propellorScale, .9, .05, .7);
-        propellorLoader3(droneModels[`propellor0${e}`].color[color], propellorScale, -.85, .03, -1.2);
-        propellorLoader4(droneModels[`propellor0${e}`].color[color], propellorScale, .85, .03, -1.2);
+        propellorLoader1(src, propellorScale, -.9, .05, .7);
+        propellorLoader2(src, propellorScale, .9, .05, .7);
+        propellorLoader3(src, propellorScale, -.85, .03, -1.2);
+        propellorLoader4(src, propellorScale, .85, .03, -1.2);
     }else if(bodyType===3){
-        propellorLoader1(droneModels[`propellor0${e}`].color[color], propellorScale, -.85, .35, .88);
-        propellorLoader2(droneModels[`propellor0${e}`].color[color], propellorScale, .87, .35, .91);
-        propellorLoader3(droneModels[`propellor0${e}`].color[color], propellorScale, -.88, .35, -.61);
-        propellorLoader4(droneModels[`propellor0${e}`].color[color], propellorScale, 1, .35, -.69);
+        propellorLoader1(src, propellorScale, -.85, .35, .88);
+        propellorLoader2(src, propellorScale, .87, .35, .91);
+        propellorLoader3(src, propellorScale, -.88, .35, -.61);
+        propellorLoader4(src, propellorScale, 1, .35, -.69);
     }
 };
 
