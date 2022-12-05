@@ -4,6 +4,7 @@ import { onMounted, registerRuntimeCompiler } from 'vue';
 import Accordion from '../components/accordionComponents.vue';
 import mem from '../components/memComponents.vue';
 import navComponentsVue from '@/components/navComponents.vue';
+import footerComponentsVue from '@/components/footerComponents.vue';
 
 
 
@@ -17,7 +18,8 @@ export default{
   components:{
     Accordion,
     mem,
-    navComponentsVue
+    navComponentsVue,
+    footerComponentsVue
   }
 }
 
@@ -182,6 +184,7 @@ export default{
   <!-- 06 FAQ end -->
 
 
+<footerComponentsVue />
   
 </template>
 
