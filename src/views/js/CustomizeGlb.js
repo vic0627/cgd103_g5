@@ -35,11 +35,13 @@ import propellor03green from '../../assets/model3d/propellor03/propellor_03_gree
 import propellor03red from '../../assets/model3d/propellor03/propellor_03_red.glb';
 import propellor03white from '../../assets/model3d/propellor03/propellor_03_white.glb';
 
+import { ref } from 'vue';
 
-
-export const droneModels = {
+export const droneModels = ref({
     body01: {
+        id: 1,
         name: 'body01',
+        weight: 1200,
         color: {
             1: body01black,
             2: body01blue,
@@ -49,7 +51,9 @@ export const droneModels = {
         },
     },
     body02: {
+        id: 2,
         name: 'body02',
+        weight: 1130,
         color: {
             1: body02black,
             2: body02blue,
@@ -59,7 +63,9 @@ export const droneModels = {
         },
     },
     body03: {
+        id: 3,
         name: 'body03',
+        weight: 1080,
         color: {
             1: body03black,
             2: body03blue,
@@ -68,8 +74,12 @@ export const droneModels = {
             5: body03white,
         },
     },
+});
+export const propellorModels = ref({
     propellor01: {
+        id: 1,
         name: 'propellor01',
+        weight: 300,
         color: {
             1: propellor01black,
             2: propellor01blue,
@@ -79,7 +89,9 @@ export const droneModels = {
         },
     },
     propellor02: {
+        id: 2,
         name: 'propellor02',
+        weight: 344,
         color: {
             1: propellor02black,
             2: propellor02blue,
@@ -89,7 +101,9 @@ export const droneModels = {
         },
     },
     propellor03: {
+        id: 3,
         name: 'propellor03',
+        weight: 284,
         color: {
             1: propellor03black,
             2: propellor03blue,
@@ -98,4 +112,4 @@ export const droneModels = {
             5: propellor03white,
         },
     },
-};
+});
