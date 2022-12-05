@@ -4,6 +4,7 @@ import $ from 'jquery';
 import { ref, onMounted } from 'vue';
 
 onMounted(()=> {
+    $('.List-item>a').parent().siblings().find('ul').hide();
     $('.List-item>a').click(function (e) { 
         e.preventDefault();
         $(this).parent().siblings().find('ul').slideUp();
@@ -55,33 +56,33 @@ onMounted(()=> {
             <section class="profiles-list">
                 <form class="tab_panel" style="color: #fff;">
                     <label for="uname">First name</label>
-                    <input type="text" name="" id="uname" maxlength="15" required>
+                    <input type="text" name="" class="input-s" id="uname" maxlength="15" required>
                     <label for="uname">Last name</label>
-                    <input type="text" name="" id="" maxlength="15" required>
+                    <input type="text" name="" class="input-s" id="" maxlength="15" required>
 
                     <label for="">Gender</label>
-                    <input type="radio" name="Gender" id="male" checked>
+                    <input type="radio" name="Gender" class="input-s" id="male" checked>
                     <label for="male">male</label>
-                    <input type="radio" name="Gender" id="female">
+                    <input type="radio" name="Gender" class="input-s" id="female">
                     <label for="female">female</label>
 
                     <label for="bday">Date of birth</label>
-                    <input type="date" name="" id="bday">
+                    <input type="date" name="" class="input-s" id="bday" value="2022-01-01">
                     
                     <label for="password">Change Password</label>
-                    <input type="button" name="password" id="password" maxlength="20" value="Change Password">
+                    <input type="button" name="password" class="input-s" id="password" maxlength="20" value="Change Password">
                     
                     <label for="phone_no">Phone number</label>
-                    <input type="number" name="phone_no" id="phone_no" maxlength="15">
+                    <input type="number" name="phone_no" class="input-s" id="phone_no" maxlength="15">
                     <span class=""></span>
 
                     <label for="username">Email Address</label>
-                    <input type="email" name="username" id="username" maxlength="35" required>
+                    <input type="email" name="username" class="input-s" id="username" maxlength="35" required>
                     <span class="unameinfo"></span>
 
                     <label for="address">Address</label>
-                    <input type="text" name="" id="address" maxlength="10">
-                    <input type="text" name="" id="" maxlength="15">
+                    <input type="text" name="" class="input-s" id="address" maxlength="10">
+                    <input type="text" name="" class="input-s" id="" maxlength="15">
                     <span class=""></span>
 
                 </form>
@@ -98,6 +99,17 @@ section{
 }
 input{
     display: block;
+}
+.input-s{
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,.15);
+    height: 40px;
+    padding: 7px 11px;
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 8px;
+    border-radius: 4px;
 }
 .main{
     max-width: 1200px;
@@ -145,10 +157,10 @@ input{
         }
         .profiles-list{
             width: 100%;
-            height: 500px;
+            // height: 500px;
             margin:10px 0;
             background-color: #8e8e8e3d;
-            padding: 40px;
+            padding: 50px 100px;
             box-sizing: border-box;
             border-radius: 10px;
         }

@@ -1,71 +1,152 @@
 <script setup>
-    import headerComponentsVue from '@/components/headerComponents.vue';
+    // import headerComponentsVue from '@/components/headerComponents.vue';
+    import navComponentsVue from '@/components/navComponents.vue';
+    import footerComponentsVue from '@/components/footerComponents.vue';
     // import { verify } from 'crypto';
-    import {reactive,ref, onMounted} from "vue";
+    import {reactive,ref, onMounted,computed,watch} from "vue";
 
+
+    const getQuery = (classname) =>document.querySelector(classname);
 
     onMounted(()=> {
         //email verify
-        const uname=document.querySelector('#username');
+        const uname=getQuery('#username');
         uname.addEventListener('input',function verifyuname(){
             let regex_psw=/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
             
             if(this.value !=''){
                 if(regex_psw.test(this.value) == false){
-                    document.querySelector('.unameinfo').textContent=' Format error';
-                    document.querySelector('.unameinfo').style['color']='red';
+                    getQuery('.unameinfo').textContent=' Format error';
+                    getQuery('.unameinfo').style['color']='red';
                 }else if(regex_psw.test(this.value)){
-                    document.querySelector('.unameinfo').textContent=' Match the rules';
-                    document.querySelector('.unameinfo').style['color']='lightgreen';
+                    getQuery('.unameinfo').textContent=' Match the rules';
+                    getQuery('.unameinfo').style['color']='lightgreen';
                 }
             }else{
-                document.querySelector('.unameinfo').textContent='';
-                document.querySelector('.unameinfo').style['color']='rgb(72, 72, 72)';
+                getQuery('.unameinfo').textContent='';
+                getQuery('.unameinfo').style['color']='rgb(72, 72, 72)';
             }
         });
         //password verify
-        const psw=document.querySelector('#password');
+        const psw=getQuery('#password');
         psw.addEventListener('input',function verifypsw(){
             let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
             if(this.value !=''){
                 if(regex_psw.test(this.value) == false){
-                    document.querySelector('.pswinfo').textContent=' Format error';
-                    document.querySelector('.pswinfo').style['color']='red';
+                    getQuery('.pswinfo').textContent=' Format error';
+                    getQuery('.pswinfo').style['color']='red';
                 }else if(regex_psw.test(this.value)){
-                    document.querySelector('.pswinfo').textContent=' Match the rules';
-                    document.querySelector('.pswinfo').style['color']='lightgreen';
+                    getQuery('.pswinfo').textContent=' Match the rules';
+                    getQuery('.pswinfo').style['color']='lightgreen';
                 }
             }else{
-                document.querySelector('.pswinfo').textContent='The password must be 8 characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.';
-                document.querySelector('.pswinfo').style['color']='red';
+                getQuery('.pswinfo').textContent='The password must be 8 characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.';
+                getQuery('.pswinfo').style['color']='red';
             }
         });
         //password2 verify
-        const psw2=document.querySelector('#password2');
+        const psw2=getQuery('#password2');
         psw2.addEventListener('input',function verifypsw(){
             let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
             if(this.value !=''){
                 if(regex_psw.test(this.value) == false){
-                    document.querySelector('.pswinfo2').textContent=' Format error';
-                    document.querySelector('.pswinfo2').style['color']='red';
+                    getQuery('.pswinfo2').textContent=' Format error';
+                    getQuery('.pswinfo2').style['color']='red';
                 }else if(regex_psw.test(this.value)&& psw.value !=psw2.value  ){
-                    document.querySelector('.pswinfo2').textContent=' Match the rules but wrong password';
-                    document.querySelector('.pswinfo2').style['color']='orange';
+                    getQuery('.pswinfo2').textContent=' Match the rules but wrong password';
+                    getQuery('.pswinfo2').style['color']='orange';
                 }else if(regex_psw.test(this.value)&& psw.value ==psw2.value){
-                    document.querySelector('.pswinfo2').textContent=' Match the rules';
-                    document.querySelector('.pswinfo2').style['color']='lightgreen';
+                    getQuery('.pswinfo2').textContent=' Match the rules';
+                    getQuery('.pswinfo2').style['color']='lightgreen';
                 }
             }else{
-                document.querySelector('.pswinfo2').textContent='';
-                document.querySelector('.pswinfo2').style['color']='rgb(72, 72, 72)';
+                getQuery('.pswinfo2').textContent='';
+                getQuery('.pswinfo2').style['color']='rgb(72, 72, 72)';
             }
 
         });
     })
+
+    //address
+    const state = reactive({
+            frameworksIdx: 0, // 記錄第一層選單的被選取項目
+            contentsIdx: 0, // 記錄第二層選單的被選取項目
+            frameworks : [
+                {
+                    type: 'Choose Your Location',
+                    contents: [
+                        { name: 'Choose Your Country'},
+                        
+                    ],
+                },
+                {
+                    type: 'AMERICAS',
+                    contents: [
+                        { name: 'USA'},
+                        { name: 'Brasil'},
+                        { name: 'Canada(English)'},
+                        { name: 'Canada(Français)'},
+                        { name: 'Mexico'},
+                    ],
+                },
+                {
+                    type: 'EUROPE',
+                    contents: [
+                        { name: 'Belgium'},
+                        { name: 'Denmark (English)'},
+                        { name: 'Deutschland'},
+                        { name: 'Finland (English)'},
+                        { name: 'France'},
+                        { name: 'Ireland'},
+                        { name: 'Italia'},
+                        { name: 'Luxembourg (English)'},
+                        { name: 'Monaco (English)'},
+                        { name: 'Nederland (English)'},
+                    ],
+                },
+                {
+                    type: 'ASIA',
+                    contents: [
+                        { name: '台灣'},
+                        { name: '中國大陸'},
+                        { name: '日本'},
+                        { name: '대한민국'},
+                        { name: '香港特別行政區'},
+                        { name: 'Singapore'},
+                        { name: 'ประเทศไทย'},
+                        { name: 'Việt Nam'},
+                    ],
+                },
+                {
+                    type: 'OCEANIA',
+                    contents: [
+                        { name: 'Australia'},
+                        { name: 'New Zealand'},
+                    ],
+                },
+                {
+                    type: 'MIDDLE EAST',
+                    contents: [
+                        { name: 'UAE (English)'},
+                        { name: 'Kuwait (English)'},
+                        { name: 'KSA (English)'},
+                    ],
+                },
+            ],
+    });
+    const pickContents = computed(() => {
+        return state.frameworks[state.frameworksIdx].contents;
+    });
+    watch(() => state.frameworksIdx, (value) =>{
+        state.contentsIdx = 0;
+    });
+
+
 </script>
 
 <template>
-        <headerComponentsVue />
+        <!-- <headerComponentsVue /> -->
+        <navComponentsVue />
         <section class="banner">
             <div class="img_box"></div>
             <div class="wrapper">
@@ -89,8 +170,8 @@
 
                             <label for="uname">User name</label>
                             <div class="username">
-                                <input type="text" class="input-s" name="" id="uname" maxlength="15" required>
-                                <input type="text" class="input-s" name="" id="" maxlength="15" required>
+                                <input type="text" class="input-s" name="" id="uname" maxlength="15" placeholder="First Name" required>
+                                <input type="text" class="input-s" name="" id="" maxlength="15" placeholder="Last Name" required>
                             </div>
                             <span class=""></span>
 
@@ -105,16 +186,31 @@
 
 
                             <label for="bday">Date of birth</label>
-                            <input type="date" class="input-s" name="" id="bday">
+                            <input type="date" class="input-s" name="" id="bday" value="2022-01-01">
 
                             <label for="phone_no">Phone number</label>
                             <input type="number" class="input-s" name="phone_no" id="phone_no" maxlength="15">
                             <span class=""></span>
 
                             <label for="address">Address</label>
-                            <input type="text" class="input-s" name="" id="address" maxlength="10">
+                            <!-- <select name="city" id="" class="input-s">
+                                <option>CHOOSE YOUR LOCATION</option>
+                                <option :value="i" v-for="i in city" :key="i">{{i}}</option>
+                            </select> -->
+                            <select v-model="state.frameworksIdx" class="input-s">
+                                <option v-for="(item, index) in state.frameworks" :value="index">
+                                    {{item.type}}
+                                </option>
+                            </select>
+                            <select v-model="state.contentsIdx" class="input-s">
+                                <option v-for="(item, index) in pickContents" :value="index">
+                                    {{item.name}}
+                                </option>
+                            </select>
                             <input type="text" class="input-s" name="" id="" maxlength="15">
                             <span class=""></span>
+
+
 
                             <div class="login_info">
                                 <input type="checkbox" name="remember" id="remember">
@@ -145,6 +241,7 @@
         <div class="bginfo">
             <span>Shot On EFPV Mini 3 Pro</span>
         </div>
+        <footerComponentsVue />
 </template>
 
 
@@ -155,6 +252,9 @@ $text-color:#fff;
 $link-color:#7abcff;
 $btn-color:#007FFB;
 $bg-color:rgb(54, 54, 54);
+header{
+    top: 0;
+}
 .input-s{
     width: 100%;
     box-sizing: border-box;
@@ -168,7 +268,7 @@ $bg-color:rgb(54, 54, 54);
 }
 span{
     display: block;
-    padding: 10px 0;
+    padding: 5px 0;
 }
 .banner{
     position: relative;
@@ -189,6 +289,8 @@ span{
         margin: 0 auto;
         padding: 20px 16px;
         .container{
+            top: 50px;
+            margin-bottom: 50px;
             margin-left: auto;
             position: relative;
             width: 400px;
@@ -208,7 +310,7 @@ span{
                 h1{
                     font-size: 24px;
                     color: $text-color;
-                    padding-top: 24px;
+                    padding-top: 10px;
                     font-weight: 300;
                 }
                 .tab_panel{
@@ -317,7 +419,7 @@ span{
     }
 }
 .bginfo{
-    position: fixed;
+    position: sticky;
     left: 15px;
     bottom: 15px;
     width: 200px;
