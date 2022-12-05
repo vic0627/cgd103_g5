@@ -16,6 +16,7 @@
                     document.querySelector('.unameinfo').style['color']='red';
                 }else if(regex_psw.test(this.value)){
                     document.querySelector('.unameinfo').textContent=' match the rules';
+                    document.querySelector('.unameinfo').style['color']='lightgreen';
                 }
             }else{
                 document.querySelector('.unameinfo').textContent='';
@@ -32,12 +33,15 @@
                     document.querySelector('.pswinfo').style['color']='red';
                 }else if(regex_psw.test(this.value)){
                     document.querySelector('.pswinfo').textContent=' match the rules';
+                    document.querySelector('.pswinfo').style['color']='lightgreen';
                 }
             }else{
                 document.querySelector('.pswinfo').textContent='The password must be eight characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.';
                 document.querySelector('.pswinfo').style['color']='rgb(72, 72, 72)';
             }
         });
+
+        
     })
 </script>
 
@@ -92,10 +96,14 @@
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
-
+$text-color:#fff;
+$link-color:#7abcff;
+$btn-color:#007FFB;
+$bg-color:rgb(54, 54, 54);
 .banner{
     position: relative;
     width: 100%;
+    color: $text-color;
     .img_box{
         background-image: url("../assets/images/Signin/pexels-tembela-bohle-2050718.jpeg");
         position: fixed;
@@ -114,7 +122,7 @@
             margin-left: auto;
             position: relative;
             width: 400px;
-            background-color: rgb(28, 30, 57);
+            background-color: $bg-color;
             box-shadow: 0 16px 32px rgb(0 0 0 / 10%);
             padding: 48px 32px;
             .logo{
@@ -127,7 +135,7 @@
                 width: 100%;
                 h1{
                     font-size: 24px;
-                    color: #000;
+                    color: $text-color;
                     padding-top: 24px;
                     font-weight: 300;
                 }
@@ -152,7 +160,7 @@
                             font-style: italic;
                             font-size: 12px;
                             margin: 8px 0 24px 0;
-                            color: #007FFB;
+                            color: $link-color;
                             width: auto;
                             // display: inline;
                             flex-grow: 1;
@@ -175,17 +183,17 @@
                                 height: 48px;
                                 border-radius: 10px;
                                 font-size: 16px;
-                                color: #fff;
-                                background-color: #007FFB;
+                                color: $text-color;
+                                background-color: $btn-color;
                             }
                             p{
                                 display: block;
                                 font-size: 12px;
-                                color: #000;
+                                color: $text-color;
                                 margin: 8px 0 24px 0;
                                 text-align: center;
                                 a{
-                                    color: #007FFB;
+                                    color: $link-color;
                                     font-size: 12px;
                                     display: inline;
                                 }
@@ -193,7 +201,7 @@
                         }
                         span{
                             font-size: 12px;
-                            color: rgb(72, 72, 72);
+                            color: $text-color;
                         }
                 }
                 .divider{
@@ -207,8 +215,8 @@
                         margin: 0 auto;
                         z-index: 1;
                         padding: 0 12px;
-                        background: #fff;
-                        color: rgba(0,0,0,.45);
+                        background: $bg-color;
+                        color: $text-color;
                         font-size: 12px;
                         line-height: 16px;
                         letter-spacing: -.02em;
@@ -221,7 +229,7 @@
                     content: "";
                     width: 100%;
                     height: 1px;
-                    background: rgba(0,0,0,.06);
+                    background: rgb(138, 138, 138);
                     overflow: hidden;
                 }
                 .login_with{
@@ -237,7 +245,7 @@
                 }
                 .login_agree{
                     span{
-                        color: #000;
+                        color: $text-color;
                         font-size: 12px;
                     }
                 }
