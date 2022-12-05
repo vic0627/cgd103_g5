@@ -12,10 +12,11 @@
             
             if(this.value !=''){
                 if(regex_psw.test(this.value) == false){
-                    document.querySelector('.unameinfo').textContent=' format error';
+                    document.querySelector('.unameinfo').textContent=' Format error';
                     document.querySelector('.unameinfo').style['color']='red';
                 }else if(regex_psw.test(this.value)){
-                    document.querySelector('.unameinfo').textContent=' match the rules';
+                    document.querySelector('.unameinfo').textContent=' Match the rules';
+                    document.querySelector('.unameinfo').style['color']='lightgreen';
                 }
             }else{
                 document.querySelector('.unameinfo').textContent='';
@@ -28,10 +29,11 @@
             let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
             if(this.value !=''){
                 if(regex_psw.test(this.value) == false){
-                    document.querySelector('.pswinfo').textContent=' format error';
+                    document.querySelector('.pswinfo').textContent=' Format error';
                     document.querySelector('.pswinfo').style['color']='red';
                 }else if(regex_psw.test(this.value)){
-                    document.querySelector('.pswinfo').textContent=' match the rules';
+                    document.querySelector('.pswinfo').textContent=' Match the rules';
+                    document.querySelector('.pswinfo').style['color']='lightgreen';
                 }
             }else{
                 document.querySelector('.pswinfo').textContent='The password must be 8 characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.';
@@ -44,15 +46,20 @@
             let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
             if(this.value !=''){
                 if(regex_psw.test(this.value) == false){
-                    document.querySelector('.pswinfo2').textContent=' format error';
+                    document.querySelector('.pswinfo2').textContent=' Format error';
                     document.querySelector('.pswinfo2').style['color']='red';
-                }else if(regex_psw.test(this.value)){
-                    document.querySelector('.pswinfo2').textContent=' match the rules';
+                }else if(regex_psw.test(this.value)&& psw.value !=psw2.value  ){
+                    document.querySelector('.pswinfo2').textContent=' Match the rules but wrong password';
+                    document.querySelector('.pswinfo2').style['color']='orange';
+                }else if(regex_psw.test(this.value)&& psw.value ==psw2.value){
+                    document.querySelector('.pswinfo2').textContent=' Match the rules';
+                    document.querySelector('.pswinfo2').style['color']='lightgreen';
                 }
             }else{
                 document.querySelector('.pswinfo2').textContent='';
                 document.querySelector('.pswinfo2').style['color']='rgb(72, 72, 72)';
             }
+
         });
     })
 </script>
@@ -68,41 +75,45 @@
                         <h1>Create Your EFPV Account</h1>
                         <form class="tab_panel">
                             <label for="username">Email Address</label>
-                            <input type="email" name="username" id="username" maxlength="35" required>
+                            <input type="email" class="input-s" name="username" id="username" maxlength="35" required>
                             <span class="unameinfo"></span>
 
                             <label for="password">Password</label>
-                            <input type="password" name="password" id="password" maxlength="20" required>
+                            <input type="password" class="input-s" name="password" id="password" maxlength="20" required>
                             <span class="pswinfo"></span>
                             
                             <label for="password2">Enter new password again</label> <!--Confirmed password does not match the new password, please enter again-->
-                            <input type="password" name="password" id="password2" maxlength="20" required>
+                            <input type="password" class="input-s" name="password" id="password2" maxlength="20" required>
                             <span class="pswinfo2"></span>
 
 
                             <label for="uname">User name</label>
-                            <input type="text" name="" id="uname" maxlength="15" required>
-                            <input type="text" name="" id="" maxlength="15" required>
+                            <div class="username">
+                                <input type="text" class="input-s" name="" id="uname" maxlength="15" required>
+                                <input type="text" class="input-s" name="" id="" maxlength="15" required>
+                            </div>
                             <span class=""></span>
 
 
                             <label for="">Gender</label>
-                            <input type="radio" name="Gender" id="male" checked>
-                            <label for="male">male</label>
-                            <input type="radio" name="Gender" id="female">
-                            <label for="female">female</label>
+                            <div class="gender">
+                                <input type="radio" name="Gender" id="male" checked>
+                                <label for="male">male</label>
+                                <input type="radio" name="Gender" id="female">
+                                <label for="female">female</label>
+                            </div>
 
 
                             <label for="bday">Date of birth</label>
-                            <input type="date" name="" id="bday">
+                            <input type="date" class="input-s" name="" id="bday">
 
                             <label for="phone_no">Phone number</label>
-                            <input type="number" name="phone_no" id="phone_no" maxlength="15">
+                            <input type="number" class="input-s" name="phone_no" id="phone_no" maxlength="15">
                             <span class=""></span>
 
                             <label for="address">Address</label>
-                            <input type="text" name="" id="address" maxlength="10">
-                            <input type="text" name="" id="" maxlength="15">
+                            <input type="text" class="input-s" name="" id="address" maxlength="10">
+                            <input type="text" class="input-s" name="" id="" maxlength="15">
                             <span class=""></span>
 
                             <div class="login_info">
@@ -140,10 +151,29 @@
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
-
+$text-color:#fff;
+$link-color:#7abcff;
+$btn-color:#007FFB;
+$bg-color:rgb(54, 54, 54);
+.input-s{
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid rgba(0,0,0,.15);
+    height: 40px;
+    padding: 7px 11px;
+    font-size: 20px;
+    line-height: 20px;
+    margin-top: 8px;
+    border-radius: 4px;
+}
+span{
+    display: block;
+    padding: 10px 0;
+}
 .banner{
     position: relative;
     width: 100%;
+    color: $text-color;
     .img_box{
         background-image: url("../assets/images/register/pexels-tembela-bohle-2050720.jpeg");
         position: fixed;
@@ -162,9 +192,10 @@
             margin-left: auto;
             position: relative;
             width: 400px;
-            background-color: rgb(36, 33, 66);
+            background-color: $bg-color;
             box-shadow: 0 16px 32px rgb(0 0 0 / 10%);
             padding: 48px 32px;
+            
             .logo{
                 display: inline;
                 width: 100%;
@@ -176,7 +207,7 @@
                 width: 100%;
                 h1{
                     font-size: 24px;
-                    color: #000;
+                    color: $text-color;
                     padding-top: 24px;
                     font-weight: 300;
                 }
@@ -185,27 +216,6 @@
                             display: block;
                             margin-top: 24px;
                         }
-                        input[type="email"],input[type="password"]{
-                            box-sizing: border-box;
-                            width: 100%;
-                            border: 1px solid rgba(0,0,0,.15);
-                            height: 40px;
-                            padding: 7px 11px;
-                            font-size: 20px;
-                            line-height: 20px;
-                            // letter-spacing: -.02em;
-                            margin-top: 8px;
-                            border-radius: 4px;
-                        }
-                        // .forget_password{
-                        //     font-style: italic;
-                        //     font-size: 12px;
-                        //     margin: 8px 0 24px 0;
-                        //     color: #007FFB;
-                        //     width: auto;
-                        //     flex-grow: 1;
-                        //     text-align: right;
-                        // }
                         .login_info{
                             display: flex;
                             input[type="checkbox"]{
@@ -223,17 +233,17 @@
                                 height: 48px;
                                 border-radius: 10px;
                                 font-size: 16px;
-                                color: #fff;
-                                background-color: #007FFB;
+                                color: $text-color;
+                                background-color: $btn-color;
                             }
                             p{
                                 display: block;
                                 font-size: 12px;
-                                color: #000;
+                                color: $text-color;
                                 margin: 8px 0 24px 0;
                                 text-align: center;
                                 a{
-                                    color: #007FFB;
+                                    color: $link-color;
                                     font-size: 12px;
                                     display: inline;
                                 }
@@ -241,7 +251,20 @@
                         }
                         span{
                             font-size: 12px;
-                            color: rgb(72, 72, 72);
+                            color: $text-color;
+                        }
+                        .username{
+                            display: flex;
+                            gap: 10px;
+                        }
+                        .gender{
+                            display: flex;
+                            gap: 10px;
+                            label{
+                                margin: 20px 20px 20px 0;
+                                font-size: 20px;
+
+                            }
                         }
                 }
                 .divider{
@@ -255,8 +278,8 @@
                         margin: 0 auto;
                         z-index: 1;
                         padding: 0 12px;
-                        background: #fff;
-                        color: rgba(0,0,0,.45);
+                        background: $bg-color;
+                        color: $text-color;
                         font-size: 12px;
                         line-height: 16px;
                         letter-spacing: -.02em;
@@ -269,7 +292,7 @@
                     content: "";
                     width: 100%;
                     height: 1px;
-                    background: rgba(0,0,0,.06);
+                    background: rgb(200, 200, 200);
                     overflow: hidden;
                 }
                 .login_with{
@@ -285,7 +308,7 @@
                 }
                 .login_agree{
                     span{
-                        color: #000;
+                        color: $text-color;
                         font-size: 12px;
                     }
                 }
