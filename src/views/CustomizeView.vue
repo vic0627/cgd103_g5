@@ -146,6 +146,7 @@ const step = ref({
 });
 const flow = ref(1);
 const btnStatus = ref(false);
+const buyBtn = ref(false);
 const undo = () => {
     btnStatus.value = false;
     step.value[flow.value].show = false;
@@ -168,11 +169,15 @@ const undo = () => {
             niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm), units.value.maxSpeed.ratio);
             niddleSpin(5, accelerateTime(motorChosen.value.kgm), units.value.accelerateTime.ratio);
             niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm)), units.value.accelerate.ratio);
+            buyBtn.value = false;
     }
     flow.value--;
     step.value[flow.value].show = true;
 };
 const nextStep = () => {
+    if(flow.value===3){
+        buyBtn.value = true;
+    }
     if(btnStatus.value){
         step.value[flow.value].show = false;
         flow.value++;
@@ -294,6 +299,9 @@ const controllerChoose = (id) => {
                 <div class="nextStep" data-title="next" v-show="step[flow].pBtn" @click="nextStep">
                     <span>next</span>
                 </div>
+                <router-link class="nextStep buyBtn" data-title="Buy Now" v-show="buyBtn" to="/cart">
+                    <span>Buy Now</span>
+                </router-link>
             </div>
         </div>
         <div class="dashBoards">
@@ -315,13 +323,11 @@ const controllerChoose = (id) => {
 @import '@/sass/base/_font.scss';
 @import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
-*{
-    /* outline: 1px solid red; */
-}
+
 .customize3d{
     margin: 0 auto;
     position: absolute;
-    top: 80px;
+    top: 170px;
     left: 0;
     right: 0;
     background: radial-gradient(#CED3DC33, transparent 70%);
@@ -330,7 +336,7 @@ const controllerChoose = (id) => {
         left: 0;
     }
     @include l($l-breakpoint) {
-        top: 110px;
+        top: 190px;
     }
 }
 .dashBoards{
@@ -366,12 +372,14 @@ const controllerChoose = (id) => {
     width: 100%;
     max-width: 1200px;
     position: relative;
-    margin: 70px auto 0;
+    margin: 0 auto;
+    padding-top: 80px;
     .customizeTitle{
         position: relative;
         z-index: 1;
         width: 90%;
         margin: 0 auto;
+        text-align: left;
         @include l($l-breakpoint) {
             width: 1200px;
         }
@@ -380,18 +388,16 @@ const controllerChoose = (id) => {
         display: flex;
         flex-wrap: nowrap;
         align-items: center;
-        width: 100%;
+        width: 90%;
         position: absolute;
-        top: 48px;
-        @include s($s-breakpoint) {
-            width: 90%;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-        }
+        width: 90%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        top: 138px;
         @include l($l-breakpoint) {
             width: 1200px;
-            top: 65px;
+            top: 145px;
         }
         p{
             text-align: center;
@@ -436,7 +442,7 @@ const controllerChoose = (id) => {
                 border: 2px solid $dark-grey;
                 padding: 10px;
                 border-radius: 20px;
-                margin: 10px;
+                margin: 10px 40px;
             }
         }
     }
@@ -478,6 +484,9 @@ const controllerChoose = (id) => {
     }
     .nextStep{
         @include primaryBtn(60px);
+    }
+    .buyBtn{
+        @include primaryBtn(100px);
     }
 }
 
