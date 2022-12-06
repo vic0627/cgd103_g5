@@ -101,7 +101,7 @@
 <style scoped lang="scss">
 @import '@/sass/style.scss';
 $text-color:#fff;
-$link-color:#7abcff;
+$link-color:#0080ff;
 $btn-color:#007FFB;
 $bg-color:rgb(54, 54, 54);
 section{
