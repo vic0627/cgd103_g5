@@ -2,12 +2,14 @@
 import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
 import navComponentsVue from '@/components/navComponents.vue';
-import OrderStepVue from '@/components/orderStep.vue';
+import OrderStepVue from '@/components/step/orderStep.vue';
 import Step2 from '@/components/step/Step2.vue';
 import Step3 from '@/components/step/Step3.vue';
-// import Step3 from '@/components/step/Step3.vue';
 
-
+const step = ref(2);
+const nextStep = () => {
+    step.value++
+}
 const customer1 = reactive(
     [
         {
@@ -39,62 +41,13 @@ const customer2 = reactive(
 )
 </script>
 <template>
+    <navComponentsVue />
     <section class="member_detail">
         <h2>SHOPPING CART</h2> 
-        <OrderStepVue />  
-        <Step1></Step1>  
-        <Step2></Step2>
-        <Step3></Step3>
-        <div class="detail_box">
-            <template  v-for="info in customer2" :key="info.custNo">
-                <p>Confirm Detail</p>
-                <div class="input_box">
-                    <input type="checkbox" name="checkbox" id="copyMemInfo" value="">
-                    <label for="copyMemInfo">same as membership information</label>
-                </div>
-                <!-- <label for="copyMemInfo"></label> -->
-                <table class="confirm_detail">
-                    <tr>
-                        <td class="title">First Name</td>
-                        <td>{{info.FirstName}}</td>
-                        <td class="title">Last Name</td>
-                        <td>{{info.LastName}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Phone</td>
-                        <td colspan="3">{{info.Phone}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Order List</td>
-                        <td>{{info.OrderList}}</td>
-                        <td colspan="2">BUY {{info.OrderQty}} Units</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Address</td>
-                        <td colspan="3">{{info.Address}}</td>
-                    </tr>
-                </table>
-                <p>Payment</p>
-                <table class="payment">
-                    <tr>
-                        <td class="title">First Name</td>
-                        <td>{{info.FirstName}}</td>
-                        <td class="title">Last Name</td>
-                        <td>{{info.LastName}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Credit Card No.</td>
-                        <td colspan="3">{{info.CreditCardNo}}</td>
-                    </tr>
-                </table>
-            </template>
-            <div class="buttons">
-                <a class="btnPrimary" data-title="Pay Now">
-                    <router-link class="anchor" to="/orderComplete">Pay Now</router-link>
-                </a>
-            </div>
-        </div>    
-        
+        <OrderStepVue :step="step"/>  
+        <!-- <Step1 v-if="step===1" :next-step="nextStep"></Step1>  --> 
+        <Step2 v-if="step===2" :next-step="nextStep"></Step2>
+        <Step3 v-if="step===3"></Step3>
     </section>
 </template>
 
@@ -108,96 +61,14 @@ const customer2 = reactive(
 
 .member_detail{
     max-width: 1200px;
-    // height: 100vh;
-    margin: 20px auto;  
+    margin: 0 auto;  
     text-align: center;
     overflow: hidden;
     font: $caption-p;
     h2{
         width: 100%;
         text-align: center;
-        margin: 20px auto;
-    }
-
-    .detail_box{
-        max-width: 800px;
-        height: 800px;
-        background-color: rgba(142, 142, 142, 0.19);
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        margin: 20px auto;
-        padding: 0 10px;
-        border-radius: 10px;
-        .input_box{
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            input{
-                margin: 0 10px;
-            }
-            label{
-                color: #ccc;
-            }
-        }
-        .confirm_detail{
-            background-color: rgba(217, 217, 217, 0.32);
-            max-width: 800px;
-            margin: 20px auto;
-            table-layout: fixed;
-            tr{
-                border: 1px solid #ccc;
-                // line-height: 30px;
-                &:nth-child(even){
-                        background-color: #98989880;
-                    }
-                td{
-                    &.title{
-                        color: rgb(228, 229, 225);
-                    }
-                    text-align: left;
-                    // border: 1px solid #ccc;
-                    padding: 5px ;
-                    color: #333 ;                       
-                    font-size: 20px;
-                }
-            }
-        }
-        .payment{
-            background-color: #98989880;
-            max-width: 500px;
-            // padding: 20px;
-            margin: 20px auto;
-            @include m($m-breakpoint){
-                width:65% ;
-            }
-            tr{
-                border: 1px solid #ccc;
-                line-height: 30px;
-                &:nth-child(even){
-                    background-color: #98989880;
-                }
-                td{
-                    &.title{
-                        color: rgb(228, 229, 225);
-                    }
-                    text-align: left;
-                    padding: 10px;
-                    color: #333;
-                    font-size: 20px;
-                }
-            }
-        }
-
-    }
-    .buttons{
-        width: 100%;
-        display: flex;
-        justify-content: center;
-        margin: 0 auto;
-        .btnPrimary{
-            @include primaryBtn(100px);
-        }
+        margin: 100px auto;
     }
     
 }
