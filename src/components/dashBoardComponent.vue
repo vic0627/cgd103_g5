@@ -21,7 +21,7 @@ onMounted(() => {
         log($$('.dashBoard').offsetLeft)
     })
     window.addEventListener('click', () => {
-        niddleSpin(props.units.value, props.units.ratio)
+        niddleSpin(props.units.value, accDeg.value)
     })
     useDashBoardMove(ww, w);
 })
@@ -54,13 +54,16 @@ const scaleSum = () => {
     }
     scale(`.numberScale1`, Y(-r, numW), X(-r, numW), 'auto', 0);
 };
-const niddleSpin = (d, ratio) => {
+const accDeg = ref(0);
+accDeg.value = props.units.value * props.units.ratio;
+
+const niddleSpin = (d, r) => {
     gsap.to(deg, {
         value: d,
         duration: .3,
     })
-    gsap.to('#niddle', {
-        rotate: d * ratio+150,
+    new gsap.to('#niddle', {
+        rotate: r + 150,
         duration: .3
     })
     if(d>=100){
