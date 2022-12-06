@@ -2,7 +2,6 @@
 import { ref, onMounted, reactive } from 'vue';
 import $ from 'jquery';
 import cartItemComponentsVue from '@/components/cartItemComponents.vue';
-import footerComponentsVue from '@/components/footerComponents.vue';
 import {bodyInit} from '@/composables/useOnunmounted';
 
 bodyInit();
@@ -172,8 +171,6 @@ const sale = ()=> {
                 <router-link to="/shop">See more products</router-link>
             </div>
         </div>
-        
-    <footerComponentsVue />
 </template>
 
 <style lang="scss" scoped>
