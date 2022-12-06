@@ -3,7 +3,8 @@ import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
 import navComponentsVue from '@/components/navComponents.vue';
 
-
+const props = defineProps(['nextStep','step']);
+// console.log(props.step);
 const customer1 = reactive(
     [
         {
@@ -35,7 +36,7 @@ const customer2 = reactive(
 )
 </script>
 <template>   
-    <div class="detail_box">
+    <section class="detail_box">
             <template  v-for="info in customer2" :key="info.custNo">
                 <p>Confirm Detail</p>
                 <div class="input_box">
@@ -79,12 +80,12 @@ const customer2 = reactive(
             </template>
             <div class="buttons">
                 <a class="btnPrimary" data-title="Pay Now">
-                    <router-link class="anchor" to="/orderComplete">
+                    <button @click="props.nextStep()">
                         Pay Now
-                    </router-link>
+                    </button>
                 </a>
             </div>
-    </div>           
+    </section>           
 </template>
 
 <style scoped lang="scss">
@@ -94,18 +95,6 @@ const customer2 = reactive(
 @import '@/sass/base/_font.scss';
 @import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
-
-.member_detail{
-    max-width: 1200px;
-    margin: 20px auto;  
-    text-align: center;
-    overflow: hidden;
-    font: $caption-p;
-    h2{
-        width: 100%;
-        text-align: center;
-        margin: 20px auto;
-    }
 
     .detail_box{
         max-width: 800px;
@@ -141,12 +130,13 @@ const customer2 = reactive(
                     }
                 td{
                     &.title{
-                        color: rgb(228, 229, 225);
+                        color: #333;   
+                        
                     }
                     text-align: left;
                     // border: 1px solid #ccc;
                     padding: 5px ;
-                    color: #333 ;                       
+                    color: rgb(228, 229, 225);                   
                     font-size: 20px;
                 }
             }
@@ -167,11 +157,11 @@ const customer2 = reactive(
                 }
                 td{
                     &.title{
-                        color: rgb(228, 229, 225);
+                        color: #333;
                     }
                     text-align: left;
                     padding: 10px;
-                    color: #333;
+                    color: rgb(228, 229, 225);
                     font-size: 20px;
                 }
             }
@@ -185,10 +175,13 @@ const customer2 = reactive(
         margin: 0 auto;
         .btnPrimary{
             @include primaryBtn(100px);
+            button{
+                background-color: transparent;
+                color: $fff;
+                border: none;
+            }
         }
     }
-    
-}
 
        
 </style>

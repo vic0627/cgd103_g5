@@ -2,76 +2,38 @@
     <div class="step_box">
         <div class="steps" >
             <div class="step" v-for="step in orderStep" :key="step">
-                <div :class="step.circleObj"></div>
-                <p :class="step.titleObj">Step{{step.title}}</p>
-                <p :class="step.textObj">{{step.text}}</p>
+                <div :class="( props.step == step.id ? 'active_circle':'unactive_circle')"></div>
+                <p :class="( props.step == step.id ? 'active_title':'unactive_title')">Step{{step.title}}</p>
+                <p :class="( props.step == step.id ? 'active_text':'unactive_text')">{{step.text}}</p>
             </div>
         </div>
-        <KeepAlive>
-            <component :is="active"></component>
-        </KeepAlive>
-        <!-- <Step2/> -->
-        
     </div>
 </template>    
 
+
+
 <script setup>
 import {ref,reactive} from 'vue'
-import Step2 from '@/components/step/Step2.vue'
-const active = ref('Step3')
+
+const props = defineProps(['step'])
+// console.log(props.step);
 const orderStep = reactive(
     [
     {
         id:1,
         title:'One',
         text:'CONFIRM PRODUCT',
-        circleObj:{
-            active_circle: false,
-            unactive_circle: true,
-        },
-        titleObj:{
-            active_title:false,
-            step_title:true
-        },
-        textObj:{
-            active_text:false,
-            step_text:true
-        }
     },
     {
         id:2,
         title:'Two',
         text:'CONFIRM DETAIL',
         componentName: 'Step2',
-        circleObj:{
-            active_circle: true,
-            unactive_circle: false,
-        },
-        titleObj:{
-            active_title:true,
-            step_title:false
-        },
-        textObj:{
-            active_text:true,
-            step_text:false
-        }
     },
     {
         id:3,
         title:'Three',
         text:'ORDER COMPELED',
-        circleObj:{
-            active_circle: false,
-            unactive_circle: true,
-        },
-        titleObj:{
-            active_title:false,
-            step_title:true
-        },
-        textObj:{
-            active_text:false,
-            step_text:true
-        }
     },
     ]
 )
@@ -87,7 +49,7 @@ const orderStep = reactive(
         max-width: 800px;
         margin: 0 auto;
         display: flex;
-        justify-content: flex-end;
+        justify-content: center;
         align-items: center;
         .step{
             position: relative;
@@ -97,23 +59,32 @@ const orderStep = reactive(
             max-width: 200px;
             gap: 5px;
             margin: 0 auto;
-            // &:last-child{
-            //     &::before{
-            //         content:'';
-            //         width: 0;
-            //         height: 0;
-            //         border:none
-            //     }
-            // }
-            // &::before{
-            //     position: absolute;
-            //     top:-100%;
-            //     right: -100%;
-            //     content:'➪';
-            //     color: rgb(206, 204, 204);
-            //     font-size: 100px;
-            // }
-          
+            &::after{
+                content: "";
+                background-color: #fff;
+                position: absolute;
+                top: 15%;
+                left: 100%;
+                transform: translate(-20%,-20%);
+                @include m($m-breakpoint){
+                    width: 200px;
+                    height:2px;
+                    width: 260px;
+                    transform: translate(-20%,-20%);
+                }
+                // @include l($l-breakpoint){
+                //     width: calc(1200px/3);
+                // }
+            } 
+            &:last-child{
+                &::after{
+                    content:"";
+                    width: 0px;
+                    height:0px;
+                }
+
+            }
+                     
             .title,.detail{
                 margin: 10px;
             }
@@ -131,7 +102,7 @@ const orderStep = reactive(
                 border-radius:50% ;
                 z-index: 2;
             }
-            .step_title{
+            .unactive_title{
                 color: #3C4257;
                 font-size: 24px;
                 margin: 10px 0;
@@ -145,7 +116,7 @@ const orderStep = reactive(
                 color: $fff;
                 font-size: 14px;
             }
-            .step_text{
+            .unactive_text{
                 color: #697386;
                 font-size: 14px;
             }

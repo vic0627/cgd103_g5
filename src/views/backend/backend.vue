@@ -1,8 +1,12 @@
 <script>
 import tabhome from "../../components/tabHome.vue";
+import tabproductsearch from "@/components/tabproductsearch.vue";
+import tabproductImgManage from "@/components/tabproductImgManage.vue";
 export default {
   components: {
     tabhome,
+    tabproductsearch,
+    tabproductImgManage
   },
 };
 </script>
@@ -24,6 +28,14 @@ const backendCategory = ref({
       b: {
         cn: "優惠設定",
         tab: "discount",
+      },
+      c: {
+        cn: "商品圖片管理",
+        tab: "productImgManage",
+      },
+      d: {
+        cn: "商品分類管理",
+        tab: "productCategoryManage",
       },
     },
   },

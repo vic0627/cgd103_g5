@@ -63,7 +63,7 @@ const products = reactive([
         "title":'EFVP Mavic 4 Black',
         "Original_Price":'USD$900',
         "src4": 
-        ['../../public/images/shop/body_01_black _1.png','../../public/images/shop//body_01_black_2.png','../../public/images/shop/body_01_black_3.png'],
+        ['../../public/images/shop/body_01_black_1.png','../../public/images/shop//body_01_black_2.png','../../public/images/shop/body_01_black_3.png'],
         "new":true,
         "sale":false 
     },
@@ -476,7 +476,7 @@ $(document).ready(()=>{
         <div class="search_box">
             <label for="search"></label>
             <input type="text" name="search" placeholder="search" id="search">
-            <button type="submit" value="submit">submit</button>
+            <button type="submit" value="submit">Go</button>
         </div>
         <div class="card_slider">
             <div class="card_slider_items">
@@ -495,7 +495,11 @@ $(document).ready(()=>{
                             <p v-if="item.sale == true" class="price d">{{item.Original_Price}}</p>
                             <p  v-if="item.Discount_Price !='' " class="price discount">{{item.Discount_Price}}</p>
                             <div class="buttons">
-                                <a class="btnPrimary" data-title="BUY NOW">BUY NOW</a>
+                                <a class="btnPrimary" data-title="BUY NOW">
+                                    <router-link class="anchor" to="/cart">
+                                        BUY NOW
+                                    </router-link>
+                                </a>
                                 <a class="btnSecond" data-title="Learn More" >Learn More</a>
                             </div>                    
                         </div>
@@ -510,6 +514,11 @@ $(document).ready(()=>{
     <section class="accessories" id="accessories">
         <h2><span>ACCESSORIES</span></h2>
         <p>More Various Then You Think</p>
+        <div class="search_box">
+            <label for="search"></label>
+            <input type="text" name="search" placeholder="search" id="search">
+            <button type="submit" value="submit">Go</button>
+        </div>
         <div class="card_slider">
             <div class="card_slider_items">
                 <div v-for="i in accessories" class="card_slider_item"  :key="i.name">
@@ -1000,6 +1009,22 @@ $(document).ready(()=>{
             font: $caption-l-h2;
         }
      }
+    }
+    .search_box{
+        max-width: 1200px;
+        margin: 10px auto;
+        display: flex;
+        justify-content: center;
+        input{
+            background-color: transparent;
+            color: #e6e9f0;
+            border: 1px solid #444;
+        }
+        button{
+            background-color: transparent;
+            color: #e6e9f0;
+            border: 1px solid #444;
+        }
     }
     .card_slider{
         width: 100%;
