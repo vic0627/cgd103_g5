@@ -120,19 +120,19 @@ export const motorModels = ref({
   motor01: {
     id: 1,
     name: "motor01",
-    rpm: 4000,
+    rpm: 5300,
     kgm: 8,
   },
   motor02: {
     id: 2,
     name: "motor02",
-    rpm: 4500,
+    rpm: 4800,
     kgm: 9,
   },
   motor03: {
     id: 3,
     name: "motor03",
-    rpm: 5000,
+    rpm: 4400,
     kgm: 10,
   },
 });

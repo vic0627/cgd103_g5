@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, nextTick } from 'vue';
-import { log, $$ } from '../composables/useCommon';
+import { log, $$, $all } from '../composables/useCommon';
 import gsap from 'gsap';
 import { useDashBoardMove, niddleSpin, deg} from '../composables/useDashBoardMove';
 let w = null, innerW = null, numW = null, ww;
@@ -19,13 +19,13 @@ onMounted(() => {
         scaleSum();
     })
     niddleSpin(props.units.id, props.units.value, props.units.ratio);
-    useDashBoardMove(props.units.id, ww, w);
+    //useDashBoardMove(props.units.id, ww, w);
 });
 const r = 2 * Math.PI / 12;
 const Y = (e, width = w) => Math.sin(e) * -width + 'px';
 const X = (e, width = w) => Math.cos(e) * width + 'px';
 const rToD = (e) => e * 180 / Math.PI;
-
+const groupStyling = (e, prop = "background", val = "#f00") => $all(e).forEach(e => e.style[prop] = val)
 const scale = (e, top, left, right, rotate, duration = 0) => {
     gsap.to(e, {
         top,
@@ -38,17 +38,24 @@ const scale = (e, top, left, right, rotate, duration = 0) => {
 
 const scaleSum = () => {
     scale('.longScale1', Y(-r), X(-r), 'auto', rToD(r));
+    scale(`.numberScale1`, Y(-r, numW), X(-r, numW), 'auto', 0);
     for(let i=0; i<=7; i++){
         scale(`.longScale${i+2}`, Y(r*i), X(r*i), 'auto', rToD(-r*i));
         scale(`.numberScale${i+2}`, Y(r*i, numW), X(r*i, numW), 'auto', 0);
+        if(i<2){
+            groupStyling(`.longScale${i+1}`);
+            groupStyling(`.numberScale${i+1}`, "color");
+        }
     }
     for(let i=1; i<=5; i++){
         scale(`.shortScale${i}`, Y(-r/6*(6-i)), X(-r/6*(6-i)), 'auto', rToD(r/6*(6-i)));
     }
     for(let i=6; i<=47; i++){
         scale(`.shortScale${i}`, Y(r/6*(i-6)), X(r/6*(i-6)), 'auto', rToD(-r/6*(i-6)));
+        if(i<17){
+            groupStyling(`.shortScale${i-5}`, "background", "#f008");
+        }
     }
-    scale(`.numberScale1`, Y(-r, numW), X(-r, numW), 'auto', 0);
 };
 
 const props = defineProps(["units"]);
@@ -228,5 +235,13 @@ const props = defineProps(["units"]);
             }
         }
     }
+}
+.warn{
+    animation: warn .6s ease-out infinite;
+}
+@keyframes warn {
+    0%{color: #fff;}
+    50%{color: #f00;}
+    100%{color: #fff;}
 }
 </style>
