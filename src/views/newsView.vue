@@ -1,8 +1,9 @@
 <script>
 import { onMounted, registerRuntimeCompiler, reactive } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
-import {bodyInt} from '../composables/useOnunmounted';
-bodyInt();
+import footerComponentsVue from '@/components/footerComponents.vue';
+import {bodyInit} from '../composables/useOnunmounted';
+bodyInit();
 
 // import {useMotion} from '@vueuse/motion';
 
@@ -348,7 +349,7 @@ import newsComponentsVue from "@/components/newsComponents.vue";
 </section>
 <!-- 02 tag end -->
 <newsComponentsVue />
-
+<footerComponentsVue />
 </template>
 
 <style lang="scss" scoped>
@@ -384,7 +385,7 @@ import newsComponentsVue from "@/components/newsComponents.vue";
   .banner_right_txt {
     display: none;
   }
-}
+
 @include m($m-breakpoint) {
   .banner {
     position: relative;
