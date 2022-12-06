@@ -114,6 +114,12 @@ const lastNews = reactive([
         "title": "Why mourners are opting to scatter ashes by drone",
         "src": "/images/news/news_12.jpg",
     },
+    {
+        "id": 4,
+        "tagName": "Customed",
+        "title": "RealityCapture. Create 3D maps and models from drone images. Fast. Accurate. Simple.",
+        "src": "/images/news/news_13.jpg",
+    },
 ])
 
 // const view = ref(1);
@@ -127,11 +133,11 @@ const changeView = (index) => {
 
 <template>
     <div class="tab-tag">
+        <button class="tag" @click="changeView(0)">ALL</button> 
         <button class="tag" @click="changeView(1)">Travel</button>
         <button class="tag" @click="changeView(2)">FPV</button>        
         <button class="tag" @click="changeView(3)">Photoshot</button>
-         <button class="tag" @click="changeView(4)">Customed</button>
-        <button class="tag" @click="changeView(0)">ALL</button>    
+         <button class="tag" @click="changeView(4)">Customed</button>   
     </div>
 
     <div class="label">
@@ -218,10 +224,14 @@ const changeView = (index) => {
 
 
 .tab-tag {
-    width: 1200px;
-    margin: 0 auto;
+    width: 90%;
+    margin: 60px auto 10px;
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
+    @include l($l-breakpoint){
+        width: 1200px;
+    }
 }
 .tag {    border-radius: 10px;
     background: transparent;
@@ -233,6 +243,10 @@ const changeView = (index) => {
     transition: background 0.5s;
     &:hover{
         background: $blue;
+    }
+    &:focus{
+        background: $blue;
+        
     }
 }
 

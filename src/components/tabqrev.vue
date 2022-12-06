@@ -1,4 +1,35 @@
-<script>
+<script setup>
+import { reactive, onMounted,ref } from 'vue';
+
+const table = ref([
+  {
+    number:5,
+    q:"How to become a member of EFPV?",
+    a:"Click the member center icon in the upper right corner of the homepage to register/login.",
+  },
+  {
+    number:4,
+    q:"How to contact us?",
+    a:"123",
+  },
+  {
+    number:3,
+    q:"How to contact us?",
+    a:"123",
+  },
+  {
+    number:2,
+    q:"How to contact us?",
+    a:"123",
+  },
+  {
+    number:1,
+    q:"How to contact us?",
+    a:"123",
+  },
+
+])
+
 </script>
 <template>
 <div class="top">
@@ -11,6 +42,22 @@
     <div class="btn">
       <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
     </div>
+  </div>
+  <div class="tables">
+    <table>
+      <tr>
+        <th>編號</th>
+        <th>問題</th>
+        <th>回覆</th>
+        <th>修改</th>
+      </tr>
+      <tr v-for="item in table" :key="item">
+        <td>{{item.number}}</td>
+        <td>{{item.q}}</td>
+        <td>{{item.a}}</td>
+        <td><a href="#"><span class="block">編輯</span> <span>/</span> <span class="red">刪除</span></a></td>
+      </tr>
+    </table>
   </div>
 </div>
 
@@ -66,18 +113,65 @@ h2 {
       width: 50px;
       text-align: center;
       border: none;
-      background: $blue;
+      background:#597897;
       border-radius: 5px;
       padding: 5px;
       transition: background 0.5s;
       cursor: pointer;
       &:hover{
-        background: #06519d;
+        background: $blue;
       }
       img{
         width: 20px;
         height: 20px;
         margin-top: 2px;
+      }
+    }
+  }
+}
+
+.tables {
+  width: 100%;
+  margin: auto;
+  table{
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #C0C0C0;
+    tr {
+      border: 1px solid #C0C0C0;
+      &:hover td{
+        background: rgba(89, 120, 151, 0.11);
+      }
+      th {
+        padding: 20px 10px;
+        background-color:#597897;
+        color: #fff;
+        border: 1px solid #C0C0C0;
+        border-top: 1px solid #597897;
+      }
+      td{
+        border: 1px solid #C0C0C0;
+        padding: 20px 10px;
+        overflow: hidden;
+        a{
+          color: #273747;
+          span{
+            color: #273747;
+          }
+          .block{
+            &:hover{
+              border-bottom: 1px solid #273747;
+            }
+          }
+          .red{
+            color: #F25A2A;
+            &:hover{
+              border-bottom: 1px solid #F25A2A;
+            }
+          }
+        }
       }
     }
   }

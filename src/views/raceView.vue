@@ -2,6 +2,8 @@
 import { ref, onMounted, reactive } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
+import { bodyInit } from "../composables/useOnunmounted";
+bodyInit();
 
 const bgi1 = document.querySelector(".bgi1");
 const bgi2 = document.querySelector(".bgi2");
@@ -15,10 +17,9 @@ const card1 = document.querySelector(".card1");
 const card2 = document.querySelector(".card2");
 const card3 = document.querySelector(".card3");
 
-const change1 = () => {
-  if ((text1 = true)) {
-  }
-};
+function change1() {
+  document.getElementById("change1").classList.add("change1_active");
+}
 </script>
 
 <template>
@@ -416,7 +417,6 @@ const change1 = () => {
           </p>
         </div>
       </div>
-
       <div class="practiseCard">
         <div class="card card1" @click="change1">
           <div class="cardTitle">
@@ -483,6 +483,27 @@ const change1 = () => {
         </div>
       </div>
     </div>
+
+    <!-- <div id="change1" class="card card1 change1">
+      <div class="cardTitle">
+        <h3>Taiwan</h3>
+      </div>
+
+      <div class="cardPic">
+        <img src="../assets/images/race/point1.jpg" alt="aerialPoint" />
+      </div>
+
+      <div class="cardContent">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore quos
+          unde adipisci itaque quaerat architecto. Dolor eaque eum recusandae
+          necessitatibus sed deserunt quae ullam quia mollitia qui architecto
+          eveniet iusto nesciunt hic voluptates incidunt a ab, distinctio labore
+          deleniti quisquam vitae. Laborum quidem illo explicabo pariatur
+          praesentium necessitatibus repellendus aliquam.
+        </p>
+      </div>
+    </div> -->
   </section>
   <footerComponentsVue />
 </template>
@@ -490,6 +511,31 @@ const change1 = () => {
 <style lang="scss" scoped>
 @import "../sass/style.scss";
 @import "../sass/component/_btn.scss";
+
+// .change1 {
+//   overflow: hidden;
+//   transform: scale(0);
+// }
+
+// .change1_active,
+// .bag_talkwindow_active,
+// .plus_talkwindow_active {
+//   animation: popup
+//     0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001s;
+//   transform: scale(1);
+// }
+
+// @keyframes popup {
+//   0% {
+//     transform: scale(0);
+//   }
+//   0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001% {
+//     transform: scale(1);
+//   }
+//   100% {
+//     transform: scale(1);
+//   }
+// }
 
 header {
   position: sticky;

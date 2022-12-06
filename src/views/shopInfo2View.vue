@@ -170,6 +170,55 @@ const btnLeft = () => {
       </p>
     </div>
   </div>
+
+  <!-- 推薦 -->
+  <div class="yml">
+    <h2>You May Like ...</h2>
+    <div class="cardRow">
+      <div class="card">
+        <div class="cardPic">
+          <img src="src/assets/images/shopInfo/controller.png" alt="" />
+        </div>
+        <div class="cardInfo">
+          <h5>name</h5>
+          <span>USD $999</span>
+          <a class="buttons">
+            <span class="btnPrimary" data-title="BUY NOW">BUY NOW</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cardRow">
+      <div class="card">
+        <div class="cardPic">
+          <img src="src/assets/images/shopInfo/controller.png" alt="" />
+        </div>
+        <div class="cardInfo">
+          <h5>name</h5>
+          <span>USD $999</span>
+          <a class="buttons">
+            <span class="btnPrimary" data-title="BUY NOW">BUY NOW</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cardRow">
+      <div class="card">
+        <div class="cardPic">
+          <img src="src/assets/images/shopInfo/controller.png" alt="" />
+        </div>
+        <div class="cardInfo">
+          <h5>name</h5>
+          <span>USD $999</span>
+          <a class="buttons">
+            <span class="btnPrimary" data-title="BUY NOW">BUY NOW</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- FAQ -->
   <section class="faqs">
     <h2>Let’s Answer Your Questions</h2>
@@ -184,7 +233,7 @@ const btnLeft = () => {
     </div>
 
     <div class="pnp">
-      <span>$1,599 </span>
+      <span> USD $1,599 </span>
       <router-link class="purchaseBar_btn" id="" to="/" data-title="Buy now"
         ><span>Buy now</span></router-link
       >
@@ -376,7 +425,7 @@ const btnLeft = () => {
       }
     }
   }
-  @include l($l-breakpoint) {
+  @include m($m-breakpoint) {
     .mainDesc {
       margin-left: 120px;
       h2 {
@@ -541,8 +590,11 @@ h2 {
         animation-delay: 18s;
       }
     }
-
-
+    @include l($l-breakpoint) {
+      margin-top: 200px;
+      margin-left: 200px;
+    }
+  }
   .battery {
     position: relative;
 
@@ -575,6 +627,7 @@ h2 {
   }
   .far {
     position: relative;
+
     margin: 20px;
 
     width: 300px;
@@ -660,33 +713,47 @@ h2 {
     }
   }
 
-  @include l($l-breakpoint) {
-      margin-top: 200px;
-      margin-left: 200px;
-
-    margin-top: 100px;
-
-    .colorSwitch_photo {
-      left: 100px;
-      top: -60px;
-  }
+  // rwd
+  @include m($m-breakpoint) {
     margin: auto;
-    justify-content: center;
+    justify-content: space-between;
     width: 80vw;
 
-    height: 200vh;
+    height: 1350px;
 
     flex-wrap: wrap;
     overflow-y: unset;
+    .colorSwitch {
+      margin-top: 0;
+      margin-left: 0;
 
+      height: 400px;
+      .colorSwitch_word {
+        margin-top: 50px;
+      }
+
+      .colorSwitch_photo {
+        left: 130px;
+        top: 80px;
+        .color_img {
+          width: 230px;
+          height: 250px;
+          top: 0;
+          left: 0;
+        }
+      }
+      .colorSwitch_word {
+        margin-left: 30px;
+      }
+    }
     .battery {
-      width: 37vw;
+      width: 48vw;
       h4 {
         line-height: 45px;
       }
       img {
-        height: 300px;
-        width: 37vw;
+        height: 400px;
+        width: 48vw;
       }
     }
     .far {
@@ -695,7 +762,7 @@ h2 {
         line-height: 45px;
       }
       img {
-        height: 300px;
+        height: 400px;
         width: 36vw;
       }
     }
@@ -705,18 +772,105 @@ h2 {
         line-height: 45px;
       }
       img {
-        height: 300px;
+        height: 400px;
         width: 36vw;
       }
     }
     .sensing {
-      width: 76vw;
+      width: 77vw;
       h4 {
         line-height: 45px;
       }
       img {
-        height: 300px;
-        width: 76vw;
+        height: 400px;
+        width: inherit;
+      }
+      p {
+        margin-top: -30px;
+      }
+    }
+  }
+}
+
+// yml
+.yml {
+  .cardRow {
+    .card {
+      background-color: #232a3e;
+      box-shadow: 0 0 10px #324e68;
+      padding: 15px 0;
+
+      margin: auto;
+      margin-bottom: 40px;
+      width: 90vw;
+
+      display: flex;
+      .cardPic {
+        width: 150px;
+        height: 100px;
+        margin: 10px 20px;
+        img {
+          width: inherit;
+          height: inherit;
+
+          animation: breath 5s linear infinite;
+        }
+      }
+      .cardInfo {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        h5 {
+        }
+        span {
+        }
+        .buttons {
+          background: linear-gradient(0deg, #1890ff, #40a9ff);
+          border-radius: 5px;
+
+          margin-right: 0;
+          padding: 5px 10px;
+
+          text-align: center;
+          span {
+            font-weight: 600;
+          }
+        }
+      }
+      @keyframes breath {
+        30% {
+          transform: translateY(10px);
+        }
+        65% {
+          transform: translateY(-15px);
+        }
+      }
+    }
+  } //rwd
+  @include m($m-breakpoint) {
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    justify-content: space-between;
+    width: 80vw;
+
+    margin-top: 100px;
+
+    h2 {
+      margin: auto;
+    }
+
+    .cardRow {
+      .card {
+        width: 38vw;
+        .cardInfo {
+          span {
+            margin: 5px 0 10px;
+          }
+          .buttons {
+            // margin-left: 150px;
+          }
+        }
       }
     }
   }
@@ -728,6 +882,7 @@ h2 {
     text-align: center;
   }
 }
+
 //purchasewBar
 #purchaseBar {
   width: 100vw;
@@ -769,7 +924,7 @@ h2 {
       }
     }
   }
-  @include l($l-breakpoint) {
+  @include m($m-breakpoint) {
     flex-direction: row;
     justify-content: space-between;
     padding: 15px 60px;
