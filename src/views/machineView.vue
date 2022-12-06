@@ -1,6 +1,7 @@
 <script>
 import navComponentsVue from '@/components/navComponents.vue';
-
+import {bodyInit} from '../composables/useOnunmounted';
+bodyInit();
 export default{
   components:{
     navComponentsVue

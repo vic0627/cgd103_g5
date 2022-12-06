@@ -61,7 +61,7 @@ import { ref, onMounted, reactive } from 'vue';
 @import '@/sass/style.scss';
 @import '@/css/reset.css';
 footer {
-    background: #0E1621;
+    background: #2c4e7e55;
     .footer-logo {
         display: flex;
         flex-direction: column;

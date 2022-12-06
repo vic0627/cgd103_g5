@@ -1,7 +1,17 @@
-<script></script>
+<script>
+import outComponents from "../components/outComponents.vue";
+export default {
+  components: {
+    outComponents
+  }
+};
+</script>
 <template>
   <div>
-    <h2>新增內容</h2>
+    <h2>
+      新增內容
+      <outComponents />
+    </h2>
   </div>
 </template>
 <style scoped>
@@ -12,8 +22,11 @@ div {
 h2 {
   font-size: 40px;
   color: #fff;
-  margin: 20px 20px;
-  padding: 20px 20px;
+  margin: 10px 10px;
+  padding: 10px 10px;
   background-color: #597897;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
