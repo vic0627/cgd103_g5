@@ -23,7 +23,7 @@ function change1() {
 </script>
 
 <template>
-  <navComponentsVue />
+  <navComponentsVue :race="`#077AF9`"/>
   <!-- banner -->
   <section>
     <div class="banner">

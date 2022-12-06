@@ -409,7 +409,7 @@ $(document).ready(()=>{
 </script>
 
 <template>
-    <navComponentsVue />
+    <navComponentsVue :shop="`#077AF9`"/>
      <!-- banner start-->
     <section class="banner">
         <h2>

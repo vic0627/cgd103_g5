@@ -120,10 +120,13 @@ footer {
             &::before {
                 content: "";
                 width: 100%;
-                height: 3px;
+                height: 3.5px;
                 background: rgba(255, 255, 255, 0.2);
                 position: absolute;
-                bottom: 25%;
+                bottom: 0%;
+                @include l($l-breakpoint){
+                    bottom: 30%;
+                }
             }
         }
     }
@@ -226,7 +229,7 @@ footer {
         width: 100%;
         margin: 0 auto;
          .copyright {
-            width: 100%;
+            width: 90%;
         }
     } 
 }
