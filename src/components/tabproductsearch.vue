@@ -5,7 +5,7 @@ import { ref,reactive, onMounted } from 'vue';
             pno:1,
             pname:"EFVP Mavic 1 Green",
             Original_Price:'USD$900',
-            info:'EFVP Mavic 1 Green不僅身懷高超飛行技藝，為你呈現旗艦級影像質感。帶它走遍山海，大作盡顯光彩。',
+            info:'EFVP Mavic 1 Green不僅身懷高超飛行技藝，為你呈現旗艦級影像質感。帶它走遍山海，大作盡顯光彩。不僅身懷高超飛行技藝，為你呈現旗艦級影像質感。帶它走遍山海，大作盡顯',
         },
         {   
             pno:2,
@@ -34,11 +34,7 @@ import { ref,reactive, onMounted } from 'vue';
      <div class="top">
         <h2>商品查詢</h2>
         <outComponents />
-        <span>
-            <router-link class="out" to="/">離開後台 &rarr; </router-link>
-        </span>
-     </div>
-     
+     </div>   
     <div class="headeBar">
         <div class="left_bar">
             <select name="" id="">商品類別
@@ -49,16 +45,13 @@ import { ref,reactive, onMounted } from 'vue';
             </select>
         </div>
         <div class="right_bar">
-            <label for="">商品編號</label>
-            <input type="search" name="" id="" placeholder="請輸入查詢">
-            <button type="submit">
-                <img src="../assets/images/backend/search.png" alt="search">
-            </button>
-            <button type="submit">
-                <img src="../assets/images/backend/add.png" alt="add">
-            </button>
+            <div class="search_box">
+                <label for="search" class="label">商品編號<input type="search" id="search" name="search" placeholder="請輸入編號"></label>
+                <div class="btn">
+                    <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
+                </div>
+            </div>
         </div>
-        
     </div>
     <div class="mainContent">
         <table>
@@ -86,13 +79,10 @@ import { ref,reactive, onMounted } from 'vue';
 </template>
 <style scoped lang="scss">
 @import '@/sass/style.scss';
-body{
-  background: #fff;
-  box-sizing: border-box;
-}
 .productQuery {
     width: 100%;
   height: 100vh;
+  overflow: scroll;
   .top{
     display: flex;
     justify-content: space-between;
@@ -120,7 +110,6 @@ body{
     }
   }  
   .headeBar{
-    margin: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -143,24 +132,57 @@ body{
         }
     }
     .right_bar {
-        label,input{
-            max-width: 200px;
-            font:$caption-p;
-        }
-        button{
-            &:nth-child(2){
-                display: none;
+        .search_box{
+            display: flex;
+            justify-content: right;
+            margin: 30px 15px;
+            label {
+                margin-right: 10px;
+                font-size: 20px;
+                color: rgb(26, 26, 26);
+                input{
+                margin-left: 10px;
+                height: 35px;
+                border: 1px solid rgb(124, 124, 124);
+                border-radius: 5px;
+                padding-left: 10px;
+                font-size: 18px;
+                &:focus{
+                    color: #06519d;
+                    border: 1px solid #1671cd;
+                    outline: none;
+                    &::placeholder{
+                    opacity: 0;
+                    }
+                }
+                &::placeholder{
+                    padding-left: 5px;
+                    color: rgba(181, 181, 181, 0.749);
+                }
             }
-            position: relative;
-            top: 10px;
-            background-color: transparent;
-            border: none;
-            @include m($m-breakpoint){
-               
+            }
+            .btn {
+                button{
+                width: 50px;
+                text-align: center;
+                border: none;
+                background: $blue;
+                border-radius: 5px;
+                padding: 5px;
+                transition: background 0.5s;
+                cursor: pointer;
+                &:hover{
+                    background: #06519d;
+                }
+                img{
+                    width: 20px;
+                    height: 20px;
+                    margin-top: 2px;
+                }
+                }
             }
         }
     }
-    
   }
   .mainContent{
     max-width: 100%;
@@ -181,13 +203,14 @@ body{
             margin: 20px;
         }
         tr:hover td{
-                background-color: #ddd;
+            background-color: #ddd;
+            transition: background .5s;
         }
         th{
             &:nth-child(4){
                 display: none;
             }
-            padding-top: 15px;
+            padding: 10px 0;
             background-color: #ccc;
             p{
                 color: #111;
@@ -200,14 +223,13 @@ body{
             }
         }
         td{
+            
             font:$caption-p;
             padding: 20px;
-            margin: 20px;
             vertical-align: middle;
             &:nth-child(4){
                 display: none;
             }
-
             a{
                 color: #333;
                 span{
@@ -237,7 +259,6 @@ body{
         cursor: pointer;
         color: #ccc;
         margin: -5px 20px;
-
         &:active{
             color: #597897;
         }
