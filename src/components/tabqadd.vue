@@ -9,22 +9,22 @@ export default {
 <template>
 <div class="top">
   <h2>
-    FAQ新增問題
+    FAQ-問題新增
     <outComponents />
   </h2>
   <div class="faq">
     <div class="question">
       <h3>常見問題</h3>
-      <input type="text" placeholder="請輸入問題">
+      <input type="text" placeholder="請輸入問題" id="quesTion">
     </div>
     <div class="answer">
       <h3>回覆答案</h3>
-      <input type="text" placeholder="請輸入答案">
+      <input type="text" placeholder="請輸入答案" id="ansWer">
     </div>
   </div>
   <div class="btn">
-    <input type="submit" value="取消新增" id="cancel">
-    <input type="submit" value="確定新增" id="confirm">
+    <input type="submit" value="取消新增" id="canCel">
+    <input type="submit" value="確定新增" id="conFirm">
   </div>
 </div>
   
@@ -121,7 +121,7 @@ h2 {
     text-align: center;
     border: none;
   }
-  #cancel{
+  #canCel{
     border-radius: 5px;
     border: 1px solid #999;
     background-color: rgb(255, 255, 255);
@@ -131,7 +131,7 @@ h2 {
       background: rgba(204, 204, 204, 0.326);
     }
   }
-  #confirm{
+  #conFirm{
     border-radius: 5px;
     background-color: $blue;
     color: #fff;
