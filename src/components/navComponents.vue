@@ -24,9 +24,15 @@ const mainMenu = reactive([
 ])
 onMounted(() => {
     // console.log(mainMenu);
-})
+});
+const NavClass = defineProps({
+    className:{
+        type: String,
+        default:'',
+    }
+});
 
-
+// :style="NavClass.className"
 </script>
 
 <template>
@@ -43,21 +49,25 @@ onMounted(() => {
             <div class="wrapper">
                 <ul>
                     <li v-for="(item,index) in mainMenu" :key="index">
-                        <!-- <a href="#">{{item}}</a> -->
                             <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
                     </li>
+                    <div class="icon-wrap">
+                        <li><router-link to="/signin" class="shop"><img src="../assets/images/home/icon1.png" alt="member"></router-link></li>
+                        <li><router-link to="/cart" class="shop"><img src="../assets/images/home/icon2.png" alt="cart">
+                        </router-link></li>
+                    </div>
                 </ul>
             </div>
                 <div class="menu">
                 <ul>
                     <li v-for="(item,index) in mainMenu" :key="index">
-                        <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
+                        <router-link :class="`navHover navHover${index}`" :to="`/${item.id}`">{{item.name}}</router-link>
                     </li>
                 </ul>
             </div>
             <div class="shop-cart">  
-                <router-link to="/signin" class="shop"><img src="@/assets/images/home/icon1.png" alt="cart1"></router-link>   
-                <router-link to="/cart" class="shop"><img src="@/assets/images/home/icon2.png" alt="cart2">
+                <router-link to="/signin" class="shop"><img src="../assets/images/home/icon1.png" alt="member"></router-link>   
+                <router-link to="/cart" class="shop"><img src="../assets/images/home/icon2.png" alt="cart">
                 </router-link>
             </div>
         </div>
@@ -142,10 +152,11 @@ header {
     height: 100%;
     width: 100%;
     background: #000;
-    // background: rgba(#000,0.2);
-    // backdrop-filter:blur(10px);
     z-index: 10;
     transition: all 0.6s ease-in-out;
+    .icon-wrap {
+        display: flex;
+    }
 }
 #active:checked ~ .wrapper{
     right:0;
@@ -231,21 +242,11 @@ header {
     transition: all 0.3s ease;
     transition: transform .6s cubic-bezier(0.215, 0.61, 0.355, 1);
 }
-// .wrapper ul li a:after{
-//   position: absolute;
-//   content: "";
-//   background: #fff;
-//    /*background: linear-gradient(#14ffe9, #ffeb3b, #ff00e0);*/
-//   /*background: linear-gradient(375deg, #1cc7d0, #2ede98);*/
-//   width: 100%;
-//   height: 100%;
-//   left: 0;
-//   top: 0;
-//   border-radius: 50px;
-//   transform: scaleY(0);
-//   z-index: -1;
-//   transition: transform 0.3s ease;
-// }
+.wrapper .icon-wrap li {
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
 .wrapper ul li .navHover:hover:after{
     transform: scaleY(1);
 }
@@ -261,9 +262,22 @@ input[type="checkbox"]{
 #active:checked ~ .wrapper ul li .navHover{
     opacity: 1;
 }
+#active:checked ~ .wrapper .icon-wrap li {
+    opacity: 1;
+}
 .wrapper ul li .navHover{
     transition: opacity 1.2s, transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
     transform: translateX(100px);
+}
+.wrapper .icon-wrap li {
+    transition: opacity 1.2s, transform 1.2s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transform: translateX(100px);
+}
+#active:checked ~ .wrapper .icon-wrap li {
+    transform: none;
+	transition-timing-function: ease, cubic-bezier(.1,1.3,.3,1);
+    transition-delay: 1s;
+    transform: translateX(0px);
 }
 #active:checked ~ .wrapper ul li .navHover{
 	transform: none;

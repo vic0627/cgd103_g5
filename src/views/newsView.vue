@@ -25,9 +25,9 @@ import newsComponentsVue from "@/components/newsComponents.vue";
 </script>
 
 <template>
-  <!-- 01 banner start -->
-  <navComponentsVue class="newsheader" />
-  <div class="news">
+<!-- 01 banner start -->
+<navComponentsVue />
+<div class="news">
     <div class="news_banner_box">
       <div class="banner">
         <img src="../assets/images/About/news_banner.jpg" alt="banner" />
@@ -50,9 +50,303 @@ import newsComponentsVue from "@/components/newsComponents.vue";
     </div>
   </div>
 
-  <!-- 01 banner end -->
+<!-- 01 banner end -->
 
 <!-- 02 tag start -->
+
+<section class="label">
+    <div class="label_box">
+        <div class="label_title">
+            <h2>LASTEST NEWS</h2>
+        </div>
+        <div class="filter_box">
+            <div class="filter">
+                <div class="item" @click="setActiver('tab-1')" :class="{'active':isActive('tab-1')}">
+                    Games
+                </div>
+                <div class="item" @click="setActiver('tab-2')" :class="{'active':isActive('tab-2')}">
+                    Customed
+                </div>
+                <div class="item" @click="setActiver('tab-3')" :class="{'active':isActive('tab-3')}">
+                    Output
+                </div>
+                <div class="item" @click="setActiver('tab-4')" :class="{'active':isActive('tab-4')}">
+                    Photoshot
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="label">
+    <div class="game_content_box cards">
+    <div class="content" v-show="isActive('tab-1')">
+        <div class="card">
+            <router-link class="anchor" to="/"><img src="../assets/images/About/img_07.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Game
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div>    
+        <div class="card">
+            <router-link class="anchor" to="/"><img src="../assets/images/About/img_07.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Game
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>           
+        </div>   
+        <div class="card">
+            <router-link class="anchor" to="/"><img src="../assets/images/About/img_07.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Game
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div> 
+        <div class="card">
+            <router-link class="anchor" to="/"><img src="../assets/images/About/img_07.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Game
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div> 
+        <div class="card">
+            <router-link class="anchor" to="/"><img src="../assets/images/About/img_07.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Game
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div> 
+        <div class="card">
+            <router-link class="anchor" to="/"><img src="../assets/images/About/img_07.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Game
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div>  
+    </div>
+</div>
+</section>
+<!-- <router-link class="article" to="/"><button>Remove &rarr;</button></router-link> -->
+
+<section class="label">
+    <div class="customed_content_box cards">
+    <div class="content" v-show="isActive('tab-2')">
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_02.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Customed
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div>    
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_02.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Customed
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div>   
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_02.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Customed
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div> 
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_02.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Customed
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div> 
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_02.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Customed
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div> 
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_02.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Customed
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div>  
+    </div>
+</div>
+</section>
+
+<section class="label">
+    <div class="output_content_box cards">
+    <div class="content" v-show="isActive('tab-3')">
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_01.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Output
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div>    
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_01.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Output
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div>   
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_01.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Output
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div> 
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_01.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Output
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div> 
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_01.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Output
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div> 
+        <div class="card">
+             <router-link class="anchor" to="/"><img src="../assets/images/About/img_01.jpg" alt="img"></router-link>
+            <div class="item_box">
+                <div class="item">
+                    Output
+                </div>
+            </div>
+            <p>8th style free </p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+        </div>  
+    </div>
+</div>
+</section>
+
+<section class="label">
+    <div class="photoshot_content_box cards">
+        <div class="content" v-show="isActive('tab-4')">
+            <div class="card">
+                <router-link class="anchor" to="/"><img src="../assets/images/About/img_12.jpg" alt="img"></router-link>
+                <div class="item_box">
+                    <div class="item">
+                        Photoshot
+                    </div>
+                </div>
+                <p>Photography team established</p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+            </div>    
+            <div class="card">
+                <router-link class="anchor" to="/"><img src="../assets/images/About/img_12.jpg" alt="img"></router-link>
+                <div class="item_box">
+                    <div class="item">
+                        Photoshot
+                    </div>
+                </div>
+                <p>Photography team established</p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+            </div>   
+            <div class="card">
+                <router-link class="anchor" to="/"><img src="../assets/images/About/img_12.jpg" alt="img"></router-link>
+                <div class="item_box">
+                    <div class="item">
+                        Photoshot
+                    </div>
+                </div>
+                <p>Photography team established</p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+            </div> 
+            <div class="card">
+                <router-link class="anchor" to="/"><img src="../assets/images/About/img_12.jpg" alt="img"></router-link>
+                <div class="item_box">
+                    <div class="item">
+                        Photoshot
+                    </div>
+                </div>
+                <p>Photography team established</p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+            </div> 
+            <div class="card">
+                <router-link class="anchor" to="/"><img src="../assets/images/About/img_12.jpg" alt="img"></router-link>
+                <div class="item_box">
+                    <div class="item">
+                        Photoshot
+                    </div>
+                </div>
+                <p>Photography team established</p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+            </div> 
+            <div class="card">
+                 <router-link class="anchor" to="/"><img src="../assets/images/About/img_12.jpg" alt="img"></router-link>
+                <div class="item_box">
+                    <div class="item">
+                        Photoshot
+                    </div>
+                </div>
+                <p>Photography team established</p>
+            <router-link class="article" to="/"><button>Remove &rarr;</button></router-link>
+            </div>  
+        </div>
+    </div>
+</section>
+<!-- 02 tag end -->
 <newsComponentsVue />
 
 </template>
@@ -62,12 +356,10 @@ import newsComponentsVue from "@/components/newsComponents.vue";
 // @import '@/css/reset.css';
 
 .newsheader {
-  color: $blue;
+    color: $blue;
+    
 }
-.news {
-  width: 100%;
-  padding-top: 40px;
-  .news_banner_box {
+.news{
     width: 100%;
     height: 100%;
     object-fit: cover;
