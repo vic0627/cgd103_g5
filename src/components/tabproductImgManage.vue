@@ -33,9 +33,7 @@ import { ref,reactive, onMounted } from 'vue';
   <div class="productImgManage">
      <div class="top">
         <h2>商品圖片管理</h2>
-        <span>
-            <router-link class="out" to="/">離開後台 &rarr; </router-link>
-        </span>
+        <outComponents />
      </div>
      
     <div class="headeBar">
@@ -48,14 +46,12 @@ import { ref,reactive, onMounted } from 'vue';
             </select>
         </div>
         <div class="right_bar">
-            <label for="">圖片編號</label>
-            <input type="search" name="" id="" placeholder="請輸入查詢">
-            <button type="submit">
-                <img src="../assets/images/backend/search.png" alt="search">
-            </button>
-            <button type="submit">
-                <img src="../assets/images/backend/add.png" alt="add">
-            </button>
+            <div class="search_box">
+                <label for="search" class="label">商品編號<input type="search" id="search" name="search" placeholder="請輸入編號"></label>
+                <div class="btn">
+                    <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
+                </div>
+            </div>
         </div>
         
     </div>
@@ -91,6 +87,7 @@ body{
 .productImgManage {
     width: 100%;
   height: 100vh;
+  overflow: scroll;
   .top{
     display: flex;
     justify-content: space-between;
@@ -117,14 +114,10 @@ body{
     }
   }  
   .headeBar{
-    margin: 10px;
-    @include m($m-breakpoint){
-        max-width: 1200px;
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin: 20px;
-    }
     .left_bar{
         font:$caption-p;
         max-width: 50%;
@@ -143,26 +136,55 @@ body{
         }
     }
     .right_bar {
-        label,input{
-            font:$caption-p;
-            max-width: 100px;
-            height: 50px;
-            margin: 5px;
-            @include m($m-breakpoint){
-                max-width: 200px;
-                font:$caption-h4;
+        .search_box{
+            display: flex;
+            justify-content: right;
+            margin: 30px 15px;
+            label {
+                margin-right: 10px;
+                font-size: 20px;
+                color: rgb(26, 26, 26);
+                input{
+                margin-left: 10px;
+                height: 35px;
+                border: 1px solid rgb(124, 124, 124);
+                border-radius: 5px;
+                padding-left: 10px;
+                font-size: 18px;
+                &:focus{
+                    color: #06519d;
+                    border: 1px solid #1671cd;
+                    outline: none;
+                    &::placeholder{
+                    opacity: 0;
+                    }
+                }
+                &::placeholder{
+                    padding-left: 5px;
+                    color: rgba(181, 181, 181, 0.749);
+                }
             }
         }
-        button{
-            &:nth-child(2){
-                display: none;
-            }
-            position: relative;
-            top: 10px;
-            background-color: transparent;
+        .btn {
+            button{
+            width: 50px;
+            text-align: center;
             border: none;
-            @include m($m-breakpoint){
+            background: $blue;
+            border-radius: 5px;
+            padding: 5px;
+            transition: background 0.5s;
+            cursor: pointer;
+            &:hover{
+                background: #06519d;
             }
+            img{
+                width: 20px;
+                height: 20px;
+                margin-top: 2px;
+            }
+            }
+        }
         }
     }
     
