@@ -2,6 +2,7 @@
 import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
 import navComponentsVue from '@/components/navComponents.vue';
+import footerComponentsVue from '@/components/footerComponents.vue';
 import OrderStepVue from '@/components/step/orderStep.vue';
 import Step1 from '@/components/step/Step1.vue';
 import Step2 from '@/components/step/Step2.vue';
@@ -52,6 +53,7 @@ const customer2 = reactive(
         <Step2 v-if="step===2" :next-step="nextStep"></Step2>
         <Step3 v-if="step===3"></Step3>
     </section>
+    <footerComponentsVue />
 </template>
 
 <style scoped lang="scss">

@@ -6,12 +6,12 @@ const mainMenu = reactive([
         "name": "DRONES",
     },
     {
-        "id": "about",
-        "name": "ABOUT",
+        "id": "custom",
+        "name": "CUSTOM",
     },
     {
-        "id": "game",
-        "name": "GAME",
+        "id": "about",
+        "name": "ABOUT",
     },
     {
         "id": "race",
@@ -60,9 +60,14 @@ const NavClass = defineProps({
             </div>
                 <div class="menu">
                 <ul>
-                    <li v-for="(item,index) in mainMenu" :key="index">
+                    <!-- <li v-for="(item,index) in mainMenu" :key="index">
                         <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
-                    </li>
+                    </li> -->
+                    <li><router-link to="/shop" class="navHover">Drones</router-link></li>
+                    <li><router-link to="/custom" class="navHover">CUSTOM</router-link></li>
+                    <li><router-link to="/about" class="navHover">ABOUT</router-link></li>
+                    <li><router-link to="/race" class="navHover">RACE</router-link></li>
+                    <li><router-link to="/news" class="navHover">NEWS</router-link></li>
                 </ul>
             </div>
             <div class="shop-cart">  

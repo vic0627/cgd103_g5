@@ -34,14 +34,14 @@ function tilt(cx, cy) {
 	let sxPos = (cx / 800*100 - 50)*2 ;
 	let syPos = (cy / 1200*100 - 50)*2;
 	TweenMax.to($pContent, 2, {
-		rotationY: -0.009 * sxPos,
+		rotationY: -0.03* sxPos,
 		rotationX: 0.009 * syPos,
 		transformPerspective: 500,
 		transformOrigin: "center center -400",
 		ease: Expo.easeOut
 	});
 	TweenMax.to($img, 2, {
-		rotationY: -0.009 * sxPos,
+		rotationY: -0.03 * sxPos,
 		rotationX: 0.009 * syPos,
 		transformPerspective: 500,
 		transformOrigin: "center center -200",
