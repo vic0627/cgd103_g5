@@ -104,6 +104,9 @@ $text-color:#fff;
 $link-color:#7abcff;
 $btn-color:#007FFB;
 $bg-color:rgb(54, 54, 54);
+section{
+    margin: 0;
+}
 header{
     top: 0;
 }
@@ -127,7 +130,7 @@ span{
     width: 100%;
     color: $text-color;
     .img_box{
-        background-image: url("../assets/images/Signin/pexels-tembela-bohle-2050718.jpeg");
+        background-image: none;
         position: fixed;
         top: 0;
         left: 0;
@@ -137,22 +140,14 @@ span{
         background-position: 50%;
     }
     .wrapper{
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px 16px;
         .container{
-            top: 50px;
-            margin-left: auto;
-            margin-bottom: 50px;
-            position: relative;
-            width: 400px;
             background-color: $bg-color;
             box-shadow: 0 16px 32px rgb(0 0 0 / 10%);
             padding: 48px 32px;
             .logo{
                 width: 100%;
                 img{
-                    width: 100px;
+                    width: 0;
                 }
             }
             .login{
@@ -168,18 +163,6 @@ span{
                             display: block;
                             margin-top: 24px;
                         }
-                        // input[type="email"],input[type="password"]{
-                        //     box-sizing: border-box;
-                        //     width: 100%;
-                        //     border: 1px solid rgba(0,0,0,.15);
-                        //     height: 40px;
-                        //     padding: 7px 11px;
-                        //     font-size: 20px;
-                        //     line-height: 20px;
-                        //     // letter-spacing: -.02em;
-                        //     margin-top: 8px;
-                        //     border-radius: 4px;
-                        // }
                         .forget_password{
                             font-style: italic;
                             font-size: 12px;
@@ -278,6 +261,7 @@ span{
     }
 }
 .bginfo{
+    display: none;
     position: sticky;
     left: 15px;
     bottom: 15px;
@@ -290,4 +274,42 @@ span{
         user-select: none;
     }
 }
+
+@include s($s-breakpoint) {//575
+    section{
+        margin: 50px 0;
+    }
+    .banner{
+        .img_box{
+            background-image: url("../assets/images/Signin/pexels-tembela-bohle-2050718.jpeg");
+        }
+        .wrapper{
+            
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 16px;
+            .container{
+                top: 50px;
+                margin-left: auto;
+                margin-bottom: 50px;
+                position: relative;
+                width: 400px;
+                .logo{
+                    width: 100%;
+                    img{
+                        width: 100px;
+                    }
+                }
+            }
+        }
+    }
+    .bginfo{
+        display: block;
+    }
+}
+@include m($m-breakpoint) {//1023
+    
+}  
+@include l($l-breakpoint) {//1199
+} 
 </style>

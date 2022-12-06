@@ -1,5 +1,7 @@
 <script setup>
-import headerComponentsVue from '@/components/headerComponents.vue';
+// import headerComponentsVue from '@/components/headerComponents.vue';
+import navComponentsVue from '@/components/navComponents.vue';
+import footerComponentsVue from '@/components/footerComponents.vue';
 import $ from 'jquery';
 import { ref, onMounted } from 'vue';
 
@@ -33,12 +35,11 @@ const sidenav = ref({
     }
 });
 
-const isShow = ref(false)
 
 </script>
 
 <template>
-    <headerComponentsVue />
+    <navComponentsVue />
     <div class="main">
         <nav class="sidenav" >
             <li class="List-item" v-for="item in sidenav" :key="item">
@@ -54,15 +55,126 @@ const isShow = ref(false)
                 <div class="memgrade"></div>
             </section>
             <section class="profiles-list">
-                
+                <h1>Normal Orders</h1>
+                <table>
+                    <thead>
+                        <th>Order No.</th>
+                        <th>Date</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Tracing No.</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><router-link to=""><span>20221201001</span></router-link></td>
+                            <td>2022-12-01</td>
+                            <td>USD $899.9</td>
+                            <td>Preparing</td>
+                            <td>4756382</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <th>Order No.</th>
+                        <th>Date</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Tracing No.</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><router-link to=""><span>20221201001</span></router-link></td>
+                            <td>2022-12-01</td>
+                            <td>USD $899.9</td>
+                            <td>Preparing</td>
+                            <td>4756382</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <th>Order No.</th>
+                        <th>Date</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Tracing No.</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><router-link to=""><span>20221201001</span></router-link></td>
+                            <td>2022-12-01</td>
+                            <td>USD $899.9</td>
+                            <td>Preparing</td>
+                            <td>4756382</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table>
+                    <thead>
+                        <th>Order No.</th>
+                        <th>Date</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Tracing No.</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><router-link to=""><span>20221201001</span></router-link></td>
+                            <td>2022-12-01</td>
+                            <td>USD $899.9</td>
+                            <td>Preparing</td>
+                            <td>4756382</td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </div>
     </div>
+    <footerComponentsVue />
 </template>
 
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
+table{
+    text-align: center;
+    width: 100%;
+    margin: 30px auto;
+}
+tr{
+    border-top: 1px solid #777;
+}
+th{
+    background: #bbb;
+    padding: 20px;
+}
+td{
+    vertical-align: middle;
+    background: #fff;
+}
+td{
+    height: 80px;
+}
+tr:hover{
+    background: #333;
+}
+table thead th:first-child {
+  border-radius: 10px 0 0 0;
+}
+table thead th:last-child {
+  border-radius: 0 10px 0 0;
+}
+table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 10px;
+}
+table tbody tr:last-child td:last-child {
+  border-radius: 0 0 10px 0;
+}
+
+span{
+    color: rgb(43, 223, 255);
+}
 section{
     margin: 0;
 }
@@ -72,7 +184,7 @@ input{
 .main{
     max-width: 1200px;
     width: 100%;
-    margin: 50px auto;
+    margin: 90px auto;
     display: flex;
     justify-content: start;
     gap: 10px;
@@ -115,11 +227,12 @@ input{
         }
         .profiles-list{
             width: 100%;
-            height: 500px;
             margin:10px 0;
-            background-color: #8E8E8E;
-            opacity: 0.2;
+            background-color: #333;
             border-radius: 10px;
+            border: 1px solid #333;
+            padding: 70px 30px;
+            box-sizing: border-box;
         }
     }
 }

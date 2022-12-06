@@ -69,6 +69,7 @@ onMounted(() => {
 @import '@/css/reset.css';
 
 header {
+    top: 0;
     position: fixed;
     z-index: 10;
     width: 100%;
