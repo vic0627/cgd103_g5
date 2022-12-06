@@ -43,7 +43,7 @@ const table = ref([
       <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
     </div>
   </div>
-  <div>
+  <div class="tables">
     <table>
       <tr>
         <th>編號</th>
@@ -55,7 +55,7 @@ const table = ref([
         <td>{{item.number}}</td>
         <td>{{item.q}}</td>
         <td>{{item.a}}</td>
-        <td><a href="#">編輯 <span>/</span> 刪除</a></td>
+        <td><a href="#"><span class="block">編輯</span> <span>/</span> <span class="red">刪除</span></a></td>
       </tr>
     </table>
   </div>
@@ -125,6 +125,53 @@ h2 {
         width: 20px;
         height: 20px;
         margin-top: 2px;
+      }
+    }
+  }
+}
+
+.tables {
+  width: 100%;
+  margin: auto;
+  table{
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #C0C0C0;
+    tr {
+      border: 1px solid #C0C0C0;
+      &:hover td{
+        background: rgba(89, 120, 151, 0.11);
+      }
+      th {
+        padding: 20px 10px;
+        background-color:#597897;
+        color: #fff;
+        border: 1px solid #C0C0C0;
+        border-top: 1px solid #597897;
+      }
+      td{
+        border: 1px solid #C0C0C0;
+        padding: 20px 10px;
+        overflow: hidden;
+        a{
+          color: #273747;
+          span{
+            color: #273747;
+          }
+          .block{
+            &:hover{
+              border-bottom: 1px solid #273747;
+            }
+          }
+          .red{
+            color: #F25A2A;
+            &:hover{
+              border-bottom: 1px solid #F25A2A;
+            }
+          }
+        }
       }
     }
   }
