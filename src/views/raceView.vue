@@ -2,6 +2,29 @@
 import { ref, onMounted, reactive } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
+
+const bgi1 = document.querySelector(".bgi1");
+const bgi2 = document.querySelector(".bgi2");
+const bgi3 = document.querySelector(".bgi3");
+const bgi4 = document.querySelector(".bgi4");
+
+const text1 = document.querySelector(".text1");
+const text2 = document.querySelector(".text2");
+const text3 = document.querySelector(".text3");
+const text4 = document.querySelector(".text4");
+
+const card1 = document.querySelector(".card1");
+const card2 = document.querySelector(".card2");
+const card3 = document.querySelector(".card3");
+const card4 = document.querySelector(".card4");
+
+const change1 = () => {
+  if ((text1 = true)) {
+    text2 = false;
+    text3 = false;
+    text4 = false;
+  }
+};
 </script>
 
 <template>
@@ -413,7 +436,7 @@ import footerComponentsVue from "@/components/footerComponents.vue";
       </div>
 
       <div class="practiseCard">
-        <div class="card card1">
+        <div class="card card1" @click="change1">
           <div class="cardTitle">
             <h3>Taiwan</h3>
           </div>
@@ -434,7 +457,7 @@ import footerComponentsVue from "@/components/footerComponents.vue";
           </div>
         </div>
 
-        <div class="card card2">
+        <div class="card card2" @click="change2">
           <div class="cardTitle">
             <h3>Taiwan</h3>
           </div>
@@ -455,7 +478,7 @@ import footerComponentsVue from "@/components/footerComponents.vue";
           </div>
         </div>
 
-        <div class="card card3">
+        <div class="card card3" @click="change3">
           <div class="cardTitle">
             <h3>Taiwan</h3>
           </div>
@@ -477,7 +500,7 @@ import footerComponentsVue from "@/components/footerComponents.vue";
           </div>
         </div>
 
-        <div class="card card4">
+        <div class="card card4" @click="change4">
           <div class="cardTitle">
             <h3>Taiwan</h3>
           </div>
