@@ -62,7 +62,7 @@ console.clear();
 
 <template>
 
-<div class="container">
+<section class="container">
     <div class="wrap">
         <div class="panel">
             <div class="panel__img-col">
@@ -149,7 +149,7 @@ console.clear();
             </div>
         </div>
     </section>
-</div>
+</section>
 
 </template>
 
@@ -160,7 +160,7 @@ console.clear();
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    padding-top: 70px;
+    padding-top: 150px;
 }
 
 h3 {
@@ -230,7 +230,6 @@ h3 {
 	align-items: center;
 	justify-content: center;
 	width: 90%;
-	padding: 5vh 0;
     margin: auto;
 }
 
@@ -281,7 +280,7 @@ h3 {
 @include l($l-breakpoint) {
     .container {
         width: 1200px;
-        margin: 180px auto;
+        margin: 100px auto;
     }
     .wrap {
         width: 47.5%;

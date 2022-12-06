@@ -12,6 +12,18 @@ const lines =  defineProps ({
     line2:{
         type: String,
         default:''
+    },
+    line3:{
+        type:String,
+        default:''
+    },
+    line4:{
+        type:String,
+        default:''
+    },
+    line5:{
+        type:String,
+        default:''
     }
 })
  
@@ -24,6 +36,10 @@ const lines =  defineProps ({
     </div>
 
     <div class="line2" v-if="lines.line2===2">
+        <img src="../assets/images/home/5.png" alt="">
+    </div>
+
+    <div class="line3" v-if="lines.line3===3">
         <img src="../assets/images/home/5.png" alt="">
     </div>
 </template>
@@ -69,6 +85,29 @@ const lines =  defineProps ({
         height: 500px;
         left: 60%;
         bottom: -180%;
+        img {
+            width: 130%;
+        }
+    }
+}
+.line3 {
+    // width: 600px;
+    // height: 500px;
+    position: absolute;
+    width: 100%;
+    height: 300px;
+    z-index: -1;
+    left: -10%;
+    bottom: -210%;
+    // rotate: -70deg;
+    img {
+        width: 100%;
+    }
+    @include l($l-breakpoint){
+        width: 600px;
+        height: 500px;
+        left: 0%;
+        bottom: -270%;
         img {
             width: 130%;
         }

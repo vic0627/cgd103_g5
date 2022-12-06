@@ -213,8 +213,7 @@ $l-w:1200px;
     border-radius: $img-radius;
     width: 90%;
     height: 100%;
-    background-color: rgba(#8E8E8E, 17%);
-    padding: 10px;
+    background-color: transparent;
 }
 
 .discount {
@@ -277,17 +276,6 @@ $l-w:1200px;
         text-align: center;
         justify-content: center;
         position: relative;
-        // &::before {
-        //     content: "";
-        //     width: 110%;
-        //     height: 110%;
-        //     position: absolute;
-        //     z-index: -1;
-        //     left: -5%;
-        //     top: -10%;
-        //     border-radius: 50%;
-        //     background: #1B2026;
-        // }
         .suggest-item-pic {
             width: 100%;
             height: 300px;
@@ -330,6 +318,7 @@ $l-w:1200px;
            }
         }
     }
+   
 }
 
 //---------------------------------
@@ -337,7 +326,9 @@ $l-w:1200px;
 .cartItem {
     width: 90%;
     margin: 30px auto;
-    border-bottom: 1px solid #eeeeee;
+    background-color: rgba(#8E8E8E, 17%);
+    border-radius: 10px;
+    // border-bottom: 1px solid #eeeeee;
     .cartProduct {
         width: 100%;
         display: flex;
@@ -346,6 +337,7 @@ $l-w:1200px;
             width: 100%;
             display: flex;
             justify-content: center;
+            padding: 40px 10px 10px;
             img {
                 width: 60%;
                 object-fit: cover;
@@ -379,7 +371,7 @@ $l-w:1200px;
             justify-content: flex-end;
         }
     }
-    .cartQuantity,.cartPrice,.cartDelete {
+    .cartQuantity,.cartPrice {
         display: flex;
         align-items: center;
         width: 40%;
@@ -389,9 +381,14 @@ $l-w:1200px;
 .cartProduct-txt, .cartPrice, .cartDelete, .cartQuantity {
     width: 100%;
     text-align: left;
-    margin: 10px;
+    margin: 10px 20px;
 }
 .cartDelete {
+    width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 20px;
     .delete-btn {
             border-radius: 50%;
             width: 30px;
@@ -415,8 +412,6 @@ $l-w:1200px;
     .cartItem {
     width: 1200px;
     margin: 20px auto;
-    padding-bottom: 20px;
-    background-color: transparent;
     display: flex;
     // flex-wrap: wrap;
     position: relative;
@@ -447,7 +442,7 @@ $l-w:1200px;
     }
     .cartDelete {
         width: 150px;
-        
+        padding-bottom: 0px;
     }
 }
 }
