@@ -2,6 +2,9 @@
 import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
 import navComponentsVue from '@/components/navComponents.vue';
+import {bodyInit} from '@/composables/useOnunmounted';
+
+bodyInit();
 
 const props = defineProps(['nextStep','step']);
 
@@ -179,6 +182,7 @@ const customer2 = reactive(
                 background-color: transparent;
                 color: $fff;
                 border: none;
+                font-size: 20px;
             }
         }
     }

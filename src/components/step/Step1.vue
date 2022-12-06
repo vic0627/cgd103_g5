@@ -1,9 +1,13 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue';
 import $ from 'jquery';
-import navComponentsVue from '@/components/navComponents.vue';
 import cartItemComponentsVue from '@/components/cartItemComponents.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
+import {bodyInit} from '@/composables/useOnunmounted';
+
+bodyInit();
+
+const props = defineProps(['nextStep','step']);
 
 const title = reactive([
     {"name": "Product"},{"name": "Price"},{"name":"Quantity"},{"name":"Delete"}
@@ -72,7 +76,6 @@ const sale = ()=> {
 }
 </script>
 <template>
-    <navComponentsVue />
     <div class="cart">
         <div class="cartTitle">
             <h2>SHOPPING CART</h2>
@@ -143,9 +146,10 @@ const sale = ()=> {
                 <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shopping">
                     <span>Shopping</span>
                 </router-link>
-                <router-link to="/shop" class="btnSecond" id="btn2" data-title="Next">
-                    <span>Next</span>
-                </router-link>
+                <a class="btnSecond" id="btn2" data-title="Next">
+                <button @click="props.nextStep()" class="button">Next</button>
+                </a>
+            
             </div>   
         </div>
     </section>
@@ -255,6 +259,12 @@ $l-w:1200px;
         justify-content: space-between;
         width: 90%;
         margin: auto;
+    }
+    .button{
+        background-color: transparent;
+        color: $fff;
+        border: none;
+        font-size: 20px;
     }
 }
 .suggest-title {
