@@ -15,6 +15,7 @@ export default {
     tabqrev,
     tabqadd,
     tabnewrevs,
+    tabnewadds,
     tabraceform,
     tabracecategory,
     tabproductsearch,
