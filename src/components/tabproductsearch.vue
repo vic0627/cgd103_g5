@@ -33,6 +33,7 @@ import { ref,reactive, onMounted } from 'vue';
   <div class="productQuery">
      <div class="top">
         <h2>商品查詢</h2>
+        <outComponents />
         <span>
             <router-link class="out" to="/">離開後台 &rarr; </router-link>
         </span>
@@ -100,6 +101,7 @@ body{
     padding: 20px ;
     background-color: #597897;
     h2{
+        align-items: center;
         font:$caption-h2;
         font-size: 60px;
         color: #fff;
