@@ -12,6 +12,13 @@ import tabproductImgManage from "@/components/tabproductImgManage.vue";
 export default {
   components: {
     tabhome,
+    tabqrev,
+    tabqadd,
+    tabnewrevs,
+    tabraceform,
+    tabracecategory,
+    tabproductsearch,
+    tabproductImgManage
   },
 };
 </script>

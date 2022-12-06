@@ -4,7 +4,7 @@ import $ from 'jquery';
 import navComponentsVue from '@/components/navComponents.vue';
 
 const props = defineProps(['nextStep','step']);
-// console.log(props.step);
+
 const customer1 = reactive(
     [
         {
