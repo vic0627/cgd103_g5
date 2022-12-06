@@ -2,7 +2,7 @@
 <template>
   <div>
     <h2>
-      Raceform
+      報名資料查詢
       <outComponents />
     </h2>
   </div>

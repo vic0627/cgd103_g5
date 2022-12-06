@@ -2,7 +2,7 @@
 <template>
   <div>
     <h2>
-      Racecategory
+      賽事類別
       <outComponents />
     </h2>
   </div>
