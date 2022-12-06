@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { log, $$ } from '../composables/useCommon';
 import gsap from 'gsap';
 import { useDashBoardMove } from '../composables/useDashBoardMove';
@@ -21,7 +21,7 @@ onMounted(() => {
         log($$('.dashBoard').offsetLeft)
     })
     window.addEventListener('click', () => {
-        niddleSpin(100)
+        niddleSpin(props.units.value, props.units.ratio)
     })
     useDashBoardMove(ww, w);
 })
@@ -54,15 +54,13 @@ const scaleSum = () => {
     }
     scale(`.numberScale1`, Y(-r, numW), X(-r, numW), 'auto', 0);
 };
-
-const niddleSpin = (d) => {
+const niddleSpin = (d, ratio) => {
     gsap.to(deg, {
         value: d,
         duration: .3,
     })
-    let accDeg = d * 1.5;
-    gsap.to('.niddle', {
-        rotate: accDeg+150,
+    gsap.to('#niddle', {
+        rotate: d * ratio+150,
         duration: .3
     })
     if(d>=100){
@@ -78,7 +76,7 @@ const niddleSpin = (d) => {
         })
     }
 }
-
+const props = defineProps(["units"])
 const obj = {
     title: 'Max Speed',
     unit: 'km/h',
@@ -100,17 +98,17 @@ const num = {
         <div class="shortScale" v-for="n in 47" :key="n" :class="`shortScale shortScale${n}`"></div>
         <div v-for="n in 9" :key="n" :class="`longScale longScale${n}`"></div>
         <div class="numberScales">
-            <p v-for="n in 9" :key="n" :class="`numberScale numberScale${n}`">{{ num[n]}}</p>
+            <p v-for="n in 9" :key="n" :class="`numberScale numberScale${n}`">{{ props.units.scale[n] }}</p>
         </div>
         <div class="innerScale">
-            <div class="niddle">
+            <div class="niddle" id="niddle">
                 <span class="dot"></span>
             </div>
         </div>
         <div class="board">
-            <h5>{{ obj.title }}</h5>
-            <p>{{ deg }}</p>
-            <span>{{ obj.unit }}</span>
+            <h5 class="boardTitle">{{ props.units.title }}</h5>
+            <p class="boardP">{{ deg }}</p>
+            <span class="boardSpan">{{ props.units.unit }}</span>
         </div>
     </div>
 </template>
@@ -120,7 +118,6 @@ const num = {
 @import '@/sass/base/_common.scss';
 @import '@/sass/base/_font.scss';
 @import '@/sass/mixin/_mixin.scss';
-@import '@/sass/component/_btn.scss';
 .dashBoard{
     width: 150px;
     height: 150px;
@@ -141,7 +138,7 @@ const num = {
     .longScale{
         width: 8%;
         height: 2px;
-        background: #fff;
+        background: #CED3DCcc;
         position: absolute;
         margin: calc(50% - 1px) auto auto 46%;
         transform-style: preserve-3d;
@@ -150,7 +147,7 @@ const num = {
     .shortScale{
         width: 8%;
         height: 2px;
-        background: #c0c0c0;
+        background: $black;
         position: absolute;
         margin: calc(50% - 1px) auto auto 46%;
         clip-path: polygon(0 0, 60% 0, 60% 100%, 0 100%);
@@ -176,6 +173,7 @@ const num = {
             line-height: 1;
             margin-left: calc(50% - 16px);
             margin-top: calc(50% - 8px);
+            color: $light-black;
             @include m($m-breakpoint){
                 display: block;
             }
@@ -193,7 +191,7 @@ const num = {
         left: 50%;
         margin-left: calc(-30% - 2px);
         margin-top: calc(-30% - 2px);
-        border: 2px solid #c0c0c0;
+        border: 2px solid #CED3DCcc;
         border-bottom: none;
         border-radius: 50%;
         transform-style: preserve-3d;
@@ -264,6 +262,7 @@ const num = {
             font-size: 12px;
             transform-style: preserve-3d;
             transform: perspective(1000px);
+            color: $light-black;
             @include s($s-breakpoint){
                 font-size: 16px;
             }

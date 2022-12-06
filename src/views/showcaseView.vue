@@ -80,6 +80,12 @@ onMounted(()=> {
                 scale: 1+(.2/co)*ws,
                 duration: 0,
             })
+            gsap.to('.infoTitleSpan', {
+                y: (-100/co)*ws,
+                opacity: 1-(2/co)*ws,
+                scale: 1-(.2/co)*ws,
+                duration: 0,
+            })
             gsap.to('.infoText', {
                 top: 60-(20/co)*ws+'%',
                 opacity: 1-(2/co)*ws,
@@ -130,7 +136,7 @@ onMounted(()=> {
             })
             gsap.to('#closeH3', {
                 y: (2500/cc0)*(ws-co),
-                opacity: Math.sin((3*Math.PI/cc0)*(ws-co)),
+                opacity: Math.sin((2.2*Math.PI/cc0)*(ws-co)),
                 duration: 0,
             })
         }
@@ -180,7 +186,7 @@ onMounted(()=> {
                 duration: .1,
             })
             gsap.to('body', {
-                background: 'linear-gradient(109.69deg, #12181E 16.49%, #13181F 26.68%, #151A23 36.59%, #181D24 41.08%, #1D2229 48.97%, #21282E 55.3%, #242B32 61.38%, #262D35 68.74%, #262D35 75.3%, #262D35 80.67%, #263038 86.99%)',
+                background: '#12181E',
                 duration: 0,
             })
         }
@@ -453,9 +459,9 @@ const pointLightMove = () => {
 
 let xxx, zzz;
 const scrollList = (e, delay = 0, dur = .1) => {
-    let os = $$('.specOl').scrollTop - (delay * $$('.specOl').offsetHeight);
-    xxx = Math.sin(os / $$('.specOl').offsetHeight * Math.PI);
-    zzz = Math.cos(os / $$('.specOl').offsetHeight * Math.PI);
+    let os = $$('.specOl').scrollTop - (delay * 977);
+    xxx = Math.sin(os / 977 * Math.PI);
+    zzz = Math.cos(os / 977 * Math.PI);
     let xrwd;
     if(ww<576){
         xrwd = 0;
@@ -595,7 +601,7 @@ const allFloat = () => {
         <ol  class="containerInfo">
             <h2 class="infoTitle">
                 EFPV Eagle
-                <span>5</span>
+                <span class="infoTitleSpan">5</span>
             </h2>
             <p class="infoText">{{ fpv.subTitle }}</p>
             <router-link to="/" class="btn" data-title="learn more">
@@ -684,7 +690,17 @@ const allFloat = () => {
             z-index: -1;
             line-height: 1;
             text-shadow: 0 -3px 3px $black;
+            @include s($s-breakpoint) {
+                width: 90%;
+                font-size: 60px;
+                top: 25%;
+            }
             @include m($m-breakpoint) {
+                width: 90%;
+                font-size: 100px;
+                top: 25%;
+            }
+            @include l($l-breakpoint) {
                 width: 90%;
                 font-size: 200px;
                 top: 25%;
@@ -699,7 +715,7 @@ const allFloat = () => {
                     right: 0;
                     margin: 0 auto;
                     z-index: -1;
-                    color: #9C4DD688;
+                    color: #9C4DD6;
                 }
             }
         }
@@ -709,20 +725,15 @@ const allFloat = () => {
             top: 60%;
             width: 80%;
             margin: 0 auto;
-            @include m($m-breakpoint) {
-                font-size: 70px;
+            @include s($s-breakpoint) {
+                font-size: 36px;
+                text-shadow: 0 -3px 3px $black;
             }
-        }
-        .infoList1{
-            height: 200%;
-        }
-        .infoText1{
-            line-height: 1;
-            text-align: center;
-            top: 65%;
-            text-shadow: 0 -3px 3px $black;
             @include m($m-breakpoint) {
-                font-size: 70px;
+                font-size: 48px;
+            }
+            @include l($l-breakpoint) {
+                font-size: 60px;
             }
         }
     }
@@ -856,12 +867,12 @@ const allFloat = () => {
         transform: perspective(1000px);
         transform-style: preserve-3d;
         cursor: pointer;
-        @media screen and (min-width: 576px) {
+        @include s($s-breakpoint) {
             width: 25%;
             height: 18.75%;
             margin-left: -12.5%;
         }
-        @media screen and (min-width: 1023px) {
+        @include m($m-breakpoint) {
             width: 400px;
             height: 300px;
             margin-left: -200px;
@@ -885,11 +896,11 @@ const allFloat = () => {
             opacity: 0;
             pointer-events: none;
             font-size: 0;
-            @media screen and (min-width: 576px) {
+            @include s($s-breakpoint) {
                 width: 200px;
                 font-size: 16px;
             }
-            @media screen and (min-width: 1023px) {
+            @include m($m-breakpoint) {
                 width: 400px;
                 font-size: 20px;
             }
@@ -904,12 +915,12 @@ const allFloat = () => {
             line-height: 1.2;
             opacity: 0;
             pointer-events: none;
-            @media screen and (min-width: 576px) {
+            @include s($s-breakpoint) {
                 top: 50%;
                 width: 200px;
                 font-size: 12px;
             }
-            @media screen and (min-width: 1023px) {
+            @include m($m-breakpoint) {
                 top: 30%;
                 width: 300px;
                 font-size: 16px;
@@ -921,7 +932,7 @@ const allFloat = () => {
     }
     li:nth-child(10){
         margin-bottom: 100vh;
-        @media screen and (min-width: 576px) {
+        @include s($s-breakpoint) {
             margin-bottom: 300vh;
         }
     }

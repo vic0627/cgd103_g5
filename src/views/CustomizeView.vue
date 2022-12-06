@@ -1,11 +1,46 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import { droneModels, propellorModels } from './js/CustomizeGlb';
 import * as CUS from './js/CustomizeThree';
 import dashBoardComponent from '@/components/dashBoardComponent.vue';
 
 let ww = window.innerWidth;
-
+const units = ref({
+    1: {
+        title: 'Max Speed',
+        unit: 'km/h',
+        value: 100,
+        ratio: 1.5,
+        scale: {
+            1: 160,
+            2: 140,
+            3: 120,
+            4: 100,
+            5: 80,
+            6: 60,
+            7: 40,
+            8: 20,
+            9: 0,
+        },
+    },
+    2: {
+        title: 'Max Load',
+        unit: 'kg',
+        value: 28,
+        ratio: 6,
+        scale: {
+            1: 40,
+            2: 35,
+            3: 30,
+            4: 25,
+            5: 20,
+            6: 15,
+            7: 10,
+            8: 5,
+            9: 0,
+        },
+    },
+})
 onMounted(()=> {
     canvasRe();
     window.addEventListener('resize', ()=> {
@@ -35,7 +70,8 @@ const canvasRe = () => {
 <template>
     <section class="customize">
         <canvas id="customize3d"></canvas>
-        <dash-board-component class="dashBoard"/>
+        <dash-board-component class="dashBoard" :units="units[1]"/>
+        <dash-board-component class="dashBoard" :units="units[2]"/>
         <div class="customizeControl">
             <div v-for="e in droneModels" :key="e.id" class="bodySelect">
                 <h3>{{ e.name }}</h3>
@@ -63,7 +99,7 @@ const canvasRe = () => {
     /* outline: 1px solid red; */
 }
 .dashBoard{
-    margin-left: 400px;
+    margin-left: 40px;
 }
 .customize{
     
