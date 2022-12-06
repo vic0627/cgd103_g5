@@ -130,7 +130,7 @@ watch(() => state.frameworksIdx, (value) =>{
                 <div class="meminfo">
                     <div class="memhead"></div>
                 </div>
-                <div class="memgrade"></div>
+                <div class="memgrade">123</div>
             </section>
             <section class="profiles-list">
                 <h1>Profile Overview</h1>
@@ -231,6 +231,7 @@ input{
     gap: 10px;
     color: $text-color;
     .sidenav{
+        display: none;
         width: 25%;
         height: fit-content;
         background-color: #1C2023;
@@ -248,11 +249,12 @@ input{
         }
     }
     .maincontent{
-        width: 75%;
+        width: 100%;
         margin: 0;
         .maininfo{
-            display: flex;
-            gap: 10px;
+            // display: flex;
+            // gap: 10px;
+            display: block;
             .meminfo{
                 flex-grow: 1.5;
                 aspect-ratio: 16/9;
@@ -272,7 +274,7 @@ input{
             // height: 500px;
             margin:10px 0;
             background-color: #333;
-            padding: 70px 100px;
+            padding: 20px;
             box-sizing: border-box;
             border-radius: 10px;
             .tab_panel{
@@ -329,4 +331,34 @@ input{
         }
     }
 }
+@include s($s-breakpoint) {//>575px
+    .main{
+        padding: 10px;
+        .sidenav{
+            display: block;
+        }
+        .maincontent{
+            width: 75%;
+            .profiles-list{
+                padding: 50px;
+            }
+            .maininfo{
+                display: flex;
+                gap: 10px;
+            }
+        }
+    }
+}
+@include m($m-breakpoint) {//>1023px
+    .main{
+        .maincontent{
+            .profiles-list{
+                padding: 70px 100px;
+            }
+        }
+    }
+}  
+@include l($l-breakpoint) {//>1199px
+
+} 
 </style>
