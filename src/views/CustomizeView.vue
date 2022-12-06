@@ -134,14 +134,16 @@ const canvasRe = () => {
         customize3d.width = 500;
         customize3d.height = 500;
     }else{
-        customize3d.width = 800;
-        customize3d.height = 800;
+        customize3d.width = 500;
+        customize3d.height = 500;
     };
 };
 const maxSpeed = (rpm, kgm, kgmc = 1) => ((rpm * kgm * kgmc) / (units.value.totalWeight.value * 1000) * 10).toFixed(1);
 const accelerateTime = (kgm, kgmc = 1) => (Math.pow(kgm * kgmc, 2) / 40).toFixed(1);
 const accelerate = (accelerateTime) => (100 / 3.6 / accelerateTime).toFixed(1);
+
 const bodyChosen = ref(0);
+
 const bodyChoose = (id, n) => {
     CUS.body(id, n);
     units.value.totalWeight.value = (0 + droneModels.value[`body0${id}`].weight)/1000;
@@ -159,14 +161,26 @@ const propellorChoose = (id, n) => {
     units.value.totalWeight.value = (bodyChosen.value + propellorSum)/1000;
     niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio)
 };
+const motorChosen = ref({
+    rpm: 0,
+    kgm: 0,
+})
 const motorChoose = (id) => {
-    niddleSpin(1, maxSpeed(motorModels.value[`motor0${id}`].rpm, motorModels.value[`motor0${id}`].kgm), units.value.maxSpeed.ratio);
-    niddleSpin(2, motorModels.value[`motor0${id}`].kgm, units.value.maxload.ratio);
-    niddleSpin(3, motorModels.value[`motor0${id}`].rpm / 1000, units.value.rotatingSpeed.ratio);
-    niddleSpin(5, accelerateTime(motorModels.value[`motor0${id}`].kgm), units.value.accelerateTime.ratio);
-    niddleSpin(6, accelerate(accelerateTime(motorModels.value[`motor0${id}`].kgm)), units.value.accelerate.ratio);
+    motorChosen.value.rpm = motorModels.value[`motor0${id}`].rpm;
+    motorChosen.value.kgm = motorModels.value[`motor0${id}`].kgm;
+    niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm), units.value.maxSpeed.ratio);
+    niddleSpin(2, motorChosen.value.kgm, units.value.maxload.ratio);
+    niddleSpin(3, motorChosen.value.rpm / 1000, units.value.rotatingSpeed.ratio);
+    niddleSpin(5, accelerateTime(motorChosen.value.kgm), units.value.accelerateTime.ratio);
+    niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm)), units.value.accelerate.ratio);
 };
-
+const kgmcChosen = ref(0);
+const controllerChoose = (id) => {
+    kgmcChosen.value = controllerModels.value[`controller0${id}`].kgmc;
+    niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value), units.value.maxSpeed.ratio);
+    niddleSpin(5, accelerateTime(motorChosen.value.kgm, kgmcChosen.value), units.value.accelerateTime.ratio);
+    niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm, kgmcChosen.value)), units.value.accelerate.ratio);
+};
 </script>
 
 <template>
@@ -203,7 +217,7 @@ const motorChoose = (id) => {
             <div class="controllerSelect">
                 <h3>Controller</h3>
                 <div class="ControllerControls">
-                    <p class="ControllerControl" v-for="n in controllerModels" :key="n.id">{{ n.name }}</p>
+                    <p class="ControllerControl" v-for="n in controllerModels" :key="n.id" @click="controllerChoose(n.id)">{{ n.name }}</p>
                 </div>
             </div>
             <div class="removeButtons">
