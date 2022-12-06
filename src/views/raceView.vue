@@ -2,6 +2,8 @@
 import { ref, onMounted, reactive } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
+import { bodyInit } from "../composables/useOnunmounted";
+bodyInit();
 
 const bgi1 = document.querySelector(".bgi1");
 const bgi2 = document.querySelector(".bgi2");
