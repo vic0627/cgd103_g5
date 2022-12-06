@@ -6,7 +6,7 @@ import navComponentsVue from '@/components/navComponents.vue';
 import svglineComponentsVue from '@/components/svglineComponents.vue';
 import svgComponents1Vue from '@/components/svgComponents1.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
-import slider from '@/components/test.vue';
+import slider from '@/components/homeNews.vue';
 
 
 onMounted(()=> {
@@ -41,28 +41,33 @@ const changeView = (index) => {
     view.value = index
 }
 const isOpen = ref(true)
+
+const styleColor = reactive({
+    color: 'blue',
+    fontSize: '23px'
+})
+
 </script>
 
 
 <template>
-    <navComponentsVue />
+    <navComponentsVue :className="styleColor" />
 
     <div class="home1">
         <h2>Mavic 2 Zoom</h2>
         <p>24~28 mm Optical Zoom Camers Ulitimate Flexibility</p>
         <div class="home1-btn">
-            <a href="#" class="btnFirst" id="btn1" data-title="Learn">
+            <router-link to="/showcase" class="btnFirst" id="btn1" data-title="Learn">
                 <span>Learn</span>
-            </a>
-            <a href="#" class="btnSecond" id="btn2" data-title="Buy now">
+            </router-link>
+            <router-link to="/shopInfo" class="btnSecond" id="btn2" data-title="Buy now">
                 <span>Buy now</span>
-            </a>       
+            </router-link>
         </div>
         <div id="scene">
             <div class="drone layer" data-depth="0.1">
                 <img src="../assets/images/home/fly2.png" alt="">
             </div>
-            <!-- <svgComponents1Vue class="layer" data-depth="0.5" /> -->
         </div>
         <div class="scroll">
             <p>Scroll down</p>
@@ -71,8 +76,8 @@ const isOpen = ref(true)
         <!-- <svglineComponentsVue /> -->
         <!-- <svgComponents1Vue /> -->
     </div>
-<svglineComponentsVue :class="{svgWidth : isOpen}"/>
-<svgComponents1Vue />
+<svglineComponentsVue :line1='1'/>
+<svgComponents1Vue :circle1='1'/>
     <section>
         <div class="home-custom">
             <div class="custom-pic">
@@ -101,9 +106,9 @@ const isOpen = ref(true)
                     </div>
                 </div>
                 <div class="customBtn">
-                    <a href="#" class="btn" id="btn1" data-title="Learn">
+                    <router-link to="/custom" class="btnFirst" id="btn1" data-title="Learn">
                         <span>Learn</span>
-                    </a>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -124,9 +129,9 @@ const isOpen = ref(true)
                         <h5>Stay Flying Longer-Up to 60mins</h5>
                         <p>You can preview your design in real time.</p>
                         <div class="accBtn">
-                        <a href="#" class="btn" id="btn1" data-title="Learn">
+                        <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
                             <span>Learn</span>
-                        </a>
+                        </router-link>
                     </div>
                     </div>
                     
@@ -144,9 +149,9 @@ const isOpen = ref(true)
                     <div class="homeAccWrap2-txt">
                         <h6>Drone Remote controller</h6>
                         <p>You can preview your design in real time.</p>
-                        <a href="#" class="btn" id="btn1" data-title="Learn">
+                        <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
                             <span>Learn</span>
-                        </a>
+                        </router-link>
                     </div>
                 </div>
             </div>        
@@ -163,16 +168,17 @@ const isOpen = ref(true)
                     <div class="homeAccWrap2-txt">
                         <h6>Drone Remote controller</h6>
                         <p>You can preview your design in real time.</p>
-                        <a href="#" class="btn" id="btn1" data-title="Learn">
+                        <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
                             <span>Learn</span>
-                        </a>
+                        </router-link>
                     </div>
 
                 </div>
             </div>
         </div>
     </section>
-
+    <svgComponents1Vue :circle2='2'/>
+    <svglineComponentsVue :line2='2'/>
     <section class="aboutSection">
         <div class="homeAbout">
             <h2>ABOUT US</h2>
@@ -187,9 +193,9 @@ const isOpen = ref(true)
                 <img src="../assets/images/home/about.png" alt="">
             </div> -->
             <div class="aboutBtn">
-                <a href="#" class="btn" id="btn1" data-title="Learn">
+                <router-link to="/about" class="btnFirst" id="btn1" data-title="Learn">
                     <span>Learn</span>
-                </a>
+                </router-link>
             </div>
         </div>
     </section>
@@ -200,9 +206,9 @@ const isOpen = ref(true)
                 <h2>GAME</h2>
                 <h6>RACING AND FREESTYLE</h6>
                 <div class="gameBtn">
-                    <a href="#" class="btn" id="btn1" data-title="Learn">
+                    <router-link to="/game" class="btnFirst" id="btn1" data-title="Learn">
                         <span>Learn</span>
-                    </a>
+                    </router-link>
                 </div>
             </div>
             <video autoplay="" muted="" loop="" playsinline="">
@@ -225,9 +231,9 @@ const isOpen = ref(true)
                     <div class="contest-vue">
                         <h5>DRL Vegas Championship Race</h5>
                         <p>Thursday, Nov 17th 2022</p>
-                        <a href="#" class="btn" id="btn1" data-title="Learn">
-                    <span>Learn</span>
-                    </a>
+                        <router-link to="/articleView" class="btnFirst" id="btn1" data-title="Learn">
+                            <span>Learn</span>
+                        </router-link>
                     </div>
                    
                 </div>
@@ -239,10 +245,9 @@ const isOpen = ref(true)
                 <div class="homeContest-txt">
                     <div class="contest-vue">
                     <h5>Miami 3-0-Fly Finals</h5>
-                    <p>Sunday, Mar 26th 2023</p>
-                        <a href="#" class="btn" id="btn1" data-title="Learn">
-                    <span>Learn</span>
-                    </a>
+                    <router-link to="/articleView" class="btnFirst" id="btn1" data-title="Learn">
+                        <span>Learn</span>
+                    </router-link>
                     </div>
                 </div>
             </div>
@@ -254,9 +259,9 @@ const isOpen = ref(true)
                     <div class="contest-vue">
                     <h5>SIM Series - Alpine Valley</h5>
                     <p>Tuesday, Dec 6th 2022</p>
-                        <a href="#" class="btn" id="btn1" data-title="Learn">
-                    <span>Learn</span>
-                    </a>
+                    <router-link to="/articleView" class="btnFirst" id="btn1" data-title="Learn">
+                        <span>Learn</span>
+                    </router-link>
                     </div>
                 </div>
             </div>
@@ -276,7 +281,10 @@ const isOpen = ref(true)
 @import '@/sass/style.scss';
 @import '@/css/reset.css';
 
-
+body {
+    scroll-behavior: smooth;
+    overflow: hidden;
+}
 .tad-enter-active {
   animation: tad-in 1s;
 }

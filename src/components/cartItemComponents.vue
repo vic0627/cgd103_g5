@@ -1,58 +1,76 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue';
-//數量加減
-let count = ref(1);
+//數量加減//價格變動
 const addCount = (index) => {
-    // console.log(count);
-    return count.value += 1;
+    // console.log(cartIte;
+    return cartItem[index].count ++;
 }
-const reduceCount = () => {
-    if(count.value > 1){
-        return count.value -= 1;
+const reduceCount = (index) => {
+    if(cartItem[index].count > 1){
+        return cartItem[index].count --;
     }
 }
-//價格變動
-const price = ref(150);
 //刪除商品
-const cart = ref(1); 
-console.log(cart.value);
+const cart = ref(false); 
 const Delete = (index)=> {
-    cart.value = index;
-    console.log(cart.value);
+    cartItem[index].exist = cart.value;
+    console.log(cartItem[index].exist)
 }
+
+const cartItem = reactive([
+    {
+        "id":1,
+        "name":"Maciv 2 ZOOM",
+        "description":"dsuigr fhfe djs",
+        "image": "/images/cart/body_01_black _1.png",
+        "price": 275,
+        "count": 1,
+        "exist":true,
+    },
+    {
+        "id":2,
+        "name":"Maciv 2 ZOOM",
+        "description":"fwgqg qwqffw",
+        "image": "/images/cart/body_03_white_1.png",
+        "price": 159,
+        "count": 1,
+        "exist":true,
+    },
+])
 
 </script>
 
 <template>
-    <div class="cartItem" v-if="cart === 1">
-        <div class="cartProduct">
-            <div class="cartProduct-pic">
-                <img src="../assets/images/home/fly.png" alt="">
+    <div class="cartFor" v-for="(item,index) in cartItem" :key="index">
+        <div class="cartItem" v-show="item.exist === true">
+            <div class="cartProduct">
+                <div class="cartProduct-pic">
+                    <img :src="item.image" alt="">
+                </div>
+                <div class="cartProduct-txt">
+                    <h5>{{item.name}}</h5>
+                    <p>{{item.description}}</p>
+                </div>
             </div>
-            <div class="cartProduct-txt">
-                <h5>Maciv 2 ZOOM</h5>
-                <p>dsuigr fhfe djs</p>
+            <div class="amount-price">
+                <div class="cartQuantity">
+                    <button class="qtyBtn" @click="reduceCount(index)">-</button>
+                    <input type="text" min="1" v-model="item.count" class="input">
+                    <button class="qtyBtn" @click="addCount(index)">+</button>
+                </div>
+                <div class="cartPrice">
+                    <h6>${{item.price*item.count}}</h6>
+                </div>
             </div>
-        </div>
-        <div class="amount-price">
-            <div class="cartQuantity">
-                <button @click="reduceCount">-</button>
-                <input type="number" min="1" v-model="count">
-                <button @click="addCount(index)">+</button>
+            <div class="cartDelete">
+                <button @click="Delete(index)" class="delete-btn"></button>
             </div>
-            <div class="cartPrice">
-                <h6>${{price*count}}</h6>
-            </div>
-        </div>
-        <div class="cartDelete">
-            <button @click="Delete(2)" class="delete-btn"></button>
         </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
-
 .cartItem {
     width: 90%;
     border-bottom: 2px solid #ccc;
@@ -78,8 +96,19 @@ const Delete = (index)=> {
             width: 50%;
         }
         .cartQuantity {
-            input {
+            .input {
                 width:20%;
+                background: transparent;
+                border: none;
+                font-size: 24px;
+                color: #eeeeee;
+                text-align: center;
+            }
+            .qtyBtn {
+                background: transparent;
+                border: none;
+                color: #eeeeee;
+                font-size: 40px;
             }
         }
         .cartPrice {
