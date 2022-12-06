@@ -2,8 +2,10 @@
 import $ from 'jquery';
 import { ref,reactive, onMounted } from 'vue';
 import navComponentsVue from '@/components/navComponents.vue';
+import footerComponentsVue from '@/components/footerComponents.vue';
+import {bodyInit} from '../composables/useOnunmounted';
 
-
+bodyInit();
 const steps = reactive([
     {
         "id" : "1",
@@ -63,7 +65,7 @@ const products = reactive([
         "title":'EFVP Mavic 4 Black',
         "Original_Price":'USD$900',
         "src4": 
-        ['../../public/images/shop/body_01_black _1.png','../../public/images/shop//body_01_black_2.png','../../public/images/shop/body_01_black_3.png'],
+        ['../../public/images/shop/body_01_black_1.png','../../public/images/shop//body_01_black_2.png','../../public/images/shop/body_01_black_3.png'],
         "new":true,
         "sale":false 
     },
@@ -421,10 +423,8 @@ $(document).ready(()=>{
             <img src="../assets/images/shop/new2.jpg" alt="newProduct">
         </div>
         <div class="buttons">
-            <a class="btnPrimary" data-title="Learn More">
-                <span>Learn More</span>
-            </a>
-        </div>
+            <router-link class="anchors btnSecond" data-title="Learn More" to="/shopInfo">Learn More</router-link>
+        </div>            
     </section>
     <!-- banner end-->
 
@@ -433,17 +433,14 @@ $(document).ready(()=>{
             <h2><span>CUSTOMIZE STEP</span></h2>
             <p>Create Your Unique Style</p>
         <div class="step_container">
-            <span></span>
             <div v-for="num in steps" class="slide" :key="num">
                 <p>STEP {{num.id}}</p>
                 <p>{{num.text}}</p>
             </div>
         </div>
-            <div class="buttons">
-                <a class="btnPrimary" data-title="Learn More">
-                    <span>Learn More</span>
-                </a>
-            </div>
+        <div class="buttons">
+            <router-link class="anchors btnSecond" data-title="Learn More" to="/shopInfo">Learn More</router-link>
+        </div>                    
     </section>
     <!-- step end-->
 
@@ -476,7 +473,7 @@ $(document).ready(()=>{
         <div class="search_box">
             <label for="search"></label>
             <input type="text" name="search" placeholder="search" id="search">
-            <button type="submit" value="submit">submit</button>
+            <button type="submit" value="submit">Go</button>
         </div>
         <div class="card_slider">
             <div class="card_slider_items">
@@ -495,8 +492,8 @@ $(document).ready(()=>{
                             <p v-if="item.sale == true" class="price d">{{item.Original_Price}}</p>
                             <p  v-if="item.Discount_Price !='' " class="price discount">{{item.Discount_Price}}</p>
                             <div class="buttons">
-                                <a class="btnPrimary" data-title="BUY NOW">BUY NOW</a>
-                                <a class="btnSecond" data-title="Learn More" >Learn More</a>
+                                <router-link class="anchor btnPrimary" to="/cart" data-title="BUY NOW">BUY NOW</router-link>
+                                <router-link class="anchors btnSecond" data-title="Learn More" to="/shopInfo">Learn More</router-link>
                             </div>                    
                         </div>
                     </div>
@@ -510,6 +507,11 @@ $(document).ready(()=>{
     <section class="accessories" id="accessories">
         <h2><span>ACCESSORIES</span></h2>
         <p>More Various Then You Think</p>
+        <div class="search_box">
+            <label for="search"></label>
+            <input type="text" name="search" placeholder="search" id="search">
+            <button type="submit" value="submit">Go</button>
+        </div>
         <div class="card_slider">
             <div class="card_slider_items">
                 <div v-for="i in accessories" class="card_slider_item"  :key="i.name">
@@ -527,13 +529,12 @@ $(document).ready(()=>{
                             <p v-if="i.sale == true" class="price d">{{i.Original_Price}}</p>
                             <p  v-if="i.Discount_Price !='' " class="price discount">{{i.Discount_Price}}</p>
                             <div class="buttons">
-                                <a class="btnPrimary" data-title="BUY NOW" >BUY NOW</a>
-                                <a class="btnSecond" data-title="Learn More" >Learn More</a>
-                            </div>                    
+                                <router-link class="anchor btnPrimary" to="/cart" data-title="BUY NOW">BUY NOW</router-link>
+                                <router-link class="anchors btnSecond" data-title="Learn More" to="/shopInfo">Learn More</router-link>
+                            </div>                      
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
@@ -557,9 +558,10 @@ $(document).ready(()=>{
                         </div>
                         <h5><span>{{beginner.title}}</span></h5>
                         <p class="price">{{beginner.price}}</p>
-                        <a class="buttons">
-                            <span class="btnPrimary" data-title="BUY NOW" >BUY NOW</span>
-                        </a>
+                        <div class="buttons">
+                            <router-link class="anchor btnPrimary" to="/cart" data-title="BUY">BUY</router-link>
+                            <router-link class="anchors btnSecond" data-title="Learn More" to="/shopInfo">Learn</router-link>
+                        </div>           
                     </div>
                 </template>
                 <template v-else-if="view === 2">
@@ -569,9 +571,10 @@ $(document).ready(()=>{
                         </div>
                         <h5><span>{{veteran.title}}</span></h5>
                         <p class="price">{{veteran.price}}</p>
-                        <a class="buttons">
-                            <span class="btnPrimary" data-title="BUY NOW" >BUY NOW</span>
-                        </a>
+                        <div class="buttons">
+                            <router-link class="anchor btnPrimary" to="/cart" data-title="BUY NOW">BUY NOW</router-link>
+                            <router-link class="anchors btnSecond" data-title="Learn More" to="/shopInfo">Learn More</router-link>
+                        </div>        
                     </div>               
                 </template>
             </div>
@@ -584,6 +587,8 @@ $(document).ready(()=>{
         <h2>FEEL <span>FREEDOM</span> IN THE SKY</h2>
         <p><span>VDAF</span> visual focus technology</p>
     </section>
+
+    <footerComponentsVue />
 </template>
 
 <style scoped lang="scss">
@@ -645,25 +650,24 @@ $(document).ready(()=>{
             vertical-align: bottom;
         }
     }
-    .buttons{
-        width: 100%;
-        grid-column: 1/1;
-        grid-row: 3/3;
-        .btnPrimary{
-            margin: 0 auto;
-            position: relative;
-            top: -50px;
-            @include primaryBtn (150px);
-        }
+    // .buttons{
+    //     width: 100%;
+    //     grid-column: 1/1;
+    //     grid-row: 3/3;
+    //     .btnPrimary{
+    //         margin: 0 auto;
+    //         position: relative;
+    //         top: -50px;
+    //         @include primaryBtn (150px);
+    //     }
 
-    }
+    // }
 }
 //step
 .step_wrapper{
     width: 100%;
     position: relative;
     padding: 20px 0;
-    overflow: hidden;
     
     h2{
     width: 100%;
@@ -701,10 +705,11 @@ $(document).ready(()=>{
         margin: 0 auto;
         gap: 1rem;
         padding: 2rem;
+        // overflow: hidden;
         &::before{
             content: url(../assets/images/shop/drone.png);
             position: absolute;
-            top:0;
+            top:-50%;
             left: 0;
             z-index: -1;
             transition: all 1s;
@@ -713,14 +718,12 @@ $(document).ready(()=>{
             animation-timing-function: linear;
             animation-iteration-count: infinite;
             animation-delay: 0;   
-            filter:brightness(3) blur(1.5);
-            // overflow: hidden;  
             @keyframes fly {
                 0%{
-                    transform: translateX(0px) rotate(0deg);
+                    transform: rotate(0deg);
                 }
                 100%{
-                    transform: translateX(100vw)  rotate(360deg);
+                    transform: rotate(420deg);
                 }
             }
         }
@@ -760,19 +763,25 @@ $(document).ready(()=>{
         }
 
 }
+//buttons
 .buttons{
     width: 100%;
     .btnPrimary{
+        @include primaryBtn (130px);
+        border: none;
         position: relative;
         margin: 20px auto;
         top: 0;
-        @include primaryBtn (150px);
+        text-align: center;
+        @include m($m-breakpoint){
+
+        }
     }
     .btnSecond{
         position: relative;
-        margin: 0 auto;
+        margin: 20px auto;
         top: 0;
-        @include secondBtn (150px);
+        @include secondBtn (130px);
     }
 }
 //category
@@ -807,7 +816,6 @@ $(document).ready(()=>{
         transform: rotate(-90deg);
         margin-left: 5px;
         @include m($m-breakpoint){
-            
             width: 30%;
             margin-left: 0;
         }
@@ -819,7 +827,7 @@ $(document).ready(()=>{
         justify-content: center;
         align-items: center;
         position: fixed;
-        top: 10px;
+        top: 20px;
         z-index: 2;
         background-color: #232A3E;
         .hide{
@@ -830,14 +838,13 @@ $(document).ready(()=>{
             text-align: center;
             display: flex;
             h5{
-                padding: 20px;
+                padding: 10px;
                 max-width: 300px;
-                // background-color: #324e6880;
-                border-radius: 50px;
-                margin: 10px 0;
+                border-radius: 20px;
+                margin: 20px;
                 &:hover{
                     background-color: #000;
-                    box-shadow: 0 0 30px $blue;
+                    box-shadow: 0 0 10px $blue;
                     transition: all .5s;
                 }
                 @include m($m-breakpoint) {
@@ -861,14 +868,17 @@ $(document).ready(()=>{
         display: flex;
         justify-content: center;
         input{
+            height: 30px;
             background-color: transparent;
             color: #e6e9f0;
-            border: 1px solid #444;
+            border: 1px solid #fff;
+            font-size: 24px;
         }
         button{
             background-color: transparent;
             color: #e6e9f0;
-            border: 1px solid #444;
+            border: 1px solid #fff;
+            font-size: 24px;
         }
     }
 
@@ -885,7 +895,6 @@ $(document).ready(()=>{
              
              .card_slider_item{
                 position: relative;
-                // z-index: 0;
                 max-width: 280px;
                 padding: 10px 0;
                 margin: 10px;
@@ -918,11 +927,8 @@ $(document).ready(()=>{
                         }
                         img{
                             width: 80%;
-                            // margin-left:20px ;
                             object-fit: cover;
                             object-position: center 10px; 
-
-
                             transition: all .5s;
                             animation-name: move;
                             animation-duration: 5s;
@@ -1000,6 +1006,25 @@ $(document).ready(()=>{
             font: $caption-l-h2;
         }
      }
+    }
+    .search_box{
+        max-width: 1200px;
+        margin: 10px auto;
+        display: flex;
+        justify-content: center;
+        input{
+            height: 30px;
+            background-color: transparent;
+            color: #e6e9f0;
+            border: 1px solid #fff;
+            font-size: 24px;
+        }
+        button{
+            background-color: transparent;
+            color: #e6e9f0;
+            border: 1px solid #fff;
+            font-size: 24px;
+        }
     }
     .card_slider{
         width: 100%;
@@ -1093,27 +1118,27 @@ $(document).ready(()=>{
                             color: red;
                         }
 
-                        .buttons{
-                            display: flex;
-                            flex-wrap: wrap;
-                            justify-content: center;
-                            .btnPrimary{
-                                font: $caption-s-h5;
-                                @include primaryBtn(150px);
-                                    margin: 20px;
-                                @include m($m-breakpoint) {
-                                    margin: 10px;
-                                }
-                            }
-                            .btnSecond{
-                                font: $caption-s-h5;
-                                @include secondBtn(150px);
-                                    margin: 20px;
-                                @include m($m-breakpoint) {
-                                    margin: 10px;
-                                }
-                            }
-                        }
+                        // .buttons{
+                        //     display: flex;
+                        //     flex-wrap: wrap;
+                        //     justify-content: center;
+                        //     .btnPrimary{
+                        //         font: $caption-s-h5;
+                        //         @include primaryBtn(150px);
+                        //             margin: 20px;
+                        //         @include m($m-breakpoint) {
+                        //             margin: 10px;
+                        //         }
+                        //     }
+                        //     .btnSecond{
+                        //         font: $caption-s-h5;
+                        //         @include secondBtn(150px);
+                        //             margin: 20px;
+                        //         @include m($m-breakpoint) {
+                        //             margin: 10px;
+                        //         }
+                        //     }
+                        // }
                     }
                 }
             }
@@ -1125,8 +1150,8 @@ $(document).ready(()=>{
     width: 100%;
     h2{
         width: 100%;
-    text-align: center;
-    margin: 0 auto;
+        text-align: center;
+        margin: 0 auto;
     span{
         font-size: $caption-s-h2;
         max-width: 200px;
@@ -1209,13 +1234,14 @@ p{
                 .buttons{
                     display: flex;
                     justify-content: center;
+                    align-items: center;
                     .btnPrimary{
-                        font: $caption-s-h5;
-                        @include primaryBtn(100px);
-                            margin: 20px;
-                            @include m($m-breakpoint) {
-                            margin: 10px;
-                        }
+                        @include primaryBtn(80px);
+                        margin-left: 10px;
+                    }
+                    .btnSecond{
+                        @include secondBtn(80px);
+                        margin-left: 10px;
                     }
                 }
             }

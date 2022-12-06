@@ -2,6 +2,24 @@
 import { ref, onMounted, reactive, onUnmounted } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
+import { bodyInit } from "../composables/useOnunmounted";
+bodyInit();
+
+const bgi1 = document.querySelector(".bgi1");
+const bgi2 = document.querySelector(".bgi2");
+const bgi3 = document.querySelector(".bgi3");
+
+const text1 = document.querySelector(".text1");
+const text2 = document.querySelector(".text2");
+const text3 = document.querySelector(".text3");
+
+const card1 = document.querySelector(".card1");
+const card2 = document.querySelector(".card2");
+const card3 = document.querySelector(".card3");
+
+function change1() {
+  document.getElementById("change1").classList.add("change1_active");
+}
 </script>
 
 <template>
@@ -362,7 +380,6 @@ import footerComponentsVue from "@/components/footerComponents.vue";
         <div class="bgi bgi1"></div>
         <div class="bgi bgi2"></div>
         <div class="bgi bgi3"></div>
-        <div class="bgi bgi4"></div>
       </div>
       <div class="bigtext">
         <div class="text text1">
@@ -399,21 +416,9 @@ import footerComponentsVue from "@/components/footerComponents.vue";
             similique?
           </p>
         </div>
-        <div class="text text4">
-          <h3>Taiwan</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos
-            suscipit dolorum quod, illum id consequatur unde! Id nam corporis
-            molestiae, obcaecati harum at? Facilis, perferendis. Ratione
-            doloremque vel quidem adipisci, nemo accusantium voluptatem
-            architecto eius ex veniam! Eum adipisci sapiente earum modi ut,
-            expedita a, odio obcaecati aspernatur consectetur eligendi.
-          </p>
-        </div>
       </div>
-
       <div class="practiseCard">
-        <div class="card card1">
+        <div class="card card1" @click="change1">
           <div class="cardTitle">
             <h3>Taiwan</h3>
           </div>
@@ -434,7 +439,7 @@ import footerComponentsVue from "@/components/footerComponents.vue";
           </div>
         </div>
 
-        <div class="card card2">
+        <div class="card card2" @click="change2">
           <div class="cardTitle">
             <h3>Taiwan</h3>
           </div>
@@ -455,7 +460,7 @@ import footerComponentsVue from "@/components/footerComponents.vue";
           </div>
         </div>
 
-        <div class="card card3">
+        <div class="card card3" @click="change3">
           <div class="cardTitle">
             <h3>Taiwan</h3>
           </div>
@@ -476,29 +481,29 @@ import footerComponentsVue from "@/components/footerComponents.vue";
             </p>
           </div>
         </div>
-
-        <div class="card card4">
-          <div class="cardTitle">
-            <h3>Taiwan</h3>
-          </div>
-
-          <div class="cardPic">
-            <img src="../assets/images/race/point4.jpg" alt="aerialPoint" />
-          </div>
-
-          <div class="cardContent">
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos
-              suscipit dolorum quod, illum id consequatur unde! Id nam corporis
-              molestiae, obcaecati harum at? Facilis, perferendis. Ratione
-              doloremque vel quidem adipisci, nemo accusantium voluptatem
-              architecto eius ex veniam! Eum adipisci sapiente earum modi ut,
-              expedita a, odio obcaecati aspernatur consectetur eligendi.
-            </p>
-          </div>
-        </div>
       </div>
     </div>
+
+    <!-- <div id="change1" class="card card1 change1">
+      <div class="cardTitle">
+        <h3>Taiwan</h3>
+      </div>
+
+      <div class="cardPic">
+        <img src="../assets/images/race/point1.jpg" alt="aerialPoint" />
+      </div>
+
+      <div class="cardContent">
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore quos
+          unde adipisci itaque quaerat architecto. Dolor eaque eum recusandae
+          necessitatibus sed deserunt quae ullam quia mollitia qui architecto
+          eveniet iusto nesciunt hic voluptates incidunt a ab, distinctio labore
+          deleniti quisquam vitae. Laborum quidem illo explicabo pariatur
+          praesentium necessitatibus repellendus aliquam.
+        </p>
+      </div>
+    </div> -->
   </section>
   <footerComponentsVue />
 </template>
@@ -506,6 +511,31 @@ import footerComponentsVue from "@/components/footerComponents.vue";
 <style lang="scss" scoped>
 @import "../sass/style.scss";
 @import "../sass/component/_btn.scss";
+
+// .change1 {
+//   overflow: hidden;
+//   transform: scale(0);
+// }
+
+// .change1_active,
+// .bag_talkwindow_active,
+// .plus_talkwindow_active {
+//   animation: popup
+//     0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001s;
+//   transform: scale(1);
+// }
+
+// @keyframes popup {
+//   0% {
+//     transform: scale(0);
+//   }
+//   0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001% {
+//     transform: scale(1);
+//   }
+//   100% {
+//     transform: scale(1);
+//   }
+// }
 
 header {
   position: sticky;
@@ -764,20 +794,13 @@ h2 {
           ),
           url("../assets/images/race/point3.jpg");
       }
-      .bgi4 {
-        background-image: linear-gradient(
-            rgba(0, 0, 0, 0.7),
-            rgba(0, 0, 0, 0.7)
-          ),
-          url("../assets/images/race/point4.jpg");
-      }
     }
   }
   .bigtext {
     display: none;
     margin-top: 40px;
     @include l($l-breakpoint) {
-      width: 460px;
+      width: 350px;
       display: block;
       border: 1px solid rgb(220, 220, 220);
       background-color: rgba(220, 220, 220, 0.1);
@@ -791,8 +814,7 @@ h2 {
         }
       }
       .text2,
-      .text3,
-      .text4 {
+      .text3 {
         display: none;
       }
     }
@@ -813,7 +835,7 @@ h2 {
         height: 500px;
         border: 1px solid rgb(220, 220, 220);
         margin-bottom: 0;
-        margin: 0 20px;
+        margin: 0 15px;
         background-color: rgba(220, 220, 220, 0.1);
         cursor: pointer;
         &:hover {

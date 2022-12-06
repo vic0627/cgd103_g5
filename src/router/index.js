@@ -34,11 +34,6 @@ const router = createRouter({
       component: () => import("../views/shopInfo2View.vue"),
     },
     {
-      path: "/cart",
-      name: "cart",
-      component: () => import("../views/cartView.vue"),
-    },
-    {
       path: "/game",
       name: "game",
       component: () => import("../views/GameView.vue"),
@@ -109,10 +104,10 @@ const router = createRouter({
       component: () => import("../views/applyView.vue"),
     },
     {
-      path: "/shoppingCartStep",
-      name: "shoppingCartStep",
-      component: () => import("../views/ShoppingCartStep.vue"),
-    }
+      path: "/cart",
+      name: "cart",
+      component: () => import("../views/cartView.vue"),
+    },
   ],
 });
 

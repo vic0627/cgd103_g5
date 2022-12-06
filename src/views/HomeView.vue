@@ -1,13 +1,14 @@
 <script setup>
-import { ref, onMounted, reactive } from "vue";
-import $ from "jquery";
-import Parallax from "parallax-js";
-import navComponentsVue from "@/components/navComponents.vue";
-import svglineComponentsVue from "@/components/svglineComponents.vue";
-import svgComponents1Vue from "@/components/svgComponents1.vue";
-import footerComponentsVue from "@/components/footerComponents.vue";
-import slider from "@/components/test.vue";
-
+import { ref, onMounted, reactive } from 'vue';
+import $ from 'jquery';
+import Parallax from 'parallax-js';
+import {bodyInit} from '../composables/useOnunmounted';
+import navComponentsVue from '@/components/navComponents.vue';
+import svglineComponentsVue from '@/components/svglineComponents.vue';
+import svgComponents1Vue from '@/components/svgComponents1.vue';
+import footerComponentsVue from '@/components/footerComponents.vue';
+import slider from '@/components/homeNews.vue';
+bodyInit();
 onMounted(() => {
   const scene = document.getElementById("scene");
   // 第二个参数传入配置对象
@@ -34,241 +35,228 @@ const raceContent = reactive([
 ]);
 const view = ref(1);
 const changeView = (index) => {
-  view.value = index;
-};
-const isOpen = ref(true);
+    view.value = index
+}
+const isOpen = ref(true)
 </script>
 
 <template>
-  <navComponentsVue />
+    <navComponentsVue :className="blue"/>
 
-  <div class="home1">
-    <h2>Mavic 2 Zoom</h2>
-    <p>24~28 mm Optical Zoom Camers Ulitimate Flexibility</p>
-    <div class="home1-btn">
-      <a href="#" class="btnFirst" id="btn1" data-title="Learn">
-        <span>Learn</span>
-      </a>
-      <a href="#" class="btnSecond" id="btn2" data-title="Buy now">
-        <span>Buy now</span>
-      </a>
-    </div>
-    <div id="scene">
-      <div class="drone layer" data-depth="0.1">
-        <img src="../assets/images/home/fly2.png" alt="" />
-      </div>
-      <!-- <svgComponents1Vue class="layer" data-depth="0.5" /> -->
-    </div>
-    <div class="scroll">
-      <p>Scroll down</p>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="36"
-        height="36"
-        viewBox="0 0 24 24"
-        style="fill: rgba(238, 238, 238, 1); transform: ; msfilter: "
-      >
-        <path
-          d="M11.975 22H12c3.859 0 7-3.14 7-7V9c0-3.841-3.127-6.974-6.981-7h-.06C8.119 2.022 5 5.157 5 9v6c0 3.86 3.129 7 6.975 7zM7 9a5.007 5.007 0 0 1 4.985-5C14.75 4.006 17 6.249 17 9v6c0 2.757-2.243 5-5 5h-.025C9.186 20 7 17.804 7 15V9z"
-        ></path>
-        <path d="M11 6h2v6h-2z"></path>
-      </svg>
-    </div>
-    <!-- <svglineComponentsVue /> -->
-    <!-- <svgComponents1Vue /> -->
-  </div>
-  <svglineComponentsVue :class="{ svgWidth: isOpen }" />
-  <svgComponents1Vue />
-  <section>
-    <div class="home-custom">
-      <div class="custom-pic">
-        <img src="../assets/images/home/customize.jpeg" alt="customize" />
-      </div>
-      <div class="custom-txt">
-        <div class="homeCustom">
-          <h2>CUSTOMIZE</h2>
-          <p>
-            You can preview your design in real time to experience the ultimate
-            personalized service
-          </p>
+    <div class="home1">
+        <h2>Mavic 2 Zoom</h2>
+        <p>24~28 mm Optical Zoom Camers Ulitimate Flexibility</p>
+        <div class="home1-btn">
+            <router-link to="/shopInfo" class="btnFirst" id="btn1" data-title="Learn">
+            <span>Learn</span></router-link>
+            <router-link to="/showcase" class="btnSecond" id="btn2" data-title="Buy now">
+            <span>Buy now</span></router-link>
         </div>
-        <div class="custIcon">
-          <div class="custIcon-wrap">
-            <img src="@/assets/images/home/cusIcon1.png" alt="" />
-            <p>Speed destroy personal</p>
-            <p>King is come back</p>
-          </div>
-          <div class="custIcon-wrap">
-            <img src="@/assets/images/home/cusIcon2.png" alt="" />
-            <p>Speed destroy personal</p>
-            <p>King is come back</p>
-          </div>
-          <div class="custIcon-wrap">
-            <img src="@/assets/images/home/cusIcon3.png" alt="" />
-            <p>Speed destroy personal</p>
-            <p>King is come back</p>
-          </div>
-        </div>
-        <div class="customBtn">
-          <a href="#" class="btn" id="btn1" data-title="Learn">
-            <span>Learn</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- <svglineComponentsVue :class="{position : isOpen}"  /> -->
-  <section>
-    <div class="homeAcc">
-      <h2>ACCESSORIES</h2>
-      <p>See how we bring user feedbackinto our own product journey</p>
-    </div>
-    <div class="home-Acc">
-      <div class="homeAccWrap1">
-        <div class="mainAcc">
-          <div class="homeAccWrap1-pic">
-            <img src="../assets/images/home/body_03_black_1.png" alt="" />
-          </div>
-          <div class="homeAccWrap1-txt">
-            <h5>Stay Flying Longer-Up to 60mins</h5>
-            <p>You can preview your design in real time.</p>
-            <div class="accBtn">
-              <a href="#" class="btn" id="btn1" data-title="Learn">
-                <span>Learn</span>
-              </a>
+        <div id="scene">
+            <div class="drone layer" data-depth="0.1">
+                <img src="../assets/images/home/fly2.png" alt="">
             </div>
-          </div>
+            <!-- <svgComponents1Vue class="layer" data-depth="0.5" /> -->
         </div>
-      </div>
-      <div class="homeAccWrap2">
-        <div class="accSection accSection-pic1"></div>
-      </div>
-      <div class="homeAccWrap2">
-        <div class="accSection">
-          <div class="homeAccWrap2-pic">
-            <img src="../assets/images/home/propellor_02_black_1.png" alt="" />
-          </div>
-          <div class="homeAccWrap2-txt">
-            <h6>Drone Remote controller</h6>
-            <p>You can preview your design in real time.</p>
-            <a href="#" class="btn" id="btn1" data-title="Learn">
-              <span>Learn</span>
-            </a>
-          </div>
+        <div class="scroll">
+            <p>Scroll down</p>
+            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" style="fill: rgba(238, 238, 238, 1);transform: ;msFilter:;"><path d="M11.975 22H12c3.859 0 7-3.14 7-7V9c0-3.841-3.127-6.974-6.981-7h-.06C8.119 2.022 5 5.157 5 9v6c0 3.86 3.129 7 6.975 7zM7 9a5.007 5.007 0 0 1 4.985-5C14.75 4.006 17 6.249 17 9v6c0 2.757-2.243 5-5 5h-.025C9.186 20 7 17.804 7 15V9z"></path><path d="M11 6h2v6h-2z"></path></svg>
         </div>
-      </div>
-
-      <div class="homeAccWrap2">
-        <div class="accSection accSection-pic2"></div>
-      </div>
-      <div class="homeAccWrap2">
-        <div class="accSection">
-          <div class="homeAccWrap2-pic">
-            <img src="../assets/images/home/body_01_blue_1.png" alt="" />
-          </div>
-          <div class="homeAccWrap2-txt">
-            <h6>Drone Remote controller</h6>
-            <p>You can preview your design in real time.</p>
-            <a href="#" class="btn" id="btn1" data-title="Learn">
-              <span>Learn</span>
-            </a>
-          </div>
-        </div>
-      </div>
+        <!-- <svglineComponentsVue /> -->
+        <!-- <svgComponents1Vue /> -->
     </div>
-  </section>
+<svglineComponentsVue :class="{svgWidth : isOpen}"/>
+<svgComponents1Vue />
+    <section>
+        <div class="home-custom">
+            <div class="custom-pic">
+                <img src="../assets/images/home/customize.jpeg" alt="customize">
+            </div>
+            <div class="custom-txt">
+                <div class="homeCustom">
+                    <h2>CUSTOMIZE</h2>
+                    <p>You can preview your design in real time to experience the ultimate personalized service</p>
+                </div>
+                <div class="custIcon">
+                    <div class="custIcon-wrap">
+                        <img src="@/assets/images/home/cusIcon1.png" alt="">
+                        <p>Speed destroy personal</p>
+                        <p>King is come back</p>
+                    </div>
+                    <div class="custIcon-wrap">
+                        <img src="@/assets/images/home/cusIcon2.png" alt="">
+                        <p>Speed destroy personal</p>
+                        <p>King is come back</p>
+                    </div>
+                    <div class="custIcon-wrap">  
+                        <img src="@/assets/images/home/cusIcon3.png" alt="">
+                        <p>Speed destroy personal</p>
+                        <p>King is come back</p>
+                    </div>
+                </div>
+                <div class="customBtn">
+                    <router-link to="/custom" class="btnFirst" id="btn1" data-title="Learn">
+                        <span>Learn</span>
+                    </router-link>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- <svglineComponentsVue :class="{position : isOpen}"  /> -->
+    <section>
+        <div class="homeAcc">
+            <h2>ACCESSORIES</h2>
+            <p>See how we bring user feedbackinto our own product journey</p>
+        </div>
+        <div class="home-Acc">
+            <div class="homeAccWrap1">
+                <div class="mainAcc">
+                    <div class="homeAccWrap1-pic">
+                        <img src="../assets/images/home/body_03_black_1.png" alt="">
+                    </div>
+                    <div class="homeAccWrap1-txt">
+                        <h5>Stay Flying Longer-Up to 60mins</h5>
+                        <p>You can preview your design in real time.</p>
+                        <div class="accBtn">
+                        <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
+                            <span>Learn</span>
+                        </router-link>
+                    </div>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="homeAccWrap2">
+                <div class="accSection accSection-pic1">
+                </div>
+            </div>
+            <div class="homeAccWrap2">
+                 <div class="accSection">
+                    <div class="homeAccWrap2-pic">
+                        <img src="../assets/images/home/propellor_02_black_1.png" alt="">  
+                    </div>
+                    <div class="homeAccWrap2-txt">
+                        <h6>Drone Remote controller</h6>
+                        <p>You can preview your design in real time.</p>
+                        <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
+                            <span>Learn</span>
+                        </router-link>
+                    </div>
+                </div>
+            </div>        
+          
+            <div class="homeAccWrap2">
+                <div class="accSection accSection-pic2">
+                </div>
+            </div>
+            <div class="homeAccWrap2">
+                <div class="accSection">
+                    <div class="homeAccWrap2-pic">
+                        <img src="../assets/images/home/body_01_blue_1.png" alt="">  
+                    </div>
+                    <div class="homeAccWrap2-txt">
+                        <h6>Drone Remote controller</h6>
+                        <p>You can preview your design in real time.</p>
+                        <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
+                            <span>Learn</span>
+                        </router-link>
+                    </div>
 
-  <section class="aboutSection">
-    <div class="homeAbout">
-      <h2>ABOUT US</h2>
-      <div class="about-pic">
-        <img src="../assets/images/home/g5_logo_grey.png" alt="" />
-      </div>
-      <div class="about-txt">
-        <h3>RACING AND FREESTYLE</h3>
-        <p>
-          We are highly motivated to present GOOD SLEEP to as many people
-          aspossible. Our task is not just selling pillows.We are fully
-          committed to provide fulfilling sleep. Good sleep bringshappiness,
-          energy, and smiles. It is a simple fact.
-        </p>
-      </div>
-      <!-- <div class="homeAbout-pic">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="aboutSection">
+        <div class="homeAbout">
+            <h2>ABOUT US</h2>
+            <div class="about-pic">
+                <img src="../assets/images/home/g5_logo_grey.png" alt="">
+            </div>
+            <div class="about-txt">
+                <h3>RACING AND FREESTYLE</h3>
+                <p>We are highly motivated to present GOOD SLEEP to as many people aspossible. Our task is not just selling pillows.We are fully committed to provide fulfilling sleep. Good sleep bringshappiness, energy, and smiles. It is a simple fact.</p>
+            </div>
+            <!-- <div class="homeAbout-pic">
                 <img src="../assets/images/home/about.png" alt="">
             </div> -->
-      <div class="aboutBtn">
-        <a href="#" class="btn" id="btn1" data-title="Learn">
-          <span>Learn</span>
-        </a>
-      </div>
-    </div>
-  </section>
+            <div class="aboutBtn">
+                <router-link to="/about" class="btnFirst" id="btn1" data-title="Learn">
+                    <span>Learn</span>
+                </router-link>
+            </div>
+        </div>
+    </section>
 
-  <section>
-    <div class="homeGame">
-      <div class="homeGame-txt">
-        <h2>GAME</h2>
-        <h6>RACING AND FREESTYLE</h6>
-        <div class="gameBtn">
-          <a href="#" class="btn" id="btn1" data-title="Learn">
-            <span>Learn</span>
-          </a>
+    <section>
+        <div class="homeGame">
+            <div class="homeGame-txt">
+                <h2>GAME</h2>
+                <h6>RACING AND FREESTYLE</h6>
+                <div class="gameBtn">
+                    <router-link to="/game" class="btnFirst" id="btn1" data-title="Learn">
+                        <span>Learn</span>
+                    </router-link>
+                </div>
+            </div>
+            <video autoplay="" muted="" loop="" playsinline="">
+                <source src="@/assets/video/home/banner.mp4" type="video/mp4">
+            </video>
         </div>
-      </div>
-      <video autoplay="" muted="" loop="" playsinline="">
-        <source src="@/assets/video/home/banner.mp4" type="video/mp4" />
-      </video>
-    </div>
-  </section>
+    </section>
 
-  <section>
-    <div class="contestTitle">
-      <h2>CONTEST</h2>
-    </div>
-    <div class="homeRace">
-      <transition name="tad" mode="out-in">
-        <div class="homeContest" v-if="view === 1">
-          <div class="homeContest-pic">
-            <img src="@/assets/images/home/contest.png" alt="" />
-          </div>
-          <div class="homeContest-txt">
-            <div class="contest-vue">
-              <h5>DRL Vegas Championship Race</h5>
-              <p>Thursday, Nov 17th 2022</p>
-              <a href="#" class="btn" id="btn1" data-title="Learn">
-                <span>Learn</span>
-              </a>
-            </div>
-          </div>
+    <section>
+        <div class="contestTitle">
+            <h2>CONTEST</h2>
         </div>
-        <div class="homeContest" v-else-if="view === 2">
-          <div class="homeContest-pic">
-            <img src="/images/about/img_06.jpg" alt="" />
-          </div>
-          <div class="homeContest-txt">
-            <div class="contest-vue">
-              <h5>Miami 3-0-Fly Finals</h5>
-              <p>Sunday, Mar 26th 2023</p>
-              <a href="#" class="btn" id="btn1" data-title="Learn">
-                <span>Learn</span>
-              </a>
+        <div class="homeRace">
+            <transition name="tad" mode="out-in">
+                <div class="homeContest" v-if="view === 1">
+                    <div class="homeContest-pic">
+                        <img src="@/assets/images/home/contest.png" alt="">
+                    </div>
+                    <div class="homeContest-txt">
+                        <div class="contest-vue">
+                            <h5>DRL Vegas Championship Race</h5>
+                            <p>Thursday, Nov 17th 2022</p>
+                            <router-link to="/race" class="btnFirst" id="btn1" data-title="Learn">
+                                <span>Learn</span>
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            <!-- </transition> -->
+            <!-- <transition name="tad" mode="out-in"> -->
+                <div class="homeContest" v-else-if="view === 2">
+                    <div class="homeContest-pic">
+                        <img src="/images/about/img_06.jpg" alt="">
+                    </div>
+                    <div class="homeContest-txt">
+                        <div class="contest-vue">
+                            <h5>Miami 3-0-Fly Finals</h5>
+                            <p>Sunday, Mar 26th 2023</p>
+                            <router-link to="/race" class="btnFirst" id="btn1" data-title="Learn">
+                                <span>Learn</span>
+                            </router-link>
+                        </div>
+                    </div>
+                </div>
+            <!-- </transition>
+            <transition name="tad" mode="out-in"> -->
+                <div class="homeContest" v-else-if="view === 3">
+                    <div class="homeContest-pic">
+                        <img src="/images/about/img_07.jpg" alt="">
+                    </div>
+                    <div class="homeContest-txt">
+                        <div class="contest-vue">
+                        <h5>SIM Series - Alpine Valley</h5>
+                        <p>Tuesday, Dec 6th 2022</p>
+                        <router-link to="/race" class="btnFirst" id="btn1" data-title="Learn">
+                            <span>Learn</span>
+                        </router-link>
+                    </div>
+                </div>
             </div>
-          </div>
-        </div>
-        <div class="homeContest" v-else-if="view === 3">
-          <div class="homeContest-pic">
-            <img src="/images/about/img_07.jpg" alt="" />
-          </div>
-          <div class="homeContest-txt">
-            <div class="contest-vue">
-              <h5>SIM Series - Alpine Valley</h5>
-              <p>Tuesday, Dec 6th 2022</p>
-              <a href="#" class="btn" id="btn1" data-title="Learn">
-                <span>Learn</span>
-              </a>
-            </div>
-          </div>
-        </div>
       </transition>
       <div class="buttonDiv">
         <button @click="changeView(1)" class="raceChange"><p>DRL</p></button>
@@ -284,8 +272,9 @@ const isOpen = ref(true);
 </template>
 
 <style lang="scss" scoped>
-@import "@/sass/style.scss";
-@import "@/css/reset.css";
+@import '@/sass/style.scss';
+@import '@/css/reset.css';
+
 
 .tad-enter-active {
   animation: tad-in 1s;

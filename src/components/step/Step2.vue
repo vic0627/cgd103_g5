@@ -1,8 +1,11 @@
 <script setup>
 import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
-import navComponentsVue from '@/components/navComponents.vue';
+import {bodyInit} from '@/composables/useOnunmounted';
 
+bodyInit();
+
+const props = defineProps(['nextStep','step']);
 
 const customer1 = reactive(
     [
@@ -35,9 +38,9 @@ const customer2 = reactive(
 )
 </script>
 <template>   
-    <div class="detail_box">
+    <section class="detail_box">
             <template  v-for="info in customer2" :key="info.custNo">
-                <p>Confirm Detail</p>
+                <h3>Confirm Detail</h3>
                 <div class="input_box">
                     <input type="checkbox" name="checkbox" id="copyMemInfo" value="">
                     <label for="copyMemInfo">same as membership information</label>
@@ -63,7 +66,7 @@ const customer2 = reactive(
                         <td colspan="3">{{info.Address}}</td>
                     </tr>
                 </table>
-                <p>Payment</p>
+                <h3>Payment</h3>
                 <table class="payment">
                     <tr>
                         <td class="title">First Name</td>
@@ -79,12 +82,12 @@ const customer2 = reactive(
             </template>
             <div class="buttons">
                 <a class="btnPrimary" data-title="Pay Now">
-                    <router-link class="anchor" to="/orderComplete">
+                    <button @click="props.nextStep()">
                         Pay Now
-                    </router-link>
+                    </button>
                 </a>
             </div>
-    </div>           
+    </section>           
 </template>
 
 <style scoped lang="scss">
@@ -95,32 +98,25 @@ const customer2 = reactive(
 @import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
 
-.member_detail{
-    max-width: 1200px;
-    margin: 20px auto;  
-    text-align: center;
-    overflow: hidden;
-    font: $caption-p;
-    h2{
-        width: 100%;
-        text-align: center;
-        margin: 20px auto;
-    }
-
     .detail_box{
-        max-width: 800px;
-        height: 800px;
+        height: 1000px;
         background-color: rgba(142, 142, 142, 0.19);
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin: 20px auto;
-        padding: 0 10px;
+        margin: 0px;
+        padding: 10px;
         border-radius: 10px;
+        font-size: 20px;
+        @include m($m-breakpoint){
+            margin: 20px;
+            height: 800px;
+            font-size: 30px;
+        }
         .input_box{
-            width: 100%;
-            display: flex;
-            justify-content: center;
+            // width: 100%;
+            // display: flex;
+            // justify-content: center;
             input{
                 margin: 0 10px;
             }
@@ -130,34 +126,31 @@ const customer2 = reactive(
         }
         .confirm_detail{
             background-color: rgba(217, 217, 217, 0.32);
-            max-width: 800px;
-            margin: 20px auto;
-            table-layout: fixed;
+            max-width: 100%;
+            margin: 20px;
             tr{
                 border: 1px solid #ccc;
-                // line-height: 30px;
+                line-height: 40px;
                 &:nth-child(even){
-                        background-color: #98989880;
-                    }
+                    background-color: #98989880;
+                }
                 td{
-                    &.title{
-                        color: rgb(228, 229, 225);
-                    }
                     text-align: left;
-                    // border: 1px solid #ccc;
                     padding: 5px ;
-                    color: #333 ;                       
-                    font-size: 20px;
+                    color: rgb(228, 229, 225);
+                    font-size: 20px;                   
+                    &.title{
+                        color: #333;      
+                    }
                 }
             }
         }
         .payment{
             background-color: #98989880;
-            max-width: 500px;
-            // padding: 20px;
-            margin: 20px auto;
+            max-width: 100%;
+            margin: 20px ;
             @include m($m-breakpoint){
-                width:65% ;
+                max-width: 100%;
             }
             tr{
                 border: 1px solid #ccc;
@@ -167,11 +160,11 @@ const customer2 = reactive(
                 }
                 td{
                     &.title{
-                        color: rgb(228, 229, 225);
+                        color: #333;
                     }
                     text-align: left;
                     padding: 10px;
-                    color: #333;
+                    color: rgb(228, 229, 225);
                     font-size: 20px;
                 }
             }
@@ -185,10 +178,14 @@ const customer2 = reactive(
         margin: 0 auto;
         .btnPrimary{
             @include primaryBtn(100px);
+            button{
+                background-color: transparent;
+                color: $fff;
+                border: none;
+                font-size: 20px;
+            }
         }
     }
-    
-}
 
        
 </style>

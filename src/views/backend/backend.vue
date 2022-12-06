@@ -7,6 +7,8 @@ import tabnewadds from "../../components/tabnewadds.vue"; //NEWS
 import tabraceform from "../../components/tabraceform.vue"; //RACE
 import tabracecategory from "../../components/tabracecategory.vue"; //RACE
 
+import tabproductsearch from "@/components/tabproductsearch.vue";
+import tabproductImgManage from "@/components/tabproductImgManage.vue";
 export default {
   components: {
     tabhome,
@@ -16,6 +18,8 @@ export default {
     tabnewadds,
     tabraceform,
     tabracecategory,
+    tabproductsearch,
+    tabproductImgManage
   },
 };
 </script>
@@ -37,6 +41,14 @@ const backendCategory = ref({
       b: {
         cn: "優惠設定",
         tab: "discount",
+      },
+      c: {
+        cn: "商品圖片管理",
+        tab: "productImgManage",
+      },
+      d: {
+        cn: "商品分類管理",
+        tab: "productCategoryManage",
       },
     },
   },
