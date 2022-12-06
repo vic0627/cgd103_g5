@@ -5,6 +5,8 @@ import Accordion from '../components/accordionComponents.vue';
 import mem from '../components/memComponents.vue';
 import navComponentsVue from '@/components/navComponents.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
+import {bodyInit} from '../composables/useOnunmounted';
+bodyInit();
 
 
 
@@ -64,10 +66,10 @@ export default{
     <div class="teambox">
       <h2>TEAM</h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? 
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? 
       </p>
     </div>
     <div class="imgbox" data-aos="fade-up" data-aos-duration="3000" data-aos-easing="ease-in-sine">
@@ -614,7 +616,7 @@ body{
             left: 0;
         }
         &:nth-child(1) .details{
-            background-color: #000;
+          background-color: rgb(97, 68, 32);
         }
         &:nth-child(2) .details{
             background-color: $blue;
@@ -694,7 +696,7 @@ body{
             left: 0;
         }
         &:nth-child(1) .details{
-            background-color: #000;
+          background-color: rgb(97, 68, 32);
         }
         &:nth-child(2) .details{
             background-color: $blue;
@@ -773,7 +775,7 @@ body{
             left: 0;
         }
         &:nth-child(1) .details{
-            background-color: #000;
+            background-color: rgb(97, 68, 32);
         }
         &:nth-child(2) .details{
             background-color: $blue;

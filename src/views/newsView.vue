@@ -1,6 +1,8 @@
 <script>
 import { onMounted, registerRuntimeCompiler, reactive } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
+import {bodyInt} from '../composables/useOnunmounted';
+bodyInt();
 
 // import {useMotion} from '@vueuse/motion';
 
