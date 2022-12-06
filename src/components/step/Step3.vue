@@ -1,5 +1,8 @@
 <script setup>
 import { ref, reactive,onMounted } from 'vue';
+import {bodyInit} from '@/composables/useOnunmounted';
+
+bodyInit();
 
 
 </script>
