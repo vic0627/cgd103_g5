@@ -6,23 +6,17 @@ import footerComponentsVue from "@/components/footerComponents.vue";
 const bgi1 = document.querySelector(".bgi1");
 const bgi2 = document.querySelector(".bgi2");
 const bgi3 = document.querySelector(".bgi3");
-const bgi4 = document.querySelector(".bgi4");
 
 const text1 = document.querySelector(".text1");
 const text2 = document.querySelector(".text2");
 const text3 = document.querySelector(".text3");
-const text4 = document.querySelector(".text4");
 
 const card1 = document.querySelector(".card1");
 const card2 = document.querySelector(".card2");
 const card3 = document.querySelector(".card3");
-const card4 = document.querySelector(".card4");
 
 const change1 = () => {
   if ((text1 = true)) {
-    text2 = false;
-    text3 = false;
-    text4 = false;
   }
 };
 </script>
@@ -385,7 +379,6 @@ const change1 = () => {
         <div class="bgi bgi1"></div>
         <div class="bgi bgi2"></div>
         <div class="bgi bgi3"></div>
-        <div class="bgi bgi4"></div>
       </div>
       <div class="bigtext">
         <div class="text text1">
@@ -420,17 +413,6 @@ const change1 = () => {
             possimus minima? Architecto eos ipsum similique accusamus cum ex
             doloremque possimus ea est. Et libero culpa molestiae sunt
             similique?
-          </p>
-        </div>
-        <div class="text text4">
-          <h3>Taiwan</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos
-            suscipit dolorum quod, illum id consequatur unde! Id nam corporis
-            molestiae, obcaecati harum at? Facilis, perferendis. Ratione
-            doloremque vel quidem adipisci, nemo accusantium voluptatem
-            architecto eius ex veniam! Eum adipisci sapiente earum modi ut,
-            expedita a, odio obcaecati aspernatur consectetur eligendi.
           </p>
         </div>
       </div>
@@ -496,27 +478,6 @@ const change1 = () => {
               possimus minima? Architecto eos ipsum similique accusamus cum ex
               doloremque possimus ea est. Et libero culpa molestiae sunt
               similique?
-            </p>
-          </div>
-        </div>
-
-        <div class="card card4" @click="change4">
-          <div class="cardTitle">
-            <h3>Taiwan</h3>
-          </div>
-
-          <div class="cardPic">
-            <img src="../assets/images/race/point4.jpg" alt="aerialPoint" />
-          </div>
-
-          <div class="cardContent">
-            <p>
-              Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos
-              suscipit dolorum quod, illum id consequatur unde! Id nam corporis
-              molestiae, obcaecati harum at? Facilis, perferendis. Ratione
-              doloremque vel quidem adipisci, nemo accusantium voluptatem
-              architecto eius ex veniam! Eum adipisci sapiente earum modi ut,
-              expedita a, odio obcaecati aspernatur consectetur eligendi.
             </p>
           </div>
         </div>
@@ -787,20 +748,13 @@ h2 {
           ),
           url("../assets/images/race/point3.jpg");
       }
-      .bgi4 {
-        background-image: linear-gradient(
-            rgba(0, 0, 0, 0.7),
-            rgba(0, 0, 0, 0.7)
-          ),
-          url("../assets/images/race/point4.jpg");
-      }
     }
   }
   .bigtext {
     display: none;
     margin-top: 40px;
     @include l($l-breakpoint) {
-      width: 460px;
+      width: 350px;
       display: block;
       border: 1px solid rgb(220, 220, 220);
       background-color: rgba(220, 220, 220, 0.1);
@@ -814,8 +768,7 @@ h2 {
         }
       }
       .text2,
-      .text3,
-      .text4 {
+      .text3 {
         display: none;
       }
     }
@@ -836,7 +789,7 @@ h2 {
         height: 500px;
         border: 1px solid rgb(220, 220, 220);
         margin-bottom: 0;
-        margin: 0 20px;
+        margin: 0 15px;
         background-color: rgba(220, 220, 220, 0.1);
         cursor: pointer;
         &:hover {
