@@ -234,6 +234,10 @@ const changeView = (index) => {
     &:hover{
         background: $blue;
     }
+    &:focus{
+        background: $blue;
+        
+    }
 }
 
 
