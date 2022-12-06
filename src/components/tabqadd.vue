@@ -1,10 +1,5 @@
 <script>
-import outComponents from "../components/outComponents.vue";
-export default {
-  components: {
-    outComponents
-  }
-};
+
 </script>
 <template>
 <div class="top">
