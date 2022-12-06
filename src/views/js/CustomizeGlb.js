@@ -143,12 +143,12 @@ export const controllerModels = ref({
     name: "controller01",
     kgmc: 1,
   },
-  motor02: {
+  controller02: {
     id: 2,
     name: "controller02",
     kgmc: 1.1,
   },
-  motor03: {
+  controller03: {
     id: 3,
     name: "controller03",
     kgmc: 0.9,
@@ -156,11 +156,10 @@ export const controllerModels = ref({
 });
 
 //function
-const maxSpeed =
-  (motor.rpm * motor.kgm * controller.kgmc) /
-  (body.weight + propellor.weight) /
-  10;
+// const maxSpeed =(motor.rpm * motor.kgm * controller.kgmc) /(body.weight + propellor.weight) /10;
 
-const load = motor.kgm;
+// const load = motor.kgm;
 
-const accelerateTime = (motor.kgm * controller.kgmc) ^ (2 / 40);
+// const accelerateTime  = s = (motor.kgm * controller.kgmc) * (motor.kgm * controller.kgmc) / 40;
+
+// const a (m / s^2)= 100 / 3.6 / s

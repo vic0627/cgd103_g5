@@ -4,7 +4,6 @@ import { onMounted, ref } from 'vue';
 import * as PRO from './js/ShopInfoThree';
 import { useMousePosition, x, y } from '@/composables/useMousePosition';
 import { fpv } from './js/ShopInfoItem';
-import { body } from './js/CustomizeThree';
 
 
 import { bodyInit } from '../composables/useOnunmounted';
