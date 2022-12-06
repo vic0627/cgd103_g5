@@ -1,86 +1,127 @@
 <script setup>
-import headerComponentsVue from '@/components/headerComponents.vue';
-import { ref, onMounted, createApp } from 'vue';
-
-
-
-
-const aa = ref({
-    name:"hihi",
-    age : ["apple","water"],
-    
-});
-console.log("aa:",aa.value.name);
-
-const nestedData = ref({
-  product: {
-    M1: "Macbook Air M1 2020",
-    M2: "Macbook Air M2 2022",
-  },
-  retina: {
-    M1: "13.3 吋",
-    M2: "13.6 吋",
-  },
-  chips: {
-    M1: "Apple M1 晶片",
-    M2: "Apple M2 晶片",
-  },
-});
-
-const greeting = ref("123123");
-
-
-const state = ref({
-     count: 0 ,
-});
-
-function increment() {
-  state.value.count++;
-}
-console.log("state:",state.value);
-
-
+// import headerComponentsVue from '@/components/headerComponents.vue';
+import navComponentsVue from '@/components/navComponents.vue';
+import footerComponentsVue from '@/components/footerComponents.vue';
+import $ from 'jquery';
+import { ref, onMounted } from 'vue';
 
 onMounted(()=> {
-
+    $('.List-item>a').parent().siblings().find('ul').hide();
+    $('.List-item>a').click(function (e) { 
+        e.preventDefault();
+        $(this).parent().siblings().find('ul').slideUp();
+        $(this).parent().find('ul').slideToggle();
+        // $(this).parent().siblings().find('a').removeClass('rmminus');
+        // $(this).toggleClass('rmminus');
+    });
 })
+
+const sidenav = ref({
+    account :{
+        title : "Account",
+        list : ["Profile Overview"],
+    },
+    order :{
+        title : "Orders",
+        list : ["Normal Orders","Customized Orders"],
+    },
+    racing :{
+        title : "Racing",
+        list : ["My Racing"],
+    },
+    person :{
+        title : "Personal Setting",
+        list : ["Payment"],
+    }
+});
 
 
 </script>
 
 <template>
-    <headerComponentsVue />
-    <div>{{aa.name}}</div>
-    <div>{{aa.age[0]}}</div>
-    <div>{{greeting}}</div>
-
-    <button @click="increment">{{ state.count }}</button>
-
-
-    <div class="wrapper">
-        <div
-            v-for="(categoryContent, categoryName) in nestedData"
-            :key="categoryName"
-            
-        >
-            <p>{{ categoryName }}</p>
-            <div v-for="(content, chip) in categoryContent" :key="content">
-                <p>{{ content }}</p>
-            </div>
+    <navComponentsVue />
+    <div class="main">
+        <nav class="sidenav" >
+            <li class="List-item" v-for="item in sidenav" :key="item">
+                <a href="">{{item.title}}</a>
+                <ul class="subitem">
+                    <li class=""  v-for="i in item.list" :key="i" >{{i}}</li>
+                </ul>
+            </li>
+        </nav>
+        <div class="maincontent">
+            <section class="maininfo">
+                <div class="meminfo"></div>
+                <div class="memgrade"></div>
+            </section>
+            <section class="profiles-list">
+                
+            </section>
         </div>
     </div>
+    <footerComponentsVue />
 </template>
 
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
-
-
-*{
-    color: white;
+section{
+    margin: 0;
 }
-
+input{
+    display: block;
+}
+.main{
+    max-width: 1200px;
+    width: 100%;
+    margin: 90px auto;
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+    .sidenav{
+        width: 25%;
+        height: fit-content;
+        background-color: #1C2023;
+        padding: 20px;
+        border-radius: 10px;
+        .List-item{
+            padding: 10px;
+            a{
+                font-size: 15px;
+            }
+            .subitem{
+                // display: none;
+                padding: 10px 0 10px 20px;
+            }
+        }
+    }
+    .maincontent{
+        width: 75%;
+        margin: 0;
+        .maininfo{
+            display: flex;
+            gap: 10px;
+            .meminfo{
+                width: 500px;
+                aspect-ratio: 16/9;
+                // background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
+                background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
+                border-radius: 10px;
+            }
+            .memgrade{
+                flex-grow: 1;
+                height: auto;
+                background-color: #616574;
+                border-radius: 10px;
+            }
+        }
+        .profiles-list{
+            width: 100%;
+            height: 500px;
+            margin:10px 0;
+            background-color: #333;
+            border-radius: 10px;
+        }
+    }
+}
 </style>
-
-
-

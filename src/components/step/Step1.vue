@@ -2,7 +2,6 @@
 import { ref, onMounted, reactive } from 'vue';
 import $ from 'jquery';
 import cartItemComponentsVue from '@/components/cartItemComponents.vue';
-import footerComponentsVue from '@/components/footerComponents.vue';
 import {bodyInit} from '@/composables/useOnunmounted';
 
 bodyInit();
@@ -76,11 +75,6 @@ const sale = ()=> {
 }
 </script>
 <template>
-    <div class="cart">
-        <div class="cartTitle">
-            <h2>SHOPPING CART</h2>
-        </div>
-    </div>
     <section>
         <div class="shopCart">
             <div class="cartFor" v-for="(item,index) in cartItem" :key="index">

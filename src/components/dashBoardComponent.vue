@@ -1,10 +1,10 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, nextTick } from 'vue';
 import { log, $$ } from '../composables/useCommon';
 import gsap from 'gsap';
-import { useDashBoardMove } from '../composables/useDashBoardMove';
+import { useDashBoardMove, niddleSpin, deg} from '../composables/useDashBoardMove';
 let w = null, innerW = null, numW = null, ww;
-const deg = ref(0);
+
 onMounted(() => {
     ww = window.innerWidth;
     w = Number(window.getComputedStyle($$('.dashBoard'),null).getPropertyValue("width").split('px')[0])/2;
@@ -17,14 +17,10 @@ onMounted(() => {
         numW = Number(window.getComputedStyle($$('.numberScales'),null).getPropertyValue("width").split('px')[0])/2;
         ww = window.innerWidth;
         scaleSum();
-        log($$('.dashBoard').offsetTop)
-        log($$('.dashBoard').offsetLeft)
     })
-    window.addEventListener('click', () => {
-        niddleSpin(props.units.value, props.units.ratio)
-    })
-    useDashBoardMove(ww, w);
-})
+    niddleSpin(props.units.id, props.units.value, props.units.ratio);
+    useDashBoardMove(props.units.id, ww, w);
+});
 const r = 2 * Math.PI / 12;
 const Y = (e, width = w) => Math.sin(e) * -width + 'px';
 const X = (e, width = w) => Math.cos(e) * width + 'px';
@@ -54,61 +50,25 @@ const scaleSum = () => {
     }
     scale(`.numberScale1`, Y(-r, numW), X(-r, numW), 'auto', 0);
 };
-const niddleSpin = (d, ratio) => {
-    gsap.to(deg, {
-        value: d,
-        duration: .3,
-    })
-    gsap.to('#niddle', {
-        rotate: d * ratio+150,
-        duration: .3
-    })
-    if(d>=100){
-        let tl = new gsap.timeline({repeat: -1, delay: .3});
-        tl.to($$('.board p'), {
-            color: `#f00`,
-            duration: .3,
-        })
-        tl.to($$('.board p'), {
-            color: `#fff`,
-            duration: .3,
-            delay: .3,
-        })
-    }
-}
-const props = defineProps(["units"])
-const obj = {
-    title: 'Max Speed',
-    unit: 'km/h',
-}
-const num = {
-    1: 160,
-    2: 140,
-    3: 120,
-    4: 100,
-    5: 80,
-    6: 60,
-    7: 40,
-    8: 20,
-    9: 10,
-}
+
+const props = defineProps(["units"]);
 </script>
 <template>
-    <div class="dashBoard">
+    <div :class="`dashBoard dashBoard${props.units.id}`">
         <div class="shortScale" v-for="n in 47" :key="n" :class="`shortScale shortScale${n}`"></div>
         <div v-for="n in 9" :key="n" :class="`longScale longScale${n}`"></div>
-        <div class="numberScales">
+        <div :class="`numberScales numberScales${props.units.id}`">
             <p v-for="n in 9" :key="n" :class="`numberScale numberScale${n}`">{{ props.units.scale[n] }}</p>
         </div>
-        <div class="innerScale">
-            <div class="niddle" id="niddle">
-                <span class="dot"></span>
+        <div :class="`innerScale innerScale${props.units.id}`">
+            <div :class="`niddle niddle${props.units.id}`" id="niddle">
+                <span :class="`dot dot${props.units.id}`"></span>
             </div>
         </div>
         <div class="board">
-            <h5 class="boardTitle">{{ props.units.title }}</h5>
-            <p class="boardP">{{ deg }}</p>
-            <span class="boardSpan">{{ props.units.unit }}</span>
+            <h5 :class="`boardTitle boardTitle${props.units.id}`">{{ props.units.title }}</h5>
+            <p :class="`boardP boardP${props.units.id}`">{{ deg[props.units.id] }}</p>
+            <span :class="`boardSpan boardSpan${props.units.id}`">{{ props.units.unit }}</span>
         </div>
     </div>
 </template>
@@ -147,7 +107,7 @@ const num = {
     .shortScale{
         width: 8%;
         height: 2px;
-        background: $black;
+        background: #CED3DC88;
         position: absolute;
         margin: calc(50% - 1px) auto auto 46%;
         clip-path: polygon(0 0, 60% 0, 60% 100%, 0 100%);

@@ -27,7 +27,6 @@ bodyInit();
 <style scoped lang="scss">
 @import '@/sass/style.scss';
     .complete_order{
-        max-width: 800px;
         margin: 0 auto;
         padding: 10px;
         text-align: center;

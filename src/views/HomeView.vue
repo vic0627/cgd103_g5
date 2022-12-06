@@ -10,7 +10,6 @@ import footerComponentsVue from '@/components/footerComponents.vue';
 import slider from '@/components/homeNews.vue';
 bodyInit();
 onMounted(() => {
-    bodyInt();
   const scene = document.getElementById("scene");
   // 第二个参数传入配置对象
   const parallaxInstance = new Parallax(scene, {

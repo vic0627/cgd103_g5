@@ -3,7 +3,7 @@
         <div class="steps" >
             <div class="step" v-for="step in orderStep" :key="step">
                 <div :class="( props.step == step.id ? 'active_circle':'unactive_circle')"></div>
-                <p :class="( props.step == step.id ? 'active_title':'unactive_title')">Step{{step.title}}</p>
+                <p :class="( props.step == step.id ? 'active_title':'unactive_title')">{{step.title}}</p>
                 <p :class="( props.step == step.id ? 'active_text':'unactive_text')">{{step.text}}</p>
             </div>
         </div>
@@ -21,18 +21,18 @@ const orderStep = reactive(
     [
     {
         id:1,
-        title:'One',
+        title:'First',
         text:'CONFIRM PRODUCT',
     },
     {
         id:2,
-        title:'Two',
+        title:'Second',
         text:'CONFIRM DETAIL',
         componentName: 'Step2',
     },
     {
         id:3,
-        title:'Three',
+        title:'Third',
         text:'ORDER COMPELED',
     },
     ]
@@ -67,14 +67,10 @@ const orderStep = reactive(
                 left: 100%;
                 transform: translate(-20%,-20%);
                 @include m($m-breakpoint){
-                    width: 200px;
                     height:2px;
                     width: 260px;
                     transform: translate(-20%,-20%);
                 }
-                // @include l($l-breakpoint){
-                //     width: calc(1200px/3);
-                // }
             } 
             &:last-child{
                 &::after{
@@ -98,7 +94,7 @@ const orderStep = reactive(
             .unactive_circle{
                 width: 40px;
                 height: 40px;
-                background-color: #fff;
+                background-color: #3C4257;
                 border-radius:50% ;
                 z-index: 2;
             }

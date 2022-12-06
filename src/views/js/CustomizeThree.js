@@ -103,7 +103,6 @@ export const body = (e, src) => {
         bodyScale = .65;
         bodyY = -.3;
     }
-    console.log()
     bodyLoader(src, bodyScale, bodyX, bodyY, bodyZ);
 };
 

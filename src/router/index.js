@@ -107,7 +107,7 @@ const router = createRouter({
       path: "/cart",
       name: "cart",
       component: () => import("../views/cartView.vue"),
-    }
+    },
   ],
 });
 
