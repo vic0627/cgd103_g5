@@ -32,7 +32,7 @@ export default{
 
 
 <template>
-  <navComponentsVue />
+  <navComponentsVue :about="`#077AF9`"/>
   <!-- 01 video start -->
   <section class="video_box" >
         <div class="top_video">
