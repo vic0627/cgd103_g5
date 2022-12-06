@@ -167,6 +167,7 @@ const sale = ()=> {
             </div>
         </div>
         
+    <footerComponentsVue />
 </template>
 
 <style lang="scss" scoped>

@@ -202,10 +202,10 @@ import { ref,reactive, onMounted } from 'vue';
             padding: 20px;
             margin: 20px;
         }
-        tr:hover td{
-            background-color: #ddd;
-            transition: background .5s;
-        }
+        // tr:hover td{
+        //     background-color: #ddd;
+        //     transition: background .5s;
+        // }
         th{
             &:nth-child(4){
                 display: none;

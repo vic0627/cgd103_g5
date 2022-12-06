@@ -73,7 +73,7 @@ const customer2 = reactive(
     h2{
         width: 100%;
         text-align: center;
-        margin: 100px auto;
+        margin: 100px auto 40px;
     }
     
 }
