@@ -252,6 +252,9 @@ $text-color:#fff;
 $link-color:#7abcff;
 $btn-color:#007FFB;
 $bg-color:rgb(54, 54, 54);
+section{
+    margin: 0;
+}
 header{
     top: 0;
 }
@@ -275,7 +278,7 @@ span{
     width: 100%;
     color: $text-color;
     .img_box{
-        background-image: url("../assets/images/register/pexels-tembela-bohle-2050720.jpeg");
+        background-image:none;
         position: fixed;
         top: 0;
         left: 0;
@@ -285,24 +288,15 @@ span{
         background-position: 50%;
     }
     .wrapper{
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px 16px;
         .container{
-            top: 50px;
-            margin-bottom: 50px;
-            margin-left: auto;
-            position: relative;
-            width: 400px;
             background-color: $bg-color;
             box-shadow: 0 16px 32px rgb(0 0 0 / 10%);
             padding: 48px 32px;
             
             .logo{
-                display: inline;
                 width: 100%;
                 img{
-                    width: 100px;
+                    width: 0;
                 }
             }
             .login{
@@ -419,6 +413,7 @@ span{
     }
 }
 .bginfo{
+    display: none;
     position: sticky;
     left: 15px;
     bottom: 15px;
@@ -431,4 +426,42 @@ span{
         user-select: none;
     }
 }
+
+@include s($s-breakpoint) {//575
+    section{
+        margin: 50px 0;
+    }
+    .banner{
+        .img_box{
+            background-image: url("../assets/images/register/pexels-tembela-bohle-2050720.jpeg");
+        }
+        .wrapper{
+            
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px 16px;
+            .container{
+                top: 50px;
+                margin-left: auto;
+                margin-bottom: 50px;
+                position: relative;
+                width: 400px;
+                .logo{
+                    width: 100%;
+                    img{
+                        width: 100px;
+                    }
+                }
+            }
+        }
+    }
+    .bginfo{
+        display: block;
+    }
+}
+@include m($m-breakpoint) {//1023
+    
+}  
+@include l($l-breakpoint) {//1199
+} 
 </style>
