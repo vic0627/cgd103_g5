@@ -34,7 +34,7 @@ const table = ref([
 <template>
 <div class="top">
   <h2>
-    FAQ問題-修改 / 刪除
+    FAQ問題-編輯
     <outComponents />
   </h2>
   <div class="search_box">
@@ -134,7 +134,7 @@ h2 {
   width: 100%;
   margin: auto;
   table{
-    width: 90%;
+    width: 95%;
     margin: 0 auto;
     text-align: center;
     font-size: 20px;
