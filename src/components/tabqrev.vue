@@ -1,4 +1,35 @@
-<script>
+<script setup>
+import { reactive, onMounted,ref } from 'vue';
+
+const table = ref([
+  {
+    number:5,
+    q:"How to become a member of EFPV?",
+    a:"Click the member center icon in the upper right corner of the homepage to register/login.",
+  },
+  {
+    number:4,
+    q:"How to contact us?",
+    a:"123",
+  },
+  {
+    number:3,
+    q:"How to contact us?",
+    a:"123",
+  },
+  {
+    number:2,
+    q:"How to contact us?",
+    a:"123",
+  },
+  {
+    number:1,
+    q:"How to contact us?",
+    a:"123",
+  },
+
+])
+
 </script>
 <template>
 <div class="top">
@@ -11,6 +42,22 @@
     <div class="btn">
       <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
     </div>
+  </div>
+  <div>
+    <table>
+      <tr>
+        <th>編號</th>
+        <th>問題</th>
+        <th>回覆</th>
+        <th>修改</th>
+      </tr>
+      <tr v-for="item in table" :key="item">
+        <td>{{item.number}}</td>
+        <td>{{item.q}}</td>
+        <td>{{item.a}}</td>
+        <td><a href="#">編輯 <span>/</span> 刪除</a></td>
+      </tr>
+    </table>
   </div>
 </div>
 
@@ -66,13 +113,13 @@ h2 {
       width: 50px;
       text-align: center;
       border: none;
-      background: $blue;
+      background:#597897;
       border-radius: 5px;
       padding: 5px;
       transition: background 0.5s;
       cursor: pointer;
       &:hover{
-        background: #06519d;
+        background: $blue;
       }
       img{
         width: 20px;

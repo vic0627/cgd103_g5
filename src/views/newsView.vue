@@ -365,10 +365,35 @@ import newsComponentsVue from "@/components/newsComponents.vue";
     height: 100%;
     object-fit: cover;
   }
-  .banner_word {
-    position: absolute;
-    top: 50%;
-    text-align: center;
+  .banner{
+    width: 100%;
+    position: relative;
+    height: 550px;
+    @include l($l-breakpoint) {
+      width: 100%;
+      position: relative;
+      height: 800px;
+    }
+    img{
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      @include l($l-breakpoint){
+        height: 800px;
+        object-position: center 25%;
+      }
+    }
+    .banner_word {
+      position: absolute;
+      top: 50%;
+      text-align: center;
+      @include l($l-breakpoint){
+        width: 700px;
+        position: absolute;
+        top: 50%;
+        left: 5%;
+        text-align: left;
+      }
     .banner_title {
       margin-bottom: 30px;
       h2 {
@@ -382,14 +407,20 @@ import newsComponentsVue from "@/components/newsComponents.vue";
       }
     }
   }
+}
   .banner_right_txt {
     display: none;
   }
 
 @include m($m-breakpoint) {
   .banner {
+    width: 100%;
     position: relative;
     height: 550px;
+    img{
+      width: 100%;
+      height: 500px;
+    }
     .banner_word {
       width: 500px;
       position: absolute;
@@ -412,8 +443,6 @@ import newsComponentsVue from "@/components/newsComponents.vue";
     }
     .banner_right_txt {
       display: block;
-    }
-    .banner_right_txt {
       position: absolute;
       top: 30%;
       right: 2%;
@@ -428,56 +457,11 @@ import newsComponentsVue from "@/components/newsComponents.vue";
         outline: none;
         line-height: 0.7em;
         animation: animate 60s linear infinite;
-      }
-    }
-  }
-}
-@include l($l-breakpoint) {
-  .banner {
-    position: relative;
-    height: 800px;
-    img {
-      width: 100%;
-      height: 800px;
-      object-position: center 18%;
-      object-fit: cover;
-    }
-    .banner_word {
-      width: 700px;
-      position: absolute;
-      top: 50%;
-      left: 5%;
-      text-align: left;
-      .banner_title {
-        margin-bottom: 30px;
-        h2 {
-          position: relative;
-          text-transform: uppercase;
-          width: 100%;
-          -webkit-box-reflect: below 1px
-            linear-gradient(transparent, rgba(0, 0, 0, 0.329));
-          outline: none;
-          line-height: 0.7em;
-          animation: animate 30s linear infinite;
+        @include l($l-breakpoint){
+          font-size: 2rem;
         }
       }
-    }
-    .banner_right_txt {
-      position: absolute;
-      top: 30%;
-      right: 3%;
-      display: block;
-      box-sizing: border-box;
-      p {
-        text-transform: uppercase;
-        width: 100%;
-        font-size: 2.5rem;
-        -webkit-box-reflect: below 1px
-          linear-gradient(transparent, rgba(0, 0, 0, 0.329));
-        outline: none;
-        line-height: 0.7em;
-        animation: animate 60s linear infinite;
-      }
+      
     }
   }
 }
