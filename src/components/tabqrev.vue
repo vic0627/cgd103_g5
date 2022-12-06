@@ -9,7 +9,7 @@ export default {
 <template>
   <div>
     <h2>
-      修改問題
+      FAQ修改問題
       <outComponents />
     </h2>
   </div>
