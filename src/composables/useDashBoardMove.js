@@ -1,30 +1,30 @@
 import gsap from "gsap";
 import { ref } from 'vue';
-import { log, $$ } from '../composables/useCommon';
+import { log, $$, $all } from '../composables/useCommon';
 
 export const deg = ref({
     1: 0,
     2: 0,
     3: 0,
     4: 0,
+    5: 0,
+    6: 0,
 });
 export const niddleSpin = (id, d, ratio) => {
     deg.value[id] = d;
+    let accdeg = d*ratio;
+    if(deg.value[id] == "Infinity"){
+        deg.value[id] = 0;
+        accdeg = 0;
+    }
     gsap.to(`.niddle${id}`, {
-        rotate: d * ratio+150,
-        duration: .3
+        rotate: accdeg+150,
+        duration: 1
     })
-    if(d * ratio>=180){
-        let tl = new gsap.timeline({repeat: -1, delay: .3});
-        tl.to($$('.board p'), {
-            color: `#f00`,
-            duration: .3,
-        })
-        tl.to($$('.board p'), {
-            color: `#fff`,
-            duration: .3,
-            delay: .3,
-        })
+    if(accdeg>=180){
+        $$(`.boardP${id}`).classList.add('warn');
+    }else{
+        $$(`.boardP${id}`).classList.remove('warn');
     }
 }
 export const useDashBoardMove = (id ,ww, w) => {

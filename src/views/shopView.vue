@@ -1,6 +1,6 @@
 <script setup>
 import $ from 'jquery';
-import { ref,reactive, onMounted } from 'vue';
+import { ref,reactive, onMounted, computed } from 'vue';
 import navComponentsVue from '@/components/navComponents.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
 import {bodyInit} from '../composables/useOnunmounted';
@@ -33,7 +33,7 @@ const products = reactive([
     {
         "id" : 1,
         "name" : 'p1', 
-        "title":'EFVP Mavic 1 Green',
+        "title":'Mavic 1 Green',
         "Original_Price":'USD$900',
         "src1": 
         ['../../public/images/shop/body_01_green_1.png','../../public/images/shop//body_01_green_2.png','../../public/images/shop/body_01_green_3.png'],
@@ -43,7 +43,7 @@ const products = reactive([
     {
         "id" : 2,
         "name" : 'p2', 
-        "title":'EFVP Mavic 2 White',
+        "title":'Mavic 2 White',
         "Original_Price":'USD$900',
         "src2":['../../public/images/shop/body_01_white_1.png','../../public/images/shop//body_01_white_2.png','../../public/images/shop/body_01_white_3.png'],
         "new":false,
@@ -52,7 +52,7 @@ const products = reactive([
     {
         "id" : 3,
         "name" : 'p3', 
-        "title":'EFVP Mavic 3 Red',
+        "title":'Mavic 3 Red',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src3":['../../public/images/shop/body_01_red_1.png','../../public/images/shop//body_01_red_2.png','../../public/images/shop/body_01_red_3.png'],
@@ -62,7 +62,7 @@ const products = reactive([
     {
         "id" : 4,
         "name" : 'p4', 
-        "title":'EFVP Mavic 4 Black',
+        "title":'Mavic 4 Black',
         "Original_Price":'USD$900',
         "src4": 
         ['../../public/images/shop/body_01_black_1.png','../../public/images/shop//body_01_black_2.png','../../public/images/shop/body_01_black_3.png'],
@@ -72,7 +72,7 @@ const products = reactive([
     {
         "id" : 5,
         "name" : 'p5', 
-        "title":'EFVP Mavic 5 Blue',
+        "title":'Mavic 5 Blue',
         "Original_Price":'USD$900',
         "src5":['../../public/images/shop/body_01_blue_1.png','../../public/images/shop//body_01_blue_2.png','../../public/images/shop/body_01_blue_3.png'],
         "new":false,
@@ -81,7 +81,7 @@ const products = reactive([
     {
         "id" : 6,
         "name" : 'p6', 
-        "title":'EFVP Charles 1 Red',
+        "title":'Charles 1 Red',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src6":['../../public/images/shop/body_02_red_1.png','../../public/images/shop//body_02_red_2.png','../../public/images/shop/body_02_red_3.png'],
@@ -91,7 +91,7 @@ const products = reactive([
     {
         "id" : 7,
         "name" : 'p7', 
-        "title":'EFVP Charles 2 White',
+        "title":'Charles 2 White',
         "Original_Price":'USD$900',
         "src7": 
         ['../../public/images/shop/body_02_white_1.png','../../public/images/shop//body_02_white_2.png','../../public/images/shop/body_02_white_3.png'],
@@ -101,7 +101,7 @@ const products = reactive([
     {
         "id" : 8,
         "name" : 'p8', 
-        "title":'EFVP Charles 3 Green',
+        "title":'Charles 3 Green',
         "Original_Price":'USD$900',
         "src8":['../../public/images/shop/body_02_green_1.png','../../public/images/shop//body_02_green_2.png','../../public/images/shop/body_02_green_3.png'],
         "new":false,
@@ -110,7 +110,7 @@ const products = reactive([
     {
         "id" : 9,
         "name" : 'p9', 
-        "title":'EFVP Charles 4 Blue',
+        "title":'Charles 4 Blue',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src9":['../../public/images/shop/body_02_blue_1.png','../../public/images/shop//body_02_blue_2.png','../../public/images/shop/body_02_blue_3.png'],
@@ -120,7 +120,7 @@ const products = reactive([
     {
         "id" : 10,
         "name" : 'p10', 
-        "title":'EFVP Charles 5 Black',
+        "title":'Charles 5 Black',
         "Original_Price":'USD$900',
         "src10":['../../public/images/shop/body_02_black_1.png','../../public/images/shop//body_02_black_2.png','../../public/images/shop/body_02_black_3.png'],
         "new":false,
@@ -129,7 +129,7 @@ const products = reactive([
     {
         "id" : 11,
         "name" : 'p11', 
-        "title":'EFVP chacha 1 Red',
+        "title":'Chacha 1 Red',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src11":['../../public/images/shop/body_03_red_1.png','../../public/images/shop//body_03_red_2.png','../../public/images/shop/body_03_red_3.png'],
@@ -139,7 +139,7 @@ const products = reactive([
     {
         "id" : 12,
         "name" : 'p12', 
-        "title":'EFVP chacha 2 White',
+        "title":'Chacha 2 White',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src12":['../../public/images/shop/body_03_white_1.png','../../public/images/shop//body_03_white_2.png','../../public/images/shop/body_03_white_3.png'],
@@ -149,7 +149,7 @@ const products = reactive([
     {
         "id" : 13,
         "name" : 'p13', 
-        "title":'EFVP chacha 3 Black',
+        "title":'Chacha 3 Black',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src13":['../../public/images/shop/body_03_black_1.png','../../public/images/shop//body_03_black_2.png','../../public/images/shop/body_03_black_3.png'],
@@ -159,7 +159,7 @@ const products = reactive([
     {
         "id" : 14,
         "name" : 'p14', 
-        "title":'EFVP chacha 4 Blue',
+        "title":'Chacha 4 Blue',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src14":['../../public/images/shop/body_03_blue_1.png','../../public/images/shop//body_03_blue_2.png','../../public/images/shop/body_03_blue_3.png'],
@@ -171,7 +171,7 @@ const accessories = reactive([
     {
         "id" : 1,
         "name" : 'a1', 
-        "title":'EFVP round propeller black',
+        "title":'Round propeller black',
         "Original_Price":'USD$300',
         "src1":['../../public/images/shop/propellor_01_black_1.png','../../public/images/shop/propellor_01_black_2.png'],
         "new":true
@@ -179,7 +179,7 @@ const accessories = reactive([
     {
         "id" : 2,
         "name" : 'a2', 
-        "title":'EFVP round propeller blue',
+        "title":'Round propeller blue',
         "Original_Price":'USD$300',
         "Discount_Price":'USD$200',
         "src2":['../../public/images/shop/propellor_01_blue_1.png','../../public/images/shop/propellor_01_blue_2.png'],
@@ -188,7 +188,7 @@ const accessories = reactive([
     {
         "id" : 3,
         "name" : 'a3', 
-        "title":'EFVP round propeller green',
+        "title":'Round propeller green',
         "Original_Price":'USD$300',
         "Discount_Price":'USD$200',
         "src3":['../../public/images/shop/propellor_01_green_1.png','../../public/images/shop/propellor_01_green_2.png'],
@@ -197,7 +197,7 @@ const accessories = reactive([
     {
         "id" : 4,
         "name" : 'a4', 
-        "title":'EFVP round propeller red',
+        "title":'Round propeller red',
         "Original_Price":'USD$300',
         "src4":['../../public/images/shop/propellor_01_red_1.png','../../public/images/shop/propellor_01_red_2.png',],
         "new":true
@@ -205,7 +205,7 @@ const accessories = reactive([
     {
         "id" : 5,
         "name" : 'a5', 
-        "title":'EFVP round propeller white',
+        "title":'Round propeller white',
         "Original_Price":'USD$300',
         "src5":['../../public/images/shop/propellor_01_white_1.png','../../public/images/shop/propellor_01_white_2.png',],
         "new":true
@@ -214,7 +214,7 @@ const accessories = reactive([
     {
         "id" : 6,
         "name" : 'a6', 
-        "title":'EFVP rect propeller black',
+        "title":'Rect propeller black',
         "Original_Price":'USD$300',
         "src6":['../../public/images/shop/propellor_02_black_1.png','../../public/images/shop/propellor_02_black_2.png'],
         "new":true
@@ -222,7 +222,7 @@ const accessories = reactive([
     {
         "id" : 7,
         "name" : 'a2', 
-        "title":'EFVP rect propeller blue',
+        "title":'Rect propeller blue',
         "Original_Price":'USD$300',
         "Discount_Price":'USD$200',
         "src7":['../../public/images/shop/propellor_02_blue_1.png','../../public/images/shop/propellor_02_blue_2.png'],
@@ -231,7 +231,7 @@ const accessories = reactive([
     {
         "id" : 8,
         "name" : 'a8', 
-        "title":'EFVP rect propeller green',
+        "title":'Rect propeller green',
         "Original_Price":'USD$300',
         "Discount_Price":'USD$200',
         "src8":['../../public/images/shop/propellor_02_green_1.png','../../public/images/shop/propellor_02_green_2.png'],
@@ -240,7 +240,7 @@ const accessories = reactive([
     {
         "id" : 9,
         "name" : 'a9', 
-        "title":'EFVP rect propeller red',
+        "title":'Rect propeller red',
         "Original_Price":'USD$300',
         "src9":['../../public/images/shop/propellor_02_red_1.png','../../public/images/shop/propellor_02_red_2.png',],
         "new":true
@@ -248,7 +248,7 @@ const accessories = reactive([
     {
         "id" : 10,
         "name" : 'a10', 
-        "title":'EFVP rect propeller white',
+        "title":'Rect propeller white',
         "Original_Price":'USD$300',
         "src10":['../../public/images/shop/propellor_02_white_1.png','../../public/images/shop/propellor_02_white_2.png'],
         "new":true
@@ -257,7 +257,7 @@ const accessories = reactive([
     {
         "id" : 11,
         "name" : 'a11', 
-        "title":'EFVP tri propeller black',
+        "title":'Tri propeller black',
         "Original_Price":'USD$300',
         "src11":['../../public/images/shop/propellor_03_black_1.png','../../public/images/shop/propellor_03_black_2.png'],
         "new":true
@@ -265,7 +265,7 @@ const accessories = reactive([
     {
         "id" : 12,
         "name" : 'a12', 
-        "title":'EFVP tri propeller blue',
+        "title":'Tri propeller blue',
         "Original_Price":'USD$300',
         "Discount_Price":'USD$200',
         "src12":['../../public/images/shop/propellor_03_blue_1.png','../../public/images/shop/propellor_03_blue_2.png'],
@@ -274,7 +274,7 @@ const accessories = reactive([
     {
         "id" : 13,
         "name" : 'a13', 
-        "title":'EFVP tri propeller green',
+        "title":'Tri propeller green',
         "Original_Price":'USD$300',
         "Discount_Price":'USD$200',
         "src13":['../../public/images/shop/propellor_03_green_1.png','../../public/images/shop/propellor_03_green_2.png'],
@@ -283,7 +283,7 @@ const accessories = reactive([
     {
         "id" : 14,
         "name" : 'a14', 
-        "title":'EFVP tri propeller red',
+        "title":'Tri propeller red',
         "Original_Price":'USD$300',
         "src14":['../../public/images/shop/propellor_03_red_1.png','../../public/images/shop/propellor_03_red_2.png'],
         "new":true
@@ -292,25 +292,25 @@ const accessories = reactive([
 const bundle_A = reactive([
     {
         "name" : 'A1', 
-        "title":'EFVP bundle simple',
+        "title":'Simple Bundle',
         "price":'USD$1200',
         "src":'/images/shop/bundle_01.png'
     },
     {
         "name" : 'A2', 
-        "title":'EFVP bundle simple',
+        "title":'Simple Bundle',
         "price":'USD$1200',
         "src":'/images/shop/bundle_01.png',
     },
     {
         "name" : 'A3', 
-        "title":'EFVP bundle simple',
+        "title":'Simple Bundle',
         "price":'USD$1200',
         "src":'/images/shop/bundle_01.png',
     },
     {
         "name" : 'A4', 
-        "title":'EFVP bundle simple',
+        "title":'Simple Bundle',
         "price":'USD$1200',
         "src":'/images/shop/bundle_01.png'
     },
@@ -319,32 +319,39 @@ const bundle_A = reactive([
 const bundle_B = reactive([
     {
         "name" : 'b1', 
-        "title":'EFVP bundle pro',
+        "title":'Pro Bundle',
         "price":'USD$1400',
         "src":'../../public/images/shop/bundle_02.jpg'
     },
     {
         "name" : 'b2', 
-        "title":'EFVP bundle pro',
+        "title":'Pro Bundle',
         "price":'USD$1400',
         "src":'../../public/images/shop/bundle_02.jpg'
     },
     {
         "name" : 'b3', 
-        "title":'EFVP bundle pro',
+        "title":'Pro Bundle',
         "price":'USD$1400',
         "src":'../../public/images/shop/bundle_02.jpg'
     },
     {
         "name" : 'b4', 
-        "title":'EFVP bundle pro',
+        "title":'Pro Bundle',
         "price":'USD$1400',
         "src":'../../public/images/shop/bundle_02.jpg'
     },
 
 ])
-onMounted(()=>{
-})
+
+const search = ref('');
+const array = ref([])
+
+const product = computed(()=>{
+        if(search.value !=''){
+            array.value = array.value.filter(item => item.title.includes(search.value))
+        }
+    })
 // switch bundle_A / bundle_B
 const  view = ref(1);
 const  viewChange = (index) => {
@@ -411,7 +418,7 @@ $(document).ready(()=>{
 </script>
 
 <template>
-    <navComponentsVue />
+    <navComponentsVue :shop="`#077AF9`"/>
      <!-- banner start-->
     <section class="banner">
         <h2>
@@ -472,7 +479,7 @@ $(document).ready(()=>{
         <p>Select All FUSRLAGE Product You favoraite</p>
         <div class="search_box">
             <label for="search"></label>
-            <input type="text" name="search" placeholder="search" id="search">
+            <input type="text" name="search" placeholder="search" id="search" v-model="search" @input="product">
             <button type="submit" value="submit">Go</button>
         </div>
         <div class="card_slider">
