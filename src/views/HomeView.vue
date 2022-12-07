@@ -47,9 +47,9 @@ const isOpen = ref(true)
         <h2>Mavic 2 Zoom</h2>
         <p>24~28 mm Optical Zoom Camers Ulitimate Flexibility</p>
         <div class="home1-btn">
-            <router-link to="/shopInfo" class="btnFirst" id="btn1" data-title="Learn">
+            <router-link to="/showcase" class="btnFirst" id="btn1" data-title="Learn">
             <span>Learn</span></router-link>
-            <router-link to="/showcase" class="btnSecond" id="btn2" data-title="Buy now">
+            <router-link to="/shopInfo" class="btnSecond" id="btn2" data-title="Buy now">
             <span>Buy now</span></router-link>
         </div>
         <div id="scene">
