@@ -70,7 +70,7 @@ const btnLeft = () => {
   <div class="main">
     <!-- 商品大圖 -->
     <div id="mainPic">
-      <img :src="`src/assets/images/shopInfo/body_03_${count}.png`" />
+      <img :src="`/src/assets/images/shopInfo/body_03_${count}.png`" />
       <div class="button" id="left" @click="btnLeft">&lt;</div>
       <div class="button" id="right" @click="btnRight">&gt;</div>
     </div>
@@ -109,25 +109,25 @@ const btnLeft = () => {
     <div class="colorSwitch">
       <div class="colorSwitch_photo">
         <div class="color_img">
-          <img src="src/assets/images/shopInfo/body_03_2.png" alt="color" />
+          <img src="/src/assets/images/shopInfo/body_03_2.png" alt="color" />
         </div>
 
         <div class="color_img">
           <img
-            src="src/assets/images/shopInfo/body_03_blue_2.png"
+            src="/src/assets/images/shopInfo/body_03_blue_2.png"
             alt="color"
           />
         </div>
 
         <div class="color_img">
           <img
-            src="src/assets/images/shopInfo/body_03_white_2.png"
+            src="/src/assets/images/shopInfo/body_03_white_2.png"
             alt="color"
           />
         </div>
 
         <div class="color_img">
-          <img src="src/assets/images/shopInfo/body_03_red_2.png" alt="color" />
+          <img src="/src/assets/images/shopInfo/body_03_red_2.png" alt="color" />
         </div>
       </div>
       <div class="colorSwitch_word">
@@ -141,7 +141,7 @@ const btnLeft = () => {
     </div>
 
     <div class="battery">
-      <img src="src/assets/images/shopInfo/battery.jpg" alt="battery" />
+      <img src="/src/assets/images/shopInfo/battery.jpg" alt="battery" />
       <h4>46-Min Extended Flight Time</h4>
       <p>
         Increasing flight time by almost 50% compared to Mavic 2 Pro, Mavic 3
@@ -150,7 +150,7 @@ const btnLeft = () => {
     </div>
 
     <div class="far">
-      <img src="src/assets/images/shopInfo/far.jpg" alt="far" />
+      <img src="/src/assets/images/shopInfo/far.jpg" alt="far" />
       <h4>O3+ Transmission, 15km Range</h4>
       <p>
         With a transmission distance of up to 15 km, fly farther and more stably
@@ -159,7 +159,7 @@ const btnLeft = () => {
     </div>
 
     <div class="accessories">
-      <img src="src/assets/images/shopInfo/accessories.jpg" alt="accessories" />
+      <img src="/src/assets/images/shopInfo/accessories.jpg" alt="accessories" />
       <h4>Extensive Accessories</h4>
       <p>
         DJI RC features a built-in 5.5-inch HD display for clear viewing in
@@ -169,7 +169,7 @@ const btnLeft = () => {
     </div>
 
     <div class="sensing">
-      <img src="src/assets/images/shopInfo/sensing.jpg" alt="sensing" />
+      <img src="/src/assets/images/shopInfo/sensing.jpg" alt="sensing" />
       <h4>Omnidirectional Sensing</h4>
       <p>
         Mavic 3 Classic continually senses objects in all directions and
@@ -184,7 +184,7 @@ const btnLeft = () => {
     <div class="cardRow">
       <div class="card">
         <div class="cardPic">
-          <img src="src/assets/images/shopInfo/controller.png" alt="" />
+          <img src="/src/assets/images/shopInfo/controller.png" alt="" />
         </div>
         <div class="cardInfo">
           <h5>EFVP Mavic 5</h5>
@@ -201,7 +201,7 @@ const btnLeft = () => {
     <div class="cardRow">
       <div class="card">
         <div class="cardPic">
-          <img src="src/assets/images/shopInfo/controller.png" alt="" />
+          <img src="/src/assets/images/shopInfo/controller.png" alt="" />
         </div>
         <div class="cardInfo">
           <h5>EFVP Mavic 3</h5>
@@ -218,7 +218,7 @@ const btnLeft = () => {
     <div class="cardRow">
       <div class="card">
         <div class="cardPic">
-          <img src="src/assets/images/shopInfo/controller.png" alt="" />
+          <img src="/src/assets/images/shopInfo/controller.png" alt="" />
         </div>
         <div class="cardInfo">
           <h5>EFVP Mavic 2</h5>
