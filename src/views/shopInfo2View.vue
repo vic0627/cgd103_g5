@@ -816,7 +816,7 @@ h2 {
         margin: 40px 40px 0;
       }
       p {
-        top: 110px;
+        top: 70px;
         margin: 40px;
       }
       img {
