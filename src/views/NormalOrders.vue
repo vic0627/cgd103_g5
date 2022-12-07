@@ -137,6 +137,9 @@ const sidenav = ref({
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
+header{
+    top: 0;
+}
 table{
     text-align: center;
     width: 100%;
@@ -215,7 +218,8 @@ input{
                 width: 500px;
                 aspect-ratio: 16/9;
                 // background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
-                background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
+                // background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
+                background: linear-gradient(-200deg, #E6BA79 0.51%, rgba(173, 99, 12, 0.83) 98.54%);
                 border-radius: 10px;
             }
             .memgrade{

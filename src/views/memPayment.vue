@@ -14,35 +14,15 @@ onMounted(()=> {
         // $(this).toggleClass('rmminus');
     });
 
-
-
-    // on page load...
-    moveProgressBar();
-    // on browser resize...
-    $(window).resize(function() {
-        moveProgressBar();
-    });
-
-
-    // SIGNATURE PROGRESS
-    function moveProgressBar() {
-      console.log("moveProgressBar");
-        var getPercent = ($('.progress-wrap').data('progress-percent') / 100);
-        var getProgressWrapWidth = $('.progress-wrap').width();
-        var progressTotal = getPercent * getProgressWrapWidth;
-        var animationLength = 1500;
-        
-        // on page load, animate percentage bar to data percentage length
-        // .stop() used to prevent animation queueing
-        $('.progress-bar').stop().animate({
-            left: progressTotal
-        }, animationLength);
-    }
-
-
-
-
+    $('.btn').click(()=>{
+        $('#img').attr('src','src/assets/images/Signin/creditCard.png');
+    })
+    $('.btn2').click(()=>{
+        $('#img').attr('src','src/assets/images/Signin/empty_creditCard.png');
+    })
+   
 })
+
 
 
 //address
@@ -119,93 +99,48 @@ watch(() => state.frameworksIdx, (value) =>{
 });
 
 
-
-const sidenav = ref({
-    account :{
-        title : "Account",
-        list : {
-          a:{
-            cn :"Profile Overview",
-            path : "/profile",
-          }},
-        
-    },
-    order :{
-        title : "Orders",
-        list : {
-          a:{
-            cn :"Normal Orders",
-            path : "/NormalOrders",
-          },
-          b:{
-            cn :"Customized Orders",
-            path : "/CustomizedOrders",
-          },
-        },
-        
-    },
-    racing :{
-        title : "Racing",
-        list : {
-          a:{
-            cn :"My Racing",
-            path : "/home",
-          }},
-        
-    },
-    person :{
-        title : "Personal Setting",
-        list : {
-          a:{
-            cn :"Payment",
-            path : "/payment",
-          }},
-        
-    },
-});
-
-const percent = ref(70);
 </script>
 
 <template>
     <!-- <headerComponentsVue /> -->
-    <navComponentsVue />
+    <!-- <navComponentsVue /> -->
 
     <div class="main">
-        <nav class="sidenav" >
-            <li class="List-item" v-for="item in sidenav" :key="item">
-                <a href="">{{item.title}}</a>
+        <nav class="sidenav">
+            <li class="List-item">
+                <a href="">Account</a>
                 <ul class="subitem">
-                    <li class=""  v-for="i in item.list" :key="i" ><router-link :to="i.path">{{i.cn}}</router-link></li>
+                    <li class="">Profile Overview</li>
+                </ul>
+            </li>
+            <li class="List-item">
+                <a href="">Orders</a>
+                <ul class="subitem">
+                    <li class="">Normal Orders</li>
+                    <li class="">Customized Orders</li>
+                </ul>
+            </li>
+            <li class="List-item">
+                <a href="">Racing</a>
+                <ul class="subitem">
+                    <li class="">My Racing</li>
+                </ul>
+            </li>
+            <li class="List-item">
+                <a href="">Personal Setting</a>
+                <ul class="subitem">
+                    <li class="">Payment</li>
                 </ul>
             </li>
         </nav>
         <div class="maincontent">
             <section class="maininfo">
                 <div class="meminfo">
-                    <div class="circle"></div>
-                    <div class="memcard">
-                        <p>SEVAGOTH PRIME</p>
-                        <p class="p2">mesaprime@gmail.com</p>
-                    </div>
+                    <div class="memhead"></div>
                 </div>
-                <div class="memgrade">
-                    <div class="level"><span>TOP LEVEL</span></div>
-                    <p>Bronze Member</p>
-                    <p>Member Discount : All products 5%Off</p>
-                    <!-- <input type="text" class="pgg" v-model="percent"> -->
-                    <div class="pb">
-                        <div class="progress-wrap progress" :data-progress-percent="percent">
-                            <div class="progress-bar progress"></div>
-                        </div>
-                        <div class="showper">
-                            {{percent}}%
-                        </div>
-                        
-                    </div>
-                </div>
+                <div class="memgrade">123</div>
             </section>
-            <section class="profiles-list">
+            <!-- <section class="profiles-list">
                 <h1>Profile Overview</h1>
                 <form class="tab_panel">
                     <label for="username">Email Address</label>
@@ -238,10 +173,6 @@ const percent = ref(70);
                     <span class=""></span>
 
                     <label for="address">Address</label>
-                    <!-- <select name="city" id="" class="input-s">
-                        <option>CHOOSE YOUR LOCATION</option>
-                        <option :value="i" v-for="i in city" :key="i">{{i}}</option>
-                    </select> -->
                     <div class="selcon">
                         <select v-model="state.frameworksIdx" class="input-s">
                             <option v-for="(item, index) in state.frameworks" :value="index">
@@ -262,7 +193,24 @@ const percent = ref(70);
                         <button type="">Cancel</button>
                     </div>
                 </form>
+            </section> -->
+            <section class="payment">
+                <h2>Payment</h2>
+                <p>Note: New payment methods can only be added during checkout due to verification requirements.</p>
+                <div class="creditCardBox">
+                    <div class="cardImg">
+                        <img  id="img" src="../assets/images/Signin/empty_creditCard.png" alt="creditCard">
+                    </div>
+                    <div class="cardInfo">
+                        <label for="card_no">Card Number</label>
+                        <input type="number">
+                        <p>請輸入16碼</p>
+                        <button class="btn">Add New Card</button>
+                        <button class="btn2">redo</button>
+                    </div>
+                </div>
             </section>
+       
         </div>
     </div>
     <footerComponentsVue />
@@ -277,9 +225,6 @@ $text-color:#fff;
 $link-color:#7abcff;
 $btn-color:#007FFB;
 $bg-color:rgb(54, 54, 54);
-header{
-    top: 0;
-}
 section{
     margin: 0;
 }
@@ -314,22 +259,13 @@ input{
         padding: 20px;
         border-radius: 10px;
         .List-item{
-            padding: 5px 15px;
+            padding: 10px;
             a{
                 font-size: 15px;
             }
             .subitem{
+                // display: none;
                 padding: 10px 0 10px 20px;
-                li{
-                  margin: 10px 0;
-                  a{
-                    font-size: 20px;
-                    color: rgb(90, 131, 255);
-                    &:hover{
-                      color: rgb(255, 162, 0);
-                    }
-                  }
-                }
             }
         }
     }
@@ -341,139 +277,113 @@ input{
             // gap: 10px;
             display: block;
             .meminfo{
-                display: flex;
                 flex-grow: 1.5;
                 aspect-ratio: 16/9;
                 // background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
-                // background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
-                background: linear-gradient(-200deg, #E6BA79 0.51%, rgba(173, 99, 12, 0.83) 98.54%);
+                background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
                 border-radius: 10px;
-                .circle{
-                    aspect-ratio: 1/1;
-                    position: relative;
-                    top: 50px;
-                    left: 15px;
-                    border-radius: 50%;
-                    width: 150px;
-                    height: 150px;
-                    background-color: rgb(164, 164, 164);
-                    // outline: 5px solid #6723C7 ;
-                    border: 5px solid  #4591D8;
-                }
-                .memcard{
-                    flex-grow: 1;
-                    p{
-                        // display: block;
-                        margin: 80px 30px 0;
-                        color: rgb(33, 33, 33);
-                        font-size: 30px;
-                        font-weight: 800;
-                    }
-                    .p2{
-                        margin-top: 10px;
-                        font-size: 20px;
-                    }
-                }
             }
             .memgrade{
                 flex-grow: 1;
                 height: auto;
                 background-color: #616574;
                 border-radius: 10px;
-                p{
-                    padding: 10px;
-                }
-                .level{
-                    padding: 10px;
-                }
-                .pb{
-                    padding: 20px;
-                    .progress {
-                        // box-sizing: border-box;
-                        border-radius: 20px;
-                        width: 100%;
-                        height: 20px;
-                    }
-                    .progress-wrap {
-                        border: 2px solid rgb(0, 31, 85);
-                        background: linear-gradient(270deg, #473421 10%, #EDC793 90%);
-                        margin: 20px 0;
-                        overflow: hidden;
-                        position: relative;
-                        .progress-bar {
-                            border-radius: 0;
-                            background: #ddd;
-                            left: 0;
-                            position: absolute;
-                            top: 0;
-                        }
-                    }
-                    .showper{
-                        text-align: right;
-                    }
-
-                }
             }
         }
-        .profiles-list{
+        // .profiles-list{
+        //     width: 100%;
+        //     // height: 500px;
+        //     margin:10px 0;
+        //     background-color: #333;
+        //     padding: 20px;
+        //     box-sizing: border-box;
+        //     border-radius: 10px;
+        //     .tab_panel{
+        //                 label{
+        //                     display: block;
+        //                     margin-top: 24px;
+        //                 }
+        //                 .action{
+        //                     display: flex;
+        //                     gap: 100px;
+        //                     padding-top: 32px;
+        //                     button{
+        //                         width: 100%;
+        //                         height: 48px;
+        //                         border-radius: 10px;
+        //                         font-size: 16px;
+        //                         color: $text-color;
+        //                         background-color: $btn-color;
+        //                     }
+        //                     p{
+        //                         display: block;
+        //                         font-size: 12px;
+        //                         color: $text-color;
+        //                         margin: 8px 0 24px 0;
+        //                         text-align: center;
+        //                         a{
+        //                             color: $link-color;
+        //                             font-size: 12px;
+        //                             display: inline;
+        //                         }
+        //                     }
+        //                 }
+        //                 span{
+        //                     font-size: 12px;
+        //                     color: $text-color;
+        //                 }
+        //                 .username{
+        //                     display: flex;
+        //                     gap: 10px;
+        //                 }
+        //                 .gender{
+        //                     display: flex;
+        //                     gap: 10px;
+        //                     label{
+        //                         margin: 20px 20px 20px 0;
+        //                         font-size: 20px;
+        //                     }
+        //                 }
+        //                 .selcon{
+        //                     display: flex;
+        //                     gap: 10px;
+        //                 }
+        //         }
+        // }
+        .creditCardBox{
             width: 100%;
-            // height: 500px;
-            margin:10px 0;
-            background-color: #333;
-            padding: 20px;
-            box-sizing: border-box;
-            border-radius: 10px;
-            .tab_panel{
-                        label{
-                            display: block;
-                            margin-top: 24px;
-                        }
-                        .action{
-                            display: flex;
-                            gap: 100px;
-                            padding-top: 32px;
-                            button{
-                                width: 100%;
-                                height: 48px;
-                                border-radius: 10px;
-                                font-size: 16px;
-                                color: $text-color;
-                                background-color: $btn-color;
-                            }
-                            p{
-                                display: block;
-                                font-size: 12px;
-                                color: $text-color;
-                                margin: 8px 0 24px 0;
-                                text-align: center;
-                                a{
-                                    color: $link-color;
-                                    font-size: 12px;
-                                    display: inline;
-                                }
-                            }
-                        }
-                        span{
-                            font-size: 12px;
-                            color: $text-color;
-                        }
-                        .username{
-                            display: flex;
-                            gap: 10px;
-                        }
-                        .gender{
-                            display: flex;
-                            gap: 10px;
-                            label{
-                                margin: 20px 20px 20px 0;
-                                font-size: 20px;
-                            }
-                        }
-                        .selcon{
-                            display: flex;
-                            gap: 10px;
-                        }
+            
+            @include m($m-breakpoint){
+                display: flex;
+                align-items: flex-start;
+            }
+            .cardImg{
+                img{
+                    // width: 100%;
                 }
+            }
+            .cardInfo{
+                margin: 20px;
+                font:$caption-h3;
+                label{
+                   font-size: 30px;
+                }
+                input{
+                    width: 300px;
+                    height: 30px;
+                    border-radius: 10px;
+                }
+                button{
+                    width: 300px;
+                    height: 30px;
+                    font:$caption-p;
+                    background-color: $blue;
+                    color: #fff;
+                    border-radius: 10px;
+                    border:none;
+                }
+            }
+
         }
     }
 }
