@@ -1,27 +1,5 @@
-<script>
-import { onMounted, registerRuntimeCompiler, reactive } from "vue";
-import navComponentsVue from "@/components/navComponents.vue";
-import {bodyInit} from '../composables/useOnunmounted';
-bodyInit();
-
-// import {useMotion} from '@vueuse/motion';
-
-export default {
-  data: () => ({
-    activeTab: "tab-1",
-  }),
-  methods: {
-    setActiver(tab) {
-      this.activeTab = tab;
-    },
-    isActive(tab) {
-      return this.activeTab === tab;
-    },
-  },
-};
-</script>
 <script setup>
-import newsComponentsVue from "@/components/newsComponents.vue";
+import newsComponentsVue from "../components/newsComponents.vue"
 import {bodyInit} from '../composables/useOnunmounted';
 bodyInit();
 </script>
@@ -30,7 +8,7 @@ bodyInit();
 
 <template>
   <!-- 01 banner start -->
-  <navComponentsVue class="newsheader" />
+  <nav-component :news="`#077AF9`" />
   <div class="news">
     <div class="news_banner_box">
       <div class="banner">
