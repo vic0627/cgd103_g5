@@ -1,24 +1,15 @@
-<script>
-import { onMounted, registerRuntimeCompiler, reactive,ref } from "vue";
-import {bodyInit} from '../composables/useOnunmounted';
-bodyInit();
-</script>
 <script setup>
 import { onMounted, registerRuntimeCompiler, reactive,ref } from "vue";
-import navComponentsVue from "@/components/navComponents.vue";
+
 import newsComponentsVue from "@/components/newsComponents.vue";
-
-
-onMounted(()=> {
- 
-});
-
-      
+import {bodyInit} from '../composables/useOnunmounted';
+bodyInit();
 </script>
 
 <template>
   <!-- 01 banner start -->
-  <navComponentsVue :news="`#077AF9`"/>
+  <nav-component/>
+  <nav-component :news="`#077AF9`"/>
   <div class="news">
     <div class="news_banner_box">
       <div class="banner">
