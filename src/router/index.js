@@ -113,8 +113,13 @@ const router = createRouter({
       name: "cart",
       component: () => import("../views/cartView.vue"),
     },
+    {
+      path: "/racing",
+      name: "racing",
+      component: () => import("../views/racing.vue"),
+    },
   ],
 });
 
 export default router;
-``
+``;
