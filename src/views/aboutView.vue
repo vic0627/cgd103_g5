@@ -68,7 +68,7 @@ export default{
         Plans for cutting rugby’s Gallagher Premiership to 10 teams are gathering pace amid the financial crisis in the game.Wasps withdrew from their weekend fixture against Exeter and have said they are likely to go into administration in the next few days. It follows on from Worcester being wound up amid their own financial meltdown. 
       </p>
       <p>
-        With increasing worries that others could follow suit, talks are taking place about cutting the Premiership to 10 teams from 13. Such action would entail a professional second division of 10. 
+        With increasing worries that others could follow suit, talks are taking place about cutting the Premiership to 10 teams from 13. Such action would entail a professional second division of 10. Cheers from supporters erupted across the dance floor when Raphael Warnock was predicted to be re-elected as Senator.Now the stage is packed with supporters dancing with their arms around each other as the crowd awaits Senator Warnock's speech.
       </p>
     </div>
     <div class="imgbox" data-aos="fade-up" data-aos-duration="3000" data-aos-easing="ease-in-sine">
@@ -85,7 +85,8 @@ export default{
         This is why it’s important your core values are embraced at every level, not just by the executive team. Purpose doesn't just improve employee satisfaction — it also increases your bottom line and builds trust with customers.
       </p>
       <p>
-        Whether you work for a new company in need of core-value inspiration, or an older company in need of a value revamp, you're in luck — below, we've cultivated a list of some of the best company values. Additionally, we'll examine how some companies truly honor their values.
+        Whether you work for a new company in need of core-value inspiration, or an older company in need of a value revamp, you're in luck — below, we've cultivated a list of some of the best company values. Additionally, we'll examine how some companies truly honor their values.Cheers from supporters erupted across the dance floor when Raphael Warnock was predicted to be re-elected as Senator.Now the stage is packed with supporters dancing with their arms around each other as the crowd awaits Senator Warnock's speech.
+
       </p>
     </div>
   </section>
@@ -215,7 +216,7 @@ body{
     height: 120px;
     bottom: 0;
     left: 0;
-    background: linear-gradient(transparent,#1c1c1c);
+    background: linear-gradient(transparent,#12181E);
   }
   .top_video {
     position: relative;
@@ -236,7 +237,7 @@ body{
       left: 50%;
       text-align: center;
       opacity: 0;
-      animation: word_bg 10s forwards;
+      animation: word_bg 1s forwards;
       backdrop-filter: blur(1px);
       background-color: rgba(0, 0, 0, 0.3);
       span {
@@ -247,31 +248,31 @@ body{
         text-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
         position: relative;
         transform: translateY(-100vh);
-        animation: word 3.5s forwards;
+        animation: word 3s forwards;
         &:nth-child(2) {
-          animation-delay: 0.2s;
+          animation-delay: 0.1s;
         }
         &:nth-child(3) {
-          animation-delay: 0.9s;
+          animation-delay: 0.2s;
         }
         &:nth-child(4) {
-          animation-delay: 1.6s;
+          animation-delay: 0.3s;
         }
         &:nth-child(5) {
-          animation-delay: 2.3s;
+          animation-delay: 0.4s;
         }
         &:nth-child(6) {
-          animation-delay: 3s;
+          animation-delay: 0.5s;
         }
         &:nth-child(7) {
-          animation-delay: 3.7s;
+          animation-delay: 0.6s;
         }
       }
       p {
         color: #fff;
         display: inline-block;
         position: relative;
-        animation: small_word 4s 4.4s forwards;
+        animation: small_word 4s 0.5s forwards;
         opacity: 0;
       }
     }

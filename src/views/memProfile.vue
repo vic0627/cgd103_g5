@@ -14,6 +14,34 @@ onMounted(()=> {
         // $(this).toggleClass('rmminus');
     });
 
+
+
+    // on page load...
+    moveProgressBar();
+    // on browser resize...
+    $(window).resize(function() {
+        moveProgressBar();
+    });
+
+
+    // SIGNATURE PROGRESS
+    function moveProgressBar() {
+      console.log("moveProgressBar");
+        var getPercent = ($('.progress-wrap').data('progress-percent') / 100);
+        var getProgressWrapWidth = $('.progress-wrap').width();
+        var progressTotal = getPercent * getProgressWrapWidth;
+        var animationLength = 1500;
+        
+        // on page load, animate percentage bar to data percentage length
+        // .stop() used to prevent animation queueing
+        $('.progress-bar').stop().animate({
+            left: progressTotal
+        }, animationLength);
+    }
+
+
+
+
 })
 
 
@@ -91,6 +119,52 @@ watch(() => state.frameworksIdx, (value) =>{
 });
 
 
+
+const sidenav = ref({
+    account :{
+        title : "Account",
+        list : {
+          a:{
+            cn :"Profile Overview",
+            path : "/profile",
+          }},
+        
+    },
+    order :{
+        title : "Orders",
+        list : {
+          a:{
+            cn :"Normal Orders",
+            path : "/NormalOrders",
+          },
+          b:{
+            cn :"Customized Orders",
+            path : "/CustomizedOrders",
+          },
+        },
+        
+    },
+    racing :{
+        title : "Racing",
+        list : {
+          a:{
+            cn :"My Racing",
+            path : "/home",
+          }},
+        
+    },
+    person :{
+        title : "Personal Setting",
+        list : {
+          a:{
+            cn :"Payment",
+            path : "/home",
+          }},
+        
+    },
+});
+
+const percent = ref(70);
 </script>
 
 <template>
@@ -98,39 +172,38 @@ watch(() => state.frameworksIdx, (value) =>{
     <navComponentsVue />
 
     <div class="main">
-        <nav class="sidenav">
-            <li class="List-item">
-                <a href="">Account</a>
+        <nav class="sidenav" >
+            <li class="List-item" v-for="item in sidenav" :key="item">
+                <a href="">{{item.title}}</a>
                 <ul class="subitem">
-                    <li class="">Profile Overview</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Orders</a>
-                <ul class="subitem">
-                    <li class="">Normal Orders</li>
-                    <li class="">Customized Orders</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Racing</a>
-                <ul class="subitem">
-                    <li class="">My Racing</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Personal Setting</a>
-                <ul class="subitem">
-                    <li class="">Payment</li>
+                    <li class=""  v-for="i in item.list" :key="i" ><router-link :to="i.path">{{i.cn}}</router-link></li>
                 </ul>
             </li>
         </nav>
         <div class="maincontent">
             <section class="maininfo">
                 <div class="meminfo">
-                    <div class="memhead"></div>
+                    <div class="circle"></div>
+                    <div class="memcard">
+                        <p>SEVAGOTH PRIME</p>
+                        <p class="p2">mesaprime@gmail.com</p>
+                    </div>
                 </div>
-                <div class="memgrade">123</div>
+                <div class="memgrade">
+                    <div class="level"><span>TOP LEVEL</span></div>
+                    <p>Bronze Member</p>
+                    <p>Member Discount : All products 5%Off</p>
+                    <!-- <input type="text" class="pgg" v-model="percent"> -->
+                    <div class="pb">
+                        <div class="progress-wrap progress" :data-progress-percent="percent">
+                            <div class="progress-bar progress"></div>
+                        </div>
+                        <div class="showper">
+                            {{percent}}%
+                        </div>
+                        
+                    </div>
+                </div>
             </section>
             <section class="profiles-list">
                 <h1>Profile Overview</h1>
@@ -238,13 +311,22 @@ input{
         padding: 20px;
         border-radius: 10px;
         .List-item{
-            padding: 10px;
+            padding: 5px 15px;
             a{
                 font-size: 15px;
             }
             .subitem{
-                // display: none;
                 padding: 10px 0 10px 20px;
+                li{
+                  margin: 10px 0;
+                  a{
+                    font-size: 20px;
+                    color: rgb(90, 131, 255);
+                    &:hover{
+                      color: rgb(255, 162, 0);
+                    }
+                  }
+                }
             }
         }
     }
@@ -256,17 +338,77 @@ input{
             // gap: 10px;
             display: block;
             .meminfo{
+                display: flex;
                 flex-grow: 1.5;
                 aspect-ratio: 16/9;
                 // background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
                 background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
                 border-radius: 10px;
+                .circle{
+                    aspect-ratio: 1/1;
+                    position: relative;
+                    top: 15px;
+                    left: 15px;
+                    border-radius: 50%;
+                    width: 150px;
+                    height: 150px;
+                    background-color: rgb(216, 229, 255);
+                    // outline: 5px solid #6723C7 ;
+                    border: 5px solid  #4591D8;
+                }
+                .memcard{
+                    flex-grow: 1;
+                    p{
+                        // display: block;
+                        margin: 80px 30px 0;
+                        color: rgb(33, 33, 33);
+                        font-size: 30px;
+                        font-weight: 800;
+                    }
+                    .p2{
+                        margin-top: 10px;
+                        font-size: 20px;
+                    }
+                }
             }
             .memgrade{
                 flex-grow: 1;
                 height: auto;
                 background-color: #616574;
                 border-radius: 10px;
+                p{
+                    padding: 10px;
+                }
+                .level{
+                    padding: 10px;
+                }
+                .pb{
+                    padding: 20px;
+                    .progress {
+                        // box-sizing: border-box;
+                        border-radius: 20px;
+                        width: 100%;
+                        height: 20px;
+                    }
+                    .progress-wrap {
+                        border: 2px solid rgb(0, 31, 85);
+                        background: linear-gradient(270deg, #473421 10%, #EDC793 90%);
+                        margin: 20px 0;
+                        overflow: hidden;
+                        position: relative;
+                        .progress-bar {
+                            border-radius: 0;
+                            background: #ddd;
+                            left: 0;
+                            position: absolute;
+                            top: 0;
+                        }
+                    }
+                    .showper{
+                        text-align: right;
+                    }
+
+                }
             }
         }
         .profiles-list{
