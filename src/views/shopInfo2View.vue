@@ -268,7 +268,7 @@ const btnLeft = () => {
   opacity: 0;
   top: 30px;
 
-  animation: downBar 1s 1s forwards;
+  animation: downBar 1s forwards;
 
   p {
     text-align: center;
@@ -338,6 +338,7 @@ const btnLeft = () => {
   @include m($m-breakpoint) {
     flex-direction: row;
     justify-content: center;
+    gap: 7vw;
     &:after {
       display: none;
     }
@@ -375,14 +376,14 @@ const btnLeft = () => {
       img {
         width: 360px;
         height: 360px;
-        margin-left: 160px;
+        margin-left: 130px;
         margin-top: 50px;
       }
       .button {
         top: 170px;
       }
       #left {
-        left: 100px;
+        left: 20px;
       }
       #right {
         left: 560px;
