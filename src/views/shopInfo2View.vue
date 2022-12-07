@@ -188,7 +188,7 @@ const btnLeft = () => {
           <h5>EFVP Mavic 5</h5>
           <span>USD $2,399</span>
           <a class="buttons">
-            <router-link to="/" class="buy" id="btn1" data-title="Buy">
+            <router-link to="/cart" class="buy" id="btn1" data-title="Buy">
               <span>Buy</span>
             </router-link>
           </a>
@@ -205,7 +205,7 @@ const btnLeft = () => {
           <h5>EFVP Mavic 3</h5>
           <span>USD $1,199</span>
           <a class="buttons">
-            <router-link to="/" class="buy" id="btn1" data-title="Buy">
+            <router-link to="/cart" class="buy" id="btn1" data-title="Buy">
               <span>Buy</span>
             </router-link>
           </a>
@@ -222,7 +222,7 @@ const btnLeft = () => {
           <h5>EFVP Mavic 2</h5>
           <span>USD $999</span>
           <a class="buttons">
-            <router-link to="/" class="buy" id="btn1" data-title="Buy">
+            <router-link to="/cart" class="buy" id="btn1" data-title="Buy">
               <span>Buy</span>
             </router-link>
           </a>
@@ -245,7 +245,7 @@ const btnLeft = () => {
 
     <div class="pnp">
       <span> USD $1,599 </span>
-      <router-link class="purchaseBar_btn" id="" to="/" data-title="Buy now"
+      <router-link class="purchaseBar_btn" id="" to="/cart" data-title="Buy now"
         ><span>Buy now</span></router-link
       >
     </div>
@@ -931,9 +931,9 @@ h2 {
           padding-top: 30px;
           width: 170px;
           height: 100px;
-          img {
-            animation: breath 10s linear infinite;
-          }
+        }
+        img {
+          animation: breath 10s linear infinite;
         }
       }
       .card {
