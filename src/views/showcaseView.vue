@@ -466,7 +466,7 @@ const scrollList = (e, delay = 0, dur = .1) => {
     }else{
         xrwd = xxx;
     }
-    if(Math.cos(($$('.specOl').scrollTop - (delay * $$('.specOl').offsetHeight)) / $$('.specOl').offsetHeight * Math.PI)<0){
+    if(zzz<0){
         $$(e).style['z-index'] = '-1';
         log($$(e).firstChild)
         $$(e).firstChild.style.filter = `blur(2px) grayscale(80%)`;
@@ -483,7 +483,7 @@ const scrollList = (e, delay = 0, dur = .1) => {
         }) */
     }
     gsap.to(e, {
-        top: 50*($$('.specOl').scrollTop / 977)+'%',
+        top: 50*($$('.specOl').scrollTop / $$('.specOl').offsetHeight)+'%',
         rotateX: xrwd*10,
         rotateY: 180*(os / 977),
         rotateZ: -zzz*10,
