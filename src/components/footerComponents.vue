@@ -4,7 +4,7 @@ import { ref, onMounted, reactive } from 'vue';
 const mainMenu = reactive([
     {
         "id": "shop",
-        "name": "DRONES",
+        "name": "STORE",
     },
     {
         "id": "custom",
@@ -87,6 +87,9 @@ footer {
             margin: 30px 20px 10px;
             img {
                 width: 80%;
+                @include s($s-breakpoint){
+                    width: 50%;
+                }
             }
         }
     }
@@ -131,7 +134,7 @@ footer {
         }
     }
     .foot-item {
-        width: 33.3333%;
+        width: 120px;
         display: flex;
         flex-direction: column;
         align-items: center;

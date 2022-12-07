@@ -11,7 +11,7 @@ import slider from '@/components/homeNews.vue';
 bodyInit();
 onMounted(() => {
   const scene = document.getElementById("scene");
-  // 第二個參數加入配置对象
+  // 第二个参数传入配置对象
   const parallaxInstance = new Parallax(scene, {
     relativeInput: true,
   });
@@ -41,15 +41,15 @@ const isOpen = ref(true)
 </script>
 
 <template>
-    <navComponentsVue />
+    <navComponentsVue :className="blue"/>
 
     <div class="home1">
         <h2>Mavic 2 Zoom</h2>
         <p>24~28 mm Optical Zoom Camers Ulitimate Flexibility</p>
         <div class="home1-btn">
-            <router-link to="/shopcase" class="btnFirst" id="btn1" data-title="Learn">
+            <router-link to="/shopInfo" class="btnFirst" id="btn1" data-title="Learn">
             <span>Learn</span></router-link>
-            <router-link to="/shopInfo" class="btnSecond" id="btn2" data-title="Buy now">
+            <router-link to="/showcase" class="btnSecond" id="btn2" data-title="Buy now">
             <span>Buy now</span></router-link>
         </div>
         <div id="scene">
@@ -65,8 +65,8 @@ const isOpen = ref(true)
         <!-- <svglineComponentsVue /> -->
         <!-- <svgComponents1Vue /> -->
     </div>
-<svglineComponentsVue :line1="1"/>
-<svgComponents1Vue :circle1="1"/>
+<svglineComponentsVue :class="{svgWidth : isOpen}"/>
+<svgComponents1Vue />
     <section>
         <div class="home-custom">
             <div class="custom-pic">
@@ -79,16 +79,19 @@ const isOpen = ref(true)
                 </div>
                 <div class="custIcon">
                     <div class="custIcon-wrap">
-                        <img src="../assets/images/home/cusIcon1.png" alt="">
-                        <p>Custom settings are similar to custom objects</p>
+                        <img src="@/assets/images/home/cusIcon1.png" alt="">
+                        <p>Speed destroy personal</p>
+                        <p>King is come back</p>
                     </div>
                     <div class="custIcon-wrap">
-                        <img src="../assets/images/home/cusIcon2.png" alt="">
-                        <p>Explore the winners for the 2022 BAFTA Games Awards</p>
+                        <img src="@/assets/images/home/cusIcon2.png" alt="">
+                        <p>Speed destroy personal</p>
+                        <p>King is come back</p>
                     </div>
                     <div class="custIcon-wrap">  
-                        <img src="../assets/images/home/cusIcon3.png" alt="">
-                        <p>Games streaming now. TRENDING AMONG FRIENDS</p>
+                        <img src="@/assets/images/home/cusIcon3.png" alt="">
+                        <p>Speed destroy personal</p>
+                        <p>King is come back</p>
                     </div>
                 </div>
                 <div class="customBtn">
@@ -133,8 +136,8 @@ const isOpen = ref(true)
                         <img src="../assets/images/home/propellor_02_black_1.png" alt="">  
                     </div>
                     <div class="homeAccWrap2-txt">
-                        <h6>Drone propeller</h6>
-                        <p>Tractor propeller, CW and CCW, different rotation directions are available.</p>
+                        <h6>Drone Remote controller</h6>
+                        <p>You can preview your design in real time.</p>
                         <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
                             <span>Learn</span>
                         </router-link>
@@ -152,8 +155,8 @@ const isOpen = ref(true)
                         <img src="../assets/images/home/body_01_blue_1.png" alt="">  
                     </div>
                     <div class="homeAccWrap2-txt">
-                        <h6>Drone body</h6>
-                        <p>Equipped with a high-quality HD camera that will provide crystal clear shots from all angles.</p>
+                        <h6>Drone Remote controller</h6>
+                        <p>You can preview your design in real time.</p>
                         <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
                             <span>Learn</span>
                         </router-link>
@@ -185,13 +188,12 @@ const isOpen = ref(true)
             </div>
         </div>
     </section>
-    <svglineComponentsVue :line3="3"/>
-    <svgComponents1Vue :circle3="3"/>
+
     <section>
         <div class="homeGame">
             <div class="homeGame-txt">
                 <h2>GAME</h2>
-                <p>The Game Awards and Keighley himself will be teasing what's to come at this year's event via their social media accounts,</p>
+                <h6>RACING AND FREESTYLE</h6>
                 <div class="gameBtn">
                     <router-link to="/game" class="btnFirst" id="btn1" data-title="Learn">
                         <span>Learn</span>
@@ -204,7 +206,7 @@ const isOpen = ref(true)
         </div>
     </section>
 
-    <section>
+    <section class="contest">
         <div class="contestTitle">
             <h2>CONTEST</h2>
         </div>
@@ -551,11 +553,13 @@ section {
     position: absolute;
     @include divCenter(90%, $center);
     z-index: 2;
-    width: 90%;
   }
 }
 
 //CONTEST
+.contest {
+  margin-top: 70px;
+}
 .contestTitle {
   @include titleStyle($center);
 }
@@ -589,7 +593,7 @@ section {
   position: relative;
   .buttonDiv {
     position: absolute;
-    bottom: -35%;
+    bottom: -30%;
     margin-left: 10px;
     .raceChange {
       background-color: transparent;
@@ -698,11 +702,7 @@ section {
     video {
       height: 650px;
     }
-    .homeGame-txt {
-        width: 800px;
   }
-  }
- 
   //contest
   .homeRace {
     width: 100%;

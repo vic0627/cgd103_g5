@@ -185,46 +185,40 @@ const btnLeft = () => {
           <img src="src/assets/images/shopInfo/controller.png" alt="" />
         </div>
         <div class="cardInfo">
-          <h5>EFVP Mavic 5</h5>
-          <span>USD $2,399</span>
-          <a class="buttons">
-            <router-link to="/" class="buy" id="btn1" data-title="Buy">
-              <span>Buy</span>
-            </router-link>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="cardRow">
-      <div class="card">
-        <div class="cardPic">
-          <img src="src/assets/images/shopInfo/controller.png" alt="" />
-        </div>
-        <div class="cardInfo">
-          <h5>EFVP Mavic 3</h5>
-          <span>USD $1,199</span>
-          <a class="buttons">
-            <router-link to="/" class="buy" id="btn1" data-title="Buy">
-              <span>Buy</span>
-            </router-link>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="cardRow">
-      <div class="card">
-        <div class="cardPic">
-          <img src="src/assets/images/shopInfo/controller.png" alt="" />
-        </div>
-        <div class="cardInfo">
-          <h5>EFVP Mavic 2</h5>
+          <h5>name</h5>
           <span>USD $999</span>
           <a class="buttons">
-            <router-link to="/" class="buy" id="btn1" data-title="Buy">
-              <span>Buy</span>
-            </router-link>
+            <span class="btnPrimary" data-title="BUY NOW">BUY NOW</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cardRow">
+      <div class="card">
+        <div class="cardPic">
+          <img src="src/assets/images/shopInfo/controller.png" alt="" />
+        </div>
+        <div class="cardInfo">
+          <h5>name</h5>
+          <span>USD $999</span>
+          <a class="buttons">
+            <span class="btnPrimary" data-title="BUY NOW">BUY NOW</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="cardRow">
+      <div class="card">
+        <div class="cardPic">
+          <img src="src/assets/images/shopInfo/controller.png" alt="" />
+        </div>
+        <div class="cardInfo">
+          <h5>name</h5>
+          <span>USD $999</span>
+          <a class="buttons">
+            <span class="btnPrimary" data-title="BUY NOW">BUY NOW</span>
           </a>
         </div>
       </div>
@@ -268,7 +262,7 @@ const btnLeft = () => {
   opacity: 0;
   top: 30px;
 
-  animation: downBar 1s 1s forwards;
+  animation: downBar 1s forwards;
 
   p {
     text-align: center;
@@ -337,7 +331,7 @@ const btnLeft = () => {
   }
   @include m($m-breakpoint) {
     flex-direction: row;
-    justify-content: center;
+
     &:after {
       display: none;
     }
@@ -375,14 +369,14 @@ const btnLeft = () => {
       img {
         width: 360px;
         height: 360px;
-        margin-left: 130px;
+        margin-left: 160px;
         margin-top: 50px;
       }
       .button {
         top: 170px;
       }
       #left {
-        left: 20px;
+        left: 100px;
       }
       #right {
         left: 560px;
@@ -390,7 +384,6 @@ const btnLeft = () => {
     }
 
     @include l($l-breakpoint) {
-      margin-top: 60px;
       img {
       }
       .button {
@@ -406,8 +399,6 @@ const btnLeft = () => {
   .mainDesc {
     padding: 30px;
     h2 {
-      text-align: left;
-
       font-size: 26px;
       font-weight: 500;
     }
@@ -442,15 +433,12 @@ const btnLeft = () => {
   @include m($m-breakpoint) {
     .mainDesc {
       margin-left: 120px;
-
       h2 {
-        margin: 0px;
       }
       p {
       }
       ul {
         li {
-          color: #c4c4c4;
         }
       }
     }
@@ -499,8 +487,8 @@ h2 {
         opacity: 0;
 
         filter: alpha(opacity=0);
-        -webkit-animation: round 16s linear infinite;
-        animation: round 16s linear infinite;
+        -webkit-animation: round 24s linear infinite;
+        animation: round 24s linear infinite;
         img {
           width: inherit;
           height: inherit;
@@ -543,16 +531,16 @@ h2 {
       animation-delay: 0s;
     }
     .color_img:nth-child(2) {
-      -webkit-animation-delay: 4s;
-      animation-delay: 4s;
+      -webkit-animation-delay: 6s;
+      animation-delay: 6s;
     }
     .color_img:nth-child(3) {
-      -webkit-animation-delay: 8s;
-      animation-delay: 8s;
-    }
-    .color_img:nth-child(4) {
       -webkit-animation-delay: 12s;
       animation-delay: 12s;
+    }
+    .color_img:nth-child(4) {
+      -webkit-animation-delay: 18s;
+      animation-delay: 18s;
     }
 
     .colorSwitch_word {
@@ -568,8 +556,8 @@ h2 {
         font-size: 26px;
         font-weight: 400;
         color: #999;
-        -webkit-animation: wordRound 16s linear infinite;
-        animation: wordRound 16s linear infinite;
+        -webkit-animation: wordRound 24s linear infinite;
+        animation: wordRound 24s linear infinite;
 
         @-webkit-keyframes wordRound {
           4% {
@@ -595,16 +583,16 @@ h2 {
         animation-delay: 0s;
       }
       span:nth-child(2) {
-        -webkit-animation-delay: 4s;
-        animation-delay: 4s;
+        -webkit-animation-delay: 6s;
+        animation-delay: 6s;
       }
       span:nth-child(3) {
-        -webkit-animation-delay: 8s;
-        animation-delay: 8s;
-      }
-      span:nth-child(4) {
         -webkit-animation-delay: 12s;
         animation-delay: 12s;
+      }
+      span:nth-child(4) {
+        -webkit-animation-delay: 18s;
+        animation-delay: 18s;
       }
     }
     @include l($l-breakpoint) {
@@ -771,14 +759,6 @@ h2 {
       img {
         height: 400px;
         width: 48vw;
-        transition: 0.7s ease-in-out;
-      }
-
-      overflow: hidden;
-
-      &:hover > img {
-        transform: scale(1.05);
-        transition: 0.7s ease-in-out;
       }
     }
     .far {
@@ -789,14 +769,6 @@ h2 {
       img {
         height: 400px;
         width: 36vw;
-        transition: 0.7s ease-in-out;
-      }
-
-      overflow: hidden;
-
-      &:hover > img {
-        transform: scale(1.05);
-        transition: 0.7s ease-in-out;
       }
     }
     .accessories {
@@ -807,14 +779,6 @@ h2 {
       img {
         height: 400px;
         width: 36vw;
-        transition: 0.7s ease-in-out;
-      }
-
-      overflow: hidden;
-
-      &:hover > img {
-        transform: scale(1.05);
-        transition: 0.7s ease-in-out;
       }
     }
     .sensing {
@@ -825,14 +789,6 @@ h2 {
       img {
         height: 400px;
         width: inherit;
-        transition: 0.7s ease-in-out;
-      }
-
-      overflow: hidden;
-
-      &:hover > img {
-        transform: scale(1.05);
-        transition: 0.7s ease-in-out;
       }
       p {
         margin-top: -30px;
@@ -848,7 +804,6 @@ h2 {
       background-color: #232a3e;
       box-shadow: 0 0 10px #324e68;
       padding: 15px 0;
-      border-radius: 5px;
 
       margin: auto;
       margin-bottom: 40px;
@@ -856,8 +811,8 @@ h2 {
 
       display: flex;
       .cardPic {
-        width: 100px;
-        height: 70px;
+        width: 150px;
+        height: 100px;
         margin: 10px 20px;
         img {
           width: inherit;
@@ -875,18 +830,24 @@ h2 {
         span {
         }
         .buttons {
-          #btn1 {
-            margin: 5px 0 0 0;
-            padding: 10px;
+          background: linear-gradient(0deg, #1890ff, #40a9ff);
+          border-radius: 5px;
+
+          margin-right: 0;
+          padding: 5px 10px;
+
+          text-align: center;
+          span {
+            font-weight: 600;
           }
         }
       }
       @keyframes breath {
         30% {
-          transform: translateY(-10px);
+          transform: translateY(10px);
         }
-        75% {
-          transform: translateY(20px);
+        65% {
+          transform: translateY(-15px);
         }
       }
     }
@@ -906,45 +867,15 @@ h2 {
 
     .cardRow {
       .card {
-        .cardPic {
-          padding-top: 30px;
-          width: 170px;
-          height: 100px;
-          img {
-            animation: breath 10s linear infinite;
-          }
-        }
-      }
-      .card {
         width: 38vw;
-
-        &:hover {
-          box-shadow: 0 0 15px #445a6e;
-        }
         .cardInfo {
           span {
             margin: 5px 0 10px;
-            font-size: 20px;
           }
           .buttons {
-            #btn1 {
-              margin: 5px 0 0 0;
-              padding: 15px;
-              span {
-                line-height: 15px;
-              }
-            }
+            // margin-left: 150px;
           }
         }
-      }
-    }
-
-    @keyframes breath {
-      30% {
-        transform: translateY(-25px);
-      }
-      75% {
-        transform: translateY(15px);
       }
     }
   }
