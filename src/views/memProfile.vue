@@ -158,7 +158,7 @@ const sidenav = ref({
         list : {
           a:{
             cn :"Payment",
-            path : "/home",
+            path : "/payment",
           }},
         
     },
