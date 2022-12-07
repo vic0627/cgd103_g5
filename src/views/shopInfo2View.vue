@@ -499,8 +499,8 @@ h2 {
         opacity: 0;
 
         filter: alpha(opacity=0);
-        -webkit-animation: round 24s linear infinite;
-        animation: round 24s linear infinite;
+        -webkit-animation: round 16s linear infinite;
+        animation: round 16s linear infinite;
         img {
           width: inherit;
           height: inherit;
@@ -543,16 +543,16 @@ h2 {
       animation-delay: 0s;
     }
     .color_img:nth-child(2) {
-      -webkit-animation-delay: 6s;
-      animation-delay: 6s;
+      -webkit-animation-delay: 4s;
+      animation-delay: 4s;
     }
     .color_img:nth-child(3) {
-      -webkit-animation-delay: 12s;
-      animation-delay: 12s;
+      -webkit-animation-delay: 8s;
+      animation-delay: 8s;
     }
     .color_img:nth-child(4) {
-      -webkit-animation-delay: 18s;
-      animation-delay: 18s;
+      -webkit-animation-delay: 12s;
+      animation-delay: 12s;
     }
 
     .colorSwitch_word {
@@ -568,8 +568,8 @@ h2 {
         font-size: 26px;
         font-weight: 400;
         color: #999;
-        -webkit-animation: wordRound 24s linear infinite;
-        animation: wordRound 24s linear infinite;
+        -webkit-animation: wordRound 16s linear infinite;
+        animation: wordRound 16s linear infinite;
 
         @-webkit-keyframes wordRound {
           4% {
@@ -595,16 +595,16 @@ h2 {
         animation-delay: 0s;
       }
       span:nth-child(2) {
-        -webkit-animation-delay: 6s;
-        animation-delay: 6s;
+        -webkit-animation-delay: 4s;
+        animation-delay: 4s;
       }
       span:nth-child(3) {
-        -webkit-animation-delay: 12s;
-        animation-delay: 12s;
+        -webkit-animation-delay: 8s;
+        animation-delay: 8s;
       }
       span:nth-child(4) {
-        -webkit-animation-delay: 18s;
-        animation-delay: 18s;
+        -webkit-animation-delay: 12s;
+        animation-delay: 12s;
       }
     }
     @include l($l-breakpoint) {
