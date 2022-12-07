@@ -3,7 +3,7 @@ import { reactive, onMounted } from 'vue';
 const mainMenu = reactive([
     {
         "id": "shop",
-        "name": "DRONES",
+        "name": "STORE",
     },
     {
         "id": "custom",
@@ -84,7 +84,7 @@ const NavClass = defineProps({
                     <!-- <li v-for="(item,index) in mainMenu" :key="index">
                         <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
                     </li> -->
-                    <li><router-link to="/shop" class="navHover" :style="`color: ${NavClass.shop}`">DRONES</router-link></li>
+                    <li><router-link to="/shop" class="navHover" :style="`color: ${NavClass.shop}`">STORE</router-link></li>
                     <li><router-link to="/custom" class="navHover" :style="`color: ${NavClass.custom}`">CUSTOM</router-link></li>
                     <li><router-link to="/about" class="navHover" :style="`color: ${NavClass.about}`">ABOUT</router-link></li>
                     <li><router-link to="/race" class="navHover" :style="`color: ${NavClass.race}`">RACE</router-link></li>
