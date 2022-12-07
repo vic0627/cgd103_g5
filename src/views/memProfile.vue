@@ -27,7 +27,7 @@ onMounted(()=> {
     // SIGNATURE PROGRESS
     function moveProgressBar() {
       console.log("moveProgressBar");
-        var getPercent = ($('.progress-wrap').data('progress-percent') / 100);
+        var getPercent = ($('.progress-wrap').data('progress-percent') / 1000);
         var getProgressWrapWidth = $('.progress-wrap').width();
         var progressTotal = getPercent * getProgressWrapWidth;
         var animationLength = 1500;
@@ -40,9 +40,26 @@ onMounted(()=> {
     }
 
 
-
-
 })
+
+
+const point = ref(599);
+const member_level = ref({
+    Level_1:{
+        title : "Bronze Member",
+        upgrade_point : 1000,
+    },
+    Level_2:{
+        title : "Silver Member",
+        upgrade_point : 5000,
+    },
+    Level_3:{
+        title : "Gold Member",
+        upgrade_point : 10000,
+    },
+});
+
+
 
 
 //address
@@ -164,7 +181,6 @@ const sidenav = ref({
     },
 });
 
-const percent = ref(70);
 </script>
 
 <template>
@@ -183,7 +199,9 @@ const percent = ref(70);
         <div class="maincontent">
             <section class="maininfo">
                 <div class="meminfo">
-                    <div class="circle"></div>
+                    <div class="circle">
+                        <img src="../assets/images/member/head.jpeg" alt="">
+                    </div>
                     <div class="memcard">
                         <p>SEVAGOTH PRIME</p>
                         <p class="p2">mesaprime@gmail.com</p>
@@ -195,11 +213,12 @@ const percent = ref(70);
                     <p>Member Discount : All products 5%Off</p>
                     <!-- <input type="text" class="pgg" v-model="percent"> -->
                     <div class="pb">
-                        <div class="progress-wrap progress" :data-progress-percent="percent">
+                        <div class="progress-wrap progress" :data-progress-percent="point">
                             <div class="progress-bar progress"></div>
+                            <span class="np">{{point}}/1000</span>
                         </div>
                         <div class="showper">
-                            {{percent}}%
+                            {{(point/10)}}% completed
                         </div>
                         
                     </div>
@@ -356,20 +375,27 @@ input{
                     border-radius: 50%;
                     width: 150px;
                     height: 150px;
-                    background-color: rgb(164, 164, 164);
-                    // outline: 5px solid #6723C7 ;
-                    border: 5px solid  #4591D8;
+                    background: linear-gradient(135.57deg, #4591D8 15.58%, #6723C7 82.75%);
+                    img{
+                        position: relative;
+                        top: 5px;
+                        left: 5px;
+                        width: 140px;
+                        height: 140px;
+                        border-radius: 50%;
+                    }
                 }
                 .memcard{
                     flex-grow: 1;
                     p{
                         // display: block;
                         margin: 80px 30px 0;
-                        color: rgb(33, 33, 33);
+                        color: #fff;
                         font-size: 30px;
                         font-weight: 800;
                     }
                     .p2{
+                        color: #333;
                         margin-top: 10px;
                         font-size: 20px;
                     }
@@ -395,14 +421,14 @@ input{
                         height: 20px;
                     }
                     .progress-wrap {
-                        border: 2px solid rgb(0, 31, 85);
-                        background: linear-gradient(270deg, #473421 10%, #EDC793 90%);
-                        margin: 20px 0;
+                        border: 2px solid #273747;
+                        background: linear-gradient(270deg, #ff8000 10%, #EDC793 90%);
+                        // margin: 20px 0;
                         overflow: hidden;
                         position: relative;
                         .progress-bar {
                             border-radius: 0;
-                            background: #ddd;
+                            background: #273747;
                             left: 0;
                             position: absolute;
                             top: 0;
@@ -410,6 +436,12 @@ input{
                     }
                     .showper{
                         text-align: right;
+                    }
+                    .np{
+                        font-size: 12px;
+                        line-height: 100%;
+                        padding-left: 10px;
+                        color: #333;
                     }
 
                 }
