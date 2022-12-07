@@ -232,5 +232,10 @@ footer {
             width: 90%;
         }
     } 
+    svg{
+        &:hover{
+            filter: invert(50%) sepia(51%) saturate(7497%) hue-rotate(194deg) brightness(97%) contrast(108%);
+        }
+    }
 }
 </style>
