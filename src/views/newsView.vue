@@ -58,7 +58,7 @@ bodyInit();
 
 <!-- 02 tag start -->
 <newsComponentsVue />
-
+<footer-component />  
 </template>
 
 <style lang="scss" scoped>

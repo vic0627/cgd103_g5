@@ -39,7 +39,7 @@ bodyInit();
         </div>
     </div>
 </div>
-<footerComponentsVue />
+<footer-component />  
 
 </template>
 
