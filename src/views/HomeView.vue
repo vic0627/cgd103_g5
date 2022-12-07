@@ -47,7 +47,7 @@ const isOpen = ref(true)
         <h2>Mavic 2 Zoom</h2>
         <p>24~28 mm Optical Zoom Camers Ulitimate Flexibility</p>
         <div class="home1-btn">
-            <router-link to="/shopcase" class="btnFirst" id="btn1" data-title="Learn">
+            <router-link to="/showcase" class="btnFirst" id="btn1" data-title="Learn">
             <span>Learn</span></router-link>
             <router-link to="/shopInfo" class="btnSecond" id="btn2" data-title="Buy now">
             <span>Buy now</span></router-link>
@@ -186,7 +186,7 @@ const isOpen = ref(true)
         </div>
     </section>
     <svglineComponentsVue :line3="3"/>
-    <svgComponents1Vue :circle3="3"/>
+    <!-- <svgComponents1Vue :circle3="3"/> -->
     <section>
         <div class="homeGame">
             <div class="homeGame-txt">
@@ -204,7 +204,7 @@ const isOpen = ref(true)
         </div>
     </section>
 
-    <section>
+    <section class="contest">
         <div class="contestTitle">
             <h2>CONTEST</h2>
         </div>
@@ -556,6 +556,9 @@ section {
 }
 
 //CONTEST
+.contest {
+  margin-top: 70px;
+}
 .contestTitle {
   @include titleStyle($center);
 }

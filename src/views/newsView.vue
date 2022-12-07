@@ -1,14 +1,11 @@
 <script setup>
 import { onMounted, registerRuntimeCompiler, reactive,ref } from "vue";
-
 import newsComponentsVue from "@/components/newsComponents.vue";
 import {bodyInit} from '../composables/useOnunmounted';
 bodyInit();
 </script>
-<script setup>
-import { onMounted, registerRuntimeCompiler, reactive,ref } from "vue";
-import newsComponentsVue from "@/components/newsComponents.vue";   
-</script>
+
+      
 
 <template>
   <!-- 01 banner start -->
