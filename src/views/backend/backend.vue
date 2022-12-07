@@ -166,7 +166,7 @@ const log = (e) => console.log(e);
       <div v-for="e in backendCategory" :key="e">
         <h2 v-if="e.tab === 'home'">
           <img
-            src="../../assets/images/About/g5_logo_grey.png"
+            src="../../assets/images/backend/backend_logo_3.png"
             alt="logoPic"
             @click="changeTab(e.tab)"
           />

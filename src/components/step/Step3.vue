@@ -43,7 +43,7 @@ bodyInit();
             background-color: rgba(142, 142, 142, 0.19);
             border-radius: 10px;
             img{
-                width: 50%;
+                width: 30%;
                 padding: 20px;
             }
         }

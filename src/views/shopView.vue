@@ -81,7 +81,7 @@ const products = reactive([
     {
         "id" : 6,
         "name" : 'p6', 
-        "title":'Charles 1 Red',
+        "title":'Char 1 Red',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src6":['../../public/images/shop/body_02_red_1.png','../../public/images/shop//body_02_red_2.png','../../public/images/shop/body_02_red_3.png'],
@@ -91,7 +91,7 @@ const products = reactive([
     {
         "id" : 7,
         "name" : 'p7', 
-        "title":'Charles 2 White',
+        "title":'Char 2 White',
         "Original_Price":'USD$900',
         "src7": 
         ['../../public/images/shop/body_02_white_1.png','../../public/images/shop//body_02_white_2.png','../../public/images/shop/body_02_white_3.png'],
@@ -101,7 +101,7 @@ const products = reactive([
     {
         "id" : 8,
         "name" : 'p8', 
-        "title":'Charles 3 Green',
+        "title":'Char 3 Green',
         "Original_Price":'USD$900',
         "src8":['../../public/images/shop/body_02_green_1.png','../../public/images/shop//body_02_green_2.png','../../public/images/shop/body_02_green_3.png'],
         "new":false,
@@ -110,7 +110,7 @@ const products = reactive([
     {
         "id" : 9,
         "name" : 'p9', 
-        "title":'Charles 4 Blue',
+        "title":'Char 4 Blue',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src9":['../../public/images/shop/body_02_blue_1.png','../../public/images/shop//body_02_blue_2.png','../../public/images/shop/body_02_blue_3.png'],
@@ -120,7 +120,7 @@ const products = reactive([
     {
         "id" : 10,
         "name" : 'p10', 
-        "title":'Charles 5 Black',
+        "title":'Char 5 Black',
         "Original_Price":'USD$900',
         "src10":['../../public/images/shop/body_02_black_1.png','../../public/images/shop//body_02_black_2.png','../../public/images/shop/body_02_black_3.png'],
         "new":false,
@@ -129,7 +129,7 @@ const products = reactive([
     {
         "id" : 11,
         "name" : 'p11', 
-        "title":'Chacha 1 Red',
+        "title":'Ura 1 Red',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src11":['../../public/images/shop/body_03_red_1.png','../../public/images/shop//body_03_red_2.png','../../public/images/shop/body_03_red_3.png'],
@@ -139,7 +139,7 @@ const products = reactive([
     {
         "id" : 12,
         "name" : 'p12', 
-        "title":'Chacha 2 White',
+        "title":'Ura 2 White',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src12":['../../public/images/shop/body_03_white_1.png','../../public/images/shop//body_03_white_2.png','../../public/images/shop/body_03_white_3.png'],
@@ -149,7 +149,7 @@ const products = reactive([
     {
         "id" : 13,
         "name" : 'p13', 
-        "title":'Chacha 3 Black',
+        "title":'Ura 3 Black',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src13":['../../public/images/shop/body_03_black_1.png','../../public/images/shop//body_03_black_2.png','../../public/images/shop/body_03_black_3.png'],
@@ -159,7 +159,7 @@ const products = reactive([
     {
         "id" : 14,
         "name" : 'p14', 
-        "title":'Chacha 4 Blue',
+        "title":'Ura 4 Blue',
         "Original_Price":'USD$900',
         "Discount_Price":'USD$888',
         "src14":['../../public/images/shop/body_03_blue_1.png','../../public/images/shop//body_03_blue_2.png','../../public/images/shop/body_03_blue_3.png'],
@@ -283,7 +283,7 @@ const accessories = reactive([
     {
         "id" : 14,
         "name" : 'a14', 
-        "title":'Tri propeller red',
+        "title":'Tri propeller red333',
         "Original_Price":'USD$300',
         "src14":['../../public/images/shop/propellor_03_red_1.png','../../public/images/shop/propellor_03_red_2.png'],
         "new":true
@@ -716,8 +716,8 @@ $(document).ready(()=>{
         &::before{
             content: url(../assets/images/shop/drone.png);
             position: absolute;
-            top:-50%;
-            left: 0;
+            top: -50%;
+            left: 10%;
             z-index: -1;
             transition: all 1s;
             animation-name: fly;
@@ -730,12 +730,13 @@ $(document).ready(()=>{
                     transform: rotate(0deg);
                 }
                 100%{
-                    transform: rotate(420deg);
+                    transform: rotate(360deg);
                 }
             }
         }
         
         @include m($m-breakpoint){
+            
             gap: 2rem;
             display: flex;
             justify-content: center;
@@ -775,11 +776,11 @@ $(document).ready(()=>{
     width: 100%;
     .btnPrimary{
         @include primaryBtn (130px);
-        border: none;
+        // border: none;
         position: relative;
         margin: 20px auto;
-        top: 0;
-        text-align: center;
+        // top: 0;
+        // text-align: center;
         @include m($m-breakpoint){
 
         }
