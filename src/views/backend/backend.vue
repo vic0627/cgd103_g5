@@ -129,6 +129,16 @@ const backendCategory = ref({
       },
     },
   },
+  member_account: {
+    title: "會員管理",
+    show: false,
+    text: {
+      a: {
+        cn: "會員帳號管理",
+        tab: "memmodify",
+      },
+    },
+  },
 });
 
 const currentTab = ref("home");
