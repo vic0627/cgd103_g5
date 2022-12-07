@@ -1,6 +1,6 @@
 <script setup>
 import navComponentsVue from '@/components/navComponents.vue';
-import footerComponentsVue from '@/components/footerComponents.vue';
+
 import {bodyInit} from '../composables/useOnunmounted';
 bodyInit();
 
