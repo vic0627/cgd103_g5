@@ -5,7 +5,9 @@ import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import Accordion from "../components/accordionComponents.vue";
-
+import body1 from "../assets/images/shopInfo/body_03_1.png";
+import body2 from "../assets/images/shopInfo/body_03_2.png";
+import body3 from "../assets/images/shopInfo/body_03_3.png";
 bodyInit();
 // //bottomBar第二版
 
@@ -28,9 +30,9 @@ onMounted(() => {
 
 //商品大圖
 const shopInfoItem = ref({
-  1: "src/assets/images/shopInfo/body_03_1.png",
-  2: "src/assets/images/shopInfo/body_03_2.png",
-  3: "src/assets/images/shopInfo/body_03_3.png",
+  1: body1,
+  2: body2,
+  3: body3,
   // 4: "../assets/images/showcase/color_test_04.png",
 });
 const count = ref(1);
