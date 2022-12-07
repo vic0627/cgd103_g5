@@ -19,7 +19,8 @@ onMounted(()=> {
 
 <template>
   <!-- 01 banner start -->
-  <navComponentsVue :news="`#077AF9`"/>
+  <nav-component :news="`#077AF9`"/>
+  <!-- <navComponentsVue :news="`#077AF9`"/> -->
   <div class="news">
     <div class="news_banner_box">
       <div class="banner">
