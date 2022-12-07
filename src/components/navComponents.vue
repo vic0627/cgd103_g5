@@ -71,7 +71,7 @@ const NavClass = defineProps({
                     <!-- <li v-for="(item,index) in mainMenu" :key="index">
                         <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
                     </li> -->
-                    <li><router-link to="/shop" class="navHover">DRONES</router-link></li>
+                    <li><router-link to="/shop" class="navHover">STORE</router-link></li>
                     <li><router-link to="/custom" class="navHover">CUSTOM</router-link></li>
                     <li><router-link to="/about" class="navHover">ABOUT</router-link></li>
                     <li><router-link to="/race" class="navHover">RACE</router-link></li>
