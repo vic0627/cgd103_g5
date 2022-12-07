@@ -137,6 +137,9 @@ const sidenav = ref({
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
+header{
+    top: 0;
+}
 table{
     text-align: center;
     width: 100%;
