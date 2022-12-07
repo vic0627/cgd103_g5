@@ -1,58 +1,24 @@
 <script setup>
-// import headerComponentsVue from '@/components/headerComponents.vue';
 import navComponentsVue from '@/components/navComponents.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
-import $ from 'jquery';
-import { ref, onMounted } from 'vue';
+import menuVue from '@/components/memberCenter/menu.vue';
+import memberCardVue from '@/components/memberCenter/memberCard.vue';
+import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
+// import $ from 'jquery';
+import { ref, onMounted,reactive,computed,watch } from 'vue';
 
-onMounted(()=> {
-    $('.List-item>a').parent().siblings().find('ul').hide();
-    $('.List-item>a').click(function (e) { 
-        e.preventDefault();
-        $(this).parent().siblings().find('ul').slideUp();
-        $(this).parent().find('ul').slideToggle();
-        // $(this).parent().siblings().find('a').removeClass('rmminus');
-        // $(this).toggleClass('rmminus');
-    });
-})
-
-const sidenav = ref({
-    account :{
-        title : "Account",
-        list : ["Profile Overview"],
-    },
-    order :{
-        title : "Orders",
-        list : ["Normal Orders","Customized Orders"],
-    },
-    racing :{
-        title : "Racing",
-        list : ["My Racing"],
-    },
-    person :{
-        title : "Personal Setting",
-        list : ["Payment"],
-    }
-});
-
+onMounted(()=> {});
 
 </script>
 
 <template>
     <navComponentsVue />
     <div class="main">
-        <nav class="sidenav" >
-            <li class="List-item" v-for="item in sidenav" :key="item">
-                <a href="">{{item.title}}</a>
-                <ul class="subitem">
-                    <li class=""  v-for="i in item.list" :key="i" >{{i}}</li>
-                </ul>
-            </li>
-        </nav>
+        <menuVue />
         <div class="maincontent">
             <section class="maininfo">
-                <div class="meminfo"></div>
-                <div class="memgrade"></div>
+                <memberCardVue/>
+                <memberLevelVue/>
             </section>
             <section class="profiles-list">
                 <h1>Normal Orders</h1>
@@ -191,43 +157,13 @@ input{
     display: flex;
     justify-content: start;
     gap: 10px;
-    .sidenav{
-        width: 25%;
-        height: fit-content;
-        background-color: #1C2023;
-        padding: 20px;
-        border-radius: 10px;
-        .List-item{
-            padding: 10px;
-            a{
-                font-size: 15px;
-            }
-            .subitem{
-                // display: none;
-                padding: 10px 0 10px 20px;
-            }
-        }
-    }
+    
     .maincontent{
         width: 75%;
         margin: 0;
         .maininfo{
             display: flex;
             gap: 10px;
-            .meminfo{
-                width: 500px;
-                aspect-ratio: 16/9;
-                // background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
-                // background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
-                background: linear-gradient(-200deg, #E6BA79 0.51%, rgba(173, 99, 12, 0.83) 98.54%);
-                border-radius: 10px;
-            }
-            .memgrade{
-                flex-grow: 1;
-                height: auto;
-                background-color: #616574;
-                border-radius: 10px;
-            }
         }
         .profiles-list{
             width: 100%;
