@@ -18,7 +18,7 @@ export default{
 
 <div class="article">
     <div class="title_box">
-        <h2>TITLE</h2>
+        <h2>SkyPixel 8th style free </h2>
     </div>
     <div class="box">
         <div class="img_box">
@@ -26,7 +26,7 @@ export default{
         </div>
         <div class="word_box">
             <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt recusandae odit impedit facilis expedita soluta! Asperiores obcaecati laudantium, ipsam beatae unde laboriosam eum pariatur ad numquam quos magni voluptatum omnis, repellendus, possimus similique. Amet, rem explicabo animi quod maxime, porro repudiandae earum vel sint modi, non facere libero omnis ea?
+                Will Robson gets exclusive access to some of the British military's most secretive, sophisticated and controversial drones, and talks to the men and women who operate them. He gets an insider perspective on what it means to fight a war remotely, and finds out how long distant combat affects those at the controls.
             </p>
         </div>
     </div>
@@ -36,10 +36,10 @@ export default{
         </div>
         <div class="word_box">
             <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt recusandae odit impedit facilis expedita soluta! Asperiores obcaecati laudantium, ipsam beatae unde laboriosam eum pariatur ad numquam quos magni voluptatum omnis, repellendus, possimus similique. Amet, rem explicabo animi quod maxime, porro repudiandae earum vel sint modi, non facere libero omnis ea?
+                In a remote corner of west Wales, in a matt green shipping container, a group of engineers and military officials crowd around a high-tech bank of screens and joysticks. A monitor feeds them live aerial footage of the Carmarthenshire coastline. The image is crisp, they can make out dolphins swimming in the wake of a fishing trawler. They're testing the limits of the British Army's Watchkeeper surveillance drone, one of a new fleet of Unmanned Aerial Systems (UAS) which have an £850m pound price tag.
             </p>
             <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Deserunt recusandae odit impedit facilis expedita soluta! Asperiores obcaecati laudantium, ipsam beatae unde laboriosam eum pariatur ad numquam quos magni voluptatum omnis, repellendus, possimus similique. Amet, rem explicabo animi quod maxime, porro repudiandae earum vel sint modi, non facere libero omnis ea?
+                While the military have welcomed UAS as a way of reducing costs and casualties, not everyone is convinced. Critics say that drones could bring an age of airborne occupation and dispassionate warfare. They claim that when war can be fought without consequence to the aggressor, violence quickly becomes easier than diplomacy.
             </p>
         </div>
     </div>

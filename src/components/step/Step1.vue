@@ -221,13 +221,22 @@ $l-w:1200px;
     margin: 0 auto;
     p {
         display: inline-block;
+        font-size: 28px;
+    }
+    input {
+        border-radius: 5px;
+        margin: 0 5px;
+        width: 150px;
     }
     .discount-btn {
         background: $blue;
-        margin-left: 10px;
+        margin: 5px 10px;
         color: #eeeeee;
         padding: 5px 15px;
         border-radius: 5px;
+        cursor: pointer;
+        @include caption-s-title($caption-s-p, $txt-color, $spacing-h6);
+        font-size: 18px;
     }
 }
 

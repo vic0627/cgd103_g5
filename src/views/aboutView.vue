@@ -66,10 +66,10 @@ export default{
     <div class="teambox">
       <h2>TEAM</h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? 
+        Plans for cutting rugby’s Gallagher Premiership to 10 teams are gathering pace amid the financial crisis in the game.Wasps withdrew from their weekend fixture against Exeter and have said they are likely to go into administration in the next few days. It follows on from Worcester being wound up amid their own financial meltdown. 
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? 
+        With increasing worries that others could follow suit, talks are taking place about cutting the Premiership to 10 teams from 13. Such action would entail a professional second division of 10. 
       </p>
     </div>
     <div class="imgbox" data-aos="fade-up" data-aos-duration="3000" data-aos-easing="ease-in-sine">
@@ -83,10 +83,10 @@ export default{
     <div class="teambox text">
       <h2>BELIEF</h2>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
+        This is why it’s important your core values are embraced at every level, not just by the executive team. Purpose doesn't just improve employee satisfaction — it also increases your bottom line and builds trust with customers.
       </p>
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Sunt inventore maxime, iste assumenda modi corporis exercitationem aperiam blanditiis. Numquam, asperiores. Impedit in quas, ab distinctio alias quibusdam amet perspiciatis eos, veritatis ratione reprehenderit, adipisci soluta sapiente qui esse a? Ipsa eum quibusdam doloremque accusamus et sunt omnis molestias, provident eius!
+        Whether you work for a new company in need of core-value inspiration, or an older company in need of a value revamp, you're in luck — below, we've cultivated a list of some of the best company values. Additionally, we'll examine how some companies truly honor their values.
       </p>
     </div>
   </section>
