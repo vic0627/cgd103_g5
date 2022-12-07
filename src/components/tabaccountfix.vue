@@ -27,6 +27,11 @@ const table = ref([
     q:"How to contact us?",
     a:"123",
   },
+    {
+    number:1,
+    q:"How to contact us?",
+    a:"123",
+  },
 
 ])
 
@@ -47,8 +52,9 @@ const table = ref([
     <table>
       <tr>
         <th>編號</th>
-        <th>問題</th>
-        <th>回覆</th>
+        <th>帳號</th>
+        <th>管理員姓名</th>
+        <th>管理員級別</th>
         <th>修改</th>
       </tr>
       <tr v-for="item in table" :key="item">

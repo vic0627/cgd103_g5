@@ -6,7 +6,7 @@ import tabnewrevs from "../../components/tabnewrevs.vue"; //NEWS
 import tabnewadds from "../../components/tabnewadds.vue"; //NEWS
 import tabraceform from "../../components/tabraceform.vue"; //RACE
 import tabracecategory from "../../components/tabracecategory.vue"; //RACE
-import tabaccount from "@/components/tabaccount.vue";//account
+import tabaccountfix from "@/components/tabaccountfix.vue";//account tabaccountfix
 import tabproductsearch from "@/components/tabproductsearch.vue";
 import tabproductImgManage from "@/components/tabproductImgManage.vue";
 export default {
@@ -20,7 +20,7 @@ export default {
     tabracecategory,
     tabproductsearch,
     tabproductImgManage,
-    tabaccount
+    tabaccountfix
   },
 };
 </script>
