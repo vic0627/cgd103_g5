@@ -609,7 +609,7 @@ $(document).ready(() => {
           <img
             v-if="item.sale == true"
             class="sale"
-            src="../assets/images/shop/sale_icon.PNG"
+            src="../assets/images/shop/sale_icon.png"
             alt="sale_icon"
           />
           <div class="product_box">
@@ -679,7 +679,7 @@ $(document).ready(() => {
           <img
             v-if="i.sale == true"
             class="sale"
-            src="../assets/images/shop/sale_icon.PNG"
+            src="../assets/images/shop/sale_icon.png"
             alt="sale_icon"
           />
           <div class="product_box">
