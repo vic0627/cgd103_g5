@@ -268,7 +268,7 @@ const btnLeft = () => {
   opacity: 0;
   top: 30px;
 
-  animation: downBar 1s 1s forwards;
+  animation: downBar 1s forwards;
 
   p {
     text-align: center;
