@@ -9,7 +9,7 @@ bodyInit();
 </script>
 
 <template>
-<navComponentsVue />
+<navComponentsVue :news="`#077AF9`"/>
 
 <div class="article">
     <div class="title_box">
