@@ -78,7 +78,7 @@ const sidenav = ref({
         list : {
             a:{
                 cn :"Payment",
-                path : "/home",
+                path : "/payment",
             }},
         
     },
@@ -191,17 +191,18 @@ input{
                 width: 500px;
                 aspect-ratio: 16/9;
                 // background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
-                background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
+                // background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
+                background: linear-gradient(-200deg, #E6BA79 0.51%, rgba(173, 99, 12, 0.83) 98.54%);
                 border-radius: 10px;
                 .circle{
                     aspect-ratio: 1/1;
                     position: relative;
-                    top: 15px;
+                    top: 50px;
                     left: 15px;
                     border-radius: 50%;
                     width: 150px;
                     height: 150px;
-                    background-color: rgb(216, 229, 255);
+                    background-color: rgb(173, 173, 173);
                     // outline: 5px solid #6723C7 ;
                     border: 5px solid  #4591D8;
                 }
