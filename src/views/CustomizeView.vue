@@ -175,9 +175,6 @@ const undo = () => {
     step.value[flow.value].show = true;
 };
 const nextStep = () => {
-    if(flow.value===3){
-        buyBtn.value = true;
-    }
     if(btnStatus.value){
         step.value[flow.value].show = false;
         flow.value++;
@@ -255,6 +252,9 @@ const controllerChoose = (id) => {
     niddleSpin(5, accelerateTime(motorChosen.value.kgm, kgmcChosen.value), units.value.accelerateTime.ratio);
     niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm, kgmcChosen.value)), units.value.accelerate.ratio);
     btnStatus.value = true;
+    if(flow.value===4&&btnStatus.value){
+        buyBtn.value = true;
+    }
 };
 </script>
 
