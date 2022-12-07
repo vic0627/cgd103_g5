@@ -757,6 +757,6 @@ h2 {
 footer {
   position: sticky;
   z-index: 90;
-  margin-top: 150px;
+  margin-top: 50px;
 }
 </style>
