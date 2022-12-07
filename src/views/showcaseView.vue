@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { onMounted, ref } from 'vue';
 import * as PRO from './js/ShopInfoThree';
 import { useMousePosition, x, y } from '@/composables/useMousePosition';
+import { log, $$, $all } from '../composables/useCommon';
 import { fpv } from './js/ShopInfoItem';
 
 
@@ -317,9 +318,6 @@ onMounted(()=> {
     
 });
 
-const log = e => console.log(e);
-
-const $$ = e => document.querySelector(e);
 
 
 const controls = (e) => {
@@ -468,7 +466,6 @@ const scrollList = (e, delay = 0, dur = .1) => {
     }
     if(zzz<0){
         $$(e).style['z-index'] = '-1';
-        log($$(e).firstChild)
         $$(e).firstChild.style.filter = `blur(2px) grayscale(80%)`;
         /* gsap.to($$(e).firstChild, {
             filter: `blur(2px) grayscale(80%)`,

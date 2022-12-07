@@ -19,7 +19,6 @@ onMounted(() => {
         scaleSum();
     })
     niddleSpin(props.units.id, props.units.value, props.units.ratio);
-    //useDashBoardMove(props.units.id, ww, w);
 });
 const r = 2 * Math.PI / 12;
 const Y = (e, width = w) => Math.sin(e) * -width + 'px';
