@@ -338,6 +338,7 @@ const btnLeft = () => {
   @include m($m-breakpoint) {
     flex-direction: row;
     justify-content: center;
+    gap: 7vw;
     &:after {
       display: none;
     }
