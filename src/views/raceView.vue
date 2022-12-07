@@ -1,47 +1,54 @@
 <script setup>
-import { ref, onMounted, reactive } from "vue";
+import { ref, onMounted, reactive, onUnmounted } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 bodyInit();
 
-const bgi1 = document.querySelector(".bgi1");
-const bgi2 = document.querySelector(".bgi2");
-const bgi3 = document.querySelector(".bgi3");
-
-const text1 = document.querySelector(".text1");
-const text2 = document.querySelector(".text2");
-const text3 = document.querySelector(".text3");
-
-const card1 = document.querySelector(".card1");
-const card2 = document.querySelector(".card2");
-const card3 = document.querySelector(".card3");
-
-function change1() {
-  document.getElementById("change1").classList.add("change1_active");
-}
+const count = ref(1);
+const areaText = ref({
+  1: {
+    id: 1,
+    title: "Taiwan",
+    src: "src/assets/images/race/point1.jpg",
+    text: "Home to the world’s greatest collections of Chinese art and antiquities.Once reserved for the private pleasure of emperors, today these treasures can be enjoyed.These collections are from mainland China, and the ROC government bring them to Taiwan in 1949.",
+  },
+  2: {
+    id: 2,
+    title: "Japan",
+    src: "src/assets/images/race/point2.jpg",
+    text: "Situated in the city’s oldest neighborhood, Wanhua.Longshan Temple is the spiritual heart of Taipei.It’s a place where generations of locals have come to seek good fortune, health, and even guidance on who to marry.",
+  },
+  3: {
+    id: 3,
+    title: "China",
+    src: "src/assets/images/race/point3.jpg",
+    text: "Chiang Kai-shek Memorial Hall honors the memory of former president of the Republic of China.Memorial Square is also one of the city’s most important cultural sites, and some democracy activists had held here.The National Concert Hall, a stunning example of neo-classical Chinese architecture.",
+  },
+  4: {
+    id: 4,
+    title: "Korea",
+    src: "src/assets/images/race/point1.jpg",
+    text: "Situated in the city’s oldest neighborhood, Wanhua.Longshan Temple is the spiritual heart of Taipei.It’s a place where generations of locals have come to seek good fortune, health, and even guidance on who to marry.",
+  },
+});
+const changeCount = (id) => {
+  count.value = id;
+};
 </script>
 
 <template>
-  <navComponentsVue />
+  <navComponentsVue :race="`#077AF9`"/>
   <!-- banner -->
   <section>
     <div class="banner">
-      <div class="banner_img">
-        <img src="../assets/images/race/banner01.jpg" alt="banner" />
-      </div>
+      <div class="banner_img banner_img1"></div>
 
-      <div class="banner_img">
-        <img src="../assets/images/race/banner02.jpg" alt="banner" />
-      </div>
+      <div class="banner_img banner_img2"></div>
 
-      <div class="banner_img">
-        <img src="../assets/images/race/banner03.jpg" alt="banner" />
-      </div>
+      <div class="banner_img banner_img3"></div>
 
-      <div class="banner_img">
-        <img src="../assets/images/race/banner04.jpg" alt="banner" />
-      </div>
+      <div class="banner_img banner_img4"></div>
 
       <div class="banner_title">
         <h2>RACE</h2>
@@ -377,133 +384,41 @@ function change1() {
 
     <div class="pointBox">
       <div class="pointBgi">
-        <div class="bgi bgi1"></div>
-        <div class="bgi bgi2"></div>
-        <div class="bgi bgi3"></div>
+        <div
+          class="bgi"
+          :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(src/assets/images/race/point${count}.jpg)`"
+        ></div>
       </div>
       <div class="bigtext">
         <div class="text text1">
-          <h3>Taiwan</h3>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
-            quos unde adipisci itaque quaerat architecto. Dolor eaque eum
-            recusandae necessitatibus sed deserunt quae ullam quia mollitia qui
-            architecto eveniet iusto nesciunt hic voluptates incidunt a ab,
-            distinctio labore deleniti quisquam vitae. Laborum quidem illo
-            explicabo pariatur praesentium necessitatibus repellendus aliquam.
-          </p>
-        </div>
-        <div class="text text2">
-          <h3>Taiwan</h3>
-          <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio
-            autem esse modi expedita non numquam officia pariatur, nostrum
-            perferendis id eveniet quasi veritatis corporis. Nostrum eius vel
-            dolore, inventore unde veniam facere ab odio ipsum eaque iste
-            voluptas amet, qui aspernatur cupiditate. Reprehenderit mollitia
-            laboriosam incidunt illo et nostrum ad.
-          </p>
-        </div>
-        <div class="text text3">
-          <h3>Taiwan</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
-            natus accusamus accusantium at ipsum quo hic id minus, odit
-            repudiandae dolore assumenda voluptatibus, expedita dicta
-            aspernatur, necessitatibus illum asperiores voluptatum laborum
-            possimus minima? Architecto eos ipsum similique accusamus cum ex
-            doloremque possimus ea est. Et libero culpa molestiae sunt
-            similique?
-          </p>
+          <h3>{{ areaText[count].title }}</h3>
+          <p>{{ areaText[count].text }}</p>
         </div>
       </div>
       <div class="practiseCard">
-        <div class="card card1" @click="change1">
+        <div
+          :class="`card card${e.id}`"
+          v-for="e in areaText"
+          :key="e.id"
+          @click="changeCount(e.id)"
+        >
           <div class="cardTitle">
-            <h3>Taiwan</h3>
+            <h3>{{ areaText[e.id].title }}</h3>
           </div>
 
           <div class="cardPic">
-            <img src="../assets/images/race/point1.jpg" alt="aerialPoint" />
+            <img
+              :src="`src/assets/images/race/point${e.id}.jpg`"
+              alt="aerialPoint"
+            />
           </div>
 
           <div class="cardContent">
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore
-              quos unde adipisci itaque quaerat architecto. Dolor eaque eum
-              recusandae necessitatibus sed deserunt quae ullam quia mollitia
-              qui architecto eveniet iusto nesciunt hic voluptates incidunt a
-              ab, distinctio labore deleniti quisquam vitae. Laborum quidem illo
-              explicabo pariatur praesentium necessitatibus repellendus aliquam.
-            </p>
-          </div>
-        </div>
-
-        <div class="card card2" @click="change2">
-          <div class="cardTitle">
-            <h3>Taiwan</h3>
-          </div>
-
-          <div class="cardPic">
-            <img src="../assets/images/race/point2.jpg" alt="aerialPoint" />
-          </div>
-
-          <div class="cardContent">
-            <p>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Optio
-              autem esse modi expedita non numquam officia pariatur, nostrum
-              perferendis id eveniet quasi veritatis corporis. Nostrum eius vel
-              dolore, inventore unde veniam facere ab odio ipsum eaque iste
-              voluptas amet, qui aspernatur cupiditate. Reprehenderit mollitia
-              laboriosam incidunt illo et nostrum ad.
-            </p>
-          </div>
-        </div>
-
-        <div class="card card3" @click="change3">
-          <div class="cardTitle">
-            <h3>Taiwan</h3>
-          </div>
-
-          <div class="cardPic">
-            <img src="../assets/images/race/point3.jpg" alt="aerialPoint" />
-          </div>
-
-          <div class="cardContent">
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
-              natus accusamus accusantium at ipsum quo hic id minus, odit
-              repudiandae dolore assumenda voluptatibus, expedita dicta
-              aspernatur, necessitatibus illum asperiores voluptatum laborum
-              possimus minima? Architecto eos ipsum similique accusamus cum ex
-              doloremque possimus ea est. Et libero culpa molestiae sunt
-              similique?
-            </p>
+            <p>{{ areaText[e.id].text }}</p>
           </div>
         </div>
       </div>
     </div>
-
-    <!-- <div id="change1" class="card card1 change1">
-      <div class="cardTitle">
-        <h3>Taiwan</h3>
-      </div>
-
-      <div class="cardPic">
-        <img src="../assets/images/race/point1.jpg" alt="aerialPoint" />
-      </div>
-
-      <div class="cardContent">
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore quos
-          unde adipisci itaque quaerat architecto. Dolor eaque eum recusandae
-          necessitatibus sed deserunt quae ullam quia mollitia qui architecto
-          eveniet iusto nesciunt hic voluptates incidunt a ab, distinctio labore
-          deleniti quisquam vitae. Laborum quidem illo explicabo pariatur
-          praesentium necessitatibus repellendus aliquam.
-        </p>
-      </div>
-    </div> -->
   </section>
   <footerComponentsVue />
 </template>
@@ -511,31 +426,6 @@ function change1() {
 <style lang="scss" scoped>
 @import "../sass/style.scss";
 @import "../sass/component/_btn.scss";
-
-// .change1 {
-//   overflow: hidden;
-//   transform: scale(0);
-// }
-
-// .change1_active,
-// .bag_talkwindow_active,
-// .plus_talkwindow_active {
-//   animation: popup
-//     0.0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001s;
-//   transform: scale(1);
-// }
-
-// @keyframes popup {
-//   0% {
-//     transform: scale(0);
-//   }
-//   0.00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000001% {
-//     transform: scale(1);
-//   }
-//   100% {
-//     transform: scale(1);
-//   }
-// }
 
 header {
   position: sticky;
@@ -553,19 +443,36 @@ section {
   width: 100%;
   height: 176px;
   position: relative;
+
+  @include m($m-breakpoint) {
+    height: 462px;
+  }
   @include l($l-breakpoint) {
-    height: 690px;
+    height: 550px;
   }
   .banner_img {
     width: 100%;
     opacity: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
     filter: alpha(opacity=0);
     -webkit-animation: round 20s linear infinite;
     animation: round 20s linear infinite;
-    img {
-      width: 100%;
-      position: absolute;
-    }
+    position: absolute;
+  }
+  .banner_img1 {
+    background-image: url("../assets/images/race/banner01.jpg");
+  }
+  .banner_img2 {
+    background-image: url("../assets/images/race/banner02.jpg");
+  }
+  .banner_img3 {
+    background-image: url("../assets/images/race/banner03.jpg");
+  }
+  .banner_img4 {
+    background-image: url("../assets/images/race/banner04.jpg");
   }
   .banner_title {
     position: absolute;
@@ -652,6 +559,8 @@ h2 {
   margin: 0 20px;
   display: flex;
   overflow: scroll;
+  position: static;
+
   @include l($l-breakpoint) {
     margin: 0;
     width: calc(300px * 8);
@@ -678,7 +587,7 @@ h2 {
     }
     .boxBgi_w {
       background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
-        url("../assets/images/race/contest01.png");
+        url("../assets/images/race/point1.jpg");
       backdrop-filter: blur(5px);
       width: 100%;
       height: 100%;
@@ -765,34 +674,18 @@ h2 {
 
   .pointBgi {
     @include l($l-breakpoint) {
-      .bgi {
+      // height: 100%;
+      // position: relative;
+    }
+
+    .bgi {
+      @include l($l-breakpoint) {
         width: 100%;
         height: 100%;
         background-size: cover;
         background-position: center center;
         position: absolute;
         z-index: 1;
-      }
-      .bgi1 {
-        background-image: linear-gradient(
-            rgba(0, 0, 0, 0.7),
-            rgba(0, 0, 0, 0.7)
-          ),
-          url("../assets/images/race/point1.jpg");
-      }
-      .bgi2 {
-        background-image: linear-gradient(
-            rgba(0, 0, 0, 0.7),
-            rgba(0, 0, 0, 0.7)
-          ),
-          url("../assets/images/race/point2.jpg");
-      }
-      .bgi3 {
-        background-image: linear-gradient(
-            rgba(0, 0, 0, 0.7),
-            rgba(0, 0, 0, 0.7)
-          ),
-          url("../assets/images/race/point3.jpg");
       }
     }
   }
@@ -811,11 +704,8 @@ h2 {
         padding: 50px 20px;
         h2 {
           text-align: center;
+          margin-bottom: 30px;
         }
-      }
-      .text2,
-      .text3 {
-        display: none;
       }
     }
   }
@@ -844,7 +734,7 @@ h2 {
       }
       .cardPic {
         @include l($l-breakpoint) {
-          width: 300px;
+          max-width: 300px;
         }
         img {
           width: 100%;
@@ -853,7 +743,7 @@ h2 {
       }
       .cardContent {
         @include l($l-breakpoint) {
-          width: 300px;
+          max-width: 300px;
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
@@ -863,5 +753,9 @@ h2 {
       }
     }
   }
+}
+footer {
+  position: sticky;
+  z-index: 90;
 }
 </style>

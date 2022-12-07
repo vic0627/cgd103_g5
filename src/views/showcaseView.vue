@@ -47,7 +47,6 @@ onMounted(()=> {
     });
     $$('.specOl').addEventListener('scroll', ()=> {
         scrollSum();
-        log($$('.specOl').scrollTop)
     });
     const scrollModel = () => {
         conatinerInfo = document.querySelectorAll('.conatinerInfo');
@@ -469,21 +468,24 @@ const scrollList = (e, delay = 0, dur = .1) => {
     }
     if(zzz<0){
         $$(e).style['z-index'] = '-1';
-        gsap.to($$(e).firstChild, {
-            filter: `blur(${-zzz*3}px) grayscale(80%)`,
-            duration: .3,
-        })
+        log($$(e).firstChild)
+        $$(e).firstChild.style.filter = `blur(2px) grayscale(80%)`;
+        /* gsap.to($$(e).firstChild, {
+            filter: `blur(2px) grayscale(80%)`,
+            duration: 0,
+        }) */
     }else{
         $$(e).style['z-index'] = '2';
-        gsap.to($$(e).firstChild, {
+        $$(e).firstChild.style.filter = `blur(0px) grayscale(80%)`;
+        /* gsap.to($$(e).firstChild, {
             filter: `blur(0px) grayscale(80%)`,
-            duration: .3,
-        })
+            duration: 0,
+        }) */
     }
     gsap.to(e, {
         top: 50*($$('.specOl').scrollTop / $$('.specOl').offsetHeight)+'%',
         rotateX: xrwd*10,
-        rotateY: 180*(os / $$('.specOl').offsetHeight),
+        rotateY: 180*(os / 977),
         rotateZ: -zzz*10,
         left: 50+xxx*40+'%',
         scale: (zzz+1)/2+.5,

@@ -1,20 +1,14 @@
-<script>
-import navComponentsVue from '@/components/navComponents.vue';
+<script setup>
 import {bodyInit} from '../composables/useOnunmounted';
 bodyInit();
-export default{
-  components:{
-    navComponentsVue
-  }
-}
 
 
 
 </script>
 
 <template>
-<navComponentsVue />
-<section class="machine">
+<nav-component />
+<div class="machine">
   <div class="machine_box">
     <div class="machine_title">
       <h2>Combined machines currently owned</h2>
@@ -41,20 +35,23 @@ export default{
       <router-link class="article" to="/CustomizedOrders"><button>View customization &rarr;</button></router-link>
     </div>
   </div>
-</section>
+</div>
         
-    
+<footer-component />    
 </template>
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
 body{
   overflow: hidden;
+  
 }
 .machine{
   width: 100%;
-  margin-top: 0;
   .machine_box{
     width: 100%;
+    @include l($l-breakpoint){
+      padding-top: 50px;
+    }
     .machine_title{
       width: 100%;
       justify-content: center;

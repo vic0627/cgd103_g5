@@ -6,31 +6,26 @@ const table = ref([
     number:5,
     q:"How to become a member of EFPV?",
     a:"Click the member center icon in the upper right corner of the homepage to register/login.",
-    time:"2022/12/06"
   },
   {
     number:4,
     q:"How to contact us?",
     a:"123",
-    time:"2022/11/01"
   },
   {
     number:3,
     q:"How to contact us?",
     a:"123",
-    time:"2022/10/10"
   },
   {
     number:2,
     q:"How to contact us?",
     a:"123",
-    time:"2022/10/06"
   },
   {
     number:1,
     q:"How to contact us?",
     a:"123",
-    time:"2022/09/25"
   },
 
 ])
@@ -39,7 +34,7 @@ const table = ref([
 <template>
 <div class="top">
   <h2>
-    消息內容修改
+    管理員管理
     <outComponents />
   </h2>
   <div class="search_box">
@@ -52,16 +47,14 @@ const table = ref([
     <table>
       <tr>
         <th>編號</th>
-        <th>標題</th>
-        <th>內容</th>
-        <th>時間</th>
+        <th>問題</th>
+        <th>回覆</th>
         <th>修改</th>
       </tr>
       <tr v-for="item in table" :key="item">
         <td>{{item.number}}</td>
         <td>{{item.q}}</td>
         <td>{{item.a}}</td>
-        <td>{{item.time}}</td>
         <td><a href="#"><span class="block">編輯</span> <span>/</span> <span class="red">刪除</span></a></td>
       </tr>
     </table>

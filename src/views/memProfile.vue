@@ -277,6 +277,9 @@ $text-color:#fff;
 $link-color:#7abcff;
 $btn-color:#007FFB;
 $bg-color:rgb(54, 54, 54);
+header{
+    top: 0;
+}
 section{
     margin: 0;
 }
