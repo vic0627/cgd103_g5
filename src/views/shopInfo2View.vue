@@ -375,14 +375,14 @@ const btnLeft = () => {
       img {
         width: 360px;
         height: 360px;
-        margin-left: 160px;
+        margin-left: 130px;
         margin-top: 50px;
       }
       .button {
         top: 170px;
       }
       #left {
-        left: 100px;
+        left: 20px;
       }
       #right {
         left: 560px;
