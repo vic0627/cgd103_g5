@@ -25,6 +25,12 @@ const areaText = ref({
     src: "src/assets/images/race/point3.jpg",
     text: "Chiang Kai-shek Memorial Hall honors the memory of former president of the Republic of China.Memorial Square is also one of the city’s most important cultural sites, and some democracy activists had held here.The National Concert Hall, a stunning example of neo-classical Chinese architecture.",
   },
+  4: {
+    id: 4,
+    title: "Korea",
+    src: "src/assets/images/race/point1.jpg",
+    text: "Situated in the city’s oldest neighborhood, Wanhua.Longshan Temple is the spiritual heart of Taipei.It’s a place where generations of locals have come to seek good fortune, health, and even guidance on who to marry.",
+  },
 });
 const changeCount = (id) => {
   count.value = id;
@@ -36,21 +42,13 @@ const changeCount = (id) => {
   <!-- banner -->
   <section>
     <div class="banner">
-      <div class="banner_img">
-        <img src="../assets/images/race/banner01.jpg" alt="banner" />
-      </div>
+      <div class="banner_img banner_img1"></div>
 
-      <div class="banner_img">
-        <img src="../assets/images/race/banner02.jpg" alt="banner" />
-      </div>
+      <div class="banner_img banner_img2"></div>
 
-      <div class="banner_img">
-        <img src="../assets/images/race/banner03.jpg" alt="banner" />
-      </div>
+      <div class="banner_img banner_img3"></div>
 
-      <div class="banner_img">
-        <img src="../assets/images/race/banner04.jpg" alt="banner" />
-      </div>
+      <div class="banner_img banner_img4"></div>
 
       <div class="banner_title">
         <h2>RACE</h2>
@@ -387,11 +385,9 @@ const changeCount = (id) => {
     <div class="pointBox">
       <div class="pointBgi">
         <div
-          class="bgi bgi1"
+          class="bgi"
           :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(src/assets/images/race/point${count}.jpg)`"
         ></div>
-        <div class="bgi bgi2"></div>
-        <div class="bgi bgi3"></div>
       </div>
       <div class="bigtext">
         <div class="text text1">
@@ -446,25 +442,37 @@ section {
   margin: 0;
   width: 100%;
   height: 176px;
-  position: sticky;
+  position: relative;
+
   @include m($m-breakpoint) {
     height: 462px;
   }
   @include l($l-breakpoint) {
-    height: 690px;
+    height: 550px;
   }
   .banner_img {
     width: 100%;
     opacity: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center center;
     filter: alpha(opacity=0);
     -webkit-animation: round 20s linear infinite;
     animation: round 20s linear infinite;
-    img {
-      width: 100%;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
+    position: absolute;
+  }
+  .banner_img1 {
+    background-image: url("../assets/images/race/banner01.jpg");
+  }
+  .banner_img2 {
+    background-image: url("../assets/images/race/banner02.jpg");
+  }
+  .banner_img3 {
+    background-image: url("../assets/images/race/banner03.jpg");
+  }
+  .banner_img4 {
+    background-image: url("../assets/images/race/banner04.jpg");
   }
   .banner_title {
     position: absolute;
@@ -552,6 +560,7 @@ h2 {
   display: flex;
   overflow: scroll;
   position: static;
+
   @include l($l-breakpoint) {
     margin: 0;
     width: calc(300px * 8);
@@ -665,34 +674,18 @@ h2 {
 
   .pointBgi {
     @include l($l-breakpoint) {
-      .bgi {
+      // height: 100%;
+      // position: relative;
+    }
+
+    .bgi {
+      @include l($l-breakpoint) {
         width: 100%;
         height: 100%;
         background-size: cover;
         background-position: center center;
         position: absolute;
         z-index: 1;
-      }
-      .bgi1 {
-        /* background-image: linear-gradient(
-            rgba(0, 0, 0, 0.7),
-            rgba(0, 0, 0, 0.7)
-          ),
-          url("../assets/images/race/point1.jpg"); */
-      }
-      .bgi2 {
-        /* background-image: linear-gradient(
-            rgba(0, 0, 0, 0.7),
-            rgba(0, 0, 0, 0.7)
-          ),
-          url("../assets/images/race/point2.jpg"); */
-      }
-      .bgi3 {
-        /* background-image: linear-gradient(
-            rgba(0, 0, 0, 0.7),
-            rgba(0, 0, 0, 0.7)
-          ),
-          url("../assets/images/race/point3.jpg"); */
       }
     }
   }
@@ -713,10 +706,6 @@ h2 {
           text-align: center;
           margin-bottom: 30px;
         }
-      }
-      .text2,
-      .text3 {
-        display: none;
       }
     }
   }
@@ -745,7 +734,7 @@ h2 {
       }
       .cardPic {
         @include l($l-breakpoint) {
-          width: 300px;
+          max-width: 300px;
         }
         img {
           width: 100%;
@@ -754,7 +743,7 @@ h2 {
       }
       .cardContent {
         @include l($l-breakpoint) {
-          width: 300px;
+          max-width: 300px;
           overflow: hidden;
           text-overflow: ellipsis;
           display: -webkit-box;
@@ -766,6 +755,7 @@ h2 {
   }
 }
 footer {
-  margin-top: 30px;
+  position: sticky;
+  z-index: 90;
 }
 </style>

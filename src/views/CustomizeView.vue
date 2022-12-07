@@ -259,7 +259,7 @@ const controllerChoose = (id) => {
 </script>
 
 <template>
-    <nav-component />
+    <nav-component :custom="`#077AF9`"/>
     <section class="customize">
         <canvas id="customize3d" class="customize3d"></canvas>
         <h2 class="customizeTitle">Customize</h2>

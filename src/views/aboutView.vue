@@ -20,8 +20,6 @@ export default{
   components:{
     Accordion,
     mem,
-    navComponentsVue,
-    footerComponentsVue
   }
 }
 
@@ -32,7 +30,8 @@ export default{
 
 
 <template>
-  <navComponentsVue :about="`#077AF9`"/>
+  <nav-component/>
+  <nav-component :about="`#077AF9`"/>
   <!-- 01 video start -->
   <section class="video_box" >
         <div class="top_video">
@@ -186,8 +185,8 @@ export default{
   <!-- 06 FAQ end -->
 
 
-<footerComponentsVue />
-  
+
+<footer-component />   
 </template>
 
 <style lang="scss" scoped>

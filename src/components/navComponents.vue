@@ -46,6 +46,10 @@ const NavClass = defineProps({
         type:String,
         default:'',
     },
+    custom:{
+        type:String,
+        default:'',
+    }
 });
 
 
@@ -81,7 +85,7 @@ const NavClass = defineProps({
                         <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
                     </li> -->
                     <li><router-link to="/shop" class="navHover" :style="`color: ${NavClass.shop}`">DRONES</router-link></li>
-                    <li><router-link to="/custom" class="navHover">CUSTOM</router-link></li>
+                    <li><router-link to="/custom" class="navHover" :style="`color: ${NavClass.custom}`">CUSTOM</router-link></li>
                     <li><router-link to="/about" class="navHover" :style="`color: ${NavClass.about}`">ABOUT</router-link></li>
                     <li><router-link to="/race" class="navHover" :style="`color: ${NavClass.race}`">RACE</router-link></li>
                     <li><router-link to="/news" class="navHover" :style="`color: ${NavClass.news}`">NEWS</router-link></li>

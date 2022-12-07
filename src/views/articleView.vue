@@ -1,6 +1,6 @@
 <script setup>
 import navComponentsVue from '@/components/navComponents.vue';
-import footerComponentsVue from '@/components/footerComponents.vue';
+
 import {bodyInit} from '../composables/useOnunmounted';
 bodyInit();
 
@@ -9,7 +9,7 @@ bodyInit();
 </script>
 
 <template>
-<navComponentsVue />
+<navComponentsVue :news="`#077AF9`"/>
 
 <div class="article">
     <div class="title_box">

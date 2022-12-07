@@ -1,11 +1,12 @@
-<script>
+<script setup>
 import { onMounted, registerRuntimeCompiler, reactive,ref } from "vue";
+
+import newsComponentsVue from "@/components/newsComponents.vue";
 import {bodyInit} from '../composables/useOnunmounted';
 bodyInit();
 </script>
 <script setup>
 import { onMounted, registerRuntimeCompiler, reactive,ref } from "vue";
-import navComponentsVue from "@/components/navComponents.vue";
 import newsComponentsVue from "@/components/newsComponents.vue";
 
 
@@ -18,7 +19,8 @@ onMounted(()=> {
 
 <template>
   <!-- 01 banner start -->
-  <navComponentsVue :news="`#077AF9`"/>
+  <nav-component :news="`#077AF9`"/>
+  <!-- <navComponentsVue :news="`#077AF9`"/> -->
   <div class="news">
     <div class="news_banner_box">
       <div class="banner">
@@ -46,7 +48,7 @@ onMounted(()=> {
 
 <!-- 02 tag start -->
 <newsComponentsVue />
-
+<footer-component />
 </template>
 
 <style lang="scss" scoped>
