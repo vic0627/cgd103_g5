@@ -31,7 +31,7 @@ const router = createRouter({
     {
       path: "/shopInfo",
       name: "shopInfo",
-      component: () => import("../views/shopInfo2View.vue"),
+      component: () => import("../views/shopInfoView.vue"),
     },
     {
       path: "/game",
