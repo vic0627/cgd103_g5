@@ -98,7 +98,7 @@ const products = reactive([
   {
     id: 6,
     name: "p6",
-    title: "Charles 1 Red",
+    title: "Charl 1 Red",
     Original_Price: "USD$900",
     Discount_Price: "USD$888",
     src6: [
@@ -112,7 +112,7 @@ const products = reactive([
   {
     id: 7,
     name: "p7",
-    title: "Charles 2 White",
+    title: "Charl 2 White",
     Original_Price: "USD$900",
     src7: [
       "../../public/images/shop/body_02_white_1.png",
@@ -125,7 +125,7 @@ const products = reactive([
   {
     id: 8,
     name: "p8",
-    title: "Charles 3 Green",
+    title: "Charl 3 Green",
     Original_Price: "USD$900",
     src8: [
       "../../public/images/shop/body_02_green_1.png",
@@ -138,7 +138,7 @@ const products = reactive([
   {
     id: 9,
     name: "p9",
-    title: "Charles 4 Blue",
+    title: "Charl 4 Blue",
     Original_Price: "USD$900",
     Discount_Price: "USD$888",
     src9: [
@@ -152,7 +152,7 @@ const products = reactive([
   {
     id: 10,
     name: "p10",
-    title: "Charles 5 Black",
+    title: "Charl 5 Black",
     Original_Price: "USD$900",
     src10: [
       "../../public/images/shop/body_02_black_1.png",
@@ -165,7 +165,7 @@ const products = reactive([
   {
     id: 11,
     name: "p11",
-    title: "Chacha 1 Red",
+    title: "Chac 1 Red",
     Original_Price: "USD$900",
     Discount_Price: "USD$888",
     src11: [
@@ -179,7 +179,7 @@ const products = reactive([
   {
     id: 12,
     name: "p12",
-    title: "Chacha 2 White",
+    title: "Chac 2 White",
     Original_Price: "USD$900",
     Discount_Price: "USD$888",
     src12: [
@@ -193,7 +193,7 @@ const products = reactive([
   {
     id: 13,
     name: "p13",
-    title: "Chacha 3 Black",
+    title: "Chac 3 Black",
     Original_Price: "USD$900",
     Discount_Price: "USD$888",
     src13: [
@@ -207,7 +207,7 @@ const products = reactive([
   {
     id: 14,
     name: "p14",
-    title: "Chacha 4 Blue",
+    title: "Chac 4 Blue",
     Original_Price: "USD$900",
     Discount_Price: "USD$888",
     src14: [
@@ -525,10 +525,10 @@ $(document).ready(() => {
     <div class="buttons">
       <router-link
         class="anchors btnSecond"
-        data-title="Learn More"
+        data-title="More"
         to="/shopInfo"
       >
-        <span>Learn More</span>
+        <span>More</span>
       </router-link>
     </div>
   </section>
@@ -547,9 +547,9 @@ $(document).ready(() => {
     <div class="buttons">
       <router-link
         class="anchors btnSecond"
-        data-title="Learn More"
+        data-title="More"
         to="/shopInfo"
-        ><span>Learn More</span></router-link
+        ><span>More</span></router-link
       >
     </div>
   </section>
@@ -645,9 +645,9 @@ $(document).ready(() => {
                 >
                 <router-link
                   class="anchors btnSecond"
-                  data-title="Learn More"
+                  data-title="More"
                   to="/shopInfo"
-                  ><span>Learn More</span></router-link
+                  ><span>More</span></router-link
                 >
               </div>
             </div>
@@ -710,9 +710,9 @@ $(document).ready(() => {
                 >
                 <router-link
                   class="anchors btnSecond"
-                  data-title="Learn More"
+                  data-title="More"
                   to="/shopInfo"
-                  ><span>Learn More</span></router-link
+                  ><span>More</span></router-link
                 >
               </div>
             </div>
