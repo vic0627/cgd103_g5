@@ -7,14 +7,7 @@ bodyInit();
 </script>
 <script setup>
 import { onMounted, registerRuntimeCompiler, reactive,ref } from "vue";
-import newsComponentsVue from "@/components/newsComponents.vue";
-
-
-onMounted(()=> {
- 
-});
-
-      
+import newsComponentsVue from "@/components/newsComponents.vue";   
 </script>
 
 <template>
