@@ -657,18 +657,6 @@ $(document).ready(()=>{
             vertical-align: bottom;
         }
     }
-    // .buttons{
-    //     width: 100%;
-    //     grid-column: 1/1;
-    //     grid-row: 3/3;
-    //     .btnPrimary{
-    //         margin: 0 auto;
-    //         position: relative;
-    //         top: -50px;
-    //         @include primaryBtn (150px);
-    //     }
-
-    // }
 }
 //step
 .step_wrapper{
