@@ -5,6 +5,8 @@ import $ from 'jquery';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
 
 onMounted(()=> {
+
+    
     $('.List-item>a').parent().siblings().find('ul').hide();
     $('.List-item>a').click(function (e) { 
         e.preventDefault();
@@ -22,8 +24,6 @@ onMounted(()=> {
     $(window).resize(function() {
         moveProgressBar();
     });
-
-
     // SIGNATURE PROGRESS
     function moveProgressBar() {
       console.log("moveProgressBar");
