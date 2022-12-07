@@ -38,7 +38,7 @@ const changeCount = (id) => {
 </script>
 
 <template>
-  <navComponentsVue :race="`#077AF9`"/>
+  <navComponentsVue :race="`#077AF9`" />
   <!-- banner -->
   <section>
     <div class="banner">
@@ -757,5 +757,6 @@ h2 {
 footer {
   position: sticky;
   z-index: 90;
+  margin-top: 50px;
 }
 </style>

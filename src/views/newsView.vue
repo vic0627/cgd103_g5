@@ -1,33 +1,43 @@
-<script setup>
-import { onMounted, registerRuntimeCompiler, reactive,ref } from "vue";
+<script>
+import { onMounted, registerRuntimeCompiler, reactive } from "vue";
+import navComponentsVue from "@/components/navComponents.vue";
+import {bodyInit} from '../composables/useOnunmounted';
+bodyInit();
 
+// import {useMotion} from '@vueuse/motion';
+
+export default {
+  data: () => ({
+    activeTab: "tab-1",
+  }),
+  methods: {
+    setActiver(tab) {
+      this.activeTab = tab;
+    },
+    isActive(tab) {
+      return this.activeTab === tab;
+    },
+  },
+};
+</script>
+<script setup>
 import newsComponentsVue from "@/components/newsComponents.vue";
 import {bodyInit} from '../composables/useOnunmounted';
 bodyInit();
 </script>
-<script setup>
-import { onMounted, registerRuntimeCompiler, reactive,ref } from "vue";
-import newsComponentsVue from "@/components/newsComponents.vue";
-
-
-onMounted(()=> {
- 
-});
 
       
-</script>
 
 <template>
   <!-- 01 banner start -->
-  <nav-component :news="`#077AF9`"/>
-  <!-- <navComponentsVue :news="`#077AF9`"/> -->
+  <navComponentsVue class="newsheader" />
   <div class="news">
     <div class="news_banner_box">
       <div class="banner">
         <img src="../assets/images/About/news_banner.jpg" alt="banner" />
         <div class="banner_word">
           <div class="banner_title">
-            <h2 :class="newsheader">Explore sky horizon</h2>
+            <h2>Explore sky horizon</h2>
           </div>
           <div class="banner_txt">
             <p>
@@ -48,13 +58,16 @@ onMounted(()=> {
 
 <!-- 02 tag start -->
 <newsComponentsVue />
-<footer-component />
+<footer-component />  
 </template>
 
 <style lang="scss" scoped>
 @import "@/sass/style.scss";
 // @import '@/css/reset.css';
 
+.newsheader {
+  color: $blue;
+}
 .news {
   width: 100%;
   padding-top: 40px;
@@ -200,4 +213,199 @@ onMounted(()=> {
   }
 }
 
+.label {
+  width: 100%;
+  .label_box {
+    width: 100%;
+    margin: auto;
+    max-width: 1200px;
+    .label_title {
+      width: 100%;
+      margin: 25px 0;
+      text-align: center;
+    }
+    .filter_box {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      justify-content: center;
+      align-items: center;
+      .filter {
+        width: 250px;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        .item {
+          display: flex;
+          color: #fff;
+          cursor: pointer;
+          background-color: $blue;
+          width: 70px;
+          margin: 15px;
+          padding: 10px;
+          justify-content: center;
+          border-radius: 5px;
+          font-size: 13px;
+          transition: 0.5s all;
+          font-family: "Poppins", sans-serif;
+          &:hover {
+            background-color: rgb(6, 13, 204);
+          }
+          &.active {
+            background-color: rgb(6, 13, 204);
+          }
+        }
+      }
+      @include m($m-breakpoint) {
+        .filter {
+          width: 700px;
+        }
+      }
+
+      @include l($l-breakpoint) {
+        .filter {
+          width: 700px;
+          .item {
+            width: 120px;
+          }
+        }
+      }
+    }
+  }
+}
+.cards {
+  width: 100%;
+  .content {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    .card {
+      position: relative;
+      width: 170px;
+      height: 220px;
+      margin: 5px;
+      border-radius: 5px;
+      transition: 0.5s all;
+      background-color: #0f1f3d;
+      overflow: hidden;
+      &:hover {
+        height: 190px;
+        transform: scale(1.05);
+      }
+      &:hover button {
+        opacity: 1;
+      }
+      img {
+        width: 100%;
+        height: 150px;
+        border-radius: 5px 5px 0 0;
+      }
+      .item_box {
+        display: flex;
+        .item {
+          display: flex;
+          width: 50px;
+          margin: 15px;
+          padding: 10px;
+          justify-content: center;
+          color: rgb(190, 190, 190);
+          border: 1px solid rgb(170, 170, 170);
+          cursor: pointer;
+          background-color: transparent;
+          margin: 5px;
+          padding: 3px;
+          border-radius: 3px;
+          font-size: 13px;
+          transition: 0.5s all;
+          font-family: "Poppins", sans-serif;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+      p {
+        margin: 5px 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      button {
+        position: absolute;
+        bottom: 0px;
+        opacity: 0;
+        width: 100%;
+        height: 30px;
+        background-color: $blue;
+        color: #fff;
+        font-size: 18px;
+        align-items: center;
+        border-radius: 5px;
+        border: none;
+        transition: 0.5s all;
+        cursor: pointer;
+        &:hover {
+          background-color: #1f64e4;
+        }
+      }
+    }
+    @include m($m-breakpoint) {
+      .card {
+        width: 290px;
+        height: 280px;
+        margin: 10px;
+        padding: 0;
+        &:hover {
+          height: 250px;
+          transform: scale(1.05);
+        }
+        &:hover button {
+          opacity: 1;
+        }
+        img {
+          height: 200px;
+        }
+        .item_box {
+          .item {
+            width: 70px;
+          }
+        }
+        button {
+          position: absolute;
+          bottom: -5px;
+          opacity: 0;
+          width: 100%;
+          height: 48px;
+          background-color: $blue;
+          color: #fff;
+          font-size: 18px;
+          align-items: center;
+          border-radius: 5px;
+          border: none;
+          transition: 0.5s all;
+          cursor: pointer;
+          &:hover {
+            background-color: #1f64e4;
+          }
+        }
+      }
+    }
+    @include l($l-breakpoint) {
+      .card {
+        width: 350px;
+        height: 320px;
+        &:hover {
+          height: 260px;
+          transform: scale(1.05);
+        }
+        img {
+          height: 210px;
+        }
+      }
+    }
+  }
+}
 </style>

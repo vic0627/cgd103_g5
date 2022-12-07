@@ -268,7 +268,7 @@ const btnLeft = () => {
   opacity: 0;
   top: 30px;
 
-  animation: downBar 1s 1s forwards;
+  animation: downBar 1s forwards;
 
   p {
     text-align: center;
@@ -338,6 +338,7 @@ const btnLeft = () => {
   @include m($m-breakpoint) {
     flex-direction: row;
     justify-content: center;
+    gap: 6vw;
     &:after {
       display: none;
     }
@@ -375,14 +376,14 @@ const btnLeft = () => {
       img {
         width: 360px;
         height: 360px;
-        margin-left: 160px;
+        margin-left: 130px;
         margin-top: 50px;
       }
       .button {
         top: 170px;
       }
       #left {
-        left: 100px;
+        left: 20px;
       }
       #right {
         left: 560px;
@@ -631,14 +632,13 @@ h2 {
     h4 {
       position: absolute;
       top: 0;
-      margin: 0;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
     p {
       position: absolute;
       top: 100px;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
   }
@@ -660,14 +660,13 @@ h2 {
     h4 {
       position: absolute;
       top: 0;
-      margin: 0;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
     p {
       position: absolute;
       top: 100px;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
   }
@@ -689,14 +688,13 @@ h2 {
     h4 {
       position: absolute;
       top: 0;
-      margin: 0;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
     p {
       position: absolute;
       top: 100px;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
   }
@@ -718,14 +716,13 @@ h2 {
     h4 {
       position: absolute;
       top: 0;
-      margin: 0;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
     p {
       position: absolute;
       top: 100px;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
   }
@@ -767,6 +764,12 @@ h2 {
       width: 48vw;
       h4 {
         line-height: 45px;
+        top: 0;
+        margin: 40px 40px 0;
+      }
+      p {
+        top: 60px;
+        margin: 40px;
       }
       img {
         height: 400px;
@@ -785,6 +788,12 @@ h2 {
       width: 36vw;
       h4 {
         line-height: 45px;
+        top: 0;
+        margin: 40px 40px 0;
+      }
+      p {
+        top: 110px;
+        margin: 40px;
       }
       img {
         height: 400px;
@@ -803,6 +812,12 @@ h2 {
       width: 36vw;
       h4 {
         line-height: 45px;
+        top: 0;
+        margin: 40px 40px 0;
+      }
+      p {
+        top: 110px;
+        margin: 40px;
       }
       img {
         height: 400px;
@@ -821,6 +836,12 @@ h2 {
       width: 77vw;
       h4 {
         line-height: 45px;
+        top: 0;
+        margin: 40px 40px 0;
+      }
+      p {
+        top: 140px;
+        margin: 40px;
       }
       img {
         height: 400px;

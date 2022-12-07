@@ -108,6 +108,8 @@ const customer2 = reactive(
         padding: 10px;
         border-radius: 10px;
         font-size: 20px;
+        border-collapse: separate;
+        border-spacing: 0;
         @include m($m-breakpoint){
             margin: 20px;
             height: 800px;
@@ -128,6 +130,12 @@ const customer2 = reactive(
             background-color: rgba(217, 217, 217, 0.32);
             max-width: 100%;
             margin: 20px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-collapse: separate;
+            border-spacing: 0;
             tr{
                 border: 1px solid #ccc;
                 line-height: 40px;
@@ -149,6 +157,12 @@ const customer2 = reactive(
             background-color: #98989880;
             max-width: 100%;
             margin: 20px ;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            border-collapse: separate;
+            border-spacing: 0;
             @include m($m-breakpoint){
                 max-width: 100%;
             }
