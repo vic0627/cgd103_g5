@@ -3,7 +3,7 @@ import { reactive, onMounted } from 'vue';
 const mainMenu = reactive([
     {
         "id": "shop",
-        "name": "DRONES",
+        "name": "STORE",
     },
     {
         "id": "custom",
@@ -39,15 +39,19 @@ const NavClass = defineProps({
         default:'',
     },
     shop:{
-        type:String,
+        type: String,
+        default:'',
+    },
+    custom:{
+        type: String,
         default:'',
     },
     race:{
-        type:String,
+        type: String,
         default:'',
     },
+    
 });
-
 
 // :style="NavClass.className"
 </script>
@@ -66,7 +70,7 @@ const NavClass = defineProps({
             <div class="wrapper">
                 <ul>
                     <li v-for="(item,index) in mainMenu" :key="index">
-                        <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
+                            <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
                     </li>
                     <div class="icon-wrap">
                         <li><router-link to="/signin" class="shop"><img src="../assets/images/home/icon1.png" alt="member"></router-link></li>
@@ -80,11 +84,11 @@ const NavClass = defineProps({
                     <!-- <li v-for="(item,index) in mainMenu" :key="index">
                         <router-link class="navHover" :to="`/${item.id}`">{{item.name}}</router-link>
                     </li> -->
-                    <li><router-link to="/shop" class="navHover" :style="`color: ${NavClass.shop}`">DRONES</router-link></li>
-                    <li><router-link to="/custom" class="navHover">CUSTOM</router-link></li>
-                    <li><router-link to="/about" class="navHover" :style="`color: ${NavClass.about}`">ABOUT</router-link></li>
-                    <li><router-link to="/race" class="navHover" :style="`color: ${NavClass.race}`">RACE</router-link></li>
-                    <li><router-link to="/news" class="navHover" :style="`color: ${NavClass.news}`">NEWS</router-link></li>
+                    <li><router-link to="/shop" class="navHover" :style="`color :${NavClass.shop}`">STORE</router-link></li>
+                    <li><router-link to="/custom" class="navHover" :style="`color :${NavClass.custom}`">CUSTOM</router-link></li>
+                    <li><router-link to="/about" class="navHover" :style="`color :${NavClass.about}`">ABOUT</router-link></li>
+                    <li><router-link to="/race" class="navHover" :style="`color :${NavClass.race}`">RACE</router-link></li>
+                    <li><router-link to="/news" class="navHover" :style="`color :${NavClass.news}`">NEWS</router-link></li>
                 </ul>
             </div>
             <div class="shop-cart">  
@@ -101,6 +105,7 @@ const NavClass = defineProps({
 @import '@/css/reset.css';
 
 header {
+    top: 0;
     position: fixed;
     z-index: 10;
     width: 100%;
@@ -355,6 +360,9 @@ input[type="checkbox"]{
                     color: $blue;
                     transform: scale(1.05);
                     transition: all 0.3s ease-in-out;
+                }
+                &:focus {
+                    color: $blue;
                 }
                 &::before {
                     content: "";

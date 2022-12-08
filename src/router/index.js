@@ -74,6 +74,11 @@ const router = createRouter({
       component: () => import("../views/memProfile.vue"),
     },
     {
+      path: "/payment",
+      name: "payment",
+      component: () => import("../views/memPayment.vue"),
+    },
+    {
       path: "/CustomizedOrders",
       name: "CustomizedOrders",
       component: () => import("../views/CustomizedOrders.vue"),
@@ -108,8 +113,18 @@ const router = createRouter({
       name: "cart",
       component: () => import("../views/cartView.vue"),
     },
+    {
+      path: "/racing",
+      name: "racing",
+      component: () => import("../views/racing.vue"),
+    },
+    {
+      path: "/backendlogin",
+      name: "backendlogin",
+      component: () => import("../views/backend/backendLogin.vue"),
+    },
   ],
 });
 
 export default router;
-``
+``;

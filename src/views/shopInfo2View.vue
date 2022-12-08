@@ -5,7 +5,9 @@ import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import Accordion from "../components/accordionComponents.vue";
-
+import body1 from "../assets/images/shopInfo/body_03_1.png";
+import body2 from "../assets/images/shopInfo/body_03_2.png";
+import body3 from "../assets/images/shopInfo/body_03_3.png";
 bodyInit();
 // //bottomBar第二版
 
@@ -28,9 +30,9 @@ onMounted(() => {
 
 //商品大圖
 const shopInfoItem = ref({
-  1: "src/assets/images/shopInfo/body_03_1.png",
-  2: "src/assets/images/shopInfo/body_03_2.png",
-  3: "src/assets/images/shopInfo/body_03_3.png",
+  1: body1,
+  2: body2,
+  3: body3,
   // 4: "../assets/images/showcase/color_test_04.png",
 });
 const count = ref(1);
@@ -68,7 +70,7 @@ const btnLeft = () => {
   <div class="main">
     <!-- 商品大圖 -->
     <div id="mainPic">
-      <img :src="`src/assets/images/shopInfo/body_03_${count}.png`" />
+      <img :src="`/src/assets/images/shopInfo/body_03_${count}.png`" />
       <div class="button" id="left" @click="btnLeft">&lt;</div>
       <div class="button" id="right" @click="btnRight">&gt;</div>
     </div>
@@ -87,8 +89,13 @@ const btnLeft = () => {
         <li>Night Mode for Video Recording</li>
       </ul>
       <div class="more">
-        <router-link to="/showcase" data-title="Learn more" class="btnMain">
-          <span>Learn more > </span>
+        <router-link
+          to="/showcase"
+          class="toShowcase"
+          id="btn1"
+          data-title="More"
+        >
+          <span>More</span>
         </router-link>
       </div>
     </article>
@@ -102,25 +109,25 @@ const btnLeft = () => {
     <div class="colorSwitch">
       <div class="colorSwitch_photo">
         <div class="color_img">
-          <img src="src/assets/images/shopInfo/body_03_2.png" alt="color" />
+          <img src="/src/assets/images/shopInfo/body_03_2.png" alt="color" />
         </div>
 
         <div class="color_img">
           <img
-            src="src/assets/images/shopInfo/body_03_blue_2.png"
+            src="/src/assets/images/shopInfo/body_03_blue_2.png"
             alt="color"
           />
         </div>
 
         <div class="color_img">
           <img
-            src="src/assets/images/shopInfo/body_03_white_2.png"
+            src="/src/assets/images/shopInfo/body_03_white_2.png"
             alt="color"
           />
         </div>
 
         <div class="color_img">
-          <img src="src/assets/images/shopInfo/body_03_red_2.png" alt="color" />
+          <img src="/src/assets/images/shopInfo/body_03_red_2.png" alt="color" />
         </div>
       </div>
       <div class="colorSwitch_word">
@@ -134,7 +141,7 @@ const btnLeft = () => {
     </div>
 
     <div class="battery">
-      <img src="src/assets/images/shopInfo/battery.jpg" alt="battery" />
+      <img src="/src/assets/images/shopInfo/battery.jpg" alt="battery" />
       <h4>46-Min Extended Flight Time</h4>
       <p>
         Increasing flight time by almost 50% compared to Mavic 2 Pro, Mavic 3
@@ -143,7 +150,7 @@ const btnLeft = () => {
     </div>
 
     <div class="far">
-      <img src="src/assets/images/shopInfo/far.jpg" alt="far" />
+      <img src="/src/assets/images/shopInfo/far.jpg" alt="far" />
       <h4>O3+ Transmission, 15km Range</h4>
       <p>
         With a transmission distance of up to 15 km, fly farther and more stably
@@ -152,7 +159,7 @@ const btnLeft = () => {
     </div>
 
     <div class="accessories">
-      <img src="src/assets/images/shopInfo/accessories.jpg" alt="accessories" />
+      <img src="/src/assets/images/shopInfo/accessories.jpg" alt="accessories" />
       <h4>Extensive Accessories</h4>
       <p>
         DJI RC features a built-in 5.5-inch HD display for clear viewing in
@@ -162,7 +169,7 @@ const btnLeft = () => {
     </div>
 
     <div class="sensing">
-      <img src="src/assets/images/shopInfo/sensing.jpg" alt="sensing" />
+      <img src="/src/assets/images/shopInfo/sensing.jpg" alt="sensing" />
       <h4>Omnidirectional Sensing</h4>
       <p>
         Mavic 3 Classic continually senses objects in all directions and
@@ -177,13 +184,15 @@ const btnLeft = () => {
     <div class="cardRow">
       <div class="card">
         <div class="cardPic">
-          <img src="src/assets/images/shopInfo/controller.png" alt="" />
+          <img src="/src/assets/images/shopInfo/controller.png" alt="" />
         </div>
         <div class="cardInfo">
-          <h5>name</h5>
-          <span>USD $999</span>
+          <h5>EFVP Mavic 5</h5>
+          <span>USD $2,399</span>
           <a class="buttons">
-            <span class="btnPrimary" data-title="BUY NOW">BUY NOW</span>
+            <router-link to="/cart" class="buy" id="btn1" data-title="Buy">
+              <span>Buy</span>
+            </router-link>
           </a>
         </div>
       </div>
@@ -192,13 +201,15 @@ const btnLeft = () => {
     <div class="cardRow">
       <div class="card">
         <div class="cardPic">
-          <img src="src/assets/images/shopInfo/controller.png" alt="" />
+          <img src="/src/assets/images/shopInfo/controller.png" alt="" />
         </div>
         <div class="cardInfo">
-          <h5>name</h5>
-          <span>USD $999</span>
+          <h5>EFVP Mavic 3</h5>
+          <span>USD $1,199</span>
           <a class="buttons">
-            <span class="btnPrimary" data-title="BUY NOW">BUY NOW</span>
+            <router-link to="/cart" class="buy" id="btn1" data-title="Buy">
+              <span>Buy</span>
+            </router-link>
           </a>
         </div>
       </div>
@@ -207,13 +218,15 @@ const btnLeft = () => {
     <div class="cardRow">
       <div class="card">
         <div class="cardPic">
-          <img src="src/assets/images/shopInfo/controller.png" alt="" />
+          <img src="/src/assets/images/shopInfo/controller.png" alt="" />
         </div>
         <div class="cardInfo">
-          <h5>name</h5>
+          <h5>EFVP Mavic 2</h5>
           <span>USD $999</span>
           <a class="buttons">
-            <span class="btnPrimary" data-title="BUY NOW">BUY NOW</span>
+            <router-link to="/cart" class="buy" id="btn1" data-title="Buy">
+              <span>Buy</span>
+            </router-link>
           </a>
         </div>
       </div>
@@ -234,7 +247,7 @@ const btnLeft = () => {
 
     <div class="pnp">
       <span> USD $1,599 </span>
-      <router-link class="purchaseBar_btn" id="" to="/" data-title="Buy now"
+      <router-link class="purchaseBar_btn" id="" to="/cart" data-title="Buy now"
         ><span>Buy now</span></router-link
       >
     </div>
@@ -257,7 +270,7 @@ const btnLeft = () => {
   opacity: 0;
   top: 30px;
 
-  animation: downBar 1s 1s forwards;
+  animation: downBar 1s forwards;
 
   p {
     text-align: center;
@@ -326,7 +339,8 @@ const btnLeft = () => {
   }
   @include m($m-breakpoint) {
     flex-direction: row;
-
+    justify-content: center;
+    gap: 6vw;
     &:after {
       display: none;
     }
@@ -364,14 +378,14 @@ const btnLeft = () => {
       img {
         width: 360px;
         height: 360px;
-        margin-left: 160px;
+        margin-left: 130px;
         margin-top: 50px;
       }
       .button {
         top: 170px;
       }
       #left {
-        left: 100px;
+        left: 20px;
       }
       #right {
         left: 560px;
@@ -379,6 +393,7 @@ const btnLeft = () => {
     }
 
     @include l($l-breakpoint) {
+      margin-top: 60px;
       img {
       }
       .button {
@@ -394,6 +409,8 @@ const btnLeft = () => {
   .mainDesc {
     padding: 30px;
     h2 {
+      text-align: left;
+
       font-size: 26px;
       font-weight: 500;
     }
@@ -428,12 +445,15 @@ const btnLeft = () => {
   @include m($m-breakpoint) {
     .mainDesc {
       margin-left: 120px;
+
       h2 {
+        margin: 0px;
       }
       p {
       }
       ul {
         li {
+          color: #c4c4c4;
         }
       }
     }
@@ -482,8 +502,8 @@ h2 {
         opacity: 0;
 
         filter: alpha(opacity=0);
-        -webkit-animation: round 24s linear infinite;
-        animation: round 24s linear infinite;
+        -webkit-animation: round 16s linear infinite;
+        animation: round 16s linear infinite;
         img {
           width: inherit;
           height: inherit;
@@ -526,16 +546,16 @@ h2 {
       animation-delay: 0s;
     }
     .color_img:nth-child(2) {
-      -webkit-animation-delay: 6s;
-      animation-delay: 6s;
+      -webkit-animation-delay: 4s;
+      animation-delay: 4s;
     }
     .color_img:nth-child(3) {
-      -webkit-animation-delay: 12s;
-      animation-delay: 12s;
+      -webkit-animation-delay: 8s;
+      animation-delay: 8s;
     }
     .color_img:nth-child(4) {
-      -webkit-animation-delay: 18s;
-      animation-delay: 18s;
+      -webkit-animation-delay: 12s;
+      animation-delay: 12s;
     }
 
     .colorSwitch_word {
@@ -551,8 +571,8 @@ h2 {
         font-size: 26px;
         font-weight: 400;
         color: #999;
-        -webkit-animation: wordRound 24s linear infinite;
-        animation: wordRound 24s linear infinite;
+        -webkit-animation: wordRound 16s linear infinite;
+        animation: wordRound 16s linear infinite;
 
         @-webkit-keyframes wordRound {
           4% {
@@ -578,16 +598,16 @@ h2 {
         animation-delay: 0s;
       }
       span:nth-child(2) {
-        -webkit-animation-delay: 6s;
-        animation-delay: 6s;
+        -webkit-animation-delay: 4s;
+        animation-delay: 4s;
       }
       span:nth-child(3) {
-        -webkit-animation-delay: 12s;
-        animation-delay: 12s;
+        -webkit-animation-delay: 8s;
+        animation-delay: 8s;
       }
       span:nth-child(4) {
-        -webkit-animation-delay: 18s;
-        animation-delay: 18s;
+        -webkit-animation-delay: 12s;
+        animation-delay: 12s;
       }
     }
     @include l($l-breakpoint) {
@@ -614,14 +634,13 @@ h2 {
     h4 {
       position: absolute;
       top: 0;
-      margin: 0;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
     p {
       position: absolute;
       top: 100px;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
   }
@@ -643,14 +662,13 @@ h2 {
     h4 {
       position: absolute;
       top: 0;
-      margin: 0;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
     p {
       position: absolute;
       top: 100px;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
   }
@@ -672,14 +690,13 @@ h2 {
     h4 {
       position: absolute;
       top: 0;
-      margin: 0;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
     p {
       position: absolute;
       top: 100px;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
   }
@@ -701,14 +718,13 @@ h2 {
     h4 {
       position: absolute;
       top: 0;
-      margin: 0;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
     p {
       position: absolute;
       top: 100px;
-      padding: 20px;
+      margin: 20px;
       text-shadow: #222 2px 2px 4px;
     }
   }
@@ -750,40 +766,96 @@ h2 {
       width: 48vw;
       h4 {
         line-height: 45px;
+        top: 0;
+        margin: 40px 40px 0;
+      }
+      p {
+        top: 60px;
+        margin: 40px;
       }
       img {
         height: 400px;
         width: 48vw;
+        transition: 0.7s ease-in-out;
+      }
+
+      overflow: hidden;
+
+      &:hover > img {
+        transform: scale(1.05);
+        transition: 0.7s ease-in-out;
       }
     }
     .far {
       width: 36vw;
       h4 {
         line-height: 45px;
+        top: 0;
+        margin: 40px 40px 0;
+      }
+      p {
+        top: 110px;
+        margin: 40px;
       }
       img {
         height: 400px;
         width: 36vw;
+        transition: 0.7s ease-in-out;
+      }
+
+      overflow: hidden;
+
+      &:hover > img {
+        transform: scale(1.05);
+        transition: 0.7s ease-in-out;
       }
     }
     .accessories {
       width: 36vw;
       h4 {
         line-height: 45px;
+        top: 0;
+        margin: 40px 40px 0;
+      }
+      p {
+        top: 70px;
+        margin: 40px;
       }
       img {
         height: 400px;
         width: 36vw;
+        transition: 0.7s ease-in-out;
+      }
+
+      overflow: hidden;
+
+      &:hover > img {
+        transform: scale(1.05);
+        transition: 0.7s ease-in-out;
       }
     }
     .sensing {
       width: 77vw;
       h4 {
         line-height: 45px;
+        top: 0;
+        margin: 40px 40px 0;
+      }
+      p {
+        top: 140px;
+        margin: 40px;
       }
       img {
         height: 400px;
         width: inherit;
+        transition: 0.7s ease-in-out;
+      }
+
+      overflow: hidden;
+
+      &:hover > img {
+        transform: scale(1.05);
+        transition: 0.7s ease-in-out;
       }
       p {
         margin-top: -30px;
@@ -799,6 +871,7 @@ h2 {
       background-color: #232a3e;
       box-shadow: 0 0 10px #324e68;
       padding: 15px 0;
+      border-radius: 5px;
 
       margin: auto;
       margin-bottom: 40px;
@@ -806,8 +879,8 @@ h2 {
 
       display: flex;
       .cardPic {
-        width: 150px;
-        height: 100px;
+        width: 100px;
+        height: 70px;
         margin: 10px 20px;
         img {
           width: inherit;
@@ -825,24 +898,18 @@ h2 {
         span {
         }
         .buttons {
-          background: linear-gradient(0deg, #1890ff, #40a9ff);
-          border-radius: 5px;
-
-          margin-right: 0;
-          padding: 5px 10px;
-
-          text-align: center;
-          span {
-            font-weight: 600;
+          #btn1 {
+            margin: 5px 0 0 0;
+            padding: 10px;
           }
         }
       }
       @keyframes breath {
         30% {
-          transform: translateY(10px);
+          transform: translateY(-10px);
         }
-        65% {
-          transform: translateY(-15px);
+        75% {
+          transform: translateY(20px);
         }
       }
     }
@@ -862,15 +929,45 @@ h2 {
 
     .cardRow {
       .card {
+        .cardPic {
+          padding-top: 30px;
+          width: 170px;
+          height: 100px;
+        }
+        img {
+          animation: breath 10s linear infinite;
+        }
+      }
+      .card {
         width: 38vw;
+
+        &:hover {
+          box-shadow: 0 0 15px #445a6e;
+        }
         .cardInfo {
           span {
             margin: 5px 0 10px;
+            font-size: 20px;
           }
           .buttons {
-            // margin-left: 150px;
+            #btn1 {
+              margin: 5px 0 0 0;
+              padding: 15px;
+              span {
+                line-height: 15px;
+              }
+            }
           }
         }
+      }
+    }
+
+    @keyframes breath {
+      30% {
+        transform: translateY(-25px);
+      }
+      75% {
+        transform: translateY(15px);
       }
     }
   }

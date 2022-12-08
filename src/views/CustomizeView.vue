@@ -1,13 +1,25 @@
 <script setup>
 import { onMounted, ref, onUpdated } from 'vue';
+import { log, $$, $all } from '../composables/useCommon';
 import { droneModels, propellorModels, motorModels, controllerModels } from './js/CustomizeGlb';
 import * as CUS from './js/CustomizeThree';
 import dashBoardComponent from '@/components/dashBoardComponent.vue';
-import { niddleSpin } from '../composables/useDashBoardMove';
+import { niddleSpin, useDashBoardMove } from '../composables/useDashBoardMove';
 import { bodyInit } from '../composables/useOnunmounted';
 bodyInit();
-
+let w = null;
 let ww = window.innerWidth;
+onMounted(()=> {
+    w = Number(window.getComputedStyle($$('.dashBoard'),null).getPropertyValue("width").split('px')[0])/2;
+    canvasRe();
+    window.addEventListener('resize', ()=> {
+        w = Number(window.getComputedStyle($$('.dashBoard'),null).getPropertyValue("width").split('px')[0])/2;
+        ww = window.innerWidth;
+        canvasRe();
+    });
+    CUS.sceneInit();
+    CUS.animation();
+});
 const units = ref({
     maxSpeed: {
         'id': 1,
@@ -147,6 +159,19 @@ const step = ref({
 const flow = ref(1);
 const btnStatus = ref(false);
 const buyBtn = ref(false);
+const boardMove = ref(false);
+const boardActive = () => {
+    if(boardMove.value){
+        boardMove.value = false;
+    }else{
+        boardMove.value = true;
+    }
+    if(boardMove.value){
+        for(let i=1; i<=6; i++){
+            useDashBoardMove(i, ww, w);
+        }
+    }
+};
 const undo = () => {
     btnStatus.value = false;
     step.value[flow.value].show = false;
@@ -184,15 +209,7 @@ const nextStep = () => {
         alert('可以先選嗎?');
     }
 };
-onMounted(()=> {
-    canvasRe();
-    window.addEventListener('resize', ()=> {
-        ww = window.innerWidth;
-        canvasRe();
-    });
-    CUS.sceneInit();
-    CUS.animation();
-});
+
 
 const canvasRe = () => {
     if(ww<575){
@@ -259,7 +276,7 @@ const controllerChoose = (id) => {
 </script>
 
 <template>
-    <nav-component />
+    <nav-component :custom="`#077AF9`"/>
     <section class="customize">
         <canvas id="customize3d" class="customize3d"></canvas>
         <h2 class="customizeTitle">Customize</h2>
@@ -267,6 +284,7 @@ const controllerChoose = (id) => {
             <p>Select</p>
             <p>{{ step[flow].text }}</p>
         </div>
+        <p class="movToggle" @click="boardActive">Move Active: {{ boardMove }}</p>
         <div class="customizeControl">
             <div v-for="e in droneModels" :key="e.id" class="bodySelect selection" v-show="step[1].show">
                 <h3>{{ e.name }}</h3>
@@ -323,7 +341,21 @@ const controllerChoose = (id) => {
 @import '@/sass/base/_font.scss';
 @import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
-
+.movToggle{
+    display: none;
+    @include l($l-breakpoint) {
+        display: block;
+        width: 140px;
+        border: 1px solid #fff;
+        border-radius: 20px;
+        text-align: center;
+        position: absolute;
+        top: 145px;
+        left: 20%;
+        font-size: 12px;
+        cursor: pointer;
+    }
+}
 .customize3d{
     margin: 0 auto;
     position: absolute;

@@ -7,7 +7,7 @@
     justify-content: center;
 }
 #btn1 {
-    @include secondBtn(100px);
+    @include secondBtn(110px);
     margin: 20px 5px;
     @include l($l-breakpoint){
         margin: 20px 10px;
@@ -15,7 +15,7 @@
     }
 }
 #btn2 {
-    @include primaryBtn(100px);
+    @include primaryBtn(110px);
     margin: 20px 5px;
     @include l($l-breakpoint){
         margin: 20px 10px;

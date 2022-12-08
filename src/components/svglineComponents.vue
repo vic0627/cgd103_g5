@@ -81,9 +81,9 @@ const lines =  defineProps ({
         width: 100%;
     }
     @include l($l-breakpoint){
-        width: 500px;
+        width: 50%;
         height: 500px;
-        left: 60%;
+        left: 35%;
         bottom: -180%;
         img {
             width: 130%;

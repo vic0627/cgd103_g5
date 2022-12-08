@@ -1,21 +1,13 @@
 <script setup>
 import navComponentsVue from '@/components/navComponents.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
-import $ from 'jquery';
+import menuVue from '@/components/memberCenter/menu.vue';
+import memberCardVue from '@/components/memberCenter/memberCard.vue';
+import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
+// import $ from 'jquery';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
 
-onMounted(()=> {
-    $('.List-item>a').parent().siblings().find('ul').hide();
-    $('.List-item>a').click(function (e) { 
-        e.preventDefault();
-        $(this).parent().siblings().find('ul').slideUp();
-        $(this).parent().find('ul').slideToggle();
-        // $(this).parent().siblings().find('a').removeClass('rmminus');
-        // $(this).toggleClass('rmminus');
-    });
-
-})
-
+onMounted(()=> {});
 
 //address
 const state = reactive({
@@ -91,46 +83,19 @@ watch(() => state.frameworksIdx, (value) =>{
 });
 
 
+
+
+
 </script>
 
 <template>
-    <!-- <headerComponentsVue /> -->
-    <navComponentsVue />
-
+    <navComponentsVue/>
     <div class="main">
-        <nav class="sidenav">
-            <li class="List-item">
-                <a href="">Account</a>
-                <ul class="subitem">
-                    <li class="">Profile Overview</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Orders</a>
-                <ul class="subitem">
-                    <li class="">Normal Orders</li>
-                    <li class="">Customized Orders</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Racing</a>
-                <ul class="subitem">
-                    <li class="">My Racing</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Personal Setting</a>
-                <ul class="subitem">
-                    <li class="">Payment</li>
-                </ul>
-            </li>
-        </nav>
+        <menuVue/>
         <div class="maincontent">
             <section class="maininfo">
-                <div class="meminfo">
-                    <div class="memhead"></div>
-                </div>
-                <div class="memgrade">123</div>
+                <memberCardVue/>
+                <memberLevelVue/>
             </section>
             <section class="profiles-list">
                 <h1>Profile Overview</h1>
@@ -185,7 +150,7 @@ watch(() => state.frameworksIdx, (value) =>{
                     <span class=""></span>
 
                     <div class="action">
-                        <button type="submit">Confermed</button>
+                        <button type="submit">Confirmed</button>
                         <button type="">Cancel</button>
                     </div>
                 </form>
@@ -204,6 +169,9 @@ $text-color:#fff;
 $link-color:#7abcff;
 $btn-color:#007FFB;
 $bg-color:rgb(54, 54, 54);
+header{
+    top: 0;
+}
 section{
     margin: 0;
 }
@@ -230,24 +198,7 @@ input{
     justify-content: start;
     gap: 10px;
     color: $text-color;
-    .sidenav{
-        display: none;
-        width: 25%;
-        height: fit-content;
-        background-color: #1C2023;
-        padding: 20px;
-        border-radius: 10px;
-        .List-item{
-            padding: 10px;
-            a{
-                font-size: 15px;
-            }
-            .subitem{
-                // display: none;
-                padding: 10px 0 10px 20px;
-            }
-        }
-    }
+    
     .maincontent{
         width: 100%;
         margin: 0;
@@ -255,19 +206,6 @@ input{
             // display: flex;
             // gap: 10px;
             display: block;
-            .meminfo{
-                flex-grow: 1.5;
-                aspect-ratio: 16/9;
-                // background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
-                background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
-                border-radius: 10px;
-            }
-            .memgrade{
-                flex-grow: 1;
-                height: auto;
-                background-color: #616574;
-                border-radius: 10px;
-            }
         }
         .profiles-list{
             width: 100%;
@@ -278,56 +216,56 @@ input{
             box-sizing: border-box;
             border-radius: 10px;
             .tab_panel{
-                        label{
-                            display: block;
-                            margin-top: 24px;
-                        }
-                        .action{
-                            display: flex;
-                            gap: 100px;
-                            padding-top: 32px;
-                            button{
-                                width: 100%;
-                                height: 48px;
-                                border-radius: 10px;
-                                font-size: 16px;
-                                color: $text-color;
-                                background-color: $btn-color;
-                            }
-                            p{
-                                display: block;
-                                font-size: 12px;
-                                color: $text-color;
-                                margin: 8px 0 24px 0;
-                                text-align: center;
-                                a{
-                                    color: $link-color;
-                                    font-size: 12px;
-                                    display: inline;
-                                }
-                            }
-                        }
-                        span{
-                            font-size: 12px;
-                            color: $text-color;
-                        }
-                        .username{
-                            display: flex;
-                            gap: 10px;
-                        }
-                        .gender{
-                            display: flex;
-                            gap: 10px;
-                            label{
-                                margin: 20px 20px 20px 0;
-                                font-size: 20px;
-                            }
-                        }
-                        .selcon{
-                            display: flex;
-                            gap: 10px;
-                        }
+                label{
+                    display: block;
+                    margin-top: 24px;
                 }
+                .action{
+                    display: flex;
+                    gap: 100px;
+                    padding-top: 32px;
+                    button{
+                        width: 100%;
+                        height: 48px;
+                        border-radius: 10px;
+                        font-size: 16px;
+                        color: $text-color;
+                        background-color: $btn-color;
+                    }
+                    p{
+                        display: block;
+                        font-size: 12px;
+                        color: $text-color;
+                        margin: 8px 0 24px 0;
+                        text-align: center;
+                        a{
+                            color: $link-color;
+                            font-size: 12px;
+                            display: inline;
+                        }
+                    }
+                }
+                span{
+                    font-size: 12px;
+                    color: $text-color;
+                }
+                .username{
+                    display: flex;
+                    gap: 10px;
+                }
+                .gender{
+                    display: flex;
+                    gap: 10px;
+                    label{
+                        margin: 20px 20px 20px 0;
+                        font-size: 20px;
+                    }
+                }
+                .selcon{
+                    display: flex;
+                    gap: 10px;
+                }
+            }
         }
     }
 }
@@ -359,6 +297,6 @@ input{
     }
 }  
 @include l($l-breakpoint) {//>1199px
-
+    
 } 
 </style>

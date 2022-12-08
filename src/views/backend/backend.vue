@@ -6,7 +6,7 @@ import tabnewrevs from "../../components/tabnewrevs.vue"; //NEWS
 import tabnewadds from "../../components/tabnewadds.vue"; //NEWS
 import tabraceform from "../../components/tabraceform.vue"; //RACE
 import tabracecategory from "../../components/tabracecategory.vue"; //RACE
-
+import tabaccountfix from "@/components/tabaccountfix.vue";//account tabaccountfix
 import tabproductsearch from "@/components/tabproductsearch.vue";
 import tabproductImgManage from "@/components/tabproductImgManage.vue";
 export default {
@@ -19,7 +19,8 @@ export default {
     tabraceform,
     tabracecategory,
     tabproductsearch,
-    tabproductImgManage
+    tabproductImgManage,
+    tabaccountfix
   },
 };
 </script>
@@ -128,6 +129,16 @@ const backendCategory = ref({
       },
     },
   },
+  member_account: {
+    title: "會員管理",
+    show: false,
+    text: {
+      a: {
+        cn: "會員帳號管理",
+        tab: "memmodify",
+      },
+    },
+  },
 });
 
 const currentTab = ref("home");
@@ -155,7 +166,7 @@ const log = (e) => console.log(e);
       <div v-for="e in backendCategory" :key="e">
         <h2 v-if="e.tab === 'home'">
           <img
-            src="../../assets/images/About/g5_logo_grey.png"
+            src="../../assets/images/backend/backend_logo_3.png"
             alt="logoPic"
             @click="changeTab(e.tab)"
           />
