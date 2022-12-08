@@ -12,5 +12,5 @@ export default defineConfig({
     }
   },
   assetsInclude: ['**/*.glb', '**/*.gltf'],
-  base: "/dist/",
+  /* base: "/127/", */
 })

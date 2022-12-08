@@ -74,18 +74,12 @@ const bodyLoader = ( droneUrl, scale, x, y, z ) => {
                 node.receiveShadow = true
             }
         })
-        
+        modelObj.position.set(x, y, z);
+        modelObj.scale.set(scale, scale, scale);
+        scene.add( modelObj );
     } , undefined, function ( error ) {
         console.error( error );
     });
-    setTimeout(()=> {
-        if(modelObj){
-            modelObj.position.set(x, y, z);
-            modelObj.scale.set(scale, scale, scale);
-            scene.add( modelObj );  
-        }
-        
-    }, 500);
 };
 
 let bodyType, bodyScale, bodyX, bodyY, bodyZ;
@@ -123,18 +117,12 @@ const propellorLoader1 = ( droneUrl, scale, x, y, z ) => {
                 node.receiveShadow = true
             }
         })
-        
+        propellorObj1.position.set(x, y, z);
+        propellorObj1.scale.set(scale, scale, scale);
+        scene.add( propellorObj1 ); 
     } , undefined, function ( error ) {
         console.error( error );
     });
-    setTimeout(()=> {
-        if(propellorObj1){
-            propellorObj1.position.set(x, y, z);
-            propellorObj1.scale.set(scale, scale, scale);
-            scene.add( propellorObj1 );  
-        }
-        
-    }, 500);
 };
 const propellorloader2 = new GLTFLoader();
 const propellorLoader2 = ( droneUrl, scale, x, y, z ) => {
@@ -150,18 +138,12 @@ const propellorLoader2 = ( droneUrl, scale, x, y, z ) => {
                 node.receiveShadow = true
             }
         })
-        
+        propellorObj2.position.set(x, y, z);
+        propellorObj2.scale.set(scale, scale, scale);
+        scene.add( propellorObj2 );
     } , undefined, function ( error ) {
         console.error( error );
     });
-    setTimeout(()=> {
-        if(propellorObj2){
-            propellorObj2.position.set(x, y, z);
-            propellorObj2.scale.set(scale, scale, scale);
-            scene.add( propellorObj2 );  
-        }
-        
-    }, 500);
 };
 const propellorloader3 = new GLTFLoader();
 const propellorLoader3 = ( droneUrl, scale, x, y, z ) => {
