@@ -393,7 +393,7 @@ body{
     .teambox{
       transform: translateX(50px);
       padding: 15px 20px;
-      height: 450px;
+      // height: 450px;
       p{
         margin-top: 15px;
       }

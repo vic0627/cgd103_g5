@@ -1,19 +1,13 @@
 <script setup>
 import navComponentsVue from '@/components/navComponents.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
+import menuVue from '@/components/memberCenter/menu.vue';
+import memberCardVue from '@/components/memberCenter/memberCard.vue';
+import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
 import $ from 'jquery';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
 
 onMounted(()=> {
-    $('.List-item>a').parent().siblings().find('ul').hide();
-    $('.List-item>a').click(function (e) { 
-        e.preventDefault();
-        $(this).parent().siblings().find('ul').slideUp();
-        $(this).parent().find('ul').slideToggle();
-        // $(this).parent().siblings().find('a').removeClass('rmminus');
-        // $(this).toggleClass('rmminus');
-    });
-
     $('.btn').click(()=>{
         $('#img').attr('src','src/assets/images/Signin/creditCard.png');
     })
@@ -22,123 +16,17 @@ onMounted(()=> {
     })
    
 })
-
-
-
-//address
-const state = reactive({
-    frameworksIdx: 0, // 記錄第一層選單的被選取項目
-    contentsIdx: 0, // 記錄第二層選單的被選取項目
-    frameworks : [
-        {
-            type: 'Choose Your Location',
-            contents: [
-                { name: 'Choose Your Country'},
-            ],
-        },
-        {
-            type: 'AMERICAS',
-            contents: [
-                { name: 'USA'},
-                { name: 'Brasil'},
-                { name: 'Canada(English)'},
-                { name: 'Canada(Français)'},
-                { name: 'Mexico'},
-            ],
-        },
-        {
-            type: 'EUROPE',
-            contents: [
-                { name: 'Belgium'},
-                { name: 'Denmark (English)'},
-                { name: 'Deutschland'},
-                { name: 'Finland (English)'},
-                { name: 'France'},
-                { name: 'Ireland'},
-                { name: 'Italia'},
-                { name: 'Luxembourg (English)'},
-                { name: 'Monaco (English)'},
-                { name: 'Nederland (English)'},
-            ],
-        },
-        {
-            type: 'ASIA',
-            contents: [
-                { name: '台灣'},
-                { name: '中國大陸'},
-                { name: '日本'},
-                { name: '대한민국'},
-                { name: '香港特別行政區'},
-                { name: 'Singapore'},
-                { name: 'ประเทศไทย'},
-                { name: 'Việt Nam'},
-            ],
-        },
-        {
-            type: 'OCEANIA',
-            contents: [
-                { name: 'Australia'},
-                { name: 'New Zealand'},
-            ],
-        },
-        {
-            type: 'MIDDLE EAST',
-            contents: [
-                { name: 'UAE (English)'},
-                { name: 'Kuwait (English)'},
-                { name: 'KSA (English)'},
-            ],
-        },
-    ],
-});
-const pickContents = computed(() => {
-    return state.frameworks[state.frameworksIdx].contents;
-});
-watch(() => state.frameworksIdx, (value) =>{
-    state.contentsIdx = 0;
-});
-
-
 </script>
 
 <template>
-    <!-- <headerComponentsVue /> -->
-    <!-- <navComponentsVue /> -->
+    <navComponentsVue />
 
     <div class="main">
-        <nav class="sidenav">
-            <li class="List-item">
-                <a href="">Account</a>
-                <ul class="subitem">
-                    <li class="">Profile Overview</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Orders</a>
-                <ul class="subitem">
-                    <li class="">Normal Orders</li>
-                    <li class="">Customized Orders</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Racing</a>
-                <ul class="subitem">
-                    <li class="">My Racing</li>
-                </ul>
-            </li>
-            <li class="List-item">
-                <a href="">Personal Setting</a>
-                <ul class="subitem">
-                    <li class="">Payment</li>
-                </ul>
-            </li>
-        </nav>
+        <menuVue />
         <div class="maincontent">
             <section class="maininfo">
-                <div class="meminfo">
-                    <div class="memhead"></div>
-                </div>
-                <div class="memgrade">123</div>
+                <memberCardVue/>
+                <memberLevelVue/>
             </section>
             <!-- <section class="profiles-list">
                 <h1>Profile Overview</h1>
@@ -251,24 +139,7 @@ input{
     justify-content: start;
     gap: 10px;
     color: $text-color;
-    .sidenav{
-        display: none;
-        width: 25%;
-        height: fit-content;
-        background-color: #1C2023;
-        padding: 20px;
-        border-radius: 10px;
-        .List-item{
-            padding: 10px;
-            a{
-                font-size: 15px;
-            }
-            .subitem{
-                // display: none;
-                padding: 10px 0 10px 20px;
-            }
-        }
-    }
+
     .maincontent{
         width: 100%;
         margin: 0;
@@ -276,19 +147,6 @@ input{
             // display: flex;
             // gap: 10px;
             display: block;
-            .meminfo{
-                flex-grow: 1.5;
-                aspect-ratio: 16/9;
-                // background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
-                background: linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445);
-                border-radius: 10px;
-            }
-            .memgrade{
-                flex-grow: 1;
-                height: auto;
-                background-color: #616574;
-                border-radius: 10px;
-            }
         }
         // .profiles-list{
         //     width: 100%;
