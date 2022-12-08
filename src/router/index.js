@@ -118,6 +118,11 @@ const router = createRouter({
       name: "racing",
       component: () => import("../views/racing.vue"),
     },
+    {
+      path: "/backendlogin",
+      name: "backendlogin",
+      component: () => import("../views/backend/backendLogin.vue"),
+    },
   ],
 });
 
