@@ -127,7 +127,10 @@ const btnLeft = () => {
         </div>
 
         <div class="color_img">
-          <img src="/src/assets/images/shopInfo/body_03_red_2.png" alt="color" />
+          <img
+            src="/src/assets/images/shopInfo/body_03_red_2.png"
+            alt="color"
+          />
         </div>
       </div>
       <div class="colorSwitch_word">
@@ -159,7 +162,10 @@ const btnLeft = () => {
     </div>
 
     <div class="accessories">
-      <img src="/src/assets/images/shopInfo/accessories.jpg" alt="accessories" />
+      <img
+        src="/src/assets/images/shopInfo/accessories.jpg"
+        alt="accessories"
+      />
       <h4>Extensive Accessories</h4>
       <p>
         DJI RC features a built-in 5.5-inch HD display for clear viewing in

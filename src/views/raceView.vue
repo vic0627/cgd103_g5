@@ -10,25 +10,25 @@ const areaText = ref({
   1: {
     id: 1,
     title: "Taiwan",
-    src: "src/assets/images/race/point1.jpg",
+    src: "/src/assets/images/race/point1.jpg",
     text: "Home to the world’s greatest collections of Chinese art and antiquities.Once reserved for the private pleasure of emperors, today these treasures can be enjoyed.These collections are from mainland China, and the ROC government bring them to Taiwan in 1949.",
   },
   2: {
     id: 2,
     title: "Japan",
-    src: "src/assets/images/race/point2.jpg",
+    src: "/src/assets/images/race/point2.jpg",
     text: "Situated in the city’s oldest neighborhood, Wanhua.Longshan Temple is the spiritual heart of Taipei.It’s a place where generations of locals have come to seek good fortune, health, and even guidance on who to marry.",
   },
   3: {
     id: 3,
     title: "China",
-    src: "src/assets/images/race/point3.jpg",
+    src: "/src/assets/images/race/point3.jpg",
     text: "Chiang Kai-shek Memorial Hall honors the memory of former president of the Republic of China.Memorial Square is also one of the city’s most important cultural sites, and some democracy activists had held here.The National Concert Hall, a stunning example of neo-classical Chinese architecture.",
   },
   4: {
     id: 4,
     title: "Korea",
-    src: "src/assets/images/race/point1.jpg",
+    src: "/src/assets/images/race/point1.jpg",
     text: "Situated in the city’s oldest neighborhood, Wanhua.Longshan Temple is the spiritual heart of Taipei.It’s a place where generations of locals have come to seek good fortune, health, and even guidance on who to marry.",
   },
 });
@@ -386,7 +386,7 @@ const changeCount = (id) => {
       <div class="pointBgi">
         <div
           class="bgi"
-          :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(src/assets/images/race/point${count}.jpg)`"
+          :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(/src/assets/images/race/point${count}.jpg)`"
         ></div>
       </div>
       <div class="bigtext">
@@ -584,6 +584,8 @@ h2 {
     position: relative;
     @include l($l-breakpoint) {
       min-width: 300px;
+      &:hover {
+      }
     }
     .boxBgi_w {
       background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
