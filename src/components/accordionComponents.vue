@@ -5,7 +5,7 @@
         <div class="faq_field" v-for="(faq,i) in faqBase" :key="i">
             <div class="open_faq" @click="closeAllFaq(faq)">
                 <p class="q_box">
-                    {{faq.q}}
+                    {{faq.n}} &nbsp; {{faq.q}}
                     <span class="plus" :class="faq.open ? 'rotate':'' ">+</span>
                 </p>
                 <p class="invisible" :class="faq.open ? 'visible':'' ">
@@ -24,33 +24,39 @@ import {ref} from 'vue'
         setup(){
             const faqBase = ref([
                 {
-                    q:'Lorem ipsum dolor sit amet.',
-                    a:'Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    n:1,
+                    q:'What is a crossing machine?',
+                    a:'Mainly through the visual system on the UAV for backhaul control, the experience of flying is a first-person perspective, so it is called immersive flying UAV.',
                     open:false
                 },
                 {
-                    q:'Lorem ipsum dolor sit amet.',
-                    a:'Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    n:2,
+                    q:'How to become an EFPV member?',
+                    a:'Press the button in the upper right corner to enter the login screen, and then press Register to become a member.',
                     open:false
                 },
                 {
-                    q:'Lorem ipsum dolor sit amet.',
-                    a:'Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    n:3,
+                    q:'What should I do if there is a problem with the purchased product?',
+                    a:'You can call us at 02-12345678 and someone will serve you.',
                     open:false
                 },
                 {
-                    q:'Lorem ipsum dolor sit amet.',
-                    a:'Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    n:4,
+                    q:'How to check my order?',
+                    a:'Click to log in and enter the member center to see the order button.',
                     open:false
                 },
                 {
-                    q:'Lorem ipsum dolor sit amet.',
-                    a:'Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    n:5,
+                    q:'Is there an assembly fee for customized products?',
+                    a:'Yes, we include the assembly fee, please check the details on the checkout page.',
                     open:false
                 },
                 {
-                    q:'Lorem ipsum dolor sit amet.',
-                    a:'Lorem ipsum dolor sit amet consectetur adipisicing elit.Lorem ipsum dolor sit amet consectetur adipisicing elit.',
+                    n:6,
+                    q:'Will there be an invoice?',
+                    a:'Yes, sent back with your monthly membership letter.',
                     open:false
                 }
             ])
