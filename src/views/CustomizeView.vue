@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted, ref, onUpdated } from 'vue';
-import { log, $$, $all } from '../composables/useCommon';
+import { log, $$, $all, getW } from '../composables/useCommon';
 import { droneModels, propellorModels, motorModels, controllerModels } from './js/CustomizeGlb';
 import * as CUS from './js/CustomizeThree';
 import dashBoardComponent from '@/components/dashBoardComponent.vue';
@@ -10,10 +10,10 @@ bodyInit();
 let w = null;
 let ww = window.innerWidth;
 onMounted(()=> {
-    w = Number(window.getComputedStyle($$('.dashBoard'),null).getPropertyValue("width").split('px')[0])/2;
+    w = getW('.dashBoard');
     canvasRe();
     window.addEventListener('resize', ()=> {
-        w = Number(window.getComputedStyle($$('.dashBoard'),null).getPropertyValue("width").split('px')[0])/2;
+        w = getW('.dashBoard');
         ww = window.innerWidth;
         canvasRe();
     });

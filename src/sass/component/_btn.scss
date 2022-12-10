@@ -9,7 +9,7 @@
     height: 27px;
     padding: 15px;
     text-align: center;
-    text-shadow: 0 0 5px $purple;
+    text-shadow: 0 1px 3px $light-black;
     line-height: 1.1;
     border-radius: $img-radius;
     position: relative;
@@ -54,8 +54,6 @@
         }
         &:hover{
             width: $width;
-            height: 23px;
-            border: 2px solid $blue;
             box-shadow: 0 0 15px 1px $blue;
             backdrop-filter: blur(5px);
             transition: all .3s;
