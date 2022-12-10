@@ -10,6 +10,7 @@
     "@vueuse/motion": "^2.0.0-beta.12",
     "aos": "^2.3.4",
     "cannon-es": "^0.20.0",
+    "chart.js": "^4.0.1",
     "gsap": "^3.11.3",
     "jquery": "^3.6.1",
     "leaflet": "^1.9.3",
