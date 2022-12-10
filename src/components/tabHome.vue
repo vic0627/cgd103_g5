@@ -1,5 +1,42 @@
 <script>
-
+import Chart from 'chart.js/auto';
+export default{
+  mounted(){
+  const ctx = document.getElementById('myChart');
+    const labels = ['06月','07月','08月','09月','10月','11月','12月'];
+      const data = {
+        labels: labels,
+        datasets: [{
+        label: '營業曲線圖',
+        data: [65, 19, 80, 61, 26, 55, 90],
+        fill: false,
+        borderColor: '#597897',
+        tension: 0,
+      }],
+    };
+    const myChart = new Chart(ctx, {
+      type: 'line',
+      data: data,
+      options: {
+        animations: {
+          tension: {
+          duration: 2500,
+          easing: 'ease',
+          from: 0.5,
+          to: 0,
+          loop: true
+          }
+        },
+        scales: {
+          y: { 
+            min: 0,
+            max: 100
+          }
+        }
+      }
+    });
+  }
+}
 </script>
 <template>
 <div class="tops">
@@ -63,27 +100,27 @@
         <div class="summary">
           <div class="sum_list">
             <div class="txt">
-              <img src="../assets/images/About/dollar.png" alt="本月收入">
+              <img src="../assets/images/About/smiling-face.png" alt="訪客數">
               <div class="txt_box">
-                <p>總收入</p>
-                <span>每周利潤</span>
+                <p>訪客數</p>
+                <span>每周訪客</span>
               </div>
             </div>
             <div class="money">
-              <p>$15300</p>
-              <span>增加75%</span>
+              <p>15300</p>
+              <span>增加45%</span>
             </div>
           </div>
           <div class="sum_list">
             <div class="txt">
-              <img src="../assets/images/About/dollar.png" alt="本月收入">
+              <img src="../assets/images/About/file.png" alt="本月收入" class="file">
               <div class="txt_box">
-                <p>總收入</p>
+                <p>總稅額</p>
                 <span>每周利潤</span>
               </div>
             </div>
             <div class="money">
-              <p>$15300</p>
+              <p>$17300</p>
               <span>增加75%</span>
             </div>
           </div>
@@ -91,7 +128,7 @@
         </div>
       </div>
       <div class="right">
-
+        <canvas id="myChart" width="1000" height="640"></canvas>
       </div>
     </div>
   </div>
@@ -120,7 +157,6 @@ h2 {
 .box{
   width: 99%;
   justify-content: center;
-  margin: auto;
   .top_box{
     width: 95%;
     margin: 15px auto;
@@ -282,6 +318,10 @@ h2 {
           height: 35px;
           margin: 5px;
           margin-right: 10px;
+        }
+        .file{
+          width: 40px;
+          height: 40px;
         }
         p{
           color: #000;
