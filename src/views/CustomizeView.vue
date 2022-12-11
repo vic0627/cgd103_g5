@@ -1,9 +1,10 @@
 <script setup>
+import gsap from "gsap";
 import { onMounted, ref, onUpdated } from 'vue';
 import { log, $$, $all, getW } from '../composables/useCommon';
 import { droneModels, propellorModels, motorModels, controllerModels } from './js/CustomizeGlb';
 import * as CUS from './js/CustomizeThree';
-import dashBoardComponent from '@/components/dashBoardComponent.vue';
+import dashBoardGroupComponent from '../components/dashBoardGroupComponents.vue';
 import { niddleSpin, useDashBoardMove } from '../composables/useDashBoardMove';
 import { bodyInit } from '../composables/useOnunmounted';
 bodyInit();
@@ -160,18 +161,7 @@ const flow = ref(1);
 const btnStatus = ref(false);
 const buyBtn = ref(false);
 const boardMove = ref(false);
-const boardActive = () => {
-    if(boardMove.value){
-        boardMove.value = false;
-    }else{
-        boardMove.value = true;
-    }
-    if(boardMove.value){
-        for(let i=1; i<=6; i++){
-            useDashBoardMove(i, ww, w);
-        }
-    }
-};
+
 const undo = () => {
     btnStatus.value = false;
     step.value[flow.value].show = false;
@@ -181,6 +171,7 @@ const undo = () => {
             CUS.removeBody();
             CUS.removePropellor();
             niddleSpin(4, 0, units.value.totalWeight.ratio);
+            $all('.colorControl').forEach(c => c.classList.remove('chosen'));
         case 3:
             motorChosen.value.kgm = 0;
             motorChosen.value.rpm = 0;
@@ -189,12 +180,14 @@ const undo = () => {
             niddleSpin(3, 0, units.value.rotatingSpeed.ratio);
             niddleSpin(5, 0, units.value.accelerateTime.ratio);
             niddleSpin(6, 0, units.value.accelerate.ratio);
+            $all('.motorControl').forEach(c => c.classList.remove('chosen'));
         case 4:
             kgmcChosen.value = 0;
             niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm), units.value.maxSpeed.ratio);
             niddleSpin(5, accelerateTime(motorChosen.value.kgm), units.value.accelerateTime.ratio);
             niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm)), units.value.accelerate.ratio);
             buyBtn.value = false;
+            $all('.controllerControl').forEach(c => c.classList.remove('chosen'));
     }
     flow.value--;
     step.value[flow.value].show = true;
@@ -229,15 +222,17 @@ const accelerate = (accelerateTime) => (100 / 3.6 / accelerateTime).toFixed(1);
 
 const bodyChosen = ref(0);
 
-const bodyChoose = (id, n) => {
-    CUS.body(id, n);
+const bodyChoose = (id, nid, src) => {
+    CUS.body(id, src);
     units.value.totalWeight.value = (0 + droneModels.value[`body0${id}`].weight)/1000;
     bodyChosen.value = droneModels.value[`body0${id}`].weight;
     niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
     btnStatus.value = true;
+    $all('.colorControl').forEach(c => c.classList.remove('chosen'));
+    $$(`.bodyControl${id}${nid}`).classList.add('chosen');
 };
-const propellorChoose = (id, n) => {
-    CUS.propellor(id, n);
+const propellorChoose = (id, nid, src) => {
+    CUS.propellor(id, src);
     let propellorSum;
     if(id===1){
         propellorSum = propellorModels.value[`propellor0${id}`].weight * 2;
@@ -247,6 +242,8 @@ const propellorChoose = (id, n) => {
     units.value.totalWeight.value = (bodyChosen.value + propellorSum)/1000;
     niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
     btnStatus.value = true;
+    $all('.colorControl').forEach(c => c.classList.remove('chosen'));
+    $$(`.propellorControl${id}${nid}`).classList.add('chosen');
 };
 const motorChosen = ref({
     rpm: 0,
@@ -261,6 +258,8 @@ const motorChoose = (id) => {
     niddleSpin(5, accelerateTime(motorChosen.value.kgm), units.value.accelerateTime.ratio);
     niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm)), units.value.accelerate.ratio);
     btnStatus.value = true;
+    $all('.motorControl').forEach(c => c.classList.remove('chosen'));
+    $$(`.motorControl${id}`).classList.add('chosen');
 };
 const kgmcChosen = ref(0);
 const controllerChoose = (id) => {
@@ -271,6 +270,56 @@ const controllerChoose = (id) => {
     btnStatus.value = true;
     if(flow.value===4&&btnStatus.value){
         buyBtn.value = true;
+    }
+    $all('.controllerControl').forEach(c => c.classList.remove('chosen'));
+    $$(`.controllerControl${id}`).classList.add('chosen');
+};
+let toggle = false;
+const toggleBoard = () => {
+    let left = -354, mrl = -177, mr = '0 0 20px';
+    if(ww>=576 && ww<1024){
+        left = -554;
+        mrl = -277;
+        mr = '0 60px 20px';
+    }
+    if(toggle){
+        gsap.to('.boards', {
+            right: 'auto',
+            left,
+            margin: 0,
+            duration: .3,
+        })
+        gsap.to('.tag', {
+            position: 'absolute',
+            width: 60,
+            height: 130,
+            writingMode: 'vertical-lr',
+            lineHeight: '75px',
+            innerText: 'Dash Board',
+            fontSize: '16px',
+            margin: '0 0 20px',
+            duration: 0,
+            delay: .3,
+        })
+        toggle = false;
+    }else{
+        gsap.to('.boards', {
+            left: 50 + '%',
+            marginLeft: mrl,
+            duration: .3,
+        });
+        gsap.to('.tag', {
+            position: 'static',
+            width: 60,
+            height: 60,
+            writingMode: 'inherit',
+            lineHeight: 2,
+            innerText: 'X',
+            fontSize: '32px',
+            margin: mr,
+            duration:.3,
+        })
+        toggle = true;
     }
 };
 </script>
@@ -284,30 +333,29 @@ const controllerChoose = (id) => {
             <p>Select</p>
             <p>{{ step[flow].text }}</p>
         </div>
-        <p class="movToggle" @click="boardActive">Move Active: {{ boardMove }}</p>
         <div class="customizeControl">
-            <div v-for="e in droneModels" :key="e.id" class="bodySelect selection" v-show="step[1].show">
-                <h3>{{ e.name }}</h3>
+            <div v-for="i in droneModels" :key="i.id" class="bodySelect selection" v-show="step[1].show">
+                <h3>{{ i.name }}</h3>
                 <div class="colorControls">
-                    <div class="colorControl" v-for="n in droneModels[`body0${e.id}`].color" :key="n" @click="bodyChoose(e.id, n)"></div>
+                    <div :class="`colorControl bodyControl${i.id}${n.id}`" v-for="n in droneModels[`body0${i.id}`].color" :key="n.id" @click="bodyChoose(i.id, n.id, n.src)"></div>
                 </div>
             </div>
             <div v-for="e in propellorModels" :key="e.id" class="propellorSelect selection" v-show="step[2].show">
                 <h3>{{ e.name }}</h3>
                 <div class="colorControls">
-                    <div class="colorControl" v-for="n in propellorModels[`propellor0${e.id}`].color" :key="n" @click="propellorChoose(e.id, n)"></div>
+                    <div :class="`colorControl propellorControl${e.id}${n.id}`" v-for="n in propellorModels[`propellor0${e.id}`].color" :key="n.id" @click="propellorChoose(e.id, n.id, n.src)"></div>
                 </div>
             </div>
             <div class="motorSelect selection" v-show="step[3].show">
                 <h3>Motor</h3>
                 <div class="motorControls funcControls">
-                    <p class="motorControl funcControl" v-for="n in motorModels" :key="n.id" @click="motorChoose(n.id)">{{ n.name }}</p>
+                    <p :class="`motorControl${n.id} motorControl funcControl`" v-for="n in motorModels" :key="n.id" @click="motorChoose(n.id)">{{ n.name }}</p>
                 </div>
             </div>
             <div class="controllerSelect selection" v-show="step[4].show">
                 <h3>Controller</h3>
-                <div class="ControllerControls funcControls">
-                    <p class="ControllerControl  funcControl" v-for="n in controllerModels" :key="n.id" @click="controllerChoose(n.id)">{{ n.name }}</p>
+                <div class="controllerControls funcControls">
+                    <p :class="`controllerControl${n.id} controllerControl funcControl`" v-for="n in controllerModels" :key="n.id" @click="controllerChoose(n.id)">{{ n.name }}</p>
                 </div>
             </div>
             <div class="flowControls">
@@ -322,7 +370,8 @@ const controllerChoose = (id) => {
                 </router-link>
             </div>
         </div>
-        <div class="dashBoards">
+        
+        <!-- <div class="dashBoards">
             <h3>Drone Data</h3>
             <dash-board-component class="dashBoard" :units="units.maxSpeed"/>
             <dash-board-component class="dashBoard" :units="units.maxload"/>
@@ -330,8 +379,9 @@ const controllerChoose = (id) => {
             <dash-board-component class="dashBoard" :units="units.totalWeight"/>
             <dash-board-component class="dashBoard" :units="units.accelerateTime"/>
             <dash-board-component class="dashBoard" :units="units.accelerate"/>
-        </div>
+        </div> -->
     </section>
+    <dash-board-group-component class="boards" :toggle-board="toggleBoard" />
     <footer-component />
 </template>
 
@@ -341,21 +391,7 @@ const controllerChoose = (id) => {
 @import '@/sass/base/_font.scss';
 @import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
-.movToggle{
-    display: none;
-    @include l($l-breakpoint) {
-        display: block;
-        width: 140px;
-        border: 1px solid #fff;
-        border-radius: 20px;
-        text-align: center;
-        position: absolute;
-        top: 145px;
-        left: 20%;
-        font-size: 12px;
-        cursor: pointer;
-    }
-}
+
 .customize3d{
     margin: 0 auto;
     position: absolute;
@@ -371,41 +407,31 @@ const controllerChoose = (id) => {
         top: 190px;
     }
 }
-.dashBoards{
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    justify-content: space-around;
+.boards{
+    position: absolute;
+    top: 15%;
+    left: -354px;
+    z-index: 1;
     @include s($s-breakpoint) {
-        width: 575px;
-        margin: 0 auto;
+        left: -554px;
     }
     @include m($m-breakpoint) {
-        width: 1000px;
+        left: 0;
+        right: 0;
         margin: 0 auto;
-    }
-    @include l($l-breakpoint) {
-        width: 1200px;
-        margin: 0 auto;
-    }
-    h3{
-        margin-top: 20px;
-        width: 100%;
-        text-align: center;
-        @include m($m-breakpoint) {
-            margin-top: 60px;
-        }
-    }
-    .dashBoard{
-        margin: 20px;
+        z-index: -1;
     }
 }
 .customize{
     width: 100%;
+    height: auto;
     max-width: 1200px;
     position: relative;
     margin: 0 auto;
     padding-top: 80px;
+    @include m($m-breakpoint) {
+        height: 100vh;
+    }
     .customizeTitle{
         position: relative;
         z-index: 1;
@@ -445,8 +471,7 @@ const controllerChoose = (id) => {
 
 .customizeControl{
     box-sizing: border-box;
-    margin: 0 auto;
-    margin-top: 360px;
+    margin: 360px auto 20%;
     padding: 10px 0 20px;
     border-radius: 20px;
     border: 2px solid $brown;
@@ -471,6 +496,7 @@ const controllerChoose = (id) => {
             flex-wrap: wrap;
             justify-content: space-around;
             .funcControl{
+                cursor: pointer;
                 border: 2px solid $dark-grey;
                 padding: 10px;
                 border-radius: 20px;
@@ -484,6 +510,7 @@ const controllerChoose = (id) => {
     margin: 20px 0;
     display: flex;
     justify-content: space-evenly;
+    transition: all .3s;
     .colorControl{
         border-radius: 50%;
         border: 2px solid #fff;
@@ -507,6 +534,10 @@ const controllerChoose = (id) => {
     .colorControl:nth-child(5){
         background: white;
     }
+}
+.chosen{
+    box-shadow: 0 0 20px 3px $purple;
+    transition: all .3s;
 }
 .flowControls{
     display: flex;

@@ -111,12 +111,14 @@ const units = ref({
         },
     },
 });
+const props = defineProps(["toggleBoard"])
 </script>
 
 <template>
     <div class="dashBoards">
         <h2>Dash Board</h2>
         <dash-board-component class="dashBoard" v-for="i in units" :key="i.id" :units="i"/>
+        <div class="tag" @click="props.toggleBoard">Dash Board</div>
     </div>
 </template>
 
@@ -131,9 +133,9 @@ const units = ref({
     flex-wrap: wrap;
     justify-content: space-around;
     border: 2px solid $light-black;
+    background-color: #000a;
     border-radius: 20px;
-    box-shadow: 0 0 10px 1px $light-black;
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(8px);
     @include s($s-breakpoint){
         width: 550px;
     }
@@ -142,6 +144,14 @@ const units = ref({
         box-shadow: none;
         border: none;
         border-radius: 0;
+        background-color: transparent;
+        backdrop-filter: none;
+        filter: blur(1px);
+    }
+    @include l($l-breakpoint){
+        max-width: 1200px;
+        margin: 0 auto;
+        justify-content: space-between;
     }
     h2{
         margin-top: 10px;
@@ -162,8 +172,23 @@ const units = ref({
         @include m($m-breakpoint){
             margin: 40px 2%;
         }
-        @include l($l-breakpoint){
-            margin: 40px 5%;
+    }
+    .tag{
+        width: 60px;
+        height: 130px;
+        @include caption-title($caption-p, $caption-color, $spacing-p);
+        text-align: center;
+        line-height: 75px;
+        writing-mode: vertical-lr;
+        border: 2px solid $light-black;
+        border-radius: 20px;
+        backdrop-filter: blur(3px);
+        margin-bottom: 20px;
+        position: absolute;
+        top: 20%;
+        right: -50px;
+        @include m($m-breakpoint){
+            display: none;
         }
     }
 }
