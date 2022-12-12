@@ -445,7 +445,7 @@ section {
   width: 100%;
   height: 176px;
   position: relative;
-
+  overflow: hidden;
   @include m($m-breakpoint) {
     height: 462px;
   }
