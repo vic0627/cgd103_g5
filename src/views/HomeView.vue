@@ -8,6 +8,8 @@ import svglineComponentsVue from '@/components/svglineComponents.vue';
 import svgComponents1Vue from '@/components/svgComponents1.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
 import slider from '@/components/homeNews.vue';
+import about from '@/components/homeAbout.vue';
+import home from '@/components/homeHome.vue';
 bodyInit();
 onMounted(() => {
   const scene = document.getElementById("scene");
@@ -42,7 +44,7 @@ const isOpen = ref(true)
 
 <template>
     <navComponentsVue :className="blue"/>
-
+    <home />
     <div class="home1">
         <h2>Mavic 2 Zoom</h2>
         <p>24~28 mm Optical Zoom Camers Ulitimate Flexibility</p>
@@ -53,7 +55,7 @@ const isOpen = ref(true)
             <span>Buy now</span></router-link>
         </div>
         <div id="scene">
-            <div class="drone layer" data-depth="0.1">
+            <div class="drone layer" data-depth="0.1" data-relativeInput="false" data-clipRelativeInput="true">
                 <img src="../assets/images/home/fly2.png" alt="">
             </div>
             <!-- <svgComponents1Vue class="layer" data-depth="0.5" /> -->
@@ -67,7 +69,7 @@ const isOpen = ref(true)
     </div>
 <svglineComponentsVue :class="{svgWidth : isOpen}"/>
 <svgComponents1Vue />
-    <section>
+    <section class="sect1">
         <div class="home-custom">
             <div class="custom-pic">
                 <img src="../assets/images/home/customize.jpeg" alt="customize">
@@ -101,74 +103,77 @@ const isOpen = ref(true)
                 </div>
             </div>
         </div>
+        <!-- <svgComponents1Vue :circle1="1"/> -->
     </section>
+    <svglineComponentsVue :line1="1"/>
+    
     <!-- <svglineComponentsVue :class="{position : isOpen}"  /> -->
-    <section>
-        <div class="homeAcc">
-            <h2>ACCESSORIES</h2>
-            <p>See how we bring user feedbackinto our own product journey</p>
-        </div>
-        <div class="home-Acc">
-            <div class="homeAccWrap1">
-                <div class="mainAcc">
-                    <div class="homeAccWrap1-pic">
-                        <img src="../assets/images/home/body_03_black_1.png" alt="">
-                    </div>
-                    <div class="homeAccWrap1-txt">
-                        <h5>Stay Flying Longer-Up to 60mins</h5>
-                        <p>You can preview your design in real time.</p>
-                        <div class="accBtn">
-                        <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
-                            <span>Learn</span>
-                        </router-link>
-                    </div>
-                    </div>
-                    
-                </div>
+    <section class="sect2">
+        <div class="accWrap">
+            <div class="homeAcc">
+                <h2>ACCESSORIES</h2>
+                <p>See how we bring user feedbackinto our own product journey</p>
             </div>
-            <div class="homeAccWrap2">
-                <div class="accSection accSection-pic1">
+            <div class="home-Acc">
+                <div class="homeAccWrap1">
+                    <div class="mainAcc">
+                        <div class="homeAccWrap1-pic">
+                            <img src="../assets/images/home/body_03_black_1.png" alt="">
+                        </div>
+                        <div class="homeAccWrap1-txt">
+                            <h5>Stay Flying Longer-Up to 60mins</h5>
+                            <p>You can preview your design in real time.</p>
+                            <div class="accBtn">
+                            <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
+                                <span>Learn</span>
+                            </router-link>
+                        </div>
+                        </div>
+            
+                    </div>
                 </div>
-            </div>
-            <div class="homeAccWrap2">
-                 <div class="accSection">
-                    <div class="homeAccWrap2-pic">
-                        <img src="../assets/images/home/propellor_02_black_1.png" alt="">  
-                    </div>
-                    <div class="homeAccWrap2-txt">
-                        <h6>Drone Remote controller</h6>
-                        <p>You can preview your design in real time.</p>
-                        <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
-                            <span>Learn</span>
-                        </router-link>
+                <div class="homeAccWrap2">
+                    <div class="accSection accSection-pic1">
                     </div>
                 </div>
-            </div>        
-          
-            <div class="homeAccWrap2">
-                <div class="accSection accSection-pic2">
+                <div class="homeAccWrap2">
+                     <div class="accSection">
+                        <div class="homeAccWrap2-pic">
+                            <img src="../assets/images/home/propellor_02_black_1.png" alt="">
+                        </div>
+                        <div class="homeAccWrap2-txt">
+                            <h6>Drone Remote controller</h6>
+                            <p>You can preview your design in real time.</p>
+                            <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
+                                <span>Learn</span>
+                            </router-link>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="homeAccWrap2">
-                <div class="accSection">
-                    <div class="homeAccWrap2-pic">
-                        <img src="../assets/images/home/body_01_blue_1.png" alt="">  
+                <div class="homeAccWrap2">
+                    <div class="accSection accSection-pic2">
                     </div>
-                    <div class="homeAccWrap2-txt">
-                        <h6>Drone Remote controller</h6>
-                        <p>You can preview your design in real time.</p>
-                        <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
-                            <span>Learn</span>
-                        </router-link>
+                </div>
+                <div class="homeAccWrap2">
+                    <div class="accSection">
+                        <div class="homeAccWrap2-pic">
+                            <img src="../assets/images/home/body_01_blue_1.png" alt="">
+                        </div>
+                        <div class="homeAccWrap2-txt">
+                            <h6>Drone Remote controller</h6>
+                            <p>You can preview your design in real time.</p>
+                            <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
+                                <span>Learn</span>
+                            </router-link>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </section>
-<svglineComponentsVue :line2="2"/>
-<svgComponents1Vue :circle2="2"/>
-    <section class="aboutSection">
+<!-- <svglineComponentsVue :line2="2"/> -->
+<!-- <svgComponents1Vue :circle2="2"/> -->
+    <!-- <section class="aboutSection">
         <div class="homeAbout">
             <h2>ABOUT US</h2>
             <div class="about-pic">
@@ -178,18 +183,15 @@ const isOpen = ref(true)
                 <h3>RACING AND FREESTYLE</h3>
                 <p>We are highly motivated to present GOOD SLEEP to as many people aspossible. Our task is not just selling pillows.We are fully committed to provide fulfilling sleep. Good sleep bringshappiness, energy, and smiles. It is a simple fact.</p>
             </div>
-            <!-- <div class="homeAbout-pic">
-                <img src="../assets/images/home/about.png" alt="">
-            </div> -->
             <div class="aboutBtn">
                 <router-link to="/about" class="btnFirst" id="btn1" data-title="Learn">
                     <span>Learn</span>
                 </router-link>
             </div>
         </div>
-    </section>
-
-    <section>
+    </section> -->
+    <about />
+    <!-- <section>
         <div class="homeGame">
             <div class="homeGame-txt">
                 <h2>GAME</h2>
@@ -204,11 +206,11 @@ const isOpen = ref(true)
                 <source src="@/assets/video/home/banner.mp4" type="video/mp4">
             </video>
         </div>
-    </section>
+    </section> -->
 
-    <section class="contest">
+    <section class="contest sect3">
         <div class="contestTitle">
-            <h2>CONTEST</h2>
+            <h2>RACE</h2>
         </div>
         <div class="homeRace">
             <transition name="tad" mode="out-in">
@@ -226,8 +228,6 @@ const isOpen = ref(true)
                         </div>
                     </div>
                 </div>
-            <!-- </transition> -->
-            <!-- <transition name="tad" mode="out-in"> -->
                 <div class="homeContest" v-else-if="view === 2">
                     <div class="homeContest-pic">
                         <img src="/images/about/img_06.jpg" alt="">
@@ -242,8 +242,6 @@ const isOpen = ref(true)
                         </div>
                     </div>
                 </div>
-            <!-- </transition>
-            <transition name="tad" mode="out-in"> -->
                 <div class="homeContest" v-else-if="view === 3">
                     <div class="homeContest-pic">
                         <img src="/images/about/img_07.jpg" alt="">
@@ -258,52 +256,92 @@ const isOpen = ref(true)
                     </div>
                 </div>
             </div>
-      </transition>
-      <div class="buttonDiv">
-        <button @click="changeView(1)" class="raceChange"><p>DRL</p></button>
-        <button @click="changeView(2)" class="raceChange"><p>Miami</p></button>
-        <button @click="changeView(3)" class="raceChange">
-          <p>SIM series</p>
-        </button>
+        </transition>
+        <div class="buttonDiv">
+            <button @click="changeView(1)" class="raceChange"><p>DRL</p></button>
+            <button @click="changeView(2)" class="raceChange"><p>Miami</p></button>
+            <button @click="changeView(3)" class="raceChange">
+            <p>SIM series</p>
+            </button>
       </div>
     </div>
-  </section>
-  <slider />
-  <footerComponentsVue />
+    </section>
+    <slider />
+    <footerComponentsVue />
 </template>
 
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
 @import '@/css/reset.css';
-
+.sect1 {
+    background-image: url('../assets/images/home/2.png');
+    background-size: 60%;
+    background-position: 70% top;
+    background-repeat: no-repeat;
+    background-origin: border-box;
+    @include l($l-breakpoint){
+        background-size: 40%;
+        .home-custom {
+            width: 1200px;
+        }
+    }
+    .home-custom{  
+        align-items: flex-end;
+    }
+}
+.sect2 {
+    padding: 50px 0 100px;
+    background-image: url('../assets/images/home/5.png'),url('../assets/images/home/3.png');
+    background-size: 80% , 40%;
+    background-position: 100% 5%,85% 97%;
+    background-repeat: no-repeat, no-repeat;
+    background-origin: border-box;
+    @include l($l-breakpoint){
+        // width: 1200px;
+        background-size: 50% , 25%;
+        background-position: 100% 20%, 90% 100%;
+    }
+    .accWrap {
+        width: 95%;
+        margin: 0 auto;
+        @include l($l-breakpoint){
+            width: 1200px;
+       }
+    }
+}
+.sect3 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    background-image: url('../assets/images/home/5.png');
+    background-size: 60%;
+    background-position: 70% 50%;
+    background-repeat: no-repeat;
+    @include l($l-breakpoint){
+        background-size: 45%;
+        background-position: 100% 40%;
+        margin: 0 auto;       
+    }
+}
 
 .tad-enter-active {
-  animation: tad-in 1s;
+    animation: tad-in 1s;
 }
 .tad-leave-active {
-  animation: tad-in 0.5s reverse;
+    animation: tad-in 0.5s reverse;
 }
 @keyframes tad-in {
-  0% {
-    transform: scale(0.5);
-  }
-  50% {
-    transform: scale(1.02);
-  }
-  100% {
-    transform: scale(1);
-  }
+    0% {
+        transform: scale(0.5);
+    }
+    50% {
+        transform: scale(1.02);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
-//line.circle
-.svgWidth {
-  width: 300px;
-  height: 300px;
-}
-.position {
-  left: 95%;
-  bottom: -70%;
-}
-
 $center: center;
 $left: left;
 $l-w: 1200px;
@@ -564,13 +602,14 @@ section {
   @include titleStyle($center);
 }
 .homeContest {
-  width: 100%;
+  width: 90%;
   position: relative;
   .homeContest-pic {
     width: 100%;
     padding-top: 20px;
     img {
       width: 100%;
+      height: 100%;
       object-fit: cover;
       border-radius: $img-radius;
     }
@@ -590,8 +629,11 @@ section {
   }
 }
 .homeRace {
+    display: flex;
+    justify-content: center;
   position: relative;
   .buttonDiv {
+    width: 90%;
     position: absolute;
     bottom: -30%;
     margin-left: 10px;
@@ -649,17 +691,21 @@ section {
 //電腦版
 @include l($l-breakpoint) {
   //cusotom
-  .custom-pic {
-    img {
-      height: 600px;
+    .home-custom {
+        padding-top: 100px;
+        .custom-pic {
+            img {
+            height: 600px;
+            }
+        }
+        .custom-txt {
+            @include divCenter($l-w, $center);
+            .homeCustom {
+            @include titleStyle($center);
+            }
+        }      
     }
-  }
-  .custom-txt {
-    @include divCenter($l-w, $center);
-    .homeCustom {
-      @include titleStyle($center);
-    }
-  }
+
   //acc
   .homeAcc {
     @include divCenter($l-w, $left);
@@ -707,11 +753,13 @@ section {
   .homeRace {
     width: 100%;
     .buttonDiv {
-      bottom: -15%;
+        width: 1200px;
+        bottom: -15%;
     }
   }
 
   .homeContest {
+    width: 1200px;
     @include divCenter($l-w, $left);
     .homeContest-pic {
       width: 60%;
@@ -732,8 +780,8 @@ section {
     }
   }
 
-  section {
-    width: 1200px;
-  }
+//   section {
+//     width: 1200px;
+//   }
 }
 </style>

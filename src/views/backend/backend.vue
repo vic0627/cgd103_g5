@@ -6,7 +6,9 @@ import tabnewrevs from "../../components/tabnewrevs.vue"; //NEWS
 import tabnewadds from "../../components/tabnewadds.vue"; //NEWS
 import tabraceform from "../../components/tabraceform.vue"; //RACE
 import tabracecategory from "../../components/tabracecategory.vue"; //RACE
-import tabaccountfix from "@/components/tabaccountfix.vue";//account tabaccountfix
+import tabaccountfix from "@/components/tabaccountfix.vue"; //account
+import tabaccountadd from "@/components/tabaccountadd.vue"; //account
+import taborderitem from "@/components/taborderitem.vue"; //order
 import tabproductsearch from "@/components/tabproductsearch.vue";
 import tabproductImgManage from "@/components/tabproductImgManage.vue";
 import tabproductAdd from "@/components/tabproductAdd.vue";
@@ -21,8 +23,9 @@ export default {
     tabracecategory,
     tabproductsearch,
     tabproductImgManage,
-    tabproductAdd,
-    tabaccountfix
+    tabaccountfix,
+    tabaccountadd,
+    taborderitem,
   },
 };
 </script>
