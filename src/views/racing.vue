@@ -58,7 +58,7 @@ const sidenav = ref({
           <thead>
             <th>Racing No.</th>
             <th>Racing Name</th>
-            <th>Racing Description</th>
+            <th>Racing Name</th>
             <th>Period</th>
             <th>Tracing No.</th>
           </thead>
@@ -78,7 +78,7 @@ const sidenav = ref({
           <thead>
             <th>Racing No.</th>
             <th>Racing Name</th>
-            <th>Racing Description</th>
+            <th>Racing Name</th>
             <th>Period</th>
             <th>Tracing No.</th>
           </thead>
@@ -98,7 +98,7 @@ const sidenav = ref({
           <thead>
             <th>Racing No.</th>
             <th>Racing Name</th>
-            <th>Racing Description</th>
+            <th>Racing Name</th>
             <th>Period</th>
             <th>Tracing No.</th>
           </thead>
@@ -118,7 +118,7 @@ const sidenav = ref({
           <thead>
             <th>Racing No.</th>
             <th>Racing Name</th>
-            <th>Racing Description</th>
+            <th>Racing Name</th>
             <th>Period</th>
             <th>Tracing No.</th>
           </thead>
