@@ -173,6 +173,7 @@ const flow = ref(1);
 const btnStatus = ref(false);
 const buyBtn = ref(false);
 const boardMove = ref(false);
+let acc;
 
 const undo = () => {
     btnStatus.value = false;
@@ -196,7 +197,12 @@ const undo = () => {
         case 4:
             kgmcChosen.value = 0;
             niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm), units.value.maxSpeed.ratio);
-            niddleSpin(5, accelerateTime(motorChosen.value.kgm), units.value.accelerateTime.ratio);
+            if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm)>=100){
+                acc = accelerate(motorChosen.value.kgm);
+            }else{
+                acc = 0;
+            };
+            niddleSpin(5, acc, units.value.accelerateTime.ratio);
             niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm)), units.value.accelerate.ratio);
             buyBtn.value = false;
             $all('.controllerControl').forEach(c => c.classList.remove('chosen'));
@@ -213,16 +219,6 @@ const nextStep = () => {
     }else{
         alert('可以先選嗎?');
     }
-};
-const loadBox = () => {
-    $$('.loadBox').style.display = 'block';
-    
-    gsap.to('.loadProgress', {
-        width: CUS.modelLoading.value + '%',
-        duration: .3,
-    })
-    log(CUS.modelLoading.value + '%')
-    if(CUS.modelLoading.value===100)$$('.loadBox').style.display = 'none';
 };
 
 const canvasRe = () => {
@@ -274,7 +270,12 @@ const motorChoose = (id) => {
     niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm), units.value.maxSpeed.ratio);
     niddleSpin(2, motorChosen.value.kgm, units.value.maxload.ratio);
     niddleSpin(3, motorChosen.value.rpm / 1000, units.value.rotatingSpeed.ratio);
-    niddleSpin(5, accelerateTime(motorChosen.value.kgm), units.value.accelerateTime.ratio);
+    if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm)>=100){
+        acc = accelerate(motorChosen.value.kgm);
+    }else{
+        acc = 0;
+    };
+    niddleSpin(5, acc, units.value.accelerateTime.ratio);
     niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm)), units.value.accelerate.ratio);
     btnStatus.value = true;
     $all('.motorControl').forEach(c => c.classList.remove('chosen'));
@@ -284,7 +285,13 @@ const kgmcChosen = ref(0);
 const controllerChoose = (id) => {
     kgmcChosen.value = controllerModels.value[`controller0${id}`].kgmc;
     niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value), units.value.maxSpeed.ratio);
-    niddleSpin(5, accelerateTime(motorChosen.value.kgm, kgmcChosen.value), units.value.accelerateTime.ratio);
+    let acc;
+    if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value)>=100){
+        acc = accelerateTime(motorChosen.value.kgm, kgmcChosen.value);
+    }else{
+        acc = 0;
+    };
+    niddleSpin(5, acc, units.value.accelerateTime.ratio);
     niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm, kgmcChosen.value)), units.value.accelerate.ratio);
     btnStatus.value = true;
     if(flow.value===4&&btnStatus.value){
