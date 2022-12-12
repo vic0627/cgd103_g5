@@ -34,15 +34,6 @@ import propellor03blue from "../../assets/model3d/propellor03/propellor_03_blue.
 import propellor03green from "../../assets/model3d/propellor03/propellor_03_green.glb";
 import propellor03red from "../../assets/model3d/propellor03/propellor_03_red.glb";
 import propellor03white from "../../assets/model3d/propellor03/propellor_03_white.glb";
-// ----- motor ----- //
-// ----- controller ----- //
-/* export let img;
-
-export const preLoad = () => {
-  img = new Image();
-  img.src = body01black;
-} */
-
 
 
 
