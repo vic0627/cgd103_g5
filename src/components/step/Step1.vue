@@ -140,9 +140,7 @@ const sale = ()=> {
                 <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shopping">
                     <span>Shopping</span>
                 </router-link>
-                <a class="btnSecond" id="btn2" data-title="Next">
-                <button @click="props.nextStep()" class="button">Next</button>
-                </a>
+                <button @click="props.nextStep()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
             
             </div>   
         </div>

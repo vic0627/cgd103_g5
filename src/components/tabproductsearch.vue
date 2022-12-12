@@ -3,31 +3,47 @@ import { ref,reactive, onMounted } from 'vue';
     const products = reactive([
         {   
             pno:1,
-            pname:"EFVP Mavic 1 Green",
+            pname:"Mavic 1 Green",
+            pcate:'body',
             Original_Price:'USD$900',
-            info:'EFVP Mavic 1 Green不僅身懷高超飛行技藝，為你呈現旗艦級影像質感。帶它走遍山海，大作盡顯光彩。不僅身懷高超飛行技藝，為你呈現旗艦級影像質感。帶它走遍山海，大作盡顯',
+            weight:300,
+            rpm:5300,
+            kgm:9,
+            color:'綠色',
         },
         {   
             pno:2,
-            pname:"EFVP Mavic 2 White",
+            pname:"Mavic 2 White",
+            pcate:'body',
             Original_Price:'USD$900',
-            info:'EFVP Mavic 2 White不僅身懷高超飛行技藝，為你呈現旗艦級影像質感。帶它走遍山海，大作盡顯光彩。',
+            weight:300,
+            rpm:5300,
+            kgm:9,
+            color:'白色',
         },
         {   
             pno:3,
-            pname:"EEFVP Mavic 3 Red",
+            pname:"Mavic 3 Red",
+            pcate:'body',
             Original_Price:'USD$900',
-            info:'EFVP Mavic 3 Red不僅身懷高超飛行技藝，為你呈現旗艦級影像質感。帶它走遍山海，大作盡顯光彩。',
+            weight:300,
+            rpm:5300,
+            kgm:9,
+            color:'紅色',
         },
         {   
             pno:4,
-            pname:"EFVP Mavic 4 Black",
+            pname:"Mavic 4 Black",
+            pcate:'body',
             Original_Price:'USD$900',
-            info:'EFVP Mavic 4 Black不僅身懷高超飛行技藝，為你呈現旗艦級影像質感。帶它走遍山海，大作盡顯光彩。',
+            weight:300,
+            rpm:5300,
+            kgm:9,
+            color:'黑色'
         }
     ]
     )
-    const table = ref(['品名','商品編號','價格','資訊','修改' ])
+    const table = ref(['編號','商品名稱','商品分類','售價','重量','轉速','扭力','顏色','修改' ])
 </script>
 <template>
   <div class="productQuery">
@@ -63,9 +79,13 @@ import { ref,reactive, onMounted } from 'vue';
             <tr v-for="items in products" :key="items.pno">
                 <td>{{items.pno}}</td>
                 <td>{{items.pname}}</td>
+                <td>{{items.pcate}}</td>
                 <td>{{items.Original_Price}}</td>
-                <td>{{items.info}}</td>
-                <td><a href="#">修改/<span>刪除</span></a></td>
+                <td>{{items.weight}}</td>
+                <td>{{items.rpm}}</td>
+                <td>{{items.kgm}}</td>
+                <td>{{items.color}}</td>
+                <td><div class="revised">修改/<span>刪除</span></div></td>
             </tr>
         </table>
         <span class="infoCount">目前頁數 1 / 2，總共有15筆資訊</span>
@@ -185,61 +205,46 @@ import { ref,reactive, onMounted } from 'vue';
     }
   }
   .mainContent{
-    max-width: 100%;
-    color: black;
-    text-align: center;
-    margin-left: 20px;
-    @include m($m-breakpoint){
-        margin: 20px;
-    }
+    width: 100%;
+    margin: auto;
     table{
-        font:$caption-p;
-        max-width: 100%;
-        height: 50px;
-        border: 1px solid black;
-        tr:not(:last-child){
-            border-bottom:1px solid #ccc ;
-            padding: 20px;
-            margin: 20px;
+        width: 95%;        
+        margin: 0 auto;     
+        font-size: 20px;
+        border: 1px solid #C0C0C0;
+
+        tr{
+            text-align: center;
+            border: 1px solid #C0C0C0;
+            &:hover td{
+                background: rgba(89, 120, 151, 0.11);
+            }
         }
-        // tr:hover td{
-        //     background-color: #ddd;
-        //     transition: background .5s;
-        // }
         th{
-            &:nth-child(4){
-                display: none;
-            }
-            padding: 10px 0;
-            background-color: #ccc;
+            padding: 20px 10px;
+            background-color: #597897;
+            border: 1px solid #C0C0C0;
+            border-top: 1px solid #597897;
             p{
-                color: #111;
-                font-weight: bold;
-            }
-            @include m($m-breakpoint){
-                &:nth-child(4){
-                    display: block;
-                }
+                color: #fff;
             }
         }
         td{
-            
-            font:$caption-p;
-            padding: 20px;
+            border: 1px solid #C0C0C0;
+            padding: 20px 10px; 
             vertical-align: middle;
-            &:nth-child(4){
-                display: none;
-            }
-            a{
-                color: #333;
+            .revised{
+                color: #597897;
+                cursor: pointer;
+                width: 150px;
                 span{
-                    color: red;
+                    margin: 5px;
+                    color: $ored;
+                    &:focus{
+                    border-bottom: 1px solid #1671cd;
                 }
-            }
-            @include m($m-breakpoint){
-                &:nth-child(4){
-                    display: block;
                 }
+                
             }
         }
     }
@@ -268,6 +273,8 @@ import { ref,reactive, onMounted } from 'vue';
     }
   }
 }
-
+.revised{
+    cursor: pointer;
+}
 
 </style>

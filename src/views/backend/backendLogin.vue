@@ -25,7 +25,7 @@ import { log } from '../../composables/useCommon';
             </form>
             <div class="links">
                 <router-link to="/" class="leave link" >離開後台</router-link>
-                <router-link to="/" class="home link" >前往首頁</router-link>
+                <router-link to="/home" class="home link" >前往首頁</router-link>
             </div>
         </div>
     </div>
