@@ -67,11 +67,12 @@
                             <div class="login_info">
                                 <input type="checkbox" name="remember" id="remember">
                                 <label for="remember">Remember me</label>
-                                <a href="" class="forget_password">Forget Password?</a>
+                                <!-- <a href="" class="forget_password">Forget Password?</a> -->
+                                <router-link class="forget_password" to="/">Forget Password?</router-link>
                             </div>
                             <div class="action">
                                 <button type="submit" >submit</button>
-                                <p>New user?<a href="/register">Create Your EFPV Account </a></p>
+                                <p>New user?<router-link to="/register">Create Your EFPV Account</router-link></p>
                             </div>
                         </form>
                         <div class="divider">
