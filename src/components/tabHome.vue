@@ -83,7 +83,7 @@ export default{
         </div>
         <div class="word">
           <p class="income">本月收入</p>
-          <p class="num">500</p>
+          <p class="num">59000 美金</p>
         </div>
       </div>
       <!-- // -->
