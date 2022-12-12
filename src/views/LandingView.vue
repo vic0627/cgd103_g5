@@ -112,7 +112,7 @@ const mouse3d = () => {
         <a data-title="To Frontstage" class="btnSecond" @click="toFront">
             <span>To Frontstage</span>
         </a>
-        <router-link to="/backend" data-title="Enter" class="btnMain">
+        <router-link to="/backendlogin" data-title="Enter" class="btnMain">
             <span>Enter</span>
         </router-link>
     </div>

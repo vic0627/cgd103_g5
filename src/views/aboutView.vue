@@ -367,7 +367,7 @@ body{
   .teambox{
     width: 90%;
     margin: auto;
-    text-align: center;
+    text-align: left;
     background-color: #515151af;
     border-radius: 5px;
     padding: 5px;

@@ -1,97 +1,105 @@
 <script>
-import { onMounted, registerRuntimeCompiler } from 'vue';
+import { ref, onMounted, reactive } from 'vue';
+
+import { log } from '../../composables/useCommon';
+
+
+
 
 </script>
 
 <template>
-   <div class="login">
+   <div class="container">
         <div class="box">
-            <h2>管理員登入</h2>
-            <div class="accountbox">
-                <h3>帳號</h3>
-                <input type="text" placeholder="請輸入管理員帳號" name="num" id="number">   
-            </div>
-            <div class="passwordbox">
-                <h3>密碼</h3>
-                <input type="text" placeholder="請輸入管理員密碼" name="num" id="number">
-            </div>
-            <div class="btn">
-                <input type="submit" value="登入">
-            </div>
-            <div class="link">
-                <router-link class="anchor" to="/">↼ 離開後台</router-link>
-                <router-link class="anchor" to="/home">⇀ 前往首頁</router-link>
+            <form action="">
+                <div class="form-group">
+                    <label for="">帳號</label>
+                    <input type="text" id="userName" name="userName" required maxlength="10">
+                </div>
+                <div class="form-group">
+                    <label for="">密碼</label>
+                    <input type="password" id="psw" name="psw" class="psw" required maxlength="10">
+                    <p class="message">請輸入6~10位密碼驗證</p>
+                </div>
+                <button type="submit" class="btn" @click="removeCookie">登入</button>
+            </form>
+            <div class="links">
+                <router-link to="/" class="leave link" >離開後台</router-link>
+                <router-link to="/" class="home link" >前往首頁</router-link>
             </div>
         </div>
-
-   </div>
+    </div>
 </template>
 <style lang="scss" scoped>
-.login{
+.container{
     width: 100%;
     height: 100vh;
     background-color: #5E8CA7;
     .box{
+        width: 500px;
+        padding: 20px;
+        border-radius: 5px;
         position: absolute;
         top: 50%;
         left: 50%;
-        width: 500px;
-        height: 300px;
-        background-color: #fff;
-        border-radius: 5px;
-        margin: auto;
         transform: translate(-50%,-50%);
+        background-color: #fff;
     }
 }
-h3{
-    display: inline;
-    font-size: 25px;
-    color: #5E8CA7;
+p{
+    color: #000;
 }
-.accountbox,.passwordbox{
-    text-align: center;
-}
+
+// h3{
+//     display: inline;
+//     font-size: 25px;
+//     color: #5E8CA7;
+// }
+// .accountbox,.passwordbox{
+//     text-align: center;
+// }
 .btn{
+    width: 100%;
     text-align: center;
-    input{
-        border-radius: 5px;
-        background-color: #5E8CA7;
-        color: #fff;
-        cursor: pointer;
-        padding: 8px;
-        height: 40px;
-        font-size: 20px;
-        border: none;
-        line-height: 25px;
-        transition: background 0.5s;
-        &:hover{
-            background: #06519d;
-        }
+    border-radius: 5px;
+    background-color: #5E8CA7;
+    color: #fff;
+    cursor: pointer;
+    padding: 8px;
+    height: 40px;
+    font-size: 20px;
+    margin-top: 15px;
+    border: none;
+    line-height: 25px;
+    transition: background 0.5s;
+    &:hover{
+        background: #06519d;
     }
 }
-.link{
-    margin-top: 30px;
+.links{
+    margin-top: 10px;
     display: flex;
     justify-content: space-between;
-    .anchor{
-        font-size: 22px;
-        margin: 10px 0;
-        padding: 5px;
-        transition: background 0.5s;
-        &:hover{
-            background: #fff;
-            color: #5E8CA7;
-            border-radius: 5px;
-            padding: 5px;
-        }
+}
+
+.link{
+    color: #5E8CA7;
+    font-size: 22px;
+    margin: 10px 0;
+    padding: 5px;
+    transition: background 0.5s;
+    &:hover{
+        background: #fff;
+        color: #1671cd;
+        border-radius: 5px;
+       
     }
 }
 input{
-    width: 320px;
-    height: 30px;
-    margin-top: 10px;
-    padding-left: 10px;
-    margin-left: 10px;
+    width: 95%;
+    height: 20px;
+    margin: 10px 0;
+    padding: 10px;
     font-size: 16px;
     border: 1px solid rgb(140, 140, 140);
     border-radius: 5px;
@@ -108,12 +116,12 @@ input{
         color: rgba(181, 181, 181, 0.749);
     }
 }
-h2{
-    font-size: 25px;
-    color: #5E8CA7;
-    text-align: center;
-    margin: 10px;
-}
+// h2{
+//     font-size: 25px;
+//     color: #5E8CA7;
+//     text-align: center;
+//     margin: 10px;
+// }
 
 
 </style>
