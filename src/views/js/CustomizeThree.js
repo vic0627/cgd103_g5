@@ -53,11 +53,7 @@ export function sceneInit () {
     scene.add(spotLight2);
 
     let light1 = new THREE.AmbientLight(0xffffff, .1);   
-    scene.add(light1);
-
-
-    
-    
+    scene.add(light1);   
 };
 /* ------body------ */
 const bodyloader = new GLTFLoader();
@@ -74,18 +70,12 @@ const bodyLoader = ( droneUrl, scale, x, y, z ) => {
                 node.receiveShadow = true
             }
         })
-        
+        modelObj.position.set(x, y, z);
+        modelObj.scale.set(scale, scale, scale);
+        scene.add( modelObj );
     } , undefined, function ( error ) {
         console.error( error );
     });
-    setTimeout(()=> {
-        if(modelObj){
-            modelObj.position.set(x, y, z);
-            modelObj.scale.set(scale, scale, scale);
-            scene.add( modelObj );  
-        }
-        
-    }, 500);
 };
 
 let bodyType, bodyScale, bodyX, bodyY, bodyZ;
@@ -109,10 +99,10 @@ export const body = (e, src) => {
 
 /* ------propellor------ */
 let propellorObj1, propellorObj2, propellorObj3, propellorObj4, propellorScale;
-const propellorloader1 = new GLTFLoader();
+const propellorloaderA = new GLTFLoader();
 const propellorLoader1 = ( droneUrl, scale, x, y, z ) => {
     if (propellorObj1) scene.remove( propellorObj1 );
-    bodyloader.load(droneUrl, ( gltf ) => {
+    propellorloaderA.load(droneUrl, ( gltf ) => {
         propellorObj1 = gltf.scene;
         propellorObj1.traverse(function(node) {
             if (node.isMesh) {
@@ -123,23 +113,17 @@ const propellorLoader1 = ( droneUrl, scale, x, y, z ) => {
                 node.receiveShadow = true
             }
         })
-        
+        propellorObj1.position.set(x, y, z);
+        propellorObj1.scale.set(scale, scale, scale);
+        scene.add( propellorObj1 ); 
     } , undefined, function ( error ) {
         console.error( error );
     });
-    setTimeout(()=> {
-        if(propellorObj1){
-            propellorObj1.position.set(x, y, z);
-            propellorObj1.scale.set(scale, scale, scale);
-            scene.add( propellorObj1 );  
-        }
-        
-    }, 500);
 };
-const propellorloader2 = new GLTFLoader();
+const propellorloaderB = new GLTFLoader();
 const propellorLoader2 = ( droneUrl, scale, x, y, z ) => {
     if (propellorObj2) scene.remove( propellorObj2 );
-    bodyloader.load(droneUrl, ( gltf ) => {
+    propellorloaderB.load(droneUrl, ( gltf ) => {
         propellorObj2 = gltf.scene;
         propellorObj2.traverse(function(node) {
             if (node.isMesh) {
@@ -150,23 +134,17 @@ const propellorLoader2 = ( droneUrl, scale, x, y, z ) => {
                 node.receiveShadow = true
             }
         })
-        
+        propellorObj2.position.set(x, y, z);
+        propellorObj2.scale.set(scale, scale, scale);
+        scene.add( propellorObj2 );
     } , undefined, function ( error ) {
         console.error( error );
     });
-    setTimeout(()=> {
-        if(propellorObj2){
-            propellorObj2.position.set(x, y, z);
-            propellorObj2.scale.set(scale, scale, scale);
-            scene.add( propellorObj2 );  
-        }
-        
-    }, 500);
 };
-const propellorloader3 = new GLTFLoader();
+const propellorloaderC = new GLTFLoader();
 const propellorLoader3 = ( droneUrl, scale, x, y, z ) => {
     if (propellorObj3) scene.remove( propellorObj3 );
-    bodyloader.load(droneUrl, ( gltf ) => {
+    propellorloaderC.load(droneUrl, ( gltf ) => {
         propellorObj3 = gltf.scene;
         propellorObj3.traverse(function(node) {
             if (node.isMesh) {
@@ -177,23 +155,17 @@ const propellorLoader3 = ( droneUrl, scale, x, y, z ) => {
                 node.receiveShadow = true
             }
         })
-        
+        propellorObj3.position.set(x, y, z);
+        propellorObj3.scale.set(scale, scale, scale);
+        scene.add( propellorObj3 ); 
     } , undefined, function ( error ) {
         console.error( error );
     });
-    setTimeout(()=> {
-        if(propellorObj3){
-            propellorObj3.position.set(x, y, z);
-            propellorObj3.scale.set(scale, scale, scale);
-            scene.add( propellorObj3 );  
-        }
-        
-    }, 500);
 };
-const propellorloader4 = new GLTFLoader();
+const propellorloaderD = new GLTFLoader();
 const propellorLoader4 = ( droneUrl, scale, x, y, z ) => {
     if (propellorObj4) scene.remove( propellorObj4 );
-    bodyloader.load(droneUrl, ( gltf ) => {
+    propellorloaderD.load(droneUrl, ( gltf ) => {
         propellorObj4 = gltf.scene;
         propellorObj4.traverse(function(node) {
             if (node.isMesh) {
@@ -204,18 +176,12 @@ const propellorLoader4 = ( droneUrl, scale, x, y, z ) => {
                 node.receiveShadow = true
             }
         })
-        
+        propellorObj4.position.set(x, y, z);
+        propellorObj4.scale.set(scale, scale, scale);
+        scene.add( propellorObj4 );
     } , undefined, function ( error ) {
         console.error( error );
     });
-    setTimeout(()=> {
-        if(propellorObj4){
-            propellorObj4.position.set(x, y, z);
-            propellorObj4.scale.set(scale, scale, scale);
-            scene.add( propellorObj4 );  
-        }
-        
-    }, 500);
 };
 
 export const propellor = (e, src) => {

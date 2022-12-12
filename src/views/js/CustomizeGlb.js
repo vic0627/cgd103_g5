@@ -36,6 +36,15 @@ import propellor03red from "../../assets/model3d/propellor03/propellor_03_red.gl
 import propellor03white from "../../assets/model3d/propellor03/propellor_03_white.glb";
 // ----- motor ----- //
 // ----- controller ----- //
+/* export let img;
+
+export const preLoad = () => {
+  img = new Image();
+  img.src = body01black;
+} */
+
+
+
 
 import { ref } from "vue";
 
@@ -45,11 +54,26 @@ export const droneModels = ref({
     name: "body01",
     weight: 3000,
     color: {
-      1: body01black,
-      2: body01blue,
-      3: body01green,
-      4: body01red,
-      5: body01white,
+      1: {
+        id: 1,
+        src: body01black,
+      },
+      2: {
+        id: 2,
+        src: body01blue,
+      },
+      3: {
+        id: 3,
+        src: body01green,
+      },
+      4: {
+        id: 4,
+        src: body01red,
+      },
+      5: {
+        id: 5,
+        src: body01white,
+      },
     },
   },
   body02: {
@@ -57,11 +81,26 @@ export const droneModels = ref({
     name: "body02",
     weight: 3300,
     color: {
-      1: body02black,
-      2: body02blue,
-      3: body02green,
-      4: body02red,
-      5: body02white,
+      1: {
+        id: 1,
+        src: body02black,
+      },
+      2: {
+        id: 2,
+        src: body02blue,
+      },
+      3: {
+        id: 3,
+        src: body02green,
+      },
+      4: {
+        id: 4,
+        src: body02red,
+      },
+      5: {
+        id: 5,
+        src: body02white,
+      },
     },
   },
   body03: {
@@ -69,11 +108,26 @@ export const droneModels = ref({
     name: "body03",
     weight: 3600,
     color: {
-      1: body03black,
-      2: body03blue,
-      3: body03green,
-      4: body03red,
-      5: body03white,
+      1: {
+        id: 1,
+        src: body03black,
+      },
+      2: {
+        id: 2,
+        src: body03blue,
+      },
+      3: {
+        id: 3,
+        src: body03green,
+      },
+      4: {
+        id: 4,
+        src: body03red,
+      },
+      5: {
+        id: 5,
+        src: body03white,
+      },
     },
   },
 });
@@ -83,11 +137,26 @@ export const propellorModels = ref({
     name: "propellor01",
     weight: 300,
     color: {
-      1: propellor01black,
-      2: propellor01blue,
-      3: propellor01green,
-      4: propellor01red,
-      5: propellor01white,
+      1: {
+        id: 1,
+        src: propellor01black,
+      },
+      2: {
+        id: 2,
+        src: propellor01blue,
+      },
+      3: {
+        id: 3,
+        src: propellor01green,
+      },
+      4: {
+        id: 4,
+        src: propellor01red,
+      },
+      5: {
+        id: 5,
+        src: propellor01white,
+      },
     },
   },
   propellor02: {
@@ -95,11 +164,26 @@ export const propellorModels = ref({
     name: "propellor02",
     weight: 350,
     color: {
-      1: propellor02black,
-      2: propellor02blue,
-      3: propellor02green,
-      4: propellor02red,
-      5: propellor02white,
+      1: {
+        id: 1,
+        src: propellor02black,
+      },
+      2: {
+        id: 2,
+        src: propellor02blue,
+      },
+      3: {
+        id: 3,
+        src: propellor02green,
+      },
+      4: {
+        id: 4,
+        src: propellor02red,
+      },
+      5: {
+        id: 5,
+        src: propellor02white,
+      },
     },
   },
   propellor03: {
@@ -107,11 +191,26 @@ export const propellorModels = ref({
     name: "propellor03",
     weight: 400,
     color: {
-      1: propellor03black,
-      2: propellor03blue,
-      3: propellor03green,
-      4: propellor03red,
-      5: propellor03white,
+      1: {
+        id: 1,
+        src: propellor03black,
+      },
+      2: {
+        id: 2,
+        src: propellor03blue,
+      },
+      3: {
+        id: 3,
+        src: propellor03green,
+      },
+      4: {
+        id: 4,
+        src: propellor03red,
+      },
+      5: {
+        id: 5,
+        src: propellor03white,
+      },
     },
   },
 });

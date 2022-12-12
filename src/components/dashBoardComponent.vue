@@ -1,23 +1,23 @@
 <script setup>
 import { onMounted, ref, nextTick } from 'vue';
-import { log, $$, $all } from '../composables/useCommon';
+import { log, $$, $all, getW } from '../composables/useCommon';
 import gsap from 'gsap';
 import { useDashBoardMove, niddleSpin, deg} from '../composables/useDashBoardMove';
 let w = null, innerW = null, numW = null, ww;
 
 onMounted(() => {
     ww = window.innerWidth;
-    w = Number(window.getComputedStyle($$('.dashBoard'),null).getPropertyValue("width").split('px')[0])/2;
-    innerW = Number(window.getComputedStyle($$('.innerScale'),null).getPropertyValue("width").split('px')[0])/2+1.5;
-    numW = Number(window.getComputedStyle($$('.numberScales'),null).getPropertyValue("width").split('px')[0])/2;
+    w = getW('.dashBoard');
+    innerW = getW('.innerScale')+1.5;
+    numW = getW('.numberScales');
     scaleSum();
     window.addEventListener('resize', () => {
-        w = Number(window.getComputedStyle($$('.dashBoard'),null).getPropertyValue("width").split('px')[0])/2;
-        innerW = Number(window.getComputedStyle($$('.innerScale'),null).getPropertyValue("width").split('px')[0])/2+1.5;
-        numW = Number(window.getComputedStyle($$('.numberScales'),null).getPropertyValue("width").split('px')[0])/2;
+        w = getW('.dashBoard');
+        innerW = getW('.innerScale')+1.5;
+        numW = getW('.numberScales');
         ww = window.innerWidth;
         scaleSum();
-    })
+    });
     niddleSpin(props.units.id, props.units.value, props.units.ratio);
 });
 const r = 2 * Math.PI / 12;
@@ -61,7 +61,7 @@ const props = defineProps(["units"]);
 </script>
 <template>
     <div :class="`dashBoard dashBoard${props.units.id}`">
-        <div class="shortScale" v-for="n in 47" :key="n" :class="`shortScale shortScale${n}`"></div>
+        <div v-for="n in 47" :key="n" :class="`shortScale shortScale${n}`"></div>
         <div v-for="n in 9" :key="n" :class="`longScale longScale${n}`"></div>
         <div :class="`numberScales numberScales${props.units.id}`">
             <p v-for="n in 9" :key="n" :class="`numberScale numberScale${n}`">{{ props.units.scale[n] }}</p>
@@ -89,6 +89,10 @@ const props = defineProps(["units"]);
     height: 150px;
     border-radius: 50%;
     position: relative;
+    background: radial-gradient(#CED3DC66, transparent 70%);
+    transform-style: preserve-3d;
+    transform-origin: 0% center;
+    transform: perspective(1000px);
     @include s($s-breakpoint){
         width: 200px;
         height: 200px;
@@ -104,11 +108,9 @@ const props = defineProps(["units"]);
     .longScale{
         width: 8%;
         height: 2px;
-        background: #CED3DCcc;
+        background: #CED3DC;
         position: absolute;
         margin: calc(50% - 1px) auto auto 46%;
-        transform-style: preserve-3d;
-        transform: perspective(1000px) translateZ(-20px);
     }
     .shortScale{
         width: 8%;
@@ -117,8 +119,6 @@ const props = defineProps(["units"]);
         position: absolute;
         margin: calc(50% - 1px) auto auto 46%;
         clip-path: polygon(0 0, 60% 0, 60% 100%, 0 100%);
-        transform-style: preserve-3d;
-        transform: perspective(1000px);
     }
     .numberScales{
         position: absolute;
@@ -140,6 +140,9 @@ const props = defineProps(["units"]);
             margin-left: calc(50% - 16px);
             margin-top: calc(50% - 8px);
             color: $light-black;
+            text-shadow: 0 0 10px $dark-grey;
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
             @include m($m-breakpoint){
                 display: block;
             }
@@ -160,8 +163,7 @@ const props = defineProps(["units"]);
         border: 2px solid #CED3DCcc;
         border-bottom: none;
         border-radius: 50%;
-        transform-style: preserve-3d;
-        transform: perspective(1000px) translateZ(-20px);
+        box-shadow: 0 3px 10px 2px $black inset;
         .niddle{
             width: 52.5%;
             height: 5px;
@@ -172,6 +174,14 @@ const props = defineProps(["units"]);
             left: 50%;
             @include m($m-breakpoint){
                 width: 51.5%;
+            }
+            @include l($l-breakpoint){
+                outline: 1px solid red;
+                width: 70%;
+                height: 10px;
+                top: calc(50% - 5px);
+                background: linear-gradient($black, #f00);
+                clip-path: polygon(0 50%, 5% 0, 95% 30%, 100% 50%, 95% 70%, 5% 100%);
             }
         }
         span{
@@ -184,11 +194,13 @@ const props = defineProps(["units"]);
             margin: 0 0 0 auto;
             transform-style: preserve-3d;
             transform: perspective(1000px) translateZ(20px);
+            @include l($l-breakpoint){
+                display: none;
+            }
         }
     }
     .board{
         width: 100%;
-        height: 50%;
         margin: auto;
         text-align: center;
         padding-top: 30%;
@@ -206,6 +218,7 @@ const props = defineProps(["units"]);
             margin: 5px auto;
             transform-style: preserve-3d;
             transform: perspective(1000px);
+            text-shadow: 0 0 10px $dark-grey;
             @include s($s-breakpoint){
                 font: $caption-s-h1;
                 line-height: 1;
@@ -229,6 +242,7 @@ const props = defineProps(["units"]);
             transform-style: preserve-3d;
             transform: perspective(1000px);
             color: $light-black;
+            text-shadow: 0 0 10px $dark-grey;
             @include s($s-breakpoint){
                 font-size: 16px;
             }
