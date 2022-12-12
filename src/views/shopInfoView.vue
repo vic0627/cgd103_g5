@@ -81,7 +81,6 @@ const btnLeft = () => {
       <p>USD $1,599</p>
       <ul>
         <li>5.1K/50fps Professional Imagery</li>
-        <li>Hasselblad Natural Colour Solution</li>
         <li>46-Min Max Flight Time</li>
         <li>Omnidirectional Obstacle Sensing</li>
         <li>15km HD Video Transmission</li>
@@ -106,7 +105,7 @@ const btnLeft = () => {
 
   <!-- 換色 -->
   <div class="shows">
-    <div class="colorSwitch">
+    <!-- <div class="colorSwitch">
       <div class="colorSwitch_photo">
         <div class="color_img">
           <img src="/src/assets/images/shopInfo/body_03_2.png" alt="color" />
@@ -127,7 +126,10 @@ const btnLeft = () => {
         </div>
 
         <div class="color_img">
-          <img src="/src/assets/images/shopInfo/body_03_red_2.png" alt="color" />
+          <img
+            src="/src/assets/images/shopInfo/body_03_red_2.png"
+            alt="color"
+          />
         </div>
       </div>
       <div class="colorSwitch_word">
@@ -138,6 +140,22 @@ const btnLeft = () => {
           <span>Red</span>
         </section>
       </div>
+    </div> -->
+
+    <div class="fly">
+      <video
+        src="/src/assets/video/shopInfo/fly.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        webkit-playsinline
+      ></video>
+      <h4>4/3 Camera</h4>
+      <p>
+        Powerful colors and cleaner night shots. Enjoy 5.1K/50fps video
+        recording.
+      </p>
     </div>
 
     <div class="battery">
@@ -159,12 +177,15 @@ const btnLeft = () => {
     </div>
 
     <div class="accessories">
-      <img src="/src/assets/images/shopInfo/accessories.jpg" alt="accessories" />
+      <img
+        src="/src/assets/images/shopInfo/accessories.jpg"
+        alt="accessories"
+      />
       <h4>Extensive Accessories</h4>
       <p>
-        DJI RC features a built-in 5.5-inch HD display for clear viewing in
-        strong light, professional-grade ND filters for landscape photography,
-        and more, to make results truly stand out.
+        RC features a built-in 5.5-inch HD display for clear viewing in strong
+        light, professional-grade ND filters for landscape photography, and
+        more, to make results truly stand out.
       </p>
     </div>
 
@@ -190,7 +211,7 @@ const btnLeft = () => {
           <h5>EFVP Mavic 5</h5>
           <span>USD $2,399</span>
           <a class="buttons">
-            <router-link to="/cart" class="buy" id="btn1" data-title="Buy">
+            <router-link to="/cart" class="buy" id="btn2" data-title="Buy">
               <span>Buy</span>
             </router-link>
           </a>
@@ -207,7 +228,7 @@ const btnLeft = () => {
           <h5>EFVP Mavic 3</h5>
           <span>USD $1,199</span>
           <a class="buttons">
-            <router-link to="/cart" class="buy" id="btn1" data-title="Buy">
+            <router-link to="/cart" class="buy" id="btn2" data-title="Buy">
               <span>Buy</span>
             </router-link>
           </a>
@@ -224,7 +245,7 @@ const btnLeft = () => {
           <h5>EFVP Mavic 2</h5>
           <span>USD $999</span>
           <a class="buttons">
-            <router-link to="/cart" class="buy" id="btn1" data-title="Buy">
+            <router-link to="/cart" class="buy" id="btn2" data-title="Buy">
               <span>Buy</span>
             </router-link>
           </a>
@@ -248,7 +269,7 @@ const btnLeft = () => {
     <div class="pnp">
       <span> USD $1,599 </span>
       <router-link class="purchaseBar_btn" id="" to="/cart" data-title="Buy now"
-        ><span>Buy now</span></router-link
+        ><span>Buy</span></router-link
       >
     </div>
   </nav>
@@ -352,8 +373,8 @@ const btnLeft = () => {
     justify-content: center;
     position: relative;
     img {
-      width: 60vw;
-      height: 30vh;
+      width: 55vw;
+      height: 25vh;
     }
     .button {
       width: 50px;
@@ -366,9 +387,23 @@ const btnLeft = () => {
     }
     #left {
       left: 25px;
+
+      text-align: center;
+      background-color: rgba(150, 150, 200, 0.2);
+      border-radius: 50%;
+      padding: 3px;
+
+      cursor: pointer;
     }
     #right {
-      right: 5px;
+      right: 25px;
+
+      text-align: center;
+      background-color: rgba(150, 150, 200, 0.2);
+      border-radius: 50%;
+      padding: 3px;
+
+      cursor: pointer;
     }
 
     @include m($m-breakpoint) {
@@ -377,7 +412,7 @@ const btnLeft = () => {
       margin-top: 20px;
       img {
         width: 360px;
-        height: 360px;
+        height: 300px;
         margin-left: 130px;
         margin-top: 50px;
       }
@@ -615,13 +650,42 @@ h2 {
       margin-left: 200px;
     }
   }
+
+  .fly {
+    position: relative;
+
+    margin: 20px;
+
+    width: 300px;
+
+    video {
+      width: 300px;
+      height: 400px;
+      border-radius: 5px;
+      object-fit: cover;
+      background-color: black;
+      filter: opacity(0.5);
+    }
+    h4 {
+      position: absolute;
+      top: 0;
+      margin: 20px;
+      text-shadow: #222 2px 2px 4px;
+    }
+    p {
+      position: absolute;
+      top: 100px;
+      margin: 20px;
+      text-shadow: #222 2px 2px 4px;
+    }
+  }
+
   .battery {
     position: relative;
 
     margin: 20px;
 
     width: 300px;
-    margin-left: 200px;
 
     img {
       width: 300px;
@@ -762,6 +826,24 @@ h2 {
         margin-left: 30px;
       }
     }
+
+    .fly {
+      width: 27vw;
+      height: 430px;
+      video {
+        width: inherit;
+        height: inherit;
+      }
+      h4 {
+        line-height: 45px;
+        top: 0;
+        margin: 40px 40px 0;
+      }
+      p {
+        top: 60px;
+        margin: 40px;
+      }
+    }
     .battery {
       width: 48vw;
       h4 {
@@ -774,7 +856,7 @@ h2 {
         margin: 40px;
       }
       img {
-        height: 400px;
+        height: 430px;
         width: 48vw;
         transition: 0.7s ease-in-out;
       }
@@ -787,7 +869,7 @@ h2 {
       }
     }
     .far {
-      width: 36vw;
+      width: 38vw;
       h4 {
         line-height: 45px;
         top: 0;
@@ -799,7 +881,7 @@ h2 {
       }
       img {
         height: 400px;
-        width: 36vw;
+        width: inherit;
         transition: 0.7s ease-in-out;
       }
 
@@ -811,7 +893,7 @@ h2 {
       }
     }
     .accessories {
-      width: 36vw;
+      width: 37vw;
       h4 {
         line-height: 45px;
         top: 0;
@@ -823,7 +905,7 @@ h2 {
       }
       img {
         height: 400px;
-        width: 36vw;
+        width: inherit;
         transition: 0.7s ease-in-out;
       }
 
@@ -835,7 +917,7 @@ h2 {
       }
     }
     .sensing {
-      width: 77vw;
+      width: 78vw;
       h4 {
         line-height: 45px;
         top: 0;
