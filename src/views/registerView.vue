@@ -151,7 +151,8 @@
             <div class="img_box"></div>
             <div class="wrapper">
                 <main class="container">
-                    <a href="./HomeView.vue" class="logo"><img src="../assets/images/register/g5_logo_grey.png" alt=""></a>
+                    <!-- <a href="./HomeView.vue" class="logo"></a> -->
+                    <router-link class="logo" to="/home"><img src="../assets/images/register/g5_logo_grey.png" alt=""></router-link>
                     <div class="login">
                         <h1>Create Your EFPV Account</h1>
                         <form class="tab_panel">

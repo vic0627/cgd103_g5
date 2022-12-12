@@ -47,7 +47,7 @@ const member_level = ref({
     <div class="memgrade">
         <div class="level"><span>LEVEL</span></div>
         <h6>Bronze Member</h6>
-        <p>Member Discount :<br> All products 5%Off</p>
+        <p>Member Discount :<br> All products <span style="color: red">5%Off</span> </p>
         <!-- <input type="text" class="pgg" v-model="percent"> -->
         <div class="pb">
             <div class="progress-wrap progress" :data-progress-percent="point">
@@ -67,8 +67,9 @@ const member_level = ref({
 @import '@/sass/style.scss';
 
 .memgrade{
-    flex-grow: 1;
-    height: auto;
+    box-sizing: border-box;
+    // flex-grow: 1;
+    width: 50%;
     background-color: #616574;
     border-radius: 10px;
     padding: 10px;
@@ -90,7 +91,6 @@ const member_level = ref({
     .pb{
         padding: 10px;
         .progress {
-            // box-sizing: border-box;
             border-radius: 20px;
             width: 100%;
             height: 20px;
