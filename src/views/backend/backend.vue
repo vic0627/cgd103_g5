@@ -9,6 +9,7 @@ import tabracecategory from "../../components/tabracecategory.vue"; //RACE
 import tabaccountfix from "@/components/tabaccountfix.vue";//account tabaccountfix
 import tabproductsearch from "@/components/tabproductsearch.vue";
 import tabproductImgManage from "@/components/tabproductImgManage.vue";
+import tabproductAdd from "@/components/tabproductAdd.vue";
 export default {
   components: {
     tabhome,
@@ -20,6 +21,7 @@ export default {
     tabracecategory,
     tabproductsearch,
     tabproductImgManage,
+    tabproductAdd,
     tabaccountfix
   },
 };
@@ -50,6 +52,10 @@ const backendCategory = ref({
       d: {
         cn: "商品分類管理",
         tab: "productCategoryManage",
+      },
+      e: {
+        cn: "商品新增",
+        tab: "productAdd",
       },
     },
   },

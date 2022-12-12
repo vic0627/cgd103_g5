@@ -4,448 +4,45 @@ import { ref, reactive, onMounted, computed } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
-
+import {steps,products,accessories,bundle_A,bundle_B} from "./js/Shop";
 bodyInit();
-const steps = reactive([
-  {
-    id: "1",
-    text: "Choose your favorite color",
-    diff: "color",
-  },
-  {
-    id: "2",
-    text: "Choose your favorite wing",
-    diff: "wing",
-  },
-  {
-    id: "3",
-    text: "Choose your favorite speed",
-    diff: "speed",
-  },
-  {
-    id: "4",
-    text: "Finish your exclusive FVP",
-    diff: "own FVP",
-  },
-]);
-const products = reactive([
-  {
-    id: 1,
-    name: "p1",
-    title: "Mavic 1 Green",
-    Original_Price: "USD$900",
-    src1: [
-      "../../public/images/shop/body_01_green_1.png",
-      "../../public/images/shop//body_01_green_2.png",
-      "../../public/images/shop/body_01_green_3.png",
-    ],
-    new: true,
-    sale: false,
-  },
-  {
-    id: 2,
-    name: "p2",
-    title: "Mavic 2 White",
-    Original_Price: "USD$900",
-    src2: [
-      "../../public/images/shop/body_01_white_1.png",
-      "../../public/images/shop//body_01_white_2.png",
-      "../../public/images/shop/body_01_white_3.png",
-    ],
-    new: false,
-    sale: false,
-  },
-  {
-    id: 3,
-    name: "p3",
-    title: "Mavic 3 Red",
-    Original_Price: "USD$900",
-    Discount_Price: "USD$888",
-    src3: [
-      "../../public/images/shop/body_01_red_1.png",
-      "../../public/images/shop//body_01_red_2.png",
-      "../../public/images/shop/body_01_red_3.png",
-    ],
-    sale: true,
-    new: false,
-  },
-  {
-    id: 4,
-    name: "p4",
-    title: "Mavic 4 Black",
-    Original_Price: "USD$900",
-    src4: [
-      "../../public/images/shop/body_01_black_1.png",
-      "../../public/images/shop//body_01_black_2.png",
-      "../../public/images/shop/body_01_black_3.png",
-    ],
-    new: true,
-    sale: false,
-  },
-  {
-    id: 5,
-    name: "p5",
-    title: "Mavic 5 Blue",
-    Original_Price: "USD$900",
-    src5: [
-      "../../public/images/shop/body_01_blue_1.png",
-      "../../public/images/shop//body_01_blue_2.png",
-      "../../public/images/shop/body_01_blue_3.png",
-    ],
-    new: false,
-    sale: false,
-  },
-  {
-    id: 6,
-    name: "p6",
-    title: "Charl 1 Red",
-    Original_Price: "USD$900",
-    Discount_Price: "USD$888",
-    src6: [
-      "../../public/images/shop/body_02_red_1.png",
-      "../../public/images/shop//body_02_red_2.png",
-      "../../public/images/shop/body_02_red_3.png",
-    ],
-    sale: true,
-    new: false,
-  },
-  {
-    id: 7,
-    name: "p7",
-    title: "Charl 2 White",
-    Original_Price: "USD$900",
-    src7: [
-      "../../public/images/shop/body_02_white_1.png",
-      "../../public/images/shop//body_02_white_2.png",
-      "../../public/images/shop/body_02_white_3.png",
-    ],
-    new: true,
-    sale: false,
-  },
-  {
-    id: 8,
-    name: "p8",
-    title: "Charl 3 Green",
-    Original_Price: "USD$900",
-    src8: [
-      "../../public/images/shop/body_02_green_1.png",
-      "../../public/images/shop//body_02_green_2.png",
-      "../../public/images/shop/body_02_green_3.png",
-    ],
-    new: false,
-    sale: false,
-  },
-  {
-    id: 9,
-    name: "p9",
-    title: "Charl 4 Blue",
-    Original_Price: "USD$900",
-    Discount_Price: "USD$888",
-    src9: [
-      "../../public/images/shop/body_02_blue_1.png",
-      "../../public/images/shop//body_02_blue_2.png",
-      "../../public/images/shop/body_02_blue_3.png",
-    ],
-    sale: true,
-    new: false,
-  },
-  {
-    id: 10,
-    name: "p10",
-    title: "Charl 5 Black",
-    Original_Price: "USD$900",
-    src10: [
-      "../../public/images/shop/body_02_black_1.png",
-      "../../public/images/shop//body_02_black_2.png",
-      "../../public/images/shop/body_02_black_3.png",
-    ],
-    new: false,
-    sale: false,
-  },
-  {
-    id: 11,
-    name: "p11",
-    title: "Chac 1 Red",
-    Original_Price: "USD$900",
-    Discount_Price: "USD$888",
-    src11: [
-      "../../public/images/shop/body_03_red_1.png",
-      "../../public/images/shop//body_03_red_2.png",
-      "../../public/images/shop/body_03_red_3.png",
-    ],
-    sale: true,
-    new: false,
-  },
-  {
-    id: 12,
-    name: "p12",
-    title: "Chac 2 White",
-    Original_Price: "USD$900",
-    Discount_Price: "USD$888",
-    src12: [
-      "../../public/images/shop/body_03_white_1.png",
-      "../../public/images/shop//body_03_white_2.png",
-      "../../public/images/shop/body_03_white_3.png",
-    ],
-    sale: true,
-    new: false,
-  },
-  {
-    id: 13,
-    name: "p13",
-    title: "Chac 3 Black",
-    Original_Price: "USD$900",
-    Discount_Price: "USD$888",
-    src13: [
-      "../../public/images/shop/body_03_black_1.png",
-      "../../public/images/shop//body_03_black_2.png",
-      "../../public/images/shop/body_03_black_3.png",
-    ],
-    sale: true,
-    new: false,
-  },
-  {
-    id: 14,
-    name: "p14",
-    title: "Chac 4 Blue",
-    Original_Price: "USD$900",
-    Discount_Price: "USD$888",
-    src14: [
-      "../../public/images/shop/body_03_blue_1.png",
-      "../../public/images/shop//body_03_blue_2.png",
-      "../../public/images/shop/body_03_blue_3.png",
-    ],
-    sale: true,
-    new: false,
-  },
-]);
-const accessories = reactive([
-  {
-    id: 1,
-    name: "a1",
-    title: "Round propeller black",
-    Original_Price: "USD$300",
-    src1: [
-      "../../public/images/shop/propellor_01_black_1.png",
-      "../../public/images/shop/propellor_01_black_2.png",
-    ],
-    new: true,
-  },
-  {
-    id: 2,
-    name: "a2",
-    title: "Round propeller blue",
-    Original_Price: "USD$300",
-    Discount_Price: "USD$200",
-    src2: [
-      "../../public/images/shop/propellor_01_blue_1.png",
-      "../../public/images/shop/propellor_01_blue_2.png",
-    ],
-    sale: true,
-  },
-  {
-    id: 3,
-    name: "a3",
-    title: "Round propeller green",
-    Original_Price: "USD$300",
-    Discount_Price: "USD$200",
-    src3: [
-      "../../public/images/shop/propellor_01_green_1.png",
-      "../../public/images/shop/propellor_01_green_2.png",
-    ],
-    sale: true,
-  },
-  {
-    id: 4,
-    name: "a4",
-    title: "Round propeller red",
-    Original_Price: "USD$300",
-    src4: [
-      "../../public/images/shop/propellor_01_red_1.png",
-      "../../public/images/shop/propellor_01_red_2.png",
-    ],
-    new: true,
-  },
-  {
-    id: 5,
-    name: "a5",
-    title: "Round propeller white",
-    Original_Price: "USD$300",
-    src5: [
-      "../../public/images/shop/propellor_01_white_1.png",
-      "../../public/images/shop/propellor_01_white_2.png",
-    ],
-    new: true,
-  },
 
-  {
-    id: 6,
-    name: "a6",
-    title: "Rect propeller black",
-    Original_Price: "USD$300",
-    src6: [
-      "../../public/images/shop/propellor_02_black_1.png",
-      "../../public/images/shop/propellor_02_black_2.png",
-    ],
-    new: true,
-  },
-  {
-    id: 7,
-    name: "a2",
-    title: "Rect propeller blue",
-    Original_Price: "USD$300",
-    Discount_Price: "USD$200",
-    src7: [
-      "../../public/images/shop/propellor_02_blue_1.png",
-      "../../public/images/shop/propellor_02_blue_2.png",
-    ],
-    sale: true,
-  },
-  {
-    id: 8,
-    name: "a8",
-    title: "Rect propeller green",
-    Original_Price: "USD$300",
-    Discount_Price: "USD$200",
-    src8: [
-      "../../public/images/shop/propellor_02_green_1.png",
-      "../../public/images/shop/propellor_02_green_2.png",
-    ],
-    sale: true,
-  },
-  {
-    id: 9,
-    name: "a9",
-    title: "Rect propeller red",
-    Original_Price: "USD$300",
-    src9: [
-      "../../public/images/shop/propellor_02_red_1.png",
-      "../../public/images/shop/propellor_02_red_2.png",
-    ],
-    new: true,
-  },
-  {
-    id: 10,
-    name: "a10",
-    title: "Rect propeller white",
-    Original_Price: "USD$300",
-    src10: [
-      "../../public/images/shop/propellor_02_white_1.png",
-      "../../public/images/shop/propellor_02_white_2.png",
-    ],
-    new: true,
-  },
 
-  {
-    id: 11,
-    name: "a11",
-    title: "Tri propeller black",
-    Original_Price: "USD$300",
-    src11: [
-      "../../public/images/shop/propellor_03_black_1.png",
-      "../../public/images/shop/propellor_03_black_2.png",
-    ],
-    new: true,
-  },
-  {
-    id: 12,
-    name: "a12",
-    title: "Tri propeller blue",
-    Original_Price: "USD$300",
-    Discount_Price: "USD$200",
-    src12: [
-      "../../public/images/shop/propellor_03_blue_1.png",
-      "../../public/images/shop/propellor_03_blue_2.png",
-    ],
-    sale: true,
-  },
-  {
-    id: 13,
-    name: "a13",
-    title: "Tri propeller green",
-    Original_Price: "USD$300",
-    Discount_Price: "USD$200",
-    src13: [
-      "../../public/images/shop/propellor_03_green_1.png",
-      "../../public/images/shop/propellor_03_green_2.png",
-    ],
-    sale: true,
-  },
-  {
-    id: 14,
-    name: "a14",
-    title: "Tri propeller red",
-    Original_Price: "USD$300",
-    src14: [
-      "../../public/images/shop/propellor_03_red_1.png",
-      "../../public/images/shop/propellor_03_red_2.png",
-    ],
-    new: true,
-  },
-]);
-const bundle_A = reactive([
-  {
-    name: "A1",
-    title: "Simple Bundle",
-    price: "USD$1200",
-    src: "/images/shop/bundle_01.png",
-  },
-  {
-    name: "A2",
-    title: "Simple Bundle",
-    price: "USD$1200",
-    src: "/images/shop/bundle_01.png",
-  },
-  {
-    name: "A3",
-    title: "Simple Bundle",
-    price: "USD$1200",
-    src: "/images/shop/bundle_01.png",
-  },
-  {
-    name: "A4",
-    title: "Simple Bundle",
-    price: "USD$1200",
-    src: "/images/shop/bundle_01.png",
-  },
-]);
-const bundle_B = reactive([
-  {
-    name: "b1",
-    title: "Pro Bundle",
-    price: "USD$1400",
-    src: "../../public/images/shop/bundle_02.jpg",
-  },
-  {
-    name: "b2",
-    title: "Pro Bundle",
-    price: "USD$1400",
-    src: "../../public/images/shop/bundle_02.jpg",
-  },
-  {
-    name: "b3",
-    title: "Pro Bundle",
-    price: "USD$1400",
-    src: "../../public/images/shop/bundle_02.jpg",
-  },
-  {
-    name: "b4",
-    title: "Pro Bundle",
-    price: "USD$1400",
-    src: "../../public/images/shop/bundle_02.jpg",
-  },
-]);
-
+//fuselage filter
+const source = ref([]);
 const search = ref("");
-const array = ref([]);
-
-const product = computed(() => {
-  if (search.value != "") {
-    array.value = array.value.filter((item) =>
-      item.title.includes(search.value)
-    );
+const productList = computed(()=>{
+  let cache = source.value;
+  if(search.value != ""){
+      cache = cache.filter(item=>item.title.toLowerCase().includes(search.value.toLowerCase()));
   }
+  return cache;
+})
+const getSource = ()=>{
+  const result = JSON.stringify(products);
+  source.value = JSON.parse(result);
+  // console.log(result);
+}
+
+//accessories filter
+const source1 = ref([]);
+const search1 = ref("");
+const productList_A = computed(()=>{
+  let cache1 = source1.value;
+  if(search1.value != ""){
+      cache1 = cache1.filter(i=>i.title.toLowerCase().includes(search1.value.toLowerCase()));
+  }
+  return cache1;
+})
+const getSource1 = ()=>{
+  const result1 = JSON.stringify(accessories);
+  source1.value = JSON.parse(result1);
+}
+onMounted(()=>{
+  getSource();
+  getSource1();
 });
+
 // switch bundle_A / bundle_B
 const view = ref(1);
 const viewChange = (index) => {
@@ -516,7 +113,7 @@ $(document).ready(() => {
   <section class="banner">
     <h2>
       <span>NEW ARRIVAL</span><br />
-      <span>EFVP Mavic 3 Classic</span>
+      <span>EFPV Mavic 3 Classic</span>
     </h2>
     <div class="img_box">
       <img src="../assets/images/shop/new.jpg" alt="newProduct" />
@@ -560,11 +157,11 @@ $(document).ready(() => {
     <p class="show">category</p>
     <img
       class="show"
-      src="../../public/images/shop/fvp_icon.png"
+      src="/images/shop/fvp_icon.png"
       alt="fvp_icon"
     />
     <section class="category">
-      <span class="hide">X</span>
+      <span class="hide">✖</span>
       <a class="c c1" href="#customize">
         <h5>CUSTOMIZE</h5>
       </a>
@@ -586,68 +183,49 @@ $(document).ready(() => {
     <h2><span>FUSRLAGE</span></h2>
     <p>Select All FUSRLAGE Product You favoraite</p>
     <div class="search_box">
-      <label for="search"></label>
-      <input
-        type="text"
-        name="search"
-        placeholder="search"
-        id="search"
-        v-model="search"
-        @input="product"
-      />
-      <button type="submit" value="submit">Go</button>
+      <!-- <label for="search"></label> -->
+      <input  type="text"  name="search"  placeholder="search"  id="search"  v-model="search" >
+      <!-- <button type="submit" value="submit">Go</button> -->
     </div>
     <div class="card_slider">
       <div class="card_slider_items">
-        <div v-for="item in products" class="card_slider_item" :key="item.name">
-          <img
-            v-if="item.new == true"
-            class="new"
-            src="../assets/images/shop/new_icon.png"
-            alt="new_icon"
-          />
-          <img
-            v-if="item.sale == true"
-            class="sale"
-            src="../assets/images/shop/sale_icon.PNG"
-            alt="sale_icon"
-          />
+        <div v-for="item in productList" class="card_slider_item" :key="item.id">
+          <div v-if="item.new == true" class="new"><span>New</span></div>
+          <div v-if="item.sale == true" class="sale"><span>Sale</span></div>
           <div class="product_box">
             <div class="img_box">
               <button class="prev" id="prevBtn" @click="prevPic(item.id)">
-                ↼
+                ‹
               </button>
-              <img
-                :src="item[`src${item.id}`][count[item.id]]"
-                alt="product_img"
-              />
+              <img :src="item[`src${item.id}`][count[item.id]]" alt="product_img"/>
               <button class="next" id="nextBtn" @click="nextPic(item.id)">
-                ⇀
+                ›
               </button>
             </div>
             <div class="detail_box">
               <h5 class="title">{{ item.title }}</h5>
-              <p v-if="item.sale != true" class="price">
-                {{ item.Original_Price }}
+              <p v-if="item.Discount_Price != ''" class="price discount">
+                {{ item.Discount_Price }}
               </p>
               <p v-if="item.sale == true" class="price d">
                 {{ item.Original_Price }}
               </p>
-              <p v-if="item.Discount_Price != ''" class="price discount">
-                {{ item.Discount_Price }}
+              <p v-if="item.sale != true" class="price">
+                {{ item.Original_Price }}
               </p>
+              
               <div class="buttons">
-                <router-link
-                  class="anchor btnPrimary"
-                  to="/cart"
-                  data-title="BUY NOW"
-                  ><span>BUY NOW</span></router-link
-                >
                 <router-link
                   class="anchors btnSecond"
                   data-title="More"
                   to="/shopInfo"
                   ><span>More</span></router-link
+                >
+                <router-link
+                  class="anchor btnPrimary"
+                  to="/cart"
+                  data-title="BUY"
+                  ><span>BUY</span></router-link
                 >
               </div>
             </div>
@@ -663,25 +241,15 @@ $(document).ready(() => {
     <h2><span>ACCESSORIES</span></h2>
     <p>More Various Then You Think</p>
     <div class="search_box">
-      <label for="search"></label>
-      <input type="text" name="search" placeholder="search" id="search" />
-      <button type="submit" value="submit">Go</button>
+      <!-- <label for="search"></label> -->
+      <input type="text" name="search1" placeholder="search" id="search1" v-model="search1"/>
+      <!-- <button type="submit" value="submit">Go</button> -->
     </div>
     <div class="card_slider">
       <div class="card_slider_items">
-        <div v-for="i in accessories" class="card_slider_item" :key="i.name">
-          <img
-            v-if="i.new == true"
-            class="new"
-            src="../assets/images/shop/new_icon.png"
-            alt="new_icon"
-          />
-          <img
-            v-if="i.sale == true"
-            class="sale"
-            src="../assets/images/shop/sale_icon.PNG"
-            alt="sale_icon"
-          />
+        <div v-for="i in productList_A" class="card_slider_item" :key="i.id">
+          <div v-if="i.new == true" class="new"><span>New</span></div>
+          <div v-if="i.sale == true" class="sale"><span>Sale</span></div>
           <div class="product_box">
             <div class="img_box">
               <button class="prev" id="prevBtn" @click="prevPic(i.id)">
@@ -694,25 +262,26 @@ $(document).ready(() => {
             </div>
             <div class="detail_box">
               <h5 class="title">{{ i.title }}</h5>
+              <p v-if="i.Discount_Price != ''" class="price discount">
+                {{ i.Discount_Price }}
+              </p>
               <p v-if="i.sale != true" class="price">{{ i.Original_Price }}</p>
               <p v-if="i.sale == true" class="price d">
                 {{ i.Original_Price }}
               </p>
-              <p v-if="i.Discount_Price != ''" class="price discount">
-                {{ i.Discount_Price }}
-              </p>
+              
               <div class="buttons">
-                <router-link
-                  class="anchor btnPrimary"
-                  to="/cart"
-                  data-title="BUY NOW"
-                  ><span>BUY NOW</span></router-link
-                >
                 <router-link
                   class="anchors btnSecond"
                   data-title="More"
                   to="/shopInfo"
                   ><span>More</span></router-link
+                >
+                <router-link
+                  class="anchor btnPrimary"
+                  to="/cart"
+                  data-title="BUY"
+                  ><span>BUY</span></router-link
                 >
               </div>
             </div>
@@ -728,8 +297,8 @@ $(document).ready(() => {
     <h2><span>BUNDLE</span></h2>
     <p>Make You More Professional</p>
     <div class="wrapper">
-      <button href="beginner" @click="viewChange(1)">beginner</button>
-      <button href="veteran" @click="viewChange(2)">veteran</button>
+      <button href="beginner" @click="viewChange(1)">Beginner</button>
+      <button href="veteran" @click="viewChange(2)">Veteran</button>
     </div>
 
     <div class="area active">
@@ -749,14 +318,14 @@ $(document).ready(() => {
             </h5>
             <p class="price">{{ beginner.price }}</p>
             <div class="buttons">
-              <router-link class="anchor btnPrimary" to="/cart" data-title="BUY"
-                ><span>BUY</span></router-link
-              >
               <router-link
                 class="anchors btnSecond"
                 data-title="More"
                 to="/shopInfo"
                 ><span>More</span></router-link
+              >
+              <router-link class="anchor btnPrimary" to="/cart" data-title="BUY"
+                ><span>BUY</span></router-link
               >
             </div>
           </div>
@@ -777,16 +346,16 @@ $(document).ready(() => {
             <p class="price">{{ veteran.price }}</p>
             <div class="buttons">
               <router-link
-                class="anchor btnPrimary"
-                to="/cart"
-                data-title="BUY NOW"
-                ><span>BUY NOW</span></router-link
-              >
-              <router-link
                 class="anchors btnSecond"
                 data-title="More"
                 to="/shopInfo"
                 ><span>More</span></router-link
+              >
+              <router-link
+                class="anchor btnPrimary"
+                to="/cart"
+                data-title="BUY"
+                ><span>BUY</span></router-link
               >
             </div>
           </div>
@@ -796,22 +365,19 @@ $(document).ready(() => {
   </section>
   <!-- bundle end-->
 
-  <!-- ad -->
+  <!-- ad start-->
   <section class="ad">
     <h2>FEEL <span>FREEDOM</span> IN THE SKY</h2>
     <p><span>VDAF</span> visual focus technology</p>
   </section>
+  <!-- ad end-->
 
   <footerComponentsVue />
 </template>
 
 <style scoped lang="scss">
 @import "@/sass/style.scss";
-@import "@/sass/base/_color.scss";
-@import "@/sass/base/_common.scss";
-@import "@/sass/base/_font.scss";
-@import "@/sass/mixin/_mixin.scss";
-@import "@/sass/component/_btn.scss";
+
 
 //banner
 .banner {
@@ -882,7 +448,6 @@ $(document).ready(() => {
   width: 100%;
   position: relative;
   padding: 20px 0;
-
   h2 {
     width: 100%;
     text-align: center;
@@ -921,7 +486,7 @@ $(document).ready(() => {
     padding: 2rem;
     // overflow: hidden;
     &::before {
-      content: url(../assets/images/shop/drone.png);
+      // content: url(../assets/images/shop/drone.png);
       position: absolute;
       top: -50%;
       left: 0;
@@ -1004,17 +569,16 @@ $(document).ready(() => {
     cursor: pointer;
     z-index: 2;
     position: relative;
-    top: 30px;
+    top: 50px;
     left: -80px;
-    font-size: 14px;
-    color: #9c4dd6;
-    text-shadow: 5px 5px 10px;
+    font-size: 16px;
+    color: $ored;
     margin-left: 5px;
     font-weight: 900;
     transform: rotate(-90deg);
     @include m($m-breakpoint) {
       left: -75px;
-      top: 45px;
+      top: 65px;
       margin-top: 15px;
       margin-left: 10px;
       z-index: 2;
@@ -1041,14 +605,17 @@ $(document).ready(() => {
     top: 20px;
     z-index: 2;
     background-color: #232a3e;
+
     .hide {
       color: #9c4dd6;
       font-size: 40px;
+      margin-right: 100px;
     }
     .c {
       text-align: center;
       display: flex;
       h5 {
+        font-size: 20px;
         padding: 10px;
         max-width: 300px;
         border-radius: 20px;
@@ -1065,11 +632,8 @@ $(document).ready(() => {
     }
   }
 }
-
 //fuselage
 .fuselage {
-  width: 100%;
-
   h2,
   p {
     text-align: center;
@@ -1096,31 +660,73 @@ $(document).ready(() => {
 
   .card_slider {
     width: 100%;
-
+    margin: 0 auto;
     .card_slider_items {
-      max-width: 1200px;
       display: flex;
-      justify-content: center;
       align-items: center;
-      flex-wrap: wrap;
+      flex-wrap: wrap; 
       margin: 0 auto;
-
+      @include m($m-breakpoint){
+        width: 1023px;
+      }
+      @include l($l-breakpoint){
+        width: 1200px;
+      }
       .card_slider_item {
         position: relative;
-        max-width: 280px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width:calc(100% - 20px);
         padding: 10px 0;
         margin: 10px;
         background-color: #232a3e;
         border-radius: 10px;
         box-shadow: 0 0 10px #324e68;
-
-        img.new,
-        img.sale {
+        @include s($s-breakpoint){
+          width: 265px;
+        }
+        @include m($m-breakpoint){
+          width: 320px;
+        }
+          @include l($l-breakpoint){
+          width: 280px;
+        }
+        .new{
+          z-index: 10;
           position: absolute;
-          z-index: 1;
           top: -10px;
-          left: 0;
+          right: 0;
           width: 50px;
+          height: 80px;
+          background-color: rgb(255, 78, 78);
+          clip-path: polygon(100% 0, 100% 100%, 50% 51%, 0% 100%, 0 46%, 0% 0%);
+          font:$caption-p;
+          color: #f5f5f5;
+          span{
+            position: relative;
+            top: 10px;
+            left: 5px;
+          }
+        }
+        .sale {
+          z-index: 10;
+          position: absolute;
+          top: -10px;
+          right: 0;
+          width: 50px;
+          height: 80px;
+          background-color: rgb(244, 178, 25);
+          clip-path: polygon(100% 0, 100% 100%, 50% 51%, 0% 100%, 0 46%, 0% 0%);
+          font:$caption-p;
+          color: #f5f5f5;
+          span{
+            position: relative;
+            top: 10px;
+            left: 5px;
+          }
         }
         .product_box {
           display: flex;
@@ -1168,36 +774,50 @@ $(document).ready(() => {
             }
           }
           .detail_box {
+            margin: 10px;
             &::before {
               display: inline-block;
               content: " ";
               width: 100%;
-              height: 40px;
+              height: 20px;
               box-shadow: 2px 5px 10px #e6e9f0;
               border-radius: 50%;
-              margin-bottom: 10px;
             }
-            margin: 20px;
-            // padding: 20px 0;
-            color: #f5f5f5;
+            .title{
+              margin: 20px 0;
+            }
             .title,
             .price {
               text-align: left;
             }
             .price {
-              text-align: right;
+              text-align: left;
               height: 30px;
             }
             .price.d {
               text-decoration: line-through;
+              font-size: 14px;
             }
             .price.discount {
-              color: red;
+              color: $ored;
             }
           }
         }
       }
     }
+  }
+  .buttons {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .btnPrimary {
+            @include primaryBtn(80px);
+            margin-left: 10px;
+          }
+          .btnSecond {
+            @include secondBtn(80px);
+            margin-left: 10px;
+          }
   }
 }
 //accessories
@@ -1240,28 +860,69 @@ $(document).ready(() => {
   }
   .card_slider {
     width: 100%;
+    margin: 0 auto;
     .card_slider_items {
-      max-width: 1200px;
-      flex-wrap: wrap;
       display: flex;
-      justify-content: center;
       align-items: center;
+      flex-wrap: wrap; 
       margin: 0 auto;
+      @include m($m-breakpoint){
+        width: 1023px;
+      }
+      @include l($l-breakpoint){
+        width: 1200px;
+      }
       .card_slider_item {
-        max-width: 280px;
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width:calc(100% - 20px);
+        padding: 10px 0;
         margin: 10px;
         background-color: #232a3e;
         border-radius: 10px;
-        box-sizing: border-box;
-        position: relative;
-        z-index: 1;
         box-shadow: 0 0 10px #324e68;
-        img.new,
-        img.sale {
+        @include s($s-breakpoint){
+          width: 265px;
+        }
+        @include m($m-breakpoint){
+          width: 320px;
+        }
+          @include l($l-breakpoint){
+          width: 280px;
+        }
+        .new{
           position: absolute;
           top: -10px;
-          left: 0;
+          right: 0;
           width: 50px;
+          height: 80px;
+          background-color: rgb(255, 78, 78);
+          clip-path: polygon(100% 0, 100% 100%, 50% 51%, 0% 100%, 0 46%, 0% 0%);
+          font:$caption-p;
+          color: #f5f5f5;
+          span{
+            position: relative;
+            top: 10px;
+          }
+        }
+        .sale {
+          position: absolute;
+          top: -10px;
+          right: 0;
+          width: 50px;
+          height: 80px;
+          background-color: rgb(244, 178, 25);
+          clip-path: polygon(100% 0, 100% 100%, 50% 51%, 0% 100%, 0 46%, 0% 0%);
+          font:$caption-p;
+          color: #f5f5f5;
+          span{
+            position: relative;
+            top: 10px;
+          }
         }
         .product_box {
           box-sizing: border-box;
@@ -1307,53 +968,48 @@ $(document).ready(() => {
             }
           }
           .detail_box {
+            margin: 10px;
             &::before {
               display: inline-block;
               content: " ";
-              width: 100%;
-              height: 40px;
+              width: 80%;
+              height: 20px;
               box-shadow: 2px 5px 10px #e6e9f0;
               border-radius: 50%;
-              margin-bottom: 10px;
+            }
+            .title{
+              margin: 20px 0;
             }
             .title,
             .price {
-              // padding: 10px;
               text-align: left;
             }
             .price {
-              text-align: right;
+              text-align: left;
               height: 30px;
             }
             .price.d {
               text-decoration: line-through;
+              font-size: 14px;
             }
             .price.discount {
-              color: red;
+              color: $ored;
             }
 
-            // .buttons{
-            //     display: flex;
-            //     flex-wrap: wrap;
-            //     justify-content: center;
-            //     .btnPrimary{
-            //         font: $caption-s-h5;
-            //         @include primaryBtn(150px);
-            //             margin: 20px;
-            //         @include m($m-breakpoint) {
-            //             margin: 10px;
-            //         }
-            //     }
-            //     .btnSecond{
-            //         font: $caption-s-h5;
-            //         @include secondBtn(150px);
-            //             margin: 20px;
-            //         @include m($m-breakpoint) {
-            //             margin: 10px;
-            //         }
-            //     }
-            // }
           }
+          .buttons {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          .btnPrimary {
+            @include primaryBtn(80px);
+            margin-left: 10px;
+          }
+          .btnSecond {
+            @include secondBtn(80px);
+            margin-left: 10px;
+          }
+  }
         }
       }
     }
@@ -1399,7 +1055,7 @@ $(document).ready(() => {
       border: none;
       margin: 10px;
       padding: 10px;
-      border-radius: 50px;
+      border-radius: 10px;
       font-size: 20px;
       padding: 20px;
       max-width: 300px;
@@ -1411,20 +1067,37 @@ $(document).ready(() => {
     margin: 0 auto;
     .card_container {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
       align-items: center;
+      flex-wrap: wrap; 
+      margin: 0 auto;
+      @include m($m-breakpoint){
+        width: 1023px;
+      }
+      @include l($l-breakpoint){
+        width: 1200px;
+      }
       .card {
-        max-width: 300px;
-        margin: 10px;
-        padding: 10px;
-        background-color: #232a3e;
+        position: relative;
         box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width:calc(100% - 20px);
+        margin: 10px;
+        background-color: #232a3e;
         border-radius: 10px;
         box-shadow: 0 0 10px #324e68;
-
+        @include s($s-breakpoint){
+          width: 265px;
+        }
+        @include m($m-breakpoint){
+          width: 320px;
+        }
+          @include l($l-breakpoint){
+          width: 280px;
+        }
         .pic {
-          max-width: 100%;
+          width: 100%;
           height: 250px;
           img {
             width: 100%;
@@ -1438,12 +1111,14 @@ $(document).ready(() => {
             display: block;
             width: 100%;
             color: #fff;
-            // background-color: #44444480;
+            margin: 10px;
           }
         }
         .price {
-          margin-top: 10px;
-          text-align: right;
+          margin: 10px;
+          // margin-top: 10px;
+          height: 30px;
+          text-align: left;
         }
         .buttons {
           display: flex;

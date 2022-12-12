@@ -1,28 +1,32 @@
 <script setup>
 import { ref,reactive, onMounted } from 'vue';
+import img1 from '../../public/images/shop/body_01_green_1.png';
+import img2 from '../../public/images/shop/body_01_white_1.png';
+import img3 from '../../public/images/shop/body_01_red_1.png';
+import img4 from '../../public/images/shop/body_01_black_1.png';
     const imgs = reactive([
         {   
             pno:1,
-            src:'../../public/images/shop/body_01_green_1.png',
-            pname:"EFVP Mavic 1 Green",
+            src:img1,
+            pname:"Mavic 1 Green",
            
         },
         {   
             pno:2,
-            src:'../../public/images/shop/body_01_white_1.png',
-            pname:"EFVP Mavic 2 White",
+            src:img2,
+            pname:"Mavic 2 White",
            
         },
         {   
             pno:3,
-            src:'../../public/images/shop/body_01_red_1.png',
-            pname:"EEFVP Mavic 3 Red",
+            src:img3,
+            pname:"EMavic 3 Red",
            
         },
         {   
             pno:4,
-            src:'../../public/images/shop/body_01_black_1.png',
-            pname:"EFVP Mavic 4 Black",
+            src:img4,
+            pname:"Mavic 4 Black",
            
         }
     ]
@@ -66,7 +70,7 @@ import { ref,reactive, onMounted } from 'vue';
                 <td>{{items.pno}}</td>
                 <td><img :src="items.src" alt="product_pic"></td>
                 <td>{{items.pname}}</td>
-                <td><a href="#">修改/<span>刪除</span></a></td>
+                <td><div class="revised">修改/<span>刪除</span></div></td>
             </tr>
         </table>
         <span class="infoCount">目前頁數 1 / 2，總共有15筆資訊</span>
@@ -97,7 +101,6 @@ body{
     background-color: #597897;
     h2{
         font:$caption-h2;
-        // width: 100%;
         font-size: 60px;
         color: #fff;
     }
@@ -170,13 +173,13 @@ body{
             width: 50px;
             text-align: center;
             border: none;
-            background: $blue;
+            background: #597897;
             border-radius: 5px;
             padding: 5px;
             transition: background 0.5s;
             cursor: pointer;
             &:hover{
-                background: #06519d;
+                background: $blue;
             }
             img{
                 width: 20px;
@@ -191,48 +194,42 @@ body{
   }
   .mainContent{
     max-width: 100%;
-    // max-width: 1200px;
-    color: black;
-    text-align: center;
-    margin: 20px;
+    margin: auto;
     table{
-        font:$caption-p;
-        width: 100%;
-        height: 50px;
-        border: 1px solid black;
-        tr:not(:last-child){
-            border-bottom:1px solid #ccc ;
-            padding: 20px;
-            margin: 20px;
+        // font:$caption-p;
+        width: 95%;
+        margin: 0 auto;
+        font-size: 20px;
+        border: 1px solid #C0C0C0;
+        tr{
+            text-align: center;
+            border: 1px solid #C0C0C0;
+            &:hover td{
+                background: rgba(89, 120, 151, 0.11);
+            }
         }
         th{
-            padding-top: 15px;
-            background-color: #ccc;
+            padding: 20px 10px;
+            background-color: #597897;
+            border: 1px solid #C0C0C0;
+            border-top: 1px solid #597897;
             p{
-                color: #111;
-                font-weight: bold;
-            }
-            @include m($m-breakpoint){
+                color: #fff;
             }
         }
         td{
-            font:$caption-p;
-            padding: 20px;
-            margin: 20px;
+            border: 1px solid #C0C0C0;
+            padding: 20px 10px; 
             vertical-align: middle;
-            &:nth-child(2){
-                width: 100px;
-                img{
-                    width: 100%;
-                }
-            }
-            a{
-                color: #333;
+            .revised{
+                color: #597897;
                 span{
-                    color: red;
+                    margin: 5px;
+                    color: $ored;
+                    &:focus{
+                    border-bottom: 1px solid #1671cd;
                 }
-            }
-            @include m($m-breakpoint){
+                }
             }
         }
     }

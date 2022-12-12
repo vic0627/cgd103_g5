@@ -81,11 +81,9 @@ const customer2 = reactive(
                 </table>
             </template>
             <div class="buttons">
-                <a class="btnPrimary" data-title="Pay Now">
-                    <button @click="props.nextStep()">
-                        Pay Now
-                    </button>
-                </a>
+                <button @click="props.nextStep()">
+                    <a class="btnPrimary" data-title="Pay Now">Pay Now</a>
+                </button>
             </div>
     </section>           
 </template>
@@ -136,6 +134,7 @@ const customer2 = reactive(
             border-bottom-right-radius: 10px;
             border-collapse: separate;
             border-spacing: 0;
+            overflow: hidden;
             tr{
                 border: 1px solid #ccc;
                 line-height: 40px;
@@ -163,6 +162,7 @@ const customer2 = reactive(
             border-bottom-right-radius: 10px;
             border-collapse: separate;
             border-spacing: 0;
+            overflow: hidden;
             @include m($m-breakpoint){
                 max-width: 100%;
             }
@@ -190,12 +190,12 @@ const customer2 = reactive(
         display: flex;
         justify-content: center;
         margin: 0 auto;
-        .btnPrimary{
-            @include primaryBtn(100px);
-            button{
-                background-color: transparent;
-                color: $fff;
-                border: none;
+        button{
+            background: transparent;
+            border: none;
+            .btnPrimary{
+                @include primaryBtn(100px);
+                color: $fff;               
                 font-size: 20px;
             }
         }
