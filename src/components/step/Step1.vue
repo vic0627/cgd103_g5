@@ -1,7 +1,6 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue';
 import $ from 'jquery';
-import cartItemComponentsVue from '@/components/cartItemComponents.vue';
 import {bodyInit} from '@/composables/useOnunmounted';
 
 bodyInit();
@@ -103,50 +102,87 @@ const sale = ()=> {
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <section>
-        <div class="discount">
+            <div class="discount">
             <p>Discount code :</p>
             <input type="text" v-model="discount">
             <button class="discount-btn" @click="sale">Confirm</button>
         </div>
-    </section> 
+        </div>
 
-    <section>
-        <div class="summary">
-             <div class="summaryPrice">
-                <h3>Summary</h3>
+        <div class="total">
+            <div class="summary">
+                 <div class="summaryPrice">
+                    <h3>Summary</h3>
+                </div>
+                <div class="summaryPrice">
+                    <p>Order price</p>
+                    <p>$3,000.00</p>
+                </div>
+                <div class="summaryPrice">
+                    <p>Shipping</p>
+                    <p>$0.00</p>
+                </div>
+                <div class="summaryPrice">
+                    <p>Discount Price</p>
+                    <p>$300/10%</p>
+                </div>
+                <!-- <hr> -->
+                <div class="summaryPrice">
+                    <p>Total Price</p>
+                    <p>{{total}}</p>
+                    <!-- <p>$2,700.00</p> -->
+                </div>
+                <div class="cartBtn">
+                    <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shopping">
+                        <span>Shopping</span>
+                    </router-link>
+                    <!-- <a class="btnSecond" id="btn2" data-title="Next">
+                    <button @click="props.nextStep()" class="button">Next</button>
+                    </a> -->
+                    <button @click="props.nextStep()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
+                </div>
             </div>
-            <div class="summaryPrice">
-                <p>Order price</p>
-                <p>$3,000.00</p>
-            </div>
-            <div class="summaryPrice">
-                <p>Shipping</p>
-                <p>$0.00</p>
-            </div>
-            <div class="summaryPrice">
-                <p>Discount Price</p>
-                <p>$300/10%</p>
-            </div>
-            <!-- <hr> -->
-            <div class="summaryPrice">
-                <p>Total Price</p>
-                <p>{{total}}</p>
-                <!-- <p>$2,700.00</p> -->
-            </div>
-            <div class="cartBtn">
-                <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shopping">
-                    <span>Shopping</span>
-                </router-link>
-                <a class="btnSecond" id="btn2" data-title="Next">
-                <button @click="props.nextStep()" class="button">Next</button>
-                </a>
-            
-            </div>   
         </div>
     </section>
+    <section>
+        <!-- <div class="discount">
+            <p>Discount code :</p>
+            <input type="text" v-model="discount">
+            <button class="discount-btn" @click="sale">Confirm</button>
+        </div> -->
+    </section> 
+
+    <!-- <section>
+        <div class="total">
+            <div class="summary">
+                 <div class="summaryPrice">
+                    <h3>Summary</h3>
+                </div>
+                <div class="summaryPrice">
+                    <p>Order price</p>
+                    <p>$3,000.00</p>
+                </div>
+                <div class="summaryPrice">
+                    <p>Shipping</p>
+                    <p>$0.00</p>
+                </div>
+                <div class="summaryPrice">
+                    <p>Discount Price</p>
+                    <p>$300/10%</p>
+                </div>
+                <div class="summaryPrice">
+                    <p>Total Price</p>
+                    <p>{{total}}</p>
+                </div>
+                <div class="cartBtn">
+                    <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shopping">
+                        <span>Shopping</span>
+                    </router-link>
+                    <button @click="props.nextStep()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
+                </div>
+            </div>
+        </div>
+    </section> -->
         <div class="suggest-title">
             <h3>Guess You May Like</h3>
         </div>
@@ -163,7 +199,7 @@ const sale = ()=> {
                 </div>
             </div>
             <div class="suggest-more">
-                <router-link to="/shop">See more products</router-link>
+                <router-link to="/shop"><button class="button-read" style="vertical-align:middle"><span>See more products</span></button></router-link>
             </div>
         </div>
         
@@ -187,6 +223,11 @@ $l-w:1200px;
 @mixin flexCenter($center){
     display: flex;
     justify-content: $center;
+}
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .cart{
     padding-top: 130px;
@@ -215,10 +256,11 @@ $l-w:1200px;
     height: 100%;
     background-color: transparent;
 }
-
 .discount {
     width: 90%;
     margin: 0 auto;
+    text-align: left;
+    padding: 20px;
     p {
         display: inline-block;
         font-size: 28px;
@@ -259,7 +301,7 @@ $l-w:1200px;
     .cartBtn {
         display: flex;
         justify-content: space-between;
-        width: 90%;
+        width: 95%;
         margin: auto;
     }
     .button{
@@ -315,8 +357,15 @@ $l-w:1200px;
     }
 }
 @include l($l-breakpoint){
+    .total {
+    width: 30%;
+}
+
     .shopCart,.discount,.summary  {
         width: 1200px;
+    }
+    .shopCart {
+        width: 70%;
     }
     .suggest {
         width: 1200px;
@@ -329,7 +378,6 @@ $l-w:1200px;
     }
    
 }
-
 //---------------------------------
 
 .cartItem {
@@ -454,5 +502,112 @@ $l-w:1200px;
         padding-bottom: 0px;
     }
 }
+
+//------------------------
+ .cartItem {
+    width: 95%;
+    margin: 20px auto;
+    display: flex;
+    // flex-wrap: wrap;
+    position: relative;
+    z-index: 2;
+    .cartProduct {
+        width: 700px;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        .cartProduct-pic {
+            width: 40%;
+            img {
+                width: 90%;
+                object-fit: cover;
+            }
+        }
+        .cartProduct-txt {
+            width: 40%;
+        }
+        
+    }
+    .amount-price {
+        width: 350px;
+        justify-content: space-evenly;
+        .cartPrice,.cartQuantity {
+            @include flexCenter($center);
+        }
+        .cartQuantity {
+            width: 175px;
+        }
+        .cartPrice {
+            width: 100px;
+            h6 {
+                font-size: 24px;
+            }
+        }
+    }
+    .cartDelete {
+        width: 100px;
+        padding-bottom: 0px;
+    }
+}
+.total {
+    padding-top: 20px;
+}
+.summary {
+    width: 88%;
+}
+.button {
+    width: 140px;
+}
+#btn1 {
+    @include secondBtn(140px);
+}
+#btn2 {
+    @include primaryBtn(100px);
+}
+}
+
+
+/*button-read*/
+.button-read {
+    display: inline-block;
+    border-radius: 4px;
+    background-color: transparent;
+    border: none;
+    color: #3a3a3a;
+    text-align: left;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+    width: 300px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.button-read span {
+    margin: auto;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.8s;
+    /* text-decoration: underline; */
+}
+
+.button-read span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -30px;
+    transition: 0.8s;
+}
+
+.button-read:hover span {
+    padding-left: 25px;
+}
+
+.button-read:hover span:after {
+    opacity: 1;
+    right: -50;
 }
 </style>

@@ -29,7 +29,7 @@ const circles = defineProps ({
 
 <template>
     <div class="circle1" v-if="circles.circle1 === 1">
-        <img src="../assets/images/home/2.png" alt="">
+        <!-- <img src="../assets/images/home/2.png" alt=""> -->
     </div>
     <div class="circle2" v-if="circles.circle2 === 2">
         <img src="../assets/images/home/3.png" alt="">
@@ -41,17 +41,26 @@ const circles = defineProps ({
 
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
-.circle1 {
+.circle1 {  
+    width: 100%;
+    background-image: url('../assets/images/home/2.png');
     position: absolute;
+    height: 500px;
+    background-size: 50%;
+    background-attachment: fixed;
+    background-position: center center;
+    background-repeat: no-repeat;
     z-index: -1;
-    left: 50%;
-    bottom: 30%;
+    left: 20%;
+    bottom: 10%;
     img {
       width: 100%;
     }
     @include l($l-breakpoint){
+        width: 500px;
+         height: 60%;
         left: 55%;
-        bottom: -30%;
+        bottom: 40%;
         rotate: -5deg;
         img {
           width: 100%;

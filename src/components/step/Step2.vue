@@ -81,16 +81,15 @@ const customer2 = reactive(
                 </table>
             </template>
             <div class="buttons">
-                <a class="btnPrimary" data-title="Pay Now">
-                    <button @click="props.nextStep()">
-                        Pay Now
-                    </button>
-                </a>
+                <button @click="props.nextStep()">
+                        <a class="btnPrimary" data-title="Pay Now">Pay Now</a>
+                </button>                
             </div>
     </section>           
 </template>
 
 <style scoped lang="scss">
+@import '@/css/reset.css';
 @import '@/sass/style.scss';
 @import '@/sass/base/_color.scss';
 @import '@/sass/base/_common.scss';

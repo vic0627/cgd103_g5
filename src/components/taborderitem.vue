@@ -5,32 +5,52 @@ const table = ref([
   {
     number:1,
     account:"ajfajsajff",
+    date: "2022/12/12",
+    item: "EFPV 5",
+    status: "處理中",
     name:"劉蹭餒",
-    level: "1"
+    level: "1",
+    total: "2,499",
   },
   {
     number:2,
     account:"afjfwqjlw",
+    date: "2022/12/12",
+    item: "EFPV 5",
+    status: "處理中",
     name:"劉蹭餒",
-    level: "2"
+    level: "2",
+    total: "2,499",
   },
   {
     number:3,
     account:"qfjwhhlkw",
+    date: "2022/12/12",
+    item: "EFPV 5",
+    status: "處理中",
     name:"劉蹭餒",
-    level: "2"
+    level: "2",
+    total: "2,499",
   },
   {
     number:4,
     account:"qfjlwqjflq",
+    date: "2022/12/12",
+    item: "EFPV 5",
+    status: "處理中",
     name:"劉蹭餒",
-    level: "2"
+    level: "2",
+    total: "2,499",
   },
   {
     number:5,
     account:"qhfwqfqlflqf",
+    date: "2022/12/12",
+    item: "EFPV 5",
+    status: "處理中",
     name:"劉蹭餒",
-    level: "2"
+    level: "2",
+    total: "2,499",
   },
 
 ])
@@ -39,7 +59,7 @@ const table = ref([
 <template>
 <div class="top">
   <h2>
-    管理員管理
+    訂單查詢
     <outComponents />
   </h2>
   <div class="search_box">
@@ -52,17 +72,21 @@ const table = ref([
     <table>
       <tr>
         <th>編號</th>
-        <th>帳號</th>
-        <th>管理員姓名</th>
-        <th>管理員級別</th>
-        <th>修改</th>
+        <th>訂單編號</th>
+        <th>日期</th>
+        <th>品項</th>
+        <th>狀態</th>
+        <th>訂貨人</th>
+        <th>合計</th>
       </tr>
       <tr v-for="item in table" :key="item">
         <td>{{item.number}}</td>
         <td>{{item.account}}</td>
+        <td>{{item.date}}</td>
+        <td>{{item.item}}</td>
+        <td>{{item.status}}</td>
         <td>{{item.name}}</td>
-        <td>{{item.level}}</td>
-        <td><a href="#"><span class="block">編輯</span> <span>/</span> <span class="red">刪除</span></a></td>
+        <td>$ {{item.total}}</td>
       </tr>
     </table>
   </div>

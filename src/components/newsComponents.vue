@@ -1,133 +1,134 @@
 <script setup>
 import { computed, onMounted, reactive, ref } from 'vue';
 import $ from 'jquery';
+import lastNews from "../composables/object";
 onMounted(() => {
-
+    console.log(lastNews);
 });
-const lastNews = reactive([
-    {
-        "id": 3,
-        "tagName": "Photoshop",
-        "title": "SkyPixel 8th style free ",
-        "src": "/images/about/img_05.jpg",
-    },
-    {
-        "id": 1,
-        "tagName": "Travel",
-        "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-        "src": "/images/about/img_06.jpg",
-    },
-    {
-        "id": 1,
-        "tagName": "Travel",
-        "title": "Mens Casual Premium Slim Fit T-Shirts",
-        "src": "/images/about/img_07.jpg",
-    },
-    {
-        "id": 2,
-        "tagName": "FPV",
-        "title": "Mens Cotton Jacket",
-        "src": "/images/about/img_08.jpg",
-    },
-    {
-        "id": 4,
-        "tagName": "Customed",
-        "title": "Sol Gold Petite Micropave",
-        "src": "/images/about/img_09.jpg",
-    },
-    {
-        "id": 1,
-        "tagName": "Travel",
-        "title": "White Gold Plated Princess",
-        "src": "/images/about/img_12.jpg",
-    },
-    //-------------------
-    {
-        "id": 1,
-        "tagName": "Travel",
-        "title": "Peak District cloud inversion leaves drone pilot speechless",
-        "src": "/images/news/news_04.jpg",
-    },
-    {
-        "id": 4,
-        "tagName": "Customed",
-        "title": "Drone footage shows deadly Brazil flooding",
-        "src": "/images/news/news_02.jpg",
-    },
-    {
-        "id": 2,
-        "tagName": "FPV",
-        "title": "Drones to track Walsall's off-road bikers",
-        "src": "/images/news/news_03.jpg",
-    },
-    {
-        "id": 1,
-        "tagName": "Travel",
-        "title": "Frequently Asked Questions About Time Travel",
-        "src": "/images/news/news_04.jpg",
-    },
-    {
-        "id": 2,
-        "tagName": "FPV",
-        "title": "UK drone pilots have 25 days to register with regulator",
-        "src": "/images/news/news_05.jpg",
-    },
-    {
-        "id": 1,
-        "tagName": "Travel",
-        "title": "A quintessentially Irish way to travel",
-        "src": "/images/news/news_06.jpg",
-    },
-    {
-        "id": 3,
-        "tagName": "Photoshop",
-        "title": "Frank Lampard photoshop used to promote New York park",
-        "src": "/images/news/news_07.jpg",
-    },
-    {
-        "id": 2,
-        "tagName": "FPV",
-        "title": "Drone racing: How it works",
-        "src": "/images/news/news_08.jpg",
-    },
-    {
-        "id": 3,
-        "tagName": "Photoshop",
-        "title": "Adobe Voco 'Photoshop-for-voice' causes concern",
-        "src": "/images/news/news_09.jpg",
-    },
-    {
-        "id": 4,
-        "tagName": "Customed",
-        "title": "Adult social care reform, Energy credit balances, Revolut fraud victims",
-        "src": "/images/news/news_10.jpg",
-    },
-    {
-        "id": 3,
-        "tagName": "Photoshop",
-        "title": "Tones, Drones and Arpeggios: The Magic of Minimalism",
-        "src": "/images/news/news_11.jpg",
-    },
-    {
-        "id": 3,
-        "tagName": "Photoshop",
-        "title": "Why mourners are opting to scatter ashes by drone",
-        "src": "/images/news/news_12.jpg",
-    },
-    {
-        "id": 4,
-        "tagName": "Customed",
-        "title": "RealityCapture. Create 3D maps and models from drone images. Fast. Accurate. Simple.",
-        "src": "/images/news/news_13.jpg",
-    },
-])
+// const lastNews = reactive([
+//     {
+//         "id": 3,
+//         "tagName": "Photoshop",
+//         "title": "SkyPixel 8th style free ",
+//         "src": "/images/about/img_05.jpg",
+//     },
+//     {
+//         "id": 1,
+//         "tagName": "Travel",
+//         "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
+//         "src": "/images/about/img_06.jpg",
+//     },
+//     {
+//         "id": 1,
+//         "tagName": "Travel",
+//         "title": "Mens Casual Premium Slim Fit T-Shirts",
+//         "src": "/images/about/img_07.jpg",
+//     },
+//     {
+//         "id": 2,
+//         "tagName": "FPV",
+//         "title": "Mens Cotton Jacket",
+//         "src": "/images/about/img_08.jpg",
+//     },
+//     {
+//         "id": 4,
+//         "tagName": "Customed",
+//         "title": "Sol Gold Petite Micropave",
+//         "src": "/images/about/img_09.jpg",
+//     },
+//     {
+//         "id": 1,
+//         "tagName": "Travel",
+//         "title": "White Gold Plated Princess",
+//         "src": "/images/about/img_12.jpg",
+//     },
+//     //-------------------
+//     {
+//         "id": 1,
+//         "tagName": "Travel",
+//         "title": "Peak District cloud inversion leaves drone pilot speechless",
+//         "src": "/images/news/news_04.jpg",
+//     },
+//     {
+//         "id": 4,
+//         "tagName": "Customed",
+//         "title": "Drone footage shows deadly Brazil flooding",
+//         "src": "/images/news/news_02.jpg",
+//     },
+//     {
+//         "id": 2,
+//         "tagName": "FPV",
+//         "title": "Drones to track Walsall's off-road bikers",
+//         "src": "/images/news/news_03.jpg",
+//     },
+//     {
+//         "id": 1,
+//         "tagName": "Travel",
+//         "title": "Frequently Asked Questions About Time Travel",
+//         "src": "/images/news/news_04.jpg",
+//     },
+//     {
+//         "id": 2,
+//         "tagName": "FPV",
+//         "title": "UK drone pilots have 25 days to register with regulator",
+//         "src": "/images/news/news_05.jpg",
+//     },
+//     {
+//         "id": 1,
+//         "tagName": "Travel",
+//         "title": "A quintessentially Irish way to travel",
+//         "src": "/images/news/news_06.jpg",
+//     },
+//     {
+//         "id": 3,
+//         "tagName": "Photoshop",
+//         "title": "Frank Lampard photoshop used to promote New York park",
+//         "src": "/images/news/news_07.jpg",
+//     },
+//     {
+//         "id": 2,
+//         "tagName": "FPV",
+//         "title": "Drone racing: How it works",
+//         "src": "/images/news/news_08.jpg",
+//     },
+//     {
+//         "id": 3,
+//         "tagName": "Photoshop",
+//         "title": "Adobe Voco 'Photoshop-for-voice' causes concern",
+//         "src": "/images/news/news_09.jpg",
+//     },
+//     {
+//         "id": 4,
+//         "tagName": "Customed",
+//         "title": "Adult social care reform, Energy credit balances, Revolut fraud victims",
+//         "src": "/images/news/news_10.jpg",
+//     },
+//     {
+//         "id": 3,
+//         "tagName": "Photoshop",
+//         "title": "Tones, Drones and Arpeggios: The Magic of Minimalism",
+//         "src": "/images/news/news_11.jpg",
+//     },
+//     {
+//         "id": 3,
+//         "tagName": "Photoshop",
+//         "title": "Why mourners are opting to scatter ashes by drone",
+//         "src": "/images/news/news_12.jpg",
+//     },
+//     {
+//         "id": 4,
+//         "tagName": "Customed",
+//         "title": "RealityCapture. Create 3D maps and models from drone images. Fast. Accurate. Simple.",
+//         "src": "/images/news/news_13.jpg",
+//     },
+// ])
 
 // const view = ref(1);
 const vsc = ref(false);
 const filter = ref(0);
 const changeView = (index) => {
     filter.value = index;
-}
+}   
 
 </script>
 
