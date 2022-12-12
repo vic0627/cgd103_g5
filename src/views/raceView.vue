@@ -2,6 +2,7 @@
 import { ref, onMounted, reactive, onUnmounted } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
+
 import { bodyInit } from "../composables/useOnunmounted";
 bodyInit();
 
@@ -10,25 +11,25 @@ const areaText = ref({
   1: {
     id: 1,
     title: "Taiwan",
-    src: "src/assets/images/race/point1.jpg",
+    src: "/src/assets/images/race/point1.jpg",
     text: "Home to the world’s greatest collections of Chinese art and antiquities.Once reserved for the private pleasure of emperors, today these treasures can be enjoyed.These collections are from mainland China, and the ROC government bring them to Taiwan in 1949.",
   },
   2: {
     id: 2,
     title: "Japan",
-    src: "src/assets/images/race/point2.jpg",
+    src: "/src/assets/images/race/point2.jpg",
     text: "Situated in the city’s oldest neighborhood, Wanhua.Longshan Temple is the spiritual heart of Taipei.It’s a place where generations of locals have come to seek good fortune, health, and even guidance on who to marry.",
   },
   3: {
     id: 3,
     title: "China",
-    src: "src/assets/images/race/point3.jpg",
+    src: "/src/assets/images/race/point3.jpg",
     text: "Chiang Kai-shek Memorial Hall honors the memory of former president of the Republic of China.Memorial Square is also one of the city’s most important cultural sites, and some democracy activists had held here.The National Concert Hall, a stunning example of neo-classical Chinese architecture.",
   },
   4: {
     id: 4,
     title: "Korea",
-    src: "src/assets/images/race/point1.jpg",
+    src: "/src/assets/images/race/point1.jpg",
     text: "Situated in the city’s oldest neighborhood, Wanhua.Longshan Temple is the spiritual heart of Taipei.It’s a place where generations of locals have come to seek good fortune, health, and even guidance on who to marry.",
   },
 });
@@ -369,6 +370,82 @@ const changeCount = (id) => {
             </div>
           </div>
         </div>
+        <div class="raceBox raceBox_w">
+          <div class="boxBgi_w"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_w">World</span>
+            </div>
+
+            <div class="date">
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">01</span>
+
+              <br />
+
+              <span class="span">|</span>
+
+              <br />
+
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>Competition Name</h4>
+            </div>
+
+            <div class="learn">
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
+              >
+            </div>
+          </div>
+        </div>
+        <div class="raceBox raceBox_t">
+          <div class="boxBgi_t"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_t">Taiwan</span>
+            </div>
+
+            <div class="date">
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">01</span>
+
+              <br />
+
+              <span class="span">|</span>
+
+              <br />
+
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>Competition Name</h4>
+            </div>
+
+            <div class="learn">
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
+              >
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -386,7 +463,7 @@ const changeCount = (id) => {
       <div class="pointBgi">
         <div
           class="bgi"
-          :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(src/assets/images/race/point${count}.jpg)`"
+          :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(/src/assets/images/race/point${count}.jpg)`"
         ></div>
       </div>
       <div class="bigtext">
@@ -452,86 +529,55 @@ section {
   }
   .banner_img {
     width: 100%;
-    opacity: 0;
-    width: 100%;
     height: 100%;
     background-size: cover;
     background-position: center center;
-    filter: alpha(opacity=0);
-    -webkit-animation: round 20s linear infinite;
+    opacity: 0;
     animation: round 20s linear infinite;
     position: absolute;
   }
   .banner_img1 {
-    background-image: url("../assets/images/race/banner01.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),
+      url("../assets/images/race/banner01.jpg");
   }
   .banner_img2 {
-    background-image: url("../assets/images/race/banner02.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),
+      url("../assets/images/race/banner02.jpg");
+    animation-delay: 5s;
   }
   .banner_img3 {
-    background-image: url("../assets/images/race/banner03.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),
+      url("../assets/images/race/banner03.jpg");
+    animation-delay: 10s;
   }
   .banner_img4 {
-    background-image: url("../assets/images/race/banner04.jpg");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)),
+      url("../assets/images/race/banner04.jpg");
+    animation-delay: 15s;
+  }
+
+  @keyframes round {
+    20% {
+      opacity: 1;
+    }
+
+    30% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 0;
+    }
+
+    50% {
+      transform: scale(1.1);
+    }
   }
   .banner_title {
     position: absolute;
-    top: 30px;
+    top: 50px;
     left: 50%;
     transform: translate(-50%, -50%);
   }
-}
-@-webkit-keyframes round {
-  5% {
-    opacity: 1;
-    filter: alpha(opacity=100);
-  }
-
-  25% {
-    opacity: 1;
-    filter: alpha(opacity=100);
-  }
-
-  50% {
-    opacity: 0;
-    filter: alpha(opacity=0);
-  }
-}
-@keyframes round {
-  5% {
-    opacity: 1;
-    filter: alpha(opacity=100);
-  }
-
-  25% {
-    opacity: 1;
-    filter: alpha(opacity=100);
-  }
-
-  50% {
-    opacity: 0;
-    filter: alpha(opacity=0);
-  }
-}
-
-.banner_img:nth-child(1) {
-  -webkit-animation-delay: 0s;
-  animation-delay: 0s;
-}
-
-.banner_img:nth-child(2) {
-  -webkit-animation-delay: 5s;
-  animation-delay: 5s;
-}
-
-.banner_img:nth-child(3) {
-  -webkit-animation-delay: 10s;
-  animation-delay: 10s;
-}
-
-.banner_img:nth-child(4) {
-  -webkit-animation-delay: 15s;
-  animation-delay: 15s;
 }
 
 //race list
@@ -542,7 +588,6 @@ h2 {
 
 .raceList_title {
   text-align: center;
-  // padding-bottom: 50px;
 }
 
 .racegg {
@@ -563,7 +608,7 @@ h2 {
 
   @include l($l-breakpoint) {
     margin: 0;
-    width: calc(300px * 8);
+    width: calc(200px * 10);
     overflow: visible;
     position: absolute;
     &:hover {
@@ -575,7 +620,7 @@ h2 {
         transform: translateX(0);
       }
       to {
-        transform: translateX(calc(-300px * 2));
+        transform: translateX(calc(-200px * 1));
       }
     }
   }
@@ -583,7 +628,12 @@ h2 {
     min-width: 100%;
     position: relative;
     @include l($l-breakpoint) {
-      min-width: 300px;
+      min-width: 200px;
+      transition: 0.4s;
+      flex: 1;
+      &:hover {
+        flex: 1 1 15%;
+      }
     }
     .boxBgi_w {
       background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
@@ -593,6 +643,7 @@ h2 {
       height: 100%;
       background-size: cover;
       background-position: center center;
+      display: flex;
     }
     .boxBgi_t {
       background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
@@ -608,6 +659,12 @@ h2 {
       top: 0;
       left: 0;
       text-align: center;
+      @include l($l-breakpoint) {
+        display: none;
+        &:hover {
+          // display: block;
+        }
+      }
       .nation {
         .nation_t {
           color: $brown;
