@@ -70,7 +70,7 @@ const btnLeft = () => {
   <div class="main">
     <!-- 商品大圖 -->
     <div id="mainPic">
-      <img :src="`/src/assets/images/shopInfo/body_03_${count}.png`" />
+      <img :src="`../assets/images/shopInfo/body_03_${count}.png`" />
       <div class="button" id="left" @click="btnLeft">&lt;</div>
       <div class="button" id="right" @click="btnRight">&gt;</div>
     </div>
