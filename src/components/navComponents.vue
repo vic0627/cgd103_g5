@@ -107,7 +107,7 @@ const NavClass = defineProps({
 header {
     top: 0;
     position: fixed;
-    z-index: 10;
+    z-index: 100000;
     width: 100%;
     height: 70px;
     &::before{
@@ -179,7 +179,7 @@ header {
     height: 100%;
     width: 100%;
     background: #000;
-    z-index: 10;
+    z-index: 1000;
     transition: all 0.6s ease-in-out;
     .icon-wrap {
         display: flex;
@@ -190,7 +190,7 @@ header {
 }
 .menu-btn{
     position: absolute;
-    z-index: 21;
+    z-index: 1100;
     right: 20px;
     /*left: 20px; */
     top: 10px;

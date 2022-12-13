@@ -45,7 +45,7 @@ const isOpen = ref(true)
 <template>
     <navComponentsVue :className="blue"/>
     <home />
-    <div class="home1">
+    <!-- <div class="home1">
         <h2>Mavic 2 Zoom</h2>
         <p>24~28 mm Optical Zoom Camers Ulitimate Flexibility</p>
         <div class="home1-btn">
@@ -58,15 +58,12 @@ const isOpen = ref(true)
             <div class="drone layer" data-depth="0.1" data-relativeInput="false" data-clipRelativeInput="true">
                 <img src="../assets/images/home/fly2.png" alt="">
             </div>
-            <!-- <svgComponents1Vue class="layer" data-depth="0.5" /> -->
         </div>
         <div class="scroll">
             <p>Scroll down</p>
             <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" style="fill: rgba(238, 238, 238, 1);transform: ;msFilter:;"><path d="M11.975 22H12c3.859 0 7-3.14 7-7V9c0-3.841-3.127-6.974-6.981-7h-.06C8.119 2.022 5 5.157 5 9v6c0 3.86 3.129 7 6.975 7zM7 9a5.007 5.007 0 0 1 4.985-5C14.75 4.006 17 6.249 17 9v6c0 2.757-2.243 5-5 5h-.025C9.186 20 7 17.804 7 15V9z"></path><path d="M11 6h2v6h-2z"></path></svg>
         </div>
-        <!-- <svglineComponentsVue /> -->
-        <!-- <svgComponents1Vue /> -->
-    </div>
+    </div> -->
 <svglineComponentsVue :class="{svgWidth : isOpen}"/>
 <svgComponents1Vue />
     <section class="sect1">
