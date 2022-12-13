@@ -6,9 +6,6 @@ import { ref,reactive, onMounted } from 'vue';
             pname:"Mavic 1 Green",
             pcate:'body',
             Original_Price:'USD$900',
-            weight:300,
-            rpm:5300,
-            kgm:9,
             color:'綠色',
         },
         {   
@@ -16,9 +13,6 @@ import { ref,reactive, onMounted } from 'vue';
             pname:"Mavic 2 White",
             pcate:'body',
             Original_Price:'USD$900',
-            weight:300,
-            rpm:5300,
-            kgm:9,
             color:'白色',
         },
         {   
@@ -26,9 +20,6 @@ import { ref,reactive, onMounted } from 'vue';
             pname:"Mavic 3 Red",
             pcate:'body',
             Original_Price:'USD$900',
-            weight:300,
-            rpm:5300,
-            kgm:9,
             color:'紅色',
         },
         {   
@@ -36,14 +27,11 @@ import { ref,reactive, onMounted } from 'vue';
             pname:"Mavic 4 Black",
             pcate:'body',
             Original_Price:'USD$900',
-            weight:300,
-            rpm:5300,
-            kgm:9,
             color:'黑色'
         }
     ]
     )
-    const table = ref(['編號','商品名稱','商品分類','售價','重量','轉速','扭力','顏色','修改' ])
+    const table = ref(['編號','商品名稱','商品分類','售價','顏色','修改' ])
 </script>
 <template>
   <div class="productQuery">
@@ -81,9 +69,6 @@ import { ref,reactive, onMounted } from 'vue';
                 <td>{{items.pname}}</td>
                 <td>{{items.pcate}}</td>
                 <td>{{items.Original_Price}}</td>
-                <td>{{items.weight}}</td>
-                <td>{{items.rpm}}</td>
-                <td>{{items.kgm}}</td>
                 <td>{{items.color}}</td>
                 <td><div class="revised">修改/<span>刪除</span></div></td>
             </tr>
