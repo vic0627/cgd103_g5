@@ -69,10 +69,10 @@ var y = 100;
         <div class="home-title line">
             <h2>Upgraded Transmission System</h2>
         </div>
-         <div class="home-title line">
+        <div class="home-title line">
             <h2>A Pro Codec for Pro Creation</h2>
         </div>
-         <div class="home1-btn">
+        <div class="home1-btn">
             <router-link to="/showcase" class="btnFirst" id="btn1" data-title="Learn">
             <span>Learn</span></router-link>
             <router-link to="/shopInfo" class="btnSecond" id="btn2" data-title="Buy">
@@ -87,11 +87,26 @@ var y = 100;
 </template>
 
 <style scoped lang="scss">
+@import "@/sass/style.scss";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;1,100&display=swap');
 .home1-btn {
     position: absolute;
-    left: 39%;
-    bottom: 30%;
+    width: 100%;
+    // left: 39%;
+    top: 80%;
+    #btn1{
+        @include secondBtn(100px);
+        margin: 10px;
+    }
+    #btn2 {
+        @include primaryBtn(100px);
+        margin: 10px;
+    }
+    @include l($l-breakpoint){
+        font-size: 80px;
+        // left: 39%;
+        bottom: 30%;
+    }
 }
 .text h1 {
     font-size: 300px;
@@ -102,12 +117,14 @@ var y = 100;
 }
 
 .home {
-    padding-top: 200px;
+    padding-top: 80px;
     margin: 0 auto;
-    overflow: hidden;
+    overflow-x: hidden;
     position: relative;
     width: 100vw;
-    height: 100vh;
+    @include l($l-breakpoint){
+        padding-top: 160px;
+    }
     // background: #12181E;
     .text {
         width: 5000px;
@@ -121,41 +138,51 @@ var y = 100;
     }
 }
 #scene {
-    width: 100%;
+    width: 90%;
     margin: 0 auto;
     position: absolute;
     left: 0;
     right: 0;
     bottom: 0;
     margin:auto;
-    top: 20%;
+    top: 40%;
+    @include l($l-breakpoint){
+        // padding-top: 180px;
+        position: relative;
+    }
     .drone {
         text-align: center;
         display: flex;
         justify-content: center;
             img {
-        width: 90%;
-    }
-
+                width: 90%;
+                @include l($l-breakpoint){
+                    width: 100%;
+                }
+            }
     }
 }
  .home-title {
         position: absolute;
         width: 100%;
         text-align: center;
-        top: 40%;
-        // color: transparent;
-        // background-image: linear-gradient(45deg, #F37335, #FDC830 80%);
-        //     background-clip: text;
+        top: 53%;
+        @include l($l-breakpoint){
+            top:58%;
+        }
         h2 {
-            font-size: 80px;
-             background: -webkit-linear-gradient(98.29deg, #077AF9 10.1%, #9C4DD6 82.53%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  color: #978170;
-font-weight: 600;
-        letter-spacing: 2px;
-    }
+            font-size: 32px;
+            background: -webkit-linear-gradient(98.29deg, #077AF9 10.1%, #9C4DD6 82.53%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: #978170;
+            font-weight: 600;
+            text-align: center;
+            letter-spacing: 2px;
+            @include l($l-breakpoint){
+                font-size: 80px;
+            }
+        }   
     }
 
     

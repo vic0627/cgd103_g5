@@ -133,8 +133,8 @@ const sale = ()=> {
                     <!-- <p>$2,700.00</p> -->
                 </div>
                 <div class="cartBtn">
-                    <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shopping">
-                        <span>Shopping</span>
+                    <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shop">
+                        <span>Shop</span>
                     </router-link>
                     <!-- <a class="btnSecond" id="btn2" data-title="Next">
                     <button @click="props.nextStep()" class="button">Next</button>
