@@ -1,25 +1,36 @@
-<script>
+<script setup>
 import { ref, onMounted, reactive } from 'vue';
-
 import { log } from '../../composables/useCommon';
 
-
-
+const shows = () => {
+    var x = document.getElementById("password");
+    if(x.type==="password"){
+        x.type="text";
+    }else{
+        x.type="password";
+    };
+}
 
 </script>
 
 <template>
    <div class="container">
         <div class="box">
-            <form action="">
+            <form action="/" id="form">
+                <h2>後台登入</h2>
                 <div class="form-group">
-                    <label for="">帳號</label>
-                    <input type="text" id="userName" name="userName" required maxlength="10">
+                    <label for="userName">帳號</label>
+                    <input type="text" id="userName" name="userName" required maxlength="10" minlength="6">
                 </div>
                 <div class="form-group">
-                    <label for="">密碼</label>
-                    <input type="password" id="psw" name="psw" class="psw" required maxlength="10">
-                    <p class="message">請輸入6~10位密碼驗證</p>
+                    <label for="password">密碼</label>
+                    <input type="password" id="password" name="password" class="password" required maxlength="10" minlength="6">
+                    <div class="down">
+                        <div class="in">
+                        <input type="checkbox" id="check" @click="shows()"><span>顯示密碼</span>
+                        </div>
+                        <p class="message">請輸入6~10位密碼驗證</p>
+                    </div>
                 </div>
                 <button type="submit" class="btn" @click="removeCookie">登入</button>
             </form>
@@ -46,18 +57,26 @@ import { log } from '../../composables/useCommon';
         background-color: #fff;
     }
 }
+.down{
+    display: flex;
+    justify-content: space-between;
+}
+.in{
+    margin-top: 5px;
+}
 p{
     color: #000;
 }
-
-// h3{
-//     display: inline;
-//     font-size: 25px;
-//     color: #5E8CA7;
-// }
-// .accountbox,.passwordbox{
-//     text-align: center;
-// }
+span{
+    font-size: 18px;
+    color: #000;
+    vertical-align: middle;
+}
+h2{
+    text-align: center;
+    font-size: 30px;
+    color: #5E8CA7;
+}
 .btn{
     width: 100%;
     text-align: center;
@@ -92,8 +111,14 @@ p{
         background: #fff;
         color: #1671cd;
         border-radius: 5px;
-       
     }
+}
+#check{
+    width: 20px;
+    height: 18px;
+    padding: 0;
+    margin: 0 5px;
+    vertical-align: middle;
 }
 input{
     width: 95%;
@@ -116,12 +141,7 @@ input{
         color: rgba(181, 181, 181, 0.749);
     }
 }
-// h2{
-//     font-size: 25px;
-//     color: #5E8CA7;
-//     text-align: center;
-//     margin: 10px;
-// }
+
 
 
 </style>
