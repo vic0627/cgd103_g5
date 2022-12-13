@@ -374,6 +374,310 @@ const changeCount = (id) => {
             </div>
           </div>
         </div>
+        <div class="raceBox raceBox_w">
+          <div class="boxBgi_w"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_w">World</span>
+            </div>
+
+            <div class="date">
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">01</span>
+
+              <br />
+
+              <span class="span">|</span>
+
+              <br />
+
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>Competition Name</h4>
+            </div>
+
+            <div class="learn">
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
+              >
+            </div>
+          </div>
+        </div>
+        <div class="raceBox raceBox_t">
+          <div class="boxBgi_t"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_t">Taiwan</span>
+            </div>
+
+            <div class="date">
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">01</span>
+
+              <br />
+
+              <span class="span">|</span>
+
+              <br />
+
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>Competition Name</h4>
+            </div>
+
+            <div class="learn">
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
+              >
+            </div>
+          </div>
+        </div>
+        <div class="raceBox raceBox_w">
+          <div class="boxBgi_w"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_w">World</span>
+            </div>
+
+            <div class="date">
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">01</span>
+
+              <br />
+
+              <span class="span">|</span>
+
+              <br />
+
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>Competition Name</h4>
+            </div>
+
+            <div class="learn">
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
+              >
+            </div>
+          </div>
+        </div>
+        <div class="raceBox raceBox_t">
+          <div class="boxBgi_t"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_t">Taiwan</span>
+            </div>
+
+            <div class="date">
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">01</span>
+
+              <br />
+
+              <span class="span">|</span>
+
+              <br />
+
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>Competition Name</h4>
+            </div>
+
+            <div class="learn">
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
+              >
+            </div>
+          </div>
+        </div>
+        <div class="raceBox raceBox_w">
+          <div class="boxBgi_w"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_w">World</span>
+            </div>
+
+            <div class="date">
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">01</span>
+
+              <br />
+
+              <span class="span">|</span>
+
+              <br />
+
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>Competition Name</h4>
+            </div>
+
+            <div class="learn">
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
+              >
+            </div>
+          </div>
+        </div>
+        <div class="raceBox raceBox_t">
+          <div class="boxBgi_t"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_t">Taiwan</span>
+            </div>
+
+            <div class="date">
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">01</span>
+
+              <br />
+
+              <span class="span">|</span>
+
+              <br />
+
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>Competition Name</h4>
+            </div>
+
+            <div class="learn">
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
+              >
+            </div>
+          </div>
+        </div>
+        <div class="raceBox raceBox_w">
+          <div class="boxBgi_w"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_w">World</span>
+            </div>
+
+            <div class="date">
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">01</span>
+
+              <br />
+
+              <span class="span">|</span>
+
+              <br />
+
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>Competition Name</h4>
+            </div>
+
+            <div class="learn">
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
+              >
+            </div>
+          </div>
+        </div>
+        <div class="raceBox raceBox_t">
+          <div class="boxBgi_t"></div>
+          <div class="listWord">
+            <div class="nation">
+              <span class="nation_t">Taiwan</span>
+            </div>
+
+            <div class="date">
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">01</span>
+
+              <br />
+
+              <span class="span">|</span>
+
+              <br />
+
+              <span class="span">2022</span>
+
+              <span class="span">01</span>
+
+              <span class="span">10</span>
+            </div>
+
+            <div class="competitionName">
+              <h4>Competition Name</h4>
+            </div>
+
+            <div class="learn">
+              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+                ><span>Learn</span></router-link
+              >
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -533,7 +837,7 @@ h2 {
 
   @include l($l-breakpoint) {
     margin: 0;
-    width: calc(200px * 8);
+    width: calc(300px * 10);
     overflow: visible;
     position: absolute;
     &:hover {
@@ -545,7 +849,7 @@ h2 {
         transform: translateX(0);
       }
       to {
-        transform: translateX(calc(-200px * 2));
+        transform: translateX(calc(-300px * 2));
       }
     }
   }
@@ -553,11 +857,11 @@ h2 {
     min-width: 100%;
     position: relative;
     @include l($l-breakpoint) {
-      min-width: 100px;
+      min-width: 200px;
       transition: 0.4s;
       flex: 1;
       &:hover {
-        flex: 1 1 15%;
+        // flex: 2;
       }
     }
     .boxBgi_w {

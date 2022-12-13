@@ -68,7 +68,15 @@ const backendCategory = ref({
     text: {
       a: {
         cn: "訂單查詢",
-        tab: "orderitem",
+        tab: "orderItem",
+      },
+      b: {
+        cn: "一般訂單查詢",
+        tab: "generalOrderItem",
+      },
+      c: {
+        cn: "客製化訂單查詢",
+        tab: "customizationOrderItem",
       },
     },
   },
