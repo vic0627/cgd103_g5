@@ -26,6 +26,7 @@ export default {
     tabaccountfix,
     tabaccountadd,
     taborderitem,
+    tabproductAdd
   },
 };
 </script>

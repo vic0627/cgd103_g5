@@ -1,9 +1,9 @@
 <script setup>
 import { ref,reactive, onMounted } from 'vue';
-import img1 from '../../public/images/shop/body_01_green_1.png';
-import img2 from '../../public/images/shop/body_01_white_1.png';
-import img3 from '../../public/images/shop/body_01_red_1.png';
-import img4 from '../../public/images/shop/body_01_black_1.png';
+import img1 from '/src/assets/images/shop/body_01_green_1.png';
+import img2 from '/src/assets/images/shop/body_01_white_1.png';
+import img3 from '/src/assets/images/shop/body_01_red_1.png';
+import img4 from '/src/assets/images/shop/body_01_black_1.png';
     const imgs = reactive([
         {   
             pno:1,
