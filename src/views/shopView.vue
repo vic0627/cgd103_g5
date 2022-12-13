@@ -4,7 +4,7 @@ import { ref, reactive, onMounted, computed } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
-import {steps,products,accessories,bundle_A,bundle_B} from "./js/Shop";
+import {products,accessories,bundle_A,bundle_B} from "./js/Shop";
 bodyInit();
 
 
@@ -135,11 +135,65 @@ $(document).ready(() => {
   <section class="step_wrapper" id="customize">
     <h2><span>CUSTOMIZE STEP</span></h2>
     <p>Create Your Unique Style</p>
-    <div class="step_container">
-      <div v-for="num in steps" class="slide" :key="num">
-        <p>STEP {{ num.id }}</p>
-        <p>{{ num.text }}</p>
+    <!-- <div class="step_container">
+      <div  class="slide progress-25" >
+        <p>STEP 1</p>
+        <p>Choose your favorite color</p>
       </div>
+      <div  class="slide progress-50" >
+        <p>STEP 2</p>
+        <p>Choose your favorite propellor</p>
+      </div>
+      <div  class="slide progress-75" >
+        <p>STEP 3</p>
+        <p>Choose your favorite motor</p>
+      </div>
+      <div  class="slide progress-100" >
+        <p>STEP 4</p>
+        <p>Finish your exclusive FVP</p>
+      </div>
+    </div> -->
+    <div class="step_container box">
+        <div class="slide percent p25">
+            <svg>
+                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="70" cy="70" r="70"></circle>
+            </svg>
+            <div class="number">
+                <p>Step 1</p>
+            </div>
+            <div class="text">Choose your favorite color</div>
+        </div>
+        <div class="slide percent p50">
+            <svg>
+                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="70" cy="70" r="70"></circle>
+            </svg>
+            <div class="number">
+                <p>Step 2</p>
+            </div>
+            <div class="text">Choose your favorite propellor</div>
+        </div>
+        <div class="slide percent p75">
+            <svg>
+                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="70" cy="70" r="70"></circle>
+            </svg>
+            <div class="number">
+                <p>Step 3</p>
+            </div>
+            <div class="text">Choose your favorite motor</div>
+        </div>
+        <div class="slide percent p100">
+            <svg>
+                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="70" cy="70" r="70"></circle>
+            </svg>
+            <div class="number">
+                <p>Step 4</p>
+            </div>
+            <div class="text">Finish your exclusive FVP</div>
+        </div>
     </div>
     <div class="buttons">
       <router-link
@@ -157,7 +211,7 @@ $(document).ready(() => {
     <p class="show">category</p>
     <img
       class="show"
-      src="/images/shop/fvp_icon.png"
+      src="/src/assets/images/shop/fvp_icon.png"
       alt="fvp_icon"
     />
     <section class="category">
@@ -253,11 +307,11 @@ $(document).ready(() => {
           <div class="product_box">
             <div class="img_box">
               <button class="prev" id="prevBtn" @click="prevPic(i.id)">
-                ↼
+                ‹
               </button>
               <img :src="i[`src${i.id}`][count[i.id]]" alt="product_img" />
               <button class="next" id="nextBtn" @click="nextAsscPic(i.id)">
-                ⇀
+                ›
               </button>
             </div>
             <div class="detail_box">
@@ -383,22 +437,26 @@ $(document).ready(() => {
 .banner {
   width: 100%;
   position: relative;
-  display: grid;
-  grid-template-columns: repeat(1, fr);
-  grid-template-rows: repeat(3, fr);
   margin-top: 0;
   h2 {
-    grid-column: 1/1;
-    grid-row: 1/1;
+    // grid-column: 1/1;
+    // grid-row: 1/1;
     width: 100%;
     text-align: center;
     position: absolute;
-    top: 50%;
+    top: 40%;
     right: 0;
     background-color: #ffffff80;
     @include m($m-breakpoint) {
       background-color: #12181e80;
     }
+    .buttons{
+      position: relative;
+      top: -30%;
+       .btnSecond{
+    }
+    }
+   
     span {
       &:first-child {
         font-weight: bold;
@@ -407,6 +465,7 @@ $(document).ready(() => {
       max-width: 200px;
       color: #444;
       font-weight: normal;
+      
       @include m($m-breakpoint) {
         color: $fff;
         font: $caption-m-h2;
@@ -430,18 +489,6 @@ $(document).ready(() => {
       vertical-align: bottom;
     }
   }
-  // .buttons{
-  //     width: 100%;
-  //     grid-column: 1/1;
-  //     grid-row: 3/3;
-  //     .btnPrimary{
-  //         margin: 0 auto;
-  //         position: relative;
-  //         top: -50px;
-  //         @include primaryBtn (150px);
-  //     }
-
-  // }
 }
 //step
 .step_wrapper {
@@ -484,11 +531,15 @@ $(document).ready(() => {
     margin: 0 auto;
     gap: 1rem;
     padding: 2rem;
-    // overflow: hidden;
+    width: 300px;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     &::before {
-      // content: url(../assets/images/shop/drone.png);
+      content: url(../assets/images/shop/drone.png);
       position: absolute;
-      top: -50%;
+      top: -20%;
       left: 0;
       z-index: -1;
       transition: all 1s;
@@ -502,11 +553,10 @@ $(document).ready(() => {
           transform: rotate(0deg);
         }
         100% {
-          transform: rotate(420deg);
+          transform: rotate(360deg);
         }
       }
     }
-
     @include m($m-breakpoint) {
       gap: 2rem;
       display: flex;
@@ -515,18 +565,17 @@ $(document).ready(() => {
     .slide {
       display: flex;
       flex-wrap: wrap;
-      flex-direction: column;
-      width: 100%;
-      line-height: 50px;
-      padding: 20px;
+      // flex-direction: column;
+      text-align: center;
+      width: 200px;
+      height: 200px;
+      padding-top: 30px;
       margin: 20px auto;
-      background: linear-gradient(98.29deg, #077af9 10.1%, #9c4dd6 82.53%);
       font: $caption-s-p;
       color: $txt-color;
       box-sizing: border-box;
-      text-align: center;
       z-index: -1;
-      border-radius: 20px;
+     
       &:hover {
         background: #000;
         box-shadow: 0 0 30px $blue;
@@ -538,7 +587,48 @@ $(document).ready(() => {
         max-width: 300px;
       }
     }
-  }
+    .percent{
+        position: relative;
+        width: 150px;
+        height: 150px; 
+        svg{
+          position: relative;
+          width: 150px;
+          height: 150px;
+          circle{
+            width:10px;
+            height: 150px;
+            fill: none;
+            stroke-width: 10;
+            // stroke: #000;
+            transform: translate(5px,5px);
+            stroke-dasharray: 440;
+            stroke-dashoffset: 440;
+            &:nth-child(1){
+              stroke-dashoffset:0;
+              stroke: #ffffff80;
+            }
+          }
+        }
+    }
+    
+    .p25 svg circle:nth-child(2){
+      stroke-dashoffset:330;
+      stroke: #03a9f4;
+    }
+    .p50 svg circle:nth-child(2){
+      stroke-dashoffset:220;
+      stroke: #03a9f4;
+    }
+    .p75 svg circle:nth-child(2){
+      stroke-dashoffset:110;
+      stroke: #03a9f4;
+    }
+    .p100 svg circle:nth-child(2){
+      stroke-dashoffset:0;
+      stroke: #03a9f4;
+    }
+    }
 }
 //buttons
 .buttons {
@@ -564,10 +654,10 @@ $(document).ready(() => {
 .category_box {
   position: fixed;
   top: 50px;
-  z-index: 2;
+  z-index: 12;
   p {
     cursor: pointer;
-    z-index: 2;
+    z-index: 12;
     position: relative;
     top: 50px;
     left: -80px;
@@ -581,7 +671,7 @@ $(document).ready(() => {
       top: 65px;
       margin-top: 15px;
       margin-left: 10px;
-      z-index: 2;
+      z-index: 12;
     }
   }
   img {
@@ -604,10 +694,11 @@ $(document).ready(() => {
     position: fixed;
     top: 20px;
     z-index: 2;
-    background-color: #232a3e;
+    background-color: #5f6678;
+    box-shadow: 0 0 10px rgb(9, 8, 8);
 
     .hide {
-      color: #9c4dd6;
+      color: $ored;
       font-size: 40px;
       margin-right: 100px;
     }
@@ -741,11 +832,11 @@ $(document).ready(() => {
             button {
               background-color: transparent;
               border: none;
-              color: rgb(116, 122, 142);
-              font-size: 30px;
+              color: rgb(101, 140, 152);
+              font-size: 40px;
             }
             img {
-              width: 80%;
+              width: 220px;
               object-fit: cover;
               object-position: center 10px;
               transition: all 0.5s;
@@ -929,19 +1020,19 @@ $(document).ready(() => {
           @include m($m-breakpoint) {
           }
           .img_box {
+            width: 100%;
             height: 200px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             button {
               background-color: transparent;
               border: none;
-              color: rgb(116, 122, 142);
-              font-size: 30px;
-              // margin-left: -13px;
+              color: rgb(101, 140, 152);
+              font-size: 40px;
             }
             img {
-              width: 80%;
+              width:220px;
               transition: all 0.5s;
               animation-name: move;
               animation-duration: 5s;
@@ -978,6 +1069,8 @@ $(document).ready(() => {
               border-radius: 50%;
             }
             .title{
+              height: 40px;
+              line-height: 30px;
               margin: 20px 0;
             }
             .title,

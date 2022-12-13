@@ -103,28 +103,28 @@ import imga14_2 from "/src/assets/images/shop/propellor_03_red_2.png";
 import imgb1 from "/src/assets/images/shop/bundle_01.png";
 import imgb2 from "/src/assets/images/shop/bundle_02.jpg";
 
-    export  const steps = [
-    {
-      id: "1",
-      text: "Choose your favorite color",
-      diff: "color",
-    },
-    {
-      id: "2",
-      text: "Choose your favorite wing",
-      diff: "wing",
-    },
-    {
-      id: "3",
-      text: "Choose your favorite speed",
-      diff: "speed",
-    },
-    {
-      id: "4",
-      text: "Finish your exclusive FVP",
-      diff: "own FVP",
-    },
-    ];
+    // export  const steps = [
+    // {
+    //   id: "1",
+    //   text: "Choose your favorite color",
+    //   diff: "color",
+    // },
+    // {
+    //   id: "2",
+    //   text: "Choose your favorite wing",
+    //   diff: "wing",
+    // },
+    // {
+    //   id: "3",
+    //   text: "Choose your favorite speed",
+    //   diff: "speed",
+    // },
+    // {
+    //   id: "4",
+    //   text: "Finish your exclusive FVP",
+    //   diff: "own FVP",
+    // },
+    // ];
     export  const products =reactive([
     //mavic
     {
