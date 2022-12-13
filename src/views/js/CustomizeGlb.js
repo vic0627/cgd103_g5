@@ -245,11 +245,3 @@ export const controllerModels = ref({
   },
 });
 
-//function
-// const maxSpeed =(motor.rpm * motor.kgm * controller.kgmc) /(body.weight + propellor.weight) /10;
-
-// const load = motor.kgm;
-
-// const accelerateTime  = s = (motor.kgm * controller.kgmc) * (motor.kgm * controller.kgmc) / 40;
-
-// const a (m / s^2)= 100 / 3.6 / s
