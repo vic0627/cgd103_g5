@@ -11,6 +11,15 @@ export default defineConfig({
       "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
-  assetsInclude: ['**/*.glb', '**/*.gltf'],
+  assetsInclude: ["**/*.glb", "**/*.gltf"],
   base: "/dist/",
-})
+  build: {
+    rollupOptions: {
+      output: {
+        // entryFileNames: `assets/[name].js`,
+        // chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`,
+      },
+    },
+  },
+});
