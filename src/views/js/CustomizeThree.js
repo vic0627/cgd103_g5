@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { ref } from 'vue';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { droneModels, propellorModels } from './CustomizeGlb';
@@ -56,6 +57,7 @@ export function sceneInit () {
     scene.add(light1);   
 };
 /* ------body------ */
+export let modelLoading = ref(0);
 const bodyloader = new GLTFLoader();
 const bodyLoader = ( droneUrl, scale, x, y, z ) => {
     if (modelObj) scene.remove( modelObj );
@@ -73,8 +75,12 @@ const bodyLoader = ( droneUrl, scale, x, y, z ) => {
         modelObj.position.set(x, y, z);
         modelObj.scale.set(scale, scale, scale);
         scene.add( modelObj );
-    } , undefined, function ( error ) {
+        modelLoading.value = 0;
+    } , function ( xhr ) {
+        modelLoading.value = parseInt( xhr.loaded / xhr.total * 100 )
+	}, function ( error ) {
         console.error( error );
+        modelLoading.value = 0;
     });
 };
 
@@ -116,7 +122,11 @@ const propellorLoader1 = ( droneUrl, scale, x, y, z ) => {
         propellorObj1.position.set(x, y, z);
         propellorObj1.scale.set(scale, scale, scale);
         scene.add( propellorObj1 ); 
-    } , undefined, function ( error ) {
+        modelLoading.value = 0;
+    } , function ( xhr ) {
+        modelLoading.value = parseInt( xhr.loaded / xhr.total * 100 )
+	}, function ( error ) {
+        modelLoading.value = 0;
         console.error( error );
     });
 };

@@ -2,6 +2,10 @@
 import { ref, onMounted, reactive, onUnmounted } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
+import point1 from "../assets/images/race/point1.jpg";
+import point2 from "../assets/images/race/point2.jpg";
+import point3 from "../assets/images/race/point3.jpg";
+import point4 from "../assets/images/race/point4.jpg";
 
 import { bodyInit } from "../composables/useOnunmounted";
 bodyInit();
@@ -11,25 +15,25 @@ const areaText = ref({
   1: {
     id: 1,
     title: "Taiwan",
-    src: "/src/assets/images/race/point1.jpg",
+    src: point1,
     text: "Home to the world’s greatest collections of Chinese art and antiquities.Once reserved for the private pleasure of emperors, today these treasures can be enjoyed.These collections are from mainland China, and the ROC government bring them to Taiwan in 1949.",
   },
   2: {
     id: 2,
     title: "Japan",
-    src: "/src/assets/images/race/point2.jpg",
+    src: point2,
     text: "Situated in the city’s oldest neighborhood, Wanhua.Longshan Temple is the spiritual heart of Taipei.It’s a place where generations of locals have come to seek good fortune, health, and even guidance on who to marry.",
   },
   3: {
     id: 3,
     title: "China",
-    src: "/src/assets/images/race/point3.jpg",
+    src: point3,
     text: "Chiang Kai-shek Memorial Hall honors the memory of former president of the Republic of China.Memorial Square is also one of the city’s most important cultural sites, and some democracy activists had held here.The National Concert Hall, a stunning example of neo-classical Chinese architecture.",
   },
   4: {
     id: 4,
     title: "Korea",
-    src: "/src/assets/images/race/point1.jpg",
+    src: point4,
     text: "Situated in the city’s oldest neighborhood, Wanhua.Longshan Temple is the spiritual heart of Taipei.It’s a place where generations of locals have come to seek good fortune, health, and even guidance on who to marry.",
   },
 });
@@ -370,82 +374,6 @@ const changeCount = (id) => {
             </div>
           </div>
         </div>
-        <div class="raceBox raceBox_w">
-          <div class="boxBgi_w"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_w">World</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_t">
-          <div class="boxBgi_t"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_t">Taiwan</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </section>
@@ -463,7 +391,7 @@ const changeCount = (id) => {
       <div class="pointBgi">
         <div
           class="bgi"
-          :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(/src/assets/images/race/point${count}.jpg)`"
+          :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.7),rgba(0, 0, 0, 0.7)),url(${areaText[count].src})`"
         ></div>
       </div>
       <div class="bigtext">
@@ -484,10 +412,7 @@ const changeCount = (id) => {
           </div>
 
           <div class="cardPic">
-            <img
-              :src="`src/assets/images/race/point${e.id}.jpg`"
-              alt="aerialPoint"
-            />
+            <img :src="areaText[e.id].src" alt="aerialPoint" />
           </div>
 
           <div class="cardContent">
@@ -520,7 +445,7 @@ section {
   width: 100%;
   height: 176px;
   position: relative;
-
+  overflow: hidden;
   @include m($m-breakpoint) {
     height: 462px;
   }
@@ -608,7 +533,7 @@ h2 {
 
   @include l($l-breakpoint) {
     margin: 0;
-    width: calc(200px * 10);
+    width: calc(200px * 8);
     overflow: visible;
     position: absolute;
     &:hover {
@@ -620,7 +545,7 @@ h2 {
         transform: translateX(0);
       }
       to {
-        transform: translateX(calc(-200px * 1));
+        transform: translateX(calc(-200px * 2));
       }
     }
   }
@@ -628,7 +553,7 @@ h2 {
     min-width: 100%;
     position: relative;
     @include l($l-breakpoint) {
-      min-width: 200px;
+      min-width: 100px;
       transition: 0.4s;
       flex: 1;
       &:hover {

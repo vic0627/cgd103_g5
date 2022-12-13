@@ -1,6 +1,6 @@
 <script setup>
 import gsap from "gsap";
-import { onMounted, ref, onUpdated } from 'vue';
+import { onMounted, ref, onBeforeUpdate, onUpdated } from 'vue';
 import { log, $$, $all, getW } from '../composables/useCommon';
 import { droneModels, propellorModels, motorModels, controllerModels } from './js/CustomizeGlb';
 import * as CUS from './js/CustomizeThree';
@@ -21,6 +21,18 @@ onMounted(()=> {
     CUS.sceneInit();
     CUS.animation();
 });
+
+onBeforeUpdate(() => {
+    $$('.loadBox').style.display = 'block';
+    gsap.to('.loadProgress', {
+        width: CUS.modelLoading.value + '%',
+        duration: .1,
+    })
+    niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
+})
+onUpdated(() => {
+    if(CUS.modelLoading.value===0)$$('.loadBox').style.display = 'none';
+})
 const units = ref({
     maxSpeed: {
         'id': 1,
@@ -161,6 +173,7 @@ const flow = ref(1);
 const btnStatus = ref(false);
 const buyBtn = ref(false);
 const boardMove = ref(false);
+let acc;
 
 const undo = () => {
     btnStatus.value = false;
@@ -184,7 +197,12 @@ const undo = () => {
         case 4:
             kgmcChosen.value = 0;
             niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm), units.value.maxSpeed.ratio);
-            niddleSpin(5, accelerateTime(motorChosen.value.kgm), units.value.accelerateTime.ratio);
+            if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm)>=100){
+                acc = accelerate(motorChosen.value.kgm);
+            }else{
+                acc = 0;
+            };
+            niddleSpin(5, acc, units.value.accelerateTime.ratio);
             niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm)), units.value.accelerate.ratio);
             buyBtn.value = false;
             $all('.controllerControl').forEach(c => c.classList.remove('chosen'));
@@ -202,7 +220,6 @@ const nextStep = () => {
         alert('可以先選嗎?');
     }
 };
-
 
 const canvasRe = () => {
     if(ww<575){
@@ -226,7 +243,6 @@ const bodyChoose = (id, nid, src) => {
     CUS.body(id, src);
     units.value.totalWeight.value = (0 + droneModels.value[`body0${id}`].weight)/1000;
     bodyChosen.value = droneModels.value[`body0${id}`].weight;
-    niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
     btnStatus.value = true;
     $all('.colorControl').forEach(c => c.classList.remove('chosen'));
     $$(`.bodyControl${id}${nid}`).classList.add('chosen');
@@ -240,7 +256,6 @@ const propellorChoose = (id, nid, src) => {
         propellorSum = propellorModels.value[`propellor0${id}`].weight * 4;
     }
     units.value.totalWeight.value = (bodyChosen.value + propellorSum)/1000;
-    niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
     btnStatus.value = true;
     $all('.colorControl').forEach(c => c.classList.remove('chosen'));
     $$(`.propellorControl${id}${nid}`).classList.add('chosen');
@@ -255,7 +270,12 @@ const motorChoose = (id) => {
     niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm), units.value.maxSpeed.ratio);
     niddleSpin(2, motorChosen.value.kgm, units.value.maxload.ratio);
     niddleSpin(3, motorChosen.value.rpm / 1000, units.value.rotatingSpeed.ratio);
-    niddleSpin(5, accelerateTime(motorChosen.value.kgm), units.value.accelerateTime.ratio);
+    if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm)>=100){
+        acc = accelerate(motorChosen.value.kgm);
+    }else{
+        acc = 0;
+    };
+    niddleSpin(5, acc, units.value.accelerateTime.ratio);
     niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm)), units.value.accelerate.ratio);
     btnStatus.value = true;
     $all('.motorControl').forEach(c => c.classList.remove('chosen'));
@@ -265,7 +285,13 @@ const kgmcChosen = ref(0);
 const controllerChoose = (id) => {
     kgmcChosen.value = controllerModels.value[`controller0${id}`].kgmc;
     niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value), units.value.maxSpeed.ratio);
-    niddleSpin(5, accelerateTime(motorChosen.value.kgm, kgmcChosen.value), units.value.accelerateTime.ratio);
+    let acc;
+    if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value)>=100){
+        acc = accelerateTime(motorChosen.value.kgm, kgmcChosen.value);
+    }else{
+        acc = 0;
+    };
+    niddleSpin(5, acc, units.value.accelerateTime.ratio);
     niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm, kgmcChosen.value)), units.value.accelerate.ratio);
     btnStatus.value = true;
     if(flow.value===4&&btnStatus.value){
@@ -328,6 +354,10 @@ const toggleBoard = () => {
     <nav-component :custom="`#077AF9`"/>
     <section class="customize">
         <canvas id="customize3d" class="customize3d"></canvas>
+        <div class="loadBox">
+            <div class="loadProgress"></div>
+            <p class="loadNum">{{ CUS.modelLoading }}%</p>
+        </div>
         <h2 class="customizeTitle">Customize</h2>
         <div class="paths">
             <p>Select</p>
@@ -359,27 +389,17 @@ const toggleBoard = () => {
                 </div>
             </div>
             <div class="flowControls">
-                <div class="undo" data-title="undo" v-show="step[flow].sBtn" @click="undo">
-                    <span>undo</span>
+                <div class="undo" data-title="Undo" v-show="step[flow].sBtn" @click="undo">
+                    <span>Undo</span>
                 </div>
-                <div class="nextStep" data-title="next" v-show="step[flow].pBtn" @click="nextStep">
-                    <span>next</span>
+                <div class="nextStep" data-title="Choose" v-show="step[flow].pBtn" @click="nextStep">
+                    <span>Choose</span>
                 </div>
                 <router-link class="nextStep buyBtn" data-title="Buy Now" v-show="buyBtn" to="/cart">
                     <span>Buy Now</span>
                 </router-link>
             </div>
         </div>
-        
-        <!-- <div class="dashBoards">
-            <h3>Drone Data</h3>
-            <dash-board-component class="dashBoard" :units="units.maxSpeed"/>
-            <dash-board-component class="dashBoard" :units="units.maxload"/>
-            <dash-board-component class="dashBoard" :units="units.rotatingSpeed"/>
-            <dash-board-component class="dashBoard" :units="units.totalWeight"/>
-            <dash-board-component class="dashBoard" :units="units.accelerateTime"/>
-            <dash-board-component class="dashBoard" :units="units.accelerate"/>
-        </div> -->
     </section>
     <dash-board-group-component class="boards" :toggle-board="toggleBoard" />
     <footer-component />
@@ -405,6 +425,40 @@ const toggleBoard = () => {
     }
     @include l($l-breakpoint) {
         top: 190px;
+    }
+}
+.loadBox{
+    width: 150px;
+    height: 20px;
+    position: absolute;
+    top: 35%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    border-radius: 15px;
+    border: 2px solid $light-black;
+    background: $black;
+    display: none;
+    @include m($m-breakpoint) {
+        top: 40%;
+        right: 40%;
+        left: 0;
+    }
+    @include l($l-breakpoint) {
+        width: 200px;
+        height: 30px;
+    }
+    .loadProgress{
+        width: 0%;
+        height: 100%;
+        border-radius: 15px;
+        background: linear-gradient(to right, $blue, $purple);
+    }
+    .loadNum{
+        text-align: center;
+        position: absolute;
+        top: 0;
+        width: 100%;
     }
 }
 .boards{
@@ -464,9 +518,14 @@ const toggleBoard = () => {
         p:nth-child(2){
             text-align: left;
             width: 100px;
-            color: $brown;
+            animation: path 1s linear infinite;
         }
     }
+}
+@keyframes path {
+    0%{color: #eee;}
+    50%{color: $purple;}
+    100%{color: #eee;}
 }
 
 .customizeControl{
@@ -474,12 +533,13 @@ const toggleBoard = () => {
     margin: 360px auto 20%;
     padding: 10px 0 20px;
     border-radius: 20px;
-    border: 2px solid $brown;
+    border: 2px solid $grey;
     background: $black;
     width: 90%;
     @include s($s-breakpoint) {
         margin-top: 480px;
         width: 575px;
+        background: #25242499;
     }
     @include m($m-breakpoint) {
         margin: 60px auto 0 60%;
@@ -546,7 +606,7 @@ const toggleBoard = () => {
         @include secondBtn(60px);
     }
     .nextStep{
-        @include primaryBtn(60px);
+        @include primaryBtn(100px);
     }
     .buyBtn{
         @include primaryBtn(100px);

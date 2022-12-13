@@ -848,7 +848,7 @@ const allFloat = () => {
 }
 .containerSpec{
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     overflow: hidden;
     ol{
         width: 100%;
@@ -866,9 +866,7 @@ const allFloat = () => {
         transform-style: preserve-3d;
         cursor: pointer;
         @include s($s-breakpoint) {
-            width: 25%;
             height: 18.75%;
-            margin-left: -12.5%;
         }
         @include m($m-breakpoint) {
             width: 400px;

@@ -9,7 +9,8 @@
     height: 27px;
     padding: 15px;
     text-align: center;
-    text-shadow: 0 1px 3px $light-black;
+    text-shadow: 0 1px 3px $black;
+    background: radial-gradient(#fff3, $black 75%);
     line-height: 1.1;
     border-radius: $img-radius;
     position: relative;
@@ -19,7 +20,7 @@
     span{
         display: block;
         margin-top: 45px;
-        line-height: 1.1;
+        line-height: 1.3;
         color: $blue;
         opacity: 1;
         transition: all .3s;
@@ -53,7 +54,6 @@
             transition: all .3s;
         }
         &:hover{
-            width: $width;
             box-shadow: 0 0 15px 1px $blue;
             backdrop-filter: blur(5px);
             transition: all .3s;
