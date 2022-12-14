@@ -156,8 +156,8 @@ $(document).ready(() => {
     <div class="step_container box">
         <div class="slide percent p25">
             <svg>
-                <circle cx="70" cy="70" r="70"></circle>
-                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="100" cy="100" r="100"></circle>
+                <circle cx="100" cy="100" r="100"></circle>
             </svg>
             <div class="number">
                 <p>Step 1</p>
@@ -166,8 +166,8 @@ $(document).ready(() => {
         </div>
         <div class="slide percent p50">
             <svg>
-                <circle cx="70" cy="70" r="70"></circle>
-                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="100" cy="100" r="100"></circle>
+                <circle cx="100" cy="100" r="100"></circle>
             </svg>
             <div class="number">
                 <p>Step 2</p>
@@ -176,8 +176,8 @@ $(document).ready(() => {
         </div>
         <div class="slide percent p75">
             <svg>
-                <circle cx="70" cy="70" r="70"></circle>
-                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="100" cy="100" r="100"></circle>
+                <circle cx="100" cy="100" r="100"></circle>
             </svg>
             <div class="number">
                 <p>Step 3</p>
@@ -186,8 +186,8 @@ $(document).ready(() => {
         </div>
         <div class="slide percent p100">
             <svg>
-                <circle cx="70" cy="70" r="70"></circle>
-                <circle cx="70" cy="70" r="70"></circle>
+                <circle cx="100" cy="100" r="100"></circle>
+                <circle cx="100" cy="100" r="100"></circle>
             </svg>
             <div class="number">
                 <p>Step 4</p>
@@ -532,31 +532,11 @@ $(document).ready(() => {
     gap: 1rem;
     padding: 2rem;
     width: 300px;
-    height: 400px;
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
-    &::before {
-      content: url(../assets/images/shop/drone.png);
-      position: absolute;
-      top: -20%;
-      left: 0;
-      z-index: -1;
-      transition: all 1s;
-      animation-name: fly;
-      animation-duration: 5s;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
-      animation-delay: 0;
-      @keyframes fly {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-    }
+
     @include m($m-breakpoint) {
       gap: 2rem;
       display: flex;
@@ -565,6 +545,7 @@ $(document).ready(() => {
     .slide {
       display: flex;
       flex-wrap: wrap;
+      justify-content: center;
       // flex-direction: column;
       text-align: center;
       width: 200px;
@@ -575,7 +556,7 @@ $(document).ready(() => {
       color: $txt-color;
       box-sizing: border-box;
       z-index: -1;
-     
+      
       &:hover {
         background: #000;
         box-shadow: 0 0 30px $blue;
@@ -584,23 +565,23 @@ $(document).ready(() => {
       @include m($m-breakpoint) {
         display: flex;
         flex-wrap: wrap;
+        justify-content: center;
         max-width: 300px;
       }
     }
     .percent{
         position: relative;
-        width: 150px;
-        height: 150px; 
+        width: 300px;
+        height: 300px; 
         svg{
           position: relative;
-          width: 150px;
-          height: 150px;
+          width: 300px;
+          height: 300px;
           circle{
             width:10px;
             height: 150px;
             fill: none;
             stroke-width: 10;
-            // stroke: #000;
             transform: translate(5px,5px);
             stroke-dasharray: 440;
             stroke-dashoffset: 440;
@@ -609,6 +590,14 @@ $(document).ready(() => {
               stroke: #ffffff80;
             }
           }
+        }
+        .number{
+          position: absolute;
+          top: 50px;
+        }
+        .text{
+          position: absolute;
+          top: 100px;
         }
     }
     
