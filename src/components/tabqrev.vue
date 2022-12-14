@@ -1,6 +1,23 @@
 <script setup>
-import { reactive, onMounted,ref } from 'vue';
 
+import { reactive, onMounted,ref } from 'vue';
+const faqRows = ref([]);
+		const getProducts = () => {
+			//取得商品資料
+			let xhr = new XMLHttpRequest();
+			xhr.onload = function(){
+				if(xhr.status == 200){ //OK
+					faqRows.value = JSON.parse(xhr.responseText);
+				}
+			}
+			xhr.open("get", "/dist/g5PHP/getProducts.php", true);
+			xhr.send(null);
+		}
+	
+
+	onMounted(()=>{
+		getProducts();
+  });
 const table = ref([
   {
     number:5,
@@ -31,6 +48,7 @@ const table = ref([
 ])
 
 </script>
+
 <template>
 <div class="top">
   <h2>
@@ -55,13 +73,24 @@ const table = ref([
         <td>{{item.number}}</td>
         <td>{{item.q}}</td>
         <td>{{item.a}}</td>
-        <td><a href="#"><span class="block">編輯</span> <span>/</span> <span class="red">刪除</span></a></td>
+        <td><button class="block">編輯</button> <span>/</span> <botton class="red">修改</botton></td>
       </tr>
     </table>
   </div>
 </div>
+<table id="products" align="center">
+	<tr bgcolor="#bfbfef">
+		<th>問題編號</th>
+		<th>問題</th>
+		<th>回答</th>
+	</tr>
+	<tr v-for="faqRow in faqRows" :key="faqRow">
+			<td>{{faqRow.faq_no}}</td>
+			<td>{{faqRow.faq_des}}</td>
+			<td>{{faqRow.faq_ans}}</td>
+	</tr>	
+</table>
 
-  
 </template>
 <style scoped lang="scss">
 @import '@/sass/style.scss';
@@ -155,17 +184,18 @@ h2 {
         border: 1px solid #C0C0C0;
         padding: 20px 10px;
         overflow: hidden;
-        a{
-          color: #273747;
-          span{
-            color: #273747;
-          }
           .block{
+            border: none;
+            font-size: 22px;
+            background: transparent;
+            color: #273747;
+            cursor: pointer;
             &:hover{
               border-bottom: 1px solid #273747;
             }
           }
           .red{
+            cursor: pointer;
             color: #F25A2A;
             &:hover{
               border-bottom: 1px solid #F25A2A;
@@ -173,7 +203,6 @@ h2 {
           }
         }
       }
-    }
   }
 }
 </style>

@@ -10,7 +10,6 @@ import tabracecategory from "../../components/tabracecategory.vue"; //RACE
 import tabaccountfix from "@/components/tabaccountfix.vue"; //account
 import tabaccountadd from "@/components/tabaccountadd.vue"; //account
 import tabproductsearch from "@/components/tabproductsearch.vue";
-import tabproductImgManage from "@/components/tabproductImgManage.vue";
 import tabproductAdd from "@/components/tabproductAdd.vue";
 import taborderItem from "@/components/taborderItem.vue";
 import tabcustomizationOrderItem from "@/components/tcustomizationOrderItem.vue";
@@ -26,15 +25,12 @@ export default {
     tabraceform,
     tabracecategory,
     tabproductsearch,
-    tabproductImgManage,
     tabaccountfix,
     tabaccountadd,
     tabgeneralOrderItem,
     tabcustomizationOrderItem,
     tabmod,
-    tabproductAdd,
-    taborderItem,
-    tabcustomizationDetails,
+    tabproductAdd
   },
 };
 </script>
@@ -58,16 +54,16 @@ const backendCategory = ref({
         tab: "discount",
       },
       c: {
-        cn: "商品圖片管理",
-        tab: "productImgManage",
+        cn: "優惠新增",
+        tab: "discountadd",
       },
       d: {
-        cn: "商品分類管理",
-        tab: "productCategoryManage",
-      },
-      e: {
         cn: "商品新增",
         tab: "productAdd",
+      },
+      e: {
+        cn: "商品分類管理",
+        tab: "productCategoryManage",
       },
     },
   },
@@ -87,10 +83,10 @@ const backendCategory = ref({
         cn: "客製化訂單查詢",
         tab: "customizationOrderItem",
       },
-      d:{
-        cn:"客製化訂單明細查詢",
-        tab:"customizationDetails"
-      }
+      d: {
+        cn: "客製化訂單明細查詢",
+        tab: "customizationDetails",
+      },
     },
   },
   FAQ: {
@@ -105,10 +101,10 @@ const backendCategory = ref({
         cn: "新增問題",
         tab: "qadd",
       },
-      c:{
-        cn:"問題修改",
-        tab:"mod"
-      }
+      c: {
+        cn: "問題修改",
+        tab: "mod",
+      },
     },
   },
   news: {

@@ -34,11 +34,6 @@ const router = createRouter({
       component: () => import("../views/shopInfoView.vue"),
     },
     {
-      path: "/game",
-      name: "game",
-      component: () => import("../views/GameView.vue"),
-    },
-    {
       path: "/custom",
       name: "custom",
       component: () => import("../views/CustomizeView.vue"),
