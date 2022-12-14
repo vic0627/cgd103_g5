@@ -12,7 +12,7 @@ const shows = () => {
 }
 
 </script>
-
+<!-- required  -->
 <template>
    <div class="container">
         <div class="box">
@@ -20,11 +20,11 @@ const shows = () => {
                 <h2>後台登入</h2>
                 <div class="form-group">
                     <label for="userName">帳號</label>
-                    <input type="text" id="userName" name="userName" required maxlength="10" minlength="6">
+                    <input type="text" id="userName" name="userName"  maxlength="10" minlength="6">
                 </div>
                 <div class="form-group">
                     <label for="password">密碼</label>
-                    <input type="password" id="password" name="password" class="password" required maxlength="10" minlength="6">
+                    <input type="password" id="password" name="password" class="password" maxlength="10" minlength="6">
                     <div class="down">
                         <div class="in">
                         <input type="checkbox" id="check" @click="shows()"><span>顯示密碼</span>
@@ -35,7 +35,7 @@ const shows = () => {
                 <button type="submit" class="btn" @click="removeCookie">登入</button>
             </form>
             <div class="links">
-                <router-link to="/" class="leave link" >離開後台</router-link>
+                <router-link to="/backend" class="leave link" >離開後台</router-link>
                 <router-link to="/home" class="home link" >前往首頁</router-link>
             </div>
         </div>

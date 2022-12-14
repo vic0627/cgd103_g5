@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.0.1/vue.min.js"></script> 
+	<title>董董購物網</title>
+<style type="text/css">
+a {text-decoration:none;}
+a:hover{background-color:#bfbfbf;}
+th,td {padding:2px;}
+th {background-color: #bfbfef}
+td {border-bottom:1px dotted deeppink;}
+.money {text-align:right;}
+</style>
+
+</head>
+<body>
+
+<h2>迴圈結構 : v-for</h2>	
+<table id="products" align="center">
+	<tr bgcolor="#bfbfef">
+		<th>問題編號</th>
+		<th>問題</th>
+		<th>回答</th>
+	</tr>
+	<tr v-for="faqRow in faqRows">
+			<td>{{faqRow.faq_no}}</td>
+			<td>{{faqRow.faq_des}}</td>
+			<td>{{faqRow.faq_ans}}</td>
+	</tr>	
+</table>
+<script type="text/javascript">
+	
+let productsVue = new Vue({
+	el:"#products",
+	data:{
+		faqRows:[],
+	},
+	methods:{
+		getProducts(){
+			//取得商品資料
+			let xhr = new XMLHttpRequest();
+			xhr.onload = function(){
+				if(xhr.status == 200){ //OK
+					productsVue.faqRows = JSON.parse(xhr.responseText);
+				}
+			}
+			xhr.open("get", "./getProducts.php", true);
+			xhr.send(null);
+		}
+	},
+	mounted:function(){
+			this.getProducts();
+		}
+})
+
+</script>
+
+</body>
+</html>
