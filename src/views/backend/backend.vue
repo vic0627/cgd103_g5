@@ -13,6 +13,8 @@ import taborderitem from "@/components/taborderitem.vue"; //order
 import tabproductsearch from "@/components/tabproductsearch.vue";
 import tabproductImgManage from "@/components/tabproductImgManage.vue";
 import tabproductAdd from "@/components/tabproductAdd.vue";
+import tabdiscount from "@/components/tabdiscount.vue";
+import tabdiscountadd from "@/components/tabdiscountadd.vue";
 export default {
   components: {
     tabhome,
@@ -28,7 +30,9 @@ export default {
     tabaccountadd,
     taborderitem,
     tabmod,
-    tabproductAdd
+    tabproductAdd,
+    tabdiscount,
+    tabdiscountadd,
   },
 };
 </script>
@@ -52,14 +56,18 @@ const backendCategory = ref({
         tab: "discount",
       },
       c: {
+        cn: "優惠新增",
+        tab: "discountadd",
+      },
+      d: {
         cn: "商品圖片管理",
         tab: "productImgManage",
       },
-      d: {
+      e: {
         cn: "商品分類管理",
         tab: "productCategoryManage",
       },
-      e: {
+      f: {
         cn: "商品新增",
         tab: "productAdd",
       },
@@ -81,10 +89,10 @@ const backendCategory = ref({
         cn: "客製化訂單查詢",
         tab: "customizationOrderItem",
       },
-      d:{
-        cn:"客製化訂單明細查詢",
-        tab:"customizationDetails"
-      }
+      d: {
+        cn: "客製化訂單明細查詢",
+        tab: "customizationDetails",
+      },
     },
   },
   FAQ: {
@@ -99,10 +107,10 @@ const backendCategory = ref({
         cn: "新增問題",
         tab: "qadd",
       },
-      c:{
-        cn:"問題修改",
-        tab:"mod"
-      }
+      c: {
+        cn: "問題修改",
+        tab: "mod",
+      },
     },
   },
   news: {

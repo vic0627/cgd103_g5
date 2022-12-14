@@ -8,9 +8,11 @@ import Accordion from "../components/accordionComponents.vue";
 import body1 from "../assets/images/shopInfo/body_03_1.png";
 import body2 from "../assets/images/shopInfo/body_03_2.png";
 import body3 from "../assets/images/shopInfo/body_03_3.png";
-bodyInit();
-// //bottomBar第二版
+import { products, accessories, bundle_A, bundle_B } from "./js/Shop";
 
+bodyInit();
+
+//bottomBar第二版
 onMounted(() => {
   let lastPos = 0;
   const nav = document.getElementById("purchaseBar");
