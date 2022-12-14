@@ -1,64 +1,26 @@
 <script setup>
 import { ref,reactive, onMounted } from 'vue';
-import img1 from '/src/assets/images/shop/body_01_green_1.png';
-import img2 from '/src/assets/images/shop/body_01_white_1.png';
-import img3 from '/src/assets/images/shop/body_01_red_1.png';
-import img4 from '/src/assets/images/shop/body_01_black_1.png';
-    const imgs = reactive([
-        {   
-            pno:1,
-            src:img1,
-            pname:"Mavic 1 Green",
-           
+    const table = ref(['編號','類別名稱','修改'])
+    const category = ref([
+        {
+        "no":1,
+        "name":'body'
         },
-        {   
-            pno:2,
-            src:img2,
-            pname:"Mavic 2 White",
-           
+        {
+        "no":2,
+        "name": 'parts'
         },
-        {   
-            pno:3,
-            src:img3,
-            pname:"EMavic 3 Red",
-           
-        },
-        {   
-            pno:4,
-            src:img4,
-            pname:"Mavic 4 Black",
-           
-        }
-    ]
-    )
-    const table = ref(['圖片編號','圖片','圖片名稱','修改' ])
+        {
+        "no":3,
+        "name":'bundle'
+        }])
 </script>
 <template>
-  <div class="productImgManage">
+  <div class="productQuery">
      <div class="top">
-        <h2>商品圖片管理</h2>
+        <h2>商品類別</h2>
         <outComponents />
-     </div>
-     
-    <div class="headeBar">
-        <div class="left_bar">
-            <select name="" id="">圖片類別
-                <option value="圖片類別">圖片類別</option>
-                <option value="機身">機身</option>
-                <option value="零件">零件</option>
-                <option value="組合">組合</option>
-            </select>
-        </div>
-        <div class="right_bar">
-            <div class="search_box">
-                <label for="search" class="label">商品編號<input type="search" id="search" name="search" placeholder="請輸入編號"></label>
-                <div class="btn">
-                    <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
-                </div>
-            </div>
-        </div>
-        
-    </div>
+     </div>   
     <div class="mainContent">
         <table>
             <tr>
@@ -66,29 +28,18 @@ import img4 from '/src/assets/images/shop/body_01_black_1.png';
                    <p>{{item}}</p> 
                 </th>
             </tr>
-            <tr v-for="items in imgs" :key="items.pno">
-                <td>{{items.pno}}</td>
-                <td><img :src="items.src" alt="product_pic"></td>
-                <td>{{items.pname}}</td>
+            <tr v-for="items in category" :key="items">
+                <td>{{items.no}}</td>
+                <td>{{items.name}}</td>
                 <td><div class="revised">修改/<span>刪除</span></div></td>
             </tr>
         </table>
-        <span class="infoCount">目前頁數 1 / 2，總共有15筆資訊</span>
-    </div>
-    <div class="pagination">
-        &lt;
-        <a v-for="page in 2" :key="page">{{page}}</a>
-    	&gt;
     </div>
   </div>
 </template>
 <style scoped lang="scss">
 @import '@/sass/style.scss';
-body{
-  background: #fff;
-  box-sizing: border-box;
-}
-.productImgManage {
+.productQuery {
     width: 100%;
   height: 100vh;
   overflow: scroll;
@@ -100,27 +51,29 @@ body{
     padding: 20px ;
     background-color: #597897;
     h2{
+        align-items: center;
         font:$caption-h2;
         font-size: 60px;
         color: #fff;
     }
     img{
-        // width: 80%;
         position: relative;
         left: -20px;
     }
     span{
-        max-width: 130px;
-        display: block;
-        position: relative;
-        font-size: 20px;
+        .out{
+            max-width: 130px;
+            display: block;
+            position: relative;
+            font-size: 20px;
+        }
     }
   }  
   .headeBar{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px;
     .left_bar{
         font:$caption-p;
         max-width: 50%;
@@ -167,40 +120,39 @@ body{
                     color: rgba(181, 181, 181, 0.749);
                 }
             }
-        }
-        .btn {
-            button{
-            width: 50px;
-            text-align: center;
-            border: none;
-            background: #597897;
-            border-radius: 5px;
-            padding: 5px;
-            transition: background 0.5s;
-            cursor: pointer;
-            &:hover{
+            }
+            .btn {
+                button{
+                width: 50px;
+                text-align: center;
+                border: none;
                 background: $blue;
+                border-radius: 5px;
+                padding: 5px;
+                transition: background 0.5s;
+                cursor: pointer;
+                &:hover{
+                    background: #06519d;
+                }
+                img{
+                    width: 20px;
+                    height: 20px;
+                    margin-top: 2px;
+                }
+                }
             }
-            img{
-                width: 20px;
-                height: 20px;
-                margin-top: 2px;
-            }
-            }
-        }
         }
     }
-    
   }
   .mainContent{
-    max-width: 100%;
+    width: 100%;
     margin: auto;
     table{
-        // font:$caption-p;
-        width: 95%;
-        margin: 0 auto;
+        width: 95%;        
+        margin: 0 auto;     
         font-size: 20px;
         border: 1px solid #C0C0C0;
+
         tr{
             text-align: center;
             border: 1px solid #C0C0C0;
@@ -223,6 +175,8 @@ body{
             vertical-align: middle;
             .revised{
                 color: #597897;
+                cursor: pointer;
+                width: 150px;
                 span{
                     margin: 5px;
                     color: $ored;
@@ -230,6 +184,7 @@ body{
                     border-bottom: 1px solid #1671cd;
                 }
                 }
+                
             }
         }
     }
@@ -249,7 +204,6 @@ body{
         cursor: pointer;
         color: #ccc;
         margin: -5px 20px;
-
         &:active{
             color: #597897;
         }
@@ -259,6 +213,8 @@ body{
     }
   }
 }
-
+.revised{
+    cursor: pointer;
+}
 
 </style>
