@@ -12,6 +12,8 @@ import taborderitem from "@/components/taborderitem.vue"; //order
 import tabproductsearch from "@/components/tabproductsearch.vue";
 import tabproductImgManage from "@/components/tabproductImgManage.vue";
 import tabproductAdd from "@/components/tabproductAdd.vue";
+import tabdiscount from "@/components/tabdiscount.vue";
+import tabdiscountadd from "@/components/tabdiscountadd.vue";
 export default {
   components: {
     tabhome,
@@ -26,7 +28,9 @@ export default {
     tabaccountfix,
     tabaccountadd,
     taborderitem,
-    tabproductAdd
+    tabproductAdd,
+    tabdiscount,
+    tabdiscountadd,
   },
 };
 </script>
@@ -50,14 +54,18 @@ const backendCategory = ref({
         tab: "discount",
       },
       c: {
+        cn: "優惠新增",
+        tab: "discountadd",
+      },
+      d: {
         cn: "商品圖片管理",
         tab: "productImgManage",
       },
-      d: {
+      e: {
         cn: "商品分類管理",
         tab: "productCategoryManage",
       },
-      e: {
+      f: {
         cn: "商品新增",
         tab: "productAdd",
       },
