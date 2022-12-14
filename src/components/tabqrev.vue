@@ -34,7 +34,7 @@ const table = ref([
 <template>
 <div class="top">
   <h2>
-    FAQ問題-編輯
+    FAQ列表
     <outComponents />
   </h2>
   <div class="search_box">
