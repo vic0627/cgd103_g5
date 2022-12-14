@@ -10,9 +10,14 @@ import tabracecategory from "../../components/tabracecategory.vue"; //RACE
 import tabaccountfix from "@/components/tabaccountfix.vue"; //account
 import tabaccountadd from "@/components/tabaccountadd.vue"; //account
 import taborderItem from "@/components/taborderitem.vue"; //order
+import tabgeneralOrderItem from "@/components/tabgeneralOrderItem.vue"; //order
 import tabproductsearch from "@/components/tabproductsearch.vue";
 import tabproductImgManage from "@/components/tabproductImgManage.vue";
 import tabproductAdd from "@/components/tabproductAdd.vue";
+import tabcustomizationOrderItem from "@/components/tabcustomizationOrderItem.vue";
+import tabdiscount from "@/components/tabdiscount.vue";
+import tabdiscountadd from "@/components/tabdiscountadd.vue";
+
 export default {
   components: {
     tabhome,
