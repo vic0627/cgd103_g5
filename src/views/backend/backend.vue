@@ -1,7 +1,8 @@
 <script>
 import tabhome from "../../components/tabHome.vue";
-import tabqrev from "../../components/tabqrev.vue"; //FAQ
-import tabqadd from "../../components/tabqadd.vue"; //FAQ
+import tabqrev from "../../components/tabqrev.vue"; //FAQ - 列表
+import tabqadd from "../../components/tabqadd.vue"; //FAQ - 新增
+import tabmod from "../../components/tabmod.vue"; //FAQ - 修改
 import tabnewrevs from "../../components/tabnewrevs.vue"; //NEWS
 import tabnewadds from "../../components/tabnewadds.vue"; //NEWS
 import tabraceform from "../../components/tabraceform.vue"; //RACE
@@ -26,6 +27,7 @@ export default {
     tabaccountfix,
     tabaccountadd,
     taborderitem,
+    tabmod,
     tabproductAdd
   },
 };
@@ -68,17 +70,21 @@ const backendCategory = ref({
     show: false,
     text: {
       a: {
-        cn: "訂單查詢",
+        cn: "一般訂單查詢",
         tab: "orderItem",
       },
       b: {
-        cn: "一般訂單查詢",
+        cn: "一般訂單明細查詢",
         tab: "generalOrderItem",
       },
       c: {
         cn: "客製化訂單查詢",
         tab: "customizationOrderItem",
       },
+      d:{
+        cn:"客製化訂單明細查詢",
+        tab:"customizationDetails"
+      }
     },
   },
   FAQ: {
@@ -86,13 +92,17 @@ const backendCategory = ref({
     show: false,
     text: {
       a: {
-        cn: "修改問題",
+        cn: "FAQ列表",
         tab: "qrev",
       },
       b: {
         cn: "新增問題",
         tab: "qadd",
       },
+      c:{
+        cn:"問題修改",
+        tab:"mod"
+      }
     },
   },
   news: {

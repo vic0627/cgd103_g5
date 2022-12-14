@@ -4,7 +4,7 @@
 <template>
 <div class="top">
   <h2>
-    FAQ-新增問題
+    FAQ-修改問題
     <outComponents />
   </h2>
   <div class="faq">
@@ -18,8 +18,8 @@
     </div>
   </div>
   <div class="btn">
-    <input type="submit" value="取消新增" id="canCel">
-    <input type="submit" value="確定新增" id="conFirm">
+    <input type="submit" value="取消修改" id="canCel">
+    <input type="submit" value="確定修改" id="conFirm">
   </div>
 </div>
   
