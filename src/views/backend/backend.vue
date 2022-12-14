@@ -12,11 +12,11 @@ import tabaccountadd from "@/components/tabaccountadd.vue"; //account
 import taborderItem from "@/components/taborderitem.vue"; //order
 import tabgeneralOrderItem from "@/components/tabgeneralOrderItem.vue"; //order
 import tabproductsearch from "@/components/tabproductsearch.vue";
-import tabproductImgManage from "@/components/tabproductImgManage.vue";
 import tabproductAdd from "@/components/tabproductAdd.vue";
 import tabcustomizationOrderItem from "@/components/tabcustomizationOrderItem.vue";
 import tabdiscount from "@/components/tabdiscount.vue";
 import tabdiscountadd from "@/components/tabdiscountadd.vue";
+import tabproductCategoryManage from "@/components/tabproductCategoryManage.vue";
 
 export default {
   components: {
@@ -28,7 +28,6 @@ export default {
     tabraceform,
     tabracecategory,
     tabproductsearch,
-    tabproductImgManage,
     tabaccountfix,
     tabaccountadd,
     taborderItem,
@@ -38,6 +37,7 @@ export default {
     tabproductAdd,
     tabdiscount,
     tabdiscountadd,
+    tabproductCategoryManage
   },
 };
 </script>
@@ -65,16 +65,12 @@ const backendCategory = ref({
         tab: "discountadd",
       },
       d: {
-        cn: "商品圖片管理",
-        tab: "productImgManage",
+        cn: "商品新增",
+        tab: "productAdd",
       },
       e: {
         cn: "商品分類管理",
         tab: "productCategoryManage",
-      },
-      f: {
-        cn: "商品新增",
-        tab: "productAdd",
       },
     },
   },

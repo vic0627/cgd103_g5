@@ -527,6 +527,8 @@ $(document).ready(() => {
   }
 
   .step_container {
+    display: flex;
+    flex-wrap: wrap;
     position: relative;
     margin: 0 auto;
     gap: 1rem;
@@ -534,8 +536,7 @@ $(document).ready(() => {
     width: 300px;
     height: 300px;
     display: flex;
-    justify-content: center;
-    align-items: center;
+
 
     @include m($m-breakpoint) {
       gap: 2rem;
@@ -549,27 +550,21 @@ $(document).ready(() => {
       // flex-direction: column;
       text-align: center;
       width: 200px;
-      height: 200px;
+      height: 300px;
       padding-top: 30px;
       margin: 20px auto;
       font: $caption-s-p;
       color: $txt-color;
       box-sizing: border-box;
       z-index: -1;
-      
-      &:hover {
-        background: #000;
-        box-shadow: 0 0 30px $blue;
-        transition: all 0.5s;
-      }
       @include m($m-breakpoint) {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        max-width: 300px;
+        width: 200px;
       }
     }
-    .percent{
+    .percent{      
         position: relative;
         width: 300px;
         height: 300px; 
