@@ -220,7 +220,7 @@
                             </div>
                             <div class="action">
                                 <button type="submit">Log in</button>
-                                <p>Already have an account?<a href="/signin">Log in now</a></p>
+                                <p>Already have an account?<router-link to="/signin">Log in now</router-link></p>
                             </div>
                         </form>
                         <div class="divider">

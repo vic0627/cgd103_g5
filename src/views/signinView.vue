@@ -54,7 +54,8 @@
             <div class="img_box"></div>
             <div class="wrapper">
                 <main class="container">
-                    <a href="/home" class="logo"><img src="../assets/images/Signin/g5_logo_grey.png" alt=""></a>
+                    <!-- <a href="/home" class="logo"></a> -->
+                    <router-link class="logo" to="/home"><img src="../assets/images/Signin/g5_logo_grey.png" alt=""></router-link>
                     <div class="login">
                         <h1>Log in to EFPV</h1>
                         <form class="tab_panel" action="/member" method="get">
