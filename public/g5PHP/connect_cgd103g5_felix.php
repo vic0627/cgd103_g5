@@ -4,8 +4,8 @@ $dbname = "tibamefe_cgd103g5";
 // $password = "vwRBSb.j&K#E";
 // $port = "8888";
 $user = "root";
-$password = "root";
-$port = "8889";
+$password = "880614";
+$port = "3306";
 $dsn = "mysql:host=localhost;port=$port;dbname=$dbname;charset=utf8";
 
 $options = [

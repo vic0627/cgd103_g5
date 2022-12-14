@@ -27,8 +27,10 @@ export default {
     tabproductsearch,
     tabaccountfix,
     tabaccountadd,
+    taborderItem,
     tabgeneralOrderItem,
     tabcustomizationOrderItem,
+    tabcustomizationDetails,
     tabmod,
     tabproductAdd
   },
