@@ -145,16 +145,16 @@ const paginationReactive = reactive({
         paginationReactive.page = 1;
       }
     });
-      const  pagination = paginationReactive;
+    const  pagination = paginationReactive;
 </script>
 <template>
 <div class="top">
 <h2>
-    一般訂單查詢
+    一般訂單明細查詢
     <outComponents />
   </h2>
   <div class="table">
-    <n-data-table :columns="columns" :data="data" :pagination="pagination"  :bordered="false" :single-line="false" />
+    <n-data-table :columns="columns" :data="data" :pagination="pagination"  :bordered="true" :single-line="false" />
   </div>
 </div>
   

@@ -9,12 +9,13 @@ import tabraceform from "../../components/tabraceform.vue"; //RACE
 import tabracecategory from "../../components/tabracecategory.vue"; //RACE
 import tabaccountfix from "@/components/tabaccountfix.vue"; //account
 import tabaccountadd from "@/components/tabaccountadd.vue"; //account
-import taborderItem from "@/components/taborderitem.vue"; //order
 import tabproductsearch from "@/components/tabproductsearch.vue";
 import tabproductImgManage from "@/components/tabproductImgManage.vue";
 import tabproductAdd from "@/components/tabproductAdd.vue";
-import tabgeneralOrderItem from "@/components/tabgeneralOrderItem.vue";
-import tabcustomizationOrderItem from "@/components/customizationOrderItem.vue";
+import taborderItem from "@/components/taborderItem.vue";
+import tabcustomizationOrderItem from "@/components/tcustomizationOrderItem.vue";
+import tabgeneralOrderItem from "@/components/tgeneralOrderItem.vue";
+import tabcustomizationDetails from "@/components/tabcustomizationDetails.vue";
 export default {
   components: {
     tabhome,
@@ -28,11 +29,12 @@ export default {
     tabproductImgManage,
     tabaccountfix,
     tabaccountadd,
-    taborderItem,
     tabgeneralOrderItem,
     tabcustomizationOrderItem,
     tabmod,
-    tabproductAdd
+    tabproductAdd,
+    taborderItem,
+    tabcustomizationDetails,
   },
 };
 </script>

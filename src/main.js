@@ -4,7 +4,6 @@ import router from "./router";
 
 import navComponentsVue from "./components/navComponents.vue";
 import footerComponentsVue from "./components/footerComponents.vue";
-
 import outComponentsVue from "./components/outComponents.vue";
 
 import "./css/reset.css";

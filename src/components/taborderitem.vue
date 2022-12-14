@@ -1,97 +1,189 @@
 <script setup>
 import { reactive, onMounted,ref } from 'vue';
-
-const table = ref([
+import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
+const columns = [
   {
-    number:1,
-    account:"ajfajsajff",
-    date: "2022/12/12",
-    item: "EFPV 5",
-    status: "處理中",
-    name:"劉蹭餒",
-    level: "1",
-    total: "2,499",
+    title: "編號",
+    key: "number"
   },
   {
-    number:2,
-    account:"afjfwqjlw",
-    date: "2022/12/12",
-    item: "EFPV 5",
-    status: "處理中",
-    name:"劉蹭餒",
-    level: "2",
-    total: "2,499",
+    title: "訂單編號",
+    key: "onum"
   },
   {
-    number:3,
-    account:"qfjwhhlkw",
-    date: "2022/12/12",
-    item: "EFPV 5",
-    status: "處理中",
-    name:"劉蹭餒",
-    level: "2",
-    total: "2,499",
+    title: "日期",
+    key: "date"
   },
   {
-    number:4,
-    account:"qfjlwqjflq",
-    date: "2022/12/12",
-    item: "EFPV 5",
-    status: "處理中",
-    name:"劉蹭餒",
-    level: "2",
-    total: "2,499",
+    title: "品項",
+    key: "item"
   },
   {
-    number:5,
-    account:"qhfwqfqlflqf",
-    date: "2022/12/12",
-    item: "EFPV 5",
-    status: "處理中",
-    name:"劉蹭餒",
-    level: "2",
-    total: "2,499",
+    title: "狀態",
+    key: "status"
   },
-
-])
-
+  {
+    title: "訂貨人",
+    key: "name"
+  },
+  {
+    title: "合計",
+    key: "total"
+  },
+];
+const data = reactive([
+    {
+        number:1,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:2,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:3,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:4,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:5,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:6,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:7,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:8,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:9,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:10,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:11,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:11,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:11,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+    {
+        number:11,
+        onum:"ajfajsajff",
+        date: "2022/12/12",
+        item: "EFPV 5",
+        status: "處理中",
+        name:"劉蹭餒",
+        total: "2,499",
+    },
+]);
+const paginationReactive = reactive({
+      page: 2,
+      pageSize: 10,
+    //   showSizePicker: true,
+    //   pageSizes: [3, 5, 7],
+      onChange: (page) => {
+        paginationReactive.page = page;
+      },
+      onUpdatePageSize: (pageSize) => {
+        paginationReactive.pageSize = pageSize;
+        paginationReactive.page = 1;
+      }
+    });
+    const  pagination = paginationReactive;
 </script>
 <template>
 <div class="top">
-  <h2>
-    訂單查詢
+<h2>
+    一般訂單明細查詢
     <outComponents />
   </h2>
-  <div class="search_box">
-    <label for="search" class="label">查詢編號<input type="search" id="search" name="search" placeholder="請輸入編號"></label>
-    <div class="btn">
-      <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
-    </div>
-  </div>
-  <div class="tables">
-    <table>
-      <tr>
-        <th>編號</th>
-        <th>訂單編號</th>
-        <th>日期</th>
-        <th>品項</th>
-        <th>狀態</th>
-        <th>訂貨人</th>
-        <th>合計</th>
-      </tr>
-      <tr v-for="item in table" :key="item">
-        <td>{{item.number}}</td>
-        <td>{{item.account}}</td>
-        <td>{{item.date}}</td>
-        <td>{{item.item}}</td>
-        <td>{{item.status}}</td>
-        <td>{{item.name}}</td>
-        <td>$ {{item.total}}</td>
-      </tr>
-    </table>
+  <div class="table">
+    <n-data-table :columns="columns" :data="data" :pagination="pagination"  :bordered="true" :single-line="false" />
   </div>
 </div>
-
   
 </template>
 <style scoped lang="scss">
@@ -99,6 +191,10 @@ const table = ref([
 .top {
   width: 100%;
   display: block;
+}
+.table {
+  width: 95%;
+  margin: auto;
 }
 h2 {
   font-size: 40px;
@@ -206,5 +302,21 @@ h2 {
       }
     }
   }
+}
+
+
+.top {
+  width: 100%;
+  display: block;
+}
+h2 {
+  font-size: 40px;
+  color: #fff;
+  margin: 10px 10px;
+  padding: 10px 10px;
+  background-color: #597897;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

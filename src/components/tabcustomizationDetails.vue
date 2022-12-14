@@ -1,91 +1,20 @@
 <script setup>
 import { reactive, onMounted,ref } from 'vue';
-import { zhTW, NPagination,NTable } from 'naive-ui';
-const table = ref([
-  {
-    number:1,
-    account:"ajfajsajff",
-    name:"劉蹭餒",
-    level: "最高管理員"
-  },
-  {
-    number:2,
-    account:"afjfwqjlw",
-    name:"劉蹭餒",
-    level: "一般管理員"
-  },
-  {
-    number:3,
-    account:"qfjwhhlkw",
-    name:"劉蹭餒",
-    level: "一般管理員"
-  },
-  {
-    number:4,
-    account:"qfjlwqjflq",
-    name:"劉蹭餒",
-    level: "一般管理員"
-  },
-  
-
-])
-const page = ref(2);
-const pageSize = ref(3);
-
+import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
+// import { BTable } from 'bootstrap-vue';
 </script>
 <template>
 <div class="top">
-  <h2>
-    管理員管理
+<h2>
+    一般訂單明細查詢
     <outComponents />
   </h2>
-  <div class="search_box">
-    <label for="search" class="label">查詢編號<input type="search" id="search" name="search" placeholder="請輸入編號"></label>
-    <div class="btn">
-      <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
-    </div>
+  <div class="table">
+    <div>
+    <!-- <b-table striped hover :items="items"></b-table> -->
   </div>
-  <n-table>
-    <thead>
-      <tr>
-        <th>編號</th>
-        <th>帳號</th>
-        <th>管理員姓名</th>
-        <th>管理員級別</th>
-        <th>修改</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in table" :key="item.number" :pagination="pagination">
-        <td>{{item.number}}</td>
-        <td>{{item.account}}</td>
-        <td>{{item.name}}</td>
-        <td>{{item.level}}</td>
-        <td><a href="#"><span class="block">編輯</span> <span>/</span> <span class="red">刪除</span></a></td>
-      </tr>
-    </tbody>
-  </n-table>
-  
-  <!-- <div class="tables">
-    <table>
-      <tr>
-        <th>編號</th>
-        <th>帳號</th>
-        <th>管理員姓名</th>
-        <th>管理員級別</th>
-        <th>修改</th>
-      </tr>
-      <tr v-for="item in table" :key="item">
-        <td>{{item.number}}</td>
-        <td>{{item.account}}</td>
-        <td>{{item.name}}</td>
-        <td>{{item.level}}</td>
-        <td><a href="#"><span class="block">編輯</span> <span>/</span> <span class="red">刪除</span></a></td>
-      </tr>
-    </table>
-  </div> -->
+  </div>
 </div>
-
   
 </template>
 <style scoped lang="scss">
@@ -93,6 +22,10 @@ const pageSize = ref(3);
 .top {
   width: 100%;
   display: block;
+}
+.table {
+  width: 95%;
+  margin: auto;
 }
 h2 {
   font-size: 40px;
@@ -200,5 +133,21 @@ h2 {
       }
     }
   }
+}
+
+
+.top {
+  width: 100%;
+  display: block;
+}
+h2 {
+  font-size: 40px;
+  color: #fff;
+  margin: 10px 10px;
+  padding: 10px 10px;
+  background-color: #597897;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
