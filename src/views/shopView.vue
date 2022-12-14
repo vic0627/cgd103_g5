@@ -278,8 +278,8 @@ $(document).ready(() => {
                 <router-link
                   class="anchor btnPrimary"
                   to="/cart"
-                  data-title="BUY"
-                  ><span>BUY</span></router-link
+                  data-title="Add"
+                  ><span>Add Cart</span></router-link
                 >
               </div>
             </div>
