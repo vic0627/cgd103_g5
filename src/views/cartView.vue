@@ -11,38 +11,12 @@ import {bodyInit} from '../composables/useOnunmounted';
 
 bodyInit();
 const step = ref(1);
+const prevStep = () => {
+    step.value--
+}
 const nextStep = () => {
     step.value++
 }
-const customer1 = reactive(
-    [
-        {
-            "custNo":1,
-            "FirstName":"LILY",
-            "LastName":"LIU",
-            "Phone":"0911111111",
-            "OrderList":"EFPV Avata advance bundle",
-            "OrderQty":2,
-            "Address":"50 Hagiwara Tea Garden Dr, San Francisco, CA", 
-            "CreditCardNo":"01111 1111 1111 1111",
-            "isFirstClassMember": true 
-        },
-    ]
-)
-const customer2 = reactive(
-    [
-        {
-            "custNo":2,
-            "FirstName":"John",
-            "LastName":"Tseng",
-            "Phone":"0911114444",
-            "OrderList":"EFPV Avata pro bundle",
-            "OrderQty":4,
-            "Address":"30 Hagiwara Tea Garden Dr, San Francisco, CA", 
-            "CreditCardNo":"0222 2222 2222 2222"  
-        },
-    ]
-)
 </script>
 <template>
     <navComponentsVue />
@@ -50,7 +24,7 @@ const customer2 = reactive(
         <h2>SHOPPING CART</h2> 
         <OrderStepVue :step="step"/>  
         <Step1 v-if="step===1" :next-step="nextStep"></Step1>  
-        <Step2 v-if="step===2" :next-step="nextStep"></Step2>
+        <Step2 v-if="step===2" :next-step="nextStep" :prev-step="prevStep" ></Step2>
         <Step3 v-if="step===3"></Step3>
     </section>
     <footerComponentsVue />

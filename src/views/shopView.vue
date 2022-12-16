@@ -5,10 +5,31 @@ import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import {products,accessories,bundle_A,bundle_B} from "./js/Shop";
+// 
 bodyInit();
 
+// //連結php
+// const bundleRows1 = ref([]);
+// const bundleRows2 = ref([]);
+// const getShopInfo = () =>{
+//     //取得商城資訊
+//     let xhr = new XMLHttpRequest();
+//     xhr.onload = function(){
+//         if(xhr.status == 200){
+//           bundleRows1.value = JSON.parse(xhr.responseText);
+//           // bundleRows2.value = JSON.parse(xhr.responseText);
+//         }
+//     }
+//     xhr.open("get","/dist/g5PHP/getShop.php",true);
+//     xhr.send(null);
+// }
+onMounted(()=>{
+  // getShopInfo();
+  // $.getJSON('../../public/g5PHP/getShop.php').then(res => bundleRows1.value = res)
+})
 
-//fuselage filter
+
+// fuselage filter
 const source = ref([]);
 const search = ref("");
 const productList = computed(()=>{
@@ -21,10 +42,9 @@ const productList = computed(()=>{
 const getSource = ()=>{
   const result = JSON.stringify(products);
   source.value = JSON.parse(result);
-  // console.log(result);
 }
 
-//accessories filter
+// accessories filter
 const source1 = ref([]);
 const search1 = ref("");
 const productList_A = computed(()=>{
@@ -135,24 +155,6 @@ $(document).ready(() => {
   <section class="step_wrapper" id="customize">
     <h2><span>CUSTOMIZE STEP</span></h2>
     <p>Create Your Unique Style</p>
-    <!-- <div class="step_container">
-      <div  class="slide progress-25" >
-        <p>STEP 1</p>
-        <p>Choose your favorite color</p>
-      </div>
-      <div  class="slide progress-50" >
-        <p>STEP 2</p>
-        <p>Choose your favorite propellor</p>
-      </div>
-      <div  class="slide progress-75" >
-        <p>STEP 3</p>
-        <p>Choose your favorite motor</p>
-      </div>
-      <div  class="slide progress-100" >
-        <p>STEP 4</p>
-        <p>Finish your exclusive FVP</p>
-      </div>
-    </div> -->
     <div class="step_container box">
         <div class="slide percent p25">
             <svg>
@@ -237,9 +239,7 @@ $(document).ready(() => {
     <h2><span>FUSRLAGE</span></h2>
     <p>Select All FUSRLAGE Product You favoraite</p>
     <div class="search_box">
-      <!-- <label for="search"></label> -->
       <input  type="text"  name="search"  placeholder="search"  id="search"  v-model="search" >
-      <!-- <button type="submit" value="submit">Go</button> -->
     </div>
     <div class="card_slider">
       <div class="card_slider_items">
@@ -279,7 +279,7 @@ $(document).ready(() => {
                   class="anchor btnPrimary"
                   to="/cart"
                   data-title="Add"
-                  ><span>Add Cart</span></router-link
+                  ><span>Add</span></router-link
                 >
               </div>
             </div>
@@ -295,9 +295,7 @@ $(document).ready(() => {
     <h2><span>ACCESSORIES</span></h2>
     <p>More Various Then You Think</p>
     <div class="search_box">
-      <!-- <label for="search"></label> -->
       <input type="text" name="search1" placeholder="search" id="search1" v-model="search1"/>
-      <!-- <button type="submit" value="submit">Go</button> -->
     </div>
     <div class="card_slider">
       <div class="card_slider_items">
@@ -334,8 +332,8 @@ $(document).ready(() => {
                 <router-link
                   class="anchor btnPrimary"
                   to="/cart"
-                  data-title="BUY"
-                  ><span>BUY</span></router-link
+                  data-title="Add"
+                  ><span>Add</span></router-link
                 >
               </div>
             </div>
@@ -351,26 +349,26 @@ $(document).ready(() => {
     <h2><span>BUNDLE</span></h2>
     <p>Make You More Professional</p>
     <div class="wrapper">
-      <button href="beginner" @click="viewChange(1)">Beginner</button>
-      <button href="veteran" @click="viewChange(2)">Veteran</button>
+      <button  @click="viewChange(1)">Beginner</button>
+      <button  @click="viewChange(2)">Veteran</button>
     </div>
 
-    <div class="area active">
+    <!-- <div class="area active">
       <div class="card_container">
         <template v-if="view === 1">
           <div
-            v-for="beginner in bundle_A"
+            v-for="bundleRow1 in bundleRows1"
             class="card"
-            :key="beginner.name"
+            :key="bundleRow1"
             id="beginner"
           >
             <div class="pic">
-              <img :src="beginner.src" alt="beginner" />
+              <img :src="bundleRow1.image" alt="beginner" />
             </div>
             <h5>
-              <span>{{ beginner.title }}</span>
+              <span>{{bundleRow1.prd_name}}</span>
             </h5>
-            <p class="price">{{ beginner.price }}</p>
+            <p class="price">{{bundleRow1.prd_price}}</p>
             <div class="buttons">
               <router-link
                 class="anchors btnSecond"
@@ -384,20 +382,20 @@ $(document).ready(() => {
             </div>
           </div>
         </template>
-        <template v-else-if="view === 2">
+      <template v-else-if="view === 2">
           <div
-            v-for="veteran in bundle_B"
+            v-for="bundleRow2 in bundleRows2"
             class="card"
-            :key="veteran.name"
+            :key="bundleRow2"
             id="veteran"
           >
             <div class="pic">
-              <img :src="veteran.src" alt="veteran" />
+              <img :src="bundleRow2.image" alt="veteran" />
             </div>
             <h5>
-              <span>{{ veteran.title }}</span>
+              <span>{{ bundleRow2.prd_name}}</span>
             </h5>
-            <p class="price">{{ veteran.price }}</p>
+            <p class="price">{{ bundleRow2.prd_price}}</p>
             <div class="buttons">
               <router-link
                 class="anchors btnSecond"
@@ -414,11 +412,47 @@ $(document).ready(() => {
             </div>
           </div>
         </template>
-      </div>
-    </div>
-  </section>
+      </div> 
+    </div>  -->
+  </section> 
   <!-- bundle end-->
+  <section class="bundle" id="bundle">
+        <h2><span>BUNDLE</span></h2>
+        <p>Make You More Professional</p>
+        <div class="wrapper">
+            <button href="beginner" @click="viewChange(1)" >beginner</button>
+            <button href="veteran"  @click="viewChange(2)">veteran</button>
+        </div>
 
+        <div  class="area active">
+            <div class="card_container">
+                <template  v-if="view === 1">
+                    <div  v-for="beginner in bundle_A" class="card" :key="beginner.name" id="beginner">
+                        <div class="pic">
+                            <img :src="beginner.src" alt="beginner">
+                        </div>
+                        <h5><span>{{beginner.title}}</span></h5>
+                        <p class="price">{{beginner.price}}</p>
+                        <a class="buttons">
+                            <span class="btnPrimary" data-title="Add" >Add</span>
+                        </a>
+                    </div>
+                </template>
+                <template v-else-if="view === 2">
+                    <div v-for="veteran in bundle_B" class="card"  :key="veteran.name" id="veteran">
+                        <div class="pic">
+                            <img :src="veteran.src" alt="veteran">
+                        </div>
+                        <h5><span>{{veteran.title}}</span></h5>
+                        <p class="price">{{veteran.price}}</p>
+                        <a class="buttons">
+                            <span class="btnPrimary" data-title="Add" >Add</span>
+                        </a>
+                    </div>               
+                </template>
+            </div>
+        </div>
+    </section>
   <!-- ad start-->
   <section class="ad">
     <h2>FEEL <span>FREEDOM</span> IN THE SKY</h2>
@@ -439,8 +473,6 @@ $(document).ready(() => {
   position: relative;
   margin-top: 0;
   h2 {
-    // grid-column: 1/1;
-    // grid-row: 1/1;
     width: 100%;
     text-align: center;
     position: absolute;
@@ -453,8 +485,6 @@ $(document).ready(() => {
     .buttons{
       position: relative;
       top: -30%;
-       .btnSecond{
-    }
     }
    
     span {
@@ -527,32 +557,29 @@ $(document).ready(() => {
   }
 
   .step_container {
-    display: flex;
-    flex-wrap: wrap;
     position: relative;
     margin: 0 auto;
     gap: 1rem;
-    padding: 2rem;
-    width: 300px;
-    height: 300px;
-    display: flex;
-
-
+    width:100%;
     @include m($m-breakpoint) {
-      gap: 2rem;
-      display: flex;
-      justify-content: center;
-    }
-    .slide {
+      gap: 10px;
+      width: 1023px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      // flex-direction: column;
-      text-align: center;
-      width: 200px;
-      height: 300px;
-      padding-top: 30px;
-      margin: 20px auto;
+      align-items: center;
+      margin: 0 auto;
+    }
+    @include l($l-breakpoint) {
+      width: 1200px;
+    }
+    .slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+      margin:  auto;
       font: $caption-s-p;
       color: $txt-color;
       box-sizing: border-box;
@@ -561,19 +588,20 @@ $(document).ready(() => {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        width: 200px;
+        width: 500px;
+      }
+      @include l($l-breakpoint) {
+        width: 250px;
       }
     }
     .percent{      
         position: relative;
-        width: 300px;
-        height: 300px; 
         svg{
           position: relative;
-          width: 300px;
-          height: 300px;
+          width: 220px;
+          height: 220px;
           circle{
-            width:10px;
+            width: 150px;
             height: 150px;
             fill: none;
             stroke-width: 10;
@@ -593,6 +621,7 @@ $(document).ready(() => {
         .text{
           position: absolute;
           top: 100px;
+          text-shadow: 5px 5px  10px #f5f5f5;
         }
     }
     
