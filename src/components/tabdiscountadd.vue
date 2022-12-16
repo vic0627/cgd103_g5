@@ -8,11 +8,11 @@
     <div class="discount">
       <div class="name">
         <h3>優惠名稱</h3>
-        <input type="text" placeholder="優惠名稱" id="name" />
+        <input type="text" placeholder="輸入優惠名稱" id="name" />
       </div>
       <div class="description">
         <h3>優惠描述</h3>
-        <input type="text" placeholder="優惠描述" id="description" />
+        <input type="text" placeholder="輸入優惠描述" id="description" />
       </div>
       <div class="start">
         <h3>優惠開始時間</h3>
@@ -24,7 +24,7 @@
       </div>
       <div class="papa">
         <h3>折扣設定</h3>
-        <input type="text" placeholder="折扣設定" id="papa" />
+        <input type="text" placeholder="輸入折扣設定" id="papa" />
       </div>
     </div>
     <div class="btn">

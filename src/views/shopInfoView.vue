@@ -9,11 +9,14 @@ import body1 from "../assets/images/shopInfo/body_03_1.png";
 import body2 from "../assets/images/shopInfo/body_03_2.png";
 import body3 from "../assets/images/shopInfo/body_03_3.png";
 import { products, accessories, bundle_A, bundle_B } from "./js/Shop";
+// import { json } from "stream/consumers";
 
 bodyInit();
 
 //bottomBar第二版
 onMounted(() => {
+  fetchShop();
+  console.log(shopItem.value);
   let lastPos = 0;
   const nav = document.getElementById("purchaseBar");
   log(nav);
@@ -29,6 +32,15 @@ onMounted(() => {
     lastPos = currentPos; //再記住現在位置，跟未來的位置做比較
   });
 });
+
+const shopItem = ref([]);
+const fetchShop = () => {
+  fetch("/dist/g5PHP/getShop.php")
+    .then((res) => res.json())
+    .then((json) => {
+      shopItem.value = json;
+    });
+};
 
 //商品大圖
 const shopInfoItem = ref({
@@ -391,7 +403,7 @@ const btnLeft = () => {
       left: 25px;
 
       text-align: center;
-      background-color: rgba(150, 150, 200, 0.2);
+      background-color: rgba(150, 150, 200, 0.3);
       border-radius: 50%;
       padding: 3px;
 
@@ -401,7 +413,7 @@ const btnLeft = () => {
       right: 25px;
 
       text-align: center;
-      background-color: rgba(150, 150, 200, 0.2);
+      background-color: rgba(150, 150, 200, 0.3);
       border-radius: 50%;
       padding: 3px;
 
@@ -423,9 +435,15 @@ const btnLeft = () => {
       }
       #left {
         left: 20px;
+        &:hover {
+          background-color: #2a274c;
+        }
       }
       #right {
         left: 560px;
+        &:hover {
+          background-color: #2a274c;
+        }
       }
     }
 
@@ -800,7 +818,7 @@ h2 {
     margin: auto;
     justify-content: space-between;
     width: 80vw;
-
+    // max-width: 1023px;
     height: 1350px;
 
     flex-wrap: wrap;
@@ -830,8 +848,8 @@ h2 {
     }
 
     .fly {
-      width: 27vw;
-      height: 430px;
+      width: 28vw;
+      height: 400px;
       video {
         width: inherit;
         height: inherit;
@@ -847,7 +865,8 @@ h2 {
       }
     }
     .battery {
-      width: 48vw;
+      width: 43vw;
+      height: 400px;
       h4 {
         line-height: 45px;
         top: 0;
@@ -858,8 +877,8 @@ h2 {
         margin: 40px;
       }
       img {
-        height: 430px;
-        width: 48vw;
+        height: inherit;
+        width: inherit;
         transition: 0.7s ease-in-out;
       }
 
@@ -871,7 +890,7 @@ h2 {
       }
     }
     .far {
-      width: 38vw;
+      width: 34vw;
       h4 {
         line-height: 45px;
         top: 0;
@@ -1108,7 +1127,7 @@ h2 {
   @include m($m-breakpoint) {
     flex-direction: row;
     justify-content: space-between;
-    padding: 15px 60px;
+    padding: 15px 200px;
     .pnp {
       flex-direction: row;
       .purchaseBar_btn {
@@ -1116,7 +1135,7 @@ h2 {
         line-height: 40px;
         padding: 0 15px;
 
-        margin: 0 120px 0 60px;
+        margin: 0 400px 0 60px;
       }
     }
   }
