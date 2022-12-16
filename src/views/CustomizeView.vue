@@ -11,6 +11,7 @@ bodyInit();
 let w = null;
 let ww = window.innerWidth;
 onMounted(()=> {
+    fetchCustom();
     w = getW('.dashBoard');
     canvasRe();
     window.addEventListener('resize', ()=> {
@@ -21,7 +22,6 @@ onMounted(()=> {
     CUS.sceneInit();
     CUS.animation();
 });
-
 onBeforeUpdate(() => {
     $$('.loadBox').style.display = 'block';
     gsap.to('.loadProgress', {
@@ -29,10 +29,19 @@ onBeforeUpdate(() => {
         duration: .1,
     })
     niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
-})
+});
 onUpdated(() => {
     if(CUS.modelLoading.value===0)$$('.loadBox').style.display = 'none';
-})
+});
+const customItem = ref([]);
+const fetchCustom = () => {
+    fetch("/dist/g5PHP/getCustomizeItem.php")
+        .then(res => res.json())
+        .then(json => {
+            customItem.value = json;
+            log(customItem.value);
+        });
+};
 const units = ref({
     maxSpeed: {
         'id': 1,
@@ -180,12 +189,19 @@ const undo = () => {
     step.value[flow.value].show = false;
     switch (flow.value) {
         case 2:
-            bodyChosen.value = 0;
-            CUS.removeBody();
-            CUS.removePropellor();
+            bodyChosen.value.type = 0;
+            bodyChosen.value.color = 0;
+            bodyChosen.value.weight = 0;
+            propellorChosen.value.type = 0;
+            propellorChosen.value.color = 0;
+            propellorChosen.value.amount = 0;
+            propellorChosen.value.weight = 0;
+            CUS.removeAll();
             niddleSpin(4, 0, units.value.totalWeight.ratio);
             $all('.colorControl').forEach(c => c.classList.remove('chosen'));
+            break;
         case 3:
+            motorChosen.value.type = 0;
             motorChosen.value.kgm = 0;
             motorChosen.value.rpm = 0;
             niddleSpin(1, 0, units.value.maxSpeed.ratio);
@@ -194,8 +210,10 @@ const undo = () => {
             niddleSpin(5, 0, units.value.accelerateTime.ratio);
             niddleSpin(6, 0, units.value.accelerate.ratio);
             $all('.motorControl').forEach(c => c.classList.remove('chosen'));
+            break;
         case 4:
-            kgmcChosen.value = 0;
+            kgmcChosen.value.kgmc = 0;
+            kgmcChosen.value.type = 0;
             niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm), units.value.maxSpeed.ratio);
             if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm)>=100){
                 acc = accelerate(motorChosen.value.kgm);
@@ -206,6 +224,7 @@ const undo = () => {
             niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm)), units.value.accelerate.ratio);
             buyBtn.value = false;
             $all('.controllerControl').forEach(c => c.classList.remove('chosen'));
+            break;
     }
     flow.value--;
     step.value[flow.value].show = true;
@@ -237,36 +256,53 @@ const maxSpeed = (rpm, kgm, kgmc = 1) => parseInt((rpm * kgm * kgmc) / (units.va
 const accelerateTime = (kgm, kgmc = 1) => (Math.pow(kgm * kgmc, 2) / 40).toFixed(1);
 const accelerate = (accelerateTime) => (100 / 3.6 / accelerateTime).toFixed(1);
 
-const bodyChosen = ref(0);
+const bodyChosen = ref({
+    type: 0,
+    color: 0,
+    weight: 0,
+});
 
 const bodyChoose = (id, nid, src) => {
     CUS.body(id, src);
     units.value.totalWeight.value = (0 + droneModels.value[`body0${id}`].weight)/1000;
-    bodyChosen.value = droneModels.value[`body0${id}`].weight;
+    bodyChosen.value.weight = droneModels.value[`body0${id}`].weight;
+    bodyChosen.value.type = id;
+    bodyChosen.value.color = nid;
     btnStatus.value = true;
     $all('.colorControl').forEach(c => c.classList.remove('chosen'));
     $$(`.bodyControl${id}${nid}`).classList.add('chosen');
 };
+const propellorChosen = ref({
+   type: 0,
+   color: 0,
+   amount: 0,
+   weight: 0, 
+});
 const propellorChoose = (id, nid, src) => {
     CUS.propellor(id, src);
-    let propellorSum;
     if(id===1){
-        propellorSum = propellorModels.value[`propellor0${id}`].weight * 2;
+        propellorChosen.value.weight = propellorModels.value[`propellor0${id}`].weight * 2;
+        propellorChosen.value.amount = 2;
     }else{
-        propellorSum = propellorModels.value[`propellor0${id}`].weight * 4;
+        propellorChosen.value.weight = propellorModels.value[`propellor0${id}`].weight * 4;
+        propellorChosen.value.amount = 4;
     }
-    units.value.totalWeight.value = (bodyChosen.value + propellorSum)/1000;
+    units.value.totalWeight.value = (bodyChosen.value.weight + propellorChosen.value.weight)/1000;
+    propellorChosen.value.type = id;
+    propellorChosen.value.color = nid;
     btnStatus.value = true;
     $all('.colorControl').forEach(c => c.classList.remove('chosen'));
     $$(`.propellorControl${id}${nid}`).classList.add('chosen');
 };
 const motorChosen = ref({
+    type: 0,
     rpm: 0,
     kgm: 0,
 })
 const motorChoose = (id) => {
     motorChosen.value.rpm = motorModels.value[`motor0${id}`].rpm;
     motorChosen.value.kgm = motorModels.value[`motor0${id}`].kgm;
+    motorChosen.value.type = id;
     niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm), units.value.maxSpeed.ratio);
     niddleSpin(2, motorChosen.value.kgm, units.value.maxload.ratio);
     niddleSpin(3, motorChosen.value.rpm / 1000, units.value.rotatingSpeed.ratio);
@@ -281,18 +317,20 @@ const motorChoose = (id) => {
     $all('.motorControl').forEach(c => c.classList.remove('chosen'));
     $$(`.motorControl${id}`).classList.add('chosen');
 };
-const kgmcChosen = ref(0);
+const kgmcChosen = ref({
+    type: 0,
+    kgmc: 0,
+});
 const controllerChoose = (id) => {
-    kgmcChosen.value = controllerModels.value[`controller0${id}`].kgmc;
-    niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value), units.value.maxSpeed.ratio);
-    let acc;
-    if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value)>=100){
-        acc = accelerateTime(motorChosen.value.kgm, kgmcChosen.value);
+    kgmcChosen.value.kgmc = controllerModels.value[`controller0${id}`].kgmc;
+    niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value.kgmc), units.value.maxSpeed.ratio);
+    if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value.kgmc)>=100){
+        acc = accelerateTime(motorChosen.value.kgm, kgmcChosen.value.kgmc);
     }else{
         acc = 0;
     };
     niddleSpin(5, acc, units.value.accelerateTime.ratio);
-    niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm, kgmcChosen.value)), units.value.accelerate.ratio);
+    niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm, kgmcChosen.value.kgmc)), units.value.accelerate.ratio);
     btnStatus.value = true;
     if(flow.value===4&&btnStatus.value){
         buyBtn.value = true;
@@ -445,6 +483,7 @@ const toggleBoard = () => {
         left: 0;
     }
     @include l($l-breakpoint) {
+        top: 50%;
         width: 200px;
         height: 30px;
     }
