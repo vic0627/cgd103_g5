@@ -15,6 +15,8 @@ import taborderItem from "@/components/taborderItem.vue";
 import tabcustomizationOrderItem from "@/components/tcustomizationOrderItem.vue";
 import tabgeneralOrderItem from "@/components/tgeneralOrderItem.vue";
 import tabcustomizationDetails from "@/components/tabcustomizationDetails.vue";
+import tabdiscount from "@/components/tabdiscount.vue";
+import tabdiscountadd from "@/components/tabdiscountadd.vue";
 export default {
   components: {
     tabhome,
@@ -32,7 +34,9 @@ export default {
     tabcustomizationOrderItem,
     tabcustomizationDetails,
     tabmod,
-    tabproductAdd
+    tabproductAdd,
+    tabdiscount,
+    tabdiscountadd,
   },
 };
 </script>
