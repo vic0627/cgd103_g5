@@ -78,7 +78,8 @@ const table = ref([
       <td><button class="red">刪除</button></td>
 	  </tr>	
     </table>
-    
+    <!-- <button @click="props.tab('mod')" class="block">編輯</button>
+    <button class="red">刪除</button> -->
   </div>
 </div>
 
@@ -176,26 +177,40 @@ h2 {
         border: 1px solid #C0C0C0;
         padding: 20px 10px;
         overflow: hidden;
-        a{
-          color: #273747;
-          span{
-            color: #273747;
-          }
-          .block{
-            &:hover{
-              border-bottom: 1px solid #273747;
-            }
-          }
-          .red{
-            color: #F25A2A;
-            &:hover{
-              border-bottom: 1px solid #F25A2A;
-            }
-          }
-        }
       }
     }
   }
 }
+.block{
+  width: 80px;
+  cursor: pointer;
+  color: #273747;
+  background:#ffffff;
+  font-size: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background 0.5s;
+  border:1px solid #ccc;
+  &:hover{
+    color: #fff;
+    background:  $blue;
+  }
+}
+.red{
+  width: 80px;
+  cursor: pointer;
+  color: #273747;
+  background:#ffffff;
+  font-size: 20px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background 0.5s;
+  border:1px solid #ccc;
+  &:hover{
+    color: #fff;
+    background:  #e4594a;
+  }
+}
+
 
 </style>
