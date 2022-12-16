@@ -14,10 +14,11 @@
             
             if(this.value !=''){
                 if(regex_psw.test(this.value) == false){
-                    document.querySelector('.unameinfo').textContent=' format error';
+                    document.querySelector('.unameinfo').textContent='Incorrect email address format';
                     document.querySelector('.unameinfo').style['color']='red';
+
                 }else if(regex_psw.test(this.value)){
-                    document.querySelector('.unameinfo').textContent=' match the rules';
+                    document.querySelector('.unameinfo').textContent=' Good!';
                     document.querySelector('.unameinfo').style['color']='lightgreen';
                 }
             }else{
@@ -31,10 +32,10 @@
             let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
             if(this.value !=''){
                 if(regex_psw.test(this.value) == false){
-                    document.querySelector('.pswinfo').textContent=' format error';
+                    document.querySelector('.pswinfo').textContent='Incorrect password format';
                     document.querySelector('.pswinfo').style['color']='red';
                 }else if(regex_psw.test(this.value)){
-                    document.querySelector('.pswinfo').textContent=' match the rules';
+                    document.querySelector('.pswinfo').textContent=' Good';
                     document.querySelector('.pswinfo').style['color']='lightgreen';
                 }
             }else{
@@ -105,7 +106,9 @@
 $text-color:#fff;
 $link-color:#0080ff;
 $btn-color:#007FFB;
-$bg-color:rgb(54, 54, 54);
+$bg-color:#0F1F3D;
+
+$danger:#ff0000;
 section{
     margin: 0;
 }
@@ -209,8 +212,11 @@ span{
                             }
                         }
                         span{
-                            font-size: 12px;
                             color: $text-color;
+                            display: block;
+                            padding: 5px 0;
+                            font-size: 16px;
+
                         }
                 }
                 .divider{

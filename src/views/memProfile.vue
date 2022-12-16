@@ -7,7 +7,9 @@ import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
 // import $ from 'jquery';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
 
-onMounted(()=> {});
+onMounted(()=> {
+    
+});
 
 //address
 const state = reactive({
@@ -150,8 +152,8 @@ watch(() => state.frameworksIdx, (value) =>{
                     <span class=""></span>
 
                     <div class="action">
-                        <button type="submit">Confirmed</button>
                         <button type="">Cancel</button>
+                        <button type="submit">Confirmed</button>
                     </div>
                 </form>
             </section>

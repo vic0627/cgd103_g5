@@ -16,10 +16,10 @@
             
             if(this.value !=''){
                 if(regex_psw.test(this.value) == false){
-                    getQuery('.unameinfo').textContent=' Format error';
+                    getQuery('.unameinfo').textContent='Incorrect email address format';
                     getQuery('.unameinfo').style['color']='red';
                 }else if(regex_psw.test(this.value)){
-                    getQuery('.unameinfo').textContent=' Match the rules';
+                    getQuery('.unameinfo').textContent='Good!';
                     getQuery('.unameinfo').style['color']='lightgreen';
                 }
             }else{
@@ -33,15 +33,16 @@
             let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
             if(this.value !=''){
                 if(regex_psw.test(this.value) == false){
-                    getQuery('.pswinfo').textContent=' Format error';
+                    getQuery('.pswinfo').textContent='Incorrect password format';
                     getQuery('.pswinfo').style['color']='red';
                 }else if(regex_psw.test(this.value)){
-                    getQuery('.pswinfo').textContent=' Match the rules';
+                    getQuery('.pswinfo').textContent='Good!';
                     getQuery('.pswinfo').style['color']='lightgreen';
                 }
             }else{
                 getQuery('.pswinfo').textContent='The password must be 8 characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.';
-                getQuery('.pswinfo').style['color']='red';
+                getQuery('.pswinfo').style['color']='#888';
+                getQuery('.pswinfo').style['font-size']='16px';
             }
         });
         //password2 verify
@@ -50,13 +51,13 @@
             let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
             if(this.value !=''){
                 if(regex_psw.test(this.value) == false){
-                    getQuery('.pswinfo2').textContent=' Format error';
+                    getQuery('.pswinfo2').textContent='Incorrect password format';
                     getQuery('.pswinfo2').style['color']='red';
                 }else if(regex_psw.test(this.value)&& psw.value !=psw2.value  ){
-                    getQuery('.pswinfo2').textContent=' Match the rules but wrong password';
+                    getQuery('.pswinfo2').textContent='Good!';
                     getQuery('.pswinfo2').style['color']='orange';
                 }else if(regex_psw.test(this.value)&& psw.value ==psw2.value){
-                    getQuery('.pswinfo2').textContent=' Match the rules';
+                    getQuery('.pswinfo2').textContent='Good!';
                     getQuery('.pswinfo2').style['color']='lightgreen';
                 }
             }else{
@@ -219,7 +220,7 @@
                                 <!-- <a href="" class="forget_password">Forget Password?</a> -->
                             </div>
                             <div class="action">
-                                <button type="submit">Log in</button>
+                                <button type="submit">Submit</button>
                                 <p>Already have an account?<router-link to="/signin">Log in now</router-link></p>
                             </div>
                         </form>
@@ -252,7 +253,7 @@
 $text-color:#fff;
 $link-color:#0080ff;
 $btn-color:#007FFB;
-$bg-color:rgb(54, 54, 54);
+$bg-color:#0F1F3D;
 section{
     margin: 0;
 }
@@ -270,10 +271,7 @@ header{
     margin-top: 8px;
     border-radius: 4px;
 }
-span{
-    display: block;
-    padding: 5px 0;
-}
+
 .banner{
     position: relative;
     width: 100%;
@@ -347,8 +345,11 @@ span{
                             }
                         }
                         span{
-                            font-size: 12px;
                             color: $text-color;
+                            display: block;
+                            padding: 5px 0;
+                            font-size: 16px;
+
                         }
                         .username{
                             display: flex;
