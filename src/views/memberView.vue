@@ -3,6 +3,7 @@ import { onMounted, registerRuntimeCompiler } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
+import memberCardVue from '@/components/memberCenter/memberCard.vue';
 bodyInit();
 
 import { useMotion } from "@vueuse/motion";
@@ -10,6 +11,8 @@ export default {
   components: {
     navComponentsVue,
     footerComponentsVue,
+    memberCardVue,
+
   },
 };
 </script>
@@ -19,7 +22,7 @@ export default {
   <section class="member">
     <div class="member_box">
       <div class="member_top">
-        <div class="member_card">
+        <!-- <div class="member_card">
           <img
             src="../assets/images/member/mem_img02.png"
             alt="badge"
@@ -43,7 +46,8 @@ export default {
               <p class="point_txt">POINTS : <span>56,813</span></p>
             </div>
           </div>
-        </div>
+        </div> -->
+        <memberCardVue/>
         <div class="member_drone">
           <img src="../assets/images/member/mem_drone02.png" alt="drone" />
           <div class="drone_word">
@@ -99,76 +103,79 @@ section {
     .member_top {
       width: 90%;
       margin: 0 auto;
-      .member_card {
-        position: relative;
-        width: 100%;
-        border: 1px solid rgb(255, 255, 255);
-        max-width: 520px;
-        height: 200px;
-        background: linear-gradient(
-          -200deg,
-          #f9f48f,
-          #fbc65d,
-          #e8b443,
-          #e4b445
-        );
-        margin: auto;
-        border-radius: 10px;
-        .badge {
-          position: absolute;
-          top: -15px;
-          left: 0;
-          width: 35px;
-          height: 50px;
-        }
-        .card_top {
-          display: flex;
-          margin: 15px;
-
-          .card_top_word {
-            display: flex;
-            margin: 20px 15px;
-            position: relative;
-            .head {
-              width: 90px;
-              height: 90px;
-            }
-            h2 {
-              font-size: 22px;
-              margin: auto 15px;
-              color: #61451b;
-            }
-          }
-          @include l($l-breakpoint) {
-            .card_top_word {
-              .head {
-                width: 120px;
-                height: 120px;
-              }
-            }
-          }
-        }
-        .card_down {
-          display: flex;
-          justify-content: space-around;
-          .gold_box {
-            p {
-              font-weight: 700;
-              color: #934005;
-            }
-          }
-          .point_box {
-            p {
-              font-weight: 700;
-              color: #934005;
-              span {
-                color: #652d05;
-                font-weight: 700;
-              }
-            }
-          }
-        }
+      .meminfo{
+        aspect-ratio: 16/9;
       }
+      // .member_card {
+      //   position: relative;
+      //   width: 100%;
+      //   border: 1px solid rgb(255, 255, 255);
+      //   max-width: 520px;
+      //   height: 200px;
+      //   background: linear-gradient(
+      //     -200deg,
+      //     #f9f48f,
+      //     #fbc65d,
+      //     #e8b443,
+      //     #e4b445
+      //   );
+      //   margin: auto;
+      //   border-radius: 10px;
+      //   .badge {
+      //     position: absolute;
+      //     top: -15px;
+      //     left: 0;
+      //     width: 35px;
+      //     height: 50px;
+      //   }
+      //   .card_top {
+      //     display: flex;
+      //     margin: 15px;
+
+      //     .card_top_word {
+      //       display: flex;
+      //       margin: 20px 15px;
+      //       position: relative;
+      //       .head {
+      //         width: 90px;
+      //         height: 90px;
+      //       }
+      //       h2 {
+      //         font-size: 22px;
+      //         margin: auto 15px;
+      //         color: #61451b;
+      //       }
+      //     }
+      //     @include l($l-breakpoint) {
+      //       .card_top_word {
+      //         .head {
+      //           width: 120px;
+      //           height: 120px;
+      //         }
+      //       }
+      //     }
+      //   }
+      //   .card_down {
+      //     display: flex;
+      //     justify-content: space-around;
+      //     .gold_box {
+      //       p {
+      //         font-weight: 700;
+      //         color: #934005;
+      //       }
+      //     }
+      //     .point_box {
+      //       p {
+      //         font-weight: 700;
+      //         color: #934005;
+      //         span {
+      //           color: #652d05;
+      //           font-weight: 700;
+      //         }
+      //       }
+      //     }
+      //   }
+      // }
       @include m($m-breakpoint) {
         .member_card {
           height: 220px;

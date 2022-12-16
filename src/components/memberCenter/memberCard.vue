@@ -1,5 +1,10 @@
 <script setup>
+import { onMounted } from 'vue';
+
 // import { ref, onMounted,reactive,computed,watch } from 'vue';
+// onMounted(() => {
+    
+// }),
 </script>
 
 <template>
@@ -8,8 +13,8 @@
             <img src="@/assets/images/member/head.jpeg" alt="">
         </div>
         <div class="memcard">
-            <p>SEVAGOTHPRIME</p>
-            <p class="p2">mesaprime@gmail.com</p>
+            <p>username</p>
+            <p class="p2">example@gmail.com</p>
         </div>
     </div>
 </template>

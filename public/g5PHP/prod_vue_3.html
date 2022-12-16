@@ -53,7 +53,7 @@ let productsVue = new Vue({
 					productsVue.memRows = JSON.parse(xhr.responseText);
 				}
 			}
-			xhr.open("get", "getProducts.php", true);
+			xhr.open("get", "/getProducts.php", true);
 			xhr.send(null);
 		}
 	},
