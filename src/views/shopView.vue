@@ -1,6 +1,6 @@
 <script setup>
 import $ from "jquery";
-import { ref, reactive, onMounted, computed } from "vue";
+import { ref, reactive, onMounted, computed, onUpdated } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
@@ -9,40 +9,49 @@ import {products,accessories,bundle_A,bundle_B} from "./js/Shop";
 bodyInit();
 
 // //連結php
-// const bundleRows1 = ref([]);
-// const bundleRows2 = ref([]);
-// const getShopInfo = () =>{
-//     //取得商城資訊
-//     let xhr = new XMLHttpRequest();
-//     xhr.onload = function(){
-//         if(xhr.status == 200){
-//           bundleRows1.value = JSON.parse(xhr.responseText);
-//           // bundleRows2.value = JSON.parse(xhr.responseText);
-//         }
-//     }
-//     xhr.open("get","/dist/g5PHP/getShop.php",true);
-//     xhr.send(null);
-// }
-onMounted(()=>{
-  // getShopInfo();
-  // $.getJSON('../../public/g5PHP/getShop.php').then(res => bundleRows1.value = res)
+const bundleRows_beginner = ref([]);
+const bundleRows_veteran = ref([]);
+const bundleRows3 = ref([]);
+const getShopInfo = () =>{
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+    .then(res => res.json())
+    .then(json => {
+      bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'))
+      bundleRows_veteran.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('pro'))
+      source.value = json.filter(i => i.cat_no === 1)
+      console.log(source.value);
+      for(let i=0; i<products.length; i++){
+        products[i].id = source.value[i].pro_no;
+        products[i].title = source.value[i].pro_name;
+        products[i].Original_Price = source.value[i].pro_price;
+        products[i].Discount_Price = source.value[i].sale_price;
+        products[i].title = source.value[i].sale;
+        products[i].title = source.value[i].image;
+        
+      }
+      source1.value = json.filter(i => i.cat_no === 2)
+      // console.log(source1.value);
+    })
+}
+getShopInfo();
+const productList = computed(()=>{
+    let cache = products;
+    if(search.value != ""){
+        cache = cache.filter(item=>item.title.toLowerCase().includes(search.value.toLowerCase()));
+    }
+    return cache;
 })
-
 
 // fuselage filter
 const source = ref([]);
-const search = ref("");
-const productList = computed(()=>{
-  let cache = source.value;
-  if(search.value != ""){
-      cache = cache.filter(item=>item.title.toLowerCase().includes(search.value.toLowerCase()));
-  }
-  return cache;
-})
-const getSource = ()=>{
+const sourceToProducts = () => {
+};
+const search = ref(""); 
+
+/* const getSource = ()=>{
   const result = JSON.stringify(products);
   source.value = JSON.parse(result);
-}
+} */
 
 // accessories filter
 const source1 = ref([]);
@@ -59,7 +68,7 @@ const getSource1 = ()=>{
   source1.value = JSON.parse(result1);
 }
 onMounted(()=>{
-  getSource();
+  //getSource();
   getSource1();
 });
 
@@ -239,51 +248,52 @@ $(document).ready(() => {
     <h2><span>FUSRLAGE</span></h2>
     <p>Select All FUSRLAGE Product You favoraite</p>
     <div class="search_box">
-      <input  type="text"  name="search"  placeholder="search"  id="search"  v-model="search" >
+      <input  type="text"  name="search"  placeholder="search"  id="search"  v-model="search">
     </div>
     <div class="card_slider">
       <div class="card_slider_items">
         <div v-for="item in productList" class="card_slider_item" :key="item.id">
-          <div v-if="item.new == true" class="new"><span>New</span></div>
+          <!-- <div v-if="item.new == true" class="new"><span>New</span></div> -->
           <div v-if="item.sale == true" class="sale"><span>Sale</span></div>
-          <div class="product_box">
-            <div class="img_box">
-              <button class="prev" id="prevBtn" @click="prevPic(item.id)">
-                ‹
-              </button>
-              <img :src="item[`src${item.id}`][count[item.id]]" alt="product_img"/>
-              <button class="next" id="nextBtn" @click="nextPic(item.id)">
-                ›
-              </button>
-            </div>
-            <div class="detail_box">
-              <h5 class="title">{{ item.title }}</h5>
-              <p v-if="item.Discount_Price != ''" class="price discount">
-                {{ item.Discount_Price }}
-              </p>
-              <p v-if="item.sale == true" class="price d">
-                {{ item.Original_Price }}
-              </p>
-              <p v-if="item.sale != true" class="price">
-                {{ item.Original_Price }}
-              </p>
-              
-              <div class="buttons">
-                <router-link
-                  class="anchors btnSecond"
-                  data-title="More"
-                  to="/shopInfo"
-                  ><span>More</span></router-link
-                >
-                <router-link
-                  class="anchor btnPrimary"
-                  to="/cart"
-                  data-title="Add"
-                  ><span>Add</span></router-link
-                >
+            <div class="product_box">
+              <div class="img_box">
+                <button class="prev" id="prevBtn" @click="prevPic(item.id)">
+                  ‹
+                </button>
+                <img :src="item[`src${item.id}`][count[item.id]]" alt="product_img"/>
+                <button class="next" id="nextBtn" @click="nextPic(item.id)">
+                  ›
+                </button>
+              </div>
+              <div class="detail_box">
+                <h5 class="title">{{ item.title}}</h5>
+                <p v-if="item.sale == true" class="price discount">
+                  $USD{{ item.Discount_Price}}
+                </p>
+                <p v-if="item.sale == false" class="price">
+                  $USD{{ item.Original_Price}}
+                </p>
+                <!-- <p v-if="item.sale == true" class="price d">
+                  {{ item.Original_Price }}
+                </p> -->
+                
+                <div class="buttons">
+                  <router-link
+                    class="anchors btnSecond"
+                    data-title="More"
+                    to="/shopInfo"
+                    ><span>More</span></router-link
+                  >
+                  <router-link
+                    class="anchor btnPrimary"
+                    to="/cart"
+                    data-title="Add"
+                    @click="func(item.id)"
+                    ><span>Add</span></router-link
+                  >
+                </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -299,28 +309,28 @@ $(document).ready(() => {
     </div>
     <div class="card_slider">
       <div class="card_slider_items">
-        <div v-for="i in productList_A" class="card_slider_item" :key="i.id">
-          <div v-if="i.new == true" class="new"><span>New</span></div>
+        <div v-for="i in productList_A" class="card_slider_item" :key="i.pro_no">
+          <!-- <div v-if="i.new == true" class="new"><span>New</span></div> -->
           <div v-if="i.sale == true" class="sale"><span>Sale</span></div>
           <div class="product_box">
             <div class="img_box">
               <button class="prev" id="prevBtn" @click="prevPic(i.id)">
                 ‹
               </button>
-              <img :src="i[`src${i.id}`][count[i.id]]" alt="product_img" />
+              <!-- <img :src="i[`src${i.pro_no}`][count[i.id]]" alt="product_img" /> -->
               <button class="next" id="nextBtn" @click="nextAsscPic(i.id)">
                 ›
               </button>
             </div>
             <div class="detail_box">
-              <h5 class="title">{{ i.title }}</h5>
-              <p v-if="i.Discount_Price != ''" class="price discount">
-                {{ i.Discount_Price }}
+              <h5 class="title">{{ i.pro_name }}</h5>
+              <p v-if="i.sale = true" class="price discount">
+                $USD{{ i.sale_price }}
               </p>
-              <p v-if="i.sale != true" class="price">{{ i.Original_Price }}</p>
-              <p v-if="i.sale == true" class="price d">
+              <p v-if="i.sale = false" class="price d">$USD{{ i.prd_price }}</p>
+              <!-- <p v-if="i.sale" class="price d">
                 {{ i.Original_Price }}
-              </p>
+              </p> -->
               
               <div class="buttons">
                 <router-link
@@ -331,10 +341,9 @@ $(document).ready(() => {
                 >
                 <router-link
                   class="anchor btnPrimary"
-                  to="/cart"
                   data-title="Add"
-                  ><span>Add</span></router-link
-                >
+                  to="/cart"
+                  ><span>Add</span></router-link>
               </div>
             </div>
           </div>
@@ -353,22 +362,25 @@ $(document).ready(() => {
       <button  @click="viewChange(2)">Veteran</button>
     </div>
 
-    <!-- <div class="area active">
+    <div class="area active">
       <div class="card_container">
         <template v-if="view === 1">
           <div
-            v-for="bundleRow1 in bundleRows1"
+            v-for="bundleRow1 in bundleRows_beginner"
             class="card"
             :key="bundleRow1"
             id="beginner"
           >
             <div class="pic">
-              <img :src="bundleRow1.image" alt="beginner" />
+              <img :src="`/cgd103_g5_v2/src/assets/images/shop/${bundleRow1.images}`" alt="beginner" />
             </div>
             <h5>
               <span>{{bundleRow1.prd_name}}</span>
             </h5>
-            <p class="price">{{bundleRow1.prd_price}}</p>
+            <p v-if="bundleRow1.sale = true" class="price discount">
+                $USD{{ bundleRow1.sale_price }}
+              </p>
+            <p class="price">$USD{{bundleRow1.prd_price}}</p>
             <div class="buttons">
               <router-link
                 class="anchors btnSecond"
@@ -384,13 +396,13 @@ $(document).ready(() => {
         </template>
       <template v-else-if="view === 2">
           <div
-            v-for="bundleRow2 in bundleRows2"
+            v-for="bundleRow2 in bundleRows_veteran"
             class="card"
             :key="bundleRow2"
             id="veteran"
           >
             <div class="pic">
-              <img :src="bundleRow2.image" alt="veteran" />
+              <img :src="`/src/assets/images/${bundleRow2.image}`" alt="veteran" />
             </div>
             <h5>
               <span>{{ bundleRow2.prd_name}}</span>
@@ -413,10 +425,10 @@ $(document).ready(() => {
           </div>
         </template>
       </div> 
-    </div>  -->
+    </div> 
   </section> 
   <!-- bundle end-->
-  <section class="bundle" id="bundle">
+  <!-- <section class="bundle" id="bundle">
         <h2><span>BUNDLE</span></h2>
         <p>Make You More Professional</p>
         <div class="wrapper">
@@ -452,7 +464,7 @@ $(document).ready(() => {
                 </template>
             </div>
         </div>
-    </section>
+    </section> -->
   <!-- ad start-->
   <section class="ad">
     <h2>FEEL <span>FREEDOM</span> IN THE SKY</h2>
