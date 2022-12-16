@@ -1,6 +1,8 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue';
 import { log } from '../../composables/useCommon';
+import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
+
 
 const shows = () => {
     var x = document.getElementById("password");
@@ -32,10 +34,10 @@ const shows = () => {
                         <p class="message">請輸入6~10位密碼驗證</p>
                     </div>
                 </div>
-                <button type="submit" class="btn" @click="removeCookie">登入</button>
+                <router-link to="/backend"><button type="submit" class="btn" @click="removeCookie">登入</button></router-link>
             </form>
             <div class="links">
-                <router-link to="/backend" class="leave link" >離開後台</router-link>
+                <router-link to="/" class="leave link" >離開後台</router-link>
                 <router-link to="/home" class="home link" >前往首頁</router-link>
             </div>
         </div>

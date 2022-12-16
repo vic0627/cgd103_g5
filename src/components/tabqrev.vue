@@ -1,6 +1,6 @@
 <script setup>
-
 import { reactive, onMounted,ref } from 'vue';
+const props = defineProps(["tab"])
 const faqRows = ref([]);
 		const getProducts = () => {
 			//取得商品資料
@@ -10,7 +10,7 @@ const faqRows = ref([]);
 					faqRows.value = JSON.parse(xhr.responseText);
 				}
 			}
-			xhr.open("get", "/dist/g5PHP/getProducts.php", true);
+			xhr.open("get", "/dist/g5PHP/getFaqs.php", true);
 			xhr.send(null);
 		}
 	
@@ -61,35 +61,27 @@ const table = ref([
       <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
     </div>
   </div>
-  <div class="tables">
+  <div class="tables" id="products" align="center">
     <table>
       <tr>
-        <th>編號</th>
-        <th>問題</th>
-        <th>回覆</th>
-        <th>修改</th>
-      </tr>
-      <tr v-for="item in table" :key="item">
-        <td>{{item.number}}</td>
-        <td>{{item.q}}</td>
-        <td>{{item.a}}</td>
-        <td><button class="block">編輯</button> <span>/</span> <botton class="red">修改</botton></td>
-      </tr>
-    </table>
-  </div>
-</div>
-<table id="products" align="center">
-	<tr bgcolor="#bfbfef">
-		<th>問題編號</th>
-		<th>問題</th>
-		<th>回答</th>
-	</tr>
-	<tr v-for="faqRow in faqRows" :key="faqRow">
+		  <th>編號</th>
+		  <th>問題</th>
+		  <th>回答</th>
+		  <th>編輯</th>
+      <th>刪除</th>
+	  </tr>
+	  <tr v-for="faqRow in faqRows" :key="faqRow">
 			<td>{{faqRow.faq_no}}</td>
 			<td>{{faqRow.faq_des}}</td>
 			<td>{{faqRow.faq_ans}}</td>
-	</tr>	
-</table>
+      <td><button @click="props.tab('mod')" class="block">編輯</button></td>
+      <td><button class="red">刪除</button></td>
+	  </tr>	
+    </table>
+    
+  </div>
+</div>
+
 
 </template>
 <style scoped lang="scss">
@@ -184,18 +176,17 @@ h2 {
         border: 1px solid #C0C0C0;
         padding: 20px 10px;
         overflow: hidden;
-          .block{
-            border: none;
-            font-size: 22px;
-            background: transparent;
+        a{
+          color: #273747;
+          span{
             color: #273747;
-            cursor: pointer;
+          }
+          .block{
             &:hover{
               border-bottom: 1px solid #273747;
             }
           }
           .red{
-            cursor: pointer;
             color: #F25A2A;
             &:hover{
               border-bottom: 1px solid #F25A2A;
@@ -203,6 +194,8 @@ h2 {
           }
         }
       }
+    }
   }
 }
+
 </style>

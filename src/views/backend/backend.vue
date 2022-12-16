@@ -103,10 +103,6 @@ const backendCategory = ref({
         cn: "新增問題",
         tab: "qadd",
       },
-      c: {
-        cn: "問題修改",
-        tab: "mod",
-      },
     },
   },
   news: {
@@ -211,7 +207,7 @@ const log = (e) => console.log(e);
         </ol>
       </div>
     </aside>
-    <component :is="currentTabComponent" class="manage" />
+    <component :is="currentTabComponent" class="manage" :tab="changeTab"/>
   </div>
 </template>
 
