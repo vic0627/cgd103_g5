@@ -56,7 +56,7 @@ import img14_1 from "/src/assets/images/shop/body_03_blue_1.png";
 import img14_2 from "/src/assets/images/shop/body_03_blue_2.png";
 import img14_3 from "/src/assets/images/shop/body_03_blue_3.png";
 
-//======================================================= accessories
+// ======================================================= accessories
 
 import imga1_1 from "/src/assets/images/shop/propellor_01_black_1.png";
 import imga1_2 from "/src/assets/images/shop/propellor_01_black_2.png";
