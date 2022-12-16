@@ -6,7 +6,7 @@ import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
 <template>
 <div class="top">
 <h2>
-    一般訂單明細查詢
+    客製化訂單明細查詢
     <outComponents />
   </h2>
   <div class="table">

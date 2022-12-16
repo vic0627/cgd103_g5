@@ -31,6 +31,36 @@ const columns = [
     key: "total"
   },
 ];
+const column = [
+  {
+    title: "編號",
+    key: "admin_no"
+  },
+  {
+    title: "訂單編號",
+    key: "authority"
+  },
+  {
+    title: "日期",
+    key: "admin_acc"
+  },
+  {
+    title: "品項",
+    key: "admin_psw"
+  },
+  {
+    title: "狀態",
+    key: "status"
+  },
+  {
+    title: "訂貨人",
+    key: "name"
+  },
+  {
+    title: "合計",
+    key: "total"
+  },
+];
 const data = reactive([
     {
         number:1,
@@ -146,6 +176,22 @@ const paginationReactive = reactive({
       }
     });
     const  pagination = paginationReactive;
+
+const adminRows = ref([]);
+		const getAdmin = () => {
+			//取得商品資料
+			let xhr = new XMLHttpRequest();
+			xhr.onload = function(){
+				if(xhr.status == 200){ //OK
+				  adminRows.value = JSON.parse(xhr.responseText);
+				}
+			}
+			xhr.open("get", "/dist/g5PHP/getAdmin.php", true);
+			xhr.send(null);
+		}
+	onMounted(()=>{
+		getAdmin();
+  });
 </script>
 <template>
 <div class="top">
@@ -154,7 +200,7 @@ const paginationReactive = reactive({
     <outComponents />
   </h2>
   <div class="table">
-    <n-data-table :columns="columns" :data="data" :pagination="pagination"  :bordered="true" :single-line="false" />
+    <n-data-table :columns="column" :data="adminRows" :pagination="pagination"  :bordered="true" :single-line="false" />
   </div>
 </div>
   

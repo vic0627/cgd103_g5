@@ -1,6 +1,21 @@
 <script setup>
 import { reactive, onMounted,ref } from 'vue';
 import { zhTW, NPagination,NTable } from 'naive-ui';
+const adminRows = ref([]);
+		const getAdmin = () => {
+			//取得商品資料
+			let xhr = new XMLHttpRequest();
+			xhr.onload = function(){
+				if(xhr.status == 200){ //OK
+				  adminRows.value = JSON.parse(xhr.responseText);
+				}
+			}
+			xhr.open("get", "/dist/g5PHP/getAdmin.php", true);
+			xhr.send(null);
+		}
+	onMounted(()=>{
+		getAdmin();
+  });
 const table = ref([
   {
     number:1,
@@ -52,15 +67,15 @@ const pageSize = ref(3);
         <th>帳號</th>
         <th>管理員姓名</th>
         <th>管理員級別</th>
-        <th>修改</th>
       </tr>
     </thead>
     <tbody>
-      <tr v-for="item in table" :key="item.number" :pagination="pagination">
-        <td>{{item.number}}</td>
-        <td>{{item.account}}</td>
-        <td>{{item.name}}</td>
-        <td>{{item.level}}</td>
+      <tr v-for="item in adminRows" :key="item" :pagination="pagination">
+        <td>{{item.admin_no}}</td>
+        <td>{{item.admin_acc}}</td>
+        <td>{{item.admin_name}}</td>
+        <td>{{item.authority}}</td>
+        <td>{{item.admin_psw}}</td>
         <td><a href="#"><span class="block">編輯</span> <span>/</span> <span class="red">刪除</span></a></td>
       </tr>
     </tbody>
