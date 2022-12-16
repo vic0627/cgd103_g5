@@ -18,23 +18,23 @@ const shows = () => {
 <template>
    <div class="container">
         <div class="box">
-            <form action="/" id="form">
+            <form action="/" id="myForm">
                 <h2>後台登入</h2>
                 <div class="form-group">
-                    <label for="userName">帳號</label>
-                    <input type="text" id="userName" name="userName"  maxlength="10" minlength="6">
+                    <label for="memId">管理員帳號</label>
+                    <input type="text" id="memId" name="memId"  maxlength="3" minlength="3" required placeholder="請輸入帳號">
                 </div>
                 <div class="form-group">
-                    <label for="password">密碼</label>
-                    <input type="password" id="password" name="password" class="password" maxlength="10" minlength="6">
+                    <label for="password">管理員密碼</label>
+                    <input type="password" id="password" name="password" class="password" maxlength="3" minlength="3" required placeholder="請輸入密碼">
                     <div class="down">
                         <div class="in">
                         <input type="checkbox" id="check" @click="shows()"><span>顯示密碼</span>
                         </div>
-                        <p class="message">請輸入6~10位密碼驗證</p>
+                        <p class="message">請輸入3位密碼驗證</p>
                     </div>
                 </div>
-                <router-link to="/backend"><button type="submit" class="btn" @click="removeCookie">登入</button></router-link>
+                <router-link to="/backend"><button type="submit" class="btn"  id="btnLogin" @click="removeCookie">登入</button></router-link>
             </form>
             <div class="links">
                 <router-link to="/" class="leave link" >離開後台</router-link>
