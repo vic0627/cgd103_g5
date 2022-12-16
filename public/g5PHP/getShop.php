@@ -2,7 +2,6 @@
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
-<<<<<<< HEAD
 	require_once("./connect_cgd103g5.php");
 	// $sql =  "select * tibamefe_cgd103g5.products where product_category='3'";
 	//beginner
@@ -18,14 +17,6 @@ try {
 	// $bundleRow2 = $shop2->fetchAll(PDO::FETCH_ASSOC);
 	// echo json_encode($bundleRow2);
 
-=======
-	require_once("./connect_cgd103g5_ram.php");
-	$sql = "select * from tibamefe_cgd103g5.products";
-	$pro = $pdo->prepare($sql);
-	$pro->execute();
-	$proRows = $pro->fetchAll(PDO::FETCH_ASSOC);
-	echo json_encode($proRows);
->>>>>>> ram
 } catch (PDOException $e) {
 	//echo "錯誤原因 : ", $e->getMessage(), "<br>";
 	//echo "錯誤行號 : ", $e->getLine(), "<br>";
