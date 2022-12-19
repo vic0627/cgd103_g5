@@ -5,8 +5,40 @@
     // import { verify } from 'crypto';
     import {reactive,ref, onMounted} from "vue";
 
-
     onMounted(()=> {
+        function $id(id){
+            return document.getElementById(id);
+        }	
+        
+        function sendForm(){
+            //-----------------------------------使用Ajax 回server端,取回登入者姓名, 放到頁面上    
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function(){
+                let member = JSON.parse(xhr.responseText);
+                console.log(member);
+                
+                if(member.memId){ //帳密正確
+                    document.getElementById("memName").innerText = member.memName;
+                    document.getElementById("spanLogin").innerText = "登出";
+                }else{
+                    alert("帳密錯誤~");
+                }
+            }
+            xhr.open("post", "../PHP/memLogin.php", true);//連接到php
+            xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");//php格式
+            let data_info = `memId=${$id("username").value}&memPsw=${$id("password").value}`;//送出的內容
+            xhr.send(data_info);//送出
+            //-----------------------------------
+            
+            //將登入表單上的資料清空，並隱藏起來
+            // $id('lightBox').style.display = 'none';
+            // $id('memId').value = '';
+            // $id('memPsw').value = '';
+        }  
+        
+        $id('btnLogin').onclick = sendForm;
+
+
         //email verify
         const uname=document.querySelector('#username');
         uname.addEventListener('input',function verifyuname(){
@@ -16,6 +48,8 @@
                 if(regex_psw.test(this.value) == false){
                     document.querySelector('.unameinfo').textContent='Incorrect email address format';
                     document.querySelector('.unameinfo').style['color']='red';
+                    // return false;
+
 
                 }else if(regex_psw.test(this.value)){
                     document.querySelector('.unameinfo').textContent=' Good!';
@@ -23,7 +57,6 @@
                 }
             }else{
                 document.querySelector('.unameinfo').textContent='';
-                // document.querySelector('.unameinfo').style['color']='rgb(72, 72, 72)';
             }
         });
         //password verify
@@ -35,7 +68,7 @@
                     document.querySelector('.pswinfo').textContent='Incorrect password format';
                     document.querySelector('.pswinfo').style['color']='red';
                 }else if(regex_psw.test(this.value)){
-                    document.querySelector('.pswinfo').textContent=' Good';
+                    document.querySelector('.pswinfo').textContent=' Good!';
                     document.querySelector('.pswinfo').style['color']='lightgreen';
                 }
             }else{
@@ -45,7 +78,24 @@
         });
 
         
+        
     })
+    
+
+    
+    function init(){
+    //===設定spanLogin.onclick 事件處理程序是 showLoginForm
+    // $id('spanLogin').onclick = showLoginForm;
+
+
+    //===設定btnLogin.onclick 事件處理程序是 sendForm
+    // $id('btnLogin').onclick = sendForm;
+
+    //===設定btnLoginCancel.onclick 事件處理程序是 cancelLogin
+    // $id('btnLoginCancel').onclick = cancelLogin;
+
+
+    }; //window.onload
 </script>
 
 <template>
@@ -59,9 +109,10 @@
                     <router-link class="logo" to="/home"><img src="../assets/images/Signin/g5_logo_grey.png" alt=""></router-link>
                     <div class="login">
                         <h1>Log in to EFPV</h1>
-                        <form class="tab_panel" action="/member" method="get">
+                        <!-- <form class="tab_panel" action="/member" method="get"> -->
+                        <form class="tab_panel">
                             <label for="username">Email Address</label>
-                            <input type="email" name="username" class="input-s" id="username" maxlength="35">
+                            <input type="text" name="username" class="input-s" id="username" maxlength="35">
                             <span class="unameinfo"></span>
                             <label for="password">Password</label>
                             <input type="password" name="password" class="input-s" id="password" maxlength="20">
@@ -73,7 +124,8 @@
                                 <router-link class="forget_password" to="/">Forget Password?</router-link>
                             </div>
                             <div class="action">
-                                <button type="submit" >submit</button>
+                                <!-- <button type="button" id="btnLogin">submit</button> -->
+                                <input type="button" id="btnLogin" value="submit">
                                 <p>New user?<router-link to="/register">Create Your EFPV Account</router-link></p>
                             </div>
                         </form>
