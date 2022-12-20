@@ -2,7 +2,6 @@
 import tabhome from "../../components/tabHome.vue";
 import tabqrev from "../../components/tabqrev.vue"; //FAQ - 列表
 import tabqadd from "../../components/tabqadd.vue"; //FAQ - 新增
-import tabmod from "../../components/tabmod.vue"; //FAQ - 修改
 import tabnewrevs from "../../components/tabnewrevs.vue"; //NEWS
 import tabnewadds from "../../components/tabnewadds.vue"; //NEWS
 import tabraceform from "../../components/tabraceform.vue"; //RACE
@@ -36,7 +35,6 @@ export default {
     tabgeneralOrderItem,
     tabcustomizationOrderItem,
     tabcustomizationDetails,
-    tabmod,
     tabproductAdd,
     tabdiscount,
     tabdiscountadd,
