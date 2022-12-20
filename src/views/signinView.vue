@@ -6,16 +6,18 @@
     import {reactive,ref, onMounted} from "vue";
 
     onMounted(()=> {
+
         function getMemberInfo(){
             let xhr = new XMLHttpRequest();
             xhr.onload = function(){
-                member = JSON.parse(xhr.responseText);
-                if(member.memId){
-                    $id("memName").innerText = member.memName;
-                    $id("spanLogin").innerText = "登出";          
+                let member = JSON.parse(xhr.responseText);
+                console.log(member);
+                if(member.memId){//有帳密資料
+                    // $id("memName").innerText = member.memName;
+                    // $id("spanLogin").innerText = "登出";          
                 }
-        }
-            xhr.open("get","getMemberInfo.php",true);//查看使用者是否有登入
+            }
+            xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
             xhr.send(null);
         }
 
@@ -45,9 +47,9 @@
                 let member = JSON.parse(xhr.responseText);
                 console.log(member);
                 if(member.memId){ //帳密正確
-                    // alert("帳密正確~");
+                    //alert("帳密正確~");
                     // document.getElementById("memName").innerText = member.memName;
-                    document.querySelector(".showname").innerText = member.memName;
+                    const link = ref("");
                     // document.getElementById("spanLogin").innerText = "登出";
                 }else{
                     alert("wrong username or password!~");
@@ -164,7 +166,7 @@
                             </div>
                             <div class="action">
                                 <!-- <button type="button" id="btnLogin">submit</button> -->
-                                <span class="showname"></span>
+                                
                                 <router-link to="/member"><input type="button" id="btnLogin" value="submit"></router-link>
                                 
                                 <p>New user?<router-link to="/register">Create Your EFPV Account</router-link></p>
