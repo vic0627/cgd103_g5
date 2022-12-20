@@ -51,10 +51,10 @@ const submitData = ()=>{
         <h3>管理員姓名</h3>
         <input type="text" placeholder="請輸入姓名" id=" admin_name" name="admin_name" v-model="name" required> 
       </div>
-        <div class="question">
+      <!-- <div class="question">
         <h3>管理員權限</h3>
         <input type="text" placeholder="請輸入權限" id="authority" name="authority" v-model="authority" required>
-      </div>
+      </div> -->
       <div class="question">
         <h3>管理員帳號</h3>
         <input type="text" placeholder="請輸入帳號" id="admin_acc" name="admin_acc" v-model="account" required>
@@ -67,7 +67,7 @@ const submitData = ()=>{
   </form>
   <div class="btn">
     <input type="reset" value="取消新增" id="canCel" @click="canCel()">
-    <input type="button" id="conFirm" @click="submitData()" v-model="actionButton">
+    <input type="button" value="新增" id="conFirm" @click="submitData()">
   </div>
 </div>
   

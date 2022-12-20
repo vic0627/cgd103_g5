@@ -2,9 +2,10 @@
 import { reactive, onMounted,ref,h } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
 import axios from 'axios';
+//取得資料庫資料
 const adminRows = ref([]);
 		const getAdmin = () => {
-			//取得商品資料
+			//取得管理員資料
        axios.get("http://localhost/CGD103-G5/public/g5PHP/getAdmin.php")
       .then(res=> {
         // console.log(res.data)
@@ -68,12 +69,13 @@ const paginationReactive = reactive({
     });
     const  pagination = paginationReactive;
 
-
+//抓管理員編號
 const selectId = (user)=>{
   console.log(adminRows.value[user].admin_no);
   newAdmin_acc.value = adminRows.value[user].admin_acc;
   newAdmin_no.value = adminRows.value[user].admin_no;
 }
+//更新資料
 const updateAdmin = (user)=>{
   const newAdmin = {
     admin_no: Number(newAdmin_no.value),
@@ -87,6 +89,18 @@ const updateAdmin = (user)=>{
     res.json()
   })
   showModal.value = false
+}
+const deleteAdmin = ()=>{
+  const deleteAcc = {
+    admin_no: Number(newAdmin_no.value)
+  }
+  fetch("http://localhost/CGD103-G5/public/g5PHP/deleteAdmin.php",{
+    method: "POST",
+    body: new URLSearchParams(deleteAcc),
+  }).then(res=>{
+    res.json()
+  })
+  showModal2.value = false
 }
 
 </script>
@@ -139,7 +153,7 @@ const updateAdmin = (user)=>{
            </n-modal>
           </td>
           <td>
-            <n-button @click="showModal2 = true" type="error">
+            <n-button @click="showModal2 = true;selectId(index)" type="error">
               刪除
             </n-button>
             <n-modal
@@ -148,7 +162,7 @@ const updateAdmin = (user)=>{
                 title="確認"
                 content="你確定嗎?"
               >
-            <n-button @click="showModal2 = true; updateAdmin(index)" type="error">
+            <n-button @click="showModal2 = true; deleteAdmin(index)" type="error">
               刪除
             </n-button>
            </n-modal>
