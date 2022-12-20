@@ -16,16 +16,10 @@ const set = (key, val) =>{
 const addProd = (id) => {
   set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","price":"${products.value[id-1].Original_Price}"},`)
 
-  cartItem.value += sessionStorage.getItem();
+  cartItem.value += sessionStorage.getItem(id);
   console.log(cartItem.value);
 };
 
-// const get =(id) =>{
-//   let getValue = sessionStorage.getItem(id);
-//   getTotal +=  id;
-//   console.log(getTotal);
-// }
-// get(`cartItem += ${products.value[id-1].id}`);
 
 //連結php抓資料庫資料
 const bundleRows_beginner = ref([]);
@@ -310,8 +304,8 @@ $(document).ready(() => {
                   >
                   <input 
                     type="button"
-                    class="btn addButton"
-                    @click="addProd(prodRow.id,prodRow.title,prodRow.Original_Price)"
+                    class="btn"
+                    @click="addProd(prodRow.id)"
                     value="Add"
                     >
                   >
@@ -360,11 +354,13 @@ $(document).ready(() => {
                   to="/shopInfo"
                   ><span>More</span></router-link
                 >
-                <router-link
-                  class="anchor btnPrimary"
-                  data-title="Add"
-                  to="/cart"
-                  ><span>Add</span></router-link>
+                <input 
+                    type="button"
+                    class="btn"
+                    @click="addProd(prodRow.id)"
+                    value="Add"
+                    >
+                >
               </div>
             </div>
           </div>
@@ -408,9 +404,13 @@ $(document).ready(() => {
                 to="/shopInfo"
                 ><span>More</span></router-link
               >
-              <router-link class="anchor btnPrimary" to="/cart" data-title="Add"
-                ><span @click="addCartBtn(id)">Add</span></router-link
-              >
+              <input 
+                  type="button"
+                  class="btn"
+                  @click="addProd(prodRow.id)"
+                  value="Add"
+                  >
+                
             </div>
           </div>
         </template>
