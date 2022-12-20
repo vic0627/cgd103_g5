@@ -1,60 +1,18 @@
 <script setup>
 import { ref,reactive, onMounted } from 'vue';
-// import img1 from '/src/assets/images/shop/body_01_green_1.png';
-// import img2 from '/src/assets/images/shop/body_01_white_1.png';
-// import img3 from '/src/assets/images/shop/body_01_red_1.png';
-// import img4 from '/src/assets/images/shop/body_01_black_1.png';
     const prodRows = ref([]);
-    const getProducts = () => {
-        //取得商品資料
-        let xhr = new XMLHttpRequest();
-        xhr.onload = function(){
-            if(xhr.status == 200){ //OK
-                prodRows.value = JSON.parse(xhr.responseText);
-            }
-        }
-        xhr.open("get", "/dist/g5PHP/getProduct.php", true);
-        xhr.send(null);
+
+    const getProductSearch = () =>{
+    fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getProduct.php")
+        .then(res => res.json())
+        .then(json => {
+            prodRows.value = json;
+        })
     }
-    onMounted(()=>{
-	    getProducts();
-    });
-    // const products = reactive([
-    //     {   
-    //         pno:1,
-    //         pname:"Mavic 1 Green",
-    //         pcate:'body',
-    //         Original_Price:'USD$900',
-    //         color:'綠色',
-    //         src:img1
-    //     },
-    //     {   
-    //         pno:2,
-    //         pname:"Mavic 2 White",
-    //         pcate:'body',
-    //         Original_Price:'USD$900',
-    //         color:'白色',
-    //         src:img2
-    //     },
-    //     {   
-    //         pno:3,
-    //         pname:"Mavic 3 Red",
-    //         pcate:'body',
-    //         Original_Price:'USD$900',
-    //         color:'紅色',
-    //         src:img3
-    //     },
-    //     {   
-    //         pno:4,
-    //         pname:"Mavic 4 Black",
-    //         pcate:'body',
-    //         Original_Price:'USD$900',
-    //         color:'黑色',
-    //         src:img4
-    //     }
-    // ]
-    // )
-    const table = ref(['編號','商品名稱','商品分類','售價','顏色','圖片','修改' ])
+
+    getProductSearch();
+    
+    const table = ref(['編號','商品名稱','商品分類','售價','顏色','圖片'])
 </script>
 <template>
   <div class="productQuery">
@@ -94,7 +52,6 @@ import { ref,reactive, onMounted } from 'vue';
                 <td>{{prodRow.prd_price}}</td>
                 <td>{{prodRow.color}}</td>
                 <td><img :src="prodRow.image" alt="product_pic"></td>
-                <td><div class="revised">修改/<span>刪除</span></div></td>
             </tr>
         </table>
         <span class="infoCount">目前頁數 1 / 2，總共有15筆資訊</span>
