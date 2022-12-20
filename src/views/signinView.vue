@@ -6,34 +6,55 @@
     import {reactive,ref, onMounted} from "vue";
 
     onMounted(()=> {
+        getMemberInfo();
+        
         function $id(id){
             return document.getElementById(id);
         }	
         
         function sendForm(){
+            if(!verifyuname() || !verifypsw()){
+                alert("wrong username or password!");
+                return false;
+            }
+            // fetch("http://localhost/cgd103_g5/public/g5PHP/memLogin.php",{
+            //     method : "POST",
+            //     body : JSON.stringify({
+            //         username : document.getElementById("username").value,
+            //         password : document.getElementById("password").value,
+            //     })
+            // }).then(res => console.log(res));
+
+
             //-----------------------------------使用Ajax 回server端,取回登入者姓名, 放到頁面上    
             let xhr = new XMLHttpRequest();
             xhr.onload = function(){
                 let member = JSON.parse(xhr.responseText);
                 console.log(member);
-                
                 if(member.memId){ //帳密正確
-                    document.getElementById("memName").innerText = member.memName;
-                    document.getElementById("spanLogin").innerText = "登出";
+                    // alert("帳密正確~");
+                    // document.getElementById("memName").innerText = member.memName;
+                    document.querySelector(".showname").innerText = member.memName;
+                    // document.getElementById("spanLogin").innerText = "登出";
                 }else{
-                    alert("帳密錯誤~");
+                    alert("wrong username or password!~");
                 }
             }
-            xhr.open("post", "../PHP/memLogin.php", true);//連接到php
+            xhr.open("post", "/dist/g5PHP/memLogin.php", true);//連接到php
             xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded");//php格式
-            let data_info = `memId=${$id("username").value}&memPsw=${$id("password").value}`;//送出的內容
-            xhr.send(data_info);//送出
+            //let data_info = `memId=${$id("username").value}&memPsw=${$id("password").value}`;//送出的內容
+            //xhr.send(data_info);//送出
             //-----------------------------------
+
+            let datas = {};
+            datas.username = $id("username").value;//將資料打包進datas物件中
+            datas.password = $id("password").value;
+            // datas.memName = $id("memName").value;//以此類推,註冊時要填寫的資料
+            // datas.email = $id("email").value;//以此類推
             
-            //將登入表單上的資料清空，並隱藏起來
-            // $id('lightBox').style.display = 'none';
-            // $id('memId').value = '';
-            // $id('memPsw').value = '';
+            let data_info = `datas=${JSON.stringify(datas)}`;//將datas轉為json字串
+            xhr.send(data_info);   //post送出
+
         }  
         
         $id('btnLogin').onclick = sendForm;
@@ -41,41 +62,46 @@
 
         //email verify
         const uname=document.querySelector('#username');
-        uname.addEventListener('input',function verifyuname(){
+        uname.addEventListener('input',function(){verifyuname() });
+
+        function verifyuname(){
             let regex_psw=/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-            
-            if(this.value !=''){
-                if(regex_psw.test(this.value) == false){
+            if(uname.value !=''){
+                if(regex_psw.test(uname.value) == false){
                     document.querySelector('.unameinfo').textContent='Incorrect email address format';
                     document.querySelector('.unameinfo').style['color']='red';
-                    // return false;
 
-
-                }else if(regex_psw.test(this.value)){
+                }else if(regex_psw.test(uname.value)){
                     document.querySelector('.unameinfo').textContent=' Good!';
                     document.querySelector('.unameinfo').style['color']='lightgreen';
+                    return true;
                 }
             }else{
                 document.querySelector('.unameinfo').textContent='';
+
             }
-        });
+            return false;
+        }
         //password verify
         const psw=document.querySelector('#password');
-        psw.addEventListener('input',function verifypsw(){
+        psw.addEventListener('input',function(){verifypsw()});
+        function verifypsw(){
             let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-            if(this.value !=''){
-                if(regex_psw.test(this.value) == false){
+            if(psw.value !=''){
+                if(regex_psw.test(psw.value) == false){
                     document.querySelector('.pswinfo').textContent='Incorrect password format';
                     document.querySelector('.pswinfo').style['color']='red';
-                }else if(regex_psw.test(this.value)){
+                }else if(regex_psw.test(psw.value)){
                     document.querySelector('.pswinfo').textContent=' Good!';
                     document.querySelector('.pswinfo').style['color']='lightgreen';
+                    return true;
                 }
             }else{
                 document.querySelector('.pswinfo').textContent='The password must be eight characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.';
                 document.querySelector('.pswinfo').style['color']='#888';
             }
-        });
+            return false;
+        }
 
         
         
@@ -125,7 +151,9 @@
                             </div>
                             <div class="action">
                                 <!-- <button type="button" id="btnLogin">submit</button> -->
-                                <input type="button" id="btnLogin" value="submit">
+                                <span class="showname"></span>
+                                <router-link to="/member"><input type="button" id="btnLogin" value="submit"></router-link>
+                                
                                 <p>New user?<router-link to="/register">Create Your EFPV Account</router-link></p>
                             </div>
                         </form>
@@ -242,7 +270,7 @@ span{
                         }
                         .action{
                             padding-top: 32px;
-                            button{
+                            #btnLogin{
                                 width: 100%;
                                 height: 48px;
                                 border-radius: 10px;

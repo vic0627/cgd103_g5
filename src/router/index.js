@@ -123,6 +123,11 @@ const router = createRouter({
       name: "backendlogin",
       component: () => import("../views/backend/backendLogin.vue"),
     },
+    // {
+    //   path: "/memLogin",
+    //   name: "memLogin",
+    //   component: () => import("../PHP/memLogin.php"),
+    // },
   ],
 });
 
