@@ -11,7 +11,7 @@ bodyInit();
 let w = null;
 let ww = window.innerWidth;
 onMounted(()=> {
-    fetchCustom();
+    //fetchCustom();
     w = getW('.dashBoard');
     canvasRe();
     window.addEventListener('resize', ()=> {
@@ -35,7 +35,7 @@ onUpdated(() => {
 });
 const customItem = ref([]);
 const fetchCustom = () => {
-    fetch("/dist/g5PHP/getCustomizeItem.php")
+    fetch("http://localhost/dist/g5PHP/getCustomizeItem.php")
         .then(res => res.json())
         .then(json => {
             customItem.value = json;
@@ -181,7 +181,6 @@ const step = ref({
 const flow = ref(1);
 const btnStatus = ref(false);
 const buyBtn = ref(false);
-const boardMove = ref(false);
 let acc;
 
 const undo = () => {
@@ -355,16 +354,26 @@ const toggleBoard = () => {
         })
         gsap.to('.tag', {
             position: 'absolute',
+            top: '20%',
+            right: '-50px',
             width: 60,
             height: 130,
             writingMode: 'vertical-lr',
             lineHeight: '75px',
-            innerText: 'Dash Board',
             fontSize: '16px',
             margin: '0 0 20px',
             duration: 0,
             delay: .3,
         })
+        $$('.name').style.display = 'block';
+        $all('.cross').forEach(e => {
+            gsap.to(e, {
+                rotate: 0,
+                duration: 0,
+                delay: .3,
+            })
+            e.style.display = 'none';
+        });
         toggle = false;
     }else{
         gsap.to('.boards', {
@@ -373,18 +382,63 @@ const toggleBoard = () => {
             duration: .3,
         });
         gsap.to('.tag', {
-            position: 'static',
+            position: 'relative',
+            top: 0,
+            right: 0,
             width: 60,
             height: 60,
             writingMode: 'inherit',
             lineHeight: 2,
-            innerText: 'X',
             fontSize: '32px',
             margin: mr,
-            duration:.3,
+            duration: 0,
         })
+        $$('.name').style.display = 'none';
+        $all('.cross').forEach(e => e.style.display = 'block');
+        gsap.to($all('.cross')[0], {
+            rotate: '45deg',
+            duration: .3,
+            delay: .3,
+        });
+        gsap.to($all('.cross')[1], {
+            rotate: '-45deg',
+            duration: .3,
+            delay: .3,
+        });
         toggle = true;
     }
+};
+let toggleColorControl = ref({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+});
+const toggleColor = (id) => {
+    if(toggleColorControl.value[id]){
+        gsap.to($$(`.colorControls${id}`), {
+            marginTop: -60,
+            marginBottom: 0,
+            opacity: 0,
+            duration: .3,
+        });
+        setTimeout(() => {
+            toggleColorControl.value[id] = false;
+        }, 300)
+    }else{
+        toggleColorControl.value[id] = true;
+        /* if(toggleColorControl.value[id]){
+            gsap.from($$(`.colorControls${id}`), {
+                marginTop: -30,
+                marginBottom: 0,
+                opacity: 0,
+                duration: .3,
+            });
+        }; */
+    };
+    
 };
 </script>
 
@@ -403,14 +457,24 @@ const toggleBoard = () => {
         </div>
         <div class="customizeControl">
             <div v-for="i in droneModels" :key="i.id" class="bodySelect selection" v-show="step[1].show">
-                <h3>{{ i.name }}</h3>
-                <div class="colorControls">
+                <div class="itemInfo" @click="toggleColor(i.id)">
+                    <h3>{{ i.name }}</h3>
+                    <p>Weight: {{ i.weight }}g</p>
+                    <p>$ {{ i.price }}</p>
+                </div>
+                <div :class="`colorControls colorControls${i.id}`" v-if="toggleColorControl[i.id]">
+                    <P>Color:</P>
                     <div :class="`colorControl bodyControl${i.id}${n.id}`" v-for="n in droneModels[`body0${i.id}`].color" :key="n.id" @click="bodyChoose(i.id, n.id, n.src)"></div>
                 </div>
             </div>
             <div v-for="e in propellorModels" :key="e.id" class="propellorSelect selection" v-show="step[2].show">
-                <h3>{{ e.name }}</h3>
-                <div class="colorControls">
+                <div class="itemInfo" @click="toggleColor(e.id+3)">
+                    <h3>{{ e.name }}</h3>
+                    <p>Weight: {{ e.weight }}g</p>
+                    <p>$ {{ e.price }}</p>
+                </div>
+                <div :class="`colorControls colorControls${e.id+3}`" v-if="toggleColorControl[e.id+3]">
+                    <P>Color:</P>
                     <div :class="`colorControl propellorControl${e.id}${n.id}`" v-for="n in propellorModels[`propellor0${e.id}`].color" :key="n.id" @click="propellorChoose(e.id, n.id, n.src)"></div>
                 </div>
             </div>
@@ -433,8 +497,8 @@ const toggleBoard = () => {
                 <div class="nextStep" data-title="Choose" v-show="step[flow].pBtn" @click="nextStep">
                     <span>Choose</span>
                 </div>
-                <router-link class="nextStep buyBtn" data-title="Buy Now" v-show="buyBtn" to="/cart">
-                    <span>Buy Now</span>
+                <router-link class="nextStep buyBtn" data-title="Buy" v-show="buyBtn" to="/cart">
+                    <span>Buy</span>
                 </router-link>
             </div>
         </div>
@@ -570,7 +634,7 @@ const toggleBoard = () => {
 .customizeControl{
     box-sizing: border-box;
     margin: 360px auto 20%;
-    padding: 10px 0 20px;
+    padding: 30px 0;
     border-radius: 20px;
     border: 2px solid $grey;
     background: $black;
@@ -585,9 +649,28 @@ const toggleBoard = () => {
         width: 320px;
     }
     .selection{
-
-        h3{
-            text-align: center;
+        width: 90%;
+        margin: 0 auto 40px;
+        position: relative;
+        .itemInfo{
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            padding: 15px;
+            border-radius: 15px;
+            background: linear-gradient(to right, $purple, $blue);
+            h3{
+                width: 100%;
+            }
+            p:nth-child(2){
+                width: 70%;
+            }
+            p:nth-child(3){
+                width: 30%;
+                text-align: right;
+            }
         }
         .funcControls{
             margin: 20px;
@@ -605,37 +688,49 @@ const toggleBoard = () => {
     }
 }
 .colorControls{
-    width: 100%;
-    margin: 20px 0;
+    width: 90%;
+    margin: 0 auto;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-evenly;
     transition: all .3s;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 0 0 15px 15px;
+    background: $black;
+    border-bottom: 2px solid $light-black;
+    border-left: 2px solid $light-black;
+    border-right: 2px solid $light-black;
+    p{
+        width: 100%;
+    }
     .colorControl{
         border-radius: 50%;
         border: 2px solid #fff;
         width: 20px;
         height: 20px;
+        margin: 10px auto;
         background: #fff;
         cursor: pointer;
     }
-    .colorControl:nth-child(1){
+    .colorControl:nth-child(2){
         background: black;
     }
-    .colorControl:nth-child(2){
+    .colorControl:nth-child(3){
         background: blue;
     }
-    .colorControl:nth-child(3){
+    .colorControl:nth-child(4){
         background: green;
     }
-    .colorControl:nth-child(4){
+    .colorControl:nth-child(5){
         background: red;
     }
-    .colorControl:nth-child(5){
+    .colorControl:nth-child(6){
         background: white;
     }
 }
 .chosen{
-    box-shadow: 0 0 20px 3px $purple;
+    box-shadow: 0 0 0 5px $ored;
     transition: all .3s;
 }
 .flowControls{

@@ -43,6 +43,7 @@ export const droneModels = ref({
   body01: {
     id: 1,
     name: "body01",
+    price: 500.00,
     weight: 3000,
     color: {
       1: {
@@ -70,6 +71,7 @@ export const droneModels = ref({
   body02: {
     id: 2,
     name: "body02",
+    price: 600.00,
     weight: 3300,
     color: {
       1: {
@@ -97,6 +99,7 @@ export const droneModels = ref({
   body03: {
     id: 3,
     name: "body03",
+    price: 700.00,
     weight: 3600,
     color: {
       1: {
@@ -126,6 +129,7 @@ export const propellorModels = ref({
   propellor01: {
     id: 1,
     name: "propellor01",
+    price: 200.00,
     weight: 300,
     color: {
       1: {
@@ -153,6 +157,7 @@ export const propellorModels = ref({
   propellor02: {
     id: 2,
     name: "propellor02",
+    price: 300.00,
     weight: 350,
     color: {
       1: {
@@ -180,6 +185,7 @@ export const propellorModels = ref({
   propellor03: {
     id: 3,
     name: "propellor03",
+    price: 400.00,
     weight: 400,
     color: {
       1: {
@@ -210,18 +216,21 @@ export const motorModels = ref({
   motor01: {
     id: 1,
     name: "motor01",
+    price: 1200.00,
     rpm: 5300,
     kgm: 8,
   },
   motor02: {
     id: 2,
     name: "motor02",
+    price: 1400.00,
     rpm: 4800,
     kgm: 9,
   },
   motor03: {
     id: 3,
     name: "motor03",
+    price: 1600.00,
     rpm: 4400,
     kgm: 10,
   },
@@ -231,16 +240,19 @@ export const controllerModels = ref({
   controller01: {
     id: 1,
     name: "controller01",
+    price: 800.00,
     kgmc: 1,
   },
   controller02: {
     id: 2,
     name: "controller02",
+    price: 1100.00,
     kgmc: 1.1,
   },
   controller03: {
     id: 3,
     name: "controller03",
+    price: 1200.00,
     kgmc: 0.9,
   },
 });

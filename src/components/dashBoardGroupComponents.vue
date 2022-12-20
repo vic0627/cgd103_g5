@@ -118,7 +118,11 @@ const props = defineProps(["toggleBoard"])
     <div class="dashBoards">
         <h2>Dash Board</h2>
         <dash-board-component class="dashBoard" v-for="i in units" :key="i.id" :units="i"/>
-        <div class="tag" @click="props.toggleBoard">Dash Board</div>
+        <div class="tag" @click="props.toggleBoard">
+            <span class="name">Dash Board</span>
+            <span class="cross"></span>
+            <span class="cross"></span>
+        </div>
     </div>
 </template>
 
@@ -187,8 +191,19 @@ const props = defineProps(["toggleBoard"])
         position: absolute;
         top: 20%;
         right: -50px;
+        cursor: pointer;
         @include m($m-breakpoint){
             display: none;
+        }
+        .cross{
+            display: none;
+            width: 60%;
+            height: 2px;
+            background: #eee;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -1px auto auto -30%;
         }
     }
 }
