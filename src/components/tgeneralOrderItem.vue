@@ -70,22 +70,6 @@ const NmOrderRows = ref([]);
         // console.log(res)
         NmOrderRows.value = res.data
       })
-
-      //方法二
-      // fetch("http://localhost/CGD103-G5/public/g5PHP/getNmOrder.php")
-      // .then(res => res.json())
-      // .then(json =>{
-      //   NmOrderRows.value = json
-      // })
-      //方法三
-			// let xhr = new XMLHttpRequest();
-			// xhr.onload = function(){
-			// 	if(xhr.status == 200){ //OK
-			// 	  adminRows.value = JSON.parse(xhr.responseText);
-			// 	}
-			// }
-			// xhr.open("get", "/dist/g5PHP/getAdmin.php", true);
-			// xhr.send(null);
 		}
 	onMounted(()=>{
 		getNmOrder();
