@@ -41,7 +41,7 @@ export default{
 <template>
 <div class="tops">
   <h2>
-    <span id="memName"></span>   <!-- 使用者姓名 -->
+    <span id="admin_acc"></span>   <!-- 使用者姓名 -->
     <outComponents />
   </h2>
   <div class="box">

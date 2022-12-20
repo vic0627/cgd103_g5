@@ -4,14 +4,18 @@ import { log } from '../../composables/useCommon';
 import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
 
 
-const shows = () => {
-    var x = document.getElementById("password");
-    if(x.type==="password"){
-        x.type="text";
-    }else{
-        x.type="password";
-    };
+function shows(){
+    var x = document.getElementById("admin_pw");
+    if(x.type === "password"){
+        x.type = "text";
+    }else {
+        x.type = "password";
+    }
 }
+
+</script>
+
+<script>
 
 </script>
 <!-- required  -->
@@ -21,12 +25,12 @@ const shows = () => {
             <form action="/" id="myForm">
                 <h2>後台登入</h2>
                 <div class="form-group">
-                    <label for="memId">管理員帳號</label>
-                    <input type="text" id="memId" name="memId"  maxlength="3" minlength="3" required placeholder="請輸入帳號">
+                    <label for="admin_acc">管理員帳號</label>
+                    <input type="text" id="admin_acc" name="admin_acc"  maxlength="10" minlength="3" required placeholder="請輸入帳號">
                 </div>
                 <div class="form-group">
-                    <label for="password">管理員密碼</label>
-                    <input type="password" id="password" name="password" class="password" maxlength="3" minlength="3" required placeholder="請輸入密碼">
+                    <label for="admin_pw">管理員密碼</label>
+                    <input type="password" id="admin_pw" name="admin_pw" class="admin_pw" maxlength="10" minlength="3" required placeholder="請輸入密碼" >
                     <div class="down">
                         <div class="in">
                         <input type="checkbox" id="check" @click="shows()"><span>顯示密碼</span>
