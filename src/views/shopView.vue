@@ -8,25 +8,20 @@ import {accessories,bundle_A,bundle_B} from "./js/Shop";
 // 
 bodyInit();
 
-const addCart = ref(0);
-const clearCart = ref('');
 //點按addCartBtn()的function
-const addProd = (id) => {
-  // alert(id)
+const addProd = (id,title) => {
+  alert(title);
   // 1.建立sessionStorage
-  let storage = sessionStorage;
-  if(storage['addItemList'] == null){
-    storage['addItemList'] = '';
-  }
-  //2.將抓到的id存入addItemList中
-  for(let i=0 ; i<id.length; i++){
-      storage.addItem(id.value);
-  }
+  // let storage = sessionStorage;
+  // if(storage['addItemList'] == null){
+  //   storage['addItemList'] = '';
+  // }
+  // //2.將抓到的id存入addItemList中
+  // for(let i=0 ; i<id.length; i++){
+  //     storage.addItem(id.value);
+  // }
   
 };
-const clear = computed(()=>{
-})
-
 
 //連結php抓資料庫資料
 const bundleRows_beginner = ref([]);
@@ -312,7 +307,7 @@ $(document).ready(() => {
                   <input 
                     type="button"
                     class="btn addButton"
-                    @click="addProd(prodRow.id)"
+                    @click="addProd(prodRow.id,prodRow.title)"
                     value="Add"
                     >
                   >
