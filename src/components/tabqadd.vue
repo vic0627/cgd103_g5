@@ -1,4 +1,21 @@
-<script>
+<script setup>
+import {ref} from "vue";
+const des = ref("");
+const ans = ref("");
+const add =()=>{
+  const payload = {
+    faq_des : des.value,
+    faq_ans : ans.value
+  };
+  fetch("http://localhost/g5/public/g5PHP/insertaddFaqs.php",{
+    method:'POST',
+    body:new URLSearchParams(payload), 
+  }
+  ).then(res=>{
+    res.text();
+  })
+  
+}
 
 </script>
 <template>
@@ -7,20 +24,22 @@
     FAQ-新增問題
     <outComponents />
   </h2>
-  <div class="faq">
+  <form method="post">
+    <div class="faq">
     <div class="question">
       <h3>常見問題</h3>
-      <input type="text" placeholder="請輸入問題" id="quesTion">
+      <input type="text" placeholder="請輸入問題" id="quesTion" name="faq_des" v-model="des" required>
     </div>
     <div class="answer">
       <h3>回覆答案</h3>
-      <input type="text" placeholder="請輸入答案" id="ansWer">
+      <input type="text" placeholder="請輸入答案" id="ansWer" name="faq_ans" v-model="ans" required>
     </div>
   </div>
+</form>
   <div class="btn">
-    <input type="submit" value="取消新增" id="canCel">
-    <input type="submit" value="確定新增" id="conFirm">
+    <input type="button" value="確定新增" id="conFirm" @click="add()">
   </div>
+  
 </div>
   
 

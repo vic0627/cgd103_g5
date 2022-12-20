@@ -4,82 +4,73 @@ const props = defineProps(["tab"])
 const faqRows = ref([]);
 		const getProducts = () => {
 			//取得商品資料
-			let xhr = new XMLHttpRequest();
-			xhr.onload = function(){
-				if(xhr.status == 200){ //OK
-					faqRows.value = JSON.parse(xhr.responseText);
-				}
-			}
-			xhr.open("get", "/dist/g5PHP/getFaqs.php", true);
-			xhr.send(null);
+      fetch("http://localhost/g5/public/g5PHP/getFaqs.php")
+      .then(res => res.json())
+      .then(json => {
+        console.log(json)
+        faqRows.value = json;
+      })
 		}
-	
-
 	onMounted(()=>{
 		getProducts();
   });
-const table = ref([
-  {
-    number:5,
-    q:"How to become a member of EFPV?",
-    a:"Click the member center icon in the upper right corner of the homepage to register/login.",
-  },
-  {
-    number:4,
-    q:"How to contact us?",
-    a:"123",
-  },
-  {
-    number:3,
-    q:"How to contact us?",
-    a:"123",
-  },
-  {
-    number:2,
-    q:"How to contact us?",
-    a:"123",
-  },
-  {
-    number:1,
-    q:"How to contact us?",
-    a:"123",
-  },
 
-])
-
+const des = ref("");
+const ans = ref("");
+const del =()=>{
+  const payload = {
+    faq_des : des.value,
+    faq_ans : ans.value
+  };
+  fetch("http://localhost/g5/public/g5PHP/updateFaqs.php",{
+    method:'POST',
+    body:new URLSearchParams(payload), 
+  }
+  ).then(res=>{
+    res.text();
+  })
+  
+}
 </script>
+
+
 
 <template>
 <div class="top">
-  <h2>
-    FAQ列表
-    <outComponents />
-  </h2>
-  <div class="search_box">
-    <label for="search" class="label">查詢編號<input type="search" id="search" name="search" placeholder="請輸入編號"></label>
-    <div class="btn">
-      <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
+    <h2>
+      FAQ列表
+      <outComponents />
+    </h2>
+    <div class="bigbox">
+      <div class="search_box">
+      <label for="search" class="label">查詢編號<input type="search" id="search" name="search" placeholder="請輸入編號"></label>
+      <div class="btn">
+        <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
+      </div>
     </div>
   </div>
+  
   <div class="tables" id="products" align="center">
+    <form action="" method="post">
     <table>
       <tr>
-		  <th>編號</th>
-		  <th>問題</th>
-		  <th>回答</th>
-		  <th>編輯</th>
-      <th>刪除</th>
-	  </tr>
-	  <tr v-for="faqRow in faqRows" :key="faqRow">
-			<td>{{faqRow.faq_no}}</td>
-			<td>{{faqRow.faq_des}}</td>
-			<td>{{faqRow.faq_ans}}</td>
-      <td><button @click="props.tab('mod')" class="block">編輯</button></td>
-      <td><button class="red">刪除</button></td>
-	  </tr>	
+        <th>編號</th>
+        <th>問題</th>
+        <th>回答</th>
+        <th>編輯</th>
+        <th>刪除</th>
+	    </tr>
+      
+        <tr v-for="faqRow in faqRows" :key="faqRow">
+        <td>{{faqRow.faq_no}}</td>
+        <td>{{faqRow.faq_des}}</td>
+        <td>{{faqRow.faq_ans}}</td>
+        <td><input @click="props.tab('mod')" class="block" value="編輯"></td>
+        <td><input type="button" class="red" value="刪除" @click="del()"></td>
+      </tr>	
+    
     </table>
-    <!-- <button @click="props.tab('mod')" class="block">編輯</button>
-    <button class="red">刪除</button> -->
+  </form>
   </div>
 </div>
 
@@ -101,52 +92,77 @@ h2 {
   justify-content: space-between;
   align-items: center;
 }
-.search_box{
+
+.bigbox{
+  width: 97%;
+  margin: 15px auto;
   display: flex;
   justify-content: right;
-  margin: 30px 15px;
-  label {
-    margin-right: 10px;
-    font-size: 20px;
-    color: rgb(26, 26, 26);
+  .add{
+    width: 150px;
+    margin: 15px ;
     input{
-      margin-left: 10px;
-      height: 35px;
-      border: 1px solid rgb(124, 124, 124);
+      width: 150px;
+      font-size: 20px;
+      padding: 10px;
+      border:none;
       border-radius: 5px;
-      padding-left: 10px;
-      font-size: 18px;
-      &:focus{
-        color: #06519d;
-        border: 1px solid #1671cd;
-        outline: none;
-          &::placeholder{
-          opacity: 0;
-          }
-      }
-      &::placeholder{
-        padding-left: 5px;
-        color: rgba(181, 181, 181, 0.749);
-      }
-    }
-  }
-  .btn {
-    button{
-      width: 50px;
-      text-align: center;
-      border: none;
-      background:#597897;
-      border-radius: 5px;
-      padding: 5px;
-      transition: background 0.5s;
+      background: #597897;
       cursor: pointer;
+      color: #fff;
+      transition: background 0.5s;
       &:hover{
         background: $blue;
       }
-      img{
-        width: 20px;
-        height: 20px;
-        margin-top: 2px;
+    }
+  }
+  .search_box{
+    display: flex;
+    // justify-content: right;
+    margin: 15px;
+    label {
+      margin-right: 10px;
+      font-size: 20px;
+      color: rgb(26, 26, 26);
+      input{
+        margin-left: 10px;
+        height: 35px;
+        border: 1px solid rgb(124, 124, 124);
+        border-radius: 5px;
+        padding-left: 10px;
+        font-size: 18px;
+        &:focus{
+          color: #06519d;
+          border: 1px solid #1671cd;
+          outline: none;
+          &::placeholder{
+            opacity: 0;
+          }
+        }
+        &::placeholder{
+          padding-left: 5px;
+          color: rgba(181, 181, 181, 0.749);
+        }
+      }
+    }
+    .btn {
+      button{
+        width: 50px;
+        text-align: center;
+        border: none;
+        background:#597897;
+        border-radius: 5px;
+        padding: 5px;
+        transition: background 0.5s;
+        cursor: pointer;
+        &:hover{
+          background: $blue;
+        }
+        img{
+          width: 20px;
+          height: 20px;
+          margin-top: 2px;
+        }
       }
     }
   }
@@ -212,5 +228,19 @@ h2 {
   }
 }
 
-
+.modal-mask{
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,.5);
+  display: table;
+  transition: opacity .3s ease;
+}
+.modal-wrapper{
+  display: table-cell;
+  vertical-align: middle;
+}
 </style>
