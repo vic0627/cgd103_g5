@@ -4,7 +4,7 @@ import { ref, reactive, onMounted, computed, onUpdated } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
-import {products,accessories,bundle_A,bundle_B} from "./js/Shop";
+import {accessories,bundle_A,bundle_B} from "./js/Shop";
 // 
 bodyInit();
 
@@ -24,24 +24,50 @@ const bundleRows_beginner = ref([]);
 const bundleRows_veteran = ref([]);
 const prodRows = ref([]);
 const assRows = ref([]);
-
+const products = ref([
+  {
+    id: 0,
+    name: '',
+    Original_Price: '',
+    Discount_Price: '',
+    new: true,
+    sale: false,
+  },
+]);
 const getShopInfo = () =>{
-  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+  fetch("http://localhost/cgd103_g5/public/g5PHP/getShop.php")
     .then(res => res.json())
     .then(json => {
-      bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'))
-      bundleRows_veteran.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('pro'))
-      prodRows.value = json.filter(i => i.cat_no === 1);
-      assRows.value = json.filter(i => i.cat_no === 2);
+        bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'));
+        bundleRows_veteran.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('pro'));
+        prodRows.value = json.filter(i => i.cat_no === 1);
+        assRows.value = json.filter(i => i.cat_no === 2);
+      return {
+        bundleRows_beginner,
+        bundleRows_veteran,
+        prodRows,
+        assRows,
+      }
+    })
+    .then(output => {
+      for(let i=0; i<output.prodRows.value.length; i++){
+        products.value[i] = {
+          id: output.prodRows.value[i].prd_no,
+          name: output.prodRows.value[i].prd_name,
+          Original_Price: output.prodRows.value[i].prd_price,
+          Discount_Price: output.prodRows.value[i].prd_price*.8,
+          new: true,
+          sale: false,
+        };
+      }
     })
 }
-getShopInfo();
+
 const productList = computed(()=>{
-    let cache = products;
     if(search.value != ""){
-        cache = cache.filter(item=>item.title.toLowerCase().includes(search.value.toLowerCase()));
+      products.value = products.value.filter(item=>item.name.toLowerCase().includes(search.value.toLowerCase()));
     }
-    return cache;
+    return products.value;
 })
 
 // fuselage filter
@@ -72,6 +98,7 @@ const getSource1 = ()=>{
 onMounted(()=>{
   //getSource();
   getSource1();
+  getShopInfo();
 });
 
 // switch bundle_A / bundle_B
@@ -257,25 +284,25 @@ $(document).ready(() => {
     </div>
     <div class="card_slider">
       <div class="card_slider_items">
-        <div v-for="prodRow in prodRows" class="card_slider_item" :key="prodRow.id">
+        <div v-for="prodRow in productList" class="card_slider_item" :key="prodRow.id">
           <div v-if="prodRow.sale == true" class="sale"><span>Sale</span></div>
             <div class="product_box">
               <div class="img_box">
-                <button class="prev" id="prevBtn" @click="prevPic(item.id)">
+                <button class="prev" id="prevBtn" @click="prevPic(prodRow.id)">
                   ‹
                 </button>
                 <img :src="`/cgd103_g5_v2/src/assets/images/shop/${prodRow.images}`" alt="product_img"/>
-                <button class="next" id="nextBtn" @click="nextPic(item.id)">
+                <button class="next" id="nextBtn" @click="nextPic(prodRow.id)">
                   ›
                 </button>
               </div>
               <div class="detail_box">
-                <h5 class="title">{{ prodRow.prd_name}}</h5>
+                <h5 class="title">{{ prodRow.name}}</h5>
                 <p v-if="prodRow.sale == true" class="price discount">
-                  $USD{{prodRow.sale_price}}
+                  $USD{{prodRow.Discount_Price}}
                 </p>
                 <p v-if="prodRow.sale == false" class="price">
-                  $USD{{prodRow.prd_price}}
+                  $USD{{prodRow.Original_Price}}
                 </p>
                 <div class="buttons">
                   <router-link
