@@ -18,6 +18,7 @@ import tabgeneralOrderItem from "@/components/tgeneralOrderItem.vue";
 import tabcustomizationDetails from "@/components/tabcustomizationDetails.vue";
 import tabdiscount from "@/components/tabdiscount.vue";
 import tabdiscountadd from "@/components/tabdiscountadd.vue";
+import tabcustomizeitem from "@/components/tabcustomizeitem.vue";
 export default {
   components: {
     tabhome,
@@ -39,6 +40,7 @@ export default {
     tabproductAdd,
     tabdiscount,
     tabdiscountadd,
+    tabcustomizeitem,
   },
 };
 </script>
@@ -72,6 +74,10 @@ const backendCategory = ref({
       e: {
         cn: "商品分類管理",
         tab: "productCategoryManage",
+      },
+      f: {
+        cn: "客製化品項查詢",
+        tab: "customizeitem",
       },
     },
   },
@@ -213,7 +219,7 @@ const log = (e) => console.log(e);
         </ol>
       </div>
     </aside>
-    <component :is="currentTabComponent" class="manage" :tab="changeTab"/>
+    <component :is="currentTabComponent" class="manage" :tab="changeTab" />
   </div>
 </template>
 

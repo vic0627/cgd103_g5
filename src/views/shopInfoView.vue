@@ -9,6 +9,7 @@ import body1 from "../assets/images/shopInfo/body_03_1.png";
 import body2 from "../assets/images/shopInfo/body_03_2.png";
 import body3 from "../assets/images/shopInfo/body_03_3.png";
 import { products, accessories, bundle_A, bundle_B } from "./js/Shop";
+import { method } from "lodash";
 // import { json } from "stream/consumers";
 
 bodyInit();
@@ -35,7 +36,7 @@ onMounted(() => {
 
 const shopItem = ref([]);
 const fetchShop = () => {
-  fetch("/dist/g5PHP/getShop.php")
+  fetch("/dist/g5PHP/getProduct.php")
     .then((res) => res.json())
     .then((json) => {
       shopItem.value = json;
