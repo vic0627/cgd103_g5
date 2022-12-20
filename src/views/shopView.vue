@@ -11,11 +11,20 @@ bodyInit();
 const addCart = ref(0);
 const clearCart = ref('');
 //點按addCartBtn()的function
-const addProd = computed(()=>{
-    addCart;
-})
+const addProd = (id) => {
+  // alert(id)
+  // 1.建立sessionStorage
+  let storage = sessionStorage;
+  if(storage['addItemList'] == null){
+    storage['addItemList'] = '';
+  }
+  //2.將抓到的id存入addItemList中
+  for(let i=0 ; i<id.length; i++){
+      storage.addItem(id.value);
+  }
+  
+};
 const clear = computed(()=>{
-  clearCart = '';
 })
 
 
@@ -24,18 +33,9 @@ const bundleRows_beginner = ref([]);
 const bundleRows_veteran = ref([]);
 const prodRows = ref([]);
 const assRows = ref([]);
-const products = ref([
-  {
-    id: 0,
-    name: '',
-    Original_Price: '',
-    Discount_Price: '',
-    new: true,
-    sale: false,
-  },
-]);
+const products = ref([]);
 const getShopInfo = () =>{
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getShop.php")
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
     .then(res => res.json())
     .then(json => {
         bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'));
@@ -53,7 +53,7 @@ const getShopInfo = () =>{
       for(let i=0; i<output.prodRows.value.length; i++){
         products.value[i] = {
           id: output.prodRows.value[i].prd_no,
-          name: output.prodRows.value[i].prd_name,
+          title: output.prodRows.value[i].prd_name,
           Original_Price: output.prodRows.value[i].prd_price,
           Discount_Price: output.prodRows.value[i].prd_price*.8,
           new: true,
@@ -64,10 +64,11 @@ const getShopInfo = () =>{
 }
 
 const productList = computed(()=>{
+  let cache = products.value;
     if(search.value != ""){
-      products.value = products.value.filter(item=>item.name.toLowerCase().includes(search.value.toLowerCase()));
+      cache = cache.filter(item=>item.title.toLowerCase().includes(search.value.toLowerCase()));
     }
-    return products.value;
+    return cache;
 })
 
 // fuselage filter
@@ -246,9 +247,6 @@ $(document).ready(() => {
     </div>
   </section>
   <!-- step end-->
-  <p class="cart">{{addCart}}
-      <button @click="clear(clearCart)">Clear</button>
-  </p>
   <!-- category start-->
   <section class="category_box">
     <p class="show">category</p>
@@ -297,7 +295,7 @@ $(document).ready(() => {
                 </button>
               </div>
               <div class="detail_box">
-                <h5 class="title">{{ prodRow.name}}</h5>
+                <h5 class="title">{{ prodRow.title}}</h5>
                 <p v-if="prodRow.sale == true" class="price discount">
                   $USD{{prodRow.Discount_Price}}
                 </p>
@@ -313,8 +311,8 @@ $(document).ready(() => {
                   >
                   <input 
                     type="button"
-                    class="btn"
-                    @click="addProd(addCart++)"
+                    class="btn addButton"
+                    @click="addProd(prodRow.id)"
                     value="Add"
                     >
                   >
