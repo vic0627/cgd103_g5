@@ -39,7 +39,6 @@ const fetchCustom = () => {
         .then(res => res.json())
         .then(json => {
             customItem.value = json;
-            log(customItem.value);
         });
 };
 const units = ref({
@@ -322,6 +321,7 @@ const kgmcChosen = ref({
 });
 const controllerChoose = (id) => {
     kgmcChosen.value.kgmc = controllerModels.value[`controller0${id}`].kgmc;
+    kgmcChosen.value.type = id;
     niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value.kgmc), units.value.maxSpeed.ratio);
     if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value.kgmc)>=100){
         acc = accelerateTime(motorChosen.value.kgm, kgmcChosen.value.kgmc);
@@ -446,48 +446,72 @@ const set = (key, val) => {
 };
 
 const addCart = () => {
-    let prd_body;
-    switch (bodyChosen.value.type) {
-        case 1:
-            prd_body = 'body01';
-            break;
-        case 2:
-            prd_body = 'body02';
-            break;
-        case 3:
-            prd_body = 'body03';
-            break;
+    if(sessionStorage.getItem('cartList')===null){
+        let prd_body, prd_propellor;
+        switch (bodyChosen.value.type) {
+            case 1:
+                prd_body = 'body01';
+                break;
+            case 2:
+                prd_body = 'body02';
+                break;
+            case 3:
+                prd_body = 'body03';
+                break;
+        }
+        switch (bodyChosen.value.color) {
+            case 1:
+                prd_body += 'black';
+                break;
+            case 2:
+                prd_body += 'blue';
+                break;
+            case 3:
+                prd_body += 'green';
+                break;
+            case 4:
+                prd_body += 'red';
+                break;
+            case 5:
+                prd_body += 'white';
+                break;
+        }
+        switch (propellorChosen.value.type) {
+            case 1:
+                prd_propellor = 'propellor01';
+                break;
+            case 2:
+                prd_propellor = 'propellor02';
+                break;
+            case 3:
+                prd_propellor = 'propellor03';
+                break;
+        }
+        switch (propellorChosen.value.color) {
+            case 1:
+                prd_propellor += 'black';
+                break;
+            case 2:
+                prd_propellor += 'blue';
+                break;
+            case 3:
+                prd_propellor += 'green';
+                break;
+            case 4:
+                prd_propellor += 'red';
+                break;
+            case 5:
+                prd_propellor += 'white';
+                break;
+        }
+        set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`)
+        set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}"}`);
+        set(`111112${propellorChosen.value.type}${propellorChosen.value.color}`, `{"id":"111112${propellorChosen.value.type}${propellorChosen.value.color}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}"}`);
+        set(`1112111${motorChosen.value.type}`, `{"id":"1112111${motorChosen.value.type}", "name":"motor0${motorChosen.value.type}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}"}`);
+        set(`1112112${kgmcChosen.value.type}`, `{"id":"1112112${kgmcChosen.value.type}", "name":"controller0${kgmcChosen.value.type}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}"}`);
+    }else{
+        alert('ooxx')
     }
-    switch (bodyChosen.value.color) {
-        case 1:
-            prd_body += 'black';
-            break;
-        case 2:
-            prd_body += 'blue';
-            break;
-        case 3:
-            prd_body += 'green';
-            break;
-        case 4:
-            prd_body += 'red';
-            break;
-        case 5:
-            prd_body += 'white';
-            break;
-    }
-    switch (propellorChosen.value.type) {
-        case 1:
-        case 2:
-        case 3:
-    }
-    switch (propellorChosen.value.color) {
-        case 1:
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-    }
-    set('test', `{"id":"${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}"}`)
 };
 </script>
 
