@@ -22,8 +22,28 @@ const mainMenu = reactive([
         "name": "NEWS",
     },
 ])
+const mem = ref('')
 onMounted(() => {
     // console.log(mainMenu);
+    function getMemberInfo(){
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function(){
+                let member = JSON.parse(xhr.responseText);
+                if(member.memId){//有帳密資料
+                    // $id("memName").innerText = member.memName;
+                    // $id("spanLogin").innerText = "登出";
+                    mem.value = member.memName;
+                    console.log(mem.value)
+                    alert("Hi!~"+member.memName);
+                }else{
+                    alert("尚未登入!");
+                }
+        }
+            xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
+            xhr.send(null);
+        }
+
+    getMemberInfo();
 });
 const NavClass = defineProps({
     home:{
@@ -96,7 +116,7 @@ const NavClass = defineProps({
                 <router-link to="/member" class="shop memicon">
                     <img src="../assets/images/home/icon1.png" alt="member">
                     <div class="memHover">
-                        <li class="memName">Hi Jack!</li>
+                        <li class="memName">hi</li>
                         <li><router-link to="/member" class="shop account">My account</router-link></li>
                         <li><router-link to="/signin" class="shop memstatus">Sign in</router-link></li>
                     </div>

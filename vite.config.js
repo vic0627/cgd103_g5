@@ -12,7 +12,7 @@ export default defineConfig({
     },
   },
   assetsInclude: ["**/*.glb", "**/*.gltf"],
-  //base: "/dist/",
+  base: "/dist/",
   build: {
     rollupOptions: {
       output: {
