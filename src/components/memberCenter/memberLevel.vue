@@ -24,21 +24,11 @@ onMounted(()=> {
         }, animationLength);
     }
 });
+
 const point = ref(599);
-const member_level = ref({
-    Level_1:{
-        title : "Bronze Member",
-        upgrade_point : 1000,
-    },
-    Level_2:{
-        title : "Silver Member",
-        upgrade_point : 5000,
-    },
-    Level_3:{
-        title : "Gold Member",
-        upgrade_point : 10000,
-    },
-});
+
+
+
 
 </script>
 

@@ -45,6 +45,7 @@ const orderStep = reactive(
     width: 100%;
     height: 150px;
     overflow: hidden;
+    padding: 20px;
     .steps{  
         max-width: 800px;
         margin: 0 auto;
@@ -90,6 +91,7 @@ const orderStep = reactive(
                 background-color: #007FFB;
                 border-radius:50% ;
                 z-index: 2;
+                box-shadow: 0px 0px 10px #fff;
             }
             .unactive_circle{
                 width: 40px;

@@ -1,5 +1,6 @@
 <template>
-  <router-link class="out" to="/">離開後台 &rarr;</router-link>
+  <router-link class="out" id="spanOut" to="/backendlogin" >登出
+ &rarr;</router-link>
 </template>
 
 <style lang="scss" scoped>
@@ -12,4 +13,8 @@
 }
 </style>
 
-<script></script>
+<script setup>
+  const props = defineProps(['page01'])
+
+  
+</script>

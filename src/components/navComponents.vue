@@ -92,7 +92,17 @@ const NavClass = defineProps({
                 </ul>
             </div>
             <div class="shop-cart">  
-                <router-link to="/signin" class="shop"><img src="../assets/images/home/icon1.png" alt="member"></router-link>   
+                
+                <router-link to="/member" class="shop memicon">
+                    <img src="../assets/images/home/icon1.png" alt="member">
+                    <div class="memHover">
+                        <li class="memName">Hi Jack!</li>
+                        <li><router-link to="/member" class="shop account">My account</router-link></li>
+                        <li><router-link to="/signin" class="shop memstatus">Sign in</router-link></li>
+                    </div>
+
+                </router-link>
+                
                 <router-link to="/cart" class="shop"><img src="../assets/images/home/icon2.png" alt="cart">
                 </router-link>
             </div>
@@ -167,6 +177,28 @@ header {
                     filter: invert(50%) sepia(51%) saturate(7497%) hue-rotate(194deg) brightness(97%) contrast(108%);
                 }
                 }    
+            }
+            .memHover{
+                display: none;
+                position: absolute;
+                top: 60px;
+                border: 1px solid rgb(32, 32, 32);
+                border-radius: 10px;
+                padding: 10px 20px;
+                background: #000;
+                li{
+                    margin: 10px 0;
+                }
+                li:hover{
+                    filter: invert(50%) sepia(51%) saturate(7497%) hue-rotate(194deg) brightness(97%) contrast(108%);
+                }
+                .memName{
+                    border-bottom: 1px solid #fff;
+                    cursor: default;
+                }
+            }
+            .memicon:hover .memHover{
+                display: block;
             }
             
         }

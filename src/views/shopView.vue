@@ -1,30 +1,61 @@
 <script setup>
 import $ from "jquery";
-import { ref, reactive, onMounted, computed } from "vue";
+import { ref, reactive, onMounted, computed, onUpdated } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import {products,accessories,bundle_A,bundle_B} from "./js/Shop";
+// 
 bodyInit();
 
-
-//fuselage filter
-const source = ref([]);
-const search = ref("");
-const productList = computed(()=>{
-  let cache = source.value;
-  if(search.value != ""){
-      cache = cache.filter(item=>item.title.toLowerCase().includes(search.value.toLowerCase()));
-  }
-  return cache;
+const addCart = ref(0);
+const clearCart = ref('');
+//點按addCartBtn()的function
+const addProd = computed(()=>{
+    addCart;
 })
+const clear = computed(()=>{
+  clearCart = '';
+})
+
+
+//連結php抓資料庫資料
+const bundleRows_beginner = ref([]);
+const bundleRows_veteran = ref([]);
+const prodRows = ref([]);
+const assRows = ref([]);
+
+const getShopInfo = () =>{
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+    .then(res => res.json())
+    .then(json => {
+      bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'))
+      bundleRows_veteran.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('pro'))
+      prodRows.value = json.filter(i => i.cat_no === 1);
+      assRows.value = json.filter(i => i.cat_no === 2);
+    })
+}
+getShopInfo();
+const productList = computed(()=>{
+    let cache = products;
+    if(search.value != ""){
+        cache = cache.filter(item=>item.title.toLowerCase().includes(search.value.toLowerCase()));
+    }
+    return cache;
+})
+
+// fuselage filter
+const source = ref([]);
+const sourceToProducts = () => {
+};
+const search = ref(""); 
+
 const getSource = ()=>{
   const result = JSON.stringify(products);
   source.value = JSON.parse(result);
-  // console.log(result);
 }
 
-//accessories filter
+// accessories filter
 const source1 = ref([]);
 const search1 = ref("");
 const productList_A = computed(()=>{
@@ -39,7 +70,7 @@ const getSource1 = ()=>{
   source1.value = JSON.parse(result1);
 }
 onMounted(()=>{
-  getSource();
+  //getSource();
   getSource1();
 });
 
@@ -109,50 +140,33 @@ $(document).ready(() => {
 
 <template>
   <navComponentsVue :shop="`#077AF9`" />
+ 
   <!-- banner start-->
-  <section class="banner">
-    <h2>
-      <span>NEW ARRIVAL</span><br />
-      <span>EFPV Mavic 3 Classic</span>
-    </h2>
-    <div class="img_box">
-      <img src="../assets/images/shop/new.jpg" alt="newProduct" />
-      <img src="../assets/images/shop/new2.jpg" alt="newProduct" />
-    </div>
-    <div class="buttons">
-      <router-link
-        class="anchors btnSecond"
-        data-title="More"
-        to="/shopInfo"
-      >
-        <span>More</span>
-      </router-link>
-    </div>
-  </section>
+    <section class="banner">
+      <h2>
+        <span>NEW ARRIVAL</span><br />
+        <span>EFPV Mavic 3 Classic</span>
+      </h2>
+      <div class="img_box">
+        <img src="../assets/images/shop/new.jpg" alt="newProduct" />
+        <img src="../assets/images/shop/new2.jpg" alt="newProduct" />
+      </div>
+      <div class="buttons">
+        <router-link
+          class="anchors btnSecond"
+          data-title="More"
+          to="/shopInfo"
+        >
+          <span>More</span>
+        </router-link>
+      </div>
+    </section>
   <!-- banner end-->
 
   <!-- step start-->
   <section class="step_wrapper" id="customize">
     <h2><span>CUSTOMIZE STEP</span></h2>
     <p>Create Your Unique Style</p>
-    <!-- <div class="step_container">
-      <div  class="slide progress-25" >
-        <p>STEP 1</p>
-        <p>Choose your favorite color</p>
-      </div>
-      <div  class="slide progress-50" >
-        <p>STEP 2</p>
-        <p>Choose your favorite propellor</p>
-      </div>
-      <div  class="slide progress-75" >
-        <p>STEP 3</p>
-        <p>Choose your favorite motor</p>
-      </div>
-      <div  class="slide progress-100" >
-        <p>STEP 4</p>
-        <p>Finish your exclusive FVP</p>
-      </div>
-    </div> -->
     <div class="step_container box">
         <div class="slide percent p25">
             <svg>
@@ -205,7 +219,9 @@ $(document).ready(() => {
     </div>
   </section>
   <!-- step end-->
-
+  <p class="cart">{{addCart}}
+      <button @click="clear(clearCart)">Clear</button>
+  </p>
   <!-- category start-->
   <section class="category_box">
     <p class="show">category</p>
@@ -237,53 +253,47 @@ $(document).ready(() => {
     <h2><span>FUSRLAGE</span></h2>
     <p>Select All FUSRLAGE Product You favoraite</p>
     <div class="search_box">
-      <!-- <label for="search"></label> -->
-      <input  type="text"  name="search"  placeholder="search"  id="search"  v-model="search" >
-      <!-- <button type="submit" value="submit">Go</button> -->
+      <input  type="text"  name="search"  placeholder="search"  id="search"  v-model="search">
     </div>
     <div class="card_slider">
       <div class="card_slider_items">
-        <div v-for="item in productList" class="card_slider_item" :key="item.id">
-          <div v-if="item.new == true" class="new"><span>New</span></div>
-          <div v-if="item.sale == true" class="sale"><span>Sale</span></div>
-          <div class="product_box">
-            <div class="img_box">
-              <button class="prev" id="prevBtn" @click="prevPic(item.id)">
-                ‹
-              </button>
-              <img :src="item[`src${item.id}`][count[item.id]]" alt="product_img"/>
-              <button class="next" id="nextBtn" @click="nextPic(item.id)">
-                ›
-              </button>
-            </div>
-            <div class="detail_box">
-              <h5 class="title">{{ item.title }}</h5>
-              <p v-if="item.Discount_Price != ''" class="price discount">
-                {{ item.Discount_Price }}
-              </p>
-              <p v-if="item.sale == true" class="price d">
-                {{ item.Original_Price }}
-              </p>
-              <p v-if="item.sale != true" class="price">
-                {{ item.Original_Price }}
-              </p>
-              
-              <div class="buttons">
-                <router-link
-                  class="anchors btnSecond"
-                  data-title="More"
-                  to="/shopInfo"
-                  ><span>More</span></router-link
-                >
-                <router-link
-                  class="anchor btnPrimary"
-                  to="/cart"
-                  data-title="Add"
-                  ><span>Add Cart</span></router-link
-                >
+        <div v-for="prodRow in prodRows" class="card_slider_item" :key="prodRow.id">
+          <div v-if="prodRow.sale == true" class="sale"><span>Sale</span></div>
+            <div class="product_box">
+              <div class="img_box">
+                <button class="prev" id="prevBtn" @click="prevPic(item.id)">
+                  ‹
+                </button>
+                <img :src="`/cgd103_g5_v2/src/assets/images/shop/${prodRow.images}`" alt="product_img"/>
+                <button class="next" id="nextBtn" @click="nextPic(item.id)">
+                  ›
+                </button>
+              </div>
+              <div class="detail_box">
+                <h5 class="title">{{ prodRow.prd_name}}</h5>
+                <p v-if="prodRow.sale == true" class="price discount">
+                  $USD{{prodRow.sale_price}}
+                </p>
+                <p v-if="prodRow.sale == false" class="price">
+                  $USD{{prodRow.prd_price}}
+                </p>
+                <div class="buttons">
+                  <router-link
+                    class="anchors btnSecond"
+                    data-title="More"
+                    to="/shopInfo"
+                    ><span>More</span></router-link
+                  >
+                  <input 
+                    type="button"
+                    class="btn"
+                    @click="addProd(addCart++)"
+                    value="Add"
+                    >
+                  >
+                </div>
               </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
@@ -295,35 +305,30 @@ $(document).ready(() => {
     <h2><span>ACCESSORIES</span></h2>
     <p>More Various Then You Think</p>
     <div class="search_box">
-      <!-- <label for="search"></label> -->
       <input type="text" name="search1" placeholder="search" id="search1" v-model="search1"/>
-      <!-- <button type="submit" value="submit">Go</button> -->
     </div>
     <div class="card_slider">
       <div class="card_slider_items">
-        <div v-for="i in productList_A" class="card_slider_item" :key="i.id">
-          <div v-if="i.new == true" class="new"><span>New</span></div>
-          <div v-if="i.sale == true" class="sale"><span>Sale</span></div>
+        <div v-for="assRow in assRows" class="card_slider_item" :key="assRow.pro_no">
+          <div v-if="assRow.sale == true" class="sale"><span>Sale</span></div>
           <div class="product_box">
             <div class="img_box">
               <button class="prev" id="prevBtn" @click="prevPic(i.id)">
                 ‹
               </button>
-              <img :src="i[`src${i.id}`][count[i.id]]" alt="product_img" />
+              <img :src="`/cgd103_g5_v2/src/assets/images/shop/${assRow.images}`" alt="product_img" />
               <button class="next" id="nextBtn" @click="nextAsscPic(i.id)">
                 ›
               </button>
             </div>
             <div class="detail_box">
-              <h5 class="title">{{ i.title }}</h5>
-              <p v-if="i.Discount_Price != ''" class="price discount">
-                {{ i.Discount_Price }}
+              <h5 class="title">{{assRow.prd_name}}</h5>
+              <p v-if="assRow.sale == true" class="price discount">
+                  $USD{{assRow.sale_price}}
+                </p>
+              <p v-if="assRow.sale == false" class="price">
+                $USD{{assRow.prd_price}}
               </p>
-              <p v-if="i.sale != true" class="price">{{ i.Original_Price }}</p>
-              <p v-if="i.sale == true" class="price d">
-                {{ i.Original_Price }}
-              </p>
-              
               <div class="buttons">
                 <router-link
                   class="anchors btnSecond"
@@ -333,10 +338,9 @@ $(document).ready(() => {
                 >
                 <router-link
                   class="anchor btnPrimary"
+                  data-title="Add"
                   to="/cart"
-                  data-title="BUY"
-                  ><span>BUY</span></router-link
-                >
+                  ><span>Add</span></router-link>
               </div>
             </div>
           </div>
@@ -351,26 +355,28 @@ $(document).ready(() => {
     <h2><span>BUNDLE</span></h2>
     <p>Make You More Professional</p>
     <div class="wrapper">
-      <button href="beginner" @click="viewChange(1)">Beginner</button>
-      <button href="veteran" @click="viewChange(2)">Veteran</button>
+      <button  @click="viewChange(1)">Beginner</button>
+      <button  @click="viewChange(2)">Veteran</button>
     </div>
-
     <div class="area active">
       <div class="card_container">
         <template v-if="view === 1">
           <div
-            v-for="beginner in bundle_A"
+            v-for="bundleRow1 in bundleRows_beginner"
             class="card"
-            :key="beginner.name"
+            :key="bundleRow1"
             id="beginner"
           >
+          <div v-if="bundleRow1.sale_price != 0 " class="sale"><span>Sale</span></div>
             <div class="pic">
-              <img :src="beginner.src" alt="beginner" />
+              <img :src="`/cgd103_g5_v2/src/assets/images/shop/${bundleRow1.images}`" alt="beginner" />
             </div>
             <h5>
-              <span>{{ beginner.title }}</span>
+              <span>{{bundleRow1.prd_name}}</span>
             </h5>
-            <p class="price">{{ beginner.price }}</p>
+            <p v-if="bundleRow1.sale_price != 0 " class="price">$USD{{bundleRow1.sale_price}}</p>
+             <p v-if="bundleRow1.sale_price == 0" class="price discount">$USD{{bundleRow1.prd_price }}</p>
+            
             <div class="buttons">
               <router-link
                 class="anchors btnSecond"
@@ -378,26 +384,28 @@ $(document).ready(() => {
                 to="/shopInfo"
                 ><span>More</span></router-link
               >
-              <router-link class="anchor btnPrimary" to="/cart" data-title="BUY"
-                ><span>BUY</span></router-link
+              <router-link class="anchor btnPrimary" to="/cart" data-title="Add"
+                ><span @click="addCartBtn(id)">Add</span></router-link
               >
             </div>
           </div>
         </template>
-        <template v-else-if="view === 2">
+      <template v-else-if="view === 2">
           <div
-            v-for="veteran in bundle_B"
+            v-for="bundleRow2 in bundleRows_veteran"
             class="card"
-            :key="veteran.name"
+            :key="bundleRow2"
             id="veteran"
           >
+          <div v-if="bundleRow2.sale_price != 0 " class="sale"><span>Sale</span></div>
             <div class="pic">
-              <img :src="veteran.src" alt="veteran" />
+              <img :src="`/src/assets/images/${bundleRow2.image}`" alt="veteran" />
             </div>
             <h5>
-              <span>{{ veteran.title }}</span>
+              <span>{{bundleRow2.prd_name}}</span>
             </h5>
-            <p class="price">{{ veteran.price }}</p>
+            <p v-if="bundleRow2.sale_price != 0" class="price discount">$USD{{bundleRow2.sale_price}}</p>
+            <p v-else-if="bundleRow2.sale_price == 0 " class="price">$USD{{bundleRow2.prd_price}}</p>
             <div class="buttons">
               <router-link
                 class="anchors btnSecond"
@@ -408,16 +416,15 @@ $(document).ready(() => {
               <router-link
                 class="anchor btnPrimary"
                 to="/cart"
-                data-title="BUY"
-                ><span>BUY</span></router-link
+                data-title="Add"
+                ><span>Add</span></router-link
               >
             </div>
           </div>
         </template>
-      </div>
-    </div>
+      </div> 
+    </div> 
   </section>
-  <!-- bundle end-->
 
   <!-- ad start-->
   <section class="ad">
@@ -431,16 +438,12 @@ $(document).ready(() => {
 
 <style scoped lang="scss">
 @import "@/sass/style.scss";
-
-
 //banner
 .banner {
   width: 100%;
   position: relative;
   margin-top: 0;
   h2 {
-    // grid-column: 1/1;
-    // grid-row: 1/1;
     width: 100%;
     text-align: center;
     position: absolute;
@@ -453,10 +456,7 @@ $(document).ready(() => {
     .buttons{
       position: relative;
       top: -30%;
-       .btnSecond{
     }
-    }
-   
     span {
       &:first-child {
         font-weight: bold;
@@ -491,6 +491,16 @@ $(document).ready(() => {
   }
 }
 //step
+.cart{
+  font-size: 20px;
+  position: fixed;
+  top: 100px;
+  left: 50px;
+  width: 100px;
+  height: 50px;
+  background-color: #ccc;
+  color: #232a3e;
+}
 .step_wrapper {
   width: 100%;
   position: relative;
@@ -527,32 +537,29 @@ $(document).ready(() => {
   }
 
   .step_container {
-    display: flex;
-    flex-wrap: wrap;
     position: relative;
     margin: 0 auto;
     gap: 1rem;
-    padding: 2rem;
-    width: 300px;
-    height: 300px;
-    display: flex;
-
-
+    width:100%;
     @include m($m-breakpoint) {
-      gap: 2rem;
-      display: flex;
-      justify-content: center;
-    }
-    .slide {
+      gap: 10px;
+      width: 1023px;
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      // flex-direction: column;
-      text-align: center;
-      width: 200px;
-      height: 300px;
-      padding-top: 30px;
-      margin: 20px auto;
+      align-items: center;
+      margin: 0 auto;
+    }
+    @include l($l-breakpoint) {
+      width: 1200px;
+    }
+    .slide {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 10px 0;
+      margin:  auto;
       font: $caption-s-p;
       color: $txt-color;
       box-sizing: border-box;
@@ -561,19 +568,20 @@ $(document).ready(() => {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        width: 200px;
+        width: 500px;
+      }
+      @include l($l-breakpoint) {
+        width: 250px;
       }
     }
     .percent{      
         position: relative;
-        width: 300px;
-        height: 300px; 
         svg{
           position: relative;
-          width: 300px;
-          height: 300px;
+          width: 220px;
+          height: 220px;
           circle{
-            width:10px;
+            width: 150px;
             height: 150px;
             fill: none;
             stroke-width: 10;
@@ -593,6 +601,7 @@ $(document).ready(() => {
         .text{
           position: absolute;
           top: 100px;
+          text-shadow: 5px 5px  10px #f5f5f5;
         }
     }
     
@@ -632,6 +641,15 @@ $(document).ready(() => {
     margin: 20px auto;
     top: 0;
     @include secondBtn(130px);
+  }
+  .btn{
+    font-size: 20px;
+    width: 100px;
+    height: 50px;
+    background-color: $blue;
+    border-radius: 10px;
+    color: #fff;
+    border: none;
   }
 }
 //category
@@ -708,6 +726,7 @@ $(document).ready(() => {
   }
 }
 //fuselage
+
 .fuselage {
   h2,
   p {
@@ -969,21 +988,6 @@ $(document).ready(() => {
           @include l($l-breakpoint){
           width: 280px;
         }
-        .new{
-          position: absolute;
-          top: -10px;
-          right: 0;
-          width: 50px;
-          height: 80px;
-          background-color: rgb(255, 78, 78);
-          clip-path: polygon(100% 0, 100% 100%, 50% 51%, 0% 100%, 0 46%, 0% 0%);
-          font:$caption-p;
-          color: #f5f5f5;
-          span{
-            position: relative;
-            top: 10px;
-          }
-        }
         .sale {
           position: absolute;
           top: -10px;
@@ -1051,6 +1055,21 @@ $(document).ready(() => {
               height: 20px;
               box-shadow: 2px 5px 10px #e6e9f0;
               border-radius: 50%;
+            }
+            .sale {
+              position: absolute;
+              top: -10px;
+              right: 0;
+              width: 50px;
+              height: 80px;
+              background-color: rgb(244, 178, 25);
+              clip-path: polygon(100% 0, 100% 100%, 50% 51%, 0% 100%, 0 46%, 0% 0%);
+              font:$caption-p;
+              color: #f5f5f5;
+              span{
+                position: relative;
+                top: 10px;
+              }
             }
             .title{
               height: 40px;
@@ -1153,6 +1172,22 @@ $(document).ready(() => {
       @include l($l-breakpoint){
         width: 1200px;
       }
+      .sale {
+              position: absolute;
+              top: -10px;
+              right: 0;
+              width: 50px;
+              height: 80px;
+              background-color: rgb(244, 178, 25);
+              clip-path: polygon(100% 0, 100% 100%, 50% 51%, 0% 100%, 0 46%, 0% 0%);
+              font:$caption-p;
+              color: #f5f5f5;
+              span{
+                position: relative;
+                top: 10px;
+                left: 5px;
+              }
+            }
       .card {
         position: relative;
         box-sizing: border-box;
@@ -1190,6 +1225,9 @@ $(document).ready(() => {
             color: #fff;
             margin: 10px;
           }
+        }
+        .price.discount {
+          color: $ored;
         }
         .price {
           margin: 10px;

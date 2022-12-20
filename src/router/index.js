@@ -119,8 +119,8 @@ const router = createRouter({
       component: () => import("../views/backend/backendLogin.vue"),
     },
     {
-      path: "/lightBox",
-      name: "lightBox",
+      path: "/test",
+      name: "test",
       component: () => import("../views/lightBox.vue"),
     },
   ],

@@ -1,19 +1,15 @@
 <script setup>
 import { ref,reactive, onMounted } from 'vue';
+const cateRows = ref([]);
+const getProductCategoryManage = () =>{
+    fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getProductCategory.php")
+        .then(res => res.json())
+        .then(json => {
+            cateRows.value = json;
+    })
+}
+getProductCategoryManage();
     const table = ref(['編號','類別名稱','修改'])
-    const category = ref([
-        {
-        "no":1,
-        "name":'body'
-        },
-        {
-        "no":2,
-        "name": 'parts'
-        },
-        {
-        "no":3,
-        "name":'bundle'
-        }])
 </script>
 <template>
   <div class="productQuery">
@@ -28,9 +24,9 @@ import { ref,reactive, onMounted } from 'vue';
                    <p>{{item}}</p> 
                 </th>
             </tr>
-            <tr v-for="items in category" :key="items">
-                <td>{{items.no}}</td>
-                <td>{{items.name}}</td>
+            <tr v-for="cateRow in cateRows" :key="cateRow">
+                <td>{{cateRow.cat_no}}</td>
+                <td>{{cateRow.cat_id}}</td>
                 <td><div class="revised">修改/<span>刪除</span></div></td>
             </tr>
         </table>

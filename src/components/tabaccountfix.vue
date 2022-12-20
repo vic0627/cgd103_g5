@@ -1,36 +1,93 @@
 <script setup>
-import { reactive, onMounted,ref } from 'vue';
-import { zhTW, NPagination,NTable } from 'naive-ui';
-const table = ref([
-  {
-    number:1,
-    account:"ajfajsajff",
-    name:"劉蹭餒",
-    level: "最高管理員"
-  },
-  {
-    number:2,
-    account:"afjfwqjlw",
-    name:"劉蹭餒",
-    level: "一般管理員"
-  },
-  {
-    number:3,
-    account:"qfjwhhlkw",
-    name:"劉蹭餒",
-    level: "一般管理員"
-  },
-  {
-    number:4,
-    account:"qfjlwqjflq",
-    name:"劉蹭餒",
-    level: "一般管理員"
-  },
+import { reactive, onMounted,ref,h } from 'vue';
+import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
+import axios from 'axios';
+const adminRows = ref([]);
+		const getAdmin = () => {
+			//取得商品資料
+       axios.get("http://localhost/CGD103-G5/public/g5PHP/getAdmin.php")
+      .then(res=> {
+        // console.log(res.data)
+        adminRows.value = res.data
+      })
+}
+// const 
+	onMounted(()=>{
+		getAdmin();
+  });
   
+const column = [
+  {
+    title: "管理員編號",
+    key: "admin_no"
+  },
+  {
+    title: "管理員姓名",
+    key: "admin_name"
+  },
+  {
+    title: "管理員帳號",
+    key: "admin_acc"
+  },
+  {
+    title: "管理員權限",
+    key: "authority"
+  },
+  {
+      title: "Action",
+      key: "actions",
+      render(row) {
+        return h(
+          NButton,
+          {
+            size: "medium",
+            color: "#077AF9",
+            onClick: () => sendMail(row)
+          },
+          { default: () => "編輯" }
+        );
+      }
+    }
+];  
+const newAdmin_no = ref('');
+const newAdmin_acc = ref('');
+const showModal = ref(false);
+const showModal2 = ref(false);
+const paginationReactive = reactive({
+      page: 2,
+      pageSize: 10,
+    //   showSizePicker: true,
+    //   pageSizes: [3, 5, 7],
+      onChange: (page) => {
+        paginationReactive.page = page;
+      },
+      onUpdatePageSize: (pageSize) => {
+        paginationReactive.pageSize = pageSize;
+        paginationReactive.page = 1;
+      }
+    });
+    const  pagination = paginationReactive;
 
-])
-const page = ref(2);
-const pageSize = ref(3);
+
+const selectId = (user)=>{
+  console.log(adminRows.value[user].admin_no);
+  newAdmin_acc.value = adminRows.value[user].admin_acc;
+  newAdmin_no.value = adminRows.value[user].admin_no;
+}
+const updateAdmin = (user)=>{
+  const newAdmin = {
+    admin_no: Number(newAdmin_no.value),
+    admin_acc: newAdmin_acc.value, 
+  }
+  fetch("http://localhost/CGD103-G5/public/g5PHP/updateAdmin.php", {
+    method: "POST",
+    body: new URLSearchParams(newAdmin),
+  }).then(res=>{
+    console.log(res)
+    res.json()
+  })
+  showModal.value = false
+}
 
 </script>
 <template>
@@ -45,45 +102,67 @@ const pageSize = ref(3);
       <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
     </div>
   </div>
-  <n-table>
-    <thead>
-      <tr>
-        <th>編號</th>
-        <th>帳號</th>
-        <th>管理員姓名</th>
-        <th>管理員級別</th>
-        <th>修改</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in table" :key="item.number" :pagination="pagination">
-        <td>{{item.number}}</td>
-        <td>{{item.account}}</td>
-        <td>{{item.name}}</td>
-        <td>{{item.level}}</td>
-        <td><a href="#"><span class="block">編輯</span> <span>/</span> <span class="red">刪除</span></a></td>
-      </tr>
-    </tbody>
-  </n-table>
-  
-  <!-- <div class="tables">
-    <table>
-      <tr>
-        <th>編號</th>
-        <th>帳號</th>
-        <th>管理員姓名</th>
-        <th>管理員級別</th>
-        <th>修改</th>
-      </tr>
-      <tr v-for="item in table" :key="item">
-        <td>{{item.number}}</td>
-        <td>{{item.account}}</td>
-        <td>{{item.name}}</td>
-        <td>{{item.level}}</td>
-        <td><a href="#"><span class="block">編輯</span> <span>/</span> <span class="red">刪除</span></a></td>
-      </tr>
-    </table>
-  </div> -->
+  <form method="post">
+    <n-table>
+      <thead>
+        <tr>
+          <th>編號</th>
+          <th>帳號</th>
+          <th>管理員姓名</th>
+          <th>管理員級別</th>
+          <!-- <th>編輯</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="(item,index) in adminRows" :key="index" :pagination="pagination">
+          <td>{{item.admin_no}}</td>
+          <td>{{item.admin_acc}}</td>
+          <td>{{item.admin_name}}</td>
+          <td>{{item.authority}}</td>
+          <td>{{item.admin_psw}}</td>
+          <td>
+            <n-button @click="showModal = true; selectId(index)" type="info">
+              編輯
+            </n-button>
+              <n-modal
+                v-model:show="showModal"
+                preset="dialog"
+                title="確認"
+                content="你確定嗎?"
+              >
+            <!-- <input type="text" name="admin_no" placeholder="修改" v-model="newAdmin_no"> -->
+            <label for="admin_acc"> 修改帳號 : </label>
+            <input type="text" name="admin_acc" placeholder="修改帳號" v-model="newAdmin_acc">
+            <n-button @click="showModal = true; updateAdmin(index)" type="error">
+              確認
+            </n-button>
+           </n-modal>
+          </td>
+          <td>
+            <n-button @click="showModal2 = true" type="error">
+              刪除
+            </n-button>
+            <n-modal
+                v-model:show="showModal2"
+                preset="dialog"
+                title="確認"
+                content="你確定嗎?"
+              >
+            <n-button @click="showModal2 = true; updateAdmin(index)" type="error">
+              刪除
+            </n-button>
+           </n-modal>
+          </td>
+        </tr>
+      </tbody>
+    </n-table>
+  </form>
+   <!-- <div class="table">
+    <n-data-table :columns="column" :data="adminRows" :pagination="pagination"  :bordered="true" :single-line="false" />
+  </div>
+   <n-modal :show="showModal">
+    
+   </n-modal> -->
 </div>
 
   
@@ -93,6 +172,10 @@ const pageSize = ref(3);
 .top {
   width: 100%;
   display: block;
+}
+.table {
+  width: 95%;
+  margin: auto;
 }
 h2 {
   font-size: 40px;
