@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, reactive, computed } from 'vue';
 import $ from 'jquery';
 import {bodyInit} from '@/composables/useOnunmounted';
 
@@ -10,13 +10,27 @@ const props = defineProps(['nextStep','step']);
 const title = reactive([
     {"name": "Product"},{"name": "Price"},{"name":"Quantity"},{"name":"Delete"}
 ]);
-// let total = ref(0);
+
 //數量加減//價格變動
+const sum = computed(()=>{
+    let total = ref(0);
+        for(const cartnum in cartItem){
+            // console.log(cartItem[cartnum])
+            // console.log(cartItem[cartnum]['name'])
+            total.value += cartItem[cartnum]['price']*cartItem[cartnum]['count'];
+        }
+        return total
+})
 const addCount = (index) => {
-    // console.log(cartIte;
-    return cartItem[index].count ++;
+    // return num.value ++;
+    // console.log(num[index]);
+    // num.value++;
+    return cartItem[index].count +=1;
 }
 const reduceCount = (index) => {
+    // if(num.value >1){
+    //     return num.value --;
+    // }
     if(cartItem[index].count > 1){
         return cartItem[index].count --;  
     }
@@ -24,10 +38,11 @@ const reduceCount = (index) => {
 //刪除商品
 const cart = ref(false); 
 const Delete = (index)=> {
-    cartItem[index].exist = cart.value;
-    console.log(cartItem[index].exist)
+    cartItem.splice(index,1);
+    // cartItem[index].exist = cart.value;
+    // console.log(cartItem[index].exist)
 }
-
+const num = reactive([]);
 const cartItem = reactive([
     {
         "id":1,
@@ -40,7 +55,7 @@ const cartItem = reactive([
     },
     {
         "id":2,
-        "name":"Maciv 2 ZOOM",
+        "name":"Maciv 3 ZOOM",
         "description":"fwgqg qwqffw",
         "image": "/images/cart/body_03_white_1.png",
         "price": 159,
@@ -84,7 +99,7 @@ const sale = ()=> {
                         </div>
                         <div class="cartProduct-txt">
                             <h5>{{item.name}}</h5>
-                            <p>{{item.description}}</p>
+                            <!-- <p>{{item.description}}</p> -->
                         </div>
                     </div>
                     <div class="amount-price">
@@ -123,13 +138,13 @@ const sale = ()=> {
                     <p>$0.00</p>
                 </div>
                 <div class="summaryPrice">
-                    <p>Discount Price</p>
-                    <p>$300/10%</p>
+                    <p>Discount</p>
+                    <p>10%</p>
                 </div>
                 <!-- <hr> -->
                 <div class="summaryPrice">
                     <p>Total Price</p>
-                    <p>{{total}}</p>
+                    <p>${{sum}}</p>
                     <!-- <p>$2,700.00</p> -->
                 </div>
                 <div class="cartBtn">
@@ -455,12 +470,12 @@ section {
             position: relative;
             cursor: pointer;
             &::before {
-                content: 'x';
+                content: '\2716';
                 position: absolute;
-                top: -10%;
-                left: 30%;
+                top: -5%;
+                left: 22%;
                 color: #eeeeee;
-                font-size: 20px;
+                font-size: 18px;
                 font-family: "poppins";
             }
         }

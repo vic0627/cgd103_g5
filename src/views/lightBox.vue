@@ -18,5 +18,8 @@ const lightBoxShow = ref(true);
 @import '@/sass/component/_lightBox.scss';
 .lightBox{
 	@include lightBox();
+	.lightBoxContent{
+		height: 300px;
+	}
 }
 </style>

@@ -118,6 +118,11 @@ const router = createRouter({
       name: "backendlogin",
       component: () => import("../views/backend/backendLogin.vue"),
     },
+    {
+      path: "/test",
+      name: "test",
+      component: () => import("../views/lightBox.vue"),
+    },
   ],
 });
 

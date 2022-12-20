@@ -1,164 +1,110 @@
 <script setup>
-import { reactive, onMounted,ref } from 'vue';
-import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
-const columns = [
-  {
-    title: "編號",
-    key: "number"
-  },
-  {
+import { reactive, onMounted,ref,h } from 'vue';
+import { zhTW, NPagination,NTable,NDataTable,NButton,NModal} from 'naive-ui';
+import axios from 'axios';
+const createColumns = ({
+  sendMail,showModal
+}) => {
+  return [
+     {
     title: "訂單編號",
-    key: "onum"
+    key: "orders_no"
   },
   {
-    title: "日期",
-    key: "date"
+    title: "會員編號",
+    key: "mem_no"
   },
   {
-    title: "品項",
-    key: "item"
+    title: "購買日期",
+    key: "purchase_date"
   },
   {
-    title: "狀態",
-    key: "status"
+    title: "訂單狀態",
+    key: "admin_psw"
   },
   {
-    title: "訂貨人",
-    key: "name"
+    title: "運送地點",
+    key: "orders_location"
   },
   {
-    title: "合計",
-    key: "total"
+    title: "優惠編號",
+    key: "disc_no"
   },
-];
-const data = reactive([
-    {
-        number:1,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:2,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:3,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:4,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:5,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:6,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:7,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:8,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:9,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:10,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:11,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:11,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:11,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:11,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-]);
+  {
+    title: "總金額",
+    key: "orders_price"
+  },
+  {
+      title: "Action",
+      key: "actions",
+      render(row) {
+        return h(
+          NButton,
+          {
+            size: "medium",
+            color: "#077AF9",
+            // onClick: () => sendMail(row)
+            onClick: () => showModal()
+          },
+          { default: () => "編輯" }
+        );
+      }
+    }
+  ]};
+  const modal = ref(false)
+  const column = createColumns({
+        // sendMail(rowData) {
+        //   message.info("send mail to ");
+        // }
+        showModal() {
+          modal.value == true
+        }
+    });
+// const column = [
+//   {
+//     title: "訂單編號",
+//     key: "orders_no"
+//   },
+//   {
+//     title: "會員編號",
+//     key: "mem_no"
+//   },
+//   {
+//     title: "購買日期",
+//     key: "purchase_date"
+//   },
+//   {
+//     title: "訂單狀態",
+//     key: "admin_psw"
+//   },
+//   {
+//     title: "運送地點",
+//     key: "orders_location"
+//   },
+//   {
+//     title: "優惠編號",
+//     key: "disc_no"
+//   },
+//   {
+//     title: "總金額",
+//     key: "orders_price"
+//   },
+//   {
+//       title: "Action",
+//       key: "actions",
+//       render(row) {
+//         return h(
+//           NButton,
+//           {
+//             size: "medium",
+//             color: "#077AF9",
+//             // onClick: () => sendMail(row)
+//           },
+//           { default: () => "編輯" }
+//         );
+//       }
+//     }
+// ];  
 const paginationReactive = reactive({
       page: 2,
       pageSize: 10,
@@ -173,18 +119,43 @@ const paginationReactive = reactive({
       }
     });
     const  pagination = paginationReactive;
+
+const NmOrderRows = ref([]);
+		const getNmOrder = () => {
+			//取得商品資料
+      axios.get("http://localhost/CGD103-G5/public/g5PHP/getNmOrder.php")
+      .then(res=> {
+        // console.log(res)
+        NmOrderRows.value = res.data
+      })
+		}
+	onMounted(()=>{
+		getNmOrder();
+  });
+
+
 </script>
 <template>
 <div class="top">
 <h2>
-    一般訂單明細查詢
+    一般訂單查詢
     <outComponents />
   </h2>
   <div class="table">
-    <n-data-table :columns="columns" :data="data" :pagination="pagination"  :bordered="true" :single-line="false" />
+    <n-data-table :columns="column" :data="NmOrderRows" :pagination="pagination"  :bordered="true" :single-line="false" />
   </div>
-</div>
+  <n-modal
   
+    preset="dialog"
+    title="确认"
+    content="你确认?"
+    positive-text="确认"
+    negative-text="算了"
+    @positive-click="submitCallback"
+    @negative-click="cancelCallback"
+  />
+</div>
+
 </template>
 <style scoped lang="scss">
 @import '@/sass/style.scss';
