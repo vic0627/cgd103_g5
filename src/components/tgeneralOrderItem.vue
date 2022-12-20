@@ -1,167 +1,52 @@
 <script setup>
-import { reactive, onMounted,ref } from 'vue';
-import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
-const columns = [
-  {
-    title: "編號",
-    key: "number"
-  },
-  {
-    title: "訂單編號",
-    key: "onum"
-  },
-  {
-    title: "日期",
-    key: "date"
-  },
-  {
-    title: "品項",
-    key: "item"
-  },
-  {
-    title: "狀態",
-    key: "status"
-  },
-  {
-    title: "訂貨人",
-    key: "name"
-  },
-  {
-    title: "合計",
-    key: "total"
-  },
-];
+import { reactive, onMounted,ref,h } from 'vue';
+import { zhTW, NPagination,NTable,NDataTable,NButton,NModal } from 'naive-ui';
+import axios from 'axios';
 const column = [
   {
-    title: "編號",
-    key: "admin_no"
-  },
-  {
     title: "訂單編號",
-    key: "authority"
+    key: "orders_no"
   },
   {
-    title: "日期",
-    key: "admin_acc"
+    title: "會員編號",
+    key: "mem_no"
   },
   {
-    title: "品項",
+    title: "購買日期",
+    key: "purchase_date"
+  },
+  {
+    title: "訂單狀態",
     key: "admin_psw"
   },
   {
-    title: "狀態",
-    key: "status"
+    title: "運送地點",
+    key: "orders_location"
   },
   {
-    title: "訂貨人",
-    key: "name"
+    title: "優惠編號",
+    key: "disc_no"
   },
   {
-    title: "合計",
-    key: "total"
+    title: "總金額",
+    key: "orders_price"
   },
-];
-const data = reactive([
-    {
-        number:1,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:2,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:3,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:4,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:5,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:6,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:7,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:8,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:9,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:10,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-    {
-        number:11,
-        onum:"ajfajsajff",
-        date: "2022/12/12",
-        item: "EFPV 5",
-        status: "處理中",
-        name:"劉蹭餒",
-        total: "2,499",
-    },
-]);
+  {
+      title: "Action",
+      key: "actions",
+      render(row) {
+        return h(
+          NButton,
+          {
+            size: "medium",
+            color: "#077AF9",
+            // onClick: () => sendMail(row)
+          },
+          { default: () => "編輯" }
+        );
+      }
+    }
+];  
 const paginationReactive = reactive({
       page: 2,
       pageSize: 10,
@@ -177,20 +62,33 @@ const paginationReactive = reactive({
     });
     const  pagination = paginationReactive;
 
-const adminRows = ref([]);
-		const getAdmin = () => {
+const NmOrderRows = ref([]);
+		const getNmOrder = () => {
 			//取得商品資料
-			let xhr = new XMLHttpRequest();
-			xhr.onload = function(){
-				if(xhr.status == 200){ //OK
-				  adminRows.value = JSON.parse(xhr.responseText);
-				}
-			}
-			xhr.open("get", "/dist/g5PHP/getAdmin.php", true);
-			xhr.send(null);
+      axios.get("http://localhost/CGD103-G5/public/g5PHP/getNmOrder.php")
+      .then(res=> {
+        // console.log(res)
+        NmOrderRows.value = res.data
+      })
+
+      //方法二
+      // fetch("http://localhost/CGD103-G5/public/g5PHP/getNmOrder.php")
+      // .then(res => res.json())
+      // .then(json =>{
+      //   NmOrderRows.value = json
+      // })
+      //方法三
+			// let xhr = new XMLHttpRequest();
+			// xhr.onload = function(){
+			// 	if(xhr.status == 200){ //OK
+			// 	  adminRows.value = JSON.parse(xhr.responseText);
+			// 	}
+			// }
+			// xhr.open("get", "/dist/g5PHP/getAdmin.php", true);
+			// xhr.send(null);
 		}
 	onMounted(()=>{
-		getAdmin();
+		getNmOrder();
   });
 </script>
 <template>
@@ -200,10 +98,11 @@ const adminRows = ref([]);
     <outComponents />
   </h2>
   <div class="table">
-    <n-data-table :columns="column" :data="adminRows" :pagination="pagination"  :bordered="true" :single-line="false" />
+    <n-data-table :columns="column" :data="NmOrderRows" :pagination="pagination"  :bordered="true" :single-line="false" />
   </div>
+
 </div>
-  
+
 </template>
 <style scoped lang="scss">
 @import '@/sass/style.scss';
