@@ -21,37 +21,6 @@ const getMemberInfo = () =>{
 onMounted(()=>{
     getMemberInfo();
 })
-
-// const customer1 = reactive(
-//     [
-//         {
-//             "custNo":1,
-//             "FirstName":"LILY",
-//             "LastName":"LIU",
-//             "Phone":"0911111111",
-//             "OrderList":"EFPV Avata advance bundle",
-//             "OrderQty":2,
-//             "Address":"50 Hagiwara Tea Garden Dr, San Francisco, CA", 
-//             "CreditCardNo":"01111 1111 1111 1111",
-//             "isFirstClassMember": true 
-//         },
-//     ]
-// )
-// const customer2 = reactive(
-//     [
-//         {
-//             "mem_no":2,
-//             "FirstName":"John",
-//             "LastName":"Tseng",
-//             "Phone":"0911114444",
-//             "OrderList":"EFPV Avata pro bundle",
-//             "OrderQty":4,
-//             "City":"San Francisco",
-//             "Address":"30 Hagiwara Tea Garden Dr, San Francisco, CA", 
-//             "CreditCardNo":"0222 2222 2222 2222"  
-//         },
-//     ]
-// )
 </script>
 <template>   
     <section class="detail_box">
@@ -62,7 +31,7 @@ onMounted(()=>{
                     </tr>
                     <tr>
                         <td class="title">Member Grade</td>
-                        <td colspan="3">{{memRow.mem-grade}}</td>
+                        <td colspan="3">{{memRow.mem-grade }}</td>
                     </tr>
                     <tr>
                         <td class="title">First Name</td>
@@ -78,8 +47,8 @@ onMounted(()=>{
                     </tr>
                     <tr>
                         <td class="title">Order List</td>
-                        <td>EFPV Avata advance bundle</td>
-                        <td colspan="2">BUY 4 Units</td>
+                        <td>EFPV Avata advance bundle BUY 4 Units</td>
+                        <!-- <td colspan="2"></td> -->
                     </tr>
                     <tr>
                         <td class="title">City</td>
@@ -161,6 +130,12 @@ onMounted(()=>{
                     text-align: center;
                 }
                 td{
+                    &:nth-child(odd){
+                        width: 20px;
+                    }
+                    &:nth-child(even){
+                        width: 250px;
+                    }
                     border: 1px solid rgb(168, 168, 168);
                     text-align: left;
                     padding: 5px ;

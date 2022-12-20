@@ -1,6 +1,27 @@
 <script setup>
 import {ref,onMounted} from 'vue';
 const titles = ref(["商品編號","商品名稱","商品分類","售價(美元)","顏色"]);
+const addProduct = ()=>{
+  const payload = {
+    prd_name: prd_name.value,
+    prd_price: prd_price.value,
+    // cat_no: cat_no.value,
+    color: color.value
+  };
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getProductAdd.php",{
+    method: "POST",
+    body: new URLSearchParams(payload),
+  }).then(res => {
+    res.text();
+    console.log(res);
+  });
+  
+}
+const prd_name = ref('');
+const prd_price = ref('');
+// const cat_no = ref('');
+const color = ref('');
+
 onMounted(()=>{
 
 function doFirst(){    
@@ -9,7 +30,6 @@ function doFirst(){
 }
 
 window.addEventListener('load',doFirst)
-
 })
 function fileChange(){
   let file = document.getElementById('theFile').files[0]
@@ -33,26 +53,38 @@ function fileChange(){
     <outComponents />
   </h2>
   <div class="proAdd">
-    <div class="proCol" v-for="name in titles" :key="name">
-      <h3>{{name}}</h3>
-      <input v-if="name != '商品分類'" type="text" placeholder="請輸入" id="proCol">
-      <select v-if="name == '商品分類'" name="" id="">
-        <option value="">1-機身</option>
-        <option value="">2-零件</option>
-        <option value="">3-組合</option>
-      </select>
-    </div>
-    <div class="imgBox">
-      <p>
-        <img id="image">
-      </p>
-      <input type="file"  id="theFile" @change="fileChange">
-      <div class="btn">
-        <input type="submit" value="取消新增" id="canCel">
-        <input type="submit" value="確定新增" id="conFirm">
+    <form action="post">
+      <div>
+        <label for="">商品名稱</label>
+        <input  type="text" name = "prd_name" placeholder="請輸入" v-model="prd_name">
       </div>
-    </div>
-   
+      <!-- <div class="">
+        商品分類
+        <select name="cat_no" id="" v-model="cat_no">
+          <option disabled value="商品分類"> 商品分類</option>
+          <option value="">1-機身</option>
+          <option value="">2-零件</option>
+          <option value="">3-組合</option>
+        </select>
+      </div> -->
+      <div>
+        <label for="">售價(美元)</label>
+        <input type="text" name = "prd_price" placeholder="請輸入" v-model="prd_price">
+      </div>
+      <div>
+        <label for="">商品顏色</label>
+        <input  type="text" name = "color" placeholder="請輸入" v-model="color">
+      </div>
+    </form>
+      <!-- <div class="imgBox">
+        <p>
+          <img id="image">
+        </p>
+      </div>  -->
+        <!-- <input type="file"  id="theFile" @change="fileChange"> -->
+        <div class="btn">
+          <input type="button" value="確定新增" id="conFirm" @click="addProduct()">
+        </div>
   </div>
  
 </div>
@@ -84,8 +116,6 @@ h2 {
 
   overflow: scroll;
   .proCol{
-    display: flex;
-
     h3{
       font-size: 30px;
       color: rgb(26, 26, 26);

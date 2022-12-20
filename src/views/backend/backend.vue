@@ -10,6 +10,7 @@ import tabracecategory from "../../components/tabracecategory.vue"; //RACE
 import tabaccountfix from "@/components/tabaccountfix.vue"; //account
 import tabaccountadd from "@/components/tabaccountadd.vue"; //account
 import tabproductsearch from "@/components/tabproductsearch.vue";
+import tabproductCategoryManage from "@/components/tabProductCategoryManage.vue";
 import tabproductAdd from "@/components/tabproductAdd.vue";
 import taborderItem from "@/components/taborderItem.vue";
 import tabcustomizationOrderItem from "@/components/tcustomizationOrderItem.vue";
@@ -27,6 +28,7 @@ export default {
     tabraceform,
     tabracecategory,
     tabproductsearch,
+    tabproductCategoryManage,
     tabaccountfix,
     tabaccountadd,
     taborderItem,
