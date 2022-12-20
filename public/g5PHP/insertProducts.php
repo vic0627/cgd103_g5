@@ -3,7 +3,7 @@
  header("Content-Type:application/json;charset=utf-8");
 try {
 	require_once("./connect_cgd103g5_Lily.php");
-	$sql = "insert into  tibamefe_cgd103g5.products values (null,:prd_name,null,:prd_price,null,null,:color,null)";
+	$sql = "insert into  tibamefe_cgd103g5.products values (null,:prd_name,null,:,null,null,:color,null)";
 	$products = $pdo->prepare($sql);
     $products->bindValue(":prd_name", $_POST["prd_name"]);
     // $products->bindValue(":cat_no", $_POST["cat_no"]);

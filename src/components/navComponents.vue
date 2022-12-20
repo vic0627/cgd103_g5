@@ -22,7 +22,7 @@ const mainMenu = reactive([
         "name": "NEWS",
     },
 ])
-const mem = ref('')
+const mem = ref('');
 onMounted(() => {
     // console.log(mainMenu);
     function getMemberInfo(){
