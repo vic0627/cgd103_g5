@@ -440,6 +440,55 @@ const toggleColor = (id) => {
     };
     
 };
+
+const set = (key, val) => {
+    sessionStorage.setItem(key, val)
+};
+
+const addCart = () => {
+    let prd_body;
+    switch (bodyChosen.value.type) {
+        case 1:
+            prd_body = 'body01';
+            break;
+        case 2:
+            prd_body = 'body02';
+            break;
+        case 3:
+            prd_body = 'body03';
+            break;
+    }
+    switch (bodyChosen.value.color) {
+        case 1:
+            prd_body += 'black';
+            break;
+        case 2:
+            prd_body += 'blue';
+            break;
+        case 3:
+            prd_body += 'green';
+            break;
+        case 4:
+            prd_body += 'red';
+            break;
+        case 5:
+            prd_body += 'white';
+            break;
+    }
+    switch (propellorChosen.value.type) {
+        case 1:
+        case 2:
+        case 3:
+    }
+    switch (propellorChosen.value.color) {
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+    }
+    set('test', `{"id":"${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}"}`)
+};
 </script>
 
 <template>
@@ -497,7 +546,7 @@ const toggleColor = (id) => {
                 <div class="nextStep" data-title="Choose" v-show="step[flow].pBtn" @click="nextStep">
                     <span>Choose</span>
                 </div>
-                <router-link class="nextStep buyBtn" data-title="Buy" v-show="buyBtn" to="/cart">
+                <router-link class="nextStep buyBtn" data-title="Buy" v-show="buyBtn" to="/cart" @click="addCart">
                     <span>Buy</span>
                 </router-link>
             </div>
