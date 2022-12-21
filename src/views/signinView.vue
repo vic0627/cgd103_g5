@@ -32,7 +32,7 @@
                 alert("wrong username or password!");
                 return false;
             }
-            // fetch("http://localhost/cgd103_g5/public/g5PHP/memLogin.php",{
+            // fetch("http://localhost:8888/cgd103_g5/public/g5PHP/memLogin.php",{
             //     method : "POST",
             //     body : JSON.stringify({
             //         username : document.getElementById("username").value,
@@ -49,8 +49,11 @@
                 if(member.memId){ //帳密正確
                     //alert("帳密正確~");
                     // document.getElementById("memName").innerText = member.memName;
-                    const link = ref("");
                     // document.getElementById("spanLogin").innerText = "登出";
+                    document.getElementById("username").value="";
+                    document.getElementById("password").value="";
+                    document.querySelector(".unameinfo").innerHTML="";
+                    document.querySelector(".pswinfo").innerHTML="";
                 }else{
                     alert("wrong username or password!~");
                 }
