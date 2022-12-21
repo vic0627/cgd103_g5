@@ -5,19 +5,31 @@ import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import {accessories,bundle_A,bundle_B} from "./js/Shop";
-// 
+
 bodyInit();
 
-const cartItem = ref([]);
+const cartItem = ref({});
 //點按addCartBtn()的function
 const set = (key, val) =>{
   sessionStorage.setItem(key, val);
 }
-const addProd = (id) => {
-  set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","price":"${products.value[id-1].Original_Price}"},`)
 
-  cartItem.value += sessionStorage.getItem(id);
-  console.log(cartItem.value);
+// const items = 
+const addProd = (id) => {
+    if(sessionStorage['cartItem'] == null){
+      sessionStorage['cartItem'] = '';
+    }
+    if(sessionStorage[id]){
+      alert('You have checked.')
+     
+    }else{
+      set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","price":${products.value[id-1].Original_Price}}`);
+      
+      let get = JSON.parse(sessionStorage.getItem(id));
+      sessionStorage['cartItem'] +=`${get.id}, `;
+
+      console.log("id:",get.id);     
+    }
 };
 
 
@@ -27,6 +39,8 @@ const bundleRows_veteran = ref([]);
 const prodRows = ref([]);
 const assRows = ref([]);
 const products = ref([]);
+
+
 const getShopInfo = () =>{
   fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
     .then(res => res.json())
@@ -56,6 +70,10 @@ const getShopInfo = () =>{
     })
 }
 
+// fuselage searchBar
+const search = ref(""); 
+const source = ref([]);
+const source1 = ref([]);
 const productList = computed(()=>{
   let cache = products.value;
     if(search.value != ""){
@@ -63,23 +81,16 @@ const productList = computed(()=>{
     }
     return cache;
 })
-
-// fuselage filter
-const source = ref([]);
-const sourceToProducts = () => {
-};
-const search = ref(""); 
-
 const getSource = ()=>{
   const result = JSON.stringify(products);
   source.value = JSON.parse(result);
 }
 
-// accessories filter
-const source1 = ref([]);
-const search1 = ref("");
+// accessories searchBar
+
+// const search1 = ref("");
 const productList_A = computed(()=>{
-  let cache1 = source1.value;
+  let cache1 = products.value;
   if(search1.value != ""){
       cache1 = cache1.filter(i=>i.title.toLowerCase().includes(search1.value.toLowerCase()));
   }
@@ -90,7 +101,7 @@ const getSource1 = ()=>{
   source1.value = JSON.parse(result1);
 }
 onMounted(()=>{
-  //getSource();
+  getSource();
   getSource1();
   getShopInfo();
 });
@@ -300,15 +311,14 @@ $(document).ready(() => {
                     class="anchors btnSecond"
                     data-title="More"
                     to="/shopInfo"
-                    ><span>More</span></router-link
-                  >
+                    ><span>More</span>
+                  </router-link>
                   <input 
                     type="button"
                     class="btn"
                     @click="addProd(prodRow.id)"
                     value="Add"
                     >
-                  >
                 </div>
               </div>
             </div>
@@ -352,14 +362,13 @@ $(document).ready(() => {
                   class="anchors btnSecond"
                   data-title="More"
                   to="/shopInfo"
-                  ><span>More</span></router-link
-                >
+                  ><span>More</span>
+                </router-link>
                 <input 
                     type="button"
                     class="btn"
                     @click="addProd(prodRow.id)"
                     value="Add"
-                    >
                 >
               </div>
             </div>
@@ -394,8 +403,8 @@ $(document).ready(() => {
             <h5>
               <span>{{bundleRow1.prd_name}}</span>
             </h5>
-            <p v-if="bundleRow1.sale_price != 0 " class="price">$USD{{bundleRow1.sale_price}}</p>
-             <p v-if="bundleRow1.sale_price == 0" class="price discount">$USD{{bundleRow1.prd_price }}</p>
+            <p v-if="bundleRow1.sale_price == 0 " class="price">$USD{{bundleRow1.sale_price}}</p>
+             <p v-if="bundleRow1.sale_price != 0" class="price discount">$USD{{bundleRow1.prd_price }}</p>
             
             <div class="buttons">
               <router-link
@@ -409,8 +418,7 @@ $(document).ready(() => {
                   class="btn"
                   @click="addProd(prodRow.id)"
                   value="Add"
-                  >
-                
+              >
             </div>
           </div>
         </template>
