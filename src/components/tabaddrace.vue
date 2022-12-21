@@ -26,23 +26,58 @@ function fileChange() {
 <template>
   <div class="top">
     <h2>
-      消息內容新增
+      賽事新增
       <outComponents />
     </h2>
     <div class="box">
       <div class="word">
         <div class="title">
-          <h3>最新消息標題</h3>
-          <input type="text" name="tit" id="tit" placeholder="請輸入標題" />
+          <h3>賽事編號</h3>
+          <input
+            type="text"
+            name="tit"
+            id="tit"
+            placeholder="請輸入賽事編號"
+            required
+          />
+        </div>
+        <div class="title">
+          <h3>賽事名稱</h3>
+          <input
+            type="text"
+            name="tit"
+            id="tit"
+            placeholder="請輸入賽事名稱"
+            required
+          />
+        </div>
+        <div class="title">
+          <h3>地區</h3>
+          <input
+            type="text"
+            name="tit"
+            id="tit"
+            placeholder="請輸入地區"
+            required
+          />
+        </div>
+        <div class="title">
+          <h3>開始日期</h3>
+          <input type="date" name="tit" id="tit" required />
+        </div>
+        <div class="title">
+          <h3>結束日期</h3>
+          <input type="date" name="tit" id="tit" required />
         </div>
         <div class="text">
-          <h3>最新消息內文</h3>
+          <h3>比賽內文</h3>
           <textarea
-            cols="70"
+            cols="40"
             rows="10"
             name="txt"
             id="txt"
             placeholder="請輸入內容"
+            required
           ></textarea>
           <div class="btns">
             <input type="submit" value="送出" id="conFirm" />
@@ -194,8 +229,8 @@ textarea {
   margin-top: 25px;
 }
 #image {
-  width: 800px;
-  height: 490px;
+  width: 500px;
+  height: 300px;
   border-radius: 5px;
   border: 1px solid rgb(124, 124, 124);
 }
