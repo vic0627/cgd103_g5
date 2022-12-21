@@ -11,14 +11,12 @@ bodyInit();
 //點按addCartBtn()的function
 
 //宣告存取itemid的位置
-const cartItem = ref({});
+const cartItem = ref([]);
 //setItem的func
 const set = (key, val) =>{
   sessionStorage.setItem(key, val);
 } 
-const get = (key) =>{
-  sessionStorage.getItem(key);
-}
+
 //點擊add按鈕會啟動的func
 const addProd = (id) => {
   //存放點擊過的item的id
@@ -34,7 +32,7 @@ const addProd = (id) => {
       //無，執行set跟get
       set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","price":${products.value[id-1].Original_Price}}`);
       
-      get(JSON.parse(sessionStorage.getItem(id)));
+      let get = JSON.parse(sessionStorage.getItem(id));
       sessionStorage['cartItem'] +=`${get.id}, `;
 
       console.log("id:",get.id);     
@@ -51,7 +49,8 @@ const products = ref([]);
 
 
 const getShopInfo = () =>{
-  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+  // fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+  fetch("/dist/g5PHP/getShop.php")
     .then(res => res.json())
     .then(json => {
         bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'));
