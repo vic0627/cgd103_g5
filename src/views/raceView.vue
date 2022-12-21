@@ -6,6 +6,8 @@ import point1 from "../assets/images/race/point1.jpg";
 import point2 from "../assets/images/race/point2.jpg";
 import point3 from "../assets/images/race/point3.jpg";
 import point4 from "../assets/images/race/point4.jpg";
+import contest01 from "../assets/images/race/contest01.png";
+import contest02 from "../assets/images/race/contest02.png";
 
 import { bodyInit } from "../composables/useOnunmounted";
 bodyInit();
@@ -28,7 +30,7 @@ const areaText = ref({
     id: 3,
     title: "China",
     src: point3,
-    text: "Chiang Kai-shek Memorial Hall honors the memory of former president of the Republic of China.Memorial Square is also one of the city’s most important cultural sites, and some democracy activists had held here.The National Concert Hall, a stunning example of neo-classical Chinese architecture.",
+    text: "Home to the world’s greatest collections of Chinese art and antiquities.Once reserved for the private pleasure of emperors, today these treasures can be enjoyed.These collections are from mainland China, and the ROC government bring them to Taiwan in 1949.",
   },
   4: {
     id: 4,
@@ -40,6 +42,105 @@ const areaText = ref({
 const changeCount = (id) => {
   count.value = id;
 };
+
+const race = ref({
+  1: {
+    id: 1,
+    nation: "Taiwan",
+    startDate: "2022-01-01",
+    src: contest01,
+    endDate: "2022-01-31",
+    raceName: "Drone Race 01",
+  },
+  2: {
+    id: 2,
+    nation: "World",
+    startDate: "2022-02-01",
+    src: contest02,
+    endDate: "2022-02-28",
+    raceName: "Drone Race 02",
+  },
+  3: {
+    id: 3,
+    nation: "Taiwan",
+    startDate: "2022-03-01",
+    src: contest01,
+    endDate: "2022-03-31",
+    raceName: "Drone Race 03",
+  },
+  4: {
+    id: 4,
+    nation: "World",
+    startDate: "2022-04-01",
+    src: contest02,
+    endDate: "2022-04-30",
+    raceName: "Drone Race 04",
+  },
+  5: {
+    id: 5,
+    nation: "Taiwan",
+    startDate: "2022-05-01",
+    src: contest01,
+    endDate: "2022-05-31",
+    raceName: "Drone Race 05",
+  },
+  6: {
+    id: 6,
+    nation: "World",
+    startDate: "2022-06-01",
+    src: contest02,
+    endDate: "2022-06-30",
+    raceName: "Drone Race 06",
+  },
+  7: {
+    id: 7,
+    nation: "Taiwan",
+    startDate: "2022-07-01",
+    src: contest01,
+    endDate: "2022-07-31",
+    raceName: "Drone Race 07",
+  },
+  8: {
+    id: 8,
+    nation: "World",
+    startDate: "2022-08-01",
+    src: contest02,
+    endDate: "2022-08-31",
+    raceName: "Drone Race 08",
+  },
+  9: {
+    id: 9,
+    nation: "Taiwan",
+    startDate: "2022-09-01",
+    src: contest01,
+    endDate: "2022-09-30",
+    raceName: "Drone Race 09",
+  },
+  10: {
+    id: 10,
+    nation: "World",
+    startDate: "2022-10-01",
+    src: contest02,
+    endDate: "2022-10-31",
+    raceName: "Drone Race 10",
+  },
+  11: {
+    id: 11,
+    nation: "Taiwan",
+    startDate: "2022-11-01",
+    src: contest01,
+    endDate: "2022-11-30",
+    raceName: "Drone Race 11",
+  },
+  12: {
+    id: 12,
+    nation: "World",
+    startDate: "2022-12-01",
+    src: contest02,
+    endDate: "2022-12-31",
+    raceName: "Drone Race 12",
+  },
+});
 </script>
 
 <template>
@@ -70,607 +171,29 @@ const changeCount = (id) => {
 
     <div class="racegg">
       <div class="raceList">
-        <div class="raceBox raceBox_w">
-          <div class="boxBgi_w"></div>
+        <div :class="`raceBox  race${e.id}`" v-for="e in race" :key="e.id">
+          <div class="top"></div>
+          <div
+            class="boxBgi_w"
+            :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9)),url(${
+              race[e.id].src
+            })`"
+          ></div>
+
           <div class="listWord">
             <div class="nation">
-              <span class="nation_w">World</span>
+              <span class="nation_t">{{ race[e.id].nation }}</span>
             </div>
-
             <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
+              <span class="span">{{ race[e.id].startDate }}</span>
               <br />
-
               <span class="span">|</span>
-
               <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
+              <span class="span">{{ race[e.id].endDate }}</span>
             </div>
-
             <div class="competitionName">
-              <h4>Competition Name</h4>
+              <h4>{{ race[e.id].raceName }}</h4>
             </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_t">
-          <div class="boxBgi_t"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_t">Taiwan</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_w">
-          <div class="boxBgi_w"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_w">World</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_t">
-          <div class="boxBgi_t"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_t">Taiwan</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_w">
-          <div class="boxBgi_w"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_w">World</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_t">
-          <div class="boxBgi_t"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_t">Taiwan</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_w">
-          <div class="boxBgi_w"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_w">World</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_t">
-          <div class="boxBgi_t"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_t">Taiwan</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_w">
-          <div class="boxBgi_w"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_w">World</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_t">
-          <div class="boxBgi_t"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_t">Taiwan</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_w">
-          <div class="boxBgi_w"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_w">World</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_t">
-          <div class="boxBgi_t"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_t">Taiwan</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_w">
-          <div class="boxBgi_w"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_w">World</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_t">
-          <div class="boxBgi_t"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_t">Taiwan</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_w">
-          <div class="boxBgi_w"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_w">World</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
-            <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
-                ><span>Learn</span></router-link
-              >
-            </div>
-          </div>
-        </div>
-        <div class="raceBox raceBox_t">
-          <div class="boxBgi_t"></div>
-          <div class="listWord">
-            <div class="nation">
-              <span class="nation_t">Taiwan</span>
-            </div>
-
-            <div class="date">
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">01</span>
-
-              <br />
-
-              <span class="span">|</span>
-
-              <br />
-
-              <span class="span">2022</span>
-
-              <span class="span">01</span>
-
-              <span class="span">10</span>
-            </div>
-
-            <div class="competitionName">
-              <h4>Competition Name</h4>
-            </div>
-
             <div class="learn">
               <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
                 ><span>Learn</span></router-link
@@ -681,10 +204,12 @@ const changeCount = (id) => {
       </div>
     </div>
   </section>
+
   <!-- background img -->
   <section class="backgroundImage">
     <div class="image"></div>
   </section>
+
   <!-- Aerial point  -->
   <section class="aerialPoint">
     <div class="aerialPoint_title">
@@ -803,9 +328,12 @@ section {
   }
   .banner_title {
     position: absolute;
-    top: 50px;
+    top: 20px;
     left: 50%;
     transform: translate(-50%, -50%);
+    @include l($l-breakpoint) {
+      top: 50px;
+    }
   }
 }
 
@@ -834,22 +362,21 @@ h2 {
   display: flex;
   overflow: scroll;
   position: static;
-
   @include l($l-breakpoint) {
     margin: 0;
-    width: calc(300px * 10);
+    width: calc(350px * 12);
     overflow: visible;
     position: absolute;
     &:hover {
       animation-play-state: paused;
     }
-    animation: scroll 8s linear infinite;
+    // animation: scroll 8s linear infinite;
     @keyframes scroll {
       from {
         transform: translateX(0);
       }
       to {
-        transform: translateX(calc(-300px * 2));
+        transform: translateX(calc(-338px * 6));
       }
     }
   }
@@ -857,31 +384,56 @@ h2 {
     min-width: 100%;
     position: relative;
     @include l($l-breakpoint) {
-      min-width: 200px;
-      transition: 0.4s;
+      min-width: 102.7px;
+      transition: 0.8s;
       flex: 1;
       &:hover {
-        // flex: 2;
+        transition: 0.8s;
+        flex: 1 1 15%;
+      }
+      &:hover .listWord {
+        transition: 0.8s;
+        display: block;
+      }
+      &:hover .top {
+        transition: 0.8s;
+        display: none;
       }
     }
-    .boxBgi_w {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
-        url("../assets/images/race/point1.jpg");
-      backdrop-filter: blur(5px);
-      width: 100%;
-      height: 100%;
-      background-size: cover;
-      background-position: center center;
-      display: flex;
-    }
+    .boxBgi_w,
     .boxBgi_t {
-      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
-        url("../assets/images/race/contest02.png");
       width: 100%;
       height: 100%;
       background-size: cover;
       background-position: center center;
     }
+
+    .top {
+      display: none;
+      @include l($l-breakpoint) {
+        display: block;
+      }
+      &::after {
+        font-family: sans-serif;
+        letter-spacing: 0.6rem;
+        writing-mode: vertical-lr;
+        // text-orientation: upright;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 35px;
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        right: 0;
+        left: 0;
+        transition: 0.5s;
+        opacity: 1;
+        color: azure;
+        content: "Drone Race";
+      }
+    }
+
     .listWord {
       min-width: 100%;
       position: absolute;
@@ -890,9 +442,6 @@ h2 {
       text-align: center;
       @include l($l-breakpoint) {
         display: none;
-        &:hover {
-          // display: block;
-        }
       }
       .nation {
         .nation_t {
@@ -986,6 +535,7 @@ h2 {
       border-radius: 20px;
       margin: 50px 20px 0 20px;
       z-index: 2;
+
       .text {
         padding: 50px 20px;
         h2 {
