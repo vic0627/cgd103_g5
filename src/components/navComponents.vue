@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 const mainMenu = reactive([
     {
         "id": "shop",
@@ -22,28 +22,56 @@ const mainMenu = reactive([
         "name": "NEWS",
     },
 ])
-const mem = ref('')
+const mem = ref("");
 onMounted(() => {
     // console.log(mainMenu);
     function getMemberInfo(){
-            let xhr = new XMLHttpRequest();
-            xhr.onload = function(){
-                let member = JSON.parse(xhr.responseText);
-                if(member.memId){//有帳密資料
-                    // $id("memName").innerText = member.memName;
-                    // $id("spanLogin").innerText = "登出";
-                    mem.value = member.memName;
-                    console.log(mem.value)
-                    alert("Hi!~"+member.memName);
-                }else{
-                    alert("尚未登入!");
+        let xhr = new XMLHttpRequest();
+        xhr.onload = function(){
+            let member = JSON.parse(xhr.responseText);
+            if(member.memId){//有帳密資料
+                document.querySelector(".memstatus").innerHTML="Log out";
+                if(document.querySelector(".memstatus").innerHTML="Log out"){
+                    document.querySelector(".memstatus").addEventListener("click",memlogout)
                 }
+                document.querySelector(".account").style["display"]="block";
+                document.querySelector(".memName").style["display"]="inline";
+                mem.value = member.memName;
+                console.log(mem.value)
+                // alert("Hi!~"+member.memName);
+            }else{
+                // alert("尚未登入!");
+                document.querySelector(".account").style["display"]="none";
+                document.querySelector(".memName").style["display"]="none";
+            }
+            
         }
-            xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
-            xhr.send(null);
-        }
+        xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
+        xhr.send(null);
+    }
 
     getMemberInfo();
+
+    function memlogout(){
+        let xhr = new XMLHttpRequest();
+        xhr.onload = function(){
+        //   document.getElementById("spanLogin").innerText = "登入";
+        //   document.getElementById("memName").innerText = "";
+            document.querySelector(".account").style["display"]="none";
+            document.querySelector(".memName").style["display"]="none";
+            document.querySelector(".memstatus").innerHTML="Sign in";
+            document.getElementById("username").value="";
+            document.getElementById("password").value="";
+            document.querySelector(".unameinfo").innerHTML="";
+            document.querySelector(".pswinfo").innerHTML="";
+            
+            
+        }
+        xhr.open("get","/dist/g5PHP/memLogout.php",true);
+        xhr.send(null);
+    }
+
+    
 });
 const NavClass = defineProps({
     home:{
@@ -109,22 +137,21 @@ const NavClass = defineProps({
                     <li><router-link to="/about" class="navHover" :style="`color :${NavClass.about}`">ABOUT</router-link></li>
                     <li><router-link to="/race" class="navHover" :style="`color :${NavClass.race}`">RACE</router-link></li>
                     <li><router-link to="/news" class="navHover" :style="`color :${NavClass.news}`">NEWS</router-link></li>
+                    <li><router-link to="/member" class="navHover" :style="`color :${NavClass.news}`">member</router-link></li>
                 </ul>
             </div>
             <div class="shop-cart">  
                 
-                <router-link to="/member" class="shop memicon">
+                <div class="shop memicon">
                     <img src="../assets/images/home/icon1.png" alt="member">
                     <div class="memHover">
-                        <li class="memName">hi</li>
-                        <li><router-link to="/member" class="shop account">My account</router-link></li>
-                        <li><router-link to="/signin" class="shop memstatus">Sign in</router-link></li>
+                        <li class="memName">Hello {{mem}}!~</li>
+                        <li><router-link to="/member" class=" account">My account</router-link></li>
+                        <li><router-link to="/signin" class=" memstatus">Sign in</router-link></li>
+                        <!-- <li><router-link to="/signin" class=" memstatus">Log out</router-link></li> -->
                     </div>
-
-                </router-link>
-                
-                <router-link to="/cart" class="shop"><img src="../assets/images/home/icon2.png" alt="cart">
-                </router-link>
+                </div>
+                <router-link to="/cart" class="shop"><img src="../assets/images/home/icon2.png" alt="cart"></router-link>
             </div>
         </div>
     </header>
