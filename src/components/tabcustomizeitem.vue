@@ -373,7 +373,7 @@ const pagination = paginationReactive;
 <template>
   <div class="top">
     <h2>
-      一般訂單明細查詢
+      客製化品項查詢
       <outComponents />
     </h2>
     <div class="table">
