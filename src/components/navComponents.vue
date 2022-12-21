@@ -23,27 +23,6 @@ const mainMenu = reactive([
   },
 ]);
 const mem = ref("");
-  {
-    id: "shop",
-    name: "STORE",
-  },
-  {
-    id: "custom",
-    name: "CUSTOM",
-  },
-  {
-    id: "about",
-    name: "ABOUT",
-  },
-  {
-    id: "race",
-    name: "RACE",
-  },
-  {
-    id: "news",
-    name: "NEWS",
-  },
-]);
 // const mem = ref("");
 onMounted(() => {
   // console.log(mainMenu);
