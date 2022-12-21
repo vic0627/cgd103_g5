@@ -1,73 +1,25 @@
-<script setup>
-import { reactive, onMounted,ref,h } from 'vue';
-import { zhTW, NPagination,NTable,NDataTable,NButton, } from 'naive-ui';
-import axios from 'axios';
-// const adminRows = ref([]);
-// 		const getAdmin = () => {
-// 			//取得管理員資料
-//        axios.get("http://localhost/CGD103-G5/public/g5PHP/getAdmin.php",)
-//       .then(res=> {
-//         console.log(res.data)
-//         adminRows.value = res.data
-//       })
-// 		}
-const submitData = ()=>{
-  const payload = {
-    admin_name: name.value,
-    authority: authority.value,
-    admin_acc: account.value,
-    admin_pw: password.value,
-  };
-   fetch("http://localhost/CGD103-G5/public/g5PHP/insertAdmin.php", {
-      method: "POST",
-      body: new URLSearchParams(payload),
-  }).then(res=>{
-    res.text();
-    console.log(res);
-  })
-  // .then(result=>{
-  //   console.log(result);
-  // })
-}
-    
-	onMounted(()=>{
-		// getAdmin();
+<script>
 
-  });
-  const name = ref('');
-  const authority = ref('一般管理員');
-  const account = ref('');
-  const password = ref('');
 </script>
 <template>
 <div class="top">
   <h2>
-    管理員管理-新增
+    FAQ-修改問題
     <outComponents />
   </h2>
-  <form method="post">
-    <div class="faq">
-      <div class="question">
-        <h3>管理員姓名</h3>
-        <input type="text" placeholder="請輸入姓名" id=" admin_name" name="admin_name" v-model="name" required> 
-      </div>
-      <div class="question">
-        <h3>管理員權限</h3>
-        <input type="text" id="authority" name="authority" v-model="authority" disabled>
-      </div>
-      <div class="question">
-        <h3>管理員帳號</h3>
-        <input type="text" placeholder="請輸入帳號" id="admin_acc" name="admin_acc" v-model="account" required>
-      </div>
-      <div class="answer">
-        <h3>管理員密碼</h3>
-        <input type="password" placeholder="請輸入密碼" id="admin_pw" name="admin_pw" v-model="password" required>
-      </div>
+  <div class="faq">
+    <div class="question">
+      <h3>常見問題</h3>
+      <input type="text" placeholder="請輸入問題" id="quesTion">
     </div>
-  </form>
+    <div class="answer">
+      <h3>回覆答案</h3>
+      <input type="text" placeholder="請輸入答案" id="ansWer">
+    </div>
+  </div>
   <div class="btn">
-    <input type="reset" value="取消新增" id="canCel" @click="canCel()">
-    <input type="button" value="新增" id="conFirm" @click="submitData()">
+    <input type="submit" value="取消修改" id="canCel">
+    <input type="submit" value="確定修改" id="conFirm">
   </div>
 </div>
   

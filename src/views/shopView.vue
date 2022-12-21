@@ -17,7 +17,6 @@ const addProd = (id) => {
   set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","price":"${products.value[id-1].Original_Price}"},`)
 
   cartItem.value += sessionStorage.getItem();
-  console.log(cartItem.value);
 };
 
 // const get =(id) =>{

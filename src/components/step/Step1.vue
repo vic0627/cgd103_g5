@@ -63,6 +63,19 @@ const cartItem = reactive([
         "exist":true,
     },
 ])
+const cartwrap = ref([]);
+const set = (key, val) =>{
+    sessionStorage.setItem(key,val);
+}
+const add = (id)=>{
+    const wrap = [`{"id":"${cartItem[id].id}","name":"${cartItem[id].name}","price":"${cartItem[id].price}"}`];
+    set(`${cartItem[id].id}cart`,wrap);
+    // console.log(JSON.parse(sessionStorage.getItem('1cart')))
+    cartwrap.value = JSON.parse(sessionStorage.getItem('1cart'))
+    console.log(cartwrap.value.name)
+}
+
+
 
 const suggest = reactive([
     {
@@ -114,6 +127,7 @@ const sale = ()=> {
                     </div>
                     <div class="cartDelete">
                         <button @click="Delete(index)" class="delete-btn"></button>
+                        <button @click="add(index)">add</button>
                     </div>
                 </div>
             </div>
