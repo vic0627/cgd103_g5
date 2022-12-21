@@ -75,6 +75,7 @@ const paginationReactive = reactive({
     paginationReactive.page = 1;
   },
 });
+
 const pagination = paginationReactive;
 
 const raceRows = ref([]);
@@ -97,7 +98,7 @@ onMounted(() => {
       賽事類別
       <outComponents />
     </h2>
-    <div class="table">
+    <div class="tables">
       <n-data-table
         :columns="column"
         :data="raceRows"

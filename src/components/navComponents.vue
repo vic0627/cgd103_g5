@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref } from "vue";
+import { ref, reactive, onMounted } from "vue";
 const mainMenu = reactive([
   {
     id: "shop",
@@ -23,7 +23,6 @@ const mainMenu = reactive([
   },
 ]);
 const mem = ref("");
-// const mem = ref("");
 onMounted(() => {
   // console.log(mainMenu);
   function getMemberInfo() {

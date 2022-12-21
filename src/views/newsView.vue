@@ -1,10 +1,8 @@
 <script setup>
-import newsComponentsVue from "../components/newsComponents.vue"
-import {bodyInit} from '../composables/useOnunmounted';
+import newsComponentsVue from "../components/newsComponents.vue";
+import { bodyInit } from "../composables/useOnunmounted";
 bodyInit();
 </script>
-
-      
 
 <template>
   <!-- 01 banner start -->
@@ -34,9 +32,9 @@ bodyInit();
 
   <!-- 01 banner end -->
 
-<!-- 02 tag start -->
-<newsComponentsVue />
-<footer-component />  
+  <!-- 02 tag start -->
+  <newsComponentsVue />
+  <footer-component />
 </template>
 
 <style lang="scss" scoped>
@@ -54,7 +52,7 @@ bodyInit();
     height: 100%;
     object-fit: cover;
   }
-  .banner{
+  .banner {
     width: 100%;
     position: relative;
     height: 550px;
@@ -63,11 +61,11 @@ bodyInit();
       position: relative;
       height: 800px;
     }
-    img{
+    img {
       width: 100%;
       height: 500px;
       object-fit: cover;
-      @include l($l-breakpoint){
+      @include l($l-breakpoint) {
         height: 800px;
         object-position: center 25%;
       }
@@ -76,27 +74,27 @@ bodyInit();
       position: absolute;
       top: 50%;
       text-align: center;
-      @include l($l-breakpoint){
+      @include l($l-breakpoint) {
         width: 700px;
         position: absolute;
         top: 50%;
         left: 5%;
         text-align: left;
       }
-    .banner_title {
-      margin-bottom: 30px;
-      h2 {
-        text-transform: uppercase;
-        width: 100%;
-        -webkit-box-reflect: below 1px
-          linear-gradient(transparent, rgba(0, 0, 0, 0.329));
-        outline: none;
-        line-height: 0.8em;
-        animation: animate-s 30s linear infinite;
+      .banner_title {
+        margin-bottom: 30px;
+        h2 {
+          text-transform: uppercase;
+          width: 100%;
+          -webkit-box-reflect: below 1px
+            linear-gradient(transparent, rgba(0, 0, 0, 0.329));
+          outline: none;
+          line-height: 0.8em;
+          animation: animate-s 30s linear infinite;
+        }
       }
     }
   }
-}
   .banner_right_txt {
     display: none;
   }
@@ -106,7 +104,7 @@ bodyInit();
     width: 100%;
     position: relative;
     height: 550px;
-    img{
+    img {
       width: 100%;
       height: 500px;
     }
@@ -146,11 +144,10 @@ bodyInit();
         outline: none;
         line-height: 0.7em;
         animation: animate 60s linear infinite;
-        @include l($l-breakpoint){
+        @include l($l-breakpoint) {
           font-size: 2rem;
         }
       }
-      
     }
   }
 }
