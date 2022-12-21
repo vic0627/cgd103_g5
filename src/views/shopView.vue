@@ -8,24 +8,33 @@ import {accessories,bundle_A,bundle_B} from "./js/Shop";
 
 bodyInit();
 
-const cartItem = ref({});
 //點按addCartBtn()的function
+
+//宣告存取itemid的位置
+const cartItem = ref({});
+//setItem的func
 const set = (key, val) =>{
   sessionStorage.setItem(key, val);
+} 
+const get = (key) =>{
+  sessionStorage.getItem(key);
 }
-
-// const items = 
+//點擊add按鈕會啟動的func
 const addProd = (id) => {
+  //存放點擊過的item的id
     if(sessionStorage['cartItem'] == null){
       sessionStorage['cartItem'] = '';
     }
+
+    //判斷商品是否被點擊過
     if(sessionStorage[id]){
+      //有，跳提示
       alert('You have checked.')
-     
     }else{
+      //無，執行set跟get
       set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","price":${products.value[id-1].Original_Price}}`);
       
-      let get = JSON.parse(sessionStorage.getItem(id));
+      get(JSON.parse(sessionStorage.getItem(id)));
       sessionStorage['cartItem'] +=`${get.id}, `;
 
       console.log("id:",get.id);     
