@@ -1,28 +1,50 @@
 <script setup>
-import { reactive, onMounted,ref } from "vue";
+import { ref, reactive, onMounted } from "vue";
 const mainMenu = reactive([
-    {
-        "id": "shop",
-        "name": "STORE",
-    },
-    {
-        "id": "custom",
-        "name": "CUSTOM",
-    },
-    {
-        "id": "about",
-        "name": "ABOUT",
-    },
-    {
-        "id": "race",
-        "name": "RACE",
-    },
-    {
-        "id": "news",
-        "name": "NEWS",
-    },
-])
-const mem = ref('')
+  {
+    id: "shop",
+    name: "STORE",
+  },
+  {
+    id: "custom",
+    name: "CUSTOM",
+  },
+  {
+    id: "about",
+    name: "ABOUT",
+  },
+  {
+    id: "race",
+    name: "RACE",
+  },
+  {
+    id: "news",
+    name: "NEWS",
+  },
+]);
+const mem = ref("");
+  {
+    id: "shop",
+    name: "STORE",
+  },
+  {
+    id: "custom",
+    name: "CUSTOM",
+  },
+  {
+    id: "about",
+    name: "ABOUT",
+  },
+  {
+    id: "race",
+    name: "RACE",
+  },
+  {
+    id: "news",
+    name: "NEWS",
+  },
+]);
+// const mem = ref("");
 onMounted(() => {
   // console.log(mainMenu);
   function getMemberInfo() {
