@@ -1,56 +1,23 @@
 <script setup>
-// import headerComponentsVue from '@/components/headerComponents.vue';
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
-import $ from "jquery";
-import { ref, onMounted } from "vue";
+import menuVue from "@/components/memberCenter/menu.vue";
+import memberCardVue from "@/components/memberCenter/memberCard.vue";
+import memberLevelVue from "@/components/memberCenter/memberLevel.vue";
+// import $ from 'jquery';
+import { ref, onMounted, reactive, computed, watch } from "vue";
 
-onMounted(() => {
-  $(".List-item>a").parent().siblings().find("ul").hide();
-  $(".List-item>a").click(function (e) {
-    e.preventDefault();
-    $(this).parent().siblings().find("ul").slideUp();
-    $(this).parent().find("ul").slideToggle();
-    // $(this).parent().siblings().find('a').removeClass('rmminus');
-    // $(this).toggleClass('rmminus');
-  });
-});
-
-const sidenav = ref({
-  account: {
-    title: "Account",
-    list: ["Profile Overview"],
-  },
-  order: {
-    title: "Orders",
-    list: ["Normal Orders", "Customized Orders"],
-  },
-  racing: {
-    title: "Racing",
-    list: ["My Racing"],
-  },
-  person: {
-    title: "Personal Setting",
-    list: ["Payment"],
-  },
-});
+onMounted(() => {});
 </script>
 
 <template>
   <navComponentsVue />
   <div class="main">
-    <nav class="sidenav">
-      <li class="List-item" v-for="item in sidenav" :key="item">
-        <a href="">{{ item.title }}</a>
-        <ul class="subitem">
-          <li class="" v-for="i in item.list" :key="i">{{ i }}</li>
-        </ul>
-      </li>
-    </nav>
+    <menuVue />
     <div class="maincontent">
       <section class="maininfo">
-        <div class="meminfo"></div>
-        <div class="memgrade"></div>
+        <memberCardVue />
+        <memberLevelVue />
       </section>
       <section class="profiles-list">
         <h1>My Racing</h1>
@@ -58,7 +25,6 @@ const sidenav = ref({
           <thead>
             <th>Racing No.</th>
             <th>Racing Name</th>
-            <th>Racing Name</th>
             <th>Period</th>
             <th>Tracing No.</th>
           </thead>
@@ -67,9 +33,8 @@ const sidenav = ref({
               <td>
                 <router-link to=""><span>20221201001</span></router-link>
               </td>
-              <td>2022-12-01</td>
-              <td>USD $899.9</td>
-              <td>Preparing</td>
+              <td>Drone Race01</td>
+              <td>20221201001</td>
               <td>4756382</td>
             </tr>
           </tbody>
@@ -78,6 +43,24 @@ const sidenav = ref({
           <thead>
             <th>Racing No.</th>
             <th>Racing Name</th>
+            <th>Period</th>
+            <th>Tracing No.</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <router-link to=""><span>20221201002</span></router-link>
+              </td>
+              <td>Drone Race02</td>
+              <td>20221201002</td>
+              <td>4756382</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <table>
+          <thead>
+            <th>Racing No.</th>
             <th>Racing Name</th>
             <th>Period</th>
             <th>Tracing No.</th>
@@ -85,11 +68,10 @@ const sidenav = ref({
           <tbody>
             <tr>
               <td>
-                <router-link to=""><span>20221201001</span></router-link>
+                <router-link to=""><span>20221201003</span></router-link>
               </td>
-              <td>2022-12-01</td>
-              <td>USD $899.9</td>
-              <td>Preparing</td>
+              <td>Drone Race03</td>
+              <td>20221201003</td>
               <td>4756382</td>
             </tr>
           </tbody>
@@ -98,38 +80,16 @@ const sidenav = ref({
           <thead>
             <th>Racing No.</th>
             <th>Racing Name</th>
-            <th>Racing Name</th>
             <th>Period</th>
             <th>Tracing No.</th>
           </thead>
           <tbody>
             <tr>
               <td>
-                <router-link to=""><span>20221201001</span></router-link>
+                <router-link to=""><span>20221201004</span></router-link>
               </td>
-              <td>2022-12-01</td>
-              <td>USD $899.9</td>
-              <td>Preparing</td>
-              <td>4756382</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <th>Racing No.</th>
-            <th>Racing Name</th>
-            <th>Racing Name</th>
-            <th>Period</th>
-            <th>Tracing No.</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <router-link to=""><span>20221201001</span></router-link>
-              </td>
-              <td>2022-12-01</td>
-              <td>USD $899.9</td>
-              <td>Preparing</td>
+              <td>Drone Race04</td>
+              <td>20221201004</td>
               <td>4756382</td>
             </tr>
           </tbody>
@@ -196,48 +156,13 @@ input {
   display: flex;
   justify-content: start;
   gap: 10px;
-  .sidenav {
-    width: 25%;
-    height: fit-content;
-    background-color: #1c2023;
-    padding: 20px;
-    border-radius: 10px;
-    .List-item {
-      padding: 10px;
-      a {
-        font-size: 15px;
-      }
-      .subitem {
-        // display: none;
-        padding: 10px 0 10px 20px;
-      }
-    }
-  }
+
   .maincontent {
     width: 75%;
     margin: 0;
     .maininfo {
       display: flex;
       gap: 10px;
-      .meminfo {
-        width: 500px;
-        aspect-ratio: 16/9;
-        // background-image: linear-gradient(135deg, rgb(156, 114, 15), gold);
-        background: linear-gradient(
-          -200deg,
-          #f9f48f,
-          #fbc65d,
-          #e8b443,
-          #e4b445
-        );
-        border-radius: 10px;
-      }
-      .memgrade {
-        flex-grow: 1;
-        height: auto;
-        background-color: #616574;
-        border-radius: 10px;
-      }
     }
     .profiles-list {
       width: 100%;
