@@ -17,39 +17,39 @@ const adminRows = ref([]);
 		getAdmin();
   });
   
-const column = [
-  {
-    title: "管理員編號",
-    key: "admin_no"
-  },
-  {
-    title: "管理員姓名",
-    key: "admin_name"
-  },
-  {
-    title: "管理員帳號",
-    key: "admin_acc"
-  },
-  {
-    title: "管理員權限",
-    key: "authority"
-  },
-  {
-      title: "Action",
-      key: "actions",
-      render(row) {
-        return h(
-          NButton,
-          {
-            size: "medium",
-            color: "#077AF9",
-            onClick: () => sendMail(row)
-          },
-          { default: () => "編輯" }
-        );
-      }
-    }
-];  
+// const column = [
+//   {
+//     title: "管理員編號",
+//     key: "admin_no"
+//   },
+//   {
+//     title: "管理員姓名",
+//     key: "admin_name"
+//   },
+//   {
+//     title: "管理員帳號",
+//     key: "admin_acc"
+//   },
+//   {
+//     title: "管理員權限",
+//     key: "authority"
+//   },
+//   {
+//       title: "Action",
+//       key: "actions",
+//       render(row) {
+//         return h(
+//           NButton,
+//           {
+//             size: "medium",
+//             color: "#077AF9",
+//             onClick: () => sendMail(row)
+//           },
+//           { default: () => "編輯" }
+//         );
+//       }
+//     }
+// ];  
 const newAdmin_no = ref('');
 const newAdmin_acc = ref('');
 const showModal = ref(false);
@@ -88,7 +88,8 @@ const updateAdmin = (user)=>{
     console.log(res)
     res.json()
   })
-  showModal.value = false
+  showModal.value = false;
+  getAdmin();
 }
 const deleteAdmin = ()=>{
   const deleteAcc = {
@@ -99,8 +100,9 @@ const deleteAdmin = ()=>{
     body: new URLSearchParams(deleteAcc),
   }).then(res=>{
     res.json()
+    getAdmin();
   })
-  showModal2.value = false
+  showModal2.value = false;
 }
 
 </script>
@@ -128,8 +130,8 @@ const deleteAdmin = ()=>{
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item,index) in adminRows" :key="index" :pagination="pagination">
-          <td>{{item.admin_no}}</td>
+        <tr v-for="(item,index) in adminRows" :key="index" :pagination="x">
+          <td>{{index+1}}</td>
           <td>{{item.admin_acc}}</td>
           <td>{{item.admin_name}}</td>
           <td>{{item.authority}}</td>
@@ -168,6 +170,7 @@ const deleteAdmin = ()=>{
            </n-modal>
           </td>
         </tr>
+         <!-- <n-pagination  :page="1" :page-count="2" /> -->
       </tbody>
     </n-table>
   </form>

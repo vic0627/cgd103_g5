@@ -8,7 +8,7 @@ const addProduct = ()=>{
     // cat_no: cat_no.value,
     color: color.value
   };
-  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getProductAdd.php",{
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/insertProducts.php",{
     method: "POST",
     body: new URLSearchParams(payload),
   }).then(res => {
