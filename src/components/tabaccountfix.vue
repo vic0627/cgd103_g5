@@ -70,7 +70,7 @@ const paginationReactive = reactive({
     const  pagination = paginationReactive;
 
 //抓管理員編號
-const selectId = (user)=>{
+const changeValue = (user)=>{
   console.log(adminRows.value[user].admin_no);
   newAdmin_acc.value = adminRows.value[user].admin_acc;
   newAdmin_no.value = adminRows.value[user].admin_no;
@@ -135,7 +135,7 @@ const deleteAdmin = ()=>{
           <td>{{item.authority}}</td>
           <td>{{item.admin_psw}}</td>
           <td>
-            <n-button @click="showModal = true; selectId(index)" type="info">
+            <n-button @click="showModal = true; changeValue(index)" type="info">
               編輯
             </n-button>
               <n-modal
@@ -153,7 +153,7 @@ const deleteAdmin = ()=>{
            </n-modal>
           </td>
           <td>
-            <n-button @click="showModal2 = true;selectId(index)" type="error">
+            <n-button @click="showModal2 = true;changeValue(index)" type="error">
               刪除
             </n-button>
             <n-modal

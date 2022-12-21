@@ -1,9 +1,85 @@
 <script setup>
 import { ref, onMounted, reactive } from 'vue';
 import { log } from '../../composables/useCommon';
+import axios from 'axios';
 import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
 
+// 抓後台管理帳密資料
+const admin_pw = ref('');
+const admin_acc = ref('');
+const adminRows = ref([]);
+	const getAdmin = () => {
+	//取得管理員資料
+    axios.get("http://localhost/g5/public/g5PHP/getLogin.php")
+    .then(res=> {
+    console.log(res.data)
+    adminRows.value = res.data
+    })
+}
+// const 
+onMounted(()=>{
+    getAdmin();
+});
 
+
+// 1.點登入辨認是否有這個帳號
+// 2.如果有就跳轉到後台首頁,沒有就彈窗錯誤
+const login =()=>{
+    // console.log(adminRows.value[0].admin_acc)
+    if(admin_acc.value === adminRows.value[0].admin_acc && admin_pw.value === adminRows.value[0].admin_pw){
+        window.location.href="http://localhost:5173/dist/backend";
+    }else{
+        alert('帳密錯誤，請重新輸入');
+    }
+}
+
+
+// 帳號驗證
+onMounted(()=>{
+    const psw=document.getElementById('admin_acc');
+        psw.addEventListener('input',function(){verifypsw()});
+        function verifypsw(){
+            let regex_psw=/^[0-9a-fA-F]{3,10}$/;
+            if(psw.value !=''){
+                if(regex_psw.test(psw.value) == false){
+                    document.querySelector('.mess').textContent='帳號格式錯誤';
+                    document.querySelector('.mess').style['color']='red';
+                }else if(regex_psw.test(psw.value)){
+                    document.querySelector('.mess').textContent=' 正確';
+                    document.querySelector('.mess').style['color']='lightgreen';
+                    return true;
+                }
+            }else{
+                document.querySelector('.mess').textContent='欄位請輸入符合大小寫英數格式';
+                document.querySelector('.mess').style['color']='#888';
+            }
+            return false;
+        }
+})
+// 密碼驗證
+onMounted(()=>{
+    const psw=document.getElementById('admin_pw');
+        psw.addEventListener('input',function(){verifypsw()});
+        function verifypsw(){
+            let regex_psw=/^[0-9a-fA-F]{3,10}$/;
+            if(psw.value !=''){
+                if(regex_psw.test(psw.value) == false){
+                    document.querySelector('.message').textContent='密碼格式錯誤';
+                    document.querySelector('.message').style['color']='red';
+                }else if(regex_psw.test(psw.value)){
+                    document.querySelector('.message').textContent=' 正確';
+                    document.querySelector('.message').style['color']='lightgreen';
+                    return true;
+                }
+            }else{
+                document.querySelector('.message').textContent='欄位請輸入符合大小寫英數格式';
+                document.querySelector('.message').style['color']='#888';
+            }
+            return false;
+        }
+})
+
+// 點按顯示密碼
 function shows(){
     var x = document.getElementById("admin_pw");
     if(x.type === "password"){
@@ -12,6 +88,7 @@ function shows(){
         x.type = "password";
     }
 }
+
 
 </script>
 
@@ -22,23 +99,25 @@ function shows(){
 <template>
    <div class="container">
         <div class="box">
-            <form action="/" id="myForm">
+            <form  id="myForm" >
                 <h2>後台登入</h2>
                 <div class="form-group">
                     <label for="admin_acc">管理員帳號</label>
-                    <input type="text" id="admin_acc" name="admin_acc"  maxlength="10" minlength="3" required placeholder="請輸入帳號">
+                    <input type="text" id="admin_acc" class="acc" name="admin_acc"  maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數帳號" v-model="admin_acc">
                 </div>
+                <!-- pattern="[0-9a-fA-F]{3,10}" -->
                 <div class="form-group">
                     <label for="admin_pw">管理員密碼</label>
-                    <input type="password" id="admin_pw" name="admin_pw" class="admin_pw" maxlength="10" minlength="3" required placeholder="請輸入密碼" >
+                    <input type="password" id="admin_pw" name="admin_pw" class="admin_pw" maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數密碼" v-model="admin_pw">
+                    <!-- <p class="mess"></p> -->
                     <div class="down">
-                        <div class="in">
-                        <input type="checkbox" id="check" @click="shows()"><span>顯示密碼</span>
-                        </div>
-                        <p class="message">請輸入3位密碼驗證</p>
+                        <label class="in">
+                        <input type="checkbox" id="check" @click="shows()" class="pw"><span>顯示密碼</span>
+                        </label>
+                        <p class="message mess"></p>
                     </div>
                 </div>
-                <router-link to="/backend"><button type="submit" class="btn"  id="btnLogin" @click="removeCookie">登入</button></router-link>
+                <button type="button" class="btn"  id="btnLogin" @click="login()">登入</button>
             </form>
             <div class="links">
                 <router-link to="/" class="leave link" >離開後台</router-link>
