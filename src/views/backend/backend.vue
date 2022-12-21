@@ -12,7 +12,7 @@ import tabaccountadd from "@/components/tabaccountadd.vue"; //account
 import tabproductsearch from "@/components/tabproductsearch.vue";
 import tabproductCategoryManage from "@/components/tabProductCategoryManage.vue";
 import tabproductAdd from "@/components/tabproductAdd.vue";
-import taborderItem from "@/components/taborderItem.vue";
+import taborderItem from "@/components/taborderitem.vue";
 import tabcustomizationOrderItem from "@/components/tcustomizationOrderItem.vue";
 import tabgeneralOrderItem from "@/components/tgeneralOrderItem.vue";
 import tabcustomizationDetails from "@/components/tabcustomizationDetails.vue";

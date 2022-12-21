@@ -1,12 +1,11 @@
 <script setup>
 import { reactive, onMounted,ref,h } from 'vue';
-import { zhTW, NPagination,NTable,NDataTable,NButton,NModal} from 'naive-ui';
+import { zhTW, NPagination,NTable,NDataTable,NButton,NModal } from 'naive-ui';
 import axios from 'axios';
 const createColumns = ({
-  sendMail,showModal
-}) => {
-  return [
-     {
+  selectId})=>{
+    return [
+  {
     title: "訂單編號",
     key: "orders_no"
   },
@@ -20,7 +19,7 @@ const createColumns = ({
   },
   {
     title: "訂單狀態",
-    key: "admin_psw"
+    key: "orders_status"
   },
   {
     title: "運送地點",
@@ -35,81 +34,37 @@ const createColumns = ({
     key: "orders_price"
   },
   {
-      title: "Action",
+      title: "編輯訂單狀態",
       key: "actions",
-      render(row) {
+      render(row, index) {
         return h(
           NButton,
           {
             size: "medium",
             color: "#077AF9",
-            // onClick: () => sendMail(row)
-            onClick: () => showModal()
+            onClick: () => selectId(row,index),
+            // onClick: () => modal(row)
           },
-          { default: () => "編輯" }
+          { default: () => "修改" }
         );
       }
     }
-  ]};
-  const modal = ref(false)
-  const column = createColumns({
-        // sendMail(rowData) {
-        //   message.info("send mail to ");
-        // }
-        showModal() {
-          modal.value == true
-        }
-    });
-// const column = [
-//   {
-//     title: "訂單編號",
-//     key: "orders_no"
-//   },
-//   {
-//     title: "會員編號",
-//     key: "mem_no"
-//   },
-//   {
-//     title: "購買日期",
-//     key: "purchase_date"
-//   },
-//   {
-//     title: "訂單狀態",
-//     key: "admin_psw"
-//   },
-//   {
-//     title: "運送地點",
-//     key: "orders_location"
-//   },
-//   {
-//     title: "優惠編號",
-//     key: "disc_no"
-//   },
-//   {
-//     title: "總金額",
-//     key: "orders_price"
-//   },
-//   {
-//       title: "Action",
-//       key: "actions",
-//       render(row) {
-//         return h(
-//           NButton,
-//           {
-//             size: "medium",
-//             color: "#077AF9",
-//             // onClick: () => sendMail(row)
-//           },
-//           { default: () => "編輯" }
-//         );
-//       }
-//     }
-// ];  
+  ]
+};  
+const showModal = ref(false);
+const newNmno = ref('');
+const newStatus = ref('');
+const column = createColumns({
+  selectId(rowData,index) {
+    showModal.value = true;
+    newNmno.value = rowData.orders_no;
+    newStatus.value =  rowData.orders_status;
+    // console.log(newNmno.value)
+  }
+})
 const paginationReactive = reactive({
       page: 2,
       pageSize: 10,
-    //   showSizePicker: true,
-    //   pageSizes: [3, 5, 7],
       onChange: (page) => {
         paginationReactive.page = page;
       },
@@ -119,21 +74,35 @@ const paginationReactive = reactive({
       }
     });
     const  pagination = paginationReactive;
-
+//取得資料庫資料
 const NmOrderRows = ref([]);
 		const getNmOrder = () => {
 			//取得商品資料
       axios.get("http://localhost/CGD103-G5/public/g5PHP/getNmOrder.php")
       .then(res=> {
-        // console.log(res)
-        NmOrderRows.value = res.data
+        // console.log(res.data[0].orders_status)
+        NmOrderRows.value = res.data;
       })
 		}
 	onMounted(()=>{
 		getNmOrder();
-  });
-
-
+  })
+//修改資料庫資料
+const updateStatus = ()=> {
+  const newNm = {
+    orders_no: Number(newNmno.value),
+    orders_status: newStatus.value, 
+  }
+  fetch("http://localhost/CGD103-G5/public/g5PHP/updateNm_status.php", {
+    method: "POST",
+    body: new URLSearchParams(newNm),
+  }).then(res=>{
+    console.log(res)
+    // res.data[0]
+  })
+  showModal.value = false;
+  getNmOrder();
+}
 </script>
 <template>
 <div class="top">
@@ -141,19 +110,29 @@ const NmOrderRows = ref([]);
     一般訂單查詢
     <outComponents />
   </h2>
-  <div class="table">
-    <n-data-table :columns="column" :data="NmOrderRows" :pagination="pagination"  :bordered="true" :single-line="false" />
-  </div>
-  <n-modal
-  
-    preset="dialog"
-    title="确认"
-    content="你确认?"
-    positive-text="确认"
-    negative-text="算了"
-    @positive-click="submitCallback"
-    @negative-click="cancelCallback"
-  />
+  <form method="post">
+    <div class="table">
+      <n-data-table :columns="column" :data="NmOrderRows" :pagination="pagination" :bordered="true" :single-line="false" />
+      <n-modal
+          v-model:show="showModal"
+          preset="dialog"
+          title="確認"
+          content="你確定嗎?"
+        >
+        <label for="orders_status"> 修改狀態 : </label>
+        <!-- <input type="text" name="admin_acc" placeholder="修改狀態" v-model="newAdmin_acc"> -->
+        <select name="orders_status" id="" v-model="newStatus">
+          <option value="待處理">待處理</option>
+          <option value="處理中">處理中</option>
+          <option value="運送中">運送中</option>
+        </select>
+        <n-button @click="showModal = true; updateStatus()" type="error">
+          確認
+        </n-button>
+      </n-modal>
+    </div>
+  </form>
+
 </div>
 
 </template>
