@@ -7,14 +7,9 @@ import navComponentsVue from '@/components/navComponents.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
 import {bodyInit} from '../composables/useOnunmounted';
 bodyInit();
-
-
-
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init();
-
-
 
 export default{
   components:{
@@ -27,7 +22,6 @@ export default{
 
 
 </script>
-
 
 <template>
   <nav-component/>

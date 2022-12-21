@@ -1,7 +1,8 @@
 <script setup>
 import { reactive, onMounted,ref ,defineComponent} from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
-// import VuePaginate from "vue-paginate";
+
+
 
 const props = defineProps(["tab"])
 const faqRows = ref([]);
@@ -67,16 +68,6 @@ const deleteFaq = ()=>{
   getProducts();
 }
 </script>
-<script>
-export default defineComponent({
-  setup () {
-    return {
-      page: ref(2)
-    }
-  }
-})
-
-</script>
 
 
 <template>
@@ -93,10 +84,10 @@ export default defineComponent({
       </div>
     </div>
   </div>
-  
+ 
   <div class="tables" id="products" align="center">
     <form action="" method="post">
-    <n-table>
+    <n-table id="table">
       <thead>
         <tr>
         <th>編號</th>
@@ -147,9 +138,7 @@ export default defineComponent({
           </td>
       </tr>	
       </tbody>
-    
     </n-table>
-    <n-pagination v-model:page="page" :page-count="50" />
   </form>
   </div>
 </div>
