@@ -2,7 +2,7 @@
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
-	require_once("./connect_cgd103g5_felix.php");
+	require_once("./connect_cgd103g5_adam.php");
 	$sql = "select * from tibamefe_cgd103g5.administrator";
 	$admin = $pdo->prepare($sql);
 	$admin->execute();
