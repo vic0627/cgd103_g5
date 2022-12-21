@@ -16,11 +16,13 @@ bodyInit();
 
 //bottomBar第二版
 onMounted(() => {
-  fetchShop();
-  console.log(shopItem.value);
+  fetchProducts();
+
+  // console.log(ProductsItem.value);
+
   let lastPos = 0;
   const nav = document.getElementById("purchaseBar");
-  log(nav);
+  // log(nav);
   // 監聽scroll事件
   document.addEventListener("scroll", function () {
     let currentPos = window.scrollY;
@@ -34,12 +36,13 @@ onMounted(() => {
   });
 });
 
-const shopItem = ref([]);
-const fetchShop = () => {
-  fetch("/dist/g5PHP/getProduct.php")
+const ProductsItem = ref([]);
+
+const fetchProducts = () => {
+  fetch("http://localhost/dist/g5PHP/getProducts.php")
     .then((res) => res.json())
     .then((json) => {
-      shopItem.value = json;
+      ProductsItem.value = json;
     });
 };
 
@@ -92,7 +95,7 @@ const btnLeft = () => {
 
     <!-- 主要敘述 -->
     <article class="mainDesc">
-      <h2>EFVP Mavic 4 Classic</h2>
+      <h2>EFPV Mavic 4 Classic</h2>
       <p>USD $1,599</p>
       <ul>
         <li>5.1K/50fps Professional Imagery</li>
@@ -223,7 +226,7 @@ const btnLeft = () => {
           <img src="/src/assets/images/shopInfo/controller.png" alt="" />
         </div>
         <div class="cardInfo">
-          <h5>EFVP Mavic 5</h5>
+          <h5>EFPV Mavic 5</h5>
           <span>USD $2,399</span>
           <a class="buttons">
             <router-link to="/cart" class="buy" id="btn2" data-title="Buy">
@@ -240,7 +243,7 @@ const btnLeft = () => {
           <img src="/src/assets/images/shopInfo/controller.png" alt="" />
         </div>
         <div class="cardInfo">
-          <h5>EFVP Mavic 3</h5>
+          <h5>EFPV Mavic 3</h5>
           <span>USD $1,199</span>
           <a class="buttons">
             <router-link to="/cart" class="buy" id="btn2" data-title="Buy">
@@ -257,7 +260,7 @@ const btnLeft = () => {
           <img src="/src/assets/images/shopInfo/controller.png" alt="" />
         </div>
         <div class="cardInfo">
-          <h5>EFVP Mavic 2</h5>
+          <h5>EFPV Mavic 2</h5>
           <span>USD $999</span>
           <a class="buttons">
             <router-link to="/cart" class="buy" id="btn2" data-title="Buy">
