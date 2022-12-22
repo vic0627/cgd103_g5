@@ -24,7 +24,7 @@ const createColumns = ({
   },
   {
     title: "回答",
-    key: "faq_ans"
+    key: "faq_ans",
   },
   {
       title: "編輯",
@@ -50,14 +50,14 @@ const createColumns = ({
           NButton,
           {
             size: "medium",
-            color: "#077AF9",
-            onClick: () => selectId(row,index),
-            onClick: () => showmodal()
+            color: "#FF4E4E",
+            onClick: () => showmodal(row,index),
           },
           { default: () => "刪除" }
         );
       }
-    }
+    },
+    
   ]
 };
 //解析內容跟事件
@@ -68,8 +68,9 @@ const column = createColumns({
     newFaq_no.value = faqRows.value[index].faq_no;
     newFaq_ans.value = faqRows.value[index].faq_ans;
   },
-  showmodal(){
+  showmodal(rowData,index){
     showModal2.value = true
+    newFaq_no.value = faqRows.value[index].faq_no;
   }
 })
 //分頁js
@@ -122,12 +123,12 @@ const updateFaq = (user)=>{
 
 // 刪除資料
 const deleteFaq = ()=>{
-  const deleteFaq = {
+  const delFaq = {
     faq_no: Number(newFaq_no.value)
   }
   fetch("http://localhost/g5/public/g5PHP/deleteFaq.php",{
     method: "POST",
-    body: new URLSearchParams(deleteFaq),
+    body: new URLSearchParams(delFaq),
   }).then(res=>{
     res.json()
   })
@@ -274,6 +275,7 @@ h2 {
       cursor: pointer;
       color: #fff;
       transition: background 0.5s;
+      opacity: 0.9;
       &:hover{
         background: $blue;
       }
@@ -332,33 +334,9 @@ h2 {
 }
 
 .tables {
-  width: 100%;
+  width: 95%;
   margin: auto;
-  table{
-    width: 95%;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 20px;
-    tr {
-      &:hover td{
-        background: rgba(89, 120, 151, 0.11);
-      }
-      th {
-        padding: 20px 10px;
-        background-color:#597897;
-        color: #fff;
-        border: 1px solid #ebebeb;
-        border-top: 1px solid #597897;
-      }
-      td{
-        border: 1px solid #ebebeb;
-        padding: 20px 10px;
-        overflow: hidden;
-      }
-    }
-  }
 }
-
 
 .modal-mask{
   position: fixed;
