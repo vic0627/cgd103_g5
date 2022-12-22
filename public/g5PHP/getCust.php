@@ -2,12 +2,12 @@
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
-	require_once("./connect_cgd103g5_vic.php");
+	require_once("./connect_cgd103g5_ram.php");
 	$sql = "select * from tibamefe_cgd103g5.customize";
-	$cus = $pdo->prepare($sql);
-	$cus->execute();
-	$cusRows = $cus->fetchAll(PDO::FETCH_ASSOC);
-	echo json_encode($cusRows);
+	$cust = $pdo->prepare($sql);
+	$cust->execute();
+	$custRows = $cust->fetchAll(PDO::FETCH_ASSOC);
+	echo json_encode($custRows);
 } catch (PDOException $e) {
 	//echo "錯誤原因 : ", $e->getMessage(), "<br>";
 	//echo "錯誤行號 : ", $e->getLine(), "<br>";

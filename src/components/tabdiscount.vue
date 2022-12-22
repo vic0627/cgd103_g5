@@ -1,89 +1,121 @@
 <script setup>
-import { reactive, onMounted, ref } from "vue";
+import { reactive, onMounted, ref, h } from "vue";
+import {
+  zhTW,
+  NPagination,
+  NTable,
+  NDataTable,
+  NButton,
+  NModal,
+} from "naive-ui";
+import axios from "axios";
+const createColumns = ({ sendMail, showModal }) => {
+  return [
+    {
+      title: "優惠編號",
+      key: "disc_no",
+    },
+    {
+      title: "優惠名稱",
+      key: "disc_title",
+    },
+    {
+      title: "優惠描述",
+      key: "disc_txt",
+    },
+    {
+      title: "開始日期",
+      key: "disc_start",
+    },
+    {
+      title: "結束日期",
+      key: "disc_end",
+    },
+    {
+      title: "折扣數",
+      key: "disc_off",
+    },
+    {
+      title: "優惠代碼",
+      key: "disc_code",
+    },
+    {
+      title: "編輯/刪除",
+      key: "actions",
+      render(row) {
+        return h(
+          NButton,
+          {
+            size: "medium",
+            color: "#077AF9",
+            // onClick: () => sendMail(row)
+            onClick: () => showModal(),
+          },
+          { default: () => "編輯" }
+        );
+      },
+    },
+  ];
+};
+const modal = ref(false);
+const column = createColumns({
+  showModal() {
+    modal.value == true;
+  },
+});
 
-const table = ref([
-  {
-    no: 1,
-    title: "X'MAS SALE !",
-    txt: "HAHA IT'S CHRISTMAS.",
-    time: "2022/12/06 - 2022/12/25",
-    discount: "0.85",
+const paginationReactive = reactive({
+  page: 1,
+  pageSize: 5,
+  onChange: (page) => {
+    paginationReactive.page = page;
   },
-  {
-    no: 2,
-    title: "過年",
-    txt: "123",
-    time: "2022/12/06 - 2022/12/25",
-    discount: "0.85",
+  onUpdatePageSize: (pageSize) => {
+    paginationReactive.pageSize = pageSize;
+    paginationReactive.page = 1;
   },
-  {
-    no: 3,
-    title: "清明節",
-    txt: "123",
-    time: "2022/12/06 - 2022/12/25",
-    discount: "0.85",
-  },
-  {
-    no: 4,
-    title: "中秋節",
-    txt: "123",
-    time: "2022/12/06 - 2022/12/25",
-    discount: "0.85",
-  },
-  {
-    no: 5,
-    title: "田聖節",
-    txt: "123",
-    time: "2022/12/06 - 2022/12/25",
-    discount: "0.85",
-  },
-]);
+});
+
+const pagination = paginationReactive;
+
+const discRows = ref([]);
+const getDisc = () => {
+  //取得商品資料
+  axios
+    .get("http://localhost/cgd103_g5/public/g5PHP/getDisc.php")
+    .then((res) => {
+      // console.log(res)
+      discRows.value = res.data;
+    });
+};
+onMounted(() => {
+  getDisc();
+});
 </script>
 <template>
   <div class="top">
     <h2>
-      優惠設定
+      優惠查詢
       <outComponents />
     </h2>
-    <div class="search_box">
-      <label for="search" class="label"
-        >查詢編號<input
-          type="search"
-          id="search"
-          name="search"
-          placeholder="請輸入編號"
-      /></label>
-      <div class="btn">
-        <button class="magBox">
-          <img src="../assets/images/About/search.png" alt="search" />
-        </button>
-      </div>
-    </div>
     <div class="tables">
-      <table>
-        <tr>
-          <th>編號</th>
-          <th>標題</th>
-          <th>內容</th>
-          <th>時間</th>
-          <th>折扣</th>
-          <th>修改</th>
-        </tr>
-        <tr v-for="item in table" :key="item">
-          <td>{{ item.no }}</td>
-          <td>{{ item.title }}</td>
-          <td>{{ item.txt }}</td>
-          <td>{{ item.time }}</td>
-          <td>{{ item.discount }}</td>
-          <td>
-            <a href="#"
-              ><span class="block">編輯</span> <span>/</span>
-              <span class="red">刪除</span></a
-            >
-          </td>
-        </tr>
-      </table>
+      <n-data-table
+        :columns="column"
+        :data="discRows"
+        :pagination="pagination"
+        :bordered="true"
+        :single-line="false"
+      />
     </div>
+    <n-modal
+      preset="dialog"
+      title="确认"
+      content="你确认?"
+      positive-text="确认"
+      negative-text="算了"
+      @positive-click="submitCallback"
+      @negative-click="cancelCallback"
+    />
   </div>
 </template>
 <style scoped lang="scss">
@@ -91,6 +123,10 @@ const table = ref([
 .top {
   width: 100%;
   display: block;
+}
+.table {
+  width: 95%;
+  margin: auto;
 }
 h2 {
   font-size: 40px;
@@ -198,5 +234,20 @@ h2 {
       }
     }
   }
+}
+
+.top {
+  width: 100%;
+  display: block;
+}
+h2 {
+  font-size: 40px;
+  color: #fff;
+  margin: 10px 10px;
+  padding: 10px 10px;
+  background-color: #597897;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>

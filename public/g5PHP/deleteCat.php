@@ -2,7 +2,7 @@
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
-	require_once("./connect_cgd103g5_adam.php");
+	require_once("./connect_cgd103g5_Lily.php");
 	$sql = "DELETE FROM tibamefe_cgd103g5.product_category 
 	WHERE cat_no = :cat_no ";
 	$dcat = $pdo->prepare($sql);
