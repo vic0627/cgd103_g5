@@ -3,7 +3,8 @@
  header("Content-Type:application/json;charset=utf-8");
 try {
 	require_once("./connect_cgd103g5_Lily.php");
-	$sql = "select * from tibamefe_cgd103g5.products";
+	$sql = "select * from tibamefe_cgd103g5.products p join tibamefe_cgd103g5.product_category c
+	on p.cat_no = c.cat_no";
 	$prod = $pdo->prepare($sql);
 	$prod->execute();
 	$prodRows = $prod->fetchAll(PDO::FETCH_ASSOC);

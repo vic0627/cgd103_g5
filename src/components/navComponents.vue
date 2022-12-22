@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { reactive, onMounted } from 'vue';
 const mainMenu = reactive([
   {
     id: "shop",
@@ -54,22 +54,26 @@ onMounted(() => {
 
   getMemberInfo();
 
-  function memlogout() {
-    let xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      //   document.getElementById("spanLogin").innerText = "登入";
-      //   document.getElementById("memName").innerText = "";
-      document.querySelector(".account").style["display"] = "none";
-      document.querySelector(".memName").style["display"] = "none";
-      document.querySelector(".memstatus").innerHTML = "Sign in";
-      document.getElementById("username").value = "";
-      document.getElementById("password").value = "";
-      document.querySelector(".unameinfo").innerHTML = "";
-      document.querySelector(".pswinfo").innerHTML = "";
-    };
-    xhr.open("get", "/dist/g5PHP/memLogout.php", true);
-    xhr.send(null);
-  }
+    function memlogout(){
+        let xhr = new XMLHttpRequest();
+        xhr.onload = function(){
+        //   document.getElementById("spanLogin").innerText = "登入";
+        //   document.getElementById("memName").innerText = "";
+            document.querySelector(".account").style["display"]="none";
+            document.querySelector(".memName").style["display"]="none";
+            document.querySelector(".memstatus").innerHTML="Sign in";
+            document.getElementById("username").value="";
+            document.getElementById("password").value="";
+            document.querySelector(".unameinfo").innerHTML="";
+            document.querySelector(".pswinfo").innerHTML="";
+            
+            
+        }
+        xhr.open("get","/dist/g5PHP/memLogout.php",true);
+        xhr.send(null);
+    }
+
+    
 });
 const NavClass = defineProps({
   home: {

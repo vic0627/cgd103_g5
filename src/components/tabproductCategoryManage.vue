@@ -10,13 +10,10 @@ const getProCat = () =>{
             cateRows.value = json;
         })
     }
-
-    
-    
     getProCat();
 onMounted(()=>{
 })
-    const table = ref(['編號','類別名稱','編輯','修改'])
+    const table = ref(['編號','類別名稱','編輯','刪除'])
     const showModal = ref(false);
     const showModal2 = ref(false);
     const newName = ref('');
