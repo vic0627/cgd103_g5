@@ -10,13 +10,14 @@ import body2 from "../assets/images/shopInfo/body_03_2.png";
 import body3 from "../assets/images/shopInfo/body_03_3.png";
 import { products, accessories, bundle_A, bundle_B } from "./js/Shop";
 import { method } from "lodash";
+import axios from "axios";
 // import { json } from "stream/consumers";
 
 bodyInit();
 
 //bottomBar第二版
 onMounted(() => {
-  fetchProducts();
+  // fetchProducts();
 
   // console.log(ProductsItem.value);
 
@@ -36,15 +37,29 @@ onMounted(() => {
   });
 });
 
-const ProductsItem = ref([]);
+// 抓資料
+// const ProductsItem = ref([]);
+// const fetchProducts = () => {
+//   fetch("http://localhost/g5/public/g5PHP/getProducts.php")
+//     .then((res) => res.json())
+//     .then((json) => {
+//       ProductsItem.value = json;
+//     });
+// };
 
-const fetchProducts = () => {
-  fetch("http://localhost/dist/g5PHP/getProducts.php")
-    .then((res) => res.json())
-    .then((json) => {
-      ProductsItem.value = json;
+const raceRows = ref([]);
+const getRace = () => {
+  //取得商品資料
+  axios
+    .get("http://localhost/cgd103_g5/public/g5PHP/getProducts.php")
+    .then((res) => {
+      console.log(res);
+      raceRows.value = res.data;
     });
 };
+onMounted(() => {
+  getRace();
+});
 
 //商品大圖
 const shopInfoItem = ref({

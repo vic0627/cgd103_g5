@@ -4,7 +4,7 @@
 
 @mixin lightBox(){
     width: 100%;
-	height: 100vh;
+	height: 100%;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -14,10 +14,16 @@
   	align-items: center;
     .lightBoxContent{
 		width: 90%;
+		max-height: 75%;
+		overflow-y: auto;
 		background: linear-gradient(to right, hsl(210, 30%, 20%), hsl(255, 30%, 25%));
 		box-shadow: .4rem .4rem 2.4rem .2rem hsla(236, 50%, 50%, .3);
 		border-radius: 20px;
-		position: relative;
+		position: absolute;
+		top: 80px;
+		left: 0;
+		right: 0;
+		margin: 0 auto;
 		@include s($s-breakpoint) {
 			width: 550px;
 		}
