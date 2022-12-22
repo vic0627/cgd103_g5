@@ -35,7 +35,7 @@ const submitData = ()=>{
 
   });
   const name = ref('');
-  const authority = ref('');
+  const authority = ref('一般管理員');
   const account = ref('');
   const password = ref('');
 </script>
@@ -51,10 +51,10 @@ const submitData = ()=>{
         <h3>管理員姓名</h3>
         <input type="text" placeholder="請輸入姓名" id=" admin_name" name="admin_name" v-model="name" required> 
       </div>
-      <!-- <div class="question">
+      <div class="question">
         <h3>管理員權限</h3>
-        <input type="text" placeholder="請輸入權限" id="authority" name="authority" v-model="authority" required>
-      </div> -->
+        <input type="text" id="authority" name="authority" v-model="authority" disabled>
+      </div>
       <div class="question">
         <h3>管理員帳號</h3>
         <input type="text" placeholder="請輸入帳號" id="admin_acc" name="admin_acc" v-model="account" required>

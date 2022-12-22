@@ -1,10 +1,27 @@
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted ,ref} from 'vue';
 
-// import { ref, onMounted,reactive,computed,watch } from 'vue';
-// onMounted(() => {
+const meminfo = ref("");
+onMounted(() =>{
+    function getMemberInfoSS(){
+              let xhr = new XMLHttpRequest();
+              xhr.onload = function(){
+                  let member = JSON.parse(xhr.responseText);
+                  // console.log("SS:"+member);
+                  if(member.memId){//有帳密資料
+                      // $id("memName").innerText = member.memName;
+                      // $id("spanLogin").innerText = "登出"; 
+                  meminfo.value = [member.memName,member.email];
+                  // console.log(mem.value)         
+                  }
+              }
+              xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
+              xhr.send(null);
+          }
     
-// }),
+    getMemberInfoSS();
+
+})
 </script>
 
 <template>
@@ -13,8 +30,8 @@ import { onMounted } from 'vue';
             <img src="@/assets/images/member/head.jpeg" alt="">
         </div>
         <div class="memcard">
-            <p>username</p>
-            <p class="p2">example@gmail.com</p>
+            <p>{{meminfo[0]}}</p>
+            <p class="p2">{{ meminfo[1] }}</p>
         </div>
     </div>
 </template>

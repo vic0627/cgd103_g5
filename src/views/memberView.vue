@@ -1,20 +1,45 @@
-<script>
-import { onMounted, registerRuntimeCompiler } from "vue";
+<script setup>
+import { onMounted, registerRuntimeCompiler,ref } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import memberCardVue from '@/components/memberCenter/memberCard.vue';
 bodyInit();
+// const meminfo = ref("");
+onMounted(() =>{
+  function getMemberInfoSS(){
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function(){
+                let member = JSON.parse(xhr.responseText);
+                // console.log("SS:"+member);
+                if(member.memId){//有帳密資料
+                    // $id("memName").innerText = member.memName;
+                    // $id("spanLogin").innerText = "登出"; 
+                // meminfo.value = [member.memName,member.email];
+                // console.log(mem.value)         
+                }else{
+                  // alert("您尚未登入歐!");
+                  // location.href="http://localhost:8888/dist/home";
+                  window.history.back();
+                }
+            }
+            xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
+            xhr.send(null);
+        }
+  
+  getMemberInfoSS();
 
-import { useMotion } from "@vueuse/motion";
-export default {
-  components: {
-    navComponentsVue,
-    footerComponentsVue,
-    memberCardVue,
+})
 
-  },
-};
+// import { useMotion } from "@vueuse/motion";
+// export default {
+//   components: {
+//     navComponentsVue,
+//     footerComponentsVue,
+//     memberCardVue,
+
+//   },
+// };
 </script>
 
 <template>
@@ -51,7 +76,9 @@ export default {
         <div class="member_drone">
           <img src="../assets/images/member/mem_drone02.png" alt="drone" />
           <div class="drone_word">
-            <h3>FPV Name</h3>
+            <!-- {{ meminfo[0] }} -->
+            <!-- {{ meminfo[1] }} -->
+            <h3>FPV Name </h3>
             <router-link class="drone_more" to="/machineView"
               ><button>Leam more</button></router-link
             >
@@ -105,6 +132,7 @@ section {
       margin: 0 auto;
       .meminfo{
         aspect-ratio: 16/9;
+        padding: 30px;
       }
       // .member_card {
       //   position: relative;

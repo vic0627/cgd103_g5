@@ -1,6 +1,94 @@
 <script setup>
-import { reactive, onMounted,ref } from 'vue';
+import { reactive, onMounted,ref ,defineComponent,h} from 'vue';
+import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
+const des = ref("");
+const ans = ref("");
+const no = ref("");
+const newFaq_des = ref("");
+const newFaq_no = ref('');
+const newFaq_ans = ref('');
+const showModal = ref(false);
+const showModal2 = ref(false);
+
+//data-table
+const createColumns = ({
+  selectId,showmodal})=>{
+    return [
+  {
+    title: "編號",
+    key: "faq_no"
+  },
+  {
+    title: "問題",
+    key: "faq_des"
+  },
+  {
+    title: "回答",
+    key: "faq_ans",
+  },
+  {
+      title: "編輯",
+      key: "actions",
+      render(row, index) {
+        return h(
+          NButton,
+          {
+            size: "medium",
+            color: "#077AF9",
+            onClick: () => selectId(row,index),
+            // onClick: () => modal(row)
+          },
+          { default: () => "編輯" }
+        );
+      }
+    },
+    {
+      title: "刪除",
+      key: "actions",
+      render(row, index) {
+        return h(
+          NButton,
+          {
+            size: "medium",
+            color: "#FF4E4E",
+            onClick: () => showmodal(row,index),
+          },
+          { default: () => "刪除" }
+        );
+      }
+    },
+    
+  ]
+};
+//解析內容跟事件
+const column = createColumns({
+  selectId(rowData,index) {
+    showModal.value = true;
+    newFaq_des.value = faqRows.value[index].faq_des;
+    newFaq_no.value = faqRows.value[index].faq_no;
+    newFaq_ans.value = faqRows.value[index].faq_ans;
+  },
+  showmodal(rowData,index){
+    showModal2.value = true
+    newFaq_no.value = faqRows.value[index].faq_no;
+  }
+})
+//分頁js
+const paginationReactive = reactive({
+      page: 2,
+      pageSize: 10,
+      onChange: (page) => {
+        paginationReactive.page = page;
+      },
+      onUpdatePageSize: (pageSize) => {
+        paginationReactive.pageSize = pageSize;
+        paginationReactive.page = 1;
+      }
+    });
+const  pagination = paginationReactive;
+
 const props = defineProps(["tab"])
+//取得資料庫資料
 const faqRows = ref([]);
 		const getProducts = () => {
 			//取得商品資料
@@ -15,24 +103,39 @@ const faqRows = ref([]);
 		getProducts();
   });
 
-const des = ref("");
-const ans = ref("");
-const del =()=>{
-  const payload = {
-    faq_des : des.value,
-    faq_ans : ans.value
-  };
-  fetch("http://localhost/g5/public/g5PHP/updateFaqs.php",{
-    method:'POST',
-    body:new URLSearchParams(payload), 
+//更新資料
+const updateFaq = (user)=>{
+  const newFaq = {
+    faq_no: Number(newFaq_no.value),
+    faq_des: newFaq_des.value, 
+    faq_ans: newFaq_ans.value
   }
-  ).then(res=>{
-    res.text();
+  fetch("http://localhost/g5/public/g5PHP/updateFaqs.php", {
+    method: "POST",
+    body: new URLSearchParams(newFaq),
+  }).then(res=>{
+    console.log(res)
+    res.json()
   })
-  
+  showModal.value = false
+  getProducts();
+}
+
+// 刪除資料
+const deleteFaq = ()=>{
+  const delFaq = {
+    faq_no: Number(newFaq_no.value)
+  }
+  fetch("http://localhost/g5/public/g5PHP/deleteFaq.php",{
+    method: "POST",
+    body: new URLSearchParams(delFaq),
+  }).then(res=>{
+    res.json()
+  })
+  showModal2.value = false
+  getProducts();
 }
 </script>
-
 
 
 <template>
@@ -49,27 +152,84 @@ const del =()=>{
       </div>
     </div>
   </div>
-  
+ 
   <div class="tables" id="products" align="center">
     <form action="" method="post">
-    <table>
-      <tr>
+      <n-data-table :columns="column" :data="faqRows" :pagination="pagination"  :bordered="true" :single-line="false" />
+      <n-modal
+                v-model:show="showModal"
+                preset="dialog"
+                title="確認"
+                content="你確定嗎?"
+              >
+            <label for="faq_des"> 修改問題 : </label>
+            <textarea name="faq_des" v-model="newFaq_des" rows="10" cols="50" placeholder="請輸入問題" maxlength="200"></textarea>
+            <textarea name="faq_ans" v-model="newFaq_ans" rows="10" cols="50" placeholder="請輸入回答" maxlength="300" ></textarea>
+            <n-button @click="showModal = true; updateFaq(index)" type="error">
+              確認
+            </n-button>
+      </n-modal>
+      <n-modal
+          v-model:show="showModal2"
+          preset="dialog"
+          title="確認"
+          content="你確定嗎?"
+        >
+      <n-button @click="showModal2 = true; deleteFaq(index)" type="error">
+        刪除
+      </n-button>
+      </n-modal>
+    <!-- <n-table id="table">
+      <thead>
+        <tr>
         <th>編號</th>
         <th>問題</th>
         <th>回答</th>
         <th>編輯</th>
         <th>刪除</th>
-	    </tr>
-      
-        <tr v-for="faqRow in faqRows" :key="faqRow">
-        <td>{{faqRow.faq_no}}</td>
+	      </tr>
+      </thead>
+      <tbody>
+        
+        <tr v-for="(faqRow,index) in faqRows" :key="index" >
+        <td>{{index+1}}</td>
         <td>{{faqRow.faq_des}}</td>
         <td>{{faqRow.faq_ans}}</td>
-        <td><input @click="props.tab('mod')" class="block" value="編輯"></td>
-        <td><input type="button" class="red" value="刪除" @click="del()"></td>
+        <td><n-button @click="showModal = true; selectId(index)" type="info">
+              編輯
+            </n-button>
+            <n-modal
+                v-model:show="showModal"
+                preset="dialog"
+                title="確認"
+                content="你確定嗎?"
+              >
+            <label for="faq_des"> 修改問題 : </label>
+            <textarea name="faq_des" v-model="newFaq_des" rows="10" cols="50" placeholder="請輸入問題" maxlength="200"></textarea>
+            <textarea name="faq_ans" v-model="newFaq_ans" rows="10" cols="50" placeholder="請輸入回答" maxlength="300" ></textarea>
+            <n-button @click="showModal = true; updateFaq(index)" type="error">
+              確認
+            </n-button>
+           </n-modal>
+          </td>
+
+        <td><n-button @click="showModal2 = true;selectId(index)" type="error">
+              刪除
+            </n-button>
+            <n-modal
+                v-model:show="showModal2"
+                preset="dialog"
+                title="確認"
+                content="你確定嗎?"
+              >
+            <n-button @click="showModal2 = true; deleteFaq(index)" type="error">
+              刪除
+            </n-button>
+            </n-modal>
+          </td>
       </tr>	
-    
-    </table>
+      </tbody>
+    </n-table> -->
   </form>
   </div>
 </div>
@@ -78,6 +238,10 @@ const del =()=>{
 </template>
 <style scoped lang="scss">
 @import '@/sass/style.scss';
+textarea{
+  margin-top: 10px;
+}
+
 .top {
   width: 100%;
   display: block;
@@ -111,6 +275,7 @@ h2 {
       cursor: pointer;
       color: #fff;
       transition: background 0.5s;
+      opacity: 0.9;
       &:hover{
         background: $blue;
       }
@@ -169,63 +334,8 @@ h2 {
 }
 
 .tables {
-  width: 100%;
+  width: 95%;
   margin: auto;
-  table{
-    width: 95%;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 20px;
-    border: 1px solid #C0C0C0;
-    tr {
-      border: 1px solid #C0C0C0;
-      &:hover td{
-        background: rgba(89, 120, 151, 0.11);
-      }
-      th {
-        padding: 20px 10px;
-        background-color:#597897;
-        color: #fff;
-        border: 1px solid #C0C0C0;
-        border-top: 1px solid #597897;
-      }
-      td{
-        border: 1px solid #C0C0C0;
-        padding: 20px 10px;
-        overflow: hidden;
-      }
-    }
-  }
-}
-.block{
-  width: 80px;
-  cursor: pointer;
-  color: #273747;
-  background:#ffffff;
-  font-size: 20px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  transition: background 0.5s;
-  border:1px solid #ccc;
-  &:hover{
-    color: #fff;
-    background:  $blue;
-  }
-}
-.red{
-  width: 80px;
-  cursor: pointer;
-  color: #273747;
-  background:#ffffff;
-  font-size: 20px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  transition: background 0.5s;
-  border:1px solid #ccc;
-  &:hover{
-    color: #fff;
-    background:  #e4594a;
-  }
 }
 
 .modal-mask{

@@ -1,5 +1,6 @@
 <script setup>
 import navComponentsVue from "@/components/navComponents.vue";
+import Accordion from "../components/accordionComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 bodyInit();
@@ -10,10 +11,16 @@ bodyInit();
   <!-- Competition information -->
   <section>
     <div class="race">
-      <h2>COMPETITION NAME</h2>
+      <h2>Drone Race 01</h2>
 
       <div class="raceimg">
         <img src="../assets/images/race/contest01.png" alt="Competition" />
+      </div>
+
+      <div class="date">
+        <h3>20220101</h3>
+        <h3>-</h3>
+        <h3>20220131</h3>
       </div>
 
       <div class="racetext">
@@ -28,10 +35,19 @@ bodyInit();
       </div>
     </div>
   </section>
+
+  <!-- race QA -->
+  <section>
+    <div class="raceQa">
+      <h2>RACE QUESTIONS</h2>
+      <Accordion />
+    </div>
+  </section>
+
   <!-- Registration Form -->
   <section>
-    <div class="form">
-      <h3>REGISTRATION FORM</h3>
+    <!-- <div class="form">
+      <h2>REGISTRATION FORM</h2>
 
       <form action="#">
         <div class="name">
@@ -71,23 +87,17 @@ bodyInit();
           </label>
         </div>
       </form>
-    </div>
+    </div> -->
 
     <div class="book">
       <div class="Submit">
-        <a
-          href="#"
-          class="btn"
-          id="btn2"
-          data-title="Submit"
-          @mouseenter="MOUSE.mouseFocus()"
-          @mouseleave="MOUSE.mouseRe()"
-        >
+        <a href="#" class="btn" id="btn2" data-title="Submit">
           <span>Submit</span>
         </a>
       </div>
     </div>
   </section>
+
   <footerComponentsVue />
 </template>
 
@@ -113,7 +123,7 @@ section {
       width: 100%;
       margin-bottom: 50px;
       @include l($l-breakpoint) {
-        width: 60vw;
+        width: 70%;
         margin: auto;
         margin-bottom: 50px;
       }
@@ -122,7 +132,6 @@ section {
       }
     }
     .racetext {
-      text-align: center;
       @include l($l-breakpoint) {
         max-width: 1000px;
         margin: auto;
@@ -131,10 +140,23 @@ section {
   }
 }
 
+// race QA
+
+.raceQa {
+  h2 {
+    text-align: center;
+  }
+}
+
 //Registration Form
 
 h3 {
-  margin: 50px 0;
+  display: inline-block;
+  letter-spacing: 0.5rem;
+}
+.date {
+  text-align: center;
+  margin-bottom: 50px;
 }
 
 .form {
@@ -171,6 +193,6 @@ h3 {
 .Submit {
   display: flex;
   justify-content: center;
-  margin-bottom: 50px;
+  // margin-bottom: 50px;
 }
 </style>

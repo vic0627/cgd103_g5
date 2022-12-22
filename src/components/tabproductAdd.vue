@@ -1,29 +1,40 @@
 <script setup>
 import {ref,onMounted} from 'vue';
-const titles = ref(["商品編號","商品名稱","商品分類","售價(美元)","顏色"]);
+
+const prd_name = ref('');
+const prd_price = ref('');
+const cat_no = ref('');
+const color = ref('');
+
 const addProduct = ()=>{
   const payload = {
     prd_name: prd_name.value,
     prd_price: prd_price.value,
-    // cat_no: cat_no.value,
-    color: color.value
+    cat_no: cat_no.value,
+    color: color.value,
   };
-  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getProductAdd.php",{
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/insertProducts.php",{
     method: "POST",
     body: new URLSearchParams(payload),
   }).then(res => {
     res.text();
-    console.log(res);
   });
   
 }
-const prd_name = ref('');
-const prd_price = ref('');
-// const cat_no = ref('');
-const color = ref('');
+const getCat = ()=>{
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getProCat.php")
+  .then(res => res.json())
+  .then(json=>{
+    cat_no.value = json;
+  })
+}
+
 
 onMounted(()=>{
+  getCat();
+  addProduct();
 
+  
 function doFirst(){    
   // 先跟 HTML 畫面產生關連，再建事件聆聽功能
   document.getElementById('theFile').onchange = fileChange
@@ -58,15 +69,13 @@ function fileChange(){
         <label for="">商品名稱</label>
         <input  type="text" name = "prd_name" placeholder="請輸入" v-model="prd_name">
       </div>
-      <!-- <div class="">
+      <div class="">
         商品分類
-        <select name="cat_no" id="" v-model="cat_no">
-          <option disabled value="商品分類"> 商品分類</option>
-          <option value="">1-機身</option>
-          <option value="">2-零件</option>
-          <option value="">3-組合</option>
+        <select name="cat_no" id="" v-model="cat_no"> 
+          <option disabled > 商品分類</option>
+          <option v-for="(cat,index) in cat_no" :key="index">{{cat.cat_no}}</option>
         </select>
-      </div> -->
+      </div>
       <div>
         <label for="">售價(美元)</label>
         <input type="text" name = "prd_price" placeholder="請輸入" v-model="prd_price">
@@ -99,6 +108,9 @@ function fileChange(){
   display: block;
   overflow: scroll;
 }
+div{
+  margin: 10px;
+}
 h2 {
   font-size: 40px;
   color: #fff;
@@ -109,6 +121,7 @@ h2 {
   justify-content: space-between;
   align-items: center;
 }
+
 .proAdd{
   width: 100%;
   height: 100vh;

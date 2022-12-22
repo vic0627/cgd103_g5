@@ -1,15 +1,55 @@
 <script setup>
 import { ref,reactive, onMounted } from 'vue';
+import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
 const cateRows = ref([]);
-const getProductCategoryManage = () =>{
-    fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getProductCategory.php")
+
+const getProCat = () =>{
+    fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getProCat.php")
         .then(res => res.json())
         .then(json => {
             cateRows.value = json;
-    })
-}
-getProductCategoryManage();
-    const table = ref(['編號','類別名稱','修改'])
+        })
+    }
+    getProCat();
+onMounted(()=>{
+})
+    const table = ref(['編號','類別名稱','編輯','刪除'])
+    const showModal = ref(false);
+    const showModal2 = ref(false);
+    const newName = ref('');
+    const newNo = ref('');
+    const selectId = (user)=>{
+        newName.value = cateRows.value[user].cat_id;
+        newNo.value = cateRows.value[user].cat_no;
+    }
+    const updateCate =()=>{
+        const newCate = {
+            cat_no: Number(newNo.value),
+            cat_id: newName.value,
+        }
+        fetch("http://localhost/cgd103_g5_v2/public/g5PHP/updateCat.php", {
+            method: "POST",
+            body: new URLSearchParams(newCate),
+        }).then(res=>{
+            console.log(res)
+            res.json()
+        })
+        showModal.value = false
+        getProCat();
+    }
+    const deleteCate =()=>{
+        const delCat = {
+            cat_no: Number(newNo.value)
+        }
+        fetch("http://localhost/cgd103_g5_v2/public/g5PHP/deleteCat.php", {
+            method: "POST",
+            body: new URLSearchParams(delCat),
+        }).then(res=>{
+            console.log(res)
+            res.json()
+        })
+        showModal2.value = false
+    }
 </script>
 <template>
   <div class="productQuery">
@@ -18,18 +58,57 @@ getProductCategoryManage();
         <outComponents />
      </div>   
     <div class="mainContent">
-        <table>
-            <tr>
-                <th v-for="item in table" :key="item">
-                   <p>{{item}}</p> 
-                </th>
-            </tr>
-            <tr v-for="cateRow in cateRows" :key="cateRow">
-                <td>{{cateRow.cat_no}}</td>
-                <td>{{cateRow.cat_id}}</td>
-                <td><div class="revised">修改/<span>刪除</span></div></td>
-            </tr>
-        </table>
+        <form action="post">
+            <n-table>
+            <thead>
+                <tr>
+                    <th v-for="item in table" :key="item">
+                    <p>{{item}}</p> 
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(cateRow,index) in cateRows" :key="index">
+                    <td>{{cateRow.cat_no}}</td>
+                    <td>{{cateRow.cat_id}}</td>
+                    <td>
+                        <n-button @click="showModal = true; selectId(index)" type="info">
+                        編輯
+                        </n-button>
+                        <n-modal
+                            v-model:show="showModal"
+                            preset="dialog"
+                            title="確認"
+                            content="你確定嗎?"
+                        >
+                            <label for="cat_id"> 修改類別 : </label>
+                            <input type="text" name="cat_id" v-model="newName">
+                            <n-button @click="showModal = true; updateCate(index)" type="error">
+                            確認
+                            </n-button>
+                        </n-modal>
+                    </td>
+                    <td>
+                        <n-button @click="showModal2 = true; selectId(index)" type="info">
+                        刪除
+                        </n-button>
+                        <n-modal
+                            v-model:show="showModal2"
+                            preset="dialog"
+                            title="確認"
+                            content="你確定嗎?"
+                        >
+                        <n-button @click="showModal2 = true; deleteCate(index)" type="error">
+                            確認
+                        </n-button>
+                        </n-modal>
+                    </td>
+                    
+                </tr>
+            </tbody>
+            </n-table>
+            
+        </form>
     </div>
   </div>
 </template>

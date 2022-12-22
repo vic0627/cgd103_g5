@@ -1,7 +1,8 @@
 <script setup>
-import { reactive, onMounted,ref,h } from 'vue';
+import { reactive, onMounted,ref,h, computed } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
 import axios from 'axios';
+// app.component('paginate', VuejsPaginate)
 //取得資料庫資料
 const adminRows = ref([]);
 		const getAdmin = () => {
@@ -16,40 +17,6 @@ const adminRows = ref([]);
 	onMounted(()=>{
 		getAdmin();
   });
-  
-const column = [
-  {
-    title: "管理員編號",
-    key: "admin_no"
-  },
-  {
-    title: "管理員姓名",
-    key: "admin_name"
-  },
-  {
-    title: "管理員帳號",
-    key: "admin_acc"
-  },
-  {
-    title: "管理員權限",
-    key: "authority"
-  },
-  {
-      title: "Action",
-      key: "actions",
-      render(row) {
-        return h(
-          NButton,
-          {
-            size: "medium",
-            color: "#077AF9",
-            onClick: () => sendMail(row)
-          },
-          { default: () => "編輯" }
-        );
-      }
-    }
-];  
 const newAdmin_no = ref('');
 const newAdmin_acc = ref('');
 const showModal = ref(false);
@@ -70,7 +37,7 @@ const paginationReactive = reactive({
     const  pagination = paginationReactive;
 
 //抓管理員編號
-const selectId = (user)=>{
+const changeValue = (user)=>{
   console.log(adminRows.value[user].admin_no);
   newAdmin_acc.value = adminRows.value[user].admin_acc;
   newAdmin_no.value = adminRows.value[user].admin_no;
@@ -88,8 +55,10 @@ const updateAdmin = (user)=>{
     console.log(res)
     res.json()
   })
-  showModal.value = false
+  showModal.value = false;
+  getAdmin();
 }
+//刪除資料庫
 const deleteAdmin = ()=>{
   const deleteAcc = {
     admin_no: Number(newAdmin_no.value)
@@ -99,8 +68,9 @@ const deleteAdmin = ()=>{
     body: new URLSearchParams(deleteAcc),
   }).then(res=>{
     res.json()
+    getAdmin();
   })
-  showModal2.value = false
+  showModal2.value = false;
 }
 
 </script>
@@ -124,18 +94,18 @@ const deleteAdmin = ()=>{
           <th>帳號</th>
           <th>管理員姓名</th>
           <th>管理員級別</th>
-          <!-- <th>編輯</th> -->
+          <th>編輯</th>
+          <th>刪除</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(item,index) in adminRows" :key="index" :pagination="pagination">
-          <td>{{item.admin_no}}</td>
+        <tr v-for="(item,index) in adminRows" :key="index" :pagination="x">
+          <td>{{index+1}}</td>
           <td>{{item.admin_acc}}</td>
           <td>{{item.admin_name}}</td>
           <td>{{item.authority}}</td>
-          <td>{{item.admin_psw}}</td>
           <td>
-            <n-button @click="showModal = true; selectId(index)" type="info">
+            <n-button @click="showModal = true; changeValue(index)" type="info">
               編輯
             </n-button>
               <n-modal
@@ -144,7 +114,7 @@ const deleteAdmin = ()=>{
                 title="確認"
                 content="你確定嗎?"
               >
-            <!-- <input type="text" name="admin_no" placeholder="修改" v-model="newAdmin_no"> -->
+            <!-- <input type="text" name="admin_no" placeholder="修改" v-model="newAdmin_no" disabled> -->
             <label for="admin_acc"> 修改帳號 : </label>
             <input type="text" name="admin_acc" placeholder="修改帳號" v-model="newAdmin_acc">
             <n-button @click="showModal = true; updateAdmin(index)" type="error">
@@ -153,7 +123,7 @@ const deleteAdmin = ()=>{
            </n-modal>
           </td>
           <td>
-            <n-button @click="showModal2 = true;selectId(index)" type="error">
+            <n-button @click="showModal2 = true;changeValue(index)" type="error">
               刪除
             </n-button>
             <n-modal
@@ -168,7 +138,19 @@ const deleteAdmin = ()=>{
            </n-modal>
           </td>
         </tr>
+         <!-- <n-pagination  :page="1" :page-count="2" /> -->
       </tbody>
+      <!-- <n-pagination :page="page.value" :page-count="10" /> -->
+       <paginate
+   :page-count="getPageCount"
+    :page-range="3"
+    :margin-pages="2"
+    :click-handler="clickCallback"
+    :prev-text="'＜'"
+    :next-text="'＞'"
+    :container-class="'pagination'"
+    :page-class="'page-item'">
+  </paginate>
     </n-table>
   </form>
    <!-- <div class="table">

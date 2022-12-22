@@ -7,65 +7,122 @@
 
 
     const getQuery = (classname) =>document.querySelector(classname);
+    // const sendForm = ()=>{
+    //     if(!verifyuname() || !verifypsw1() || !verifypsw1()){
+    //         alert("check your enter");
+    //         return false;
+    //     }
+    // }
 
     onMounted(()=> {
+
+
+        function sendForm(){
+            if(!verifyuname() || !verifypsw1() || !verifypsw1()){
+                alert("check your enter");
+                return false;
+            }
+        }
+        document.getElementById('btnLogin').onclick = sendForm;
+
+        
+
+
+
         //email verify
         const uname=getQuery('#username');
-        uname.addEventListener('input',function verifyuname(){
+        uname.addEventListener('input',function(){verifyuname()});
+        function verifyuname(){
             let regex_psw=/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
             
-            if(this.value !=''){
-                if(regex_psw.test(this.value) == false){
+            if(uname.value !=''){
+                if(regex_psw.test(uname.value) == false){
                     getQuery('.unameinfo').textContent='Incorrect email address format';
                     getQuery('.unameinfo').style['color']='red';
-                }else if(regex_psw.test(this.value)){
+                }else if(regex_psw.test(uname.value)){
                     getQuery('.unameinfo').textContent='Good!';
                     getQuery('.unameinfo').style['color']='lightgreen';
+                    return true;
                 }
             }else{
                 getQuery('.unameinfo').textContent='';
                 getQuery('.unameinfo').style['color']='rgb(72, 72, 72)';
             }
+            return false;
+            
+        }
+
+        //check if email has been used
+        uname.addEventListener('blur',()=>{
+            if(uname.value !=""){//有輸入資料時
+                checkId();
+            }else{
+                return false;
+            }
+
         });
+        function checkId(){  
+            //產生XMLHttpRequest物件
+            let xhr = new XMLHttpRequest();
+            // alert("Hi")
+            //註冊callback function 
+            xhr.onload = function(){
+                // document.getElementById("idMsg").innerText = xhr.responseText;
+                alert(xhr.responseText);
+            }
+
+            //設定好所要連結的程式
+            xhr.open("post","/dist/g5PHP/ckeckMemId.php",true);
+            xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+            //送出資料
+            let data_info = "username=" + document.getElementById("username").value;
+            xhr.send(data_info);
+        }//function_checkId 
+
         //password verify
         const psw=getQuery('#password');
-        psw.addEventListener('input',function verifypsw(){
+        psw.addEventListener('input',function() {verifypsw1()});
+        function verifypsw1(){
             let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-            if(this.value !=''){
-                if(regex_psw.test(this.value) == false){
+            if(psw.value !=''){
+                if(regex_psw.test(psw.value) == false){
                     getQuery('.pswinfo').textContent='Incorrect password format';
                     getQuery('.pswinfo').style['color']='red';
-                }else if(regex_psw.test(this.value)){
+                }else if(regex_psw.test(psw.value)){
                     getQuery('.pswinfo').textContent='Good!';
                     getQuery('.pswinfo').style['color']='lightgreen';
+                    return true;
                 }
             }else{
                 getQuery('.pswinfo').textContent='The password must be 8 characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.';
                 getQuery('.pswinfo').style['color']='#888';
                 getQuery('.pswinfo').style['font-size']='16px';
             }
-        });
+            return false;
+        }
         //password2 verify
         const psw2=getQuery('#password2');
-        psw2.addEventListener('input',function verifypsw(){
+        psw2.addEventListener('input',function(){verifypsw2()});
+        function verifypsw2(){
             let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-            if(this.value !=''){
-                if(regex_psw.test(this.value) == false){
+            if(psw2.value !=''){
+                if(regex_psw.test(psw2.value) == false){
                     getQuery('.pswinfo2').textContent='Incorrect password format';
                     getQuery('.pswinfo2').style['color']='red';
-                }else if(regex_psw.test(this.value)&& psw.value !=psw2.value  ){
-                    getQuery('.pswinfo2').textContent='Good!';
+                }else if(regex_psw.test(psw2.value)&& psw.value !=psw2.value  ){
+                    getQuery('.pswinfo2').textContent='Correct password format,but confirmed password does not match the new password, please enter again!';
                     getQuery('.pswinfo2').style['color']='orange';
-                }else if(regex_psw.test(this.value)&& psw.value ==psw2.value){
+                }else if(regex_psw.test(psw2.value)&& psw.value ==psw2.value){
                     getQuery('.pswinfo2').textContent='Good!';
                     getQuery('.pswinfo2').style['color']='lightgreen';
+                    return true;
                 }
             }else{
                 getQuery('.pswinfo2').textContent='';
                 getQuery('.pswinfo2').style['color']='rgb(72, 72, 72)';
             }
-
-        });
+            return false;
+        }
     })
 
     //address
@@ -158,22 +215,22 @@
                         <h1>Create Your EFPV Account</h1>
                         <form class="tab_panel">
                             <label for="username">Email Address</label>
-                            <input type="email" class="input-s" name="username" id="username" maxlength="35" required>
+                            <input type="text" class="input-s" name="username" id="username" maxlength="35" >
                             <span class="unameinfo"></span>
 
                             <label for="password">Password</label>
-                            <input type="password" class="input-s" name="password" id="password" maxlength="20" required>
+                            <input type="password" class="input-s" name="password" id="password" maxlength="20" >
                             <span class="pswinfo"></span>
                             
                             <label for="password2">Enter new password again</label> <!--Confirmed password does not match the new password, please enter again-->
-                            <input type="password" class="input-s" name="password" id="password2" maxlength="20" required>
+                            <input type="password" class="input-s" name="password" id="password2" maxlength="20" >
                             <span class="pswinfo2"></span>
 
 
                             <label for="uname">User name</label>
                             <div class="username">
-                                <input type="text" class="input-s" name="" id="uname" maxlength="15" placeholder="First Name" required>
-                                <input type="text" class="input-s" name="" id="" maxlength="15" placeholder="Last Name" required>
+                                <input type="text" class="input-s" name="" id="uname" maxlength="15" placeholder="First Name" >
+                                <input type="text" class="input-s" name="" id="" maxlength="15" placeholder="Last Name" >
                             </div>
                             <span class=""></span>
 
@@ -220,7 +277,8 @@
                                 <!-- <a href="" class="forget_password">Forget Password?</a> -->
                             </div>
                             <div class="action">
-                                <button type="submit">Submit</button>
+                                <!-- <button type="submit">Submit</button> -->
+                                <router-link to="/member"><input type="button" id="btnLogin" value="submit"></router-link>
                                 <p>Already have an account?<router-link to="/signin">Log in now</router-link></p>
                             </div>
                         </form>
@@ -323,7 +381,7 @@ header{
                         }
                         .action{
                             padding-top: 32px;
-                            button{
+                            #btnLogin{
                                 width: 100%;
                                 height: 48px;
                                 border-radius: 10px;

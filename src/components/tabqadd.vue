@@ -16,8 +16,8 @@ const add =()=>{
   })
   
 }
-
 </script>
+
 <template>
 <div class="top">
   <h2>
@@ -37,7 +37,8 @@ const add =()=>{
   </div>
 </form>
   <div class="btn">
-    <input type="button" value="確定新增" id="conFirm" @click="add()">
+    <button value="確定新增" id="conFirm" @click="add()">確定新增</button>
+    
   </div>
   
 </div>
@@ -127,7 +128,7 @@ h2 {
 .btn {
   display: flex;
   margin: 50px;
-  input{
+  button{
     width: 150px;
     font-size: 20px;
     margin-right: 15px;

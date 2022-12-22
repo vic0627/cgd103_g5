@@ -5,23 +5,44 @@ import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import {accessories,bundle_A,bundle_B} from "./js/Shop";
-// 
+
 bodyInit();
 
 //點按addCartBtn()的function
-const addProd = (id,title) => {
-  alert(title);
-  // 1.建立sessionStorage
-  // let storage = sessionStorage;
-  // if(storage['addItemList'] == null){
-  //   storage['addItemList'] = '';
-  // }
-  // //2.將抓到的id存入addItemList中
-  // for(let i=0 ; i<id.length; i++){
-  //     storage.addItem(id.value);
-  // }
-  
+
+//宣告存取itemid的位置
+const cartItem = ref([]);
+//setItem的func
+const set = (key, val) =>{
+  sessionStorage.setItem(key, val);
+} 
+
+//點擊add按鈕會啟動的func
+const addProd = (id) => {
+  //存放點擊過的item的id
+    if(sessionStorage['cartItem'] == null){
+      sessionStorage['cartItem'] = '';
+    }
+
+    //判斷商品是否被點擊過
+    if(sessionStorage[id]){
+      //有，跳提示
+      alert('You have checked.')
+    }else{
+      //無，執行set跟get
+      set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","price":${products.value[id-1].Original_Price}}`);
+      
+      let get = JSON.parse(sessionStorage.getItem(id));
+      sessionStorage['cartItem'] += `{"id" :${get.id},"name":"${get.name}","price" :${get.price}},`;
+      // let cart = JSON.parse(`[${sessionStorage['cartItem']}]`);
+      // console.log(cart[0]);
+    }
 };
+
+const addString = (itemid,itemValue)=>{
+
+}
+
 
 //連結php抓資料庫資料
 const bundleRows_beginner = ref([]);
@@ -29,8 +50,11 @@ const bundleRows_veteran = ref([]);
 const prodRows = ref([]);
 const assRows = ref([]);
 const products = ref([]);
+
+
 const getShopInfo = () =>{
   fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+  // fetch("/dist/g5PHP/getShop.php")
     .then(res => res.json())
     .then(json => {
         bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'));
@@ -58,6 +82,10 @@ const getShopInfo = () =>{
     })
 }
 
+// fuselage searchBar
+const search = ref(""); 
+const source = ref([]);
+const source1 = ref([]);
 const productList = computed(()=>{
   let cache = products.value;
     if(search.value != ""){
@@ -65,34 +93,27 @@ const productList = computed(()=>{
     }
     return cache;
 })
-
-// fuselage filter
-const source = ref([]);
-const sourceToProducts = () => {
-};
-const search = ref(""); 
-
 const getSource = ()=>{
   const result = JSON.stringify(products);
   source.value = JSON.parse(result);
 }
 
-// accessories filter
-const source1 = ref([]);
-const search1 = ref("");
+// accessories searchBar
+
+// const search1 = ref("");
 const productList_A = computed(()=>{
-  let cache1 = source1.value;
-  if(search1.value != ""){
-      cache1 = cache1.filter(i=>i.title.toLowerCase().includes(search1.value.toLowerCase()));
-  }
-  return cache1;
+  // let cache1 = products.value;
+  // if(search1.value != ""){
+  //     cache1 = cache1.filter(i=>i.title.toLowerCase().includes(search1.value.toLowerCase()));
+  // }
+  // return cache1;
 })
 const getSource1 = ()=>{
   const result1 = JSON.stringify(accessories);
   source1.value = JSON.parse(result1);
 }
 onMounted(()=>{
-  //getSource();
+  // getSource();
   getSource1();
   getShopInfo();
 });
@@ -281,13 +302,13 @@ $(document).ready(() => {
           <div v-if="prodRow.sale == true" class="sale"><span>Sale</span></div>
             <div class="product_box">
               <div class="img_box">
-                <button class="prev" id="prevBtn" @click="prevPic(prodRow.id)">
+                <!-- <button class="prev" id="prevBtn" @click="prevPic(prodRow.id)">
                   ‹
-                </button>
-                <img :src="`/cgd103_g5_v2/src/assets/images/shop/${prodRow.images}`" alt="product_img"/>
-                <button class="next" id="nextBtn" @click="nextPic(prodRow.id)">
+                </button> -->
+                <img :src="`/dist/assets/${prodRow.images}`" alt="product_img"/>
+                <!-- <button class="next" id="nextBtn" @click="nextPic(prodRow.id)">
                   ›
-                </button>
+                </button> -->
               </div>
               <div class="detail_box">
                 <h5 class="title">{{ prodRow.title}}</h5>
@@ -302,15 +323,14 @@ $(document).ready(() => {
                     class="anchors btnSecond"
                     data-title="More"
                     to="/shopInfo"
-                    ><span>More</span></router-link
-                  >
+                    ><span>More</span>
+                  </router-link>
                   <input 
                     type="button"
-                    class="btn addButton"
-                    @click="addProd(prodRow.id,prodRow.title)"
+                    class="btn"
+                    @click="addProd(prodRow.id)"
                     value="Add"
                     >
-                  >
                 </div>
               </div>
             </div>
@@ -333,13 +353,13 @@ $(document).ready(() => {
           <div v-if="assRow.sale == true" class="sale"><span>Sale</span></div>
           <div class="product_box">
             <div class="img_box">
-              <button class="prev" id="prevBtn" @click="prevPic(i.id)">
+              <!-- <button class="prev" id="prevBtn" @click="prevPic(i.id)">
                 ‹
-              </button>
-              <img :src="`/cgd103_g5_v2/src/assets/images/shop/${assRow.images}`" alt="product_img" />
-              <button class="next" id="nextBtn" @click="nextAsscPic(i.id)">
+              </button> -->
+              <img :src="`/dist/assets/${assRow.images}`" alt="product_img" />
+              <!-- <button class="next" id="nextBtn" @click="nextAsscPic(i.id)">
                 ›
-              </button>
+              </button> -->
             </div>
             <div class="detail_box">
               <h5 class="title">{{assRow.prd_name}}</h5>
@@ -354,13 +374,14 @@ $(document).ready(() => {
                   class="anchors btnSecond"
                   data-title="More"
                   to="/shopInfo"
-                  ><span>More</span></router-link
+                  ><span>More</span>
+                </router-link>
+                <input 
+                    type="button"
+                    class="btn"
+                    @click="addProd(prodRow.id)"
+                    value="Add"
                 >
-                <router-link
-                  class="anchor btnPrimary"
-                  data-title="Add"
-                  to="/cart"
-                  ><span>Add</span></router-link>
               </div>
             </div>
           </div>
@@ -394,8 +415,8 @@ $(document).ready(() => {
             <h5>
               <span>{{bundleRow1.prd_name}}</span>
             </h5>
-            <p v-if="bundleRow1.sale_price != 0 " class="price">$USD{{bundleRow1.sale_price}}</p>
-             <p v-if="bundleRow1.sale_price == 0" class="price discount">$USD{{bundleRow1.prd_price }}</p>
+            <p v-if="bundleRow1.sale_price == 0 " class="price">$USD{{bundleRow1.sale_price}}</p>
+             <p v-if="bundleRow1.sale_price != 0" class="price discount">$USD{{bundleRow1.prd_price }}</p>
             
             <div class="buttons">
               <router-link
@@ -404,8 +425,11 @@ $(document).ready(() => {
                 to="/shopInfo"
                 ><span>More</span></router-link
               >
-              <router-link class="anchor btnPrimary" to="/cart" data-title="Add"
-                ><span @click="addCartBtn(id)">Add</span></router-link
+              <input 
+                  type="button"
+                  class="btn"
+                  @click="addProd(prodRow.id)"
+                  value="Add"
               >
             </div>
           </div>
@@ -419,7 +443,7 @@ $(document).ready(() => {
           >
           <div v-if="bundleRow2.sale_price != 0 " class="sale"><span>Sale</span></div>
             <div class="pic">
-              <img :src="`/src/assets/images/${bundleRow2.image}`" alt="veteran" />
+              <img :src="`/cgd103_g5_v2/src/assets/images/${bundleRow2.image}`" alt="veteran" />
             </div>
             <h5>
               <span>{{bundleRow2.prd_name}}</span>
@@ -511,16 +535,6 @@ $(document).ready(() => {
   }
 }
 //step
-.cart{
-  font-size: 20px;
-  position: fixed;
-  top: 100px;
-  left: 50px;
-  width: 100px;
-  height: 50px;
-  background-color: #ccc;
-  color: #232a3e;
-}
 .step_wrapper {
   width: 100%;
   position: relative;
@@ -668,6 +682,7 @@ $(document).ready(() => {
     height: 50px;
     background-color: $blue;
     border-radius: 10px;
+    margin: 10px;
     color: #fff;
     border: none;
   }

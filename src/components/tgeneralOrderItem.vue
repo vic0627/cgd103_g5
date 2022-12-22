@@ -2,51 +2,51 @@
 import { reactive, onMounted,ref,h } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal } from 'naive-ui';
 import axios from 'axios';
-const column = [
+const createColumns = ({
+  selectId})=>{
+    return [
+  {
+    title: "明細編號",
+    key: "item_no"
+  },
   {
     title: "訂單編號",
     key: "orders_no"
   },
   {
-    title: "會員編號",
-    key: "mem_no"
+    title: "商品編號",
+    key: "products_no"
   },
   {
-    title: "購買日期",
-    key: "purchase_date"
+    title: "數量",
+    key: "item_quantity"
   },
   {
-    title: "訂單狀態",
-    key: "admin_psw"
+    title: "單價",
+    key: "item_"
   },
   {
-    title: "運送地點",
-    key: "orders_location"
-  },
-  {
-    title: "優惠編號",
+    title: "折扣後價格",
     key: "disc_no"
   },
   {
-    title: "總金額",
+    title: "折扣數",
     key: "orders_price"
   },
   {
-      title: "Action",
-      key: "actions",
-      render(row) {
-        return h(
-          NButton,
-          {
-            size: "medium",
-            color: "#077AF9",
-            // onClick: () => sendMail(row)
-          },
-          { default: () => "編輯" }
-        );
-      }
-    }
-];  
+
+  }
+  ]
+};  
+const showModal = ref(false);
+const newStatus = ref('');
+const column = createColumns({
+  selectId(rowData) {
+    showModal.value = true;
+    newStatus.value = row.orders_no;
+    console.log(newStatus.value)
+  }
+})
 const paginationReactive = reactive({
       page: 2,
       pageSize: 10,
@@ -70,26 +70,10 @@ const NmOrderRows = ref([]);
         // console.log(res)
         NmOrderRows.value = res.data
       })
-
-      //方法二
-      // fetch("http://localhost/CGD103-G5/public/g5PHP/getNmOrder.php")
-      // .then(res => res.json())
-      // .then(json =>{
-      //   NmOrderRows.value = json
-      // })
-      //方法三
-			// let xhr = new XMLHttpRequest();
-			// xhr.onload = function(){
-			// 	if(xhr.status == 200){ //OK
-			// 	  adminRows.value = JSON.parse(xhr.responseText);
-			// 	}
-			// }
-			// xhr.open("get", "/dist/g5PHP/getAdmin.php", true);
-			// xhr.send(null);
 		}
 	onMounted(()=>{
 		getNmOrder();
-  });
+  })
 </script>
 <template>
 <div class="top">
@@ -99,6 +83,18 @@ const NmOrderRows = ref([]);
   </h2>
   <div class="table">
     <n-data-table :columns="column" :data="NmOrderRows" :pagination="pagination"  :bordered="true" :single-line="false" />
+    <n-modal
+        v-model:show="showModal"
+        preset="dialog"
+        title="確認"
+        content="你確定嗎?"
+      >
+      <label for="admin_acc"> 修改帳號 : </label>
+      <input type="text" name="admin_acc" placeholder="修改帳號" v-model="newAdmin_acc">
+      <n-button @click="showModal = true; updateAdmin(index)" type="error">
+        確認
+      </n-button>
+    </n-modal>
   </div>
 
 </div>
