@@ -7,8 +7,28 @@
 
 
     const getQuery = (classname) =>document.querySelector(classname);
+    // const sendForm = ()=>{
+    //     if(!verifyuname() || !verifypsw1() || !verifypsw1()){
+    //         alert("check your enter");
+    //         return false;
+    //     }
+    // }
 
     onMounted(()=> {
+
+
+        function sendForm(){
+            if(!verifyuname() || !verifypsw1() || !verifypsw1()){
+                alert("check your enter");
+                return false;
+            }
+        }
+        document.getElementById('btnLogin').onclick = sendForm;
+
+        
+
+
+
         //email verify
         const uname=getQuery('#username');
         uname.addEventListener('input',function(){verifyuname()});
@@ -29,7 +49,36 @@
                 getQuery('.unameinfo').style['color']='rgb(72, 72, 72)';
             }
             return false;
+            
         }
+
+        //check if email has been used
+        uname.addEventListener('blur',()=>{
+            if(uname.value !=""){//有輸入資料時
+                checkId();
+            }else{
+                return false;
+            }
+
+        });
+        function checkId(){  
+            //產生XMLHttpRequest物件
+            let xhr = new XMLHttpRequest();
+            // alert("Hi")
+            //註冊callback function 
+            xhr.onload = function(){
+                // document.getElementById("idMsg").innerText = xhr.responseText;
+                alert(xhr.responseText);
+            }
+
+            //設定好所要連結的程式
+            xhr.open("post","/dist/g5PHP/ckeckMemId.php",true);
+            xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
+            //送出資料
+            let data_info = "username=" + document.getElementById("username").value;
+            xhr.send(data_info);
+        }//function_checkId 
+
         //password verify
         const psw=getQuery('#password');
         psw.addEventListener('input',function() {verifypsw1()});
@@ -66,6 +115,7 @@
                 }else if(regex_psw.test(psw2.value)&& psw.value ==psw2.value){
                     getQuery('.pswinfo2').textContent='Good!';
                     getQuery('.pswinfo2').style['color']='lightgreen';
+                    return true;
                 }
             }else{
                 getQuery('.pswinfo2').textContent='';

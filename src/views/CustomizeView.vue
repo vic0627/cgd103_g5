@@ -1,11 +1,13 @@
 <script setup>
 import gsap from "gsap";
-import { onMounted, ref, onBeforeUpdate, onUpdated } from 'vue';
+import { onMounted, ref, onBeforeUpdate, onUpdated, onBeforeUnmount } from 'vue';
+import router from '@/router';
 import { log, $$, $all, getW } from '../composables/useCommon';
-import { droneModels, propellorModels, motorModels, controllerModels } from './js/CustomizeGlb';
+import { introduction ,droneModels, propellorModels, motorModels, controllerModels } from './js/CustomizeGlb';
 import * as CUS from './js/CustomizeThree';
-import dashBoardGroupComponent from '../components/dashBoardGroupComponents.vue';
-import { niddleSpin, useDashBoardMove } from '../composables/useDashBoardMove';
+import dashBoardGroupComponent from '@/components/dashBoardGroupComponents.vue';
+import scrollHintComponent from '@/components/scrollHintComponent.vue';
+import { niddleSpin } from '../composables/useDashBoardMove';
 import { bodyInit } from '../composables/useOnunmounted';
 bodyInit();
 let w = null;
@@ -21,6 +23,7 @@ onMounted(()=> {
     });
     CUS.sceneInit();
     CUS.animation();
+    introductionInit();
 });
 onBeforeUpdate(() => {
     $$('.loadBox').style.display = 'block';
@@ -32,7 +35,21 @@ onBeforeUpdate(() => {
 });
 onUpdated(() => {
     if(CUS.modelLoading.value===0)$$('.loadBox').style.display = 'none';
+    if($$('.lightBoxContent'))$$('.lightBoxContent').addEventListener('scroll', (e)=>{
+        if(e.target.scrollTop>0){
+            gsap.to('.shc', {
+                opacity: 0,
+                duration: .5,
+            })
+        }else{
+            gsap.to('.shc', {
+                opacity: 1,
+                duration: .5,
+            })
+        };
+    });
 });
+
 const customItem = ref([]);
 const fetchCustom = () => {
     fetch("http://localhost/dist/g5PHP/getCustomizeItem.php")
@@ -227,6 +244,48 @@ const undo = () => {
     flow.value--;
     step.value[flow.value].show = true;
 };
+const lightBoxClose = (session = false) => {
+	lightBoxShow.value = false;
+    lightBoxText.value.title.show = false;
+    lightBoxText.value.title.content = '';
+    lightBoxText.value.text.show = false;
+    lightBoxText.value.text.content = '';
+    lightBoxText.value.confirm = false;
+    lightBoxText.value.img.show = false;
+    if(session){
+        set('intro', 'read');
+    };
+};
+const lightBoxText = ref({
+    title: {
+        show: false,
+        content: '',
+    },
+    text: {
+        show: false,
+        content: '',
+    },
+    img: {
+        show: false,
+        idt: 1,
+    },
+    confirm: false,
+})
+const lightBoxShow = ref(false);
+const introductionInit = () => {
+    if(sessionStorage['intro']===undefined){
+        lightBoxShow.value = true;
+        lightBoxText.value.text.show = true;
+        lightBoxText.value.img.show = true;
+        lightBoxText.value.title.show = true;
+        lightBoxText.value.title.content = `Introduction`
+        lightBoxText.value.text.content = introduction.value[lightBoxText.value.img.idt].text;
+    };
+};
+const introductionFlow = () => {
+    lightBoxText.value.img.idt++;
+    lightBoxText.value.text.content = introduction.value[lightBoxText.value.img.idt].text;
+};
 const nextStep = () => {
     if(btnStatus.value){
         step.value[flow.value].show = false;
@@ -234,7 +293,9 @@ const nextStep = () => {
         btnStatus.value = false;
         step.value[flow.value].show = true;
     }else{
-        alert('可以先選嗎?');
+        lightBoxShow.value = true;
+        lightBoxText.value.title.show = true;
+        lightBoxText.value.title.content = 'Please Choose a Drone Part First!';
     }
 };
 
@@ -418,27 +479,10 @@ let toggleColorControl = ref({
 });
 const toggleColor = (id) => {
     if(toggleColorControl.value[id]){
-        gsap.to($$(`.colorControls${id}`), {
-            marginTop: -60,
-            marginBottom: 0,
-            opacity: 0,
-            duration: .3,
-        });
-        setTimeout(() => {
-            toggleColorControl.value[id] = false;
-        }, 300)
+        toggleColorControl.value[id] = false;
     }else{
         toggleColorControl.value[id] = true;
-        /* if(toggleColorControl.value[id]){
-            gsap.from($$(`.colorControls${id}`), {
-                marginTop: -30,
-                marginBottom: 0,
-                opacity: 0,
-                duration: .3,
-            });
-        }; */
     };
-    
 };
 
 const set = (key, val) => {
@@ -447,72 +491,87 @@ const set = (key, val) => {
 
 const addCart = () => {
     if(sessionStorage.getItem('cartList')===null){
-        let prd_body, prd_propellor;
-        switch (bodyChosen.value.type) {
-            case 1:
-                prd_body = 'body01';
-                break;
-            case 2:
-                prd_body = 'body02';
-                break;
-            case 3:
-                prd_body = 'body03';
-                break;
-        }
-        switch (bodyChosen.value.color) {
-            case 1:
-                prd_body += 'black';
-                break;
-            case 2:
-                prd_body += 'blue';
-                break;
-            case 3:
-                prd_body += 'green';
-                break;
-            case 4:
-                prd_body += 'red';
-                break;
-            case 5:
-                prd_body += 'white';
-                break;
-        }
-        switch (propellorChosen.value.type) {
-            case 1:
-                prd_propellor = 'propellor01';
-                break;
-            case 2:
-                prd_propellor = 'propellor02';
-                break;
-            case 3:
-                prd_propellor = 'propellor03';
-                break;
-        }
-        switch (propellorChosen.value.color) {
-            case 1:
-                prd_propellor += 'black';
-                break;
-            case 2:
-                prd_propellor += 'blue';
-                break;
-            case 3:
-                prd_propellor += 'green';
-                break;
-            case 4:
-                prd_propellor += 'red';
-                break;
-            case 5:
-                prd_propellor += 'white';
-                break;
-        }
-        set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`)
-        set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}"}`);
-        set(`111112${propellorChosen.value.type}${propellorChosen.value.color}`, `{"id":"111112${propellorChosen.value.type}${propellorChosen.value.color}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}"}`);
-        set(`1112111${motorChosen.value.type}`, `{"id":"1112111${motorChosen.value.type}", "name":"motor0${motorChosen.value.type}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}"}`);
-        set(`1112112${kgmcChosen.value.type}`, `{"id":"1112112${kgmcChosen.value.type}", "name":"controller0${kgmcChosen.value.type}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}"}`);
+        setSession();
+        router.push('/cart');
     }else{
-        alert('ooxx')
+        lightBoxShow.value = true;
+        lightBoxText.value.title.show = true;
+        lightBoxText.value.title.content = 'You already have some goods in your cart!';
+        lightBoxText.value.text.show = true;
+        lightBoxText.value.text.content = 'Do you want to add the new customizing product to the cart? (Previous cart list will be cleared)';
+        lightBoxText.value.confirm = true;
     }
 };
+const reCart = () => {
+    sessionStorage.clear();
+    setSession();
+    router.push('/cart');
+};
+const setSession = () => {
+    let prd_body, prd_propellor;
+    switch (bodyChosen.value.type) {
+        case 1:
+            prd_body = 'body01';
+            break;
+        case 2:
+            prd_body = 'body02';
+            break;
+        case 3:
+            prd_body = 'body03';
+            break;
+    }
+    switch (bodyChosen.value.color) {
+        case 1:
+            prd_body += 'black';
+            break;
+        case 2:
+            prd_body += 'blue';
+            break;
+        case 3:
+            prd_body += 'green';
+            break;
+        case 4:
+            prd_body += 'red';
+            break;
+        case 5:
+            prd_body += 'white';
+            break;
+    }
+    switch (propellorChosen.value.type) {
+        case 1:
+            prd_propellor = 'propellor01';
+            break;
+        case 2:
+            prd_propellor = 'propellor02';
+            break;
+        case 3:
+            prd_propellor = 'propellor03';
+            break;
+    }
+    switch (propellorChosen.value.color) {
+        case 1:
+            prd_propellor += 'black';
+            break;
+        case 2:
+            prd_propellor += 'blue';
+            break;
+        case 3:
+            prd_propellor += 'green';
+            break;
+        case 4:
+            prd_propellor += 'red';
+            break;
+        case 5:
+            prd_propellor += 'white';
+            break;
+        }
+    set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`)
+    set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}"}`);
+    set(`111112${propellorChosen.value.type}${propellorChosen.value.color}`, `{"id":"111112${propellorChosen.value.type}${propellorChosen.value.color}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}"}`);
+    set(`1112111${motorChosen.value.type}`, `{"id":"1112111${motorChosen.value.type}", "name":"motor0${motorChosen.value.type}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}"}`);
+    set(`1112112${kgmcChosen.value.type}`, `{"id":"1112112${kgmcChosen.value.type}", "name":"controller0${kgmcChosen.value.type}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}"}`);
+};
+
 </script>
 
 <template>
@@ -523,7 +582,7 @@ const addCart = () => {
             <div class="loadProgress"></div>
             <p class="loadNum">{{ CUS.modelLoading }}%</p>
         </div>
-        <h2 class="customizeTitle">Customize</h2>
+        <h2 class="customizeTitle">Custom</h2>
         <div class="paths">
             <p>Select</p>
             <p>{{ step[flow].text }}</p>
@@ -554,13 +613,22 @@ const addCart = () => {
             <div class="motorSelect selection" v-show="step[3].show">
                 <h3>Motor</h3>
                 <div class="motorControls funcControls">
-                    <p :class="`motorControl${n.id} motorControl funcControl`" v-for="n in motorModels" :key="n.id" @click="motorChoose(n.id)">{{ n.name }}</p>
+                    <div :class="`motorControl${n.id} motorControl funcControl`" v-for="n in motorModels" :key="n.id" @click="motorChoose(n.id)">
+                        <h4>{{ n.name }}</h4>
+                        <p>Rotating speed: {{ n.rpm }}rpm</p>
+                        <p>Torque: {{ n.kgm }}kgm</p>
+                        <p>$ {{ n.price }}</p>
+                    </div>
                 </div>
             </div>
             <div class="controllerSelect selection" v-show="step[4].show">
                 <h3>Controller</h3>
                 <div class="controllerControls funcControls">
-                    <p :class="`controllerControl${n.id} controllerControl funcControl`" v-for="n in controllerModels" :key="n.id" @click="controllerChoose(n.id)">{{ n.name }}</p>
+                    <div :class="`controllerControl${n.id} controllerControl funcControl`" v-for="n in controllerModels" :key="n.id" @click="controllerChoose(n.id)">
+                        <h4>{{ n.name }}</h4>
+                        <p>kgmc: {{ n.kgmc }}</p>
+                        <p>$ {{ n.price }}</p>
+                    </div>
                 </div>
             </div>
             <div class="flowControls">
@@ -570,13 +638,33 @@ const addCart = () => {
                 <div class="nextStep" data-title="Choose" v-show="step[flow].pBtn" @click="nextStep">
                     <span>Choose</span>
                 </div>
-                <router-link class="nextStep buyBtn" data-title="Buy" v-show="buyBtn" to="/cart" @click="addCart">
+                <div class="nextStep buyBtn" data-title="Buy" v-show="buyBtn" @click="addCart">
                     <span>Buy</span>
-                </router-link>
+                </div>
             </div>
         </div>
     </section>
-    <dash-board-group-component class="boards" :toggle-board="toggleBoard" />
+    <div class="lightBox" v-if="lightBoxShow">
+        <div class="lightBoxContent">
+			<div class="close" @click="lightBoxClose"></div>
+            <h4 v-if="lightBoxText.title.show">{{ lightBoxText.title.content }}</h4>
+            <div class="lightBoxImg" v-if="lightBoxText.img.show">
+                <img v-if="lightBoxText.img.show" :src="introduction[lightBoxText.img.idt].img" alt="introduction">
+            </div>
+            <p v-if="lightBoxText.text.show">{{ lightBoxText.text.content }}</p>
+            <div class="confirm" data-title="OK" v-if="lightBoxText.confirm" @click="reCart">
+                <span>OK</span>
+            </div>
+            <div class="next" data-title="Next" v-if="lightBoxText.img.idt !== 7 && lightBoxText.img.show" @click="introductionFlow">
+                <span>Next</span>
+            </div>
+            <div class="start" data-title="Start" v-if="lightBoxText.img.idt === 7 && lightBoxText.img.show" @click="lightBoxClose(true)">
+                <span>Start</span>
+            </div>
+            <scroll-hint-component class="shc" v-if="lightBoxText.img.show"/>
+		</div>
+    </div>
+    <dashBoardGroupComponent class="boards" :toggle-board="toggleBoard" />
     <footer-component />
 </template>
 
@@ -586,7 +674,7 @@ const addCart = () => {
 @import '@/sass/base/_font.scss';
 @import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
-
+@import '@/sass/component/_lightBox.scss';
 .customize3d{
     margin: 0 auto;
     position: absolute;
@@ -601,6 +689,47 @@ const addCart = () => {
     @include l($l-breakpoint) {
         top: 190px;
     }
+}
+.lightBox{
+	@include lightBox();
+    backdrop-filter: blur(5px);
+	.lightBoxContent{
+        padding: 20px;
+        p{
+            margin: 20px;
+        }
+        .lightBoxImg{
+            width: 70%;
+            height: 70%;
+            margin: 20px auto 0;
+            border-radius: 15px;
+            overflow: hidden;
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        .confirm{
+            @include primaryBtn(60px);
+            margin: 20px 0 0 auto;
+        }
+        .next{
+            @include secondBtn(60px);
+            margin: 0 auto;
+        }
+        .start{
+            @include primaryBtn(60px);
+            margin: 0 auto;
+        }
+        .shc{
+            position: absolute;
+            top: 90%;
+            left: 0;
+            right: 0;
+            margin: 0 auto;
+        }
+	}
 }
 .loadBox{
     width: 150px;
@@ -719,7 +848,7 @@ const addCart = () => {
     }
     @include m($m-breakpoint) {
         margin: 60px auto 0 60%;
-        width: 320px;
+        width: 400px;
     }
     .selection{
         width: 90%;
@@ -756,6 +885,39 @@ const addCart = () => {
                 padding: 10px;
                 border-radius: 20px;
                 margin: 10px 40px;
+                display: flex;
+                flex-wrap: wrap;
+                h4{
+                    width: 100%;
+                }
+                p{
+                    width: 100%;
+                }
+                @include m($m-breakpoint) {
+                    margin: 10px 0;
+                }
+            }
+            .motorControl p:nth-child(3){
+                @include s($s-breakpoint) {
+                    width: 50%;
+                }
+            }
+            .motorControl p:nth-child(4){
+                @include s($s-breakpoint) {
+                    width: 50%;
+                    text-align: right;
+                }
+            }
+            .controllerControl p:nth-child(2){
+                @include s($s-breakpoint) {
+                    width: 50%;
+                }
+            }
+            .controllerControl p:nth-child(3){
+                @include s($s-breakpoint) {
+                    width: 50%;
+                    text-align: right;
+                }
             }
         }
     }
