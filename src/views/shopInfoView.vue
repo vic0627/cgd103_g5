@@ -39,9 +39,8 @@ onMounted(() => {
 
 // 抓資料
 // const ProductsItem = ref([]);
-
 // const fetchProducts = () => {
-//   fetch("http://localhost/dist/g5PHP/getProducts.php")
+//   fetch("http://localhost/g5/public/g5PHP/getProducts.php")
 //     .then((res) => res.json())
 //     .then((json) => {
 //       ProductsItem.value = json;
@@ -52,9 +51,9 @@ const raceRows = ref([]);
 const getRace = () => {
   //取得商品資料
   axios
-    .get("http://localhost/cgd103_g5/public/g5PHP/getRace.php")
+    .get("http://localhost/cgd103_g5/public/g5PHP/getProducts.php")
     .then((res) => {
-      // console.log(res)
+      console.log(res);
       raceRows.value = res.data;
     });
 };

@@ -1,365 +1,76 @@
 <script setup>
-import { reactive, onMounted, ref } from "vue";
-import { zhTW, NPagination, NTable, NDataTable } from "naive-ui";
-const columns = [
-  {
-    title: "商品編號",
-    key: "prdNo",
+import { reactive, onMounted, ref, h } from "vue";
+import {
+  zhTW,
+  NPagination,
+  NTable,
+  NDataTable,
+  NButton,
+  NModal,
+} from "naive-ui";
+import axios from "axios";
+const createColumns = ({ sendMail, showModal }) => {
+  return [
+    {
+      title: "商品編號",
+      key: "prd_no",
+    },
+    {
+      title: "商品名稱",
+      key: "prd_name",
+    },
+    {
+      title: "售價",
+      key: "prd_price",
+    },
+    {
+      title: "重量",
+      key: "weight",
+    },
+    {
+      title: "轉速",
+      key: "rpm",
+    },
+    {
+      title: "扭力",
+      key: "kgm",
+    },
+    {
+      title: "扭力常數",
+      key: "kgmc",
+    },
+    {
+      title: "圖片路徑",
+      key: "prd_glb",
+    },
+    {
+      title: "編輯/刪除",
+      key: "actions",
+      render(row) {
+        return h(
+          NButton,
+          {
+            size: "medium",
+            color: "#077AF9",
+            // onClick: () => sendMail(row)
+            onClick: () => showModal(),
+          },
+          { default: () => "編輯" }
+        );
+      },
+    },
+  ];
+};
+const modal = ref(false);
+const column = createColumns({
+  showModal() {
+    modal.value == true;
   },
-  {
-    title: "商品名稱",
-    key: "prdName",
-  },
-  {
-    title: "售價",
-    key: "prdPrice",
-  },
-  {
-    title: "重量",
-    key: "weight",
-  },
-  {
-    title: "轉速",
-    key: "rpm",
-  },
-  {
-    title: "扭力",
-    key: "kgm",
-  },
-  {
-    title: "扭力常數",
-    key: "kgmc",
-  },
-];
-const data = reactive([
-  {
-    prdNo: 11111111,
-    prdName: "body01black",
-    prdPrice: "500",
-    weight: "3000",
-    rpm: "/",
-    name: "/",
-    kgm: "/",
-  },
-  {
-    prdNo: 11111112,
-    prdName: "body01blue",
-    prdPrice: "500",
-    weight: "3000",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111113,
-    prdName: "body01green",
-    prdPrice: "500",
-    weight: "3000",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111114,
-    prdName: "body01red",
-    prdPrice: "500",
-    weight: "3000",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111115,
-    prdName: "body01white",
-    prdPrice: "500",
-    weight: "3000",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111121,
-    prdName: "body02black",
-    prdPrice: "600",
-    weight: "3300",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111122,
-    prdName: "body02blue",
-    prdPrice: "600",
-    weight: "3300",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111123,
-    prdName: "body02green",
-    prdPrice: "600",
-    weight: "3300",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111124,
-    prdName: "body02red",
-    prdPrice: "600",
-    weight: "3300",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111125,
-    prdName: "body02white",
-    prdPrice: "600",
-    weight: "3300",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111131,
-    prdName: "body03black",
-    prdPrice: "700",
-    weight: "3600",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111132,
-    prdName: "body03blue",
-    prdPrice: "700",
-    weight: "3600",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111133,
-    prdName: "body03green",
-    prdPrice: "700",
-    weight: "3600",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111134,
-    prdName: "body03red",
-    prdPrice: "700",
-    weight: "3600",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111135,
-    prdName: "body03white",
-    prdPrice: "700",
-    weight: "3600",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111211,
-    prdName: "propellor01black",
-    prdPrice: "200",
-    weight: "300",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111212,
-    prdName: "propellor01blue",
-    prdPrice: "200",
-    weight: "300",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111213,
-    prdName: "propellor01green",
-    prdPrice: "200",
-    weight: "300",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111214,
-    prdName: "propellor01red",
-    prdPrice: "200",
-    weight: "300",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111215,
-    prdName: "propellor01white",
-    prdPrice: "200",
-    weight: "300",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111221,
-    prdName: "propellor02black",
-    prdPrice: "300",
-    weight: "350",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111222,
-    prdName: "propellor02blue",
-    prdPrice: "300",
-    weight: "350",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111223,
-    prdName: "propellor02green",
-    prdPrice: "300",
-    weight: "350",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111224,
-    prdName: "propellor02red",
-    prdPrice: "300",
-    weight: "350",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111225,
-    prdName: "propellor02white",
-    prdPrice: "300",
-    weight: "350",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111231,
-    prdName: "propellor03black",
-    prdPrice: "400",
-    weight: "400",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111232,
-    prdName: "propellor03blue",
-    prdPrice: "400",
-    weight: "400",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111233,
-    prdName: "propellor03green",
-    prdPrice: "400",
-    weight: "400",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111234,
-    prdName: "propellor03red",
-    prdPrice: "400",
-    weight: "400",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11111235,
-    prdName: "propellor03white",
-    prdPrice: "400",
-    weight: "400",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11121111,
-    prdName: "motor01",
-    prdPrice: "1200",
-    weight: "/",
-    rpm: "5300",
-    kgm: "8",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11121112,
-    prdName: "motor02",
-    prdPrice: "1400",
-    weight: "/",
-    rpm: "4800",
-    kgm: "9",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11121113,
-    prdName: "motor03",
-    prdPrice: "1600",
-    weight: "/",
-    rpm: "4400",
-    kgm: "10",
-    kgmc: "/",
-  },
-  {
-    prdNo: 11121121,
-    prdName: "controller01",
-    prdPrice: "800",
-    weight: "/",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "1.0",
-  },
-  {
-    prdNo: 11121122,
-    prdName: "controller02",
-    prdPrice: "1100",
-    weight: "/",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "1.1",
-  },
-  {
-    prdNo: 11121123,
-    prdName: "controller03",
-    prdPrice: "1200",
-    weight: "/",
-    rpm: "/",
-    kgm: "/",
-    kgmc: "0.9",
-  },
-]);
+});
+
 const paginationReactive = reactive({
   page: 1,
-  pageSize: 10,
+  pageSize: 5,
   onChange: (page) => {
     paginationReactive.page = page;
   },
@@ -368,7 +79,22 @@ const paginationReactive = reactive({
     paginationReactive.page = 1;
   },
 });
+
 const pagination = paginationReactive;
+
+const custRows = ref([]);
+const getCust = () => {
+  //取得商品資料
+  axios
+    .get("http://localhost/cgd103_g5/public/g5PHP/getCust.php")
+    .then((res) => {
+      // console.log(res)
+      raceCust.value = res.data;
+    });
+};
+onMounted(() => {
+  getCust();
+});
 </script>
 <template>
   <div class="top">
@@ -376,15 +102,24 @@ const pagination = paginationReactive;
       客製化品項查詢
       <outComponents />
     </h2>
-    <div class="table">
+    <div class="tables">
       <n-data-table
-        :columns="columns"
-        :data="data"
+        :columns="column"
+        :data="custRows"
         :pagination="pagination"
-        :bordered="false"
+        :bordered="true"
         :single-line="false"
       />
     </div>
+    <n-modal
+      preset="dialog"
+      title="确认"
+      content="你确认?"
+      positive-text="确认"
+      negative-text="算了"
+      @positive-click="submitCallback"
+      @negative-click="cancelCallback"
+    />
   </div>
 </template>
 <style scoped lang="scss">
@@ -396,10 +131,118 @@ const pagination = paginationReactive;
 .table {
   width: 95%;
   margin: auto;
-
-  ::v-deep(.n-data-table-wrapper) {
-    height: 560px;
+}
+h2 {
+  font-size: 40px;
+  color: #fff;
+  margin: 10px 10px;
+  padding: 10px 10px;
+  background-color: #597897;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.search_box {
+  display: flex;
+  justify-content: right;
+  margin: 30px 15px;
+  label {
+    margin-right: 10px;
+    font-size: 20px;
+    color: rgb(26, 26, 26);
+    input {
+      margin-left: 10px;
+      height: 35px;
+      border: 1px solid rgb(124, 124, 124);
+      border-radius: 5px;
+      padding-left: 10px;
+      font-size: 18px;
+      &:focus {
+        color: #06519d;
+        border: 1px solid #1671cd;
+        outline: none;
+        &::placeholder {
+          opacity: 0;
+        }
+      }
+      &::placeholder {
+        padding-left: 5px;
+        color: rgba(181, 181, 181, 0.749);
+      }
+    }
   }
+  .btn {
+    button {
+      width: 50px;
+      text-align: center;
+      border: none;
+      background: #597897;
+      border-radius: 5px;
+      padding: 5px;
+      transition: background 0.5s;
+      cursor: pointer;
+      &:hover {
+        background: $blue;
+      }
+      img {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+      }
+    }
+  }
+}
+
+.tables {
+  width: 100%;
+  margin: auto;
+  table {
+    width: 95%;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 20px;
+    border: 1px solid #c0c0c0;
+    tr {
+      border: 1px solid #c0c0c0;
+      &:hover td {
+        background: rgba(89, 120, 151, 0.11);
+      }
+      th {
+        padding: 20px 10px;
+        background-color: #597897;
+        color: #fff;
+        border: 1px solid #c0c0c0;
+        border-top: 1px solid #597897;
+      }
+      td {
+        border: 1px solid #c0c0c0;
+        padding: 20px 10px;
+        overflow: hidden;
+        a {
+          color: #273747;
+          span {
+            color: #273747;
+          }
+          .block {
+            &:hover {
+              border-bottom: 1px solid #273747;
+            }
+          }
+          .red {
+            color: #f25a2a;
+            &:hover {
+              border-bottom: 1px solid #f25a2a;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.top {
+  width: 100%;
+  display: block;
 }
 h2 {
   font-size: 40px;
