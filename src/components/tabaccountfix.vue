@@ -97,20 +97,12 @@ const paginationReactive = reactive({
     });
 const  pagination = paginationReactive;
 //抓管理員編號
-<<<<<<< HEAD
-const changeValue = (user)=>{
-  console.log(adminRows.value[user].admin_no);
-  newAdmin_acc.value = adminRows.value[user].admin_acc;
-  newAdmin_no.value = adminRows.value[user].admin_no;
-}
-=======
 // const selectId = (user)=>{
 //   console.log(adminRows.value[user].admin_no);
 //   newAdmin_acc.value = adminRows.value[user].admin_acc;
 //   newAdmin_no.value = adminRows.value[user].admin_no;
 //   console.log(user)
 // }
->>>>>>> Felix
 //更新資料
 const updateAdmin = (user)=>{
   const newAdmin = {
@@ -158,36 +150,6 @@ const deleteAdmin = ()=>{
       <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
     </div>
   </div>
-<<<<<<< HEAD
-  <form method="post">
-    <n-table>
-      <thead>
-        <tr>
-          <th>編號</th>
-          <th>帳號</th>
-          <th>管理員姓名</th>
-          <th>管理員級別</th>
-          <th>編輯</th>
-          <th>刪除</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item,index) in adminRows" :key="index" :pagination="x">
-          <td>{{index+1}}</td>
-          <td>{{item.admin_acc}}</td>
-          <td>{{item.admin_name}}</td>
-          <td>{{item.authority}}</td>
-          <td>
-            <n-button @click="showModal = true; changeValue(index)" type="info">
-              編輯
-            </n-button>
-              <n-modal
-                v-model:show="showModal"
-                preset="dialog"
-                title="確認"
-                content="你確定嗎?"
-              >
-=======
   <form method="post" class="table">
     <n-data-table :columns="column" :data="adminRows" :pagination="pagination" :bordered="true" :single-line="false" />
         <n-modal
@@ -195,7 +157,6 @@ const deleteAdmin = ()=>{
           preset="dialog"
           title="確認"
           content="你確定嗎?">
->>>>>>> Felix
             <!-- <input type="text" name="admin_no" placeholder="修改" v-model="newAdmin_no" disabled> -->
             <label for="admin_acc"> 修改帳號 : </label>
             <input type="text" name="admin_acc" v-model="newAdmin_acc">
@@ -203,14 +164,6 @@ const deleteAdmin = ()=>{
               確認
             </n-button>
            </n-modal>
-<<<<<<< HEAD
-          </td>
-          <td>
-            <n-button @click="showModal2 = true;changeValue(index)" type="error">
-              刪除
-            </n-button>
-=======
->>>>>>> Felix
             <n-modal
                 v-model:show="showModal2"
                 preset="dialog"
