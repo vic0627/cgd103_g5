@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, onUpdated } from "vue";
 import {
   zhTW,
   NPagination,
@@ -8,7 +8,7 @@ import {
   NButton,
   NModal,
 } from "naive-ui";
-const cateRows = ref([]);
+const discRows = ref([]);
 
 const getDisc = () => {
   fetch("http://localhost/cgd103_g5/public/g5PHP/getDisc.php")
@@ -18,7 +18,12 @@ const getDisc = () => {
     });
 };
 getDisc();
-onMounted(() => {});
+onMounted(() => {
+  console.log(discRows.value);
+});
+onUpdated(() => {
+  console.log(discRows.value);
+});
 const table = ref([
   "優惠編號",
   "優惠名稱",
@@ -48,39 +53,39 @@ const selectId = (user) => {
   newOff.value = DiscRows.value[user].disc_off;
   newCode.value = DiscRows.value[user].disc_code;
 };
-const updateDisc = () => {
-  const newDisc = {
-    disc_no: Number(newNo.value),
-    disc_title: newTitle.value,
-    disc_txt: newTxt.value,
-    disc_start: newStart.value,
-    disc_end: newEnd.value,
-    disc_off: newOff.value,
-    disc_code: newCode.value,
-  };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/updateDisc.php", {
-    method: "POST",
-    body: new URLSearchParams(newDisc),
-  }).then((res) => {
-    console.log(res);
-    res.json();
-  });
-  showModal.value = false;
-  getDisc();
-};
-const deleteDisc = () => {
-  const delDisc = {
-    disc_no: Number(newNo.value),
-  };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/deleteDisc.php", {
-    method: "POST",
-    body: new URLSearchParams(delDisc),
-  }).then((res) => {
-    console.log(res);
-    res.json();
-  });
-  showModal2.value = false;
-};
+// const updateDisc = () => {
+//   const newDisc = {
+//     disc_no: Number(newNo.value),
+//     disc_title: newTitle.value,
+//     disc_txt: newTxt.value,
+//     disc_start: newStart.value,
+//     disc_end: newEnd.value,
+//     disc_off: newOff.value,
+//     disc_code: newCode.value,
+//   };
+//   fetch("http://localhost/cgd103_g5/public/g5PHP/updateDisc.php", {
+//     method: "POST",
+//     body: new URLSearchParams(newDisc),
+//   }).then((res) => {
+//     console.log(res);
+//     res.json();
+//   });
+//   showModal.value = false;
+//   getDisc();
+// };
+// const deleteDisc = () => {
+//   const delDisc = {
+//     disc_no: Number(newNo.value),
+//   };
+//   fetch("http://localhost/cgd103_g5/public/g5PHP/deleteDisc.php", {
+//     method: "POST",
+//     body: new URLSearchParams(delDisc),
+//   }).then((res) => {
+//     console.log(res);
+//     res.json();
+//   });
+//   showModal2.value = false;
+// };
 </script>
 <template>
   <div class="top">
