@@ -33,11 +33,15 @@ const addProd = (id) => {
       set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","price":${products.value[id-1].Original_Price}}`);
       
       let get = JSON.parse(sessionStorage.getItem(id));
-      sessionStorage['cartItem'] +=`${get.id}, `;
-
-      console.log("id:",get.id);     
+      sessionStorage['cartItem'] += `{"id" :${get.id},"name":"${get.name}","price" :${get.price}},`;
+      // let cart = JSON.parse(`[${sessionStorage['cartItem']}]`);
+      // console.log(cart[0]);
     }
 };
+
+const addString = (itemid,itemValue)=>{
+
+}
 
 
 //連結php抓資料庫資料
@@ -49,8 +53,8 @@ const products = ref([]);
 
 
 const getShopInfo = () =>{
-  // fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
-  fetch("/dist/g5PHP/getShop.php")
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+  // fetch("/dist/g5PHP/getShop.php")
     .then(res => res.json())
     .then(json => {
         bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'));
@@ -98,18 +102,18 @@ const getSource = ()=>{
 
 // const search1 = ref("");
 const productList_A = computed(()=>{
-  let cache1 = products.value;
-  if(search1.value != ""){
-      cache1 = cache1.filter(i=>i.title.toLowerCase().includes(search1.value.toLowerCase()));
-  }
-  return cache1;
+  // let cache1 = products.value;
+  // if(search1.value != ""){
+  //     cache1 = cache1.filter(i=>i.title.toLowerCase().includes(search1.value.toLowerCase()));
+  // }
+  // return cache1;
 })
 const getSource1 = ()=>{
   const result1 = JSON.stringify(accessories);
   source1.value = JSON.parse(result1);
 }
 onMounted(()=>{
-  getSource();
+  // getSource();
   getSource1();
   getShopInfo();
 });
@@ -298,13 +302,13 @@ $(document).ready(() => {
           <div v-if="prodRow.sale == true" class="sale"><span>Sale</span></div>
             <div class="product_box">
               <div class="img_box">
-                <button class="prev" id="prevBtn" @click="prevPic(prodRow.id)">
+                <!-- <button class="prev" id="prevBtn" @click="prevPic(prodRow.id)">
                   ‹
-                </button>
-                <img :src="`/cgd103_g5_v2/src/assets/images/shop/${prodRow.images}`" alt="product_img"/>
-                <button class="next" id="nextBtn" @click="nextPic(prodRow.id)">
+                </button> -->
+                <img :src="`/dist/assets/${prodRow.images}`" alt="product_img"/>
+                <!-- <button class="next" id="nextBtn" @click="nextPic(prodRow.id)">
                   ›
-                </button>
+                </button> -->
               </div>
               <div class="detail_box">
                 <h5 class="title">{{ prodRow.title}}</h5>
@@ -349,13 +353,13 @@ $(document).ready(() => {
           <div v-if="assRow.sale == true" class="sale"><span>Sale</span></div>
           <div class="product_box">
             <div class="img_box">
-              <button class="prev" id="prevBtn" @click="prevPic(i.id)">
+              <!-- <button class="prev" id="prevBtn" @click="prevPic(i.id)">
                 ‹
-              </button>
-              <img :src="`/cgd103_g5_v2/src/assets/images/shop/${assRow.images}`" alt="product_img" />
-              <button class="next" id="nextBtn" @click="nextAsscPic(i.id)">
+              </button> -->
+              <img :src="`/dist/assets/${assRow.images}`" alt="product_img" />
+              <!-- <button class="next" id="nextBtn" @click="nextAsscPic(i.id)">
                 ›
-              </button>
+              </button> -->
             </div>
             <div class="detail_box">
               <h5 class="title">{{assRow.prd_name}}</h5>
@@ -439,7 +443,7 @@ $(document).ready(() => {
           >
           <div v-if="bundleRow2.sale_price != 0 " class="sale"><span>Sale</span></div>
             <div class="pic">
-              <img :src="`/src/assets/images/${bundleRow2.image}`" alt="veteran" />
+              <img :src="`/cgd103_g5_v2/src/assets/images/${bundleRow2.image}`" alt="veteran" />
             </div>
             <h5>
               <span>{{bundleRow2.prd_name}}</span>
@@ -531,16 +535,6 @@ $(document).ready(() => {
   }
 }
 //step
-.cart{
-  font-size: 20px;
-  position: fixed;
-  top: 100px;
-  left: 50px;
-  width: 100px;
-  height: 50px;
-  background-color: #ccc;
-  color: #232a3e;
-}
 .step_wrapper {
   width: 100%;
   position: relative;
@@ -688,6 +682,7 @@ $(document).ready(() => {
     height: 50px;
     background-color: $blue;
     border-radius: 10px;
+    margin: 10px;
     color: #fff;
     border: none;
   }
