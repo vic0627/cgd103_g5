@@ -5,43 +5,51 @@ import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import {accessories,bundle_A,bundle_B} from "./js/Shop";
+import LightBoxVue from "./lightBox.vue";
 
 bodyInit();
 
 //點按addCartBtn()的function
 
 //宣告存取itemid的位置
-const cartItem = ref([]);
+const cartList = ref([]);
 //setItem的func
 const set = (key, val) =>{
   sessionStorage.setItem(key, val);
 } 
-
+const cst = sessionStorage['cartList'].includes('111');
+const cart = sessionStorage['cartList'];
+const nmp = sessionStorage[id];
 //點擊add按鈕會啟動的func
 const addProd = (id) => {
   //存放點擊過的item的id
-    if(sessionStorage['cartItem'] == null){
-      sessionStorage['cartItem'] = '';
+    if(cart == null){
+      cart = '';
     }
+    //判斷有此id或非客製化商品
+    if(nmp || cst){
+      //跳彈窗選擇一般商品或是客製化商品
 
-    //判斷商品是否被點擊過
-    if(sessionStorage[id]){
-      //有，跳提示
+      //(購物車裡面有客製化商品)如果選擇客製化商品就回到購物車
+      if(nmp){
+
+      }else if(cst){
+
+      }
+      //如果不選擇客製化商品就清掉客製化商品並加入一般商品
+      
       alert('You have checked.')
     }else{
       //無，執行set跟get
-      set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","price":${products.value[id-1].Original_Price}}`);
+      set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","amount":"1","price":"${products.value[id-1].Original_Price}"}`);
       
-      let get = JSON.parse(sessionStorage.getItem(id));
-      sessionStorage['cartItem'] += `{"id" :${get.id},"name":"${get.name}","price" :${get.price}},`;
-      // let cart = JSON.parse(`[${sessionStorage['cartItem']}]`);
-      // console.log(cart[0]);
+      //let get = JSON.parse(`[${sessionStorage.getItem(id)}]`);
+      let get = JSON.parse(`${sessionStorage.getItem(id)}`);
+      cart += `${get.id},`;
+      // cart += `{"id" :${get.id},"name":"${get.name}","price" :${get.price}},`;
+      console.log(cart);
     }
 };
-
-const addString = (itemid,itemValue)=>{
-
-}
 
 
 //連結php抓資料庫資料
@@ -184,7 +192,7 @@ $(document).ready(() => {
 
 <template>
   <navComponentsVue :shop="`#077AF9`" />
- 
+  <LightBoxVue />
   <!-- banner start-->
     <section class="banner">
       <h2>
@@ -379,7 +387,7 @@ $(document).ready(() => {
                 <input 
                     type="button"
                     class="btn"
-                    @click="addProd(prodRow.id)"
+                    @click="addProd(assRow.id)"
                     value="Add"
                 >
               </div>
