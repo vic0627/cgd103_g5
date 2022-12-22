@@ -34,10 +34,47 @@ import propellor03blue from "../../assets/model3d/propellor03/propellor_03_blue.
 import propellor03green from "../../assets/model3d/propellor03/propellor_03_green.glb";
 import propellor03red from "../../assets/model3d/propellor03/propellor_03_red.glb";
 import propellor03white from "../../assets/model3d/propellor03/propellor_03_white.glb";
-
-
+// ------ introduction ------ //
+import step1 from "../../assets/images/custom/step1.jpg";
+import step2 from "../../assets/images/custom/step2.jpg";
+import step3 from "../../assets/images/custom/step3.jpg";
+import step4 from "../../assets/images/custom/step4.jpg";
+import step5 from "../../assets/images/custom/step5.jpg";
+import step6 from "../../assets/images/custom/step6.jpg";
+import step7 from "../../assets/images/custom/step7.jpg";
 
 import { ref } from "vue";
+
+export const introduction = ref({
+  1: {
+    img: step1,
+    text: "Welcome to the customize service, you can get your custom drone here. The step which your being will show above the title.",
+  },
+  2: {
+    img: step2,
+    text: "Choose the type of body you like, there are five colors availiable for each body and propellor.",
+  },
+  3: {
+    img: step3,
+    text: "Then on, detail informations of your selection will update to the dashboard immediately, and 3D model, which can be rotated and zoomed freely, will show on the area next to the selection.",
+  },
+  4: {
+    img: step4,
+    text: "On the mobile device, try to click on the tag near the edge of the screen to see the detail informations.",
+  },
+  5: {
+    img: step5,
+    text: "After choosing the exterior part of drone, try to choose the functional parts, it will affect the performance of drone intuitively.",
+  },
+  6: {
+    img: step6,
+    text: "If the dashboard hit the red line, data will shine red to warn you.",
+  },
+  7: {
+    img: step7,
+    text: `In each step, if you're not satisfy of your previous selection, try clicking the "Undo" button. While finishing the cutomizing, click the "buy" button to add your drone to the shopping cart.`,
+  },
+});
 
 export const droneModels = ref({
   body01: {

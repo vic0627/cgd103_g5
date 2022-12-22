@@ -28,7 +28,7 @@ const login = () => {
     admin_acc.value === adminRows.value[0].admin_acc &&
     admin_pw.value === adminRows.value[0].admin_pw
   ) {
-    window.location.href = "http://localhost:5173/dist/backend";
+    window.location.href = "http://localhost:5173/backend";
   } else {
     alert("帳密錯誤，請重新輸入");
   }
