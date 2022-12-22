@@ -138,7 +138,7 @@ onMounted(() => {
 
 //更新資料
 const updateRace = (user) => {
-  const newRace = {
+  const newcpt = {
     cpt_no: Number(newcpt_no.value),
     cpt_name: newcpt_name.value,
     cpt_start: newcpt_start.value,
@@ -212,18 +212,58 @@ const deleteRace = () => {
           title="確認"
           content="你確定嗎?"
         >
-          <label for="faq_des"> 修改比賽 : </label>
+          <label for="faq_des"> 修改比賽資訊 : </label>
           <textarea
-            name="faq_des"
-            v-model="newFaq_des"
-            rows="10"
+            name="cpt_no"
+            v-model="newcpt_no"
+            rows="1"
             cols="50"
             placeholder="請輸入問題"
             maxlength="200"
           ></textarea>
           <textarea
-            name="faq_ans"
-            v-model="newFaq_ans"
+            name="cpt_name"
+            v-model="newcpt_name"
+            rows="1"
+            cols="50"
+            placeholder="請輸入回答"
+            maxlength="300"
+          ></textarea>
+          <textarea
+            name="cpt_start"
+            v-model="newcpt_start"
+            rows="1"
+            cols="50"
+            placeholder="請輸入回答"
+            maxlength="300"
+          ></textarea>
+          <textarea
+            name="cpt_end"
+            v-model="newcpt_end"
+            rows="1"
+            cols="50"
+            placeholder="請輸入回答"
+            maxlength="300"
+          ></textarea>
+          <textarea
+            name="cpt_aboard"
+            v-model="newcpt_aboard"
+            rows="1"
+            cols="50"
+            placeholder="請輸入回答"
+            maxlength="300"
+          ></textarea>
+          <textarea
+            name="cpt_photo"
+            v-model="newcpt_photo"
+            rows="1"
+            cols="50"
+            placeholder="請輸入回答"
+            maxlength="300"
+          ></textarea>
+          <textarea
+            name="cpt_txt"
+            v-model="newcpt_txt"
             rows="10"
             cols="50"
             placeholder="請輸入回答"
@@ -248,7 +288,7 @@ const deleteRace = () => {
           <n-button
             @click="
               showModal2 = true;
-              deleteFaq(index);
+              deleteRace(index);
             "
             type="error"
           >

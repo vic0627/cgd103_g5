@@ -6,8 +6,7 @@ try {
 	$sql = "UPDATE tibamefe_cgd103g5.competition_info 
 	SET  cpt_name = :cpt_name,cpt_start = :cpt_start,cpt_end = :cpt_end,cpt_aboard = :cpt_aboard,cpt_photo = :cpt_photo,cpt_txt = :cpt_txt
 	WHERE cpt_no = :cpt_no";
-	$race = $pdo->prepare($sql);cpt_photo
-	
+	$race = $pdo->prepare($sql);
 	$race->bindValue(":cpt_name",$_POST["cpt_name"]);
     $race->bindValue(":cpt_start",$_POST["cpt_start"]);
     $race->bindValue(":cpt_end",$_POST["cpt_end"]);
