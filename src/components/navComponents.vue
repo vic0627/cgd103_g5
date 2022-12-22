@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { ref, reactive, onMounted } from 'vue';
 const mainMenu = reactive([
     {
         "id": "shop",
@@ -64,8 +64,6 @@ onMounted(() => {
             document.getElementById("password").value="";
             document.querySelector(".unameinfo").innerHTML="";
             document.querySelector(".pswinfo").innerHTML="";
-            
-            
         }
         xhr.open("get","/dist/g5PHP/memLogout.php",true);
         xhr.send(null);
