@@ -20,25 +20,22 @@ const set = (key, val) =>{
 //點擊add按鈕會啟動的func
 const addProd = (id) => {
   //存放點擊過的item的id
-    if(sessionStorage['cartItem'] == null){
-      sessionStorage['cartItem'] = '';
+    if(sessionStorage['cartList'] == null){
+      sessionStorage['cartList'] = '';
     }
-
     //判斷商品是否被點擊過
-    if(sessionStorage[id]){
+    if(sessionStorage[id] || sessionStorage['cartList'].includes('111')){
       //有，跳提示
+
       alert('You have checked.')
     }else{
       //無，執行set跟get
-      set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","price":${products.value[id-1].Original_Price}}`);
-      
-      let get = JSON.parse(sessionStorage.getItem(id));
-      sessionStorage['cartItem'] +=`${get.id}, `;
+      set(`${products.value[id-1].id}`,`{"id":${products.value[id-1].id},"name":"${products.value[id-1].title}","amount":1,"price":${products.value[id-1].Original_Price}}`);
 
-      console.log("id:",get.id);     
+      let get = JSON.parse(sessionStorage.getItem(id));
+      sessionStorage['cartList'] += `${get.id},`;
     }
 };
-
 
 //連結php抓資料庫資料
 const bundleRows_beginner = ref([]);
@@ -50,7 +47,8 @@ const products = ref([]);
 
 const getShopInfo = () =>{
   // fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
-  fetch("/dist/g5PHP/getShop.php")
+  fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
+  // fetch("/dist/g5PHP/getShop.php")
     .then(res => res.json())
     .then(json => {
         bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'));

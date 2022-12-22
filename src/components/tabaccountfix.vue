@@ -2,30 +2,91 @@
 import { reactive, onMounted,ref,h, computed } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
 import axios from 'axios';
-// app.component('paginate', VuejsPaginate)
+const newAdmin_no = ref('');
+const newAdmin_acc = ref('');
+const showModal = ref(false);
+const showModal2 = ref(false);
+//資料放進表格
+const createColumns = ({
+  selectId,showmodal})=>{
+    return [
+  {
+    title: "編號",
+    key: "admin_no"
+  },
+  {
+    title: "管理員帳號",
+    key: "admin_acc"
+  },
+  {
+    title: "管理員姓名",
+    key: "admin_name"
+  },
+  {
+    title: "權限等級",
+    key: "authority"
+  },
+  {
+    title: "編輯",
+    key: "actions",
+    render(row, index) {
+      return h(
+        NButton,
+        {
+          size: "medium",
+          color: "#077AF9",
+          onClick: () => selectId(row,index),
+        },
+        { default: () => "修改" }
+      );
+    }
+  },
+  {
+    title: "刪除",
+    key: "actions",
+    render(row, index) {
+      return h(
+        NButton,
+        {
+          size: "medium",
+          color: "#D03050",
+          // onClick: () => selectId(row,index),
+          onClick: () => showmodal(row,index)
+        },
+        { default: () => "刪除" }
+      );
+    }
+  },
+  ]
+};
+//欄位按鈕事件觸發
+const column = createColumns({
+  selectId(rowData,index) {
+    showModal.value = true;
+    newAdmin_acc.value = adminRows.value[index].admin_acc;
+    newAdmin_no.value = adminRows.value[index].admin_no;
+  },
+  showmodal(user,index){
+     newAdmin_no.value = adminRows.value[index].admin_no;
+    showModal2.value = true
+  }
+})
 //取得資料庫資料
 const adminRows = ref([]);
 		const getAdmin = () => {
 			//取得管理員資料
        axios.get("http://localhost/CGD103-G5/public/g5PHP/getAdmin.php")
       .then(res=> {
-        // console.log(res.data)
         adminRows.value = res.data
       })
 }
-// const 
 	onMounted(()=>{
 		getAdmin();
   });
-const newAdmin_no = ref('');
-const newAdmin_acc = ref('');
-const showModal = ref(false);
-const showModal2 = ref(false);
+//分頁js
 const paginationReactive = reactive({
       page: 2,
       pageSize: 10,
-    //   showSizePicker: true,
-    //   pageSizes: [3, 5, 7],
       onChange: (page) => {
         paginationReactive.page = page;
       },
@@ -34,14 +95,14 @@ const paginationReactive = reactive({
         paginationReactive.page = 1;
       }
     });
-    const  pagination = paginationReactive;
-
+const  pagination = paginationReactive;
 //抓管理員編號
-const selectId = (user)=>{
-  console.log(adminRows.value[user].admin_no);
-  newAdmin_acc.value = adminRows.value[user].admin_acc;
-  newAdmin_no.value = adminRows.value[user].admin_no;
-}
+// const selectId = (user)=>{
+//   console.log(adminRows.value[user].admin_no);
+//   newAdmin_acc.value = adminRows.value[user].admin_acc;
+//   newAdmin_no.value = adminRows.value[user].admin_no;
+//   console.log(user)
+// }
 //更新資料
 const updateAdmin = (user)=>{
   const newAdmin = {
@@ -52,11 +113,12 @@ const updateAdmin = (user)=>{
     method: "POST",
     body: new URLSearchParams(newAdmin),
   }).then(res=>{
-    console.log(res)
     res.json()
+    //  console.log(res)
+  }).then(res => {
+    showModal.value = false;
+    getAdmin();
   })
-  showModal.value = false;
-  getAdmin();
 }
 //刪除資料庫
 const deleteAdmin = ()=>{
@@ -68,9 +130,11 @@ const deleteAdmin = ()=>{
     body: new URLSearchParams(deleteAcc),
   }).then(res=>{
     res.json()
+    console.log(res)
+  }).then(res => {
+    showModal2.value = false;
     getAdmin();
   })
-  showModal2.value = false;
 }
 
 </script>
@@ -86,79 +150,31 @@ const deleteAdmin = ()=>{
       <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
     </div>
   </div>
-  <form method="post">
-    <n-table>
-      <thead>
-        <tr>
-          <th>編號</th>
-          <th>帳號</th>
-          <th>管理員姓名</th>
-          <th>管理員級別</th>
-          <th>編輯</th>
-          <th>刪除</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(item,index) in adminRows" :key="index" :pagination="x">
-          <td>{{index+1}}</td>
-          <td>{{item.admin_acc}}</td>
-          <td>{{item.admin_name}}</td>
-          <td>{{item.authority}}</td>
-          <td>
-            <n-button @click="showModal = true; selectId(index)" type="info">
-              編輯
-            </n-button>
-              <n-modal
-                v-model:show="showModal"
-                preset="dialog"
-                title="確認"
-                content="你確定嗎?"
-              >
+  <form method="post" class="table">
+    <n-data-table :columns="column" :data="adminRows" :pagination="pagination" :bordered="true" :single-line="false" />
+        <n-modal
+          v-model:show="showModal"
+          preset="dialog"
+          title="確認"
+          content="你確定嗎?">
             <!-- <input type="text" name="admin_no" placeholder="修改" v-model="newAdmin_no" disabled> -->
             <label for="admin_acc"> 修改帳號 : </label>
-            <input type="text" name="admin_acc" placeholder="修改帳號" v-model="newAdmin_acc">
+            <input type="text" name="admin_acc" v-model="newAdmin_acc">
             <n-button @click="showModal = true; updateAdmin(index)" type="error">
               確認
             </n-button>
            </n-modal>
-          </td>
-          <td>
-            <n-button @click="showModal2 = true;selectId(index)" type="error">
-              刪除
-            </n-button>
             <n-modal
                 v-model:show="showModal2"
                 preset="dialog"
                 title="確認"
                 content="你確定嗎?"
               >
-            <n-button @click="showModal2 = true; deleteAdmin(index)" type="error">
+            <n-button @click="showModal2 = true; deleteAdmin()" type="error">
               刪除
             </n-button>
            </n-modal>
-          </td>
-        </tr>
-         <!-- <n-pagination  :page="1" :page-count="2" /> -->
-      </tbody>
-      <!-- <n-pagination :page="page.value" :page-count="10" /> -->
-       <paginate
-   :page-count="getPageCount"
-    :page-range="3"
-    :margin-pages="2"
-    :click-handler="clickCallback"
-    :prev-text="'＜'"
-    :next-text="'＞'"
-    :container-class="'pagination'"
-    :page-class="'page-item'">
-  </paginate>
-    </n-table>
   </form>
-   <!-- <div class="table">
-    <n-data-table :columns="column" :data="adminRows" :pagination="pagination"  :bordered="true" :single-line="false" />
-  </div>
-   <n-modal :show="showModal">
-    
-   </n-modal> -->
 </div>
 
   

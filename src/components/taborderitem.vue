@@ -2,6 +2,10 @@
 import { reactive, onMounted,ref,h } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal } from 'naive-ui';
 import axios from 'axios';
+const showModal = ref(false);
+const newNmno = ref('');
+const newStatus = ref('');
+//資料放進表格
 const createColumns = ({
   selectId})=>{
     return [
@@ -51,17 +55,15 @@ const createColumns = ({
     }
   ]
 };  
-const showModal = ref(false);
-const newNmno = ref('');
-const newStatus = ref('');
+//欄位按鈕事件觸發
 const column = createColumns({
   selectId(rowData,index) {
     showModal.value = true;
     newNmno.value = rowData.orders_no;
     newStatus.value =  rowData.orders_status;
-    // console.log(newNmno.value)
   }
 })
+//分頁js
 const paginationReactive = reactive({
       page: 2,
       pageSize: 10,
@@ -98,10 +100,10 @@ const updateStatus = ()=> {
     body: new URLSearchParams(newNm),
   }).then(res=>{
     console.log(res)
-    // res.data[0]
+  }).then(res => {
+    showModal.value = false;
+    getNmOrder();
   })
-  showModal.value = false;
-  getNmOrder();
 }
 </script>
 <template>
@@ -125,6 +127,7 @@ const updateStatus = ()=> {
           <option value="待處理">待處理</option>
           <option value="處理中">處理中</option>
           <option value="運送中">運送中</option>
+          <option value="訂單完成">訂單完成</option>
         </select>
         <n-button @click="showModal = true; updateStatus()" type="error">
           確認
