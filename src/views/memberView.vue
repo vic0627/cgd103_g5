@@ -18,9 +18,9 @@ onMounted(() =>{
                 // meminfo.value = [member.memName,member.email];
                 // console.log(mem.value)         
                 }else{
+                  // alert("您尚未登入歐!");
                   // location.href="http://localhost:8888/dist/home";
                   window.history.back();
-                  // alert("您尚未登入歐!");
                 }
             }
             xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
