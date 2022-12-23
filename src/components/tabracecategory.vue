@@ -23,7 +23,7 @@ const newcpt_aboard = ref("");
 const newcpt_photo = ref("");
 const newcpt_txt = ref("");
 const showModal = ref(false);
-const showModal2 = ref(false);
+// const showModal2 = ref(false);
 
 //data-table
 const createColumns = ({ selectId, showmodal }) => {
@@ -72,22 +72,22 @@ const createColumns = ({ selectId, showmodal }) => {
         );
       },
     },
-    {
-      title: "刪除",
-      key: "actions",
-      render(row, index) {
-        return h(
-          NButton,
-          {
-            size: "medium",
-            color: "#077AF9",
-            onClick: () => selectId(row, index),
-            onClick: () => showmodal(),
-          },
-          { default: () => "刪除" }
-        );
-      },
-    },
+    // {
+    //   title: "刪除",
+    //   key: "actions",
+    //   render(row, index) {
+    //     return h(
+    //       NButton,
+    //       {
+    //         size: "medium",
+    //         color: "#077AF9",
+    //         // onClick: () => selectId(),
+    //         onClick: () => showmodal(row, index),
+    //       },
+    //       { default: () => "刪除" }
+    //     );
+    //   },
+    // },
   ];
 };
 //解析內容跟事件
@@ -102,9 +102,10 @@ const column = createColumns({
     newcpt_photo.value = raceRows.value[index].cpt_photo;
     newcpt_txt.value = raceRows.value[index].cpt_txt;
   },
-  showmodal() {
-    showModal2.value = true;
-  },
+  // showmodal(rowData, index) {
+  //   showModal2.value = true;
+  //   newcpt_no.value = raceRows.value[index].cpt_no;
+  // },
 });
 //分頁js
 const paginationReactive = reactive({
@@ -159,27 +160,24 @@ const updateRace = (user) => {
 };
 
 // 刪除資料
-const deleteRace = () => {
-  const deleteRace = {
-    cpt_no: Number(newcpt_no.value),
-  };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/deleteRace.php", {
-    method: "POST",
-    body: new URLSearchParams(deleteRace),
-  }).then((res) => {
-    res.json();
-  });
-  showModal2.value = false;
-  getProducts();
-};
+// const deleteRace = () => {
+//   const delRace = {
+//     cpt_no: Number(newcpt_no.value),
+//   };
+//   fetch("http://localhost/cgd103_g5/public/g5PHP/deleteRace.php", {
+//     method: "POST",
+//     body: new URLSearchParams(delRace),
+//   }).then((res) => {
+//     res.json();
+//   });
+//   showModal2.value = false;
+//   getProducts();
+// };
 </script>
 
 <template>
   <div class="top">
-    <h2>
-      FAQ列表
-      <outComponents />
-    </h2>
+    <h2>比賽列表<outComponents /></h2>
     <div class="bigbox">
       <div class="search_box">
         <label for="search" class="label"
