@@ -237,6 +237,7 @@ const deleteFaq = ()=>{
 
 </template>
 <style scoped lang="scss">
+
 @import '@/sass/style.scss';
 textarea{
   margin-top: 10px;
@@ -336,6 +337,10 @@ h2 {
 .tables {
   width: 95%;
   margin: auto;
+  ::v-deep(n-data-table-td){
+    border-bottom: 1 solid #111;
+    background-color: #222;
+}
 }
 
 .modal-mask{

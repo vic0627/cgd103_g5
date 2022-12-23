@@ -1,8 +1,12 @@
 <script setup>
-import { ref, onMounted, reactive } from 'vue';
+import { ref, onMounted, reactive, computed } from 'vue';
 import { log } from '../../composables/useCommon';
 import axios from 'axios';
 import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
+
+
+
+
 
 // 抓後台管理帳密資料
 const admin_pw = ref('');
@@ -12,7 +16,7 @@ const adminRows = ref([]);
 	//取得管理員資料
     axios.get("http://localhost/g5/public/g5PHP/getLogin.php")
     .then(res=> {
-    console.log(res.data)
+    // console.log(res.data)
     adminRows.value = res.data
     })
 }
@@ -21,11 +25,29 @@ onMounted(()=>{
     getAdmin();
 });
 
-
 // 1.點登入辨認是否有這個帳號
 // 2.如果有就跳轉到後台首頁,沒有就彈窗錯誤
+// computed(()=>{
+//     const login =()=>{
+//     // console.log(adminRows.value.length)
+//         for(const items in adminRows.value){
+//             if(admin_acc.value === adminRows.value[items].admin_acc && admin_pw.value === adminRows.value[items].admin_pw){
+//                 window.location.href="http://localhost:5173/backend";
+//             }else{
+//                 alert('帳密錯誤，請重新輸入');
+//             }
+//         }
+//     }
+// });
 const login =()=>{
-    // console.log(adminRows.value[0].admin_acc)
+    // console.log(adminRows.value.length)
+    // for(const items in adminRows.value){
+    //     if(admin_acc.value === adminRows.value[items].admin_acc && admin_pw.value === adminRows.value[items].admin_pw){
+    //         window.location.href="http://localhost:5173/backend";
+    //     }else{
+    //         alert('帳密錯誤，請重新輸入');
+    //     }
+    // }
     if(admin_acc.value === adminRows.value[0].admin_acc && admin_pw.value === adminRows.value[0].admin_pw){
         window.location.href="http://localhost:5173/backend";
     }else{
@@ -99,7 +121,7 @@ function shows(){
 <template>
    <div class="container">
         <div class="box">
-            <form  id="myForm" >
+            <form id="myForm">
                 <h2>後台登入</h2>
                 <div class="form-group">
                     <label for="admin_acc">管理員帳號</label>
