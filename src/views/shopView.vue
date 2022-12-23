@@ -22,7 +22,6 @@ const set = (key, val) =>{
 
 const cacheId = ref('');
 //點擊add按鈕會啟動的func
-<<<<<<< HEAD
 const addProd = (id, row) => {
   // alert(id)
   // alert(row)
@@ -56,34 +55,6 @@ const addProd = (id, row) => {
       set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
       let get = JSON.parse(sessionStorage.getItem(id));
       sessionStorage['cartList'] += `${get.id},`;
-=======
-const addProd = (id) => {
-  //存放點擊過的item的id
-    if(sessionStorage['cartItem'] == null){
-      sessionStorage['cartItem'] = '';
-    }
-    //判斷有此id或非客製化商品
-    if(nmp || cst){
-      //跳彈窗選擇一般商品或是客製化商品
-      //(購物車裡面有客製化商品)如果選擇客製化商品就回到購物車
-      if(nmp){
-
-      }else if(cst || sessionStorage['cartList'].includes('111')){
-
-      }
-      //如果不選擇客製化商品就清掉客製化商品並加入一般商品
-      
-
-      alert('You have checked.')
-    }else{
-      //無，執行set跟get
-      set(`${products.value[id-1].id}`,`{"id":"${products.value[id-1].id}","name":"${products.value[id-1].title}","price":${products.value[id-1].Original_Price}}`);
-      
-      let get = JSON.parse(sessionStorage.getItem(id));
-      sessionStorage['cartItem'] += `{"id" :${get.id},"name":"${get.name}","price" :${get.price}},`;
-      // let cart = JSON.parse(`[${sessionStorage['cartItem']}]`);
-      // console.log(cart[0]);
->>>>>>> dev
     }
 };
 
