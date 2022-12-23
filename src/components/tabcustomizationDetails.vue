@@ -1,30 +1,141 @@
 <script setup>
-import { reactive, onMounted,ref } from 'vue';
+import { reactive, onMounted, ref, computed } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
-// import { BTable } from 'bootstrap-vue';
+import { log } from '@/composables/useCommon';
+
+const page = ref(2);
+const pageSize = ref(3);
+const createColumns = ({selectId}) => {
+  return [
+    {
+      title: '明細編號',
+      key: 'item_no',
+    },
+    {
+      title: '訂單編號',
+      key: 'orders_no',
+    },
+    {
+      title: '商品編號',
+      key: 'products_no',
+    },
+    {
+      title: '數量',
+      key: 'item_quantity',
+    },
+    {
+      title: '單價',
+      key: 'item_price',
+    },
+    {
+      title: '折扣後價格',
+      key: 'item_sub',
+    },
+    {
+      title: '折扣數',
+      key: 'item_discount',
+    },
+  ];
+};
+const column = createColumns({
+  selectId(rowData) {
+    showModal.value = true;
+    newStatus.value = row.orders_no;
+  }
+});
+const pagination = reactive({
+  page: 2,
+  pageSize: 10,
+  onChange: (page) => {
+    pagination.page = page;
+  },
+  onUpdatePageSize: (pageSize) => {
+    pagination.pageSize = pageSize;
+    pagination.page = 1;
+  }
+});
+const cmDetailsRows = ref([]);
+const fetchItem = () => {
+  fetch("http://localhost/cgd103_g5/public/g5PHP/getCustomizeDetails.php")
+  .then(res => res.json())
+  .then(json => {
+    cmDetailsRows.value = json;
+  })
+};
+onMounted(() => {
+  fetchItem();
+});
+const search = ref('');
+const returnOrder = computed(() => {
+  let cache = cmDetailsRows.value;
+  if(search.value!==''){
+    cache = cache.filter(i => String(i[select[selectVal.value].val]).includes(search.value))
+    if(search.value=='all'){
+      cache = cmDetailsRows.value;
+    }
+  }else{
+    cache = [];
+  }
+  return cache;
+});
+const select = [
+  {
+    id: 0,
+    title: '明細編號',
+    val: 'item_no',
+  },
+  {
+    id: 1,
+    title: '訂單編號',
+    val: 'orders_no',
+  },
+  {
+    id: 2,
+    title: '商品編號',
+    val: 'products_no',
+  },
+];
+const selectVal = ref('0');
+const testVal = (e) => {
+  selectVal.value = e.target.value;
+};
 </script>
 <template>
 <div class="top">
-<h2>
+  <h2>
     客製化訂單明細查詢
     <outComponents />
   </h2>
-  <div class="table">
-    <div>
-    <!-- <b-table striped hover :items="items"></b-table> -->
+  <div class="search_box">
+    <p>依</p>
+    <select name="searchMethods" id="searchMethods" @change="testVal">
+      <option v-for="i in select" :key="i.id" :value="i.id">{{ i.title }}</option>
+    </select>
+    <p>查詢</p>
+    <label for="search" class="label">
+      <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
+    </label>
   </div>
+  <div class="table">
+    <n-data-table
+      :columns="column"
+      :data="returnOrder"
+      :pagination="pagination"
+      :bordered="true"
+      :single-line="false"
+    />
   </div>
 </div>
-  
+
 </template>
 <style scoped lang="scss">
 @import '@/sass/style.scss';
 .top {
-  width: 100%;
+  width: 85%;
   display: block;
 }
 .table {
-  width: 95%;
+  width: 85%;
   margin: auto;
 }
 h2 {
@@ -41,6 +152,9 @@ h2 {
   display: flex;
   justify-content: right;
   margin: 30px 15px;
+  p{
+    color: #000;
+  }
   label {
     margin-right: 10px;
     font-size: 20px;
@@ -66,88 +180,5 @@ h2 {
       }
     }
   }
-  .btn {
-    button{
-      width: 50px;
-      text-align: center;
-      border: none;
-      background:#597897;
-      border-radius: 5px;
-      padding: 5px;
-      transition: background 0.5s;
-      cursor: pointer;
-      &:hover{
-        background: $blue;
-      }
-      img{
-        width: 20px;
-        height: 20px;
-        margin-top: 2px;
-      }
-    }
-  }
-}
-
-.tables {
-  width: 100%;
-  margin: auto;
-  table{
-    width: 95%;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 20px;
-    border: 1px solid #C0C0C0;
-    tr {
-      border: 1px solid #C0C0C0;
-      &:hover td{
-        background: rgba(89, 120, 151, 0.11);
-      }
-      th {
-        padding: 20px 10px;
-        background-color:#597897;
-        color: #fff;
-        border: 1px solid #C0C0C0;
-        border-top: 1px solid #597897;
-      }
-      td{
-        border: 1px solid #C0C0C0;
-        padding: 20px 10px;
-        overflow: hidden;
-        a{
-          color: #273747;
-          span{
-            color: #273747;
-          }
-          .block{
-            &:hover{
-              border-bottom: 1px solid #273747;
-            }
-          }
-          .red{
-            color: #F25A2A;
-            &:hover{
-              border-bottom: 1px solid #F25A2A;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-
-.top {
-  width: 100%;
-  display: block;
-}
-h2 {
-  font-size: 40px;
-  color: #fff;
-  margin: 10px 10px;
-  padding: 10px 10px;
-  background-color: #597897;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 </style>

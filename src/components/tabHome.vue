@@ -143,6 +143,7 @@ export default{
 .tops {
   width: 100%;
   display: block;
+  overflow: auto;
 }
 h2 {
   font-size: 40px;

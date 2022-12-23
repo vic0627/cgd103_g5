@@ -3,7 +3,7 @@ import gsap from "gsap";
 import { onMounted, ref, onBeforeUpdate, onUpdated, onBeforeUnmount } from 'vue';
 import router from '@/router';
 import { log, $$, $all, getW } from '../composables/useCommon';
-import { introduction ,droneModels, propellorModels, motorModels, controllerModels } from './js/CustomizeGlb';
+import { introduction ,droneModels, propellorModels } from './js/CustomizeGlb';
 import * as CUS from './js/CustomizeThree';
 import dashBoardGroupComponent from '@/components/dashBoardGroupComponents.vue';
 import scrollHintComponent from '@/components/scrollHintComponent.vue';
@@ -13,7 +13,7 @@ bodyInit();
 let w = null;
 let ww = window.innerWidth;
 onMounted(()=> {
-    //fetchCustom();
+    fetchCustom();
     w = getW('.dashBoard');
     canvasRe();
     window.addEventListener('resize', ()=> {
@@ -50,13 +50,39 @@ onUpdated(() => {
     });
 });
 
-const customItem = ref([]);
+let customMotorItem, customControllerItem;
+const motorModels = ref({}), controllerModels = ref({});
 const fetchCustom = () => {
-    fetch("http://localhost/dist/g5PHP/getCustomizeItem.php")
+    fetch("http://localhost/cgd103_g5/public/g5PHP/getCustomizeItem.php")
         .then(res => res.json())
         .then(json => {
-            customItem.value = json;
-        });
+            customMotorItem = json.filter(i => String(i.prd_no).includes('1112111'));
+            customControllerItem = json.filter(i => String(i.prd_no).includes('1112112'));
+            return {
+                customMotorItem,
+                customControllerItem
+            }
+        })
+        .then(output => {
+            for(let i=0; i<output.customMotorItem.length; i++){
+                motorModels.value[`motor0${i+1}`] = {
+                    id: i+1,
+                    name: output.customMotorItem[i].prd_name,
+                    price: output.customMotorItem[i].prd_price,
+                    rpm: Number(output.customMotorItem[i].rpm),
+                    kgm: Number(output.customMotorItem[i].kgm),
+                };
+            }
+            for(let i=0; i<output.customControllerItem.length; i++){
+                controllerModels.value[`controller0${i+1}`] = {
+                    id: i+1,
+                    name: output.customControllerItem[i].prd_name,
+                    price: output.customControllerItem[i].prd_price,
+                    kgmc: Number(output.customControllerItem[i].kgmc),
+                };
+            }
+            log(controllerModels.value);
+        })
 };
 const units = ref({
     maxSpeed: {

@@ -13,7 +13,7 @@ import tabproductsearch from "@/components/tabproductsearch.vue";
 import tabproductCategoryManage from "@/components/tabProductCategoryManage.vue";
 import tabproductAdd from "@/components/tabproductAdd.vue";
 import taborderItem from "@/components/taborderitem.vue";
-import tabcustomizationOrderItem from "@/components/tcustomizationOrderItem.vue";
+import tabcustomizationOrderItem from "@/components/tabcustomizationOrderItem.vue";
 import tabgeneralOrderItem from "@/components/tgeneralOrderItem.vue";
 import tabcustomizationDetails from "@/components/tabcustomizationDetails.vue";
 import tabdiscount from "@/components/tabdiscount.vue";
@@ -225,6 +225,7 @@ outComponents {
   width: 100%;
   height: 100vh;
   display: flex;
+  flex-wrap: wrap;
   background-color: #fff;
 }
 .asideNav {
