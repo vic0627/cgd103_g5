@@ -3,7 +3,7 @@
  header("Content-Type:application/json;charset=utf-8");
 try {
 	require_once("./connect_cgd103g5_ting.php");
-	$sql = "select * from tibamefe_cgd103g5.faq";
+	$sql = "select * from tibamefe_cgd103g5.faq ORDER BY faq_no AEC";
 	$faq = $pdo->prepare($sql);
 	$faq->execute();
 	$faqRows = $faq->fetchAll(PDO::FETCH_ASSOC);
