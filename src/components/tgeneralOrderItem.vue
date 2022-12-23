@@ -15,7 +15,7 @@ const createColumns = ({
   },
   {
     title: "商品編號",
-    key: "products_no"
+    key: "prd_no"
   },
   {
     title: "數量",
@@ -23,19 +23,16 @@ const createColumns = ({
   },
   {
     title: "單價",
-    key: "item_"
+    key: "item_price"
   },
   {
     title: "折扣後價格",
-    key: "disc_no"
+    key: "item_sub"
   },
   {
     title: "折扣數",
-    key: "orders_price"
+    key: "item_discount"
   },
-  {
-
-  }
   ]
 };  
 const showModal = ref(false);
@@ -47,11 +44,10 @@ const column = createColumns({
     console.log(newStatus.value)
   }
 })
+//分頁js
 const paginationReactive = reactive({
       page: 2,
       pageSize: 10,
-    //   showSizePicker: true,
-    //   pageSizes: [3, 5, 7],
       onChange: (page) => {
         paginationReactive.page = page;
       },
@@ -61,14 +57,14 @@ const paginationReactive = reactive({
       }
     });
     const  pagination = paginationReactive;
-
-const NmOrderRows = ref([]);
+//取得資料庫資料
+const NmitemRows = ref([]);
 		const getNmOrder = () => {
 			//取得商品資料
-      axios.get("http://localhost/CGD103-G5/public/g5PHP/getNmOrder.php")
+      axios.get("http://localhost/CGD103-G5/public/g5PHP/getNmitem.php")
       .then(res=> {
-        // console.log(res)
-        NmOrderRows.value = res.data
+        console.log(res.data)
+        NmitemRows.value = res.data
       })
 		}
 	onMounted(()=>{
@@ -82,19 +78,7 @@ const NmOrderRows = ref([]);
     <outComponents />
   </h2>
   <div class="table">
-    <n-data-table :columns="column" :data="NmOrderRows" :pagination="pagination"  :bordered="true" :single-line="false" />
-    <n-modal
-        v-model:show="showModal"
-        preset="dialog"
-        title="確認"
-        content="你確定嗎?"
-      >
-      <label for="admin_acc"> 修改帳號 : </label>
-      <input type="text" name="admin_acc" placeholder="修改帳號" v-model="newAdmin_acc">
-      <n-button @click="showModal = true; updateAdmin(index)" type="error">
-        確認
-      </n-button>
-    </n-modal>
+    <n-data-table :columns="column" :data="NmitemRows" :pagination="pagination"  :bordered="true" :single-line="false" />
   </div>
 
 </div>

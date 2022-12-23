@@ -6,7 +6,7 @@ import tabnewrevs from "../../components/tabnewrevs.vue"; //NEWS
 import tabnewadds from "../../components/tabnewadds.vue"; //NEWS
 import tabraceform from "../../components/tabraceform.vue"; //RACE
 import tabracecategory from "../../components/tabracecategory.vue"; //RACE
-import tabaddrace from "../../components/tabaddrace.vue"; //RACE
+import tabraceadd from "../../components/tabraceadd.vue"; //RACE
 import tabaccountfix from "@/components/tabaccountfix.vue"; //account
 import tabaccountadd from "@/components/tabaccountadd.vue"; //account
 import tabproductsearch from "@/components/tabproductsearch.vue";
@@ -28,7 +28,7 @@ export default {
     tabnewadds,
     tabraceform,
     tabracecategory,
-    tabaddrace,
+    tabraceadd,
     tabproductsearch,
     tabproductCategoryManage,
     tabaccountfix,
@@ -141,7 +141,7 @@ const backendCategory = ref({
       },
       b: {
         cn: "賽事新增",
-        tab: "addrace",
+        tab: "raceadd",
       },
       c: {
         cn: "報名資料查詢",
