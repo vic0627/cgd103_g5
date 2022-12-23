@@ -2,81 +2,57 @@
 import { ref, onMounted, reactive, computed } from 'vue';
 import $ from 'jquery';
 import {bodyInit} from '@/composables/useOnunmounted';
-
 bodyInit();
-
+const explode = ref('');
 const props = defineProps(['nextStep','step']);
-
 const title = reactive([
     {"name": "Product"},{"name": "Price"},{"name":"Quantity"},{"name":"Delete"}
 ]);
-
+const cartItem = ref([]);
+const cartList = computed(() => cartItem.value)
+const session = ()=> {
+    const strings = sessionStorage.getItem('cartList')
+    const substrs = strings.substr(0, strings.length - 1).split(',')
+    getcartItem(substrs);
+    // let jsonItem = JSON.parse(`[${explode.value}]`);
+    cartItem.value = JSON.parse(`[${explode.value}]`);
+    // cartsem.value = jsonItem
+    // console.log(cartsem);
+}
+onMounted(()=>{
+    //mounted裡面不要使用const去做定義 有區域問題
+    session();
+    // console.log(cartItem.value[0].id)
+})
+const storgeNull = reactive(sessionStorage.getItem('cartList'))
+let total = reactive(0);
 //數量加減//價格變動
 const sum = computed(()=>{
     let total = ref(0);
-        for(const cartnum in cartItem){
-            // console.log(cartItem[cartnum])
-            // console.log(cartItem[cartnum]['name'])
-            total.value += cartItem[cartnum]['price']*cartItem[cartnum]['count'];
+        for(const items in cartList.value){
+            console.log(items)
+            // console.log(cartItem[items]['name'])
+            total.value += cartList.value[items]['price']*cartList.value[items]['amount'];
         }
         return total
 })
 const addCount = (index) => {
-    // return num.value ++;
-    // console.log(num[index]);
-    // num.value++;
-    return cartItem[index].count +=1;
+    console.log(cartList.value[index]);
+    return cartList.value[index].amount +=1;
 }
 const reduceCount = (index) => {
-    // if(num.value >1){
-    //     return num.value --;
-    // }
-    if(cartItem[index].count > 1){
-        return cartItem[index].count --;  
+    if(cartList.value[index].amount > 1){
+        return cartList.value[index].amount --;  
     }
 }
 //刪除商品
 const cart = ref(false); 
 const Delete = (index)=> {
-    cartItem.splice(index,1);
-    // cartItem[index].exist = cart.value;
-    // console.log(cartItem[index].exist)
+    cartList.value.splice(index,1);
+    console.log(cartList.value[index].id)
+    sessionStorage.removeItem(`${cartList.value[index].id}`);
 }
 const num = reactive([]);
-const cartItem = reactive([
-    {
-        "id":1,
-        "name":"Maciv 2 ZOOM",
-        "description":"dsuigr fhfe djs",
-        "image": "/images/cart/body_01_black _1.png",
-        "price": 275,
-        "count": 1,
-        "exist":true,
-    },
-    {
-        "id":2,
-        "name":"Maciv 3 ZOOM",
-        "description":"fwgqg qwqffw",
-        "image": "/images/cart/body_03_white_1.png",
-        "price": 159,
-        "count": 1,
-        "exist":true,
-    },
-])
-const cartwrap = ref([]);
-const set = (key, val) =>{
-    sessionStorage.setItem(key,val);
-}
-const add = (id)=>{
-    const wrap = [`{"id":"${cartItem[id].id}","name":"${cartItem[id].name}","price":"${cartItem[id].price}"}`];
-    set(`${cartItem[id].id}cart`,wrap);
-    // console.log(JSON.parse(sessionStorage.getItem('1cart')))
-    cartwrap.value = JSON.parse(sessionStorage.getItem('1cart'))
-    console.log(cartwrap.value.name)
-}
-
-
-
 const suggest = reactive([
     {
         "title": "MAVIC PRO 1",
@@ -90,52 +66,63 @@ const suggest = reactive([
         "title": "MAVIC PRO 3",
         "image": "/images/cart/body_03_black_1.png",
     },
-    
 ])
-
-let total = reactive(0);
-
 //discount 
 const discount = ref('');
 const sale = ()=> {
     discount.value = '';
 }
+//抓session裡面的存放的商品放進購物車
+const getcartItem = (substrs)=>{
+  for(let i=0;i<=substrs.length-1;i++){
+    if(i===0){
+      explode.value = sessionStorage.getItem(substrs[i])
+    }else{
+      explode.value += ',' + sessionStorage.getItem(substrs[i]);
+    }
+    // explode.value += sessionStorage.getItem('i')
+  }
+}
 </script>
 <template>
     <section>
         <div class="shopCart">
-            <div class="cartFor" v-for="(item,index) in cartItem" :key="index">
-                <div class="cartItem" v-show="item.exist === true">
+            <div v-if="storgeNull == null">
+                <div class="empty">
+                    <h3>Your bag is empty.</h3>
+                    <p>Sign in to see if you have any saved items. Or continue shopping.</p>
+                </div>
+            </div>
+            <div class="cartFor" v-for="(item,index) in cartList" :key="index">
+                <div class="cartItem">
                     <div class="cartProduct">
                         <div class="cartProduct-pic">
                             <img :src="item.image" alt="">
                         </div>
                         <div class="cartProduct-txt">
                             <h5>{{item.name}}</h5>
-                            <!-- <p>{{item.description}}</p> -->
                         </div>
                     </div>
                     <div class="amount-price">
                         <div class="cartQuantity">
                             <button class="qtyBtn" @click="reduceCount(index)">-</button>
-                            <input type="text" min="1" v-model="item.count" class="input">
+                            <input type="text" min="1" v-model="item.amount" class="input">
                             <button class="qtyBtn" @click="addCount(index)">+</button>
                         </div>
                         <div class="cartPrice">
-                            <h6>${{item.price*item.count}}</h6>
+                            <h6>${{item.price*item.amount}}</h6>
                         </div>
                     </div>
                     <div class="cartDelete">
                         <button @click="Delete(index)" class="delete-btn"></button>
-                        <button @click="add(index)">add</button>
                     </div>
                 </div>
             </div>
             <div class="discount">
-            <p>Discount code :</p>
-            <input type="text" v-model="discount">
-            <button class="discount-btn" @click="sale">Confirm</button>
-        </div>
+                    <p>Discount code :</p>
+                    <input type="text" v-model="discount">
+                    <button class="discount-btn" @click="sale">Confirm</button>
+            </div>
         </div>
 
         <div class="total">
@@ -145,7 +132,7 @@ const sale = ()=> {
                 </div>
                 <div class="summaryPrice">
                     <p>Order price</p>
-                    <p>$3,000.00</p>
+                    <p>${{sum}}</p>
                 </div>
                 <div class="summaryPrice">
                     <p>Shipping</p>
@@ -155,63 +142,21 @@ const sale = ()=> {
                     <p>Discount</p>
                     <p>10%</p>
                 </div>
-                <!-- <hr> -->
                 <div class="summaryPrice">
                     <p>Total Price</p>
                     <p>${{sum}}</p>
-                    <!-- <p>$2,700.00</p> -->
                 </div>
                 <div class="cartBtn">
                     <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shop">
                         <span>Shop</span>
                     </router-link>
-                    <!-- <a class="btnSecond" id="btn2" data-title="Next">
-                    <button @click="props.nextStep()" class="button">Next</button>
-                    </a> -->
                     <button @click="props.nextStep()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
                 </div>
             </div>
         </div>
     </section>
     <section>
-        <!-- <div class="discount">
-            <p>Discount code :</p>
-            <input type="text" v-model="discount">
-            <button class="discount-btn" @click="sale">Confirm</button>
-        </div> -->
     </section> 
-
-    <!-- <section>
-        <div class="total">
-            <div class="summary">
-                 <div class="summaryPrice">
-                    <h3>Summary</h3>
-                </div>
-                <div class="summaryPrice">
-                    <p>Order price</p>
-                    <p>$3,000.00</p>
-                </div>
-                <div class="summaryPrice">
-                    <p>Shipping</p>
-                    <p>$0.00</p>
-                </div>
-                <div class="summaryPrice">
-                    <p>Discount Price</p>
-                    <p>$300/10%</p>
-                </div>
-                <div class="summaryPrice">
-                    <p>Total Price</p>
-                    <p>{{total}}</p>
-                </div>
-                <div class="cartBtn">
-                    <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shopping">
-                        <span>Shopping</span>
-                    </router-link>
-                    <button @click="props.nextStep()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
-                </div>
-            </div>
-        </div>
-    </section> -->
         <div class="suggest-title">
             <h3>Guess You May Like</h3>
         </div>
@@ -257,6 +202,10 @@ section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+.empty {
+    text-align: left;
+    margin: 20px;
 }
 .cart{
     padding-top: 130px;
