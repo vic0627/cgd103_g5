@@ -4,7 +4,7 @@
  header("Content-Type:application/json;charset=utf-8");
 
  try {
-	require_once("./connect_cgd103g5_felix.php");
+	require_once("./connect_cgd103g5_adam.php");
 	$sql = "UPDATE tibamefe_cgd103g5.nm_orders 
 	SET orders_status = :orders_status 
 	WHERE orders_no = :orders_no";
