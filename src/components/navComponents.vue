@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted } from 'vue';
+import { reactive, onMounted,ref } from 'vue';
 const mainMenu = reactive([
   {
     id: "shop",
@@ -22,14 +22,14 @@ const mainMenu = reactive([
     name: "NEWS",
   },
 ]);
-// const mem = ref("");
+const mem = ref("");
 onMounted(() => {
   // console.log(mainMenu);
   function getMemberInfo() {
     let xhr = new XMLHttpRequest();
     xhr.onload = function () {
       let member = JSON.parse(xhr.responseText);
-      if (member.memId) {
+      if (member.Account) {
         //有帳密資料
         document.querySelector(".memstatus").innerHTML = "Log out";
         if ((document.querySelector(".memstatus").innerHTML = "Log out")) {
@@ -39,7 +39,7 @@ onMounted(() => {
         }
         document.querySelector(".account").style["display"] = "block";
         document.querySelector(".memName").style["display"] = "inline";
-        mem.value = member.memName;
+        mem.value = member.FirstName;
         console.log(mem.value);
         // alert("Hi!~"+member.memName);
       } else {
@@ -54,24 +54,26 @@ onMounted(() => {
 
   getMemberInfo();
 
-    function memlogout(){
-        let xhr = new XMLHttpRequest();
-        xhr.onload = function(){
-        //   document.getElementById("spanLogin").innerText = "登入";
-        //   document.getElementById("memName").innerText = "";
-            document.querySelector(".account").style["display"]="none";
-            document.querySelector(".memName").style["display"]="none";
-            document.querySelector(".memstatus").innerHTML="Sign in";
-            document.getElementById("username").value="";
-            document.getElementById("password").value="";
-            document.querySelector(".unameinfo").innerHTML="";
-            document.querySelector(".pswinfo").innerHTML="";
-            
-            
-        }
-        xhr.open("get","/dist/g5PHP/memLogout.php",true);
-        xhr.send(null);
+  function memlogout(){
+      let xhr = new XMLHttpRequest();
+      xhr.onload = function(){
+      //   document.getElementById("spanLogin").innerText = "登入";
+      //   document.getElementById("memName").innerText = "";
+          document.querySelector(".account").style["display"]="none";
+          document.querySelector(".memName").style["display"]="none";
+          document.querySelector(".memstatus").innerHTML="Sign in";
+          document.getElementById("username").value="";
+          document.getElementById("password").value="";
+          document.querySelector(".unameinfo").innerHTML="";
+          document.querySelector(".pswinfo").innerHTML="";
+          
+          
+      }
+      xhr.open("get","/dist/g5PHP/memLogout.php",true);
+      xhr.send(null);
     }
+
+    
 
     
 });
@@ -187,7 +189,7 @@ const NavClass = defineProps({
               to="/member"
               class="navHover"
               :style="`color :${NavClass.news}`"
-              >member</router-link
+              >M</router-link
             >
           </li>
         </ul>

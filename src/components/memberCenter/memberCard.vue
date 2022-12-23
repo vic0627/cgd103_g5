@@ -8,10 +8,10 @@ onMounted(() =>{
               xhr.onload = function(){
                   let member = JSON.parse(xhr.responseText);
                   // console.log("SS:"+member);
-                  if(member.memId){//有帳密資料
+                  if(member.Account){//有帳密資料
                       // $id("memName").innerText = member.memName;
                       // $id("spanLogin").innerText = "登出"; 
-                  meminfo.value = [member.memName,member.email];
+                  meminfo.value = [member.FirstName,member.email];
                   // console.log(mem.value)         
                   }
               }
