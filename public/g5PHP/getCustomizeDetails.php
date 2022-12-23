@@ -3,7 +3,7 @@ header('Access-Control-Allow-Origin:*');
 header("Content-Type:application/json;charset=utf-8");
 try {
 	require_once("./connect_cgd103g5_vic.php");
-	$sql = "select * from tibamefe_cgd103g5.customize";
+	$sql = "select * from tibamefe_cgd103g5.cm_order_item";
 	$cus = $pdo->prepare($sql);
 	$cus->execute();
 	$cusRows = $cus->fetchAll(PDO::FETCH_ASSOC);

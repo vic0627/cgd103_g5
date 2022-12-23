@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref, h } from "vue";
+import { ref, reactive, onMounted, onUpdated } from "vue";
 import {
   zhTW,
   NPagination,
@@ -8,89 +8,84 @@ import {
   NButton,
   NModal,
 } from "naive-ui";
-import axios from "axios";
-const createColumns = ({ sendMail, showModal }) => {
-  return [
-    {
-      title: "優惠編號",
-      key: "disc_no",
-    },
-    {
-      title: "優惠名稱",
-      key: "disc_title",
-    },
-    {
-      title: "優惠描述",
-      key: "disc_txt",
-    },
-    {
-      title: "開始日期",
-      key: "disc_start",
-    },
-    {
-      title: "結束日期",
-      key: "disc_end",
-    },
-    {
-      title: "折扣數",
-      key: "disc_off",
-    },
-    {
-      title: "優惠代碼",
-      key: "disc_code",
-    },
-    {
-      title: "編輯/刪除",
-      key: "actions",
-      render(row) {
-        return h(
-          NButton,
-          {
-            size: "medium",
-            color: "#077AF9",
-            // onClick: () => sendMail(row)
-            onClick: () => showModal(),
-          },
-          { default: () => "編輯" }
-        );
-      },
-    },
-  ];
-};
-const modal = ref(false);
-const column = createColumns({
-  showModal() {
-    modal.value == true;
-  },
-});
-
-const paginationReactive = reactive({
-  page: 1,
-  pageSize: 5,
-  onChange: (page) => {
-    paginationReactive.page = page;
-  },
-  onUpdatePageSize: (pageSize) => {
-    paginationReactive.pageSize = pageSize;
-    paginationReactive.page = 1;
-  },
-});
-
-const pagination = paginationReactive;
-
 const discRows = ref([]);
+
 const getDisc = () => {
-  //取得商品資料
-  axios
-    .get("http://localhost/cgd103_g5/public/g5PHP/getDisc.php")
-    .then((res) => {
-      // console.log(res)
-      discRows.value = res.data;
+  fetch("http://localhost/cgd103_g5/public/g5PHP/getDisc.php")
+    .then((res) => res.json())
+    .then((json) => {
+      discRows.value = json;
     });
 };
+getDisc();
 onMounted(() => {
-  getDisc();
+  console.log(discRows.value);
 });
+onUpdated(() => {
+  console.log(discRows.value);
+});
+const table = ref([
+  "優惠編號",
+  "優惠名稱",
+  "優惠描述",
+  "優惠開始日",
+  "優惠截止日",
+  "折扣數",
+  "優惠代碼",
+  "編輯",
+  "刪除",
+]);
+const showModal = ref(false);
+const showModal2 = ref(false);
+const newNo = ref("");
+const newTitle = ref("");
+const newTxt = ref("");
+const newStart = ref("");
+const newEnd = ref("");
+const newOff = ref("");
+const newCode = ref("");
+const selectId = (user) => {
+  newNo.value = DiscRows.value[user].disc_no;
+  newTitle.value = DiscRows.value[user].disc_title;
+  newTxt.value = DiscRows.value[user].disc_txt;
+  newStart.value = DiscRows.value[user].disc_start;
+  newEnd.value = DiscRows.value[user].disc_end;
+  newOff.value = DiscRows.value[user].disc_off;
+  newCode.value = DiscRows.value[user].disc_code;
+};
+// const updateDisc = () => {
+//   const newDisc = {
+//     disc_no: Number(newNo.value),
+//     disc_title: newTitle.value,
+//     disc_txt: newTxt.value,
+//     disc_start: newStart.value,
+//     disc_end: newEnd.value,
+//     disc_off: newOff.value,
+//     disc_code: newCode.value,
+//   };
+//   fetch("http://localhost/cgd103_g5/public/g5PHP/updateDisc.php", {
+//     method: "POST",
+//     body: new URLSearchParams(newDisc),
+//   }).then((res) => {
+//     console.log(res);
+//     res.json();
+//   });
+//   showModal.value = false;
+//   getDisc();
+// };
+// const deleteDisc = () => {
+//   const delDisc = {
+//     disc_no: Number(newNo.value),
+//   };
+//   fetch("http://localhost/cgd103_g5/public/g5PHP/deleteDisc.php", {
+//     method: "POST",
+//     body: new URLSearchParams(delDisc),
+//   }).then((res) => {
+//     console.log(res);
+//     res.json();
+//   });
+//   showModal2.value = false;
+// };
 </script>
 <template>
   <div class="top">

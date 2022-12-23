@@ -89,7 +89,7 @@ const getCust = () => {
     .get("http://localhost/cgd103_g5/public/g5PHP/getCust.php")
     .then((res) => {
       // console.log(res)
-      raceCust.value = res.data;
+      custRows.value = res.data;
     });
 };
 onMounted(() => {
