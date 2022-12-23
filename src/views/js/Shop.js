@@ -102,29 +102,6 @@ import imga14_2 from "/src/assets/images/shop/propellor_03_red_2.png";
 //======================================================= bundle
 import imgb1 from "/src/assets/images/shop/bundle_01.png";
 import imgb2 from "/src/assets/images/shop/bundle_02.jpg";
-
-    // export  const steps = [
-    // {
-    //   id: "1",
-    //   text: "Choose your favorite color",
-    //   diff: "color",
-    // },
-    // {
-    //   id: "2",
-    //   text: "Choose your favorite wing",
-    //   diff: "wing",
-    // },
-    // {
-    //   id: "3",
-    //   text: "Choose your favorite speed",
-    //   diff: "speed",
-    // },
-    // {
-    //   id: "4",
-    //   text: "Finish your exclusive FVP",
-    //   diff: "own FVP",
-    // },
-    // ];
     export  const products =reactive([
     //mavic
     {
@@ -133,7 +110,7 @@ import imgb2 from "/src/assets/images/shop/bundle_02.jpg";
       title: "Mavic 1 Green",
       Original_Price: "900",
       Discount_Price: "765",
-      src1: [img1_1,img1_2,img1_3,],
+      src: "body_01_black_3.png",
       new: true,
       sale: false,
     },
@@ -268,12 +245,14 @@ import imgb2 from "/src/assets/images/shop/bundle_02.jpg";
     ]);
     export  const accessories = reactive([
     {
-      id: 16,
-      name: "a1",
-      title: "Cir propeller black",
-      Original_Price: "300",
-      src1: [imga1_1,imga1_2],
+      id: "1",
+      name: "p1",
+      title: "Mavic 1 Green",
+      Original_Price: "900",
+      Discount_Price: "765",
+      src: "body_01_black_3.png",
       new: true,
+      sale: false,
     },
     {
       id: 17,
@@ -388,9 +367,10 @@ import imgb2 from "/src/assets/images/shop/bundle_02.jpg";
       new: true,
     },
     ]);
+
     export  const bundle_A = reactive([
     {
-      id: "",
+      id: "15",
       name: "A1",
       title: "Simple Bundle",
       Original_Price: "1200",
@@ -399,7 +379,7 @@ import imgb2 from "/src/assets/images/shop/bundle_02.jpg";
       sale: false,
     },
     {
-      name: "A2",
+      name: "16",
       title: "Simple Bundle",
       price: "1200",
       src: imgb1,

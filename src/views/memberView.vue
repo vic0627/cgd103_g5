@@ -12,13 +12,13 @@ onMounted(() =>{
             xhr.onload = function(){
                 let member = JSON.parse(xhr.responseText);
                 // console.log("SS:"+member);
-                if(member.memId){//有帳密資料
+                if(member.Account){//有帳密資料
                     // $id("memName").innerText = member.memName;
                     // $id("spanLogin").innerText = "登出"; 
                 // meminfo.value = [member.memName,member.email];
                 // console.log(mem.value)         
                 }else{
-                  // alert("您尚未登入歐!");
+                  alert("Please log in first!");
                   // location.href="http://localhost:8888/dist/home";
                   window.history.back();
                 }
@@ -47,37 +47,10 @@ onMounted(() =>{
   <section class="member">
     <div class="member_box">
       <div class="member_top">
-        <!-- <div class="member_card">
-          <img
-            src="../assets/images/member/mem_img02.png"
-            alt="badge"
-            class="badge"
-          />
-          <div class="card_top">
-            <div class="card_top_word">
-              <img
-                src="../assets/images/member/mem_img.png"
-                alt="head_sticker"
-                class="head"
-              />
-              <h2>Thr Odinson</h2>
-            </div>
-          </div>
-          <div class="card_down">
-            <div class="gold_box">
-              <p>Gold Member</p>
-            </div>
-            <div class="point_box">
-              <p class="point_txt">POINTS : <span>56,813</span></p>
-            </div>
-          </div>
-        </div> -->
         <memberCardVue/>
         <div class="member_drone">
           <img src="../assets/images/member/mem_drone02.png" alt="drone" />
           <div class="drone_word">
-            <!-- {{ meminfo[0] }} -->
-            <!-- {{ meminfo[1] }} -->
             <h3>FPV Name </h3>
             <router-link class="drone_more" to="/machineView"
               ><button>Leam more</button></router-link

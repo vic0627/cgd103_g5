@@ -1,45 +1,99 @@
 <script setup>
 import $ from "jquery";
+import router from '@/router';
 import { ref, reactive, onMounted, computed, onUpdated } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
-import {accessories,bundle_A,bundle_B} from "./js/Shop";
+
 
 bodyInit();
 
-//點按addCartBtn()的function
+
 
 //宣告存取itemid的位置
-const cartItem = ref([]);
+const cartList = ref([]);
+const prodInfo = ref([]);
 //setItem的func
 const set = (key, val) =>{
   sessionStorage.setItem(key, val);
 } 
 
+
+const cacheId = ref('');
 //點擊add按鈕會啟動的func
-const addProd = (id) => {
+const addProd = (id, row) => {
+  // alert(id)
+  // alert(row)
+    cacheId.value = id;
+    let nid;
+    if(row===accessories.value){
+      nid = id - (products.value.length*2);
+    }else{
+      nid = id - 1;
+    }
+    // if(row===bundle_A.value){
+    //   nid = id - (accessories.value.length*2);
+    // }else{
+    //   nid = id - 1;
+    // }
   //存放點擊過的item的id
     if(sessionStorage['cartList'] == null){
       sessionStorage['cartList'] = '';
     }
+    if(sessionStorage['cartList'].includes('111')){
+    //跳彈窗
+      lightBoxShow.value = true;
+    //sessionStorage沒有商品 
+    }
     //判斷商品是否被點擊過
-    if(sessionStorage[id] || sessionStorage['cartList'].includes('111')){
-      //有，跳提示
-
+    if(sessionStorage.getItem(id)){
+      //有，跳提示，不給加
       alert('You have checked.')
     }else{
       //無，執行set跟get
-      set(`${products.value[id-1].id}`,`{"id":${products.value[id-1].id},"name":"${products.value[id-1].title}","amount":1,"price":${products.value[id-1].Original_Price}}`);
-
+      set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
       let get = JSON.parse(sessionStorage.getItem(id));
       sessionStorage['cartList'] += `${get.id},`;
     }
 };
 
-const addString = (itemid,itemValue)=>{
+const moreProd = (id, row)=> {
+    cacheId.value = id;
+    let nid;
+    if(row===accessories.value){
+      nid = id - (products.value.length*2);
+    }else{
+      nid = id - 1;
+    }
+  //設置一個sessionStorage 給 shopInfo
+  if(sessionStorage['prodInfo'] == null){
+    sessionStorage['prodInfo']='';
+  }
+  set(id,`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
 
+  let getInfo = JSON.parse(sessionStorage.getItem(id));
+  sessionStorage['prodInfo'] +=`{"title":"${getInfo.title}","price":${getInfo.price},"images":"${getInfo.images}"},`;
+
+  router.push('/shopInfo');
 }
+
+//modal
+// modal-btn 去購物車
+const addCart = () =>{
+  router.push('/cart');
+}
+//modal-btn 清空後再加上一般商品
+const clearSess = ()=>{
+    sessionStorage.clear();
+    addProd(cacheId.value);
+    lightBoxClose();
+}
+const lightBoxClose = () => {
+	lightBoxShow.value = false;
+};
+//modal預設false
+const lightBoxShow = ref(false);
 
 
 //連結php抓資料庫資料
@@ -47,8 +101,7 @@ const bundleRows_beginner = ref([]);
 const bundleRows_veteran = ref([]);
 const prodRows = ref([]);
 const assRows = ref([]);
-const products = ref([]);
-
+const products = ref([]), accessories = ref([]) ,bundle_A = ref([]),bundle_B = ref([]);
 
 const getShopInfo = () =>{
   fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
@@ -69,13 +122,43 @@ const getShopInfo = () =>{
     })
     .then(output => {
       for(let i=0; i<output.prodRows.value.length; i++){
-        products.value[i] = {
+          products.value[i] = {
           id: output.prodRows.value[i].prd_no,
           title: output.prodRows.value[i].prd_name,
           Original_Price: output.prodRows.value[i].prd_price,
           Discount_Price: output.prodRows.value[i].prd_price*.8,
-          new: true,
-          sale: false,
+          src:output.prodRows.value[i].images,
+          sale: output.prodRows.value[i].sale,
+        }
+      };
+        for(let i=0; i<output.assRows.value.length; i++){
+          accessories.value[i] = {
+          id: output.assRows.value[i].prd_no,
+          title: output.assRows.value[i].prd_name,
+          Original_Price: output.assRows.value[i].prd_price,
+          Discount_Price: output.assRows.value[i].prd_price*.8,
+          src:output.assRows.value[i].images,
+          sale: output.assRows.value[i].sale,
+        };
+      }
+      for(let i=0; i<output.bundleRows_beginner.value.length; i++){
+          bundle_A.value[i] = {
+          id: output.bundleRows_beginner.value[i].prd_no,
+          title: output.bundleRows_beginner.value[i].prd_name,
+          Original_Price: output.bundleRows_beginner.value[i].prd_price,
+          Discount_Price: output.bundleRows_beginner.value[i].prd_price*.8,
+          src:output.bundleRows_beginner.value[i].images,
+          sale: output.bundleRows_beginner.value[i].sale,
+        };
+      }
+      for(let i=0; i<output.bundleRows_veteran.value.length; i++){
+          bundle_B.value[i] = {
+          id: output.bundleRows_veteran.value[i].prd_no,
+          title: output.bundleRows_veteran.value[i].prd_name,
+          Original_Price: output.bundleRows_veteran.value[i].prd_price,
+          Discount_Price: output.bundleRows_veteran.value[i].prd_price*.8,
+          src:output.bundleRows_veteran.value[i].images,
+          sale: output.bundleRows_veteran.value[i].sale,
         };
       }
     })
@@ -83,36 +166,30 @@ const getShopInfo = () =>{
 
 // fuselage searchBar
 const search = ref(""); 
-const source = ref([]);
-const source1 = ref([]);
-const productList = computed(()=>{
+// const source = ref([]);
+
+const prodFilter = computed(()=>{
   let cache = products.value;
     if(search.value != ""){
       cache = cache.filter(item=>item.title.toLowerCase().includes(search.value.toLowerCase()));
     }
     return cache;
 })
-const getSource = ()=>{
-  const result = JSON.stringify(products);
-  source.value = JSON.parse(result);
-}
-
 // accessories searchBar
-
-// const search1 = ref("");
-const productList_A = computed(()=>{
-  // let cache1 = products.value;
-  // if(search1.value != ""){
-  //     cache1 = cache1.filter(i=>i.title.toLowerCase().includes(search1.value.toLowerCase()));
-  // }
-  // return cache1;
+const source1 = ref([]);
+const search1 = ref("");
+const prodFilter_A = computed(()=>{
+  let cache1 = accessories.value;
+  if(search1.value != ""){
+      cache1 = cache1.filter(i=>i.title.toLowerCase().includes(search1.value.toLowerCase()));
+  }
+  return cache1;
 })
 const getSource1 = ()=>{
   const result1 = JSON.stringify(accessories);
   source1.value = JSON.parse(result1);
 }
 onMounted(()=>{
-  // getSource();
   getSource1();
   getShopInfo();
 });
@@ -122,50 +199,6 @@ const view = ref(1);
 const viewChange = (index) => {
   view.value = index;
 };
-// switch pic in products
-// 給初值 count
-const count = ref({
-  1: 0,
-  2: 0,
-  3: 0,
-  4: 0,
-  5: 0,
-  6: 0,
-  7: 0,
-  8: 0,
-  9: 0,
-  10: 0,
-  11: 0,
-  12: 0,
-  13: 0,
-  14: 0,
-  15: 0,
-});
-//左側按鈕
-const prevPic = (id) => {
-  if (count.value[id] > 0) {
-    count.value[id]--;
-  } else {
-    count.value[id] = 0;
-  }
-};
-//右側按鈕-機身
-const nextPic = (id) => {
-  if (count.value[id] < 2) {
-    count.value[id]++;
-  } else {
-    count.value[id] = 2;
-  }
-};
-//右側按鈕-零件
-const nextAsscPic = (id) => {
-  if (count.value[id] < 1) {
-    count.value[id]++;
-  } else {
-    count.value[id] = 1;
-  }
-};
-
 $(document).ready(() => {
   $(".show").click(() => {
     $(".category").css("display", "flex").slideDown();
@@ -181,9 +214,23 @@ $(document).ready(() => {
 });
 </script>
 
+
 <template>
   <navComponentsVue :shop="`#077AF9`" />
- 
+  <!-- modal -->
+  <div class="lightBox" v-if="lightBoxShow">
+      <div class="lightBoxContent">
+      <h2>Reminder!</h2>
+        <p>you already have customize products in cart.</p>
+        <p>Do you want your chosen product(s) replace them?</p>
+        <!-- v-if="removeItem" -->
+        <div class="buttons" > 
+          <button @click="clearSess">confirm</button>
+          <button @click="addCart">back cart</button>        
+        </div>
+        <div class="close" @click="lightBoxClose"></div>
+      </div>
+  </div>
   <!-- banner start-->
     <section class="banner">
       <h2>
@@ -297,37 +344,30 @@ $(document).ready(() => {
     </div>
     <div class="card_slider">
       <div class="card_slider_items">
-        <div v-for="prodRow in productList" class="card_slider_item" :key="prodRow.id">
-          <div v-if="prodRow.sale == true" class="sale"><span>Sale</span></div>
+        <div v-for="(prodRow,index) in prodFilter" class="card_slider_item" :key="index">
+          <div v-if="prodRow.sale == 1" class="sale"><span>Sale</span></div>
             <div class="product_box">
               <div class="img_box">
-                <!-- <button class="prev" id="prevBtn" @click="prevPic(prodRow.id)">
-                  ‹
-                </button> -->
-                <img :src="`/dist/assets/${prodRow.images}`" alt="product_img"/>
-                <!-- <button class="next" id="nextBtn" @click="nextPic(prodRow.id)">
-                  ›
-                </button> -->
+                <img :src="`/dist/assets/${prodRow.src}`" alt="product_img"/>
               </div>
               <div class="detail_box">
                 <h5 class="title">{{ prodRow.title}}</h5>
-                <p v-if="prodRow.sale == true" class="price discount">
-                  $USD{{prodRow.Discount_Price}}
+                <p v-if="prodRow.sale == 1" class="price discount">
+                  $USD{{prodRow.Original_Price *0.85}}
                 </p>
                 <p v-if="prodRow.sale == false" class="price">
                   $USD{{prodRow.Original_Price}}
                 </p>
                 <div class="buttons">
-                  <router-link
-                    class="anchors btnSecond"
-                    data-title="More"
-                    to="/shopInfo"
-                    ><span>More</span>
-                  </router-link>
+                  <input
+                    class="btn more"
+                    @click="moreProd(prodRow.id, products)"
+                    value="More"
+                  >
                   <input 
                     type="button"
                     class="btn"
-                    @click="addProd(prodRow.id)"
+                    @click="addProd(prodRow.id, products)"
                     value="Add"
                     >
                 </div>
@@ -348,38 +388,30 @@ $(document).ready(() => {
     </div>
     <div class="card_slider">
       <div class="card_slider_items">
-        <div v-for="assRow in assRows" class="card_slider_item" :key="assRow.pro_no">
-          <div v-if="assRow.sale == true" class="sale"><span>Sale</span></div>
+        <div v-for="assRow in prodFilter_A" class="card_slider_item" :key="assRow.id">
+          <div v-if="assRow.sale == 1" class="sale"><span>Sale</span></div>
           <div class="product_box">
             <div class="img_box">
-              <!-- <button class="prev" id="prevBtn" @click="prevPic(i.id)">
-                ‹
-              </button> -->
-              <img :src="`/dist/assets/${assRow.images}`" alt="product_img" />
-              <!-- <button class="next" id="nextBtn" @click="nextAsscPic(i.id)">
-                ›
-              </button> -->
+              <img :src="`/dist/assets/${assRow.src}`" alt="product_img" />
             </div>
             <div class="detail_box">
-              <h5 class="title">{{assRow.prd_name}}</h5>
+              <h5 class="title">{{assRow.title}}</h5>
               <p v-if="assRow.sale == true" class="price discount">
-                  $USD{{assRow.sale_price}}
+                  $USD{{assRow.Original_Price*0.85}}
                 </p>
               <p v-if="assRow.sale == false" class="price">
-                $USD{{assRow.prd_price}}
+                $USD{{assRow.Original_Price}}
               </p>
               <div class="buttons">
-                <router-link
-                  class="anchors btnSecond"
-                  data-title="More"
-                  to="/shopInfo"
-                  ><span>More</span>
-                </router-link>
+                <input
+                  class="btn more"
+                  value="More"
+                >
                 <input 
-                    type="button"
-                    class="btn"
-                    @click="addProd(prodRow.id)"
-                    value="Add"
+                  type="button"
+                  class="btn"
+                  @click="addProd(assRow.id, accessories)"
+                  value="Add"
                 >
               </div>
             </div>
@@ -402,53 +434,52 @@ $(document).ready(() => {
       <div class="card_container">
         <template v-if="view === 1">
           <div
-            v-for="bundleRow1 in bundleRows_beginner"
+            v-for="bundleRow1 in bundle_A"
             class="card"
-            :key="bundleRow1"
+            :key="bundleRow1.id"
             id="beginner"
           >
-          <div v-if="bundleRow1.sale_price != 0 " class="sale"><span>Sale</span></div>
+          <div v-if="bundleRow1.sale == true " class="sale"><span>Sale</span></div>
             <div class="pic">
-              <img :src="`/cgd103_g5_v2/src/assets/images/shop/${bundleRow1.images}`" alt="beginner" />
+              <img :src="`/dist/assets/${bundleRow1.src}`" alt="beginner" />
             </div>
             <h5>
-              <span>{{bundleRow1.prd_name}}</span>
+              <span>{{bundleRow1.title}}</span>
             </h5>
-            <p v-if="bundleRow1.sale_price == 0 " class="price">$USD{{bundleRow1.sale_price}}</p>
-             <p v-if="bundleRow1.sale_price != 0" class="price discount">$USD{{bundleRow1.prd_price }}</p>
+            <p v-if="bundleRow1.sale == false " class="price">$USD{{bundleRow1.Original_Price}}</p>
+            <p v-if="bundleRow1.sale == true" class="price discount">$USD{{bundleRow1.Original_Price*.8}}</p>
             
             <div class="buttons">
-              <router-link
-                class="anchors btnSecond"
-                data-title="More"
-                to="/shopInfo"
-                ><span>More</span></router-link
+              <input
+                type="button"
+                class="btn more"
+                value="More"
               >
               <input 
-                  type="button"
-                  class="btn"
-                  @click="addProd(prodRow.id)"
-                  value="Add"
+                type="button"
+                class="btn"
+                @click="addProd(bundleRow1.id, bundle_A)"
+                value="Add"
               >
             </div>
           </div>
         </template>
       <template v-else-if="view === 2">
           <div
-            v-for="bundleRow2 in bundleRows_veteran"
+            v-for="bundleRow2 in bundle_B"
             class="card"
-            :key="bundleRow2"
+            :key="bundleRow2.id"
             id="veteran"
           >
-          <div v-if="bundleRow2.sale_price != 0 " class="sale"><span>Sale</span></div>
+          <div v-if="bundleRow2.sale == true " class="sale"><span>Sale</span></div>
             <div class="pic">
-              <img :src="`/cgd103_g5_v2/src/assets/images/${bundleRow2.image}`" alt="veteran" />
+              <img :src="`/dist/assets/${bundleRow2.src}`" alt="veteran" />
             </div>
             <h5>
-              <span>{{bundleRow2.prd_name}}</span>
+              <span>{{bundleRow2.title}}</span>
             </h5>
-            <p v-if="bundleRow2.sale_price != 0" class="price discount">$USD{{bundleRow2.sale_price}}</p>
-            <p v-else-if="bundleRow2.sale_price == 0 " class="price">$USD{{bundleRow2.prd_price}}</p>
+            <p v-if="bundleRow2.sale == true" class="price discount">$USD{{bundleRow2.Original_Price*.8}}</p>
+            <p v-else-if="bundleRow2.sale == false " class="price">$USD{{bundleRow2.Original_Price}}</p>
             <div class="buttons">
               <router-link
                 class="anchors btnSecond"
@@ -481,6 +512,38 @@ $(document).ready(() => {
 
 <style scoped lang="scss">
 @import "@/sass/style.scss";
+@import '@/sass/component/_lightBox.scss';
+
+//modal
+.lightBox{
+  @include lightBox();
+  margin: auto;
+	.lightBoxContent{
+    padding: 10px;
+		height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p{
+      text-align: center;
+      line-height: 50px;
+    }
+    .buttons{
+      text-align: center;
+      button{
+        font: $caption-p;
+        width: 100px;
+        height: 40px;
+        margin: 20px;
+        border-radius: 10px;
+        padding: 0 5px;
+        border: none;
+      }
+    }
+	}
+}
+
 //banner
 .banner {
   width: 100%;
@@ -678,12 +741,24 @@ $(document).ready(() => {
   .btn{
     font-size: 20px;
     width: 100px;
-    height: 50px;
+    height: 40px;
     background-color: $blue;
     border-radius: 10px;
     margin: 10px;
     color: #fff;
     border: none;
+    &:hover{
+      background-color: lighten($blue,10%);
+    }
+  }
+  
+  .more{
+    background-color: transparent;
+    border: 1px solid $fff;
+    text-align: center;
+    &:hover{
+      background-color: darken($black,1%);
+    }
   }
 }
 //category
@@ -861,7 +936,7 @@ $(document).ready(() => {
           flex-direction: column;
           justify-content: center;
           .img_box {
-            max-width: 300px;
+            // max-width: 300px;
             height: 200px;
             display: flex;
             justify-content: center;

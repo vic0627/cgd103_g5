@@ -12,7 +12,7 @@
             xhr.onload = function(){
                 let member = JSON.parse(xhr.responseText);
                 console.log(member);
-                if(member.memId){//有帳密資料
+                if(member.Account){//有帳密資料
                     // $id("memName").innerText = member.memName;
                     // $id("spanLogin").innerText = "登出";          
                 }
@@ -46,7 +46,7 @@
             xhr.onload = function(){
                 let member = JSON.parse(xhr.responseText);
                 console.log(member);
-                if(member.memId){ //帳密正確
+                if(member.Account){ //帳密正確
                     //alert("帳密正確~");
                     // document.getElementById("memName").innerText = member.memName;
                     // document.getElementById("spanLogin").innerText = "登出";
@@ -126,20 +126,7 @@
     })
     
 
-    
-    function init(){
-    //===設定spanLogin.onclick 事件處理程序是 showLoginForm
-    // $id('spanLogin').onclick = showLoginForm;
 
-
-    //===設定btnLogin.onclick 事件處理程序是 sendForm
-    // $id('btnLogin').onclick = sendForm;
-
-    //===設定btnLoginCancel.onclick 事件處理程序是 cancelLogin
-    // $id('btnLoginCancel').onclick = cancelLogin;
-
-
-    }; //window.onload
 </script>
 
 <template>
