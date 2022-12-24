@@ -53,7 +53,10 @@ onUpdated(() => {
 let customMotorItem, customControllerItem;
 const motorModels = ref({}), controllerModels = ref({});
 const fetchCustom = () => {
-    fetch("http://localhost/cgd103_g5/public/g5PHP/getCustomizeItem.php")
+    fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+        method: "POST",
+        body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.customize" }),
+    })
         .then(res => res.json())
         .then(json => {
             customMotorItem = json.filter(i => String(i.prd_no).includes('1112111'));
@@ -81,7 +84,6 @@ const fetchCustom = () => {
                     kgmc: Number(output.customControllerItem[i].kgmc),
                 };
             }
-            log(controllerModels.value);
         })
 };
 const units = ref({

@@ -76,7 +76,7 @@ const backendCategory = ref({
         tab: "productCategoryManage",
       },
       f: {
-        cn: "客製化品項查詢",
+        cn: "客製化商品管理",
         tab: "customizeitem",
       },
     },
