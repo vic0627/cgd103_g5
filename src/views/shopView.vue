@@ -23,20 +23,20 @@ const set = (key, val) =>{
 const cacheId = ref('');
 //點擊add按鈕會啟動的func
 const addProd = (id, row) => {
-  // alert(id)
-  // alert(row)
     cacheId.value = id;
     let nid;
     if(row===accessories.value){
       nid = id - (products.value.length*2);
-    }else{
+      console.log("accessories's nid:",nid);
+    }else if(row===bundle_A.value ){
+      nid = id - (accessories.value.length*4) + 1;
+      console.log("bundle_A'nid:",nid);
+    }else if(row===bundle_B.value){
+      nid = id - (accessories.value.length*4) -2;
+      console.log("bundle_B's nid:",nid)
+    } else{
       nid = id - 1;
     }
-    // if(row===bundle_A.value){
-    //   nid = id - (accessories.value.length*2);
-    // }else{
-    //   nid = id - 1;
-    // }
   //存放點擊過的item的id
     if(sessionStorage['cartList'] == null){
       sessionStorage['cartList'] = '';
@@ -64,19 +64,30 @@ const moreProd = (id, row)=> {
     let nid;
     if(row===accessories.value){
       nid = id - (products.value.length*2);
-    }else{
+      console.log("accessories's nid:",nid);
+    }else if(row===bundle_A.value ){
+      nid = id - (accessories.value.length*4) + 1;
+      console.log("bundle_A'nid:",nid);
+    }else if(row===bundle_B.value){
+      nid = id - (accessories.value.length*4) -2;
+      console.log("bundle_B's nid:",nid)
+    } else{
       nid = id - 1;
     }
+   
   //設置一個sessionStorage 給 shopInfo
   if(sessionStorage['prodInfo'] == null){
     sessionStorage['prodInfo']='';
   }
-  set(id,`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
+  
+      set(id,`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
 
-  let getInfo = JSON.parse(sessionStorage.getItem(id));
-  sessionStorage['prodInfo'] +=`{"title":"${getInfo.title}","price":${getInfo.price},"images":"${getInfo.images}"},`;
-  //  跳轉頁面到產品資訊
-  router.push('/shopInfo');
+      let getInfo = JSON.parse(sessionStorage.getItem(id));
+      sessionStorage['prodInfo'] =`{"title":"${getInfo.title}","price":${getInfo.price},"images":"${getInfo.images}"},`;
+      //  跳轉頁面到產品資訊
+      router.push('/shopInfo');
+  
+  
 }
 
 //modal
@@ -406,6 +417,7 @@ $(document).ready(() => {
               <div class="buttons">
                 <input
                   class="btn more"
+                  @click="moreProd(assRow.id, accessories)"
                   value="More"
                 >
                 <input
@@ -455,6 +467,7 @@ $(document).ready(() => {
                 type="button"
                 class="btn more"
                 value="More"
+                @click="moreProd(bundleRow1.id, bundle_A)"
               >
               <input
                 type="button"
@@ -482,17 +495,17 @@ $(document).ready(() => {
             <p v-if="bundleRow2.sale == true" class="price discount">$USD{{bundleRow2.Original_Price*.8}}</p>
             <p v-else-if="bundleRow2.sale == false " class="price">$USD{{bundleRow2.Original_Price}}</p>
             <div class="buttons">
-              <router-link
-                class="anchors btnSecond"
-                data-title="More"
-                to="/shopInfo"
-                ><span>More</span></router-link
+              <input
+                type="button"
+                class="btn more"
+                value="More"
+                @click="moreProd(bundleRow2.id, bundle_B)"
               >
-              <router-link
-                class="anchor btnPrimary"
-                to="/cart"
-                data-title="Add"
-                ><span>Add</span></router-link
+              <input 
+                type="button"
+                class="btn"
+                @click="addProd(bundleRow2.id, bundle_B)"
+                value="Add"
               >
             </div>
           </div>
