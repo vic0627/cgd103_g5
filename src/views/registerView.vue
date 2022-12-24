@@ -307,12 +307,12 @@
                                 <option :value="i" v-for="i in city" :key="i">{{i}}</option>
                             </select> -->
                             <select v-model="state.frameworksIdx" class="input-s dd" >
-                                <option v-for="(item, index) in state.frameworks" :value="index">
+                                <option v-for="(item, index) in state.frameworks" :key="index">
                                     {{item.type}}
                                 </option>
                             </select>
                             <select v-model="state.contentsIdx" class="input-s cc">
-                                <option v-for="(item, index) in pickContents" :value="index">
+                                <option v-for="(item, index) in pickContents" :key="index">
                                     {{item.name}}
                                 </option>
                             </select>

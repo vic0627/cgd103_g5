@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from 'vue';
-import $ from 'jquery';
 import {bodyInit} from '@/composables/useOnunmounted';
+import { NAlert} from 'naive-ui';
+import axios from 'axios';
 bodyInit();
 const explode = ref('');
 const props = defineProps(['nextStep','step']);
@@ -22,7 +23,6 @@ const session = ()=> {
 onMounted(()=>{
     //mounted裡面不要使用const去做定義 有區域問題
     session();
-    // console.log(cartItem.value[0].id)
 })
 const storgeNull = reactive(sessionStorage.getItem('cartList'))
 let total = reactive(0);
@@ -30,9 +30,20 @@ let total = reactive(0);
 const sum = computed(()=>{
     let total = ref(0);
         for(const items in cartList.value){
-            console.log(items)
             // console.log(cartItem[items]['name'])
             total.value += cartList.value[items]['price']*cartList.value[items]['amount'];
+        }
+        return total
+})
+//總價判斷是否有折扣 有就乘折扣  沒有就不乘折扣
+const final = computed(()=>{
+    let total = ref(0);
+        for(const items in cartList.value){
+            if(discPercent.value != 0){
+                total.value += cartList.value[items]['price']*cartList.value[items]['amount']*discPercent.value;
+            }else{
+                total.value += cartList.value[items]['price']*cartList.value[items]['amount']
+            }
         }
         return total
 })
@@ -48,11 +59,23 @@ const reduceCount = (index) => {
 //刪除商品
 const cart = ref(false); 
 const Delete = (index)=> {
-    cartList.value.splice(index,1);
-    console.log(cartList.value[index].id)
-    sessionStorage.removeItem(`${cartList.value[index].id}`);
+    //抓到按刪除鍵的key就刪除session資訊
+    // for(const items in cartList.value){
+    //     sessionStorage.removeItem(cartList.value[items].id)
+    //     cartList.value.splice(index,1);
+    //     sessionStorage.removeItem('cartList')
+    //     break;
+    // }   
+    for(let i=0;i<cartList.value.length;i++){
+        sessionStorage.removeItem(cartList.value[i].id)
+        cartList.value.splice(index,1);
+        // sessionStorage.removeItem('cartList')
+        sessionStorage['cartList'] = sessionStorage['cartList'].replace(`${cartList.value[i].id},`,``)
+        break;
+    }
+    // sessionStorage['cartList'] = sessionStorage['cartList'].replace(`${cartList.value[index].id},`,``)
 }
-const num = reactive([]);
+//建議商品
 const suggest = reactive([
     {
         "title": "MAVIC PRO 1",
@@ -68,10 +91,37 @@ const suggest = reactive([
     },
 ])
 //discount 
+// const show = reactive(false)
 const discount = ref('');
-const sale = ()=> {
-    discount.value = '';
+const discPercent = ref('0');
+const discConfirm = () => {
+    for(let i=0;i<=discRows.value.length;i++){
+        console.log(discRows.value[i].disc_code)
+        if(discount.value === discRows.value[i].disc_code){
+            discPercent.value = discRows.value[i].disc_off;
+            discount.value = '';
+            alert('恭喜折價');
+            break;         
+        }else{
+            alert('you suck')
+            break;                    
+        }
+    } 
 }
+//取得資料庫資料
+const discRows = ref([]);
+    const getDisc = () => {
+    //取得商品資料
+    fetch("http://localhost/CGD103-G5/public/g5PHP/getDiscCart.php")
+    .then(res => res.json())
+    .then(json => {
+        discRows.value = json;
+    }
+    )
+}
+onMounted(()=>{
+    getDisc();
+})
 //抓session裡面的存放的商品放進購物車
 const getcartItem = (substrs)=>{
   for(let i=0;i<=substrs.length-1;i++){
@@ -118,10 +168,15 @@ const getcartItem = (substrs)=>{
                     </div>
                 </div>
             </div>
-            <div class="discount">
-                    <p>Discount code :</p>
-                    <input type="text" v-model="discount">
-                    <button class="discount-btn" @click="sale">Confirm</button>
+            <div class="discount"  v-if="storgeNull != null">
+                <p>Discount code :</p>
+                <input type="text" v-model="discount">
+                <button class="discount-btn" @click="discConfirm()">Confirm</button>
+                <!-- <div class="alert">
+                    <n-alert title="Success 类型" type="success">
+                        success
+                    </n-alert>
+                </div> -->
             </div>
         </div>
 
@@ -140,11 +195,11 @@ const getcartItem = (substrs)=>{
                 </div>
                 <div class="summaryPrice">
                     <p>Discount</p>
-                    <p>10%</p>
+                    <p>{{discPercent}}</p>
                 </div>
                 <div class="summaryPrice">
                     <p>Total Price</p>
-                    <p>${{sum}}</p>
+                    <p>${{final}}</p>
                 </div>
                 <div class="cartBtn">
                     <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shop">
@@ -202,6 +257,9 @@ section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+.alert {
+    width: 300px;
 }
 .empty {
     text-align: left;

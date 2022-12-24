@@ -17,7 +17,7 @@ $(".p-4").click(function(){
     $('.slide3').slideToggle(500);
 });
 //----------------------------
-let $body = $('.container'),
+let $body = $('body'),
 	$panel = $('.panel'),
 	$pContent = $('.panel__content'),
 	$img = $('.panel__img-col');

@@ -17,7 +17,7 @@ const prodInfo = ref([]);
 //setItem的func
 const set = (key, val) =>{
   sessionStorage.setItem(key, val);
-} 
+}
 
 
 const cacheId = ref('');
@@ -44,7 +44,7 @@ const addProd = (id, row) => {
     if(sessionStorage['cartList'].includes('111')){
     //跳彈窗
       lightBoxShow.value = true;
-    //sessionStorage沒有商品 
+    //sessionStorage沒有商品
     }
     //判斷商品是否被點擊過
     if(sessionStorage.getItem(id)){
@@ -75,7 +75,7 @@ const moreProd = (id, row)=> {
 
   let getInfo = JSON.parse(sessionStorage.getItem(id));
   sessionStorage['prodInfo'] +=`{"title":"${getInfo.title}","price":${getInfo.price},"images":"${getInfo.images}"},`;
-
+  //  跳轉頁面到產品資訊
   router.push('/shopInfo');
 }
 
@@ -91,7 +91,7 @@ const clearSess = ()=>{
     lightBoxClose();
 }
 const lightBoxClose = () => {
-	lightBoxShow.value = false;
+  lightBoxShow.value = false;
 };
 //modal預設false
 const lightBoxShow = ref(false);
@@ -166,7 +166,7 @@ const getShopInfo = () =>{
 }
 
 // fuselage searchBar
-const search = ref(""); 
+const search = ref("");
 // const source = ref([]);
 
 const prodFilter = computed(()=>{
@@ -225,7 +225,7 @@ $(document).ready(() => {
         <p>you already have customize products in cart.</p>
         <p>Do you want your chosen product(s) replace them?</p>
         <!-- v-if="removeItem" -->
-        <div class="buttons" > 
+        <div class="buttons" >
           <button @click="clearSess">confirm</button>
           <button @click="addCart">back cart</button>        
         </div>
@@ -236,7 +236,7 @@ $(document).ready(() => {
     <section class="banner">
       <h2>
         <span>NEW ARRIVAL</span><br />
-        <span>EFPV Mavic 3 Classic</span>
+        <span>BODY01BLACK</span>
       </h2>
       <div class="img_box">
         <img src="../assets/images/shop/new.jpg" alt="newProduct" />
@@ -365,7 +365,7 @@ $(document).ready(() => {
                     @click="moreProd(prodRow.id, products)"
                     value="More"
                   >
-                  <input 
+                  <input
                     type="button"
                     class="btn"
                     @click="addProd(prodRow.id, products)"
@@ -408,7 +408,7 @@ $(document).ready(() => {
                   class="btn more"
                   value="More"
                 >
-                <input 
+                <input
                   type="button"
                   class="btn"
                   @click="addProd(assRow.id, accessories)"
@@ -449,14 +449,14 @@ $(document).ready(() => {
             </h5>
             <p v-if="bundleRow1.sale == false " class="price">$USD{{bundleRow1.Original_Price}}</p>
             <p v-if="bundleRow1.sale == true" class="price discount">$USD{{bundleRow1.Original_Price*.8}}</p>
-            
+           
             <div class="buttons">
               <input
                 type="button"
                 class="btn more"
                 value="More"
               >
-              <input 
+              <input
                 type="button"
                 class="btn"
                 @click="addProd(bundleRow1.id, bundle_A)"
@@ -497,8 +497,8 @@ $(document).ready(() => {
             </div>
           </div>
         </template>
-      </div> 
-    </div> 
+      </div>
+    </div>
   </section>
 
   <!-- ad start-->
@@ -519,9 +519,9 @@ $(document).ready(() => {
 .lightBox{
   @include lightBox();
   margin: auto;
-	.lightBoxContent{
+  .lightBoxContent{
     padding: 10px;
-		height: 300px;
+    height: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -542,7 +542,7 @@ $(document).ready(() => {
         border: none;
       }
     }
-	}
+  }
 }
 
 //banner
@@ -572,7 +572,7 @@ $(document).ready(() => {
       max-width: 200px;
       color: #444;
       font-weight: normal;
-      
+     
       @include m($m-breakpoint) {
         color: $fff;
         font: $caption-m-h2;
@@ -701,7 +701,7 @@ $(document).ready(() => {
           text-shadow: 5px 5px  10px #f5f5f5;
         }
     }
-    
+   
     .p25 svg circle:nth-child(2){
       stroke-dashoffset:330;
       stroke: #03a9f4;
@@ -752,7 +752,7 @@ $(document).ready(() => {
       background-color: lighten($blue,10%);
     }
   }
-  
+ 
   .more{
     background-color: transparent;
     border: 1px solid $fff;
@@ -868,7 +868,7 @@ $(document).ready(() => {
     .card_slider_items {
       display: flex;
       align-items: center;
-      flex-wrap: wrap; 
+      flex-wrap: wrap;
       margin: 0 auto;
       @include m($m-breakpoint){
         width: 1023px;
@@ -1068,7 +1068,7 @@ $(document).ready(() => {
     .card_slider_items {
       display: flex;
       align-items: center;
-      flex-wrap: wrap; 
+      flex-wrap: wrap;
       margin: 0 auto;
       @include m($m-breakpoint){
         width: 1023px;
@@ -1274,7 +1274,7 @@ $(document).ready(() => {
     .card_container {
       display: flex;
       align-items: center;
-      flex-wrap: wrap; 
+      flex-wrap: wrap;
       margin: 0 auto;
       @include m($m-breakpoint){
         width: 1023px;

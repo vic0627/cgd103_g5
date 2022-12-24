@@ -66,10 +66,11 @@ const NmitemRows = ref([]);
         console.log(res.data)
         NmitemRows.value = res.data
       })
-		}
-	onMounted(()=>{
+}
+onMounted(()=>{
 		getNmOrder();
-  })
+})
+  
 </script>
 <template>
 <div class="top">
