@@ -1,5 +1,6 @@
 <script>
 import Chart from 'chart.js/auto';
+import { onMounted } from '@vue/runtime-core';
 export default{
   mounted(){
   const ctx = document.getElementById('myChart');
@@ -38,10 +39,47 @@ export default{
   }
 }
 </script>
+
+<script setup>
+import { ref, reactive} from 'vue';
+import axios from 'axios';
+
+const admins = ref("");
+const admin_name = ref('');
+const adminRows = ref([]);
+	const getAdmin = () => {
+	//取得管理員資料
+    axios.get("http://localhost/g5/public/g5PHP/getLogin.php")
+    .then(res=> {
+    // console.log(res.data)
+    adminRows.value = res.data;
+    // 董董教法
+    let admins = res.data;
+    console.log(admins[0])
+    let index = -1;
+    let adminObj = "";
+    adminObj = admins.find(function(admins,i){
+    index = i;
+    return admins.name == admin_name
+    })
+    // console.log(adminObj);
+    })
+}
+// const 
+onMounted(()=>{
+    getAdmin();
+});
+
+// console.log(admins);
+
+
+</script>
+
+
 <template>
 <div class="tops">
-  <h2>
-    <span id="admin_acc"></span>   <!-- 使用者姓名 -->
+  <h2 class="accinfo">
+    <span id="admin_name" class="admin_name">歡迎{{admins}}</span>   <!-- 使用者姓名 -->
     <outComponents />
   </h2>
   <div class="box">
@@ -141,8 +179,10 @@ export default{
 
 
 .tops {
-  width: 100%;
+  width: 85%;
   display: block;
+  overflow-y: auto;
+  height: 100%;
   overflow: auto;
 }
 h2 {
@@ -156,7 +196,7 @@ h2 {
   align-items: center;
 }
 .box{
-  width: 99%;
+  width: 100%;
   justify-content: center;
   .top_box{
     width: 95%;

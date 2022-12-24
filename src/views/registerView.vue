@@ -3,6 +3,8 @@
     import navComponentsVue from '@/components/navComponents.vue';
     import footerComponentsVue from '@/components/footerComponents.vue';
     // import { verify } from 'crypto';
+    import $ from 'jquery';
+    import axios from "axios";
     import {reactive,ref, onMounted,computed,watch} from "vue";
 
 
@@ -14,116 +16,6 @@
     //     }
     // }
 
-    onMounted(()=> {
-
-
-        function sendForm(){
-            if(!verifyuname() || !verifypsw1() || !verifypsw1()){
-                alert("check your enter");
-                return false;
-            }
-        }
-        document.getElementById('btnLogin').onclick = sendForm;
-
-        
-
-
-
-        //email verify
-        const uname=getQuery('#username');
-        uname.addEventListener('input',function(){verifyuname()});
-        function verifyuname(){
-            let regex_psw=/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-            
-            if(uname.value !=''){
-                if(regex_psw.test(uname.value) == false){
-                    getQuery('.unameinfo').textContent='Incorrect email address format';
-                    getQuery('.unameinfo').style['color']='red';
-                }else if(regex_psw.test(uname.value)){
-                    getQuery('.unameinfo').textContent='Good!';
-                    getQuery('.unameinfo').style['color']='lightgreen';
-                    return true;
-                }
-            }else{
-                getQuery('.unameinfo').textContent='';
-                getQuery('.unameinfo').style['color']='rgb(72, 72, 72)';
-            }
-            return false;
-            
-        }
-
-        //check if email has been used
-        uname.addEventListener('blur',()=>{
-            if(uname.value !=""){//有輸入資料時
-                checkId();
-            }else{
-                return false;
-            }
-
-        });
-        function checkId(){  
-            //產生XMLHttpRequest物件
-            let xhr = new XMLHttpRequest();
-            // alert("Hi")
-            //註冊callback function 
-            xhr.onload = function(){
-                // document.getElementById("idMsg").innerText = xhr.responseText;
-                alert(xhr.responseText);
-            }
-
-            //設定好所要連結的程式
-            xhr.open("post","/dist/g5PHP/ckeckMemId.php",true);
-            xhr.setRequestHeader("content-type","application/x-www-form-urlencoded");
-            //送出資料
-            let data_info = "username=" + document.getElementById("username").value;
-            xhr.send(data_info);
-        }//function_checkId 
-
-        //password verify
-        const psw=getQuery('#password');
-        psw.addEventListener('input',function() {verifypsw1()});
-        function verifypsw1(){
-            let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-            if(psw.value !=''){
-                if(regex_psw.test(psw.value) == false){
-                    getQuery('.pswinfo').textContent='Incorrect password format';
-                    getQuery('.pswinfo').style['color']='red';
-                }else if(regex_psw.test(psw.value)){
-                    getQuery('.pswinfo').textContent='Good!';
-                    getQuery('.pswinfo').style['color']='lightgreen';
-                    return true;
-                }
-            }else{
-                getQuery('.pswinfo').textContent='The password must be 8 characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.';
-                getQuery('.pswinfo').style['color']='#888';
-                getQuery('.pswinfo').style['font-size']='16px';
-            }
-            return false;
-        }
-        //password2 verify
-        const psw2=getQuery('#password2');
-        psw2.addEventListener('input',function(){verifypsw2()});
-        function verifypsw2(){
-            let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-            if(psw2.value !=''){
-                if(regex_psw.test(psw2.value) == false){
-                    getQuery('.pswinfo2').textContent='Incorrect password format';
-                    getQuery('.pswinfo2').style['color']='red';
-                }else if(regex_psw.test(psw2.value)&& psw.value !=psw2.value  ){
-                    getQuery('.pswinfo2').textContent='Correct password format,but confirmed password does not match the new password, please enter again!';
-                    getQuery('.pswinfo2').style['color']='orange';
-                }else if(regex_psw.test(psw2.value)&& psw.value ==psw2.value){
-                    getQuery('.pswinfo2').textContent='Good!';
-                    getQuery('.pswinfo2').style['color']='lightgreen';
-                    return true;
-                }
-            }else{
-                getQuery('.pswinfo2').textContent='';
-                getQuery('.pswinfo2').style['color']='rgb(72, 72, 72)';
-            }
-            return false;
-        }
-    })
 
     //address
     const state = reactive({
@@ -200,6 +92,159 @@
     });
 
 
+
+    const memberinfo =ref({
+        mem_acc : "",
+        mem_pw : "",
+        mem_first_name : "",
+        mem_last_name : "",
+        gender : "",
+        phone : "",
+        city : "",
+        address : "",
+    });
+
+
+
+    onMounted(()=> {
+
+
+        function sendForm(){
+            if(!verifyuname() || !verifypsw1() || !verifypsw2()){
+                alert("please chcek your Id or password");
+                // if(document.getElementById("username").value == ""){
+                //     $("#username").focus();
+                // }
+                return false;
+            }else{
+                // alert("要送出囉！");
+                checkId();
+            }
+
+
+            // if(document.getElementById("username").value = ""){
+            //     alert("go");
+            //         $("#username").focus();
+            // }
+        }
+        document.getElementById('btnLogin').onclick = sendForm;
+
+        
+
+
+
+        //email verify
+        const uname=getQuery('#username');
+        uname.addEventListener('input',function(){verifyuname()});
+        function verifyuname(){
+            let regex_psw=/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+            
+            if(uname.value !=''){
+                if(regex_psw.test(uname.value) == false){
+                    getQuery('.unameinfo').textContent='Incorrect email address format';
+                    getQuery('.unameinfo').style['color']='red';
+                }else if(regex_psw.test(uname.value)){
+                    getQuery('.unameinfo').textContent='Good!';
+                    getQuery('.unameinfo').style['color']='lightgreen';
+                    return true;
+                }
+            }else{
+                getQuery('.unameinfo').textContent='';
+                getQuery('.unameinfo').style['color']='rgb(72, 72, 72)';
+            }
+            return false;
+            
+        }
+
+        //check if email has been used
+        uname.addEventListener('blur',()=>{
+            if(uname.value !=""){//有輸入資料時
+                // checkId();
+            }else{
+                return false;
+            }
+
+        });
+
+        //帳號驗證
+        function checkId(){  
+            let formData = new FormData(); // 一開始表單的資料是空的
+            formData.append('mem_acc', memberinfo.value.mem_acc);
+            formData.append('mem_pw', memberinfo.value.mem_pw); 
+            formData.append('mem_first_name', memberinfo.value.mem_first_name); 
+            formData.append('mem_last_name', memberinfo.value.mem_last_name); 
+            formData.append('mem_gender', memberinfo.value.gender); 
+            formData.append('mem_email', memberinfo.value.mem_acc); 
+            formData.append('city', memberinfo.value.city); 
+            formData.append('address', memberinfo.value.address); 
+            formData.append('phone', memberinfo.value.phone); 
+            fetch('/dist/g5PHP/ckeckMemId.php',{
+                method: "post",
+                body: formData,
+            })
+            .then((res) => res.text())//php echo的內容
+            .then(text =>alert(text))
+            .catch(error =>console.log(error));
+
+        }//function_checkId 
+
+
+
+        //password verify
+        const psw=getQuery('#password');
+        psw.addEventListener('input',function() {verifypsw1()});
+        function verifypsw1(){
+            let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+            if(psw.value !=''){
+                if(regex_psw.test(psw.value) == false){
+                    getQuery('.pswinfo').textContent='Incorrect password format';
+                    getQuery('.pswinfo').style['color']='red';
+                }else if(regex_psw.test(psw.value)){
+                    getQuery('.pswinfo').textContent='Good!';
+                    getQuery('.pswinfo').style['color']='lightgreen';
+                    return true;
+                }
+            }else{
+                getQuery('.pswinfo').textContent='The password must be 8 characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.';
+                getQuery('.pswinfo').style['color']='#888';
+                getQuery('.pswinfo').style['font-size']='16px';
+            }
+            return false;
+        }
+        //password2 verify
+        const psw2=getQuery('#password2');
+        psw2.addEventListener('input',function(){verifypsw2()});
+        function verifypsw2(){
+            let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+            if(psw2.value !=''){
+                if(regex_psw.test(psw2.value) == false){
+                    getQuery('.pswinfo2').textContent='Incorrect password format';
+                    getQuery('.pswinfo2').style['color']='red';
+                }else if(regex_psw.test(psw2.value)&& psw.value !=psw2.value  ){
+                    getQuery('.pswinfo2').textContent='Correct password format,but confirmed password does not match the new password, please enter again!';
+                    getQuery('.pswinfo2').style['color']='orange';
+                }else if(regex_psw.test(psw2.value)&& psw.value ==psw2.value){
+                    getQuery('.pswinfo2').textContent='Good!';
+                    getQuery('.pswinfo2').style['color']='lightgreen';
+                    return true;
+                }
+            }else{
+                getQuery('.pswinfo2').textContent='';
+                getQuery('.pswinfo2').style['color']='rgb(72, 72, 72)';
+            }
+            return false;
+        }
+
+
+        let aaa = document.querySelector(".dd");
+        aaa.firstElementChild.setAttribute("disabled", "");
+        let cc = document.querySelector(".cc");
+        cc.firstElementChild.setAttribute("disabled", "");
+    })
+
+    
+
+
 </script>
 
 <template>
@@ -213,61 +258,68 @@
                     <router-link class="logo" to="/home"><img src="../assets/images/register/g5_logo_grey.png" alt=""></router-link>
                     <div class="login">
                         <h1>Create Your EFPV Account</h1>
-                        <form class="tab_panel">
+                        <form class="tab_panel" action="">
                             <label for="username">Email Address</label>
-                            <input type="text" class="input-s" name="username" id="username" maxlength="35" >
+                            <input type="text" class="input-s" name="username" id="username" maxlength="35" v-model="memberinfo.mem_acc">
                             <span class="unameinfo"></span>
-
+                            <!-- {{memberinfo.mem_acc}} -->
                             <label for="password">Password</label>
-                            <input type="password" class="input-s" name="password" id="password" maxlength="20" >
+                            <input type="password" class="input-s" name="password" id="password" maxlength="20" v-model="memberinfo.mem_pw">
                             <span class="pswinfo"></span>
+                            <!-- {{ memberinfo.mem_pw }} -->
                             
                             <label for="password2">Enter new password again</label> <!--Confirmed password does not match the new password, please enter again-->
-                            <input type="password" class="input-s" name="password" id="password2" maxlength="20" >
+                            <input type="password" class="input-s" name="password" id="password2" maxlength="20">
                             <span class="pswinfo2"></span>
 
 
                             <label for="uname">User name</label>
                             <div class="username">
-                                <input type="text" class="input-s" name="" id="uname" maxlength="15" placeholder="First Name" >
-                                <input type="text" class="input-s" name="" id="" maxlength="15" placeholder="Last Name" >
+                                <input type="text" class="input-s" name="" id="uname" maxlength="15" placeholder="First Name" v-model="memberinfo.mem_first_name">
+                                <input type="text" class="input-s" name="" id="uname2" maxlength="15" placeholder="Last Name" v-model="memberinfo.mem_last_name">
                             </div>
                             <span class=""></span>
+                            <!-- {{ memberinfo.mem_first_name }} -->
+                            <!-- {{ memberinfo.mem_last_name }} -->
 
 
                             <label for="">Gender</label>
                             <div class="gender">
-                                <input type="radio" name="Gender" id="male" checked>
+                                <input type="radio" name="Gender" id="male" value="1" v-model="memberinfo.gender">
                                 <label for="male">male</label>
-                                <input type="radio" name="Gender" id="female">
+                                <input type="radio" name="Gender" id="female" value="2" v-model="memberinfo.gender">
                                 <label for="female">female</label>
                             </div>
+                            <!-- {{ memberinfo.gender }} -->
 
 
-                            <label for="bday">Date of birth</label>
-                            <input type="date" class="input-s" name="" id="bday" value="2022-01-01">
+                            <!-- <label for="bday">Date of birth</label>
+                            <input type="date" class="input-s" name="" id="bday" value="2022-01-01"> -->
 
                             <label for="phone_no">Phone number</label>
-                            <input type="number" class="input-s" name="phone_no" id="phone_no" maxlength="15">
+                            <input type="number" class="input-s" name="phone_no" id="phone_no" maxlength="15" v-model="memberinfo.phone">
                             <span class=""></span>
+                            <!-- {{ memberinfo.phone }} -->
 
                             <label for="address">Address</label>
                             <!-- <select name="city" id="" class="input-s">
                                 <option>CHOOSE YOUR LOCATION</option>
                                 <option :value="i" v-for="i in city" :key="i">{{i}}</option>
                             </select> -->
-                            <select v-model="state.frameworksIdx" class="input-s">
-                                <option v-for="(item, index) in state.frameworks" :value="index">
+                            <select v-model="state.frameworksIdx" class="input-s dd" >
+                                <option v-for="(item, index) in state.frameworks" :key="index">
                                     {{item.type}}
                                 </option>
                             </select>
-                            <select v-model="state.contentsIdx" class="input-s">
-                                <option v-for="(item, index) in pickContents" :value="index">
+                            <select v-model="state.contentsIdx" class="input-s cc">
+                                <option v-for="(item, index) in pickContents" :key="index">
                                     {{item.name}}
                                 </option>
                             </select>
-                            <input type="text" class="input-s" name="" id="" maxlength="15">
+                            
+                            <input type="text" class="input-s" name="" id="" maxlength="15" v-model="memberinfo.address">
                             <span class=""></span>
+                            <!-- {{ memberinfo.address }} -->
 
 
 
@@ -277,8 +329,9 @@
                                 <!-- <a href="" class="forget_password">Forget Password?</a> -->
                             </div>
                             <div class="action">
-                                <!-- <button type="submit">Submit</button> -->
-                                <router-link to="/member"><input type="button" id="btnLogin" value="submit"></router-link>
+                                
+                                <!-- <input type="button" id="btnLogin" value="submit"> -->
+                                <router-link to="/signin"><input type="submit" id="btnLogin" value="submit"></router-link>
                                 <p>Already have an account?<router-link to="/signin">Log in now</router-link></p>
                             </div>
                         </form>
