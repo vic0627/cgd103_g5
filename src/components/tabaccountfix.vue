@@ -113,6 +113,7 @@ const updateAdmin = (user)=>{
     method: "POST",
     body: new URLSearchParams(newAdmin),
   }).then(res=>{
+    // console.log(newAdmin)
     res.json()
     //  console.log(res)
   }).then(res => {
@@ -152,12 +153,12 @@ const deleteAdmin = ()=>{
   </div>
   <form method="post" class="table">
     <n-data-table :columns="column" :data="adminRows" :pagination="pagination" :bordered="true" :single-line="false" />
+    
         <n-modal
           v-model:show="showModal"
           preset="dialog"
           title="確認"
-          content="你確定嗎?">
-            <!-- <input type="text" name="admin_no" placeholder="修改" v-model="newAdmin_no" disabled> -->
+          content="確認修改嗎?">
             <label for="admin_acc"> 修改帳號 : </label>
             <input type="text" name="admin_acc" v-model="newAdmin_acc">
             <n-button @click="showModal = true; updateAdmin(index)" type="error">
@@ -168,7 +169,7 @@ const deleteAdmin = ()=>{
                 v-model:show="showModal2"
                 preset="dialog"
                 title="確認"
-                content="你確定嗎?"
+                content="確認刪除嗎?"
               >
             <n-button @click="showModal2 = true; deleteAdmin()" type="error">
               刪除
