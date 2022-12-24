@@ -97,7 +97,7 @@ const getcartItem = (substrs)=>{
                 <div class="cartItem">
                     <div class="cartProduct">
                         <div class="cartProduct-pic">
-                            <img :src="item.image" alt="">
+                            <img :src="`/dist/assets/${item.images}`" alt="">
                         </div>
                         <div class="cartProduct-txt">
                             <h5>{{item.name}}</h5>

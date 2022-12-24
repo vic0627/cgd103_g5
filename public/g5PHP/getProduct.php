@@ -2,15 +2,9 @@
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
-<<<<<<< HEAD
 	require_once("./connect_cgd103g5_Lily.php");
 	$sql = "select * from tibamefe_cgd103g5.products p join tibamefe_cgd103g5.product_category c
 	on p.cat_no = c.cat_no";
-=======
-	// require_once("./connect_cgd103g5_Lily.php");
-	require_once("./connect_cgd103g5_felix.php");
-	$sql = "select * from tibamefe_cgd103g5.products";
->>>>>>> Felix
 	$prod = $pdo->prepare($sql);
 	$prod->execute();
 	$prodRows = $prod->fetchAll(PDO::FETCH_ASSOC);

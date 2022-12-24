@@ -31,7 +31,7 @@ onMounted(()=>{
                     </tr>
                     <tr>
                         <td class="title">Member Grade</td>
-                        <td colspan="3">{{memRow.mem-grade }}</td>
+                        <td colspan="3">{{memRow.mem-grade}}</td>
                     </tr>
                     <tr>
                         <td class="title">First Name</td>
