@@ -25,7 +25,7 @@ const cacheId = ref('');
 const addProd = (id, row) => {
   // alert(id)
   // alert(row)
-    cacheId.value = id; 
+    cacheId.value = id;
     let nid;
     if(row===accessories.value){
       nid = id - (products.value.length*2);
@@ -58,6 +58,7 @@ const addProd = (id, row) => {
     }
 };
 
+//點擊more時會set,get跟去購物車
 const moreProd = (id, row)=> {
     cacheId.value = id;
     let nid;
@@ -74,7 +75,7 @@ const moreProd = (id, row)=> {
 
   let getInfo = JSON.parse(sessionStorage.getItem(id));
   sessionStorage['prodInfo'] +=`{"title":"${getInfo.title}","price":${getInfo.price},"images":"${getInfo.images}"},`;
-
+  //  跳轉頁面到產品資訊
   router.push('/shopInfo');
 }
 
@@ -104,8 +105,8 @@ const assRows = ref([]);
 const products = ref([]), accessories = ref([]) ,bundle_A = ref([]),bundle_B = ref([]);
 
 const getShopInfo = () =>{
-  // fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
-  fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+  // fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
   // fetch("/dist/g5PHP/getShop.php")
     .then(res => res.json())
     .then(json => {
@@ -235,7 +236,7 @@ $(document).ready(() => {
     <section class="banner">
       <h2>
         <span>NEW ARRIVAL</span><br />
-        <span>EFPV Mavic 3 Classic</span>
+        <span>BODY01BLACK</span>
       </h2>
       <div class="img_box">
         <img src="../assets/images/shop/new.jpg" alt="newProduct" />

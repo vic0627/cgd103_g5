@@ -55,6 +55,13 @@ function fileChange(){
       image.style.maxWidth = '500px'
       image.style.maxHeight = '500px'
   })
+
+  const formData  = new FormData();
+  formData.append('image', file);
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/insertPhoto.php", {
+    method: 'POST',
+    body: formData,
+  });
 }
 </script>
 <template>
@@ -85,12 +92,12 @@ function fileChange(){
         <input  type="text" name = "color" placeholder="請輸入" v-model="color">
       </div>
     </form>
-      <!-- <div class="imgBox">
+      <div class="imgBox">
         <p>
           <img id="image">
         </p>
-      </div>  -->
-        <!-- <input type="file"  id="theFile" @change="fileChange"> -->
+      </div>  
+       <input type="file"  id="theFile"  @change="fileChange">
         <div class="btn">
           <input type="button" value="確定新增" id="conFirm" @click="addProduct()">
         </div>

@@ -2,8 +2,8 @@
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
-	require_once("./connect_cgd103g5.php");
-	$sql = "select * from tibamefe_cgd103g5.member where mem_no=1";
+	require_once("./connect_cgd103g5_Lily.php");
+	$sql = "select * from `member` m join `member_grade` g on m.mem-grade = g.mem-grade";
 	$mem = $pdo->prepare($sql);
 	$mem->execute();
 	$memRows = $mem->fetchAll(PDO::FETCH_ASSOC);

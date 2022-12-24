@@ -1,38 +1,41 @@
 <script setup>
-import { ref, onMounted, reactive } from "vue";
-import { log } from "../../composables/useCommon";
-import axios from "axios";
-import { zhTW, NPagination, NTable, NDataTable } from "naive-ui";
+import { ref, onMounted, reactive, computed } from 'vue';
+import { log } from '../../composables/useCommon';
+import axios from 'axios';
+import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
+
+
+
+
 
 // 抓後台管理帳密資料
 const admin_pw = ref("");
 const admin_acc = ref("");
 const adminRows = ref([]);
-const getAdmin = () => {
-  //取得管理員資料
-  axios.get("http://localhost/g5/public/g5PHP/getLogin.php").then((res) => {
-    console.log(res.data);
-    adminRows.value = res.data;
-  });
-};
-// const
-onMounted(() => {
-  getAdmin();
+	const getAdmin = () => {
+	//取得管理員資料
+    axios.get("http://localhost/g5/public/g5PHP/getLogin.php")
+    .then(res=> {
+    console.log(res.data)
+    adminRows.value = res.data
+    })
+}
+// const 
+onMounted(()=>{
+    getAdmin();
 });
 
 // 1.點登入辨認是否有這個帳號
 // 2.如果有就跳轉到後台首頁,沒有就彈窗錯誤
-const login = () => {
-  // console.log(adminRows.value[0].admin_acc)
-  if (
-    admin_acc.value === adminRows.value[0].admin_acc &&
-    admin_pw.value === adminRows.value[0].admin_pw
-  ) {
-    window.location.href = "http://localhost:5173/backend";
-  } else {
-    alert("帳密錯誤，請重新輸入");
-  }
-};
+const login =()=>{
+    // console.log(adminRows.value[0].admin_acc)
+    if(admin_acc.value === adminRows.value[0].admin_acc && admin_pw.value === adminRows.value[0].admin_pw){
+        window.location.href="http://localhost:5173/backend";
+    }else{
+        alert('帳密錯誤，請重新輸入');
+    }
+}
+
 
 // 帳號驗證
 onMounted(() => {
@@ -99,61 +102,34 @@ function shows() {
 <script></script>
 <!-- required  -->
 <template>
-  <div class="container">
-    <div class="box">
-      <form id="myForm">
-        <h2>後台登入</h2>
-        <div class="form-group">
-          <label for="admin_acc">管理員帳號</label>
-          <input
-            type="text"
-            id="admin_acc"
-            class="acc"
-            name="admin_acc"
-            maxlength="10"
-            minlength="3"
-            required
-            placeholder="請輸入3-10位含大小寫英數帳號"
-            v-model="admin_acc"
-          />
+   <div class="container">
+        <div class="box">
+            <form  id="myForm" >
+                <h2>後台登入</h2>
+                <div class="form-group">
+                    <label for="admin_acc">管理員帳號</label>
+                    <input type="text" id="admin_acc" class="acc" name="admin_acc"  maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數帳號" v-model="admin_acc">
+                </div>
+                <!-- pattern="[0-9a-fA-F]{3,10}" -->
+                <div class="form-group">
+                    <label for="admin_pw">管理員密碼</label>
+                    <input type="password" id="admin_pw" name="admin_pw" class="admin_pw" maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數密碼" v-model="admin_pw">
+                    <!-- <p class="mess"></p> -->
+                    <div class="down">
+                        <label class="in">
+                        <input type="checkbox" id="check" @click="shows()" class="pw"><span>顯示密碼</span>
+                        </label>
+                        <p class="message mess"></p>
+                    </div>
+                </div>
+                <button type="button" class="btn"  id="btnLogin" @click="login()">登入</button>
+            </form>
+            <div class="links">
+                <router-link to="/" class="leave link" >離開後台</router-link>
+                <router-link to="/home" class="home link" >前往首頁</router-link>
+            </div>
         </div>
-        <!-- pattern="[0-9a-fA-F]{3,10}" -->
-        <div class="form-group">
-          <label for="admin_pw">管理員密碼</label>
-          <input
-            type="password"
-            id="admin_pw"
-            name="admin_pw"
-            class="admin_pw"
-            maxlength="10"
-            minlength="3"
-            required
-            placeholder="請輸入3-10位含大小寫英數密碼"
-            v-model="admin_pw"
-          />
-          <!-- <p class="mess"></p> -->
-          <div class="down">
-            <label class="in">
-              <input
-                type="checkbox"
-                id="check"
-                @click="shows()"
-                class="pw"
-              /><span>顯示密碼</span>
-            </label>
-            <p class="message mess"></p>
-          </div>
-        </div>
-        <button type="button" class="btn" id="btnLogin" @click="login()">
-          登入
-        </button>
-      </form>
-      <div class="links">
-        <router-link to="/" class="leave link">離開後台</router-link>
-        <router-link to="/home" class="home link">前往首頁</router-link>
-      </div>
     </div>
-  </div>
 </template>
 <style lang="scss" scoped>
 .container {
