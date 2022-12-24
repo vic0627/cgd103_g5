@@ -5,44 +5,52 @@ import { log } from '@/composables/useCommon';
 
 const page = ref(2);
 const pageSize = ref(3);
-const createColumns = ({selectId}) => {
+const createColumns = () => {
   return [
     {
       title: '明細編號',
       key: 'item_no',
+      sorter: (a, b) => b.item_no - a.item_no,
     },
     {
       title: '訂單編號',
       key: 'orders_no',
+      defaultSortOrder: false,
+      sorter: (a, b) => b.orders_no - a.orders_no,
     },
     {
       title: '商品編號',
       key: 'products_no',
+      defaultSortOrder: false,
+      sorter: (a, b) => b.products_no - a.products_no,
     },
     {
       title: '數量',
       key: 'item_quantity',
+      defaultSortOrder: false,
+      sorter: (a, b) => b.item_quantity - a.item_quantity,
     },
     {
       title: '單價',
       key: 'item_price',
+      defaultSortOrder: false,
+      sorter: (a, b) => b.item_price - a.item_price,
     },
     {
       title: '折扣後價格',
       key: 'item_sub',
+      defaultSortOrder: false,
+      sorter: (a, b) => b.item_sub - a.item_sub,
     },
     {
       title: '折扣數',
       key: 'item_discount',
+      defaultSortOrder: false,
+      sorter: (a, b) => b.item_discount - a.item_discount,
     },
   ];
 };
-const column = createColumns({
-  selectId(rowData) {
-    showModal.value = true;
-    newStatus.value = row.orders_no;
-  }
-});
+const column = createColumns({});
 const pagination = reactive({
   page: 2,
   pageSize: 10,
@@ -56,7 +64,10 @@ const pagination = reactive({
 });
 const cmDetailsRows = ref([]);
 const fetchItem = () => {
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getCustomizeDetails.php")
+  fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+    method: "POST",
+    body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.cm_order_item" }),
+  })
   .then(res => res.json())
   .then(json => {
     cmDetailsRows.value = json;
@@ -115,6 +126,7 @@ const testVal = (e) => {
     <label for="search" class="label">
       <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
     </label>
+    <p>輸入"all"可查詢所有項目</p>
   </div>
   <div class="table">
     <n-data-table
@@ -151,7 +163,8 @@ h2 {
 .search_box{
   display: flex;
   justify-content: right;
-  margin: 30px 15px;
+  width: 85%;
+  margin: 30px auto;
   p{
     color: #000;
   }
