@@ -1,27 +1,30 @@
 <script setup>
-import { reactive, onMounted, ref } from "vue";
-onMounted(() => {
-  function doFirst() {
-    // 先跟 HTML 畫面產生關連，再建事件聆聽功能
-    document.getElementById("theFile").onchange = fileChange;
-  }
+import { ref } from "vue";
 
-  window.addEventListener("load", doFirst);
-});
-function fileChange() {
-  let file = document.getElementById("theFile").files[0];
-  console.log("input");
-  // ==========
-  let readFile = new FileReader();
-  readFile.readAsDataURL(file);
-
-  readFile.addEventListener("load", () => {
-    let image = document.getElementById("image");
-    image.src = readFile.result;
-    image.style.maxWidth = "500px";
-    image.style.maxHeight = "500px";
+// const no = ref("");
+const name = ref("");
+const start = ref("");
+const end = ref("");
+const aboard = ref("");
+const photo = ref("");
+const txt = ref("");
+const add = () => {
+  const payload = {
+    // cpt_no: name.value,
+    cpt_name: name.value,
+    cpt_start: start.value,
+    cpt_end: end.value,
+    cpt_aboard: aboard.value,
+    cpt_photo: photo.value,
+    cpt_txt: txt.value,
+  };
+  fetch("http://localhost/cgd103_g5/public/g5PHP/insertRace.php", {
+    method: "POST",
+    body: new URLSearchParams(payload),
+  }).then((res) => {
+    res.text();
   });
-}
+};
 </script>
 <template>
   <div class="top">
@@ -29,18 +32,82 @@ function fileChange() {
       賽事新增
       <outComponents />
     </h2>
-    <div class="box">
-      <div class="word">
-        <div class="title">
-          <h3>賽事編號</h3>
+    <form action="" method="post">
+      <div class="cpt">
+        <div class="name">
+          <h3>賽事名稱</h3>
           <input
             type="text"
-            name="tit"
-            id="tit"
-            placeholder="請輸入賽事編號"
+            name="cpt_name"
+            id="name"
+            placeholder="請輸入賽事名稱"
+            v-model="cpt_name"
             required
           />
         </div>
+
+        <div class="start">
+          <h3>開始日期</h3>
+          <input
+            type="date"
+            name="cpt_start"
+            id="start"
+            placeholder="請輸入開始日期"
+            v-model="cpt_start"
+            required
+          />
+        </div>
+
+        <div class="end">
+          <h3>結束日期</h3>
+          <input
+            type="date"
+            name="cpt_end"
+            id="end"
+            placeholder="請輸入結束日期"
+            v-model="cpt_end"
+            required
+          />
+        </div>
+
+        <div class="aboard">
+          <h3>地點</h3>
+          <input
+            type="text"
+            name="cpt_aboard"
+            id="aboard"
+            placeholder="請輸入地點"
+            v-model="cpt_aboard"
+            required
+          />
+        </div>
+
+        <div class="photo">
+          <h3>圖片</h3>
+          <p>
+            <img id="image" />
+          </p>
+          <input type="file" id="theFile" @change="fileChange" />
+        </div>
+
+        <div class="txt">
+          <h3>內容</h3>
+          <input
+            type="text"
+            name="cpt_txt"
+            id="txt"
+            placeholder="請輸入內容"
+            v-model="cpt_txt"
+            required
+          />
+        </div>
+      </div>
+    </form>
+    <div class="btn">
+      <button value="確定新增" id="conFirm" @click="add()">確定新增</button>
+    </div>
+    <!-- <div class="box">
+      <div class="word">
         <div class="title">
           <h3>賽事名稱</h3>
           <input
@@ -90,7 +157,7 @@ function fileChange() {
         </p>
         <input type="file" id="theFile" @change="fileChange" />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
 <style scoped lang="scss">
