@@ -58,6 +58,7 @@ const addProd = (id, row) => {
     }
 };
 
+//點擊more時會set,get跟去購物車
 const moreProd = (id, row)=> {
     cacheId.value = id;
     let nid;
