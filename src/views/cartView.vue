@@ -8,7 +8,32 @@ import Step1 from '@/components/step/Step1.vue';
 import Step2 from '@/components/step/Step2.vue';
 import Step3 from '@/components/step/Step3.vue';
 import {bodyInit} from '../composables/useOnunmounted';
+import router from '@/router';
+onMounted(() =>{
+  function getMemberInfoSS(){
+            let xhr = new XMLHttpRequest();
+            xhr.onload = function(){
+                let member = JSON.parse(xhr.responseText);
+                // console.log("SS:"+member);
+                if(member.Account){//有帳密資料
+                    // $id("memName").innerText = member.memName;
+                    // $id("spanLogin").innerText = "登出"; 
+                // meminfo.value = [member.memName,member.email];
+                // console.log(mem.value)         
+                }else{
+                  alert("Please log in before checkout!");
+                  // location.href="http://localhost:8888/dist/home";
+                  router.push('/signin');
+                }
+            }
+            xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
+            xhr.send(null);
+        }
+        
+  
+  getMemberInfoSS();
 
+})
 bodyInit();
 const step = ref(1);
 const prevStep = () => {
