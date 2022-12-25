@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref, defineComponent, h } from "vue";
+import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
 import {
   zhTW,
   NPagination,
@@ -102,10 +102,10 @@ const column = createColumns({
     newcpt_photo.value = raceRows.value[index].cpt_photo;
     newcpt_txt.value = raceRows.value[index].cpt_txt;
   },
-  // showmodal(rowData, index) {
-  //   showModal2.value = true;
-  //   newcpt_no.value = raceRows.value[index].cpt_no;
-  // },
+  showmodal(rowData, index) {
+    // showModal2.value = true;
+    newcpt_no.value = raceRows.value[index].cpt_no;
+  },
 });
 //分頁js
 const paginationReactive = reactive({
@@ -159,6 +159,40 @@ const updateRace = (user) => {
   getProducts();
 };
 
+// 搜尋
+
+const search = ref("");
+const returnRace = computed(() => {
+  let cache = raceRows.value;
+  if (search.value !== "") {
+    cache = cache.filter((i) =>
+      String(i[select[selectVal.value].val]).includes(search.value)
+    );
+    if (search.value == "All") {
+      cache = raceRows.value;
+    }
+  } else {
+    cache = [];
+  }
+  return cache;
+});
+const select = [
+  {
+    id: 0,
+    title: "賽事編號",
+    val: "cpt_no",
+  },
+  {
+    id: 1,
+    title: "賽事名稱",
+    val: "cpt_name",
+  },
+];
+const selectVal = ref("0");
+const testVal = (e) => {
+  selectVal.value = e.target.value;
+};
+
 // 刪除資料
 // const deleteRace = () => {
 //   const delRace = {
@@ -178,7 +212,27 @@ const updateRace = (user) => {
 <template>
   <div class="top">
     <h2>比賽列表<outComponents /></h2>
-    <div class="bigbox">
+
+    <div class="search_box">
+      <p>依</p>
+      <select name="searchMethods" id="searchMethods" @change="testVal">
+        <option v-for="i in select" :key="i.id" :value="i.id">
+          {{ i.title }}
+        </option>
+      </select>
+      <p>查詢</p>
+      <label for="search" class="label">
+        <input
+          type="search"
+          id="search"
+          name="search"
+          v-model="search"
+          :placeholder="`請輸入All或${select[selectVal].title}`"
+        />
+      </label>
+    </div>
+
+    <!-- <div class="bigbox">
       <div class="search_box">
         <label for="search" class="label"
           >查詢編號<input
@@ -193,13 +247,13 @@ const updateRace = (user) => {
           </button>
         </div>
       </div>
-    </div>
+    </div> -->
 
     <div class="tables" id="products" align="center">
       <form action="" method="post">
         <n-data-table
           :columns="column"
-          :data="raceRows"
+          :data="returnRace"
           :pagination="pagination"
           :bordered="true"
           :single-line="false"
@@ -299,6 +353,41 @@ const updateRace = (user) => {
 </template>
 <style scoped lang="scss">
 @import "@/sass/style.scss";
+
+.search_box {
+  display: flex;
+  justify-content: right;
+  margin: 30px 15px;
+  p {
+    color: #000;
+  }
+  label {
+    margin-right: 10px;
+    font-size: 20px;
+    color: rgb(26, 26, 26);
+    input {
+      margin-left: 10px;
+      height: 35px;
+      border: 1px solid rgb(124, 124, 124);
+      border-radius: 5px;
+      padding-left: 10px;
+      font-size: 18px;
+      &:focus {
+        color: #06519d;
+        border: 1px solid #1671cd;
+        outline: none;
+        &::placeholder {
+          opacity: 0;
+        }
+      }
+      &::placeholder {
+        padding-left: 5px;
+        color: rgba(181, 181, 181, 0.749);
+      }
+    }
+  }
+}
+
 textarea {
   margin-top: 10px;
 }
@@ -318,106 +407,12 @@ h2 {
   align-items: center;
 }
 
-.bigbox {
-  width: 97%;
-  margin: 15px auto;
-  display: flex;
-  justify-content: right;
-  .add {
-    width: 150px;
-    margin: 15px;
-    input {
-      width: 150px;
-      font-size: 20px;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      background: #597897;
-      cursor: pointer;
-      color: #fff;
-      transition: background 0.5s;
-      &:hover {
-        background: $blue;
-      }
-    }
-  }
-  .search_box {
-    display: flex;
-    // justify-content: right;
-    margin: 15px;
-    label {
-      margin-right: 10px;
-      font-size: 20px;
-      color: rgb(26, 26, 26);
-      input {
-        margin-left: 10px;
-        height: 35px;
-        border: 1px solid rgb(124, 124, 124);
-        border-radius: 5px;
-        padding-left: 10px;
-        font-size: 18px;
-        &:focus {
-          color: #06519d;
-          border: 1px solid #1671cd;
-          outline: none;
-          &::placeholder {
-            opacity: 0;
-          }
-        }
-        &::placeholder {
-          padding-left: 5px;
-          color: rgba(181, 181, 181, 0.749);
-        }
-      }
-    }
-    .btn {
-      button {
-        width: 50px;
-        text-align: center;
-        border: none;
-        background: #597897;
-        border-radius: 5px;
-        padding: 5px;
-        transition: background 0.5s;
-        cursor: pointer;
-        &:hover {
-          background: $blue;
-        }
-        img {
-          width: 20px;
-          height: 20px;
-          margin-top: 2px;
-        }
-      }
-    }
-  }
-}
-
 .tables {
-  width: 100%;
+  width: 95%;
   margin: auto;
-  table {
-    width: 95%;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 20px;
-    tr {
-      &:hover td {
-        background: rgba(89, 120, 151, 0.11);
-      }
-      th {
-        padding: 20px 10px;
-        background-color: #597897;
-        color: #fff;
-        border: 1px solid #ebebeb;
-        border-top: 1px solid #597897;
-      }
-      td {
-        border: 1px solid #ebebeb;
-        padding: 20px 10px;
-        overflow: hidden;
-      }
-    }
+  ::v-deep(n-data-table-td) {
+    border-bottom: 1 solid #111;
+    background-color: #222;
   }
 }
 

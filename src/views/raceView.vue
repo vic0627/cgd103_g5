@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, reactive, onUnmounted } from "vue";
+import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import point1 from "../assets/images/race/point1.jpg";
@@ -141,6 +141,37 @@ const race = ref({
     raceName: "Drone Race 12",
   },
 });
+
+const no = ref("");
+const name = ref("");
+const start = ref("");
+const end = ref("");
+const aboard = ref("");
+const photo = ref("");
+const txt = ref("");
+const newcpt_no = ref("");
+const newcpt_name = ref("");
+const newcpt_start = ref("");
+const newcpt_end = ref("");
+const newcpt_aboard = ref("");
+const newcpt_photo = ref("");
+const newcpt_txt = ref("");
+const showModal = ref(false);
+
+const props = defineProps(["tab"]);
+const raceRows = ref([]);
+const getProducts = () => {
+  //取得商品資料
+  fetch("http://localhost/cgd103_g5/public/g5PHP/getRace.php")
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json);
+      raceRows.value = json;
+    });
+};
+onMounted(() => {
+  getProducts();
+});
 </script>
 
 <template>
@@ -171,28 +202,27 @@ const race = ref({
 
     <div class="racegg">
       <div class="raceList">
-        <div :class="`raceBox  race${e.id}`" v-for="e in race" :key="e.id">
+        <div
+          :class="`raceBox  `"
+          v-for="(raceRow, index) in raceRows"
+          :key="index"
+        >
           <div class="top"></div>
-          <div
-            class="boxBgi_w"
-            :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9)),url(${
-              race[e.id].src
-            })`"
-          ></div>
+          <div class="boxBgi_w"></div>
 
           <div class="listWord">
             <div class="nation">
-              <span class="nation_t">{{ race[e.id].nation }}</span>
+              <span class="nation_t">{{ raceRow.cpt_aboard }}</span>
             </div>
             <div class="date">
-              <span class="span">{{ race[e.id].startDate }}</span>
+              <span class="span">{{ raceRow.cpt_start }}</span>
               <br />
               <span class="span">|</span>
               <br />
-              <span class="span">{{ race[e.id].endDate }}</span>
+              <span class="span">{{ raceRow.cpt_end }}</span>
             </div>
             <div class="competitionName">
-              <h4>{{ race[e.id].raceName }}</h4>
+              <h4>{{ raceRow.cpt_name }}</h4>
             </div>
             <div class="learn">
               <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
