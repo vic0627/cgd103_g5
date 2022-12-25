@@ -178,7 +178,7 @@
             formData.append('city', memberinfo.value.city); 
             formData.append('address', memberinfo.value.address); 
             formData.append('phone', memberinfo.value.phone); 
-            fetch('/dist/g5PHP/ckeckMemId.php',{
+            fetch('/dist/g5PHP/checkMemId.php',{
                 method: "post",
                 body: formData,
             })
