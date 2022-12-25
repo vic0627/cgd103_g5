@@ -1,16 +1,24 @@
 <?php 
- header('Access-Control-Allow-Origin:*');
- header("Content-Type:application/json;charset=utf-8");
-try {
-	require_once("./connect_cgd103g5_Lily.php");
-	$sql = "select * from `member` m join `member_grade` g on m.mem-grade = g.mem-grade = 1";
-	// $sql = "select * from `member`  where mem_no = 1";
-	$mem = $pdo->prepare($sql);
-	$mem->execute();
-	$memRows = $mem->fetchAll(PDO::FETCH_ASSOC);
-	echo json_encode($memRows);
-} catch (PDOException $e) {
-	$result = ["msg"=>"系統錯誤, 請通知系統維護人員"];
+session_start();//查看session
+header('Access-Control-Allow-Origin:*');
+header("Content-Type:application/json;charset=utf-8");
+try{
+    if( isset($_SESSION["Account"])==true){//session內有memId代表登入中
+        require_once("./connect_cgd103g5_Lily.php");
+        $sql = "select * from `member` as a  left join `member_grade` as b ON a.`mem_grade` = b.`grade_id` where mem_acc = ? ";
+        $member = $pdo->prepare($sql);
+        $member->bindValue(1, $_SESSION["Account"]);
+        $member->execute();
+        $memRow = $member->fetch(PDO::FETCH_ASSOC);
+        echo json_encode($memRow);//送出該會員的資料
+    }else{ //尚未登入
+        echo "{}";//回傳空字串，保持登出狀態
+    }
+}catch(PDOException $e){
+	$msg = "error_line: ".$e->getLine().", error_msg: ".$e->getMessage();
+  	$result=$msg;
 	echo json_encode($result);
 }
+
+
 ?>
