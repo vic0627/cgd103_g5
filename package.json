@@ -12,6 +12,7 @@
     "axios": "^1.2.1",
     "cannon-es": "^0.20.0",
     "chart.js": "^4.0.1",
+    "emailjs-com": "^3.2.0",
     "gsap": "^3.11.3",
     "jquery": "^3.6.1",
     "leaflet": "^1.9.3",
