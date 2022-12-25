@@ -72,9 +72,6 @@ onMounted(() => {
       xhr.open("get","/dist/g5PHP/memLogout.php",true);
       xhr.send(null);
     }
-
-    
-
     
 });
 const NavClass = defineProps({
@@ -102,7 +99,13 @@ const NavClass = defineProps({
     type: String,
     default: "",
   },
+  count:{
+    type:Number,
+    default: 1
+  }
 });
+// const props = defineProps(['count']);
+
 
 // :style="NavClass.className"
 </script>
@@ -129,7 +132,8 @@ const NavClass = defineProps({
             <li>
               <router-link to="/signin" class="shop"
                 ><img src="../assets/images/home/icon1.png" alt="member"
-              /></router-link>
+              />
+              </router-link>
             </li>
             <li>
               <router-link to="/cart" class="shop"
@@ -211,6 +215,8 @@ const NavClass = defineProps({
         <router-link to="/cart" class="shop"
           ><img src="../assets/images/home/icon2.png" alt="cart"
         /></router-link>
+        <router-link to="/cart" class="shop"
+          ><div>{{NavClass.count}}</div></router-link>
       </div>
     </div>
   </header>
