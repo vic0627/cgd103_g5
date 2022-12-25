@@ -1,18 +1,28 @@
 <script setup>
 import { ref, onMounted} from 'vue';
 import $ from 'jquery';
-onMounted(()=> {
 
+
+const memberinfo =ref({
+    mem_grade : "",
+    grade_name : "",
+    mem_discount : "",
+    mem_points : "",
+    upgrade_point : "",
+});
+
+onMounted(()=> {
     // on page load...
-    moveProgressBar();
+    // moveProgressBar();
     // on browser resize...
-    $(window).resize(function() {
-        moveProgressBar();
-    });
+    // moveProgressBar();
+    
     // SIGNATURE PROGRESS
     function moveProgressBar() {
-      console.log("moveProgressBar");
-        var getPercent = ($('.progress-wrap').data('progress-percent') / 1000);
+        console.log("moveProgressBar");
+        console.log("hihi"+memberinfo.value.mem_points+"and"+memberinfo.value.upgrade_point);
+        var getPercent = memberinfo.value.mem_points/memberinfo.value.upgrade_point;
+        // var getPercent = 0.1;
         var getProgressWrapWidth = $('.progress-wrap').width();
         var progressTotal = getPercent * getProgressWrapWidth;
         var animationLength = 1500;
@@ -23,9 +33,33 @@ onMounted(()=> {
             left: progressTotal
         }, animationLength);
     }
-});
 
-const point = ref(599);
+    
+    getMemLevel();
+    
+    function getMemLevel(){
+        fetch('/dist/g5PHP/getMemLevel.php',{
+                method: "get",
+            })
+            .then((res) => res.json())//php echo的內容
+            .then(mem =>{
+                console.log(mem);
+                memberinfo.value.mem_grade = mem.mem_grade;
+                memberinfo.value.grade_name = mem.grade_name;
+                memberinfo.value.mem_discount   =mem.mem_discount;
+                memberinfo.value.mem_points   =mem.mem_points;
+                memberinfo.value.upgrade_point  =mem.upgrade_point ;
+                moveProgressBar();
+
+                $(window).resize(function() {
+                    moveProgressBar();
+                });
+
+            })
+            .catch(error =>console.log(error));
+
+    }
+});
 
 
 
@@ -35,17 +69,24 @@ const point = ref(599);
 
 <template>
     <div class="memgrade">
-        <div class="level"><span>LEVEL</span></div>
-        <h6>Bronze Member</h6>
-        <p>Member Discount :<br> All products <span style="color: red">5%Off</span> </p>
+        <div class="level"><span>LEVEL {{memberinfo.mem_grade}}</span></div>
+        <h6>{{memberinfo.grade_name}} Member</h6>
+        <p>Member Discount :<br> All products <span style="color: red">{{100-(memberinfo.mem_discount*100)}}%Off</span> </p>
         <!-- <input type="text" class="pgg" v-model="percent"> -->
         <div class="pb">
-            <div class="progress-wrap progress" :data-progress-percent="point">
+            <!-- <div class="progress-wrap progress" :data-progress-percent="10"> -->
+            <div class="progress-wrap progress">
                 <div class="progress-bar progress"></div>
-                <span class="np">{{point}}/1000</span>
+                <div class="np">{{memberinfo.mem_points}}/{{memberinfo.upgrade_point}}</div>
             </div>
-            <div class="showper">
-                {{(point/10)}}% completed
+            <div class="showper" v-if="memberinfo.mem_points<10000">
+                {{((memberinfo.mem_points/memberinfo.upgrade_point)*100).toFixed(0)}}%
+            </div>
+            <div class="showper" v-else-if="memberinfo.mem_points>=10000">
+                MAX LEVEL
+            </div>
+            <div class="showper" v-else-if="memberinfo.mem_points='0'">
+                You Haven't Buy Anything~
             </div>
             
         </div>
@@ -91,6 +132,9 @@ const point = ref(599);
             // margin: 20px 0;
             overflow: hidden;
             position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             .progress-bar {
                 border-radius: 0;
                 background: #273747;
@@ -105,8 +149,8 @@ const point = ref(599);
         .np{
             font-size: 12px;
             line-height: 100%;
-            padding-left: 10px;
-            color: #333;
+            color: rgb(255, 255, 255);
+            z-index: 1;
         }
     }
 }
