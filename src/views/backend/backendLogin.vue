@@ -28,12 +28,21 @@ onMounted(()=>{
 // 1.點登入辨認是否有這個帳號
 // 2.如果有就跳轉到後台首頁,沒有就彈窗錯誤
 const login =()=>{
-    // console.log(adminRows.value[0].admin_acc)
-    if(admin_acc.value === adminRows.value[0].admin_acc && admin_pw.value === adminRows.value[0].admin_pw){
+  for(let i=0;i<=adminRows.value.length;i++){
+    if(admin_acc.value === adminRows.value[i].admin_acc && admin_pw.value === adminRows.value[i].admin_pw){
         window.location.href="http://localhost:5173/backend";
     }else{
-        alert('帳密錯誤，請重新輸入');
+      document.querySelector(".mess").textContent = "帳密錯誤";
+      document.querySelector(".mess").style["color"] = "red";
+
     }
+  }
+    // console.log(adminRows.value[0].admin_acc)
+    // if(admin_acc.value === adminRows.value[0].admin_acc && admin_pw.value === adminRows.value[0].admin_pw){
+    //     window.location.href="http://localhost:5173/backend";
+    // }else{
+    //     alert('帳密錯誤，請重新輸入');
+    // }
 }
 
 
