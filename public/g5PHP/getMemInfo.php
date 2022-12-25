@@ -3,7 +3,8 @@
  header("Content-Type:application/json;charset=utf-8");
 try {
 	require_once("./connect_cgd103g5_Lily.php");
-	$sql = "select * from `member` m join `member_grade` g on m.mem-grade = g.mem-grade";
+	$sql = "select * from `member` m join `member_grade` g on m.mem-grade = g.mem-grade = 1";
+	// $sql = "select * from `member`  where mem_no = 1";
 	$mem = $pdo->prepare($sql);
 	$mem->execute();
 	$memRows = $mem->fetchAll(PDO::FETCH_ASSOC);

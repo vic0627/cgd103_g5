@@ -101,7 +101,7 @@ const NavClass = defineProps({
   },
   count:{
     type:Number,
-    default: 1
+    default: 0
   }
 });
 // const props = defineProps(['count']);

@@ -7,19 +7,46 @@ bodyInit();
 
 const props = defineProps(['prevStep','nextStep','step']);
 const memRows = ref([]);
-const getMemberInfo = () =>{
-    //取得會員資料
-    let xhr = new XMLHttpRequest();
-    xhr.onload = function(){
-        if(xhr.status == 200){
-            memRows.value = JSON.parse(xhr.responseText);
-        }
-    }
-    xhr.open("get","/dist/g5PHP/getMemInfo.php",true);
-    xhr.send(null);
+// const getMemberInfo = () =>{
+//     //取得會員資料
+//     let xhr = new XMLHttpRequest();
+//     xhr.onload = function(){
+//         if(xhr.status == 200){
+//             memRows.value = JSON.parse(xhr.responseText);
+//         }
+//     }
+//     xhr.open("get","/dist/g5PHP/getMemInfo.php",true);
+//     xhr.send(null);
+// }
+
+const getMemberInfo = ()=>{
+    fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getMemInfo.php")
+   .then(res=>res.json())
+   .then(json => {
+        memRows.value = json;
+   })
 }
 onMounted(()=>{
     getMemberInfo();
+})
+
+const memInfo = ref("");
+onMounted(() =>{
+    function getMemberInfoSS(){
+              let xhr = new XMLHttpRequest();
+              xhr.onload = function(){
+                  let member = JSON.parse(xhr.responseText);
+                  if(member.Account){//有帳密資料
+                  memInfo.value = [member.FirstName,member.email];
+                  console.log(mem.value)         
+                  }
+              }
+              xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
+              xhr.send(null);
+          }
+    
+    getMemberInfoSS();
+
 })
 </script>
 <template>   
