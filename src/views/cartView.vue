@@ -29,8 +29,6 @@ onMounted(() =>{
             xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
             xhr.send(null);
         }
-        
-  
   getMemberInfoSS();
 
 })
