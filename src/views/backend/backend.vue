@@ -19,6 +19,7 @@ import tabcustomizationDetails from "@/components/tabcustomizationDetails.vue";
 import tabdiscount from "@/components/tabdiscount.vue";
 import tabdiscountadd from "@/components/tabdiscountadd.vue";
 import tabcustomizeitem from "@/components/tabcustomizeitem.vue";
+import tabmemmodify from "@/components/tabmemmodify.vue";
 export default {
   components: {
     tabhome,
@@ -41,6 +42,7 @@ export default {
     tabdiscount,
     tabdiscountadd,
     tabcustomizeitem,
+    tabmemmodify
   },
 };
 </script>
