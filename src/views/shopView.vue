@@ -27,24 +27,16 @@ const addProd = (id, row) => {
     let nid;
     if(row===accessories.value){
       nid = id - (products.value.length*2);
-      console.log("accessories's nid:",nid);
     }else if(row===bundle_A.value ){
       nid = id - (accessories.value.length*4) + 1;
-      console.log("bundle_A'nid:",nid);
     }else if(row===bundle_B.value){
       nid = id - (accessories.value.length*4) -2;
-      console.log("bundle_B's nid:",nid)
     } else{
       nid = id - 1;
     }
   //存放點擊過的item的id
     if(sessionStorage['cartList'] == null){
       sessionStorage['cartList'] = '';
-    }
-    if(sessionStorage['cartList'].includes('111')){
-    //跳彈窗
-      lightBoxShow.value = true;
-    //sessionStorage沒有商品
     }
     //判斷商品是否被點擊過
     if(sessionStorage.getItem(id)){
@@ -55,6 +47,12 @@ const addProd = (id, row) => {
       set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
       let get = JSON.parse(sessionStorage.getItem(id));
       sessionStorage['cartList'] += `${get.id},`;
+
+      if(sessionStorage['cartList'].includes('111')){
+    //跳彈窗
+      lightBoxShow.value = true;
+    //sessionStorage沒有商品
+    }
     }
 };
 
@@ -64,13 +62,10 @@ const moreProd = (id, row)=> {
     let nid;
     if(row===accessories.value){
       nid = id - (products.value.length*2);
-      console.log("accessories's nid:",nid);
     }else if(row===bundle_A.value ){
       nid = id - (accessories.value.length*4) + 1;
-      console.log("bundle_A'nid:",nid);
     }else if(row===bundle_B.value){
       nid = id - (accessories.value.length*4) -2;
-      console.log("bundle_B's nid:",nid)
     } else{
       nid = id - 1;
     }
@@ -86,8 +81,6 @@ const moreProd = (id, row)=> {
       sessionStorage['prodInfo'] =`{"title":"${getInfo.title}","price":${getInfo.price},"images":"${getInfo.images}"},`;
       //  跳轉頁面到產品資訊
       router.push('/shopInfo');
-  
-  
 }
 
 //modal
@@ -98,8 +91,8 @@ const addCart = () =>{
 //modal-btn 清空後再加上一般商品
 const clearSess = ()=>{
     sessionStorage.clear();
-    addProd(cacheId.value);
     lightBoxClose();
+    addProd(cacheId.value);
 }
 const lightBoxClose = () => {
   lightBoxShow.value = false;
@@ -224,11 +217,16 @@ $(document).ready(() => {
     $(".show").toggle();
   });
 });
+
+const count = ref(0);
+const addCartCount = ()=>{
+    count.value++;
+}
 </script>
 
 
 <template>
-  <navComponentsVue :shop="`#077AF9`" />
+  <navComponentsVue :shop="`#077AF9`" :count="count"/>
   <!-- modal -->
   <div class="lightBox" v-if="lightBoxShow">
       <div class="lightBoxContent">
@@ -379,7 +377,7 @@ $(document).ready(() => {
                   <input
                     type="button"
                     class="btn"
-                    @click="addProd(prodRow.id, products)"
+                    @click="addProd(prodRow.id, products),addCartCount()"
                     value="Add"
                     >
                 </div>
@@ -423,7 +421,7 @@ $(document).ready(() => {
                 <input
                   type="button"
                   class="btn"
-                  @click="addProd(assRow.id, accessories)"
+                  @click="addProd(assRow.id, accessories),addCartCount()"
                   value="Add"
                 >
               </div>
@@ -472,7 +470,7 @@ $(document).ready(() => {
               <input
                 type="button"
                 class="btn"
-                @click="addProd(bundleRow1.id, bundle_A)"
+                @click="addProd(bundleRow1.id, bundle_A),addCartCount()"
                 value="Add"
               >
             </div>
@@ -504,7 +502,7 @@ $(document).ready(() => {
               <input 
                 type="button"
                 class="btn"
-                @click="addProd(bundleRow2.id, bundle_B)"
+                @click="addProd(bundleRow2.id, bundle_B),addCartCount()"
                 value="Add"
               >
             </div>
@@ -532,6 +530,7 @@ $(document).ready(() => {
 .lightBox{
   @include lightBox();
   margin: auto;
+  z-index: 15;
   .lightBoxContent{
     padding: 10px;
     height: 300px;
