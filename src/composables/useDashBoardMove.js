@@ -18,8 +18,8 @@ export const overLoad = ref({
     5: false,
     6: false,
 });
+
 export const niddleSpin = (id, d, ratio) => {
-    
     deg.value[id] = d;
     let accdeg = d*ratio;
     if(deg.value[id] == "Infinity"){
@@ -32,8 +32,10 @@ export const niddleSpin = (id, d, ratio) => {
     })
     if(accdeg>=180){
         overLoad.value[id] = true;
+        $$(`.boardP${id}`).classList.add('warnP');
     }else{
         overLoad.value[id] = false;
+        $$(`.boardP${id}`).classList.remove('warnP');
     }
 }
 export const useDashBoardMove = (id ,ww, w) => {

@@ -53,6 +53,10 @@ export function sceneInit () {
     spotLight2.castShadow = true;
     scene.add(spotLight2);
 
+    directionalLight = new THREE.DirectionalLight(color1, 0);
+    directionalLight.castShadow = true;
+    scene.add(directionalLight);
+
     let light1 = new THREE.AmbientLight(0xffffff, .1);   
     scene.add(light1);   
 };
@@ -245,6 +249,7 @@ export function animation () {
     camera.updateProjectionMatrix();
     windowResize();
     controls.update();
+    directionalLight.position.set(camera.position.x, camera.position.y, camera.position.z);
 };
 
 function render () {

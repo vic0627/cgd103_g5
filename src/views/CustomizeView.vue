@@ -30,8 +30,7 @@ onBeforeUpdate(() => {
     gsap.to('.loadProgress', {
         width: CUS.modelLoading.value + '%',
         duration: .1,
-    })
-    niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
+    });
 });
 onUpdated(() => {
     if(CUS.modelLoading.value===0)$$('.loadBox').style.display = 'none';
@@ -357,6 +356,7 @@ const bodyChoose = (id, nid, src) => {
     bodyChosen.value.type = id;
     bodyChosen.value.color = nid;
     btnStatus.value = true;
+    niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
     $all('.colorControl').forEach(c => c.classList.remove('chosen'));
     $$(`.bodyControl${id}${nid}`).classList.add('chosen');
 };
@@ -379,6 +379,7 @@ const propellorChoose = (id, nid, src) => {
     propellorChosen.value.type = id;
     propellorChosen.value.color = nid;
     btnStatus.value = true;
+    niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
     $all('.colorControl').forEach(c => c.classList.remove('chosen'));
     $$(`.propellorControl${id}${nid}`).classList.add('chosen');
 };
@@ -609,21 +610,47 @@ const selectionAlpha = (e) => {
     });
     displayMode();
 };
+const displaySwitch = ref({
+    num: false,
+    digi: true,
+})
+const displayShow = ref(false);
 const displayMode = () => {
-    if(alpha.value<10){
+    if(alpha.value<5){
+        //displaySwitch.value.num = false;
+        //displaySwitch.value.digi = true;
+        displayShow.value = true;
+        $$('.customizeTitle').innerText = 'DISPLAY MODE';
+        $$('.customizeTitle').classList.add('displayTitle');
+        gsap.to('.customizeTitle', {
+            transform: 'skewX(-15deg)',
+            duration: .5,
+        })
+        gsap.to('.paths', {
+            opacity: 0,
+            duration: .5,
+        });
+        gsap.to('.displayControls', {
+            opacity: 1,
+            duration: .5,
+        });
         $$('.customizeControl').style.display = 'none';
         $$('#customize3d').width = getW('.mainCus')*2;
         gsap.to('#customize3d', {
             width: getW('.mainCus')*2,
             duration: .5,
         })
-        $$('#customize3d').height = 600;
+        $$('#customize3d').height = 650;
         gsap.to('#customize3d', {
-            height: 600,
+            height: 650,
             duration: .5,
         })
-        CUS.camera.aspect = getW('.mainCus')*2 / 600;
-        CUS.renderer.setSize(getW('.mainCus')*2, 600);
+        gsap.to('.boards', {
+            top: -60,
+            duration: .5,
+        })
+        CUS.camera.aspect = getW('.mainCus')*2 / 650;
+        CUS.renderer.setSize(getW('.mainCus')*2, 650);
         gsap.to('body', {
             background: '#000',
             duration: .5,
@@ -639,6 +666,8 @@ const displayMode = () => {
             })
         });
         $$('#customize3d').classList.remove('bg3d');
+        $$('.lightA').classList.add('skewX');
+        $$('.lightB').classList.add('skew-X');
         $all('.digiBoard').forEach(e => e.classList.add('skewX'));
         $all('.boardTitle').forEach(e => e.classList.add('skewX'));
         $all('.boardSpan').forEach(e => e.classList.add('skewX'));
@@ -670,6 +699,27 @@ const displayMode = () => {
             CUS.camera.aspect = 500 / 500;
             CUS.renderer.setSize(500, 500);
         };
+        //displaySwitch.value.num = true;
+        //displaySwitch.value.digi = false;
+        displayShow.value = false;
+        gsap.to('.boards', {
+            top: 0,
+            duration: .5,
+        })
+        $$('.customizeTitle').innerText = 'Custom';
+        $$('.customizeTitle').classList.remove('displayTitle');
+        gsap.to('.customizeTitle', {
+            transform: 'none',
+            duration: .5,
+        })
+        gsap.to('.paths', {
+            opacity: 1,
+            duration: .5,
+        });
+        gsap.to('.displayControls', {
+            opacity: 0,
+            duration: .5,
+        });
         gsap.to('.boards', {
             filter: 'blur(1px)',
             duration: .5
@@ -681,6 +731,8 @@ const displayMode = () => {
             })
         });
         $$('#customize3d').classList.add('bg3d');
+        $$('.lightA').classList.remove('skewX');
+        $$('.lightB').classList.remove('skew-X');
         $all('.digiBoard').forEach(e => e.classList.remove('skewX'));
         $all('.boardTitle').forEach(e => e.classList.remove('skewX'));
         $all('.boardSpan').forEach(e => e.classList.remove('skewX'));
@@ -691,6 +743,47 @@ const displayMode = () => {
         })
     }
 };
+const rtl = (e, text) => {
+    let tl = new gsap.timeline();
+    tl.to(e, {
+        borderRadius: 0,
+        duration: .25,
+    })
+    tl.to(e, {
+        width: 1,
+        duration: .25,
+    })
+    tl.to(e, {
+        innerText: text,
+        duration: 0,
+    })
+    tl.to(e, {
+        width: '10%',
+        duration: .25,
+    })
+    tl.to(e, {
+        borderRadius: '20px',
+        duration: .25,
+    })
+}
+const rotate = (e) => {
+    if(CUS.controls.autoRotate){
+        CUS.controls.autoRotate = false;
+        rtl(e.target, 'Rotate');
+    }else{
+        CUS.controls.autoRotate = true;
+        rtl(e.target, 'Pause');
+    }
+};
+const spot = (e) => {
+    let s = 3 - 3 / 100 * Number(e.target.value);
+    CUS.spotLight1.intensity = s;
+    CUS.spotLight2.intensity = s;
+};
+const direct = (e) => {
+    let d = 3 / 100 * Number(e.target.value);
+    CUS.directionalLight.intensity = d;
+};
 </script>
 
 <template>
@@ -700,19 +793,31 @@ const displayMode = () => {
             <div class="loadProgress"></div>
             <p class="loadNum">{{ CUS.modelLoading }}%</p>
         </div>
-        <h2 class="customizeTitle">Custom</h2>
+        <h2 class="customizeTitle" data-title="DISPLAY MODE">Custom</h2>
         <div class="secondTitle">
             <div class="paths">
                 <p>Select</p>
                 <p>{{ step[flow].text }}</p>
             </div>
             <div class="selectionAlpha">
-                <p>Selection Alpha</p>
+                <p>Alpha</p>
                 <input type="range" name="opacity" min="0" max="100" value="100" @input="selectionAlpha">
             </div>
         </div>
         <div class="mainCus">
+            <dashBoardGroupComponent class="boards" :toggle-board="toggleBoard" :display-switch="displaySwitch"/>
             <canvas id="customize3d" class="customize3d bg3d"></canvas>
+            <div class="displayControls" v-show="displayShow">
+                <label for="lightA" class="lightA">
+                    <p>Spot Light</p>
+                    <input type="range" name="lightA" min="0" max="100" value="0" @input="spot">
+                </label>
+                <p class="rotate" @click="rotate">Pause</p>
+                <label for="lightB" class="lightB">
+                    <p>Directional Light</p>
+                    <input type="range" name="lightB" min="0" max="100" value="0" @input="direct">
+                </label>
+            </div>
             <div class="customizeControl">
                 <div v-for="i in droneModels" :key="i.id" class="bodySelect selection" v-show="step[1].show">
                     <div class="itemInfo" @click="toggleColor(i.id)">
@@ -791,7 +896,7 @@ const displayMode = () => {
             <!-- <scroll-hint-component class="shc" v-if="lightBoxText.img.show"/> -->
 		</div>
     </div>
-    <dashBoardGroupComponent class="boards" :toggle-board="toggleBoard" />
+    
     <footer-component />
 </template>
 
@@ -805,6 +910,7 @@ const displayMode = () => {
 .mainCus{
     width: 100%;
     margin: 40px auto;
+    position: relative;
     @include s($s-breakpoint) {
         display: flex;
         flex-wrap: wrap;
@@ -814,6 +920,85 @@ const displayMode = () => {
         max-width: 1200px;
         align-items: center;
     }
+    .boards{
+        position: absolute;
+        top: 40px;
+        left: -354px;
+        z-index: 2;
+    @include s($s-breakpoint) {
+        left: -554px;
+    }
+    @include m($m-breakpoint) {
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        z-index: -1;
+    }
+}
+input[type="range"]{
+    cursor: pointer;
+}
+.displayControls{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    label{
+        display: flex;
+        width: 30%;
+        border-top: 2px solid $light-black;
+        p{
+            margin: 0 20px;
+        }
+    }
+    .rotate{
+        width: 10%;
+        cursor: pointer;
+        overflow: hidden;
+        color: #F25A2A;
+        text-shadow: 0 0 10px #F25A2A88;
+        border-radius: 20px;
+        text-align: center;
+        border-right: 2px solid #F25A2A;
+        border-left: 2px solid #F25A2A;
+    }
+    .lightA{
+        flex-direction: row-reverse;
+        justify-content: start;
+        border-right: 2px solid $light-black;
+        border-top-right-radius: 20px;
+        input[type="range"]::-webkit-slider-runnable-track{
+            background: linear-gradient(to right, #eee, transparent);
+        }
+    }
+    .lightB{
+        justify-content: end;
+        border-left: 2px solid $light-black;
+        border-top-left-radius: 20px;
+    }
+    input[type="range"]{
+        -webkit-appearance: none;
+        background: transparent;
+        margin: 0 10px;
+    }
+    input[type="range"]::-webkit-slider-thumb{
+        -webkit-appearance: none;
+        width: 3px;
+        height: 22px;
+        margin-top: -10px;
+        background: #F25A2A;
+        box-shadow: 0 0 10px 0 #F25A2A;
+    }
+    input[type="range"]::-webkit-slider-runnable-track{
+        -webkit-appearance: none;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to left, #eee, transparent);
+    }
+}
 }
 .customize3d{
     margin: 0 auto 20px;
@@ -897,21 +1082,7 @@ const displayMode = () => {
         width: 100%;
     }
 }
-.boards{
-    position: absolute;
-    top: 15%;
-    left: -354px;
-    z-index: 1;
-    @include s($s-breakpoint) {
-        left: -554px;
-    }
-    @include m($m-breakpoint) {
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        z-index: -1;
-    }
-}
+
 .customize{
     width: 100%;
     max-width: 1200px;
@@ -941,36 +1112,40 @@ const displayMode = () => {
         }
         .selectionAlpha{
             display: none;
-            margin-right: 80px;
-            border-top: 1px solid $light-black;
-            border-left: 1px solid $light-black;
+            border-top: 2px solid $light-black;
+            border-left: 2px solid $light-black;
             border-top-left-radius: 20px;
+            transform: skewX(-15deg);
+            
             @include m($m-breakpoint) {
                 display: flex;
             }
             p{
-                margin: 0 10px;
+                margin: 0 10px 0 20px;
             }
             input[type="range"]{
                 -webkit-appearance: none;
                 background: transparent;
                 margin: 0 10px;
+                cursor: pointer;
             }
             input[type="range"]::-webkit-slider-thumb{
                 -webkit-appearance: none;
                 width: 3px;
                 height: 22px;
-                background: $light-black;
                 margin-top: -10px;
+                background: #F25A2A;
+                box-shadow: 0 0 10px 0 #F25A2A;
             }
             input[type="range"]::-webkit-slider-runnable-track{
                 -webkit-appearance: none;
                 width: 100%;
                 height: 2px;
-                background: #eee;
+                background: linear-gradient(to left, #eee, transparent);
             }
         }
     }
+    
     .paths{
         display: flex;
         flex-wrap: nowrap;
@@ -994,7 +1169,54 @@ const displayMode = () => {
     50%{color: $purple;}
     100%{color: #eee;}
 }
-
+.displayTitle{
+    //text-shadow: 5px 0 0 #F25A2Aaa;
+    &::after, &::before{
+        content: attr(data-title);
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        text-shadow: none;
+    }
+    &::before{
+        color: #F25A2A66;
+        animation: left10 .5s .5s linear forwards;
+    }
+    &::after{
+        color: #F25A2Aaa;
+        animation: left5 .5s .5s linear forwards;
+    }
+}
+@keyframes left5 {
+    0%{left: 0px}
+    100%{left: 5px}
+}
+@keyframes left10 {
+    0%{left: 0px}
+    100%{left: 10px}
+}
+@keyframes skewX {
+    0%{transform: none;}
+    100%{transform: perspective(500px) skewX(15deg) rotateY(10deg);}
+}
+@keyframes skew-X {
+    0%{transform: none;}
+    100%{transform: perspective(500px) skewX(-15deg) rotateY(-10deg);}
+}
+.skewX{
+    animation: skewX .5s .5s linear forwards;
+}
+.skew-X{
+    animation: skew-X .5s .5s linear forwards;
+}
+@keyframes op {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}
+.op{
+    animation: op .5s linear forwards;
+}
 .customizeControl{
     box-sizing: border-box;
     padding: 30px 0;

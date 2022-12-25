@@ -62,7 +62,7 @@ const scaleSum = () => {
     }
 };
 
-const props = defineProps(["units"]);
+const props = defineProps(["units", "displaySwitch"]);
 </script>
 <template>
     <div :class="`dashBoard dashBoard${props.units.id}`">
@@ -78,8 +78,8 @@ const props = defineProps(["units"]);
         </div>
         <div class="board">
             <h5 :class="`boardTitle boardTitle${props.units.id}`">{{ props.units.title }}</h5>
-            <!-- <p :class="`boardP boardP${props.units.id}`">{{ deg[props.units.id] }}</p> -->
-            <div class="digiBoard">
+            <p :class="`boardP boardP${props.units.id}`" v-show="props.displaySwitch.num">{{ deg[props.units.id] }}</p>
+            <div class="digiBoard" v-show="props.displaySwitch.digi">
                 <digi-num-component-Vue :num="String(deg[props.units.id])" :id="props.units.id+'0'" :uid="props.units.id"/>
                 <digi-num-component-Vue :num="String(deg[props.units.id])" :id="props.units.id+'1'" :uid="props.units.id"/>
                 <digi-num-component-Vue :num="String(deg[props.units.id])" :id="props.units.id+'2'" :uid="props.units.id"/>
@@ -99,6 +99,14 @@ const props = defineProps(["units"]);
     transform: skewX(-15deg);
     font-style: italic;
     transition: all .5s;
+}
+.warnP{
+    animation: warnP .6s ease-out infinite;
+}
+@keyframes warnP {
+    0%{color: #fff;}
+    50%{color: #f00;}
+    100%{color: #fff;}
 }
 .dashBoard{
     width: 150px;
