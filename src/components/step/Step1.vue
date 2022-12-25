@@ -133,6 +133,7 @@ const getcartItem = (substrs)=>{
     // explode.value += sessionStorage.getItem('i')
   }
 }
+
 </script>
 <template>
     <section>
