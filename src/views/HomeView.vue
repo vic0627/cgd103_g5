@@ -37,7 +37,31 @@ const raceContent = reactive([
 ]);
 const view = ref(1);
 const changeView = (index) => {
-    view.value = index
+    view.value = index;
+    let btn = document.querySelectorAll('.raceChange')
+    let point = document.querySelectorAll('.raceChange p')
+    if(index === 1){
+      $(point[index-1]).css("color","#077AF9");
+      $(point[1]).css("color","#eeeeee");
+      $(point[2]).css("color","#eeeeee");
+      $(btn[index-1]).css("border-bottom","3px solid #077AF9");
+      $(btn[1]).css("border-bottom","3px solid #8a8a8a");
+      $(btn[2]).css("border-bottom","3px solid #8a8a8a");
+    }else if(index === 2){
+      $(point[index-1]).css("color","#077AF9");
+      $(point[0]).css("color","#eeeeee");
+      $(point[2]).css("color","#eeeeee");
+      $(btn[index-1]).css("border-bottom","3px solid #077AF9");
+      $(btn[0]).css("border-bottom","3px solid #8a8a8a");
+      $(btn[2]).css("border-bottom","3px solid #8a8a8a");
+    }else if(index === 3){
+      $(point[index-1]).css("color","#077AF9");
+      $(point[0]).css("color","#eeeeee");
+      $(point[1]).css("color","#eeeeee");
+      $(btn[index-1]).css("border-bottom","3px solid #077AF9");
+      $(btn[0]).css("border-bottom","3px solid #8a8a8a");
+      $(btn[1]).css("border-bottom","3px solid #8a8a8a");
+    }
 }
 const isOpen = ref(true)
 </script>
@@ -45,31 +69,13 @@ const isOpen = ref(true)
 <template>
     <navComponentsVue :className="blue"/>
     <home />
-    <!-- <div class="home1">
-        <h2>Mavic 2 Zoom</h2>
-        <p>24~28 mm Optical Zoom Camers Ulitimate Flexibility</p>
-        <div class="home1-btn">
-            <router-link to="/showcase" class="btnFirst" id="btn1" data-title="Learn">
-            <span>Learn</span></router-link>
-            <router-link to="/shopInfo" class="btnSecond" id="btn2" data-title="Buy now">
-            <span>Buy now</span></router-link>
-        </div>
-        <div id="scene">
-            <div class="drone layer" data-depth="0.1" data-relativeInput="false" data-clipRelativeInput="true">
-                <img src="../assets/images/home/fly2.png" alt="">
-            </div>
-        </div>
-        <div class="scroll">
-            <p>Scroll down</p>
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" style="fill: rgba(238, 238, 238, 1);transform: ;msFilter:;"><path d="M11.975 22H12c3.859 0 7-3.14 7-7V9c0-3.841-3.127-6.974-6.981-7h-.06C8.119 2.022 5 5.157 5 9v6c0 3.86 3.129 7 6.975 7zM7 9a5.007 5.007 0 0 1 4.985-5C14.75 4.006 17 6.249 17 9v6c0 2.757-2.243 5-5 5h-.025C9.186 20 7 17.804 7 15V9z"></path><path d="M11 6h2v6h-2z"></path></svg>
-        </div>
-    </div> -->
 <svglineComponentsVue :class="{svgWidth : isOpen}"/>
 <svgComponents1Vue />
     <section class="sect1">
         <div class="home-custom">
             <div class="custom-pic">
-                <img src="../assets/images/home/customize.jpeg" alt="customize">
+                <!-- <img src="../assets/images/home/customize.jpeg" alt="customize"> -->
+                <img src="/public/dist/assests/home/customize.jpeg" alt="customize">
             </div>
             <div class="custom-txt">
                 <div class="homeCustom">
@@ -78,17 +84,20 @@ const isOpen = ref(true)
                 </div>
                 <div class="custIcon">
                     <div class="custIcon-wrap">
-                        <img src="@/assets/images/home/cusIcon1.png" alt="">
+                        <!-- <img src="@/assets/images/home/cusIcon1.png" alt=""> -->
+                        <img src="/public/dist/assests/home/cusIcon1.png" alt="icon1">
                         <p>Speed destroy personal</p>
                         <p>King is come back</p>
                     </div>
                     <div class="custIcon-wrap">
-                        <img src="@/assets/images/home/cusIcon2.png" alt="">
+                        <!-- <img src="@/assets/images/home/cusIcon2.png" alt=""> -->
+                        <img src="/public/dist/assests/home/cusIcon2.png" alt="icon2">
                         <p>Speed destroy personal</p>
                         <p>King is come back</p>
                     </div>
                     <div class="custIcon-wrap">  
-                        <img src="@/assets/images/home/cusIcon3.png" alt="">
+                        <!-- <img src="@/assets/images/home/cusIcon3.png" alt=""> -->
+                        <img src="/public/dist/assests/home/cusIcon3.png" alt="icon3">
                         <p>Speed destroy personal</p>
                         <p>King is come back</p>
                     </div>
@@ -115,7 +124,8 @@ const isOpen = ref(true)
                 <div class="homeAccWrap1">
                     <div class="mainAcc">
                         <div class="homeAccWrap1-pic">
-                            <img src="../assets/images/home/body_03_black_1.png" alt="">
+                            <!-- <img src="../assets/images/home/body_03_black_1.png" alt=""> -->
+                            <img src="/public/dist/assests/home/body_03_black_1.png" alt="body">
                         </div>
                         <div class="homeAccWrap1-txt">
                             <h5>Stay Flying Longer-Up to 60mins</h5>
@@ -136,7 +146,8 @@ const isOpen = ref(true)
                 <div class="homeAccWrap2">
                      <div class="accSection">
                         <div class="homeAccWrap2-pic">
-                            <img src="../assets/images/home/propellor_02_black_1.png" alt="">
+                            <!-- <img src="../assets/images/home/propellor_02_black_1.png" alt=""> -->
+                            <img src="/public/dist/assests/home/propellor_02_black_1.png" alt="propellor">
                         </div>
                         <div class="homeAccWrap2-txt">
                             <h6>Drone Remote controller</h6>
@@ -154,7 +165,8 @@ const isOpen = ref(true)
                 <div class="homeAccWrap2">
                     <div class="accSection">
                         <div class="homeAccWrap2-pic">
-                            <img src="../assets/images/home/body_01_blue_1.png" alt="">
+                            <!-- <img src="../assets/images/home/body_01_blue_1.png" alt=""> -->
+                            <img src="/public/dist/assests/home/body_01_blue_1.png" alt="body2">
                         </div>
                         <div class="homeAccWrap2-txt">
                             <h6>Drone Remote controller</h6>
@@ -170,41 +182,7 @@ const isOpen = ref(true)
     </section>
 <!-- <svglineComponentsVue :line2="2"/> -->
 <!-- <svgComponents1Vue :circle2="2"/> -->
-    <!-- <section class="aboutSection">
-        <div class="homeAbout">
-            <h2>ABOUT US</h2>
-            <div class="about-pic">
-                <img src="../assets/images/home/g5_logo_grey.png" alt="">
-            </div>
-            <div class="about-txt">
-                <h3>RACING AND FREESTYLE</h3>
-                <p>We are highly motivated to present GOOD SLEEP to as many people aspossible. Our task is not just selling pillows.We are fully committed to provide fulfilling sleep. Good sleep bringshappiness, energy, and smiles. It is a simple fact.</p>
-            </div>
-            <div class="aboutBtn">
-                <router-link to="/about" class="btnFirst" id="btn1" data-title="Learn">
-                    <span>Learn</span>
-                </router-link>
-            </div>
-        </div>
-    </section> -->
     <about />
-    <!-- <section>
-        <div class="homeGame">
-            <div class="homeGame-txt">
-                <h2>GAME</h2>
-                <h6>RACING AND FREESTYLE</h6>
-                <div class="gameBtn">
-                    <router-link to="/game" class="btnFirst" id="btn1" data-title="Learn">
-                        <span>Learn</span>
-                    </router-link>
-                </div>
-            </div>
-            <video autoplay="" muted="" loop="" playsinline="">
-                <source src="@/assets/video/home/banner.mp4" type="video/mp4">
-            </video>
-        </div>
-    </section> -->
-
     <section class="contest sect3">
         <div class="contestTitle">
             <h2>RACE</h2>
@@ -213,7 +191,8 @@ const isOpen = ref(true)
             <transition name="tad" mode="out-in">
                 <div class="homeContest" v-if="view === 1">
                     <div class="homeContest-pic">
-                        <img src="@/assets/images/home/contest.png" alt="">
+                        <!-- <img src="@/assets/images/home/contest.png" alt=""> -->
+                        <img src="/public/dist/assests/home/contest.png" alt="contest1">
                     </div>
                     <div class="homeContest-txt">
                         <div class="contest-vue">
@@ -227,7 +206,8 @@ const isOpen = ref(true)
                 </div>
                 <div class="homeContest" v-else-if="view === 2">
                     <div class="homeContest-pic">
-                        <img src="/images/about/img_06.jpg" alt="">
+                        <!-- <img src="/images/about/img_06.jpg" alt=""> -->
+                        <img src="/public/dist/assests/home/race_01.jpg" alt="race2">
                     </div>
                     <div class="homeContest-txt">
                         <div class="contest-vue">
@@ -241,7 +221,8 @@ const isOpen = ref(true)
                 </div>
                 <div class="homeContest" v-else-if="view === 3">
                     <div class="homeContest-pic">
-                        <img src="/images/about/img_07.jpg" alt="">
+                        <!-- <img src="/images/about/img_07.jpg" alt=""> -->
+                        <img src="/public/dist/assests/home/race_02.jpg" alt="race3">
                     </div>
                     <div class="homeContest-txt">
                         <div class="contest-vue">
@@ -271,7 +252,7 @@ const isOpen = ref(true)
 @import '@/sass/style.scss';
 @import '@/css/reset.css';
 .sect1 {
-    background-image: url('../assets/images/home/2.png');
+    background-image: url('/public/dist/assests/home/2.png');
     background-size: 60%;
     background-position: 70% top;
     background-repeat: no-repeat;
@@ -283,12 +264,12 @@ const isOpen = ref(true)
         }
     }
     .home-custom{  
-        align-items: flex-end;
+        align-items: center;
     }
 }
 .sect2 {
     padding: 50px 0 100px;
-    background-image: url('../assets/images/home/5.png'),url('../assets/images/home/3.png');
+    background-image: url('/public/dist/assests/home/5.png'),url('/public/dist/assests/home/5.png');
     background-size: 80% , 40%;
     background-position: 100% 5%,85% 97%;
     background-repeat: no-repeat, no-repeat;
@@ -311,7 +292,7 @@ const isOpen = ref(true)
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
-    background-image: url('../assets/images/home/5.png');
+    background-image: url('/public/dist/assests/home/5.png');
     background-size: 60%;
     background-position: 70% 50%;
     background-repeat: no-repeat;
@@ -405,7 +386,7 @@ section {
       position: absolute;
       z-index: 2;
       width: 100%;
-      height: 99.5%;
+      height: 99.7%;
       border-radius: $img-radius;
     }
   }
@@ -460,9 +441,6 @@ section {
   .homeAccWrap1-txt {
     width: 90%;
     padding: 10px;
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: center;
   }
   .homeAccWrap1-pic {
     width: 100%;
@@ -499,23 +477,19 @@ section {
         object-fit: cover;
       }
     }
-    // .accBtn {
-    //     @include flexCenter($left);
-    //     justify-content: flex-start;
-    // }
     .homeAccWrap2-txt {
       width: 90%;
       padding: 10px;
     }
   }
   .accSection-pic1 {
-    background-image: url("@/assets/images/home/homeAcc2.jpg");
+    background-image: url("/public/dist/assests/home/homeAcc2.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
   }
   .accSection-pic2 {
-    background-image: url("@/assets/images/home/homeAcc5.jpg");
+    background-image: url("/public/dist/assests/home/homeAcc5.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -557,37 +531,10 @@ section {
     z-index: -1;
     width: 70%;
     height: 70%;
-    // border-radius: 50%;
     img {
       width: 100%;
       border-radius: 50%;
-      // background: linear-gradient(0deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
-      // box-shadow: inset 0px 0px 60px 80px #12181E;
     }
-  }
-}
-
-//GAME
-.homeGame {
-  text-align: center;
-  position: relative;
-  width: 90%;
-  margin: 0 auto;
-  height: 600px;
-  @include flexCenter($center);
-  video {
-    width: 100%;
-    height: 600px;
-    object-fit: cover;
-    border-radius: $img-radius;
-  }
-  .gameBtn {
-    @include flexCenter($center);
-  }
-  .homeGame-txt {
-    position: absolute;
-    @include divCenter(90%, $center);
-    z-index: 2;
   }
 }
 
@@ -632,7 +579,7 @@ section {
   .buttonDiv {
     width: 90%;
     position: absolute;
-    bottom: -30%;
+    bottom: -39%;
     margin-left: 10px;
     .raceChange {
       background-color: transparent;
@@ -646,6 +593,7 @@ section {
       transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
       z-index: 1;
       p {
+        font-size: 600;
         &:hover {
           color: $blue;
         }
@@ -671,20 +619,17 @@ section {
         right: 0;
         left: 0;
       }
-      &:focus::after {
-        background-color: $blue;
-        bottom: -3px;
-        right: 0;
-        left: 0;
-      }
-      &:focus p {
-        color: $blue;
-        transform: scale(1.02) 1s ease;
-      }
     }
   }
 }
-
+.buttonDiv .raceChange:nth-child(1){
+  border-bottom: 3px solid $blue;
+}
+.raceChange:nth-child(1){
+    p{
+    color: #077af9;
+  }
+}
 //電腦版
 @include l($l-breakpoint) {
   //cusotom
@@ -776,9 +721,5 @@ section {
       width: 80%;
     }
   }
-
-//   section {
-//     width: 1200px;
-//   }
 }
 </style>

@@ -20,35 +20,35 @@ const session = ()=> {
     // cartsem.value = jsonItem
     // console.log(cartsem);
 }
-onMounted(()=>{
-    //mounted裡面不要使用const去做定義 有區域問題
-    session();
-})
+//判斷session裡面是否有東西 沒有就文字顯示沒東西
 const storgeNull = reactive(sessionStorage.getItem('cartList'))
-let total = reactive(0);
 //數量加減//價格變動
+const sums = ref(0);
 const sum = computed(()=>{
     let total = ref(0);
         for(const items in cartList.value){
-            // console.log(cartItem[items]['name'])
             total.value += cartList.value[items]['price']*cartList.value[items]['amount'];
         }
-        return total
+        sessionStorage.setItem('sums', total.value)
+        sums.value = total.value
+        return total;
 })
 //總價判斷是否有折扣 有就乘折扣  沒有就不乘折扣
+const finalprice = ref(0);
 const final = computed(()=>{
-    let total = ref(0);
+    let totalprice = ref(0);
         for(const items in cartList.value){
             if(discPercent.value != 0){
-                total.value += cartList.value[items]['price']*cartList.value[items]['amount']*discPercent.value;
+                totalprice.value += cartList.value[items]['price']*cartList.value[items]['amount']*discPercent.value;
             }else{
-                total.value += cartList.value[items]['price']*cartList.value[items]['amount']
+                totalprice.value += cartList.value[items]['price']*cartList.value[items]['amount']
             }
         }
-        return total
+        sessionStorage.setItem('final', totalprice.value)
+        finalprice.value = totalprice.value
+        return totalprice
 })
 const addCount = (index) => {
-    console.log(cartList.value[index]);
     return cartList.value[index].amount +=1;
 }
 const reduceCount = (index) => {
@@ -60,20 +60,10 @@ const reduceCount = (index) => {
 const cart = ref(false); 
 const Delete = (index)=> {
     //抓到按刪除鍵的key就刪除session資訊
-    // for(const items in cartList.value){
-    //     sessionStorage.removeItem(cartList.value[items].id)
-    //     cartList.value.splice(index,1);
-    //     sessionStorage.removeItem('cartList')
-    //     break;
-    // }   
-    for(let i=0;i<cartList.value.length;i++){
-        sessionStorage.removeItem(cartList.value[i].id)
-        cartList.value.splice(index,1);
-        // sessionStorage.removeItem('cartList')
-        sessionStorage['cartList'] = sessionStorage['cartList'].replace(`${cartList.value[i].id},`,``)
-        break;
-    }
-    // sessionStorage['cartList'] = sessionStorage['cartList'].replace(`${cartList.value[index].id},`,``)
+    //必須先刪除cartList裡面的東西,再刪除個別的id,不然如果先移除id會抓不到key值
+    sessionStorage['cartList'] = sessionStorage['cartList'].replace(`${cartList.value[index].id},`,``)
+    sessionStorage.removeItem(cartList.value[index].id)
+    cartList.value.splice(index,1);
 }
 //建議商品
 const suggest = reactive([
@@ -91,7 +81,6 @@ const suggest = reactive([
     },
 ])
 //discount 
-// const show = reactive(false)
 const discount = ref('');
 const discPercent = ref('0');
 const discConfirm = () => {
@@ -100,10 +89,12 @@ const discConfirm = () => {
         if(discount.value === discRows.value[i].disc_code){
             discPercent.value = discRows.value[i].disc_off;
             discount.value = '';
+            sessionStorage.setItem('discount',discPercent.value)
             alert('恭喜折價');
             break;         
         }else{
-            alert('you suck')
+            alert('無此優惠編號')
+            sessionStorage.setItem('discount',discPercent.value)
             break;                    
         }
     } 
@@ -111,7 +102,6 @@ const discConfirm = () => {
 //取得資料庫資料
 const discRows = ref([]);
     const getDisc = () => {
-    //取得商品資料
     fetch("http://localhost/CGD103-G5/public/g5PHP/getDiscCart.php")
     .then(res => res.json())
     .then(json => {
@@ -121,6 +111,8 @@ const discRows = ref([]);
 }
 onMounted(()=>{
     getDisc();
+    //mounted裡面不要使用const去做定義 有區域問題
+    session();
 })
 //抓session裡面的存放的商品放進購物車
 const getcartItem = (substrs)=>{
@@ -130,8 +122,31 @@ const getcartItem = (substrs)=>{
     }else{
       explode.value += ',' + sessionStorage.getItem(substrs[i]);
     }
-    // explode.value += sessionStorage.getItem('i')
   }
+}
+const mem_no = ref(1)
+const mem_grade = ref(2)
+const orders_location = ref('32 Sumter Drive, Wylie,tx, 75098')
+const credit_no = ref(3544777739071678)
+const disc_no = ref(1)
+const submitOrder = ()=>{
+    const payload = {
+        mem_no: Number(mem_no.value),
+        mem_grade: Number(mem_grade.value),
+        orders_price: Number(sums.value),
+        discount_price: Number(discPercent.value),
+        total_price: Number(finalprice.value),
+        orders_location: orders_location.value,
+        credit_no: Number(credit_no.value),
+        disc_no: Number(disc_no.value),
+    };
+    fetch("http://localhost/CGD103-G5/public/g5PHP/sessionNmitem.php", {
+        method: "POST",
+        body: new URLSearchParams(payload),
+    }).then(res=>{
+        res.text();
+        // console.log(res);
+    })
 }
 </script>
 <template>
@@ -172,14 +187,8 @@ const getcartItem = (substrs)=>{
                 <p>Discount code :</p>
                 <input type="text" v-model="discount">
                 <button class="discount-btn" @click="discConfirm()">Confirm</button>
-                <!-- <div class="alert">
-                    <n-alert title="Success 类型" type="success">
-                        success
-                    </n-alert>
-                </div> -->
             </div>
         </div>
-
         <div class="total">
             <div class="summary">
                  <div class="summaryPrice">
@@ -190,8 +199,8 @@ const getcartItem = (substrs)=>{
                     <p>${{sum}}</p>
                 </div>
                 <div class="summaryPrice">
-                    <p>Shipping</p>
-                    <p>$0.00</p>
+                    <p>Assembly cost</p>
+                    <p>$0</p>
                 </div>
                 <div class="summaryPrice">
                     <p>Discount</p>
@@ -205,10 +214,20 @@ const getcartItem = (substrs)=>{
                     <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shop">
                         <span>Shop</span>
                     </router-link>
-                    <button @click="props.nextStep()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
+                    <button @click="props.nextStep();submitOrder()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
                 </div>
             </div>
         </div>
+        <form action="post">
+            <input type="hidden" v-model="mem_no" name="mem_no">
+            <input type="hidden" v-model="mem_grade" name="mem_grade">
+            <input type="hidden" v-model="sums" name="orders_price">
+            <input type="hidden" v-model="discPercent" name="discount_price">
+            <input type="hidden" v-model="finalprice" name="total_price">
+            <input type="hidden" v-model="orders_location" name="orders_location">
+            <input type="hidden" v-model="credit_no" name="credit_no">
+            <input type="hidden" v-model="disc_no" name="disc_no">            
+        </form>
     </section>
     <section>
     </section> 
@@ -268,6 +287,9 @@ section {
 .cart{
     padding-top: 130px;
     width: 100%;
+    // display: flex;
+    // flex-wrap: wrap;
+    // justify-content: flex-start;
     .cartTitle {
         text-align: center;
     }
@@ -317,7 +339,9 @@ section {
         font-size: 18px;
     }
 }
-
+.total {
+    width:85%;
+}
 .summary {
     margin: 0 auto;
     border-radius: $img-radius;
