@@ -48,6 +48,7 @@ onUpdated(() => {
             })
         };
     });
+    
 });
 
 let customMotorItem, customControllerItem;
@@ -599,75 +600,173 @@ const setSession = () => {
     set(`1112111${motorChosen.value.type}`, `{"id":"1112111${motorChosen.value.type}", "name":"motor0${motorChosen.value.type}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}"}`);
     set(`1112112${kgmcChosen.value.type}`, `{"id":"1112112${kgmcChosen.value.type}", "name":"controller0${kgmcChosen.value.type}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}"}`);
 };
-
+const alpha = ref(null);
+const selectionAlpha = (e) => {
+    alpha.value = Number(e.target.value);
+    gsap.to('.customizeControl', {
+        opacity: Number(e.target.value)/100,
+        duration: .3,
+    });
+    displayMode();
+};
+const displayMode = () => {
+    if(alpha.value<10){
+        $$('.customizeControl').style.display = 'none';
+        $$('#customize3d').width = getW('.mainCus')*2;
+        gsap.to('#customize3d', {
+            width: getW('.mainCus')*2,
+            duration: .5,
+        })
+        $$('#customize3d').height = 600;
+        gsap.to('#customize3d', {
+            height: 600,
+            duration: .5,
+        })
+        CUS.camera.aspect = getW('.mainCus')*2 / 600;
+        CUS.renderer.setSize(getW('.mainCus')*2, 600);
+        gsap.to('body', {
+            background: '#000',
+            duration: .5,
+        });
+        gsap.to('.boards', {
+            filter: 'none',
+            duration: .5
+        });
+        $all('.dashBoard').forEach(e => {
+            gsap.to(e, {
+                background: 'radial-gradient(#F25A2A66, transparent 50%)',
+                duration: .5,
+            })
+        });
+        $$('#customize3d').classList.remove('bg3d');
+        $all('.digiBoard').forEach(e => e.classList.add('skewX'));
+        $all('.boardTitle').forEach(e => e.classList.add('skewX'));
+        $all('.boardSpan').forEach(e => e.classList.add('skewX'));
+    }else{
+        if(ww>1023){
+            $$('#customize3d').width = 400;
+            gsap.to('#customize3d', {
+                width: 400,
+                duration: .5,
+            })
+            $$('#customize3d').height = 400;
+            gsap.to('#customize3d', {
+                height: 400,
+                duration: .5,
+            })
+            CUS.camera.aspect = 400 / 400;
+            CUS.renderer.setSize(400, 400);
+        }else if(ww>1199){
+            $$('#customize3d').width = 500;
+            gsap.to('#customize3d', {
+                width: 500,
+                duration: .5,
+            })
+            $$('#customize3d').height = 500;
+            gsap.to('#customize3d', {
+                height: 500,
+                duration: .5,
+            })
+            CUS.camera.aspect = 500 / 500;
+            CUS.renderer.setSize(500, 500);
+        };
+        gsap.to('.boards', {
+            filter: 'blur(1px)',
+            duration: .5
+        });
+        $all('.dashBoard').forEach(e => {
+            gsap.to(e, {
+                background: 'radial-gradient(#CED3DC66, transparent 70%)',
+                duration: .5,
+            })
+        });
+        $$('#customize3d').classList.add('bg3d');
+        $all('.digiBoard').forEach(e => e.classList.remove('skewX'));
+        $all('.boardTitle').forEach(e => e.classList.remove('skewX'));
+        $all('.boardSpan').forEach(e => e.classList.remove('skewX'));
+        $$('.customizeControl').style.display = 'block';
+        gsap.to('body', {
+            background: '#12181E',
+            duration: .5,
+        })
+    }
+};
 </script>
 
 <template>
     <nav-component :custom="`#077AF9`"/>
     <section class="customize">
-        <canvas id="customize3d" class="customize3d"></canvas>
         <div class="loadBox">
             <div class="loadProgress"></div>
             <p class="loadNum">{{ CUS.modelLoading }}%</p>
         </div>
         <h2 class="customizeTitle">Custom</h2>
-        <div class="paths">
-            <p>Select</p>
-            <p>{{ step[flow].text }}</p>
+        <div class="secondTitle">
+            <div class="paths">
+                <p>Select</p>
+                <p>{{ step[flow].text }}</p>
+            </div>
+            <div class="selectionAlpha">
+                <p>Selection Alpha</p>
+                <input type="range" name="opacity" min="0" max="100" value="100" @input="selectionAlpha">
+            </div>
         </div>
-        <div class="customizeControl">
-            <div v-for="i in droneModels" :key="i.id" class="bodySelect selection" v-show="step[1].show">
-                <div class="itemInfo" @click="toggleColor(i.id)">
-                    <h3>{{ i.name }}</h3>
-                    <p>Weight: {{ i.weight }}g</p>
-                    <p>$ {{ i.price }}</p>
-                </div>
-                <div :class="`colorControls colorControls${i.id}`" v-if="toggleColorControl[i.id]">
-                    <P>Color:</P>
-                    <div :class="`colorControl bodyControl${i.id}${n.id}`" v-for="n in droneModels[`body0${i.id}`].color" :key="n.id" @click="bodyChoose(i.id, n.id, n.src)"></div>
-                </div>
-            </div>
-            <div v-for="e in propellorModels" :key="e.id" class="propellorSelect selection" v-show="step[2].show">
-                <div class="itemInfo" @click="toggleColor(e.id+3)">
-                    <h3>{{ e.name }}</h3>
-                    <p>Weight: {{ e.weight }}g</p>
-                    <p>$ {{ e.price }}</p>
-                </div>
-                <div :class="`colorControls colorControls${e.id+3}`" v-if="toggleColorControl[e.id+3]">
-                    <P>Color:</P>
-                    <div :class="`colorControl propellorControl${e.id}${n.id}`" v-for="n in propellorModels[`propellor0${e.id}`].color" :key="n.id" @click="propellorChoose(e.id, n.id, n.src)"></div>
-                </div>
-            </div>
-            <div class="motorSelect selection" v-show="step[3].show">
-                <h3>Motor</h3>
-                <div class="motorControls funcControls">
-                    <div :class="`motorControl${n.id} motorControl funcControl`" v-for="n in motorModels" :key="n.id" @click="motorChoose(n.id)">
-                        <h4>{{ n.name }}</h4>
-                        <p>Rotating speed: {{ n.rpm }}rpm</p>
-                        <p>Torque: {{ n.kgm }}kgm</p>
-                        <p>$ {{ n.price }}</p>
+        <div class="mainCus">
+            <canvas id="customize3d" class="customize3d bg3d"></canvas>
+            <div class="customizeControl">
+                <div v-for="i in droneModels" :key="i.id" class="bodySelect selection" v-show="step[1].show">
+                    <div class="itemInfo" @click="toggleColor(i.id)">
+                        <h6>{{ i.name }}</h6>
+                        <p>Weight: {{ i.weight }}g</p>
+                        <p>$ {{ i.price }}</p>
+                    </div>
+                    <div :class="`colorControls colorControls${i.id}`" v-if="toggleColorControl[i.id]">
+                        <P>Color:</P>
+                        <div :class="`colorControl bodyControl${i.id}${n.id}`" v-for="n in droneModels[`body0${i.id}`].color" :key="n.id" @click="bodyChoose(i.id, n.id, n.src)"></div>
                     </div>
                 </div>
-            </div>
-            <div class="controllerSelect selection" v-show="step[4].show">
-                <h3>Controller</h3>
-                <div class="controllerControls funcControls">
-                    <div :class="`controllerControl${n.id} controllerControl funcControl`" v-for="n in controllerModels" :key="n.id" @click="controllerChoose(n.id)">
-                        <h4>{{ n.name }}</h4>
-                        <p>kgmc: {{ n.kgmc }}</p>
-                        <p>$ {{ n.price }}</p>
+                <div v-for="e in propellorModels" :key="e.id" class="propellorSelect selection" v-show="step[2].show">
+                    <div class="itemInfo" @click="toggleColor(e.id+3)">
+                        <h6>{{ e.name }}</h6>
+                        <p>Weight: {{ e.weight }}g</p>
+                        <p>$ {{ e.price }}</p>
+                    </div>
+                    <div :class="`colorControls colorControls${e.id+3}`" v-if="toggleColorControl[e.id+3]">
+                        <P>Color:</P>
+                        <div :class="`colorControl propellorControl${e.id}${n.id}`" v-for="n in propellorModels[`propellor0${e.id}`].color" :key="n.id" @click="propellorChoose(e.id, n.id, n.src)"></div>
                     </div>
                 </div>
-            </div>
-            <div class="flowControls">
-                <div class="undo" data-title="Undo" v-show="step[flow].sBtn" @click="undo">
-                    <span>Undo</span>
+                <div class="motorSelect selection" v-show="step[3].show">
+                    <h3>Motor</h3>
+                    <div class="motorControls funcControls">
+                        <div :class="`motorControl${n.id} motorControl funcControl`" v-for="n in motorModels" :key="n.id" @click="motorChoose(n.id)">
+                            <h6>{{ n.name }}</h6>
+                            <p>Rotating speed: {{ n.rpm }}rpm</p>
+                            <p>Torque: {{ n.kgm }}kgm</p>
+                            <p>$ {{ n.price }}</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="nextStep" data-title="Choose" v-show="step[flow].pBtn" @click="nextStep">
-                    <span>Choose</span>
+                <div class="controllerSelect selection" v-show="step[4].show">
+                    <h3>Controller</h3>
+                    <div class="controllerControls funcControls">
+                        <div :class="`controllerControl${n.id} controllerControl funcControl`" v-for="n in controllerModels" :key="n.id" @click="controllerChoose(n.id)">
+                            <h6>{{ n.name }}</h6>
+                            <p>kgmc: {{ n.kgmc }}</p>
+                            <p>$ {{ n.price }}</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="nextStep buyBtn" data-title="Buy" v-show="buyBtn" @click="addCart">
-                    <span>Buy</span>
+                <div class="flowControls">
+                    <div class="undo" data-title="Undo" v-show="step[flow].sBtn" @click="undo">
+                        <span>Undo</span>
+                    </div>
+                    <div class="nextStep" data-title="Choose" v-show="step[flow].pBtn" @click="nextStep">
+                        <span>Choose</span>
+                    </div>
+                    <div class="nextStep buyBtn" data-title="Buy" v-show="buyBtn" @click="addCart">
+                        <span>Buy</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -689,7 +788,7 @@ const setSession = () => {
             <div class="start" data-title="Start" v-if="lightBoxText.img.idt === 7 && lightBoxText.img.show" @click="lightBoxClose(true)">
                 <span>Start</span>
             </div>
-            <scroll-hint-component class="shc" v-if="lightBoxText.img.show"/>
+            <!-- <scroll-hint-component class="shc" v-if="lightBoxText.img.show"/> -->
 		</div>
     </div>
     <dashBoardGroupComponent class="boards" :toggle-board="toggleBoard" />
@@ -703,20 +802,24 @@ const setSession = () => {
 @import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
 @import '@/sass/component/_lightBox.scss';
-.customize3d{
-    margin: 0 auto;
-    position: absolute;
-    top: 170px;
-    left: 0;
-    right: 0;
-    background: radial-gradient(#CED3DC33, transparent 70%);
+.mainCus{
+    width: 100%;
+    margin: 40px auto;
+    @include s($s-breakpoint) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
     @include m($m-breakpoint) {
-        right: 40%;
-        left: 0;
+        max-width: 1200px;
+        align-items: center;
     }
-    @include l($l-breakpoint) {
-        top: 190px;
-    }
+}
+.customize3d{
+    margin: 0 auto 20px;
+}
+.bg3d{
+    background: radial-gradient(#CED3DC33, transparent 70%);
 }
 .lightBox{
 	@include lightBox();
@@ -811,13 +914,12 @@ const setSession = () => {
 }
 .customize{
     width: 100%;
-    height: auto;
     max-width: 1200px;
     position: relative;
     margin: 0 auto;
     padding-top: 80px;
     @include m($m-breakpoint) {
-        height: 100vh;
+        
     }
     .customizeTitle{
         position: relative;
@@ -829,24 +931,56 @@ const setSession = () => {
             width: 1200px;
         }
     }
+    .secondTitle{
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+        @include l($l-breakpoint) {
+            width: 1200px;
+        }
+        .selectionAlpha{
+            display: none;
+            margin-right: 80px;
+            border-top: 1px solid $light-black;
+            border-left: 1px solid $light-black;
+            border-top-left-radius: 20px;
+            @include m($m-breakpoint) {
+                display: flex;
+            }
+            p{
+                margin: 0 10px;
+            }
+            input[type="range"]{
+                -webkit-appearance: none;
+                background: transparent;
+                margin: 0 10px;
+            }
+            input[type="range"]::-webkit-slider-thumb{
+                -webkit-appearance: none;
+                width: 3px;
+                height: 22px;
+                background: $light-black;
+                margin-top: -10px;
+            }
+            input[type="range"]::-webkit-slider-runnable-track{
+                -webkit-appearance: none;
+                width: 100%;
+                height: 2px;
+                background: #eee;
+            }
+        }
+    }
     .paths{
         display: flex;
         flex-wrap: nowrap;
         align-items: center;
-        width: 90%;
-        position: absolute;
-        width: 90%;
-        left: 0;
-        right: 0;
-        margin: 0 auto;
-        top: 138px;
-        @include l($l-breakpoint) {
-            width: 1200px;
-            top: 145px;
-        }
         p{
             text-align: center;
-            width: 100px;
+            width: 80px;
+            @include m($m-breakpoint) {
+                width: 100px;
+            }
         }
         p:nth-child(2){
             text-align: left;
@@ -863,25 +997,24 @@ const setSession = () => {
 
 .customizeControl{
     box-sizing: border-box;
-    margin: 360px auto 20%;
     padding: 30px 0;
+    margin: 0 auto;
     border-radius: 20px;
     border: 2px solid $grey;
     background: $black;
     width: 90%;
     @include s($s-breakpoint) {
-        margin-top: 480px;
         width: 575px;
         background: #25242499;
     }
     @include m($m-breakpoint) {
-        margin: 60px auto 0 60%;
         width: 400px;
     }
     .selection{
         width: 90%;
         margin: 0 auto 40px;
         position: relative;
+        cursor: pointer;
         .itemInfo{
             position: relative;
             z-index: 1;
@@ -891,7 +1024,7 @@ const setSession = () => {
             padding: 15px;
             border-radius: 15px;
             background: linear-gradient(to right, $purple, $blue);
-            h3{
+            h6{
                 width: 100%;
             }
             p:nth-child(2){
@@ -950,6 +1083,7 @@ const setSession = () => {
         }
     }
 }
+
 .colorControls{
     width: 90%;
     margin: 0 auto;

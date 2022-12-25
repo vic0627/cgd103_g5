@@ -1,5 +1,6 @@
 <script setup>
-import { onMounted, ref, nextTick } from 'vue';
+import { onMounted, ref, onBeforeUpdate } from 'vue';
+import digiNumComponentVue from './digiNumComponent.vue';
 import { log, $$, $all, getW } from '../composables/useCommon';
 import gsap from 'gsap';
 import { useDashBoardMove, niddleSpin, deg} from '../composables/useDashBoardMove';
@@ -19,6 +20,10 @@ onMounted(() => {
         scaleSum();
     });
     niddleSpin(props.units.id, props.units.value, props.units.ratio);
+});
+onBeforeUpdate(() => {
+    $all(`.num`).forEach(e => e.classList.remove('warn'));
+    $all(`.point`).forEach(e => e.classList.remove('warn'));
 });
 const r = 2 * Math.PI / 12;
 const Y = (e, width = w) => Math.sin(e) * -width + 'px';
@@ -73,7 +78,13 @@ const props = defineProps(["units"]);
         </div>
         <div class="board">
             <h5 :class="`boardTitle boardTitle${props.units.id}`">{{ props.units.title }}</h5>
-            <p :class="`boardP boardP${props.units.id}`">{{ deg[props.units.id] }}</p>
+            <!-- <p :class="`boardP boardP${props.units.id}`">{{ deg[props.units.id] }}</p> -->
+            <div class="digiBoard">
+                <digi-num-component-Vue :num="String(deg[props.units.id])" :id="props.units.id+'0'" :uid="props.units.id"/>
+                <digi-num-component-Vue :num="String(deg[props.units.id])" :id="props.units.id+'1'" :uid="props.units.id"/>
+                <digi-num-component-Vue :num="String(deg[props.units.id])" :id="props.units.id+'2'" :uid="props.units.id"/>
+                <digi-num-component-Vue :num="String(deg[props.units.id])" :id="props.units.id+'3'" :uid="props.units.id"/>
+            </div>
             <span :class="`boardSpan boardSpan${props.units.id}`">{{ props.units.unit }}</span>
         </div>
     </div>
@@ -84,6 +95,11 @@ const props = defineProps(["units"]);
 @import '@/sass/base/_common.scss';
 @import '@/sass/base/_font.scss';
 @import '@/sass/mixin/_mixin.scss';
+.skewX{
+    transform: skewX(-15deg);
+    font-style: italic;
+    transition: all .5s;
+}
 .dashBoard{
     width: 150px;
     height: 150px;
@@ -236,6 +252,13 @@ const props = defineProps(["units"]);
                 height: 60px;
             }
         }
+        .digiBoard{
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            background: radial-gradient(#0008 , transparent 50%);
+            margin: 5px auto;
+        }
         span{
             display: block;
             font-size: 12px;
@@ -249,12 +272,5 @@ const props = defineProps(["units"]);
         }
     }
 }
-.warn{
-    animation: warn .6s ease-out infinite;
-}
-@keyframes warn {
-    0%{color: #fff;}
-    50%{color: #f00;}
-    100%{color: #fff;}
-}
+
 </style>
