@@ -75,7 +75,7 @@ const isOpen = ref(true)
         <div class="home-custom">
             <div class="custom-pic">
                 <!-- <img src="../assets/images/home/customize.jpeg" alt="customize"> -->
-                <img src="/public/dist/assests/home/customize.jpeg" alt="customize">
+                <img src="/dist/assests/customize.jpeg" alt="customize">
             </div>
             <div class="custom-txt">
                 <div class="homeCustom">
@@ -84,20 +84,20 @@ const isOpen = ref(true)
                 </div>
                 <div class="custIcon">
                     <div class="custIcon-wrap">
-                        <!-- <img src="@/assets/images/home/cusIcon1.png" alt=""> -->
-                        <img src="/public/dist/assests/home/cusIcon1.png" alt="icon1">
+                        <!-- <img src="@/assets/images/cusIcon1.png" alt=""> -->
+                        <img src="/dist/assests/cusIcon1.png" alt="icon1">
                         <p>Speed destroy personal</p>
                         <p>King is come back</p>
                     </div>
                     <div class="custIcon-wrap">
-                        <!-- <img src="@/assets/images/home/cusIcon2.png" alt=""> -->
-                        <img src="/public/dist/assests/home/cusIcon2.png" alt="icon2">
+                        <!-- <img src="@/assets/images/cusIcon2.png" alt=""> -->
+                        <img src="/dist/assests/cusIcon2.png" alt="icon2">
                         <p>Speed destroy personal</p>
                         <p>King is come back</p>
                     </div>
                     <div class="custIcon-wrap">  
-                        <!-- <img src="@/assets/images/home/cusIcon3.png" alt=""> -->
-                        <img src="/public/dist/assests/home/cusIcon3.png" alt="icon3">
+                        <!-- <img src="@/assets/images/cusIcon3.png" alt=""> -->
+                        <img src="/dist/assests/cusIcon3.png" alt="icon3">
                         <p>Speed destroy personal</p>
                         <p>King is come back</p>
                     </div>
@@ -124,8 +124,8 @@ const isOpen = ref(true)
                 <div class="homeAccWrap1">
                     <div class="mainAcc">
                         <div class="homeAccWrap1-pic">
-                            <!-- <img src="../assets/images/home/body_03_black_1.png" alt=""> -->
-                            <img src="/public/dist/assests/home/body_03_black_1.png" alt="body">
+                            <!-- <img src="../assets/images/body_03_black_1.png" alt=""> -->
+                            <img src="/dist/assests/body_03_black_1.png" alt="body">
                         </div>
                         <div class="homeAccWrap1-txt">
                             <h5>Stay Flying Longer-Up to 60mins</h5>
@@ -146,8 +146,8 @@ const isOpen = ref(true)
                 <div class="homeAccWrap2">
                      <div class="accSection">
                         <div class="homeAccWrap2-pic">
-                            <!-- <img src="../assets/images/home/propellor_02_black_1.png" alt=""> -->
-                            <img src="/public/dist/assests/home/propellor_02_black_1.png" alt="propellor">
+                            <!-- <img src="../assets/images/propellor_02_black_1.png" alt=""> -->
+                            <img src="/dist/assests/propellor_02_black_1.png" alt="propellor">
                         </div>
                         <div class="homeAccWrap2-txt">
                             <h6>Drone Remote controller</h6>
@@ -165,8 +165,8 @@ const isOpen = ref(true)
                 <div class="homeAccWrap2">
                     <div class="accSection">
                         <div class="homeAccWrap2-pic">
-                            <!-- <img src="../assets/images/home/body_01_blue_1.png" alt=""> -->
-                            <img src="/public/dist/assests/home/body_01_blue_1.png" alt="body2">
+                            <!-- <img src="../assets/images/body_01_blue_1.png" alt=""> -->
+                            <img src="/dist/assests/body_01_blue_1.png" alt="body2">
                         </div>
                         <div class="homeAccWrap2-txt">
                             <h6>Drone Remote controller</h6>
@@ -191,8 +191,8 @@ const isOpen = ref(true)
             <transition name="tad" mode="out-in">
                 <div class="homeContest" v-if="view === 1">
                     <div class="homeContest-pic">
-                        <!-- <img src="@/assets/images/home/contest.png" alt=""> -->
-                        <img src="/public/dist/assests/home/contest.png" alt="contest1">
+                        <!-- <img src="@/assets/images/contest.png" alt=""> -->
+                        <img src="/dist/assests/contest.png" alt="contest1">
                     </div>
                     <div class="homeContest-txt">
                         <div class="contest-vue">
@@ -207,7 +207,7 @@ const isOpen = ref(true)
                 <div class="homeContest" v-else-if="view === 2">
                     <div class="homeContest-pic">
                         <!-- <img src="/images/about/img_06.jpg" alt=""> -->
-                        <img src="/public/dist/assests/home/race_01.jpg" alt="race2">
+                        <img src="/dist/assests/race_01.jpg" alt="race2">
                     </div>
                     <div class="homeContest-txt">
                         <div class="contest-vue">
@@ -222,7 +222,7 @@ const isOpen = ref(true)
                 <div class="homeContest" v-else-if="view === 3">
                     <div class="homeContest-pic">
                         <!-- <img src="/images/about/img_07.jpg" alt=""> -->
-                        <img src="/public/dist/assests/home/race_02.jpg" alt="race3">
+                        <img src="/dist/assests/race_02.jpg" alt="race3">
                     </div>
                     <div class="homeContest-txt">
                         <div class="contest-vue">
@@ -252,7 +252,7 @@ const isOpen = ref(true)
 @import '@/sass/style.scss';
 @import '@/css/reset.css';
 .sect1 {
-    background-image: url('/public/dist/assests/home/2.png');
+    background-image: url('/dist/assests/2.png');
     background-size: 60%;
     background-position: 70% top;
     background-repeat: no-repeat;
@@ -269,7 +269,7 @@ const isOpen = ref(true)
 }
 .sect2 {
     padding: 50px 0 100px;
-    background-image: url('/public/dist/assests/home/5.png'),url('/public/dist/assests/home/5.png');
+    background-image: url('/dist/assests/5.png'),url('/dist/assests/5.png');
     background-size: 80% , 40%;
     background-position: 100% 5%,85% 97%;
     background-repeat: no-repeat, no-repeat;
@@ -292,7 +292,7 @@ const isOpen = ref(true)
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
-    background-image: url('/public/dist/assests/home/5.png');
+    background-image: url('/dist/assests/5.png');
     background-size: 60%;
     background-position: 70% 50%;
     background-repeat: no-repeat;
@@ -483,13 +483,13 @@ section {
     }
   }
   .accSection-pic1 {
-    background-image: url("/public/dist/assests/home/homeAcc2.jpg");
+    background-image: url("/dist/assestsAcc2.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
   }
   .accSection-pic2 {
-    background-image: url("/public/dist/assests/home/homeAcc5.jpg");
+    background-image: url("/dist/assests/homeAcc5.jpg");
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

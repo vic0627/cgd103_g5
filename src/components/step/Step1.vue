@@ -214,7 +214,8 @@ const submitOrder = ()=>{
                     <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shop">
                         <span>Shop</span>
                     </router-link>
-                    <button @click="props.nextStep();submitOrder()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
+                    <!-- <button @click="props.nextStep();submitOrder()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button> -->
+                    <button @click="props.nextStep();" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
                 </div>
             </div>
         </div>
