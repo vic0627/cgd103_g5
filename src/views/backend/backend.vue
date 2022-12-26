@@ -42,7 +42,7 @@ export default {
     tabdiscount,
     tabdiscountadd,
     tabcustomizeitem,
-    tabmemmodify
+    tabmemmodify,
   },
 };
 </script>

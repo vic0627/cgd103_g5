@@ -1,29 +1,35 @@
 <script setup>
 import gsap from "gsap";
-import { onMounted, ref, onBeforeUpdate, onUpdated, onBeforeUnmount } from 'vue';
-import router from '@/router';
-import { log, $$, $all, getW } from '../composables/useCommon';
-import { introduction ,droneModels, propellorModels } from './js/CustomizeGlb';
-import * as CUS from './js/CustomizeThree';
-import dashBoardGroupComponent from '@/components/dashBoardGroupComponents.vue';
-import scrollHintComponent from '@/components/scrollHintComponent.vue';
-import { niddleSpin } from '../composables/useDashBoardMove';
-import { bodyInit } from '../composables/useOnunmounted';
+import {
+  onMounted,
+  ref,
+  onBeforeUpdate,
+  onUpdated,
+  onBeforeUnmount,
+} from "vue";
+import router from "@/router";
+import { log, $$, $all, getW } from "../composables/useCommon";
+import { introduction, droneModels, propellorModels } from "./js/CustomizeGlb";
+import * as CUS from "./js/CustomizeThree";
+import dashBoardGroupComponent from "@/components/dashBoardGroupComponents.vue";
+import scrollHintComponent from "@/components/scrollHintComponent.vue";
+import { niddleSpin } from "../composables/useDashBoardMove";
+import { bodyInit } from "../composables/useOnunmounted";
 bodyInit();
 let w = null;
 let ww = window.innerWidth;
-onMounted(()=> {
-    fetchCustom();
-    w = getW('.dashBoard');
+onMounted(() => {
+  fetchCustom();
+  w = getW(".dashBoard");
+  canvasRe();
+  window.addEventListener("resize", () => {
+    w = getW(".dashBoard");
+    ww = window.innerWidth;
     canvasRe();
-    window.addEventListener('resize', ()=> {
-        w = getW('.dashBoard');
-        ww = window.innerWidth;
-        canvasRe();
-    });
-    CUS.sceneInit();
-    CUS.animation();
-    introductionInit();
+  });
+  CUS.sceneInit();
+  CUS.animation();
+  introductionInit();
 });
 onBeforeUpdate(() => {
     $$('.loadBox').style.display = 'block';
@@ -33,194 +39,167 @@ onBeforeUpdate(() => {
     });
 });
 onUpdated(() => {
-    if(CUS.modelLoading.value===0)$$('.loadBox').style.display = 'none';
-    if($$('.lightBoxContent'))$$('.lightBoxContent').addEventListener('scroll', (e)=>{
-        if(e.target.scrollTop>0){
-            gsap.to('.shc', {
-                opacity: 0,
-                duration: .5,
-            })
-        }else{
-            gsap.to('.shc', {
-                opacity: 1,
-                duration: .5,
-            })
-        };
+  if (CUS.modelLoading.value === 0) $$(".loadBox").style.display = "none";
+  if ($$(".lightBoxContent"))
+    $$(".lightBoxContent").addEventListener("scroll", (e) => {
+      if (e.target.scrollTop > 0) {
+        gsap.to(".shc", {
+          opacity: 0,
+          duration: 0.5,
+        });
+      } else {
+        gsap.to(".shc", {
+          opacity: 1,
+          duration: 0.5,
+        });
+      }
     });
     
 });
 
 let customMotorItem, customControllerItem;
-const motorModels = ref({}), controllerModels = ref({});
+const motorModels = ref({}),
+  controllerModels = ref({});
 const fetchCustom = () => {
     fetch("http://localhost/dist/g5PHP/postCust.php", {
         method: "POST",
         body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.customize" }),
     })
-        .then(res => res.json())
-        .then(json => {
-            customMotorItem = json.filter(i => String(i.prd_no).includes('1112111'));
-            customControllerItem = json.filter(i => String(i.prd_no).includes('1112112'));
-            return {
-                customMotorItem,
-                customControllerItem
-            }
-        })
-        .then(output => {
-            for(let i=0; i<output.customMotorItem.length; i++){
-                motorModels.value[`motor0${i+1}`] = {
-                    id: i+1,
-                    name: output.customMotorItem[i].prd_name,
-                    price: output.customMotorItem[i].prd_price,
-                    rpm: Number(output.customMotorItem[i].rpm),
-                    kgm: Number(output.customMotorItem[i].kgm),
-                };
-            }
-            for(let i=0; i<output.customControllerItem.length; i++){
-                controllerModels.value[`controller0${i+1}`] = {
-                    id: i+1,
-                    name: output.customControllerItem[i].prd_name,
-                    price: output.customControllerItem[i].prd_price,
-                    kgmc: Number(output.customControllerItem[i].kgmc),
-                };
-            }
-        })
+    .then((output) => {
+      for (let i = 0; i < output.customMotorItem.length; i++) {
+        motorModels.value[`motor0${i + 1}`] = {
+          id: i + 1,
+          name: output.customMotorItem[i].prd_name,
+          price: output.customMotorItem[i].prd_price,
+          rpm: Number(output.customMotorItem[i].rpm),
+          kgm: Number(output.customMotorItem[i].kgm),
+        };
+      }
+      for (let i = 0; i < output.customControllerItem.length; i++) {
+        controllerModels.value[`controller0${i + 1}`] = {
+          id: i + 1,
+          name: output.customControllerItem[i].prd_name,
+          price: output.customControllerItem[i].prd_price,
+          kgmc: Number(output.customControllerItem[i].kgmc),
+        };
+      }
+    });
 };
 const units = ref({
-    maxSpeed: {
-        'id': 1,
-        title: 'Max Speed',
-        unit: 'km/h',
-        value: 0,
-        ratio: 1.5,
-        scale: {
-            1: 160,
-            2: 140,
-            3: 120,
-            4: 100,
-            5: 80,
-            6: 60,
-            7: 40,
-            8: 20,
-            9: 0,
-        },
+  maxSpeed: {
+    id: 1,
+    title: "Max Speed",
+    unit: "km/h",
+    value: 0,
+    ratio: 1.5,
+    scale: {
+      1: 160,
+      2: 140,
+      3: 120,
+      4: 100,
+      5: 80,
+      6: 60,
+      7: 40,
+      8: 20,
+      9: 0,
     },
-    maxload: {
-        'id': 2,
-        title: 'Max Load',
-        unit: 'kg',
-        value: 0,
-        ratio: 6,
-        scale: {
-            1: 40,
-            2: 35,
-            3: 30,
-            4: 25,
-            5: 20,
-            6: 15,
-            7: 10,
-            8: 5,
-            9: 0,
-        },
+  },
+  maxload: {
+    id: 2,
+    title: "Max Load",
+    unit: "kg",
+    value: 0,
+    ratio: 6,
+    scale: {
+      1: 40,
+      2: 35,
+      3: 30,
+      4: 25,
+      5: 20,
+      6: 15,
+      7: 10,
+      8: 5,
+      9: 0,
     },
-    rotatingSpeed: {
-        'id': 3,
-        title: 'Rotating Speed',
-        unit: 'x1000 rpm',
-        value: 0,
-        ratio: 30,
-        scale: {
-            1: 8,
-            2: 7,
-            3: 6,
-            4: 5,
-            5: 4,
-            6: 3,
-            7: 2,
-            8: 1,
-            9: 0,
-        },
+  },
+  rotatingSpeed: {
+    id: 3,
+    title: "Rotating Speed",
+    unit: "x1000 rpm",
+    value: 0,
+    ratio: 30,
+    scale: {
+      1: 8,
+      2: 7,
+      3: 6,
+      4: 5,
+      5: 4,
+      6: 3,
+      7: 2,
+      8: 1,
+      9: 0,
     },
-    totalWeight: {
-        'id': 4,
-        title: 'Total Weight',
-        unit: 'kg',
-        value: 0,
-        ratio: 30,
-        scale: {
-            1: 8,
-            2: 7,
-            3: 6,
-            4: 5,
-            5: 4,
-            6: 3,
-            7: 2,
-            8: 1,
-            9: 0,
-        },
+  },
+  totalWeight: {
+    id: 4,
+    title: "Total Weight",
+    unit: "kg",
+    value: 0,
+    ratio: 30,
+    scale: {
+      1: 8,
+      2: 7,
+      3: 6,
+      4: 5,
+      5: 4,
+      6: 3,
+      7: 2,
+      8: 1,
+      9: 0,
     },
-    accelerateTime: {
-        'id': 5,
-        title: '100km/h',
-        unit: 's',
-        value: 0,
-        ratio: 30,
-        scale: {
-            1: 8,
-            2: 7,
-            3: 6,
-            4: 5,
-            5: 4,
-            6: 3,
-            7: 2,
-            8: 1,
-            9: 0,
-        },
+  },
+  accelerateTime: {
+    id: 5,
+    title: "100km/h",
+    unit: "s",
+    value: 0,
+    ratio: 30,
+    scale: {
+      1: 8,
+      2: 7,
+      3: 6,
+      4: 5,
+      5: 4,
+      6: 3,
+      7: 2,
+      8: 1,
+      9: 0,
     },
-    accelerate: {
-        'id': 6,
-        title: 'Accelerate',
-        unit: 'm/s^2',
-        value: 0,
-        ratio: 10,
-        scale: {
-            1: 24,
-            2: 21,
-            3: 18,
-            4: 15,
-            5: 12,
-            6: 9,
-            7: 6,
-            8: 3,
-            9: 0,
-        },
+  },
+  accelerate: {
+    id: 6,
+    title: "Accelerate",
+    unit: "m/s^2",
+    value: 0,
+    ratio: 10,
+    scale: {
+      1: 24,
+      2: 21,
+      3: 18,
+      4: 15,
+      5: 12,
+      6: 9,
+      7: 6,
+      8: 3,
+      9: 0,
     },
-})
+  },
+});
 const step = ref({
-    1: {id: 1,
-        text: 'Body',
-        show: true,
-        sBtn: false,
-        pBtn: true,
-    },
-    2: {id: 2,
-        text: 'Propellor',
-        show: false,
-        sBtn: true,
-        pBtn: true,
-    },
-    3: {id: 3,
-        text: 'Motor',
-        show: false,
-        sBtn: true,
-        pBtn: true,
-    },
-    4: {id: 4,
-        text: 'Controller',
-        show: false,
-        sBtn: true,
-        pBtn: false,
-    },
+  1: { id: 1, text: "Body", show: true, sBtn: false, pBtn: true },
+  2: { id: 2, text: "Propellor", show: false, sBtn: true, pBtn: true },
+  3: { id: 3, text: "Motor", show: false, sBtn: true, pBtn: true },
+  4: { id: 4, text: "Controller", show: false, sBtn: true, pBtn: false },
 });
 const flow = ref(1);
 const btnStatus = ref(false);
@@ -228,125 +207,137 @@ const buyBtn = ref(false);
 let acc;
 
 const undo = () => {
-    btnStatus.value = false;
-    step.value[flow.value].show = false;
-    switch (flow.value) {
-        case 2:
-            bodyChosen.value.type = 0;
-            bodyChosen.value.color = 0;
-            bodyChosen.value.weight = 0;
-            propellorChosen.value.type = 0;
-            propellorChosen.value.color = 0;
-            propellorChosen.value.amount = 0;
-            propellorChosen.value.weight = 0;
-            CUS.removeAll();
-            niddleSpin(4, 0, units.value.totalWeight.ratio);
-            $all('.colorControl').forEach(c => c.classList.remove('chosen'));
-            break;
-        case 3:
-            motorChosen.value.type = 0;
-            motorChosen.value.kgm = 0;
-            motorChosen.value.rpm = 0;
-            niddleSpin(1, 0, units.value.maxSpeed.ratio);
-            niddleSpin(2, 0, units.value.maxload.ratio);
-            niddleSpin(3, 0, units.value.rotatingSpeed.ratio);
-            niddleSpin(5, 0, units.value.accelerateTime.ratio);
-            niddleSpin(6, 0, units.value.accelerate.ratio);
-            $all('.motorControl').forEach(c => c.classList.remove('chosen'));
-            break;
-        case 4:
-            kgmcChosen.value.kgmc = 0;
-            kgmcChosen.value.type = 0;
-            niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm), units.value.maxSpeed.ratio);
-            if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm)>=100){
-                acc = accelerate(motorChosen.value.kgm);
-            }else{
-                acc = 0;
-            };
-            niddleSpin(5, acc, units.value.accelerateTime.ratio);
-            niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm)), units.value.accelerate.ratio);
-            buyBtn.value = false;
-            $all('.controllerControl').forEach(c => c.classList.remove('chosen'));
-            break;
-    }
-    flow.value--;
-    step.value[flow.value].show = true;
+  btnStatus.value = false;
+  step.value[flow.value].show = false;
+  switch (flow.value) {
+    case 2:
+      bodyChosen.value.type = 0;
+      bodyChosen.value.color = 0;
+      bodyChosen.value.weight = 0;
+      propellorChosen.value.type = 0;
+      propellorChosen.value.color = 0;
+      propellorChosen.value.amount = 0;
+      propellorChosen.value.weight = 0;
+      CUS.removeAll();
+      niddleSpin(4, 0, units.value.totalWeight.ratio);
+      $all(".colorControl").forEach((c) => c.classList.remove("chosen"));
+      break;
+    case 3:
+      motorChosen.value.type = 0;
+      motorChosen.value.kgm = 0;
+      motorChosen.value.rpm = 0;
+      niddleSpin(1, 0, units.value.maxSpeed.ratio);
+      niddleSpin(2, 0, units.value.maxload.ratio);
+      niddleSpin(3, 0, units.value.rotatingSpeed.ratio);
+      niddleSpin(5, 0, units.value.accelerateTime.ratio);
+      niddleSpin(6, 0, units.value.accelerate.ratio);
+      $all(".motorControl").forEach((c) => c.classList.remove("chosen"));
+      break;
+    case 4:
+      kgmcChosen.value.kgmc = 0;
+      kgmcChosen.value.type = 0;
+      niddleSpin(
+        1,
+        maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm),
+        units.value.maxSpeed.ratio
+      );
+      if (maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm) >= 100) {
+        acc = accelerate(motorChosen.value.kgm);
+      } else {
+        acc = 0;
+      }
+      niddleSpin(5, acc, units.value.accelerateTime.ratio);
+      niddleSpin(
+        6,
+        accelerate(accelerateTime(motorChosen.value.kgm)),
+        units.value.accelerate.ratio
+      );
+      buyBtn.value = false;
+      $all(".controllerControl").forEach((c) => c.classList.remove("chosen"));
+      break;
+  }
+  flow.value--;
+  step.value[flow.value].show = true;
 };
 const lightBoxClose = (session = false) => {
-	lightBoxShow.value = false;
-    lightBoxText.value.title.show = false;
-    lightBoxText.value.title.content = '';
-    lightBoxText.value.text.show = false;
-    lightBoxText.value.text.content = '';
-    lightBoxText.value.confirm = false;
-    lightBoxText.value.img.show = false;
-    if(session){
-        set('intro', 'read');
-    };
+  lightBoxShow.value = false;
+  lightBoxText.value.title.show = false;
+  lightBoxText.value.title.content = "";
+  lightBoxText.value.text.show = false;
+  lightBoxText.value.text.content = "";
+  lightBoxText.value.confirm = false;
+  lightBoxText.value.img.show = false;
+  if (session) {
+    set("intro", "read");
+  }
 };
 const lightBoxText = ref({
-    title: {
-        show: false,
-        content: '',
-    },
-    text: {
-        show: false,
-        content: '',
-    },
-    img: {
-        show: false,
-        idt: 1,
-    },
-    confirm: false,
-})
+  title: {
+    show: false,
+    content: "",
+  },
+  text: {
+    show: false,
+    content: "",
+  },
+  img: {
+    show: false,
+    idt: 1,
+  },
+  confirm: false,
+});
 const lightBoxShow = ref(false);
 const introductionInit = () => {
-    if(sessionStorage['intro']===undefined){
-        lightBoxShow.value = true;
-        lightBoxText.value.text.show = true;
-        lightBoxText.value.img.show = true;
-        lightBoxText.value.title.show = true;
-        lightBoxText.value.title.content = `Introduction`
-        lightBoxText.value.text.content = introduction.value[lightBoxText.value.img.idt].text;
-    };
+  if (sessionStorage["intro"] === undefined) {
+    lightBoxShow.value = true;
+    lightBoxText.value.text.show = true;
+    lightBoxText.value.img.show = true;
+    lightBoxText.value.title.show = true;
+    lightBoxText.value.title.content = `Introduction`;
+    lightBoxText.value.text.content =
+      introduction.value[lightBoxText.value.img.idt].text;
+  }
 };
 const introductionFlow = () => {
-    lightBoxText.value.img.idt++;
-    lightBoxText.value.text.content = introduction.value[lightBoxText.value.img.idt].text;
+  lightBoxText.value.img.idt++;
+  lightBoxText.value.text.content =
+    introduction.value[lightBoxText.value.img.idt].text;
 };
 const nextStep = () => {
-    if(btnStatus.value){
-        step.value[flow.value].show = false;
-        flow.value++;
-        btnStatus.value = false;
-        step.value[flow.value].show = true;
-    }else{
-        lightBoxShow.value = true;
-        lightBoxText.value.title.show = true;
-        lightBoxText.value.title.content = 'Please Choose a Drone Part First!';
-    }
+  if (btnStatus.value) {
+    step.value[flow.value].show = false;
+    flow.value++;
+    btnStatus.value = false;
+    step.value[flow.value].show = true;
+  } else {
+    lightBoxShow.value = true;
+    lightBoxText.value.title.show = true;
+    lightBoxText.value.title.content = "Please Choose a Drone Part First!";
+  }
 };
 
 const canvasRe = () => {
-    if(ww<575){
-        customize3d.width = ww;
-        customize3d.height = 300;
-    }else if(ww<1023){
-        customize3d.width = 400;
-        customize3d.height = 400;
-    }else{
-        customize3d.width = 500;
-        customize3d.height = 500;
-    };
+  if (ww < 575) {
+    customize3d.width = ww;
+    customize3d.height = 300;
+  } else if (ww < 1023) {
+    customize3d.width = 400;
+    customize3d.height = 400;
+  } else {
+    customize3d.width = 500;
+    customize3d.height = 500;
+  }
 };
-const maxSpeed = (rpm, kgm, kgmc = 1) => parseInt((rpm * kgm * kgmc) / (units.value.totalWeight.value * 1000) * 10);
-const accelerateTime = (kgm, kgmc = 1) => (Math.pow(kgm * kgmc, 2) / 40).toFixed(1);
+const maxSpeed = (rpm, kgm, kgmc = 1) =>
+  parseInt(((rpm * kgm * kgmc) / (units.value.totalWeight.value * 1000)) * 10);
+const accelerateTime = (kgm, kgmc = 1) =>
+  (Math.pow(kgm * kgmc, 2) / 40).toFixed(1);
 const accelerate = (accelerateTime) => (100 / 3.6 / accelerateTime).toFixed(1);
 
 const bodyChosen = ref({
-    type: 0,
-    color: 0,
-    weight: 0,
+  type: 0,
+  color: 0,
+  weight: 0,
 });
 
 const bodyChoose = (id, nid, src) => {
@@ -361,10 +352,10 @@ const bodyChoose = (id, nid, src) => {
     $$(`.bodyControl${id}${nid}`).classList.add('chosen');
 };
 const propellorChosen = ref({
-   type: 0,
-   color: 0,
-   amount: 0,
-   weight: 0, 
+  type: 0,
+  color: 0,
+  amount: 0,
+  weight: 0,
 });
 const propellorChoose = (id, nid, src) => {
     CUS.propellor(id, src);
@@ -384,139 +375,167 @@ const propellorChoose = (id, nid, src) => {
     $$(`.propellorControl${id}${nid}`).classList.add('chosen');
 };
 const motorChosen = ref({
-    type: 0,
-    rpm: 0,
-    kgm: 0,
-})
+  type: 0,
+  rpm: 0,
+  kgm: 0,
+});
 const motorChoose = (id) => {
-    motorChosen.value.rpm = motorModels.value[`motor0${id}`].rpm;
-    motorChosen.value.kgm = motorModels.value[`motor0${id}`].kgm;
-    motorChosen.value.type = id;
-    niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm), units.value.maxSpeed.ratio);
-    niddleSpin(2, motorChosen.value.kgm, units.value.maxload.ratio);
-    niddleSpin(3, motorChosen.value.rpm / 1000, units.value.rotatingSpeed.ratio);
-    if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm)>=100){
-        acc = accelerate(motorChosen.value.kgm);
-    }else{
-        acc = 0;
-    };
-    niddleSpin(5, acc, units.value.accelerateTime.ratio);
-    niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm)), units.value.accelerate.ratio);
-    btnStatus.value = true;
-    $all('.motorControl').forEach(c => c.classList.remove('chosen'));
-    $$(`.motorControl${id}`).classList.add('chosen');
+  motorChosen.value.rpm = motorModels.value[`motor0${id}`].rpm;
+  motorChosen.value.kgm = motorModels.value[`motor0${id}`].kgm;
+  motorChosen.value.type = id;
+  niddleSpin(
+    1,
+    maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm),
+    units.value.maxSpeed.ratio
+  );
+  niddleSpin(2, motorChosen.value.kgm, units.value.maxload.ratio);
+  niddleSpin(3, motorChosen.value.rpm / 1000, units.value.rotatingSpeed.ratio);
+  if (maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm) >= 100) {
+    acc = accelerate(motorChosen.value.kgm);
+  } else {
+    acc = 0;
+  }
+  niddleSpin(5, acc, units.value.accelerateTime.ratio);
+  niddleSpin(
+    6,
+    accelerate(accelerateTime(motorChosen.value.kgm)),
+    units.value.accelerate.ratio
+  );
+  btnStatus.value = true;
+  $all(".motorControl").forEach((c) => c.classList.remove("chosen"));
+  $$(`.motorControl${id}`).classList.add("chosen");
 };
 const kgmcChosen = ref({
-    type: 0,
-    kgmc: 0,
+  type: 0,
+  kgmc: 0,
 });
 const controllerChoose = (id) => {
-    kgmcChosen.value.kgmc = controllerModels.value[`controller0${id}`].kgmc;
-    kgmcChosen.value.type = id;
-    niddleSpin(1, maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value.kgmc), units.value.maxSpeed.ratio);
-    if(maxSpeed(motorChosen.value.rpm, motorChosen.value.kgm, kgmcChosen.value.kgmc)>=100){
-        acc = accelerateTime(motorChosen.value.kgm, kgmcChosen.value.kgmc);
-    }else{
-        acc = 0;
-    };
-    niddleSpin(5, acc, units.value.accelerateTime.ratio);
-    niddleSpin(6, accelerate(accelerateTime(motorChosen.value.kgm, kgmcChosen.value.kgmc)), units.value.accelerate.ratio);
-    btnStatus.value = true;
-    if(flow.value===4&&btnStatus.value){
-        buyBtn.value = true;
-    }
-    $all('.controllerControl').forEach(c => c.classList.remove('chosen'));
-    $$(`.controllerControl${id}`).classList.add('chosen');
+  kgmcChosen.value.kgmc = controllerModels.value[`controller0${id}`].kgmc;
+  kgmcChosen.value.type = id;
+  niddleSpin(
+    1,
+    maxSpeed(
+      motorChosen.value.rpm,
+      motorChosen.value.kgm,
+      kgmcChosen.value.kgmc
+    ),
+    units.value.maxSpeed.ratio
+  );
+  if (
+    maxSpeed(
+      motorChosen.value.rpm,
+      motorChosen.value.kgm,
+      kgmcChosen.value.kgmc
+    ) >= 100
+  ) {
+    acc = accelerateTime(motorChosen.value.kgm, kgmcChosen.value.kgmc);
+  } else {
+    acc = 0;
+  }
+  niddleSpin(5, acc, units.value.accelerateTime.ratio);
+  niddleSpin(
+    6,
+    accelerate(accelerateTime(motorChosen.value.kgm, kgmcChosen.value.kgmc)),
+    units.value.accelerate.ratio
+  );
+  btnStatus.value = true;
+  if (flow.value === 4 && btnStatus.value) {
+    buyBtn.value = true;
+  }
+  $all(".controllerControl").forEach((c) => c.classList.remove("chosen"));
+  $$(`.controllerControl${id}`).classList.add("chosen");
 };
 let toggle = false;
 const toggleBoard = () => {
-    let left = -354, mrl = -177, mr = '0 0 20px';
-    if(ww>=576 && ww<1024){
-        left = -554;
-        mrl = -277;
-        mr = '0 60px 20px';
-    }
-    if(toggle){
-        gsap.to('.boards', {
-            right: 'auto',
-            left,
-            margin: 0,
-            duration: .3,
-        })
-        gsap.to('.tag', {
-            position: 'absolute',
-            top: '20%',
-            right: '-50px',
-            width: 60,
-            height: 130,
-            writingMode: 'vertical-lr',
-            lineHeight: '75px',
-            fontSize: '16px',
-            margin: '0 0 20px',
-            duration: 0,
-            delay: .3,
-        })
-        $$('.name').style.display = 'block';
-        $all('.cross').forEach(e => {
-            gsap.to(e, {
-                rotate: 0,
-                duration: 0,
-                delay: .3,
-            })
-            e.style.display = 'none';
-        });
-        toggle = false;
-    }else{
-        gsap.to('.boards', {
-            left: 50 + '%',
-            marginLeft: mrl,
-            duration: .3,
-        });
-        gsap.to('.tag', {
-            position: 'relative',
-            top: 0,
-            right: 0,
-            width: 60,
-            height: 60,
-            writingMode: 'inherit',
-            lineHeight: 2,
-            fontSize: '32px',
-            margin: mr,
-            duration: 0,
-        })
-        $$('.name').style.display = 'none';
-        $all('.cross').forEach(e => e.style.display = 'block');
-        gsap.to($all('.cross')[0], {
-            rotate: '45deg',
-            duration: .3,
-            delay: .3,
-        });
-        gsap.to($all('.cross')[1], {
-            rotate: '-45deg',
-            duration: .3,
-            delay: .3,
-        });
-        toggle = true;
-    }
+  let left = -354,
+    mrl = -177,
+    mr = "0 0 20px";
+  if (ww >= 576 && ww < 1024) {
+    left = -554;
+    mrl = -277;
+    mr = "0 60px 20px";
+  }
+  if (toggle) {
+    gsap.to(".boards", {
+      right: "auto",
+      left,
+      margin: 0,
+      duration: 0.3,
+    });
+    gsap.to(".tag", {
+      position: "absolute",
+      top: "20%",
+      right: "-50px",
+      width: 60,
+      height: 130,
+      writingMode: "vertical-lr",
+      lineHeight: "75px",
+      fontSize: "16px",
+      margin: "0 0 20px",
+      duration: 0,
+      delay: 0.3,
+    });
+    $$(".name").style.display = "block";
+    $all(".cross").forEach((e) => {
+      gsap.to(e, {
+        rotate: 0,
+        duration: 0,
+        delay: 0.3,
+      });
+      e.style.display = "none";
+    });
+    toggle = false;
+  } else {
+    gsap.to(".boards", {
+      left: 50 + "%",
+      marginLeft: mrl,
+      duration: 0.3,
+    });
+    gsap.to(".tag", {
+      position: "relative",
+      top: 0,
+      right: 0,
+      width: 60,
+      height: 60,
+      writingMode: "inherit",
+      lineHeight: 2,
+      fontSize: "32px",
+      margin: mr,
+      duration: 0,
+    });
+    $$(".name").style.display = "none";
+    $all(".cross").forEach((e) => (e.style.display = "block"));
+    gsap.to($all(".cross")[0], {
+      rotate: "45deg",
+      duration: 0.3,
+      delay: 0.3,
+    });
+    gsap.to($all(".cross")[1], {
+      rotate: "-45deg",
+      duration: 0.3,
+      delay: 0.3,
+    });
+    toggle = true;
+  }
 };
 let toggleColorControl = ref({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-    5: false,
-    6: false,
+  1: false,
+  2: false,
+  3: false,
+  4: false,
+  5: false,
+  6: false,
 });
 const toggleColor = (id) => {
-    if(toggleColorControl.value[id]){
-        toggleColorControl.value[id] = false;
-    }else{
-        toggleColorControl.value[id] = true;
-    };
+  if (toggleColorControl.value[id]) {
+    toggleColorControl.value[id] = false;
+  } else {
+    toggleColorControl.value[id] = true;
+  }
 };
 
 const set = (key, val) => {
-    sessionStorage.setItem(key, val)
+  sessionStorage.setItem(key, val);
 };
 
 const addCart = () => {
@@ -1016,81 +1035,46 @@ input[type="range"]{
 .bg3d{
     background: radial-gradient(#CED3DC33, transparent 70%);
 }
-.lightBox{
-	@include lightBox();
-    backdrop-filter: blur(5px);
-	.lightBoxContent{
-        padding: 20px;
-        p{
-            margin: 20px;
-        }
-        .lightBoxImg{
-            width: 70%;
-            height: 70%;
-            margin: 20px auto 0;
-            border-radius: 15px;
-            overflow: hidden;
-            img{
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        }
-        .confirm{
-            @include primaryBtn(60px);
-            margin: 20px 0 0 auto;
-        }
-        .next{
-            @include secondBtn(60px);
-            margin: 0 auto;
-        }
-        .start{
-            @include primaryBtn(60px);
-            margin: 0 auto;
-        }
-        .shc{
-            position: absolute;
-            top: 90%;
-            left: 0;
-            right: 0;
-            margin: 0 auto;
-        }
-	}
-}
-.loadBox{
-    width: 150px;
-    height: 20px;
-    position: absolute;
-    top: 35%;
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    border-radius: 15px;
-    border: 2px solid $light-black;
-    background: $black;
-    display: none;
-    @include m($m-breakpoint) {
-        top: 40%;
-        right: 40%;
-        left: 0;
+.lightBox {
+  @include lightBox();
+  backdrop-filter: blur(5px);
+  .lightBoxContent {
+    padding: 20px;
+    p {
+      margin: 20px;
     }
-    @include l($l-breakpoint) {
-        top: 50%;
-        width: 200px;
-        height: 30px;
-    }
-    .loadProgress{
-        width: 0%;
-        height: 100%;
-        border-radius: 15px;
-        background: linear-gradient(to right, $blue, $purple);
-    }
-    .loadNum{
-        text-align: center;
-        position: absolute;
-        top: 0;
+    .lightBoxImg {
+      width: 70%;
+      height: 70%;
+      margin: 20px auto 0;
+      border-radius: 15px;
+      overflow: hidden;
+      img {
         width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
     }
+    .confirm {
+      @include primaryBtn(60px);
+      margin: 20px 0 0 auto;
+    }
+    .next {
+      @include secondBtn(60px);
+      margin: 0 auto;
+    }
+    .start {
+      @include primaryBtn(60px);
+      margin: 0 auto;
+    }
+    .shc {
+      position: absolute;
+      top: 90%;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    }
+  }
 }
 
 .customize{
@@ -1102,15 +1086,21 @@ input[type="range"]{
     @include m($m-breakpoint) {
         
     }
-    .customizeTitle{
-        position: relative;
-        z-index: 1;
-        width: 90%;
-        margin: 0 auto;
-        text-align: left;
-        @include l($l-breakpoint) {
-            width: 1200px;
-        }
+  }
+  .paths {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 90%;
+    position: absolute;
+    width: 90%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    top: 138px;
+    @include l($l-breakpoint) {
+      width: 1200px;
+      top: 145px;
     }
     .secondTitle{
         display: flex;
@@ -1173,11 +1163,23 @@ input[type="range"]{
             animation: path 1s linear infinite;
         }
     }
+    p:nth-child(2) {
+      text-align: left;
+      width: 100px;
+      animation: path 1s linear infinite;
+    }
+  }
 }
 @keyframes path {
-    0%{color: #eee;}
-    50%{color: $purple;}
-    100%{color: #eee;}
+  0% {
+    color: #eee;
+  }
+  50% {
+    color: $purple;
+  }
+  100% {
+    color: #eee;
+  }
 }
 .displayTitle{
     //text-shadow: 5px 0 0 #F25A2Aaa;
@@ -1332,48 +1334,120 @@ input[type="range"]{
     border-right: 2px solid $light-black;
     p{
         width: 100%;
+      }
+      p:nth-child(2) {
+        width: 70%;
+      }
+      p:nth-child(3) {
+        width: 30%;
+        text-align: right;
+      }
     }
-    .colorControl{
-        border-radius: 50%;
-        border: 2px solid #fff;
-        width: 20px;
-        height: 20px;
-        margin: 10px auto;
-        background: #fff;
+    .funcControls {
+      margin: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      .funcControl {
         cursor: pointer;
+        border: 2px solid $dark-grey;
+        padding: 10px;
+        border-radius: 20px;
+        margin: 10px 40px;
+        display: flex;
+        flex-wrap: wrap;
+        h4 {
+          width: 100%;
+        }
+        p {
+          width: 100%;
+        }
+        @include m($m-breakpoint) {
+          margin: 10px 0;
+        }
+      }
+      .motorControl p:nth-child(3) {
+        @include s($s-breakpoint) {
+          width: 50%;
+        }
+      }
+      .motorControl p:nth-child(4) {
+        @include s($s-breakpoint) {
+          width: 50%;
+          text-align: right;
+        }
+      }
+      .controllerControl p:nth-child(2) {
+        @include s($s-breakpoint) {
+          width: 50%;
+        }
+      }
+      .controllerControl p:nth-child(3) {
+        @include s($s-breakpoint) {
+          width: 50%;
+          text-align: right;
+        }
+      }
     }
-    .colorControl:nth-child(2){
-        background: black;
-    }
-    .colorControl:nth-child(3){
-        background: blue;
-    }
-    .colorControl:nth-child(4){
-        background: green;
-    }
-    .colorControl:nth-child(5){
-        background: red;
-    }
-    .colorControl:nth-child(6){
-        background: white;
-    }
+  }
 }
-.chosen{
-    box-shadow: 0 0 0 5px $ored;
-    transition: all .3s;
+.colorControls {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  transition: all 0.3s;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 0 0 15px 15px;
+  background: $black;
+  border-bottom: 2px solid $light-black;
+  border-left: 2px solid $light-black;
+  border-right: 2px solid $light-black;
+  p {
+    width: 100%;
+  }
+  .colorControl {
+    border-radius: 50%;
+    border: 2px solid #fff;
+    width: 20px;
+    height: 20px;
+    margin: 10px auto;
+    background: #fff;
+    cursor: pointer;
+  }
+  .colorControl:nth-child(2) {
+    background: black;
+  }
+  .colorControl:nth-child(3) {
+    background: blue;
+  }
+  .colorControl:nth-child(4) {
+    background: green;
+  }
+  .colorControl:nth-child(5) {
+    background: red;
+  }
+  .colorControl:nth-child(6) {
+    background: white;
+  }
 }
-.flowControls{
-    display: flex;
-    justify-content: space-around;
-    .undo{
-        @include secondBtn(60px);
-    }
-    .nextStep{
-        @include primaryBtn(100px);
-    }
-    .buyBtn{
-        @include primaryBtn(100px);
-    }
+.chosen {
+  box-shadow: 0 0 0 5px $ored;
+  transition: all 0.3s;
 }
-
+.flowControls {
+  display: flex;
+  justify-content: space-around;
+  .undo {
+    @include secondBtn(60px);
+  }
+  .nextStep {
+    @include primaryBtn(100px);
+  }
+  .buyBtn {
+    @include primaryBtn(100px);
+  }
+}
 </style>
