@@ -6,6 +6,9 @@ import footerComponentsVue from "@/components/footerComponents.vue";
 import { reactive, ref, onMounted } from "vue";
 import emailjs from "emailjs-com";
 
+const forget_password_account = ref("");
+const mem_pw = ref("");
+
 onMounted(() => {
   function getMemberInfo() {
     let xhr = new XMLHttpRequest();
@@ -162,6 +165,7 @@ const sendEmail = () => {
     // html = `<p>${member.mem_psw}</p>`;
     // document.getElementById("show_forget_password").innerHTML = html;
   }
+  console.log(sendEmail);
   // ========== 忘記密碼的 EmailJs ========== //
   emailjs
     .send(
