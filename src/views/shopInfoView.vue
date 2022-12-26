@@ -25,8 +25,6 @@ bodyInit();
 onMounted(() => {
   session();
 
-  console.log(prodInfo);
-  console.log(prodInfo.value);
   let lastPos = 0;
   const nav = document.getElementById("purchaseBar");
   // log(nav);
@@ -96,7 +94,7 @@ const session = () => {
   <div class="main">
     <!-- 商品大圖 -->
     <div id="mainPic">
-      <img :src="`/dist/assets/{{ prodin.img }}.png`" />
+      <img :src="`/dist/assets/${prodin.images}`"/>
       <div class="button" id="left" @click="btnLeft">&lt;</div>
       <div class="button" id="right" @click="btnRight">&gt;</div>
     </div>
