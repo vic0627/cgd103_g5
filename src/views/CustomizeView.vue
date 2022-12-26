@@ -32,12 +32,11 @@ onMounted(() => {
   introductionInit();
 });
 onBeforeUpdate(() => {
-  $$(".loadBox").style.display = "block";
-  gsap.to(".loadProgress", {
-    width: CUS.modelLoading.value + "%",
-    duration: 0.1,
-  });
-  niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
+    $$('.loadBox').style.display = 'block';
+    gsap.to('.loadProgress', {
+        width: CUS.modelLoading.value + '%',
+        duration: .1,
+    });
 });
 onUpdated(() => {
   if (CUS.modelLoading.value === 0) $$(".loadBox").style.display = "none";
@@ -55,6 +54,7 @@ onUpdated(() => {
         });
       }
     });
+    
 });
 
 let customMotorItem, customControllerItem;
@@ -356,15 +356,15 @@ const bodyChosen = ref({
 });
 
 const bodyChoose = (id, nid, src) => {
-  CUS.body(id, src);
-  units.value.totalWeight.value =
-    (0 + droneModels.value[`body0${id}`].weight) / 1000;
-  bodyChosen.value.weight = droneModels.value[`body0${id}`].weight;
-  bodyChosen.value.type = id;
-  bodyChosen.value.color = nid;
-  btnStatus.value = true;
-  $all(".colorControl").forEach((c) => c.classList.remove("chosen"));
-  $$(`.bodyControl${id}${nid}`).classList.add("chosen");
+    CUS.body(id, src);
+    units.value.totalWeight.value = (0 + droneModels.value[`body0${id}`].weight)/1000;
+    bodyChosen.value.weight = droneModels.value[`body0${id}`].weight;
+    bodyChosen.value.type = id;
+    bodyChosen.value.color = nid;
+    btnStatus.value = true;
+    niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
+    $all('.colorControl').forEach(c => c.classList.remove('chosen'));
+    $$(`.bodyControl${id}${nid}`).classList.add('chosen');
 };
 const propellorChosen = ref({
   type: 0,
@@ -373,23 +373,21 @@ const propellorChosen = ref({
   weight: 0,
 });
 const propellorChoose = (id, nid, src) => {
-  CUS.propellor(id, src);
-  if (id === 1) {
-    propellorChosen.value.weight =
-      propellorModels.value[`propellor0${id}`].weight * 2;
-    propellorChosen.value.amount = 2;
-  } else {
-    propellorChosen.value.weight =
-      propellorModels.value[`propellor0${id}`].weight * 4;
-    propellorChosen.value.amount = 4;
-  }
-  units.value.totalWeight.value =
-    (bodyChosen.value.weight + propellorChosen.value.weight) / 1000;
-  propellorChosen.value.type = id;
-  propellorChosen.value.color = nid;
-  btnStatus.value = true;
-  $all(".colorControl").forEach((c) => c.classList.remove("chosen"));
-  $$(`.propellorControl${id}${nid}`).classList.add("chosen");
+    CUS.propellor(id, src);
+    if(id===1){
+        propellorChosen.value.weight = propellorModels.value[`propellor0${id}`].weight * 2;
+        propellorChosen.value.amount = 2;
+    }else{
+        propellorChosen.value.weight = propellorModels.value[`propellor0${id}`].weight * 4;
+        propellorChosen.value.amount = 4;
+    }
+    units.value.totalWeight.value = (bodyChosen.value.weight + propellorChosen.value.weight)/1000;
+    propellorChosen.value.type = id;
+    propellorChosen.value.color = nid;
+    btnStatus.value = true;
+    niddleSpin(4, units.value.totalWeight.value, units.value.totalWeight.ratio);
+    $all('.colorControl').forEach(c => c.classList.remove('chosen'));
+    $$(`.propellorControl${id}${nid}`).classList.add('chosen');
 };
 const motorChosen = ref({
   type: 0,
@@ -672,193 +670,410 @@ const setSession = () => {
     }"}`
   );
 };
+const alpha = ref(null);
+const selectionAlpha = (e) => {
+    alpha.value = Number(e.target.value);
+    gsap.to('.customizeControl', {
+        opacity: Number(e.target.value)/100,
+        duration: .3,
+    });
+    displayMode();
+};
+const displaySwitch = ref({
+    num: false,
+    digi: true,
+})
+const displayShow = ref(false);
+const displayMode = () => {
+    if(alpha.value<5){
+        //displaySwitch.value.num = false;
+        //displaySwitch.value.digi = true;
+        displayShow.value = true;
+        $$('.customizeTitle').innerText = 'DISPLAY MODE';
+        $$('.customizeTitle').classList.add('displayTitle');
+        gsap.to('.customizeTitle', {
+            transform: 'skewX(-15deg)',
+            duration: .5,
+        })
+        gsap.to('.paths', {
+            opacity: 0,
+            duration: .5,
+        });
+        gsap.to('.displayControls', {
+            opacity: 1,
+            duration: .5,
+        });
+        $$('.customizeControl').style.display = 'none';
+        $$('#customize3d').width = getW('.mainCus')*2;
+        gsap.to('#customize3d', {
+            width: getW('.mainCus')*2,
+            duration: .5,
+        })
+        $$('#customize3d').height = 650;
+        gsap.to('#customize3d', {
+            height: 650,
+            duration: .5,
+        })
+        gsap.to('.boards', {
+            top: -60,
+            duration: .5,
+        })
+        CUS.camera.aspect = getW('.mainCus')*2 / 650;
+        CUS.renderer.setSize(getW('.mainCus')*2, 650);
+        gsap.to('body', {
+            background: '#000',
+            duration: .5,
+        });
+        gsap.to('.boards', {
+            filter: 'none',
+            duration: .5
+        });
+        $all('.dashBoard').forEach(e => {
+            gsap.to(e, {
+                background: 'radial-gradient(#F25A2A66, transparent 50%)',
+                duration: .5,
+            })
+        });
+        $$('#customize3d').classList.remove('bg3d');
+        $$('.lightA').classList.add('skewX');
+        $$('.lightB').classList.add('skew-X');
+        $all('.digiBoard').forEach(e => e.classList.add('skewX'));
+        $all('.boardTitle').forEach(e => e.classList.add('skewX'));
+        $all('.boardSpan').forEach(e => e.classList.add('skewX'));
+    }else{
+        if(ww>1023){
+            $$('#customize3d').width = 400;
+            gsap.to('#customize3d', {
+                width: 400,
+                duration: .5,
+            })
+            $$('#customize3d').height = 400;
+            gsap.to('#customize3d', {
+                height: 400,
+                duration: .5,
+            })
+            CUS.camera.aspect = 400 / 400;
+            CUS.renderer.setSize(400, 400);
+        }else if(ww>1199){
+            $$('#customize3d').width = 500;
+            gsap.to('#customize3d', {
+                width: 500,
+                duration: .5,
+            })
+            $$('#customize3d').height = 500;
+            gsap.to('#customize3d', {
+                height: 500,
+                duration: .5,
+            })
+            CUS.camera.aspect = 500 / 500;
+            CUS.renderer.setSize(500, 500);
+        };
+        //displaySwitch.value.num = true;
+        //displaySwitch.value.digi = false;
+        displayShow.value = false;
+        gsap.to('.boards', {
+            top: 0,
+            duration: .5,
+        })
+        $$('.customizeTitle').innerText = 'Custom';
+        $$('.customizeTitle').classList.remove('displayTitle');
+        gsap.to('.customizeTitle', {
+            transform: 'none',
+            duration: .5,
+        })
+        gsap.to('.paths', {
+            opacity: 1,
+            duration: .5,
+        });
+        gsap.to('.displayControls', {
+            opacity: 0,
+            duration: .5,
+        });
+        gsap.to('.boards', {
+            filter: 'blur(1px)',
+            duration: .5
+        });
+        $all('.dashBoard').forEach(e => {
+            gsap.to(e, {
+                background: 'radial-gradient(#CED3DC66, transparent 70%)',
+                duration: .5,
+            })
+        });
+        $$('#customize3d').classList.add('bg3d');
+        $$('.lightA').classList.remove('skewX');
+        $$('.lightB').classList.remove('skew-X');
+        $all('.digiBoard').forEach(e => e.classList.remove('skewX'));
+        $all('.boardTitle').forEach(e => e.classList.remove('skewX'));
+        $all('.boardSpan').forEach(e => e.classList.remove('skewX'));
+        $$('.customizeControl').style.display = 'block';
+        gsap.to('body', {
+            background: '#12181E',
+            duration: .5,
+        })
+    }
+};
+const rtl = (e, text) => {
+    let tl = new gsap.timeline();
+    tl.to(e, {
+        borderRadius: 0,
+        duration: .25,
+    })
+    tl.to(e, {
+        width: 1,
+        duration: .25,
+    })
+    tl.to(e, {
+        innerText: text,
+        duration: 0,
+    })
+    tl.to(e, {
+        width: '10%',
+        duration: .25,
+    })
+    tl.to(e, {
+        borderRadius: '20px',
+        duration: .25,
+    })
+}
+const rotate = (e) => {
+    if(CUS.controls.autoRotate){
+        CUS.controls.autoRotate = false;
+        rtl(e.target, 'Rotate');
+    }else{
+        CUS.controls.autoRotate = true;
+        rtl(e.target, 'Pause');
+    }
+};
+const spot = (e) => {
+    let s = 3 - 3 / 100 * Number(e.target.value);
+    CUS.spotLight1.intensity = s;
+    CUS.spotLight2.intensity = s;
+};
+const direct = (e) => {
+    let d = 3 / 100 * Number(e.target.value);
+    CUS.directionalLight.intensity = d;
+};
 </script>
 
 <template>
-  <nav-component :custom="`#077AF9`" />
-  <section class="customize">
-    <canvas id="customize3d" class="customize3d"></canvas>
-    <div class="loadBox">
-      <div class="loadProgress"></div>
-      <p class="loadNum">{{ CUS.modelLoading }}%</p>
+    <nav-component :custom="`#077AF9`"/>
+    <section class="customize">
+        <div class="loadBox">
+            <div class="loadProgress"></div>
+            <p class="loadNum">{{ CUS.modelLoading }}%</p>
+        </div>
+        <h2 class="customizeTitle" data-title="DISPLAY MODE">Custom</h2>
+        <div class="secondTitle">
+            <div class="paths">
+                <p>Select</p>
+                <p>{{ step[flow].text }}</p>
+            </div>
+            <div class="selectionAlpha">
+                <p>Alpha</p>
+                <input type="range" name="opacity" min="0" max="100" value="100" @input="selectionAlpha">
+            </div>
+        </div>
+        <div class="mainCus">
+            <dashBoardGroupComponent class="boards" :toggle-board="toggleBoard" :display-switch="displaySwitch"/>
+            <canvas id="customize3d" class="customize3d bg3d"></canvas>
+            <div class="displayControls" v-show="displayShow">
+                <label for="lightA" class="lightA">
+                    <p>Spot Light</p>
+                    <input type="range" name="lightA" min="0" max="100" value="0" @input="spot">
+                </label>
+                <p class="rotate" @click="rotate">Pause</p>
+                <label for="lightB" class="lightB">
+                    <p>Directional Light</p>
+                    <input type="range" name="lightB" min="0" max="100" value="0" @input="direct">
+                </label>
+            </div>
+            <div class="customizeControl">
+                <div v-for="i in droneModels" :key="i.id" class="bodySelect selection" v-show="step[1].show">
+                    <div class="itemInfo" @click="toggleColor(i.id)">
+                        <h6>{{ i.name }}</h6>
+                        <p>Weight: {{ i.weight }}g</p>
+                        <p>$ {{ i.price }}</p>
+                    </div>
+                    <div :class="`colorControls colorControls${i.id}`" v-if="toggleColorControl[i.id]">
+                        <P>Color:</P>
+                        <div :class="`colorControl bodyControl${i.id}${n.id}`" v-for="n in droneModels[`body0${i.id}`].color" :key="n.id" @click="bodyChoose(i.id, n.id, n.src)"></div>
+                    </div>
+                </div>
+                <div v-for="e in propellorModels" :key="e.id" class="propellorSelect selection" v-show="step[2].show">
+                    <div class="itemInfo" @click="toggleColor(e.id+3)">
+                        <h6>{{ e.name }}</h6>
+                        <p>Weight: {{ e.weight }}g</p>
+                        <p>$ {{ e.price }}</p>
+                    </div>
+                    <div :class="`colorControls colorControls${e.id+3}`" v-if="toggleColorControl[e.id+3]">
+                        <P>Color:</P>
+                        <div :class="`colorControl propellorControl${e.id}${n.id}`" v-for="n in propellorModels[`propellor0${e.id}`].color" :key="n.id" @click="propellorChoose(e.id, n.id, n.src)"></div>
+                    </div>
+                </div>
+                <div class="motorSelect selection" v-show="step[3].show">
+                    <h3>Motor</h3>
+                    <div class="motorControls funcControls">
+                        <div :class="`motorControl${n.id} motorControl funcControl`" v-for="n in motorModels" :key="n.id" @click="motorChoose(n.id)">
+                            <h6>{{ n.name }}</h6>
+                            <p>Rotating speed: {{ n.rpm }}rpm</p>
+                            <p>Torque: {{ n.kgm }}kgm</p>
+                            <p>$ {{ n.price }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="controllerSelect selection" v-show="step[4].show">
+                    <h3>Controller</h3>
+                    <div class="controllerControls funcControls">
+                        <div :class="`controllerControl${n.id} controllerControl funcControl`" v-for="n in controllerModels" :key="n.id" @click="controllerChoose(n.id)">
+                            <h6>{{ n.name }}</h6>
+                            <p>kgmc: {{ n.kgmc }}</p>
+                            <p>$ {{ n.price }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="flowControls">
+                    <div class="undo" data-title="Undo" v-show="step[flow].sBtn" @click="undo">
+                        <span>Undo</span>
+                    </div>
+                    <div class="nextStep" data-title="Choose" v-show="step[flow].pBtn" @click="nextStep">
+                        <span>Choose</span>
+                    </div>
+                    <div class="nextStep buyBtn" data-title="Buy" v-show="buyBtn" @click="addCart">
+                        <span>Buy</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="lightBox" v-if="lightBoxShow">
+        <div class="lightBoxContent">
+			<div class="close" @click="lightBoxClose"></div>
+            <h4 v-if="lightBoxText.title.show">{{ lightBoxText.title.content }}</h4>
+            <div class="lightBoxImg" v-if="lightBoxText.img.show">
+                <img v-if="lightBoxText.img.show" :src="introduction[lightBoxText.img.idt].img" alt="introduction">
+            </div>
+            <p v-if="lightBoxText.text.show">{{ lightBoxText.text.content }}</p>
+            <div class="confirm" data-title="OK" v-if="lightBoxText.confirm" @click="reCart">
+                <span>OK</span>
+            </div>
+            <div class="next" data-title="Next" v-if="lightBoxText.img.idt !== 7 && lightBoxText.img.show" @click="introductionFlow">
+                <span>Next</span>
+            </div>
+            <div class="start" data-title="Start" v-if="lightBoxText.img.idt === 7 && lightBoxText.img.show" @click="lightBoxClose(true)">
+                <span>Start</span>
+            </div>
+            <!-- <scroll-hint-component class="shc" v-if="lightBoxText.img.show"/> -->
+		</div>
     </div>
-    <h2 class="customizeTitle">Custom</h2>
-    <div class="paths">
-      <p>Select</p>
-      <p>{{ step[flow].text }}</p>
-    </div>
-    <div class="customizeControl">
-      <div
-        v-for="i in droneModels"
-        :key="i.id"
-        class="bodySelect selection"
-        v-show="step[1].show"
-      >
-        <div class="itemInfo" @click="toggleColor(i.id)">
-          <h3>{{ i.name }}</h3>
-          <p>Weight: {{ i.weight }}g</p>
-          <p>$ {{ i.price }}</p>
-        </div>
-        <div
-          :class="`colorControls colorControls${i.id}`"
-          v-if="toggleColorControl[i.id]"
-        >
-          <P>Color:</P>
-          <div
-            :class="`colorControl bodyControl${i.id}${n.id}`"
-            v-for="n in droneModels[`body0${i.id}`].color"
-            :key="n.id"
-            @click="bodyChoose(i.id, n.id, n.src)"
-          ></div>
-        </div>
-      </div>
-      <div
-        v-for="e in propellorModels"
-        :key="e.id"
-        class="propellorSelect selection"
-        v-show="step[2].show"
-      >
-        <div class="itemInfo" @click="toggleColor(e.id + 3)">
-          <h3>{{ e.name }}</h3>
-          <p>Weight: {{ e.weight }}g</p>
-          <p>$ {{ e.price }}</p>
-        </div>
-        <div
-          :class="`colorControls colorControls${e.id + 3}`"
-          v-if="toggleColorControl[e.id + 3]"
-        >
-          <P>Color:</P>
-          <div
-            :class="`colorControl propellorControl${e.id}${n.id}`"
-            v-for="n in propellorModels[`propellor0${e.id}`].color"
-            :key="n.id"
-            @click="propellorChoose(e.id, n.id, n.src)"
-          ></div>
-        </div>
-      </div>
-      <div class="motorSelect selection" v-show="step[3].show">
-        <h3>Motor</h3>
-        <div class="motorControls funcControls">
-          <div
-            :class="`motorControl${n.id} motorControl funcControl`"
-            v-for="n in motorModels"
-            :key="n.id"
-            @click="motorChoose(n.id)"
-          >
-            <h4>{{ n.name }}</h4>
-            <p>Rotating speed: {{ n.rpm }}rpm</p>
-            <p>Torque: {{ n.kgm }}kgm</p>
-            <p>$ {{ n.price }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="controllerSelect selection" v-show="step[4].show">
-        <h3>Controller</h3>
-        <div class="controllerControls funcControls">
-          <div
-            :class="`controllerControl${n.id} controllerControl funcControl`"
-            v-for="n in controllerModels"
-            :key="n.id"
-            @click="controllerChoose(n.id)"
-          >
-            <h4>{{ n.name }}</h4>
-            <p>kgmc: {{ n.kgmc }}</p>
-            <p>$ {{ n.price }}</p>
-          </div>
-        </div>
-      </div>
-      <div class="flowControls">
-        <div
-          class="undo"
-          data-title="Undo"
-          v-show="step[flow].sBtn"
-          @click="undo"
-        >
-          <span>Undo</span>
-        </div>
-        <div
-          class="nextStep"
-          data-title="Choose"
-          v-show="step[flow].pBtn"
-          @click="nextStep"
-        >
-          <span>Choose</span>
-        </div>
-        <div
-          class="nextStep buyBtn"
-          data-title="Buy"
-          v-show="buyBtn"
-          @click="addCart"
-        >
-          <span>Buy</span>
-        </div>
-      </div>
-    </div>
-  </section>
-  <div class="lightBox" v-if="lightBoxShow">
-    <div class="lightBoxContent">
-      <div class="close" @click="lightBoxClose"></div>
-      <h4 v-if="lightBoxText.title.show">{{ lightBoxText.title.content }}</h4>
-      <div class="lightBoxImg" v-if="lightBoxText.img.show">
-        <img
-          v-if="lightBoxText.img.show"
-          :src="introduction[lightBoxText.img.idt].img"
-          alt="introduction"
-        />
-      </div>
-      <p v-if="lightBoxText.text.show">{{ lightBoxText.text.content }}</p>
-      <div
-        class="confirm"
-        data-title="OK"
-        v-if="lightBoxText.confirm"
-        @click="reCart"
-      >
-        <span>OK</span>
-      </div>
-      <div
-        class="next"
-        data-title="Next"
-        v-if="lightBoxText.img.idt !== 7 && lightBoxText.img.show"
-        @click="introductionFlow"
-      >
-        <span>Next</span>
-      </div>
-      <div
-        class="start"
-        data-title="Start"
-        v-if="lightBoxText.img.idt === 7 && lightBoxText.img.show"
-        @click="lightBoxClose(true)"
-      >
-        <span>Start</span>
-      </div>
-      <scroll-hint-component class="shc" v-if="lightBoxText.img.show" />
-    </div>
-  </div>
-  <dashBoardGroupComponent class="boards" :toggle-board="toggleBoard" />
-  <footer-component />
+    
+    <footer-component />
 </template>
 
 <style lang="scss" scoped>
-@import "@/sass/base/_color.scss";
-@import "@/sass/base/_common.scss";
-@import "@/sass/base/_font.scss";
-@import "@/sass/mixin/_mixin.scss";
-@import "@/sass/component/_btn.scss";
-@import "@/sass/component/_lightBox.scss";
-.customize3d {
-  margin: 0 auto;
-  position: absolute;
-  top: 170px;
-  left: 0;
-  right: 0;
-  background: radial-gradient(#ced3dc33, transparent 70%);
-  @include m($m-breakpoint) {
-    right: 40%;
-    left: 0;
-  }
-  @include l($l-breakpoint) {
-    top: 190px;
-  }
+@import '@/sass/base/_color.scss';
+@import '@/sass/base/_common.scss';
+@import '@/sass/base/_font.scss';
+@import '@/sass/mixin/_mixin.scss';
+@import '@/sass/component/_btn.scss';
+@import '@/sass/component/_lightBox.scss';
+.mainCus{
+    width: 100%;
+    margin: 40px auto;
+    position: relative;
+    @include s($s-breakpoint) {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    @include m($m-breakpoint) {
+        max-width: 1200px;
+        align-items: center;
+    }
+    .boards{
+        position: absolute;
+        top: 40px;
+        left: -354px;
+        z-index: 2;
+    @include s($s-breakpoint) {
+        left: -554px;
+    }
+    @include m($m-breakpoint) {
+        top: 0;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        z-index: -1;
+    }
+}
+input[type="range"]{
+    cursor: pointer;
+}
+.displayControls{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    label{
+        display: flex;
+        width: 30%;
+        border-top: 2px solid $light-black;
+        p{
+            margin: 0 20px;
+        }
+    }
+    .rotate{
+        width: 10%;
+        cursor: pointer;
+        overflow: hidden;
+        color: #F25A2A;
+        text-shadow: 0 0 10px #F25A2A88;
+        border-radius: 20px;
+        text-align: center;
+        border-right: 2px solid #F25A2A;
+        border-left: 2px solid #F25A2A;
+    }
+    .lightA{
+        flex-direction: row-reverse;
+        justify-content: start;
+        border-right: 2px solid $light-black;
+        border-top-right-radius: 20px;
+        input[type="range"]::-webkit-slider-runnable-track{
+            background: linear-gradient(to right, #eee, transparent);
+        }
+    }
+    .lightB{
+        justify-content: end;
+        border-left: 2px solid $light-black;
+        border-top-left-radius: 20px;
+    }
+    input[type="range"]{
+        -webkit-appearance: none;
+        background: transparent;
+        margin: 0 10px;
+    }
+    input[type="range"]::-webkit-slider-thumb{
+        -webkit-appearance: none;
+        width: 3px;
+        height: 22px;
+        margin-top: -10px;
+        background: #F25A2A;
+        box-shadow: 0 0 10px 0 #F25A2A;
+    }
+    input[type="range"]::-webkit-slider-runnable-track{
+        -webkit-appearance: none;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to left, #eee, transparent);
+    }
+}
+}
+.customize3d{
+    margin: 0 auto 20px;
+}
+.bg3d{
+    background: radial-gradient(#CED3DC33, transparent 70%);
 }
 .lightBox {
   @include lightBox();
@@ -901,74 +1116,15 @@ const setSession = () => {
     }
   }
 }
-.loadBox {
-  width: 150px;
-  height: 20px;
-  position: absolute;
-  top: 35%;
-  left: 0;
-  right: 0;
-  margin: 0 auto;
-  border-radius: 15px;
-  border: 2px solid $light-black;
-  background: $black;
-  display: none;
-  @include m($m-breakpoint) {
-    top: 40%;
-    right: 40%;
-    left: 0;
-  }
-  @include l($l-breakpoint) {
-    top: 50%;
-    width: 200px;
-    height: 30px;
-  }
-  .loadProgress {
-    width: 0%;
-    height: 100%;
-    border-radius: 15px;
-    background: linear-gradient(to right, $blue, $purple);
-  }
-  .loadNum {
-    text-align: center;
-    position: absolute;
-    top: 0;
+
+.customize{
     width: 100%;
-  }
-}
-.boards {
-  position: absolute;
-  top: 15%;
-  left: -354px;
-  z-index: 1;
-  @include s($s-breakpoint) {
-    left: -554px;
-  }
-  @include m($m-breakpoint) {
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    z-index: -1;
-  }
-}
-.customize {
-  width: 100%;
-  height: auto;
-  max-width: 1200px;
-  position: relative;
-  margin: 0 auto;
-  padding-top: 80px;
-  @include m($m-breakpoint) {
-    height: 100vh;
-  }
-  .customizeTitle {
+    max-width: 1200px;
     position: relative;
-    z-index: 1;
-    width: 90%;
     margin: 0 auto;
-    text-align: left;
-    @include l($l-breakpoint) {
-      width: 1200px;
+    padding-top: 80px;
+    @include m($m-breakpoint) {
+        
     }
   }
   .paths {
@@ -986,9 +1142,66 @@ const setSession = () => {
       width: 1200px;
       top: 145px;
     }
-    p {
-      text-align: center;
-      width: 100px;
+    .secondTitle{
+        display: flex;
+        justify-content: space-between;
+        width: 90%;
+        margin: 0 auto;
+        @include l($l-breakpoint) {
+            width: 1200px;
+        }
+        .selectionAlpha{
+            display: none;
+            border-top: 2px solid $light-black;
+            border-left: 2px solid $light-black;
+            border-top-left-radius: 20px;
+            transform: skewX(-15deg);
+            
+            @include m($m-breakpoint) {
+                display: flex;
+            }
+            p{
+                margin: 0 10px 0 20px;
+            }
+            input[type="range"]{
+                -webkit-appearance: none;
+                background: transparent;
+                margin: 0 10px;
+                cursor: pointer;
+            }
+            input[type="range"]::-webkit-slider-thumb{
+                -webkit-appearance: none;
+                width: 3px;
+                height: 22px;
+                margin-top: -10px;
+                background: #F25A2A;
+                box-shadow: 0 0 10px 0 #F25A2A;
+            }
+            input[type="range"]::-webkit-slider-runnable-track{
+                -webkit-appearance: none;
+                width: 100%;
+                height: 2px;
+                background: linear-gradient(to left, #eee, transparent);
+            }
+        }
+    }
+    
+    .paths{
+        display: flex;
+        flex-wrap: nowrap;
+        align-items: center;
+        p{
+            text-align: center;
+            width: 80px;
+            @include m($m-breakpoint) {
+                width: 100px;
+            }
+        }
+        p:nth-child(2){
+            text-align: left;
+            width: 100px;
+            animation: path 1s linear infinite;
+        }
     }
     p:nth-child(2) {
       text-align: left;
@@ -1008,38 +1221,158 @@ const setSession = () => {
     color: #eee;
   }
 }
-
-.customizeControl {
-  box-sizing: border-box;
-  margin: 360px auto 20%;
-  padding: 30px 0;
-  border-radius: 20px;
-  border: 2px solid $grey;
-  background: $black;
-  width: 90%;
-  @include s($s-breakpoint) {
-    margin-top: 480px;
-    width: 575px;
-    background: #25242499;
-  }
-  @include m($m-breakpoint) {
-    margin: 60px auto 0 60%;
-    width: 400px;
-  }
-  .selection {
+.displayTitle{
+    //text-shadow: 5px 0 0 #F25A2Aaa;
+    &::after, &::before{
+        content: attr(data-title);
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        text-shadow: none;
+    }
+    &::before{
+        color: #F25A2A66;
+        animation: left10 .5s .5s linear forwards;
+    }
+    &::after{
+        color: #F25A2Aaa;
+        animation: left5 .5s .5s linear forwards;
+    }
+}
+@keyframes left5 {
+    0%{left: 0px}
+    100%{left: 5px}
+}
+@keyframes left10 {
+    0%{left: 0px}
+    100%{left: 10px}
+}
+@keyframes skewX {
+    0%{transform: none;}
+    100%{transform: perspective(500px) skewX(15deg) rotateY(10deg);}
+}
+@keyframes skew-X {
+    0%{transform: none;}
+    100%{transform: perspective(500px) skewX(-15deg) rotateY(-10deg);}
+}
+.skewX{
+    animation: skewX .5s .5s linear forwards;
+}
+.skew-X{
+    animation: skew-X .5s .5s linear forwards;
+}
+@keyframes op {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}
+.op{
+    animation: op .5s linear forwards;
+}
+.customizeControl{
+    box-sizing: border-box;
+    padding: 30px 0;
+    margin: 0 auto;
+    border-radius: 20px;
+    border: 2px solid $grey;
+    background: $black;
     width: 90%;
-    margin: 0 auto 40px;
-    position: relative;
-    .itemInfo {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-wrap: wrap;
-      box-sizing: border-box;
-      padding: 15px;
-      border-radius: 15px;
-      background: linear-gradient(to right, $purple, $blue);
-      h3 {
+    @include s($s-breakpoint) {
+        width: 575px;
+        background: #25242499;
+    }
+    @include m($m-breakpoint) {
+        width: 400px;
+    }
+    .selection{
+        width: 90%;
+        margin: 0 auto 40px;
+        position: relative;
+        cursor: pointer;
+        .itemInfo{
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            box-sizing: border-box;
+            padding: 15px;
+            border-radius: 15px;
+            background: linear-gradient(to right, $purple, $blue);
+            h6{
+                width: 100%;
+            }
+            p:nth-child(2){
+                width: 70%;
+            }
+            p:nth-child(3){
+                width: 30%;
+                text-align: right;
+            }
+        }
+        .funcControls{
+            margin: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            .funcControl{
+                cursor: pointer;
+                border: 2px solid $dark-grey;
+                padding: 10px;
+                border-radius: 20px;
+                margin: 10px 40px;
+                display: flex;
+                flex-wrap: wrap;
+                h4{
+                    width: 100%;
+                }
+                p{
+                    width: 100%;
+                }
+                @include m($m-breakpoint) {
+                    margin: 10px 0;
+                }
+            }
+            .motorControl p:nth-child(3){
+                @include s($s-breakpoint) {
+                    width: 50%;
+                }
+            }
+            .motorControl p:nth-child(4){
+                @include s($s-breakpoint) {
+                    width: 50%;
+                    text-align: right;
+                }
+            }
+            .controllerControl p:nth-child(2){
+                @include s($s-breakpoint) {
+                    width: 50%;
+                }
+            }
+            .controllerControl p:nth-child(3){
+                @include s($s-breakpoint) {
+                    width: 50%;
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+
+.colorControls{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    transition: all .3s;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 0 0 15px 15px;
+    background: $black;
+    border-bottom: 2px solid $light-black;
+    border-left: 2px solid $light-black;
+    border-right: 2px solid $light-black;
+    p{
         width: 100%;
       }
       p:nth-child(2) {

@@ -9,6 +9,10 @@ import {
   NModal,
 } from "naive-ui";
 import axios from "axios";
+const showModal = ref(false);
+const newNmno = ref("");
+const newStatus = ref("");
+//資料放進表格
 const createColumns = ({ selectId }) => {
   return [
     {
@@ -32,12 +36,12 @@ const createColumns = ({ selectId }) => {
       key: "orders_location",
     },
     {
-      title: "優惠編號",
-      key: "disc_no",
-    },
-    {
       title: "總金額",
       key: "orders_price",
+    },
+    {
+      title: "優惠編號",
+      key: "disc_no",
     },
     {
       title: "編輯訂單狀態",
@@ -51,7 +55,7 @@ const createColumns = ({ selectId }) => {
             onClick: () => selectId(row, index),
             // onClick: () => modal(row)
           },
-          { default: () => "修改" }
+          { default: () => "編輯" }
         );
       },
     },
@@ -62,12 +66,17 @@ const newNmno = ref("");
 const newStatus = ref("");
 const column = createColumns({
   selectId(rowData, index) {
-    showModal.value = true;
-    newNmno.value = rowData.orders_no;
-    newStatus.value = rowData.orders_status;
-    // console.log(newNmno.value)
+    if (rowData.orders_status === "訂單完成") {
+      showModal.value = false;
+      alert("不可修改");
+    } else {
+      showModal.value = true;
+      newNmno.value = rowData.orders_no;
+      newStatus.value = rowData.orders_status;
+    }
   },
 });
+//分頁js
 const paginationReactive = reactive({
   page: 2,
   pageSize: 10,
@@ -87,8 +96,14 @@ const getNmOrder = () => {
   axios
     .get("http://localhost/CGD103-G5/public/g5PHP/getNmOrder.php")
     .then((res) => {
-      // console.log(res.data[0].orders_status)
       NmOrderRows.value = res.data;
+    })
+    .then((res) => {
+      for (let i = 0; i < NmOrderRows.value.length; i++) {
+        if (NmOrderRows.value[i].disc_no === null) {
+          NmOrderRows.value[i].disc_no = "無優惠編號";
+        }
+      }
     });
 };
 onMounted(() => {
@@ -126,18 +141,14 @@ const updateStatus = () => {
           :bordered="true"
           :single-line="false"
         />
-        <n-modal
-          v-model:show="showModal"
-          preset="dialog"
-          title="確認"
-          content="你確定嗎?"
-        >
+        <n-modal v-model:show="showModal" preset="dialog" title="編輯訂單狀態">
           <label for="orders_status"> 修改狀態 : </label>
           <!-- <input type="text" name="admin_acc" placeholder="修改狀態" v-model="newAdmin_acc"> -->
           <select name="orders_status" id="" v-model="newStatus">
             <option value="待處理">待處理</option>
             <option value="處理中">處理中</option>
             <option value="運送中">運送中</option>
+            <option value="訂單完成">訂單完成</option>
           </select>
           <n-button
             @click="

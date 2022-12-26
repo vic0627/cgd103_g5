@@ -41,7 +41,8 @@ const addProd = (id, row) => {
     //判斷商品是否被點擊過
     if(sessionStorage.getItem(id)){
       //有，跳提示，不給加
-      alert('You have checked.')
+      alert('You have checked.');
+
     }else{
       //無，執行set跟get
       set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
@@ -109,8 +110,8 @@ const assRows = ref([]);
 const products = ref([]), accessories = ref([]) ,bundle_A = ref([]),bundle_B = ref([]);
 
 const getShopInfo = () =>{
-  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
-  // fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
+  // fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+  fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
   // fetch("/dist/g5PHP/getShop.php")
     .then(res => res.json())
     .then(json => {
@@ -217,7 +218,7 @@ $(document).ready(() => {
     $(".show").toggle();
   });
 });
-
+//將count的次數傳回navComponent
 const count = ref(0);
 const addCartCount = ()=>{
     count.value++;

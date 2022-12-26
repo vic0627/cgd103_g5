@@ -116,10 +116,11 @@ const updateFaq = (user)=>{
   }).then(res=>{
     console.log(res)
     res.json()
-  })
-  showModal.value = false
-  getProducts();
-}
+  }).then(res=>{
+    showModal.value = false
+    getProducts();
+  }
+)}
 
 // 刪除資料
 const deleteFaq = ()=>{
@@ -131,9 +132,10 @@ const deleteFaq = ()=>{
     body: new URLSearchParams(delFaq),
   }).then(res=>{
     res.json()
+  }).then(res=>{
+    showModal2.value = false
+    getProducts();
   })
-  showModal2.value = false
-  getProducts();
 }
 
 
@@ -177,7 +179,7 @@ const testVal = (e) => {
 
 
 <template>
-<div class="top">
+<div class="tops">
     <h2>
       FAQ列表
       <outComponents />
@@ -191,18 +193,18 @@ const testVal = (e) => {
       <label for="search" class="label">
         <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入All或${select[selectVal].title}`">
       </label>
-  </div>
+    </div>
 
  
   <div class="tables" id="products" align="center">
     <form action="" method="post">
       <n-data-table :columns="column" :data="returnFaq" :pagination="pagination"  :bordered="true" :single-line="false" />
       <n-modal
-                v-model:show="showModal"
-                preset="dialog"
-                title="確認"
-                content="你確定嗎?"
-              >
+        v-model:show="showModal"
+        preset="dialog"
+        title="確認"
+        content="你確定嗎?"
+      >
             <label for="faq_des"> 修改問題 : </label>
             <textarea name="faq_des" v-model="newFaq_des" rows="10" cols="50" placeholder="請輸入問題" maxlength="200"></textarea>
             <textarea name="faq_ans" v-model="newFaq_ans" rows="10" cols="50" placeholder="請輸入回答" maxlength="300" ></textarea>
@@ -268,9 +270,12 @@ textarea{
   margin-top: 10px;
 }
 
-.top {
-  width: 100%;
+.tops {
+  width: 85%;
   display: block;
+  overflow-y: auto;
+  height: 100%;
+  overflow: auto;
 }
 h2 {
   font-size: 40px;
@@ -290,7 +295,7 @@ h2 {
   ::v-deep(n-data-table-td){
     border-bottom: 1 solid #111;
     background-color: #222;
-}
+  }
 }
 
 .modal-mask{
