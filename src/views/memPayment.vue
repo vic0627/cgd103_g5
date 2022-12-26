@@ -9,12 +9,12 @@ import { ref, onMounted,reactive,computed,watch } from 'vue';
 
 const searchText = ref("");
 onMounted(()=> {
-    $('.btn').click(()=>{
-        $('#img').attr('src','src/assets/images/Signin/creditCard.png');
-    })
-    $('.btn2').click(()=>{
-        $('#img').attr('src','src/assets/images/Signin/empty_creditCard.png');
-    })
+    // $('.btn').click(()=>{
+    //     $('#img').attr('src','src/assets/images/Signin/creditCard.png');
+    // })
+    // $('.btn2').click(()=>{
+    //     $('#img').attr('src','src/assets/images/Signin/empty_creditCard.png');
+    // })
    
 })
 </script>
