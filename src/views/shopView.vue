@@ -83,6 +83,8 @@ const moreProd = (id, row)=> {
   
       set("prodInfo",`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
 
+      let getInfo = JSON.parse(sessionStorage.getItem(id));
+      sessionStorage['prodInfo'] =`{"title":"${getInfo.title}","price":${getInfo.price},"images":"${getInfo.images}"}`;
       //  跳轉頁面到產品資訊
       router.push('/shopInfo');
 }
