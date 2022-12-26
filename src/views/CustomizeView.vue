@@ -61,24 +61,9 @@ let customMotorItem, customControllerItem;
 const motorModels = ref({}),
   controllerModels = ref({});
 const fetchCustom = () => {
-  fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
-    method: "POST",
-    body: new URLSearchParams({
-      sql: "select * from tibamefe_cgd103g5.customize",
-    }),
-  })
-    .then((res) => res.json())
-    .then((json) => {
-      customMotorItem = json.filter((i) =>
-        String(i.prd_no).includes("1112111")
-      );
-      customControllerItem = json.filter((i) =>
-        String(i.prd_no).includes("1112112")
-      );
-      return {
-        customMotorItem,
-        customControllerItem,
-      };
+    fetch("http://localhost/dist/g5PHP/postCust.php", {
+        method: "POST",
+        body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.customize" }),
     })
     .then((output) => {
       for (let i = 0; i < output.customMotorItem.length; i++) {
@@ -554,121 +539,86 @@ const set = (key, val) => {
 };
 
 const addCart = () => {
-  if (sessionStorage.getItem("cartList") === null) {
-    setSession();
-    router.push("/cart");
-  } else {
-    lightBoxShow.value = true;
-    lightBoxText.value.title.show = true;
-    lightBoxText.value.title.content =
-      "You already have some goods in your cart!";
-    lightBoxText.value.text.show = true;
-    lightBoxText.value.text.content =
-      "Do you want to add the new customizing product to the cart? (Previous cart list will be cleared)";
-    lightBoxText.value.confirm = true;
-  }
+    if(sessionStorage.getItem('cartList')===null){
+        setSession();
+        router.push({path: '/cart'});
+    }else{
+        lightBoxShow.value = true;
+        lightBoxText.value.title.show = true;
+        lightBoxText.value.title.content = 'You already have some goods in your cart!';
+        lightBoxText.value.text.show = true;
+        lightBoxText.value.text.content = 'Do you want to add the new customizing product to the cart? (Previous cart list will be cleared)';
+        lightBoxText.value.confirm = true;
+    }
 };
 const reCart = () => {
-  sessionStorage.clear();
-  setSession();
-  router.push("/cart");
+    sessionStorage.clear();
+    setSession();
+    router.push({path: '/cart'});
 };
 const setSession = () => {
-  let prd_body, prd_propellor;
-  switch (bodyChosen.value.type) {
-    case 1:
-      prd_body = "body01";
-      break;
-    case 2:
-      prd_body = "body02";
-      break;
-    case 3:
-      prd_body = "body03";
-      break;
-  }
-  switch (bodyChosen.value.color) {
-    case 1:
-      prd_body += "black";
-      break;
-    case 2:
-      prd_body += "blue";
-      break;
-    case 3:
-      prd_body += "green";
-      break;
-    case 4:
-      prd_body += "red";
-      break;
-    case 5:
-      prd_body += "white";
-      break;
-  }
-  switch (propellorChosen.value.type) {
-    case 1:
-      prd_propellor = "propellor01";
-      break;
-    case 2:
-      prd_propellor = "propellor02";
-      break;
-    case 3:
-      prd_propellor = "propellor03";
-      break;
-  }
-  switch (propellorChosen.value.color) {
-    case 1:
-      prd_propellor += "black";
-      break;
-    case 2:
-      prd_propellor += "blue";
-      break;
-    case 3:
-      prd_propellor += "green";
-      break;
-    case 4:
-      prd_propellor += "red";
-      break;
-    case 5:
-      prd_propellor += "white";
-      break;
-  }
-  set(
-    "cartList",
-    `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`
-  );
-  set(
-    `111111${bodyChosen.value.type}${bodyChosen.value.color}`,
-    `{"id":"111111${bodyChosen.value.type}${
-      bodyChosen.value.color
-    }", "name":"${prd_body}", "amount":"1", "price":"${
-      droneModels.value[`body0${bodyChosen.value.type}`].price
-    }"}`
-  );
-  set(
-    `111112${propellorChosen.value.type}${propellorChosen.value.color}`,
-    `{"id":"111112${propellorChosen.value.type}${
-      propellorChosen.value.color
-    }", "name":"${prd_propellor}", "amount":"${
-      propellorChosen.value.amount
-    }", "price":"${
-      propellorModels.value[`propellor0${propellorChosen.value.type}`].price
-    }"}`
-  );
-  set(
-    `1112111${motorChosen.value.type}`,
-    `{"id":"1112111${motorChosen.value.type}", "name":"motor0${
-      motorChosen.value.type
-    }", "amount":"1", "price":"${
-      motorModels.value[`motor0${motorChosen.value.type}`].price
-    }"}`
-  );
-  set(
-    `1112112${kgmcChosen.value.type}`,
-    `{"id":"1112112${kgmcChosen.value.type}", "name":"controller0${
-      kgmcChosen.value.type
-    }", "amount":"1", "price":"${
-      controllerModels.value[`controller0${kgmcChosen.value.type}`].price
-    }"}`
-  );
+    let prd_body, prd_propellor;
+    switch (bodyChosen.value.type) {
+        case 1:
+            prd_body = 'body01';
+            break;
+        case 2:
+            prd_body = 'body02';
+            break;
+        case 3:
+            prd_body = 'body03';
+            break;
+    }
+    switch (bodyChosen.value.color) {
+        case 1:
+            prd_body += 'black';
+            break;
+        case 2:
+            prd_body += 'blue';
+            break;
+        case 3:
+            prd_body += 'green';
+            break;
+        case 4:
+            prd_body += 'red';
+            break;
+        case 5:
+            prd_body += 'white';
+            break;
+    }
+    switch (propellorChosen.value.type) {
+        case 1:
+            prd_propellor = 'propellor01';
+            break;
+        case 2:
+            prd_propellor = 'propellor02';
+            break;
+        case 3:
+            prd_propellor = 'propellor03';
+            break;
+    }
+    switch (propellorChosen.value.color) {
+        case 1:
+            prd_propellor += 'black';
+            break;
+        case 2:
+            prd_propellor += 'blue';
+            break;
+        case 3:
+            prd_propellor += 'green';
+            break;
+        case 4:
+            prd_propellor += 'red';
+            break;
+        case 5:
+            prd_propellor += 'white';
+            break;
+        }
+    set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`)
+    set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}"}`);
+    set(`111112${propellorChosen.value.type}${propellorChosen.value.color}`, `{"id":"111112${propellorChosen.value.type}${propellorChosen.value.color}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}"}`);
+    set(`1112111${motorChosen.value.type}`, `{"id":"1112111${motorChosen.value.type}", "name":"${motorModels.value[`motor0${motorChosen.value.type}`].name}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}"}`);
+    set(`1112112${kgmcChosen.value.type}`, `{"id":"1112112${kgmcChosen.value.type}", "name":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].name}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}"}`);
 };
 const alpha = ref(null);
 const selectionAlpha = (e) => {
@@ -834,14 +784,24 @@ const rtl = (e, text) => {
         borderRadius: '20px',
         duration: .25,
     })
+    gsap.to($$('.rotate span'), {
+        opacity: 0,
+        duration: .25,
+        delay: .25,
+    })
+    gsap.to($$('.rotate span'), {
+        opacity: 1,
+        duration: .25,
+        delay: .5,
+    })
 }
 const rotate = (e) => {
     if(CUS.controls.autoRotate){
         CUS.controls.autoRotate = false;
-        rtl(e.target, 'Rotate');
+        rtl('.rotate', 'Rotate');
     }else{
         CUS.controls.autoRotate = true;
-        rtl(e.target, 'Pause');
+        rtl('.rotate', 'Pause');
     }
 };
 const spot = (e) => {
@@ -881,7 +841,9 @@ const direct = (e) => {
                     <p>Spot Light</p>
                     <input type="range" name="lightA" min="0" max="100" value="0" @input="spot">
                 </label>
-                <p class="rotate" @click="rotate">Pause</p>
+                <p class="rotate" @click="rotate">
+                    <span>Pause</span>
+                </p>
                 <label for="lightB" class="lightB">
                     <p>Directional Light</p>
                     <input type="range" name="lightB" min="0" max="100" value="0" @input="direct">
@@ -1027,8 +989,6 @@ input[type="range"]{
         width: 10%;
         cursor: pointer;
         overflow: hidden;
-        color: #F25A2A;
-        text-shadow: 0 0 10px #F25A2A88;
         border-radius: 20px;
         text-align: center;
         border-right: 2px solid #F25A2A;
