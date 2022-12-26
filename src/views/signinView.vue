@@ -187,9 +187,6 @@ const sendEmail = () => {
       }
     );
 };
-onMounted(() => {
-  sendEmail();
-});
 </script>
 
 <template>

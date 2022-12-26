@@ -39,19 +39,19 @@ onMounted(() => {
   });
 });
 
-const raceRows = ref([]);
-const getRace = () => {
-  //取得商品資料
-  axios
-    .get("http://localhost/cgd103_g5/public/g5PHP/getProducts.php")
-    .then((res) => {
-      console.log(res);
-      raceRows.value = res.data;
-    });
-};
-onMounted(() => {
-  getRace();
-});
+// const raceRows = ref([]);
+// const getRace = () => {
+//   //取得商品資料
+//   axios
+//     .get("http://localhost/cgd103_g5/public/g5PHP/getProducts.php")
+//     .then((res) => {
+//       console.log(res);
+//       raceRows.value = res.data;
+//     });
+// };
+// onMounted(() => {
+//   getRace();
+// });
 
 //商品大圖
 const shopInfoItem = ref({
@@ -78,7 +78,6 @@ const btnLeft = () => {
 };
 
 //抓session資料
-const title = reactive([{ name: "id" }, { name: "price" }, { name: "images" }]);
 const prodInfo = ref([]);
 const prodList = computed(() => prodInfo.value);
 const session = () => {
