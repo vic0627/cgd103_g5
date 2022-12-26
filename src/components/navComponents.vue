@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted,ref } from 'vue';
+import { reactive, onMounted, ref } from "vue";
 const mainMenu = reactive([
   {
     id: "shop",
@@ -54,25 +54,22 @@ onMounted(() => {
 
   getMemberInfo();
 
-  function memlogout(){
-      let xhr = new XMLHttpRequest();
-      xhr.onload = function(){
+  function memlogout() {
+    let xhr = new XMLHttpRequest();
+    xhr.onload = function () {
       //   document.getElementById("spanLogin").innerText = "登入";
       //   document.getElementById("memName").innerText = "";
-          document.querySelector(".account").style["display"]="none";
-          document.querySelector(".memName").style["display"]="none";
-          document.querySelector(".memstatus").innerHTML="Sign in";
-          document.getElementById("username").value="";
-          document.getElementById("password").value="";
-          document.querySelector(".unameinfo").innerHTML="";
-          document.querySelector(".pswinfo").innerHTML="";
-          
-          
-      }
-      xhr.open("get","/dist/g5PHP/memLogout.php",true);
-      xhr.send(null);
-    }
-    
+      document.querySelector(".account").style["display"] = "none";
+      document.querySelector(".memName").style["display"] = "none";
+      document.querySelector(".memstatus").innerHTML = "Sign in";
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      document.querySelector(".unameinfo").innerHTML = "";
+      document.querySelector(".pswinfo").innerHTML = "";
+    };
+    xhr.open("get", "/dist/g5PHP/memLogout.php", true);
+    xhr.send(null);
+  }
 });
 const NavClass = defineProps({
   home: {
@@ -99,13 +96,12 @@ const NavClass = defineProps({
     type: String,
     default: "",
   },
-  count:{
-    type:Number,
-    default: 0
-  }
+  count: {
+    type: Number,
+    default: 0,
+  },
 });
 // const props = defineProps(['count']);
-
 
 // :style="NavClass.className"
 </script>
@@ -115,7 +111,7 @@ const NavClass = defineProps({
     <div class="header">
       <div class="logo">
         <router-link class="header-link" to="/home">
-          <img src="/public/dist/assests/home/g5_logo_EFVP_Horz.png" alt="LOGO">
+          <img src="/dist/assests/home/g5_logo_EFVP_Horz.png" alt="LOGO" />
         </router-link>
       </div>
       <input type="checkbox" id="active" />
@@ -130,15 +126,13 @@ const NavClass = defineProps({
           </li>
           <div class="icon-wrap">
             <li>
-              <router-link to="/signin" class="shop"
-                >
-              <img src="/public/dist/assests/home/icon1.png" alt="MEMBER">
+              <router-link to="/signin" class="shop">
+                <img src="/dist/assests/home/icon1.png" alt="MEMBER" />
               </router-link>
             </li>
             <li>
-              <router-link to="/cart" class="shop"
-                >
-                <img src="/public/dist/assests/home/icon2.png" alt="CART">
+              <router-link to="/cart" class="shop">
+                <img src="/public/dist/assests/home/icon2.png" alt="CART" />
               </router-link>
             </li>
           </div>
@@ -201,7 +195,7 @@ const NavClass = defineProps({
       </div>
       <div class="shop-cart">
         <div class="shop memicon">
-          <img src="/public/dist/assests/home/icon1.png" alt="MEMBER">
+          <img src="/public/dist/assests/home/icon1.png" alt="MEMBER" />
           <div class="memHover">
             <li class="memName">Hello {{ mem }}!~</li>
             <li>

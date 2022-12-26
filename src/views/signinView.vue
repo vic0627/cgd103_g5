@@ -4,6 +4,7 @@ import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 // import { verify } from 'crypto';
 import { reactive, ref, onMounted } from "vue";
+import emailjs from "emailjs-com";
 
 onMounted(() => {
   function getMemberInfo() {
@@ -115,6 +116,72 @@ onMounted(() => {
     return false;
   }
 });
+
+//忘記密碼 燈箱
+const lightBoxShow = ref(false);
+
+const forgetPW = () => {
+  lightBoxShow.value = true;
+  console.log(lightBoxShow);
+};
+const lightBoxClose = () => {
+  lightBoxShow.value = false;
+};
+
+// ========== 寄 Email  ========== //
+const sendEmail = () => {
+  // ============== 把忘記的密碼撈出來  =============== //
+
+  let QQ = this; //這裡的QQ指向的Vue實體
+
+  var xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+    if (xhr.status == 200) {
+      //modify here
+      showMember(xhr.responseText);
+    } else {
+      alert(xhr.status);
+    }
+  };
+  var url =
+    "http://localhost/cgd103_g5/public/g5PHP/getMemberPassword.php?mem_acc=" +
+    document.getElementById("forget_password_account").value;
+  xhr.open("get", url, true);
+  xhr.send(null);
+  function showMember(json) {
+    var xhr = new XMLHttpRequest();
+    var url =
+      "http://localhost/cgd103_g5/public/g5PHP/getMemberPassword.php?mem_acc=" +
+      document.getElementById("forget_password_account").value;
+    xhr.open("get", url, true);
+    xhr.send(null);
+    let member = JSON.parse(json);
+    let html;
+    // 這裡的QQ指的是Vue實體
+    QQ.mem_psw = member.mem_psw;
+    // html = `<p>${member.mem_psw}</p>`;
+    // document.getElementById("show_forget_password").innerHTML = html;
+  }
+  // ========== 忘記密碼的 EmailJs ========== //
+  emailjs
+    .send(
+      "service_0fkz7ii",
+      "template_ojh6tgp",
+      {
+        user_email: this.forget_password_account,
+        mem_psw: this.mem_psw,
+      },
+      "TWzj5YZjjnkHkkv1N"
+    )
+    .then(
+      (result) => {
+        console.log("SUCCESS!", result.text);
+      },
+      (error) => {
+        console.log("FAILED...", error.text);
+      }
+    );
+};
 </script>
 
 <template>
@@ -154,9 +221,42 @@ onMounted(() => {
               <input type="checkbox" name="remember" id="remember" />
               <label for="remember">Remember me</label>
               <!-- <a href="" class="forget_password">Forget Password?</a> -->
-              <router-link class="forget_password" to="/"
-                >Forget Password?</router-link
-              >
+              <p class="forget_password" @click="forgetPW">Forget Password?</p>
+              <div class="lightBox" v-if="lightBoxShow">
+                <div class="lightBoxContent">
+                  <h2>Forget Password ?</h2>
+                  <form @submit="sendEmail">
+                    <div>
+                      <p>Your email</p>
+                      <input
+                        id="forget_password_account"
+                        type="text"
+                        placeholder="Please type your email here"
+                        name="user_email"
+                        v-model="forget_password_account"
+                        required
+                      />
+                    </div>
+                    <div name="mem_psw" id="show_forget_password">
+                      {{ mem_psw }}
+                    </div>
+                    <input
+                      id="forget_password_none"
+                      type="text"
+                      name="mem_psw"
+                      v-model="mem_psw"
+                    />
+                    <button class="btn_login" type="submit" @click="sendEmail">
+                      驗證信箱
+                    </button>
+                  </form>
+                  <!-- v-if="removeItem" -->
+                  <div class="buttons">
+                    <button @click="clearSess">confirm</button>
+                  </div>
+                  <div class="close" @click="lightBoxClose"></div>
+                </div>
+              </div>
             </div>
             <div class="action">
               <!-- <button type="button" id="btnLogin">submit</button> -->
@@ -203,6 +303,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 @import "@/sass/style.scss";
+@import "@/sass/component/_lightBox.scss";
 $text-color: #fff;
 $link-color: #0080ff;
 $btn-color: #007ffb;
@@ -277,6 +378,8 @@ span {
             // display: inline;
             flex-grow: 1;
             text-align: right;
+
+            cursor: pointer;
           }
           .login_info {
             display: flex;
@@ -419,5 +522,35 @@ span {
 }
 @include l($l-breakpoint) {
   //1199
+}
+
+.lightBox {
+  @include lightBox();
+  margin: auto;
+  z-index: 15;
+  .lightBoxContent {
+    padding: 10px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      text-align: center;
+      line-height: 50px;
+    }
+    .buttons {
+      text-align: center;
+      button {
+        font: $caption-p;
+        width: 100px;
+        height: 40px;
+        margin: 20px;
+        border-radius: 10px;
+        padding: 0 5px;
+        border: none;
+      }
+    }
+  }
 }
 </style>

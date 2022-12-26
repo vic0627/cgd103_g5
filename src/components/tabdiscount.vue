@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, onMounted, onUpdated } from "vue";
+import { reactive, onMounted, ref, h, computed } from "vue";
 import {
   zhTW,
   NPagination,
@@ -8,109 +8,242 @@ import {
   NButton,
   NModal,
 } from "naive-ui";
-const discRows = ref([]);
-
-const getDisc = () => {
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getDisc.php")
-    .then((res) => res.json())
-    .then((json) => {
-      discRows.value = json;
-    });
-};
-getDisc();
-onMounted(() => {
-  console.log(discRows.value);
-});
-onUpdated(() => {
-  console.log(discRows.value);
-});
-const table = ref([
-  "優惠編號",
-  "優惠名稱",
-  "優惠描述",
-  "優惠開始日",
-  "優惠截止日",
-  "折扣數",
-  "優惠代碼",
-  "編輯",
-  "刪除",
-]);
+import axios from "axios";
+const newDisc_no = ref("");
+const newDisc_title = ref("");
+const newDisc_txt = ref("");
+const newDisc_start = ref("");
+const newDisc_end = ref("");
+const newDisc_off = ref("");
+const newDisc_code = ref("");
 const showModal = ref(false);
 const showModal2 = ref(false);
-const newNo = ref("");
-const newTitle = ref("");
-const newTxt = ref("");
-const newStart = ref("");
-const newEnd = ref("");
-const newOff = ref("");
-const newCode = ref("");
-const selectId = (user) => {
-  newNo.value = DiscRows.value[user].disc_no;
-  newTitle.value = DiscRows.value[user].disc_title;
-  newTxt.value = DiscRows.value[user].disc_txt;
-  newStart.value = DiscRows.value[user].disc_start;
-  newEnd.value = DiscRows.value[user].disc_end;
-  newOff.value = DiscRows.value[user].disc_off;
-  newCode.value = DiscRows.value[user].disc_code;
+//資料放進表格
+const createColumns = ({ selectId, showmodal }) => {
+  return [
+    {
+      title: "優惠編號",
+      key: "disc_no",
+    },
+    {
+      title: "優惠名稱",
+      key: "disc_title",
+    },
+    {
+      title: "優惠描述",
+      key: "disc_txt",
+    },
+    {
+      title: "優惠開始日",
+      key: "disc_start",
+    },
+    {
+      title: "優惠截止日",
+      key: "disc_end",
+    },
+    {
+      title: "折扣數",
+      key: "disc_off",
+    },
+    {
+      title: "折扣代碼",
+      key: "disc_code",
+    },
+    {
+      title: "編輯 / 刪除",
+      key: "actions",
+      titleColSpan: 2,
+      render(row, index) {
+        return h(
+          NButton,
+          {
+            size: "medium",
+            color: "#077AF9",
+            onClick: () => selectId(row, index),
+          },
+          { default: () => "編輯" }
+        );
+      },
+    },
+    {
+      title: "刪除",
+      key: "actions",
+      render(row, index) {
+        return h(
+          NButton,
+          {
+            size: "medium",
+            color: "#D03050",
+            // onClick: () => selectId(row,index),
+            onClick: () => showmodal(row, index),
+          },
+          { default: () => "刪除" }
+        );
+      },
+    },
+  ];
 };
-// const updateDisc = () => {
-//   const newDisc = {
-//     disc_no: Number(newNo.value),
-//     disc_title: newTitle.value,
-//     disc_txt: newTxt.value,
-//     disc_start: newStart.value,
-//     disc_end: newEnd.value,
-//     disc_off: newOff.value,
-//     disc_code: newCode.value,
-//   };
-//   fetch("http://localhost/cgd103_g5/public/g5PHP/updateDisc.php", {
-//     method: "POST",
-//     body: new URLSearchParams(newDisc),
-//   }).then((res) => {
-//     console.log(res);
-//     res.json();
-//   });
-//   showModal.value = false;
-//   getDisc();
-// };
-// const deleteDisc = () => {
-//   const delDisc = {
-//     disc_no: Number(newNo.value),
-//   };
-//   fetch("http://localhost/cgd103_g5/public/g5PHP/deleteDisc.php", {
-//     method: "POST",
-//     body: new URLSearchParams(delDisc),
-//   }).then((res) => {
-//     console.log(res);
-//     res.json();
-//   });
-//   showModal2.value = false;
-// };
+const column = createColumns({});
+//取得資料庫資料
+const discRows = ref([]);
+const getDisc = () => {
+  //取得管理員資料
+  axios
+    .get("http://localhost/cgd103_g5/public/g5PHP/getDisc.php")
+    .then((res) => {
+      discRows.value = res.data;
+    });
+};
+onMounted(() => {
+  getDisc();
+});
+//分頁js
+const paginationReactive = reactive({
+  page: 1,
+  pageSize: 8,
+  onChange: (page) => {
+    paginationReactive.page = page;
+  },
+  onUpdatePageSize: (pageSize) => {
+    paginationReactive.pageSize = pageSize;
+    paginationReactive.page = 1;
+  },
+});
+const pagination = paginationReactive;
+
+//更新資料
+const updateDisc = (user) => {
+  const newDisc = {
+    disc_no: Number(newDisc_no.value),
+    disc_title: newDisc_title.value,
+    disc_txt: newDisc_txt.value,
+    disc_start: newDisc_start.value,
+    disc_end: newDisc_end.value,
+    disc_off: newDisc_off.value,
+    disc_code: newDisc_code.value,
+  };
+  fetch("http://localhost/cgd103_g5/public/g5PHP/updateDisc.php", {
+    method: "POST",
+    body: new URLSearchParams(newDisc),
+  })
+    .then((res) => {
+      res.json();
+    })
+    .then((res) => {
+      showModal.value = false;
+      getDisc();
+    });
+};
+//刪除資料庫
+const deleteDisc = () => {
+  const deleteDis = {
+    disc_no: Number(newDisc_no.value),
+  };
+  fetch("http://localhost/CGD103-G5/public/g5PHP/deleteDisc.php", {
+    method: "POST",
+    body: new URLSearchParams(deleteDis),
+  })
+    .then((res) => {
+      res.json();
+      console.log(res);
+    })
+    .then((res) => {
+      showModal2.value = false;
+      getAdmin();
+    });
+};
 </script>
 <template>
   <div class="top">
     <h2>
-      優惠查詢
+      優惠管理
       <outComponents />
     </h2>
-    <div class="tables">
+    <div class="search_box">
+      <label for="search" class="label"
+        >查詢編號<input
+          type="search"
+          id="search"
+          name="search"
+          placeholder="請輸入編號"
+      /></label>
+      <div class="btn">
+        <button class="magBox">
+          <img src="../assets/images/About/search.png" alt="search" />
+        </button>
+      </div>
+    </div>
+    <form method="post" class="table">
       <n-data-table
         :columns="column"
-        :data="discRows"
+        :data="adminRows"
         :pagination="pagination"
         :bordered="true"
         :single-line="false"
       />
-    </div>
-    <n-modal
-      preset="dialog"
-      title="确认"
-      content="你确认?"
-      positive-text="确认"
-      negative-text="算了"
-      @positive-click="submitCallback"
-      @negative-click="cancelCallback"
-    />
+
+      <n-modal v-model:show="showModal" preset="dialog" title="確認編輯">
+        <div class="modal">
+          <div class="input">
+            <label for="disc_title"> 編輯名稱 : </label>
+            <input type="text" name="disc_title" v-model="newDisc_title" />
+          </div>
+          <div class="input">
+            <label for="disc_txt"> 編輯名稱 : </label>
+            <input type="text" name="disc_txt" v-model="newDisc_txt" />
+          </div>
+          <div class="input">
+            <label for="disc_start"> 編輯名稱 : </label>
+            <input type="text" name="disc_start" v-model="newDisc_start" />
+          </div>
+          <div class="input">
+            <label for="disc_end"> 編輯名稱 : </label>
+            <input type="text" name="disc_end" v-model="newDisc_end" />
+          </div>
+          <div class="input">
+            <label for="disc_off"> 編輯名稱 : </label>
+            <input type="text" name="disc_off" v-model="newDisc_off" />
+          </div>
+          <div class="input">
+            <label for="disc_code"> 編輯名稱 : </label>
+            <input type="text" name="disc_code" v-model="newDisc_code" />
+          </div>
+          <div class="button">
+            <n-button
+              @click="
+                showModal = true;
+                updateDisc(index);
+              "
+              type="error"
+              class="btnModal"
+            >
+              確認
+            </n-button>
+          </div>
+        </div>
+      </n-modal>
+      <n-modal v-model:show="showModal2" preset="dialog" title="確認">
+        <div class="modal">
+          <h6>確認刪除帳號</h6>
+          <p>系統將永久移除您的管理員帳號</p>
+          <div class="button">
+            <n-button @click="showModal2 = false" type="info" class="btnModal">
+              返回
+            </n-button>
+            <n-button
+              @click="
+                showModal2 = true;
+                deleteDisc();
+              "
+              type="error"
+              class="btnModal"
+            >
+              刪除
+            </n-button>
+          </div>
+        </div>
+      </n-modal>
+    </form>
   </div>
 </template>
 <style scoped lang="scss">
@@ -230,19 +363,24 @@ h2 {
     }
   }
 }
-
-.top {
-  width: 100%;
-  display: block;
+.modal {
+  .input {
+    display: block;
+    margin-top: 30px;
+  }
+  .button {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    .btnModal {
+      margin-top: 30px;
+    }
+  }
 }
-h2 {
-  font-size: 40px;
-  color: #fff;
-  margin: 10px 10px;
-  padding: 10px 10px;
-  background-color: #597897;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+h6 {
+  color: #000000;
+}
+p {
+  color: #000000;
 }
 </style>
