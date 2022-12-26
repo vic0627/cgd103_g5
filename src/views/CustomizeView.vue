@@ -1,6 +1,6 @@
 <script setup>
 import gsap from "gsap";
-import { onMounted, ref, onBeforeUpdate, onUpdated, onBeforeUnmount } from 'vue';
+import { onMounted, ref, onBeforeUpdate, onUpdated } from 'vue';
 import router from '@/router';
 import { log, $$, $all, getW } from '../composables/useCommon';
 import { introduction ,droneModels, propellorModels } from './js/CustomizeGlb';
@@ -50,18 +50,22 @@ onUpdated(() => {
     
 });
 
-let customMotorItem, customControllerItem;
+let customBodyItem, customPropellorItem, customMotorItem, customControllerItem;
 const motorModels = ref({}), controllerModels = ref({});
 const fetchCustom = () => {
-    fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+    fetch("http://localhost/dist/g5PHP/postCust.php", {
         method: "POST",
         body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.customize" }),
     })
         .then(res => res.json())
         .then(json => {
+            customBodyItem = json.filter(i => String(i.prd_no).includes('111111'));
+            customPropellorItem = json.filter(i => String(i.prd_no).includes('111112'));
             customMotorItem = json.filter(i => String(i.prd_no).includes('1112111'));
             customControllerItem = json.filter(i => String(i.prd_no).includes('1112112'));
             return {
+                customBodyItem,
+                customPropellorItem,
                 customMotorItem,
                 customControllerItem
             }
@@ -368,7 +372,7 @@ const propellorChosen = ref({
 });
 const propellorChoose = (id, nid, src) => {
     CUS.propellor(id, src);
-    if(id===1){
+    if(bodyChosen.value.type===1){
         propellorChosen.value.weight = propellorModels.value[`propellor0${id}`].weight * 2;
         propellorChosen.value.amount = 2;
     }else{
@@ -595,11 +599,15 @@ const setSession = () => {
             prd_propellor += 'white';
             break;
         }
-    set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`)
-    set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}"}`);
-    set(`111112${propellorChosen.value.type}${propellorChosen.value.color}`, `{"id":"111112${propellorChosen.value.type}${propellorChosen.value.color}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}"}`);
-    set(`1112111${motorChosen.value.type}`, `{"id":"1112111${motorChosen.value.type}", "name":"motor0${motorChosen.value.type}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}"}`);
-    set(`1112112${kgmcChosen.value.type}`, `{"id":"1112112${kgmcChosen.value.type}", "name":"controller0${kgmcChosen.value.type}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}"}`);
+    set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`);
+
+    set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}", "img": "${droneModels.value[`body0${bodyChosen.value.type}`].color[bodyChosen.value.color].png}"}`);
+
+    set(`111112${propellorChosen.value.type}${propellorChosen.value.color}`, `{"id":"111112${propellorChosen.value.type}${propellorChosen.value.color}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}", "img": "${propellorModels.value[`propellor0${propellorChosen.value.type}`].color[propellorChosen.value.color].png}"}`);
+
+    set(`1112111${motorChosen.value.type}`, `{"id":"1112111${motorChosen.value.type}", "name":"${motorModels.value[`motor0${motorChosen.value.type}`].name}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}"}`);
+
+    set(`1112112${kgmcChosen.value.type}`, `{"id":"1112112${kgmcChosen.value.type}", "name":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].name}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}"}`);
 };
 const alpha = ref(null);
 const selectionAlpha = (e) => {
@@ -672,7 +680,7 @@ const displayMode = () => {
         $all('.boardTitle').forEach(e => e.classList.add('skewX'));
         $all('.boardSpan').forEach(e => e.classList.add('skewX'));
     }else{
-        if(ww>1023){
+        if(ww>1023 && ww<1200){
             $$('#customize3d').width = 400;
             gsap.to('#customize3d', {
                 width: 400,
@@ -765,14 +773,29 @@ const rtl = (e, text) => {
         borderRadius: '20px',
         duration: .25,
     })
+    gsap.to(e.childNodes, {
+        opacity: 0,
+        duration: .25,
+        delay: .25,
+    })
+    gsap.to($$('.rotate span'), {
+        opacity: 0,
+        duration: .25,
+        delay: .25,
+    })
+    gsap.to($$('.rotate span'), {
+        opacity: 1,
+        duration: .25,
+        delay: .5,
+    })
 }
-const rotate = (e) => {
+const rotate = () => {
     if(CUS.controls.autoRotate){
         CUS.controls.autoRotate = false;
-        rtl(e.target, 'Rotate');
+        rtl('.rotate', 'Rotate');
     }else{
         CUS.controls.autoRotate = true;
-        rtl(e.target, 'Pause');
+        rtl('.rotate', 'Pause');
     }
 };
 const spot = (e) => {
@@ -812,7 +835,9 @@ const direct = (e) => {
                     <p>Spot Light</p>
                     <input type="range" name="lightA" min="0" max="100" value="0" @input="spot">
                 </label>
-                <p class="rotate" @click="rotate">Pause</p>
+                <p class="rotate" @click="rotate">
+                    <span>Pause</span>
+                </p>
                 <label for="lightB" class="lightB">
                     <p>Directional Light</p>
                     <input type="range" name="lightB" min="0" max="100" value="0" @input="direct">
@@ -964,6 +989,10 @@ input[type="range"]{
         text-align: center;
         border-right: 2px solid #F25A2A;
         border-left: 2px solid #F25A2A;
+        span{
+            color: #F25A2A;
+            text-shadow: 0 0 10px #F25A2A88;
+        }
     }
     .lightA{
         flex-direction: row-reverse;
