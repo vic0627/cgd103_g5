@@ -6,15 +6,28 @@ import memberCardVue from '@/components/memberCenter/memberCard.vue';
 import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
 // import $ from 'jquery';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
+const NmOrder = ref({
+    orders_no: "",
+    purchase_date: "",
+    total_price: "",
+    orders_status: "",
+    mem_no: "",
+})
 const getMemberNm = ()=>{
     fetch("/dist/g5PHP/getMemNmorder.php",{
         method: "get",
     }).then(res=>{
         res.json()
+    }).then(nm=>{
+        console.log(nm);
+        // NmOrder.value.orders_no = nm.orders_no;
+        // NmOrder.value.purchase_date = nm.purchase_date;
+        // NmOrder.value.total_price = nm.total_price;
+        // NmOrder.value.orders_status = nm.orders_status;
+        // NmOrder.value.mem_no = nm.mem_no;
+        // console.log(NmOrder.value.purchase_date)
     })
-    .then(mem=>{
-        console.log(mem);
-    })
+
 }
 onMounted(()=> {
     getMemberNm();
@@ -39,19 +52,19 @@ onMounted(()=> {
                         <th>Date</th>
                         <th>Total Price</th>
                         <th>Status</th>
-                        <th>Tracing No.</th>
+                        <th>Member No.</th>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><router-link to=""><span>20221201001</span></router-link></td>
-                            <td>2022-12-01</td>
-                            <td>USD $899.9</td>
-                            <td>Preparing</td>
-                            <td>4756382</td>
+                            <td><router-link to=""><span>{{NmOrder.orders_no}}</span></router-link></td>
+                            <td>{{NmOrder.purchase_date}}</td>
+                            <td>{{NmOrder.total_price}}</td>
+                            <td>{{NmOrder.orders_status}}</td>
+                            <td>{{NmOrder.mem_no}}</td>
                         </tr>
                     </tbody>
                 </table>
-                <table>
+                <!-- <table>
                     <thead>
                         <th>Order No.</th>
                         <th>Date</th>
@@ -104,7 +117,7 @@ onMounted(()=> {
                             <td>4756382</td>
                         </tr>
                     </tbody>
-                </table>
+                </table> -->
             </section>
         </div>
     </div>
