@@ -111,13 +111,13 @@ const units = ref({
         },
     },
 });
-const props = defineProps(["toggleBoard"])
+const props = defineProps(["toggleBoard", "displaySwitch"])
 </script>
 
 <template>
     <div class="dashBoards">
         <h2>Dash Board</h2>
-        <dash-board-component class="dashBoard" v-for="i in units" :key="i.id" :units="i"/>
+        <dash-board-component class="dashBoard" v-for="i in units" :key="i.id" :units="i" :display-switch="displaySwitch" />
         <div class="tag" @click="props.toggleBoard">
             <span class="name">Dash Board</span>
             <span class="cross"></span>

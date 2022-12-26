@@ -47,9 +47,6 @@ onMounted(() => {
       console.log(member);
       if (member.Account) {
         //帳密正確
-        //alert("帳密正確~");
-        // document.getElementById("memName").innerText = member.memName;
-        // document.getElementById("spanLogin").innerText = "登出";
         document.getElementById("username").value = "";
         document.getElementById("password").value = "";
         document.querySelector(".unameinfo").innerHTML = "";
@@ -60,16 +57,10 @@ onMounted(() => {
     };
     xhr.open("post", "/dist/g5PHP/memLogin.php", true); //連接到php
     xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded"); //php格式
-    //let data_info = `memId=${$id("username").value}&memPsw=${$id("password").value}`;//送出的內容
-    //xhr.send(data_info);//送出
-    //-----------------------------------
 
     let datas = {};
     datas.username = $id("username").value; //將資料打包進datas物件中
     datas.password = $id("password").value;
-    // datas.memName = $id("memName").value;//以此類推,註冊時要填寫的資料
-    // datas.email = $id("email").value;//以此類推
-
     let data_info = `datas=${JSON.stringify(datas)}`; //將datas轉為json字串
     xhr.send(data_info); //post送出
   }
@@ -124,17 +115,6 @@ onMounted(() => {
     return false;
   }
 });
-
-//忘記密碼
-const lightBoxShow = ref(false);
-const introductionInit = () => {
-  if (sessionStorage["intro"] === undefined) {
-    lightBoxShow.value = true;
-    lightBoxText.value.text.show = true;
-    lightBoxText.value.title.show = true;
-    lightBoxText.value.title.content = `Introduction`;
-  }
-};
 </script>
 
 <template>
@@ -177,12 +157,6 @@ const introductionInit = () => {
               <router-link class="forget_password" to="/"
                 >Forget Password?</router-link
               >
-              <div class="lightbox" @click="lightboxShow">
-                lightboxtest
-                <div class="lightBoxContent">
-                  <div class="close" @click="lightBoxClose"></div>
-                </div>
-              </div>
             </div>
             <div class="action">
               <!-- <button type="button" id="btnLogin">submit</button> -->
@@ -229,7 +203,6 @@ const introductionInit = () => {
 
 <style scoped lang="scss">
 @import "@/sass/style.scss";
-@import "@/sass/component/_lightBox.scss";
 $text-color: #fff;
 $link-color: #0080ff;
 $btn-color: #007ffb;

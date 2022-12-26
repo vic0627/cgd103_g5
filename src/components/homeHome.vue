@@ -46,17 +46,13 @@ var y = 100;
 			},
 		2 ), 1.3)
 });
-
-
-
-// gsap.registerPlugin(SplitText);
 </script>
 <template>
     <div class="home">
         <div class="text"><h1>Ulitimate Flexibility</h1></div>
         <div id="scene">
             <div class="drone layer" data-depth="0.1">
-                <img src="../assets/images/home/fly2.png" alt="">
+                <img src="/public/dist/assests/home/fly2.png" alt="drone">
             </div>
             <!-- <svgComponents1Vue class="layer" data-depth="0.5" /> -->
         </div>
@@ -78,17 +74,11 @@ var y = 100;
             <router-link to="/shopInfo" class="btnSecond" id="btn2" data-title="Buy">
             <span>Buy</span></router-link>
         </div>
-    </div>
-     <!-- <div class="scroll">
-            <p>Scroll down</p>
-            <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" style="fill: rgba(238, 238, 238, 1);transform: ;msFilter:;"><path d="M11.975 22H12c3.859 0 7-3.14 7-7V9c0-3.841-3.127-6.974-6.981-7h-.06C8.119 2.022 5 5.157 5 9v6c0 3.86 3.129 7 6.975 7zM7 9a5.007 5.007 0 0 1 4.985-5C14.75 4.006 17 6.249 17 9v6c0 2.757-2.243 5-5 5h-.025C9.186 20 7 17.804 7 15V9z"></path><path d="M11 6h2v6h-2z"></path></svg>
-        </div> -->
-        
+    </div>     
 </template>
 
 <style scoped lang="scss">
 @import "@/sass/style.scss";
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,500;0,700;0,800;1,100&display=swap');
 .home1-btn {
     position: absolute;
     width: 100%;
