@@ -148,9 +148,12 @@ onMounted(()=>{
                     font-size: 20px;                   
                     &.title{
                         width: 200px;
-                        color: rgb(207, 207, 207);
-                        background-color: darken($ored,5% );     
+                        color: rgb(62, 62, 62);
+                        background-color: lighten($blue, 40%);     
                         font-weight: bold; 
+                    }
+                    &:not(.title){
+                        text-align: center;
                     }
                 }
             }

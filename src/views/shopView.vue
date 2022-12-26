@@ -110,8 +110,8 @@ const assRows = ref([]);
 const products = ref([]), accessories = ref([]) ,bundle_A = ref([]),bundle_B = ref([]);
 
 const getShopInfo = () =>{
-  // fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
-  fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+  // fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
   // fetch("/dist/g5PHP/getShop.php")
     .then(res => res.json())
     .then(json => {

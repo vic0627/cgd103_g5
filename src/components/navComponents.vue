@@ -132,13 +132,13 @@ const NavClass = defineProps({
             <li>
               <router-link to="/signin" class="shop"
                 >
-              <img src="/src/assets/images/home/icon1.png" alt="MEMBER">
+              <img src="/public/dist/assests/home/icon1.png" alt="MEMBER">
               </router-link>
             </li>
             <li>
               <router-link to="/cart" class="shop"
                 >
-                <img src="../assets/images/home/icon2.png" alt="CART">
+                <img src="/public/dist/assests/home/icon2.png" alt="CART">
               </router-link>
             </li>
           </div>
@@ -201,7 +201,7 @@ const NavClass = defineProps({
       </div>
       <div class="shop-cart">
         <div class="shop memicon">
-          <img src="@/dist/assests/icon1.png" alt="MEMBER">
+          <img src="/public/dist/assests/home/icon1.png" alt="MEMBER">
           <div class="memHover">
             <li class="memName">Hello {{ mem }}!~</li>
             <li>
@@ -216,6 +216,8 @@ const NavClass = defineProps({
         <router-link to="/cart" class="shop"
           ><img src="@/dist/assets/icon2.png" alt="cart"
         /></router-link>
+        <router-link to="/cart" class="shop"
+          >{{NavClass.count}}</router-link>
       </div>
     </div>
   </header>
