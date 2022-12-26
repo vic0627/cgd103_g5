@@ -31,18 +31,6 @@ const createColumns = () => {
       sorter: (a, b) => b.purchase_date - a.purchase_date,
     },
     {
-      title: '訂單狀態',
-      key: 'orders_status',
-    },
-    {
-      title: '付款方式',
-      key: 'payment',
-    },
-    {
-      title: '配送方式',
-      key: 'transportation',
-    },
-    {
       title: '折扣金額',
       key: 'discount_price',
       defaultSortOrder: false,
@@ -69,14 +57,6 @@ const createColumns = () => {
       key: 'fee',
       defaultSortOrder: false,
       sorter: (a, b) => b.fee - a.fee,
-    },
-    {
-      title: '信用卡持有人姓',
-      key: 'credit_first_name',
-    },
-    {
-      title: '信用卡持有人名',
-      key: 'credit_last_name',
     },
     {
       title: '信用卡號',
