@@ -3,7 +3,7 @@
  header("Content-Type:application/json;charset=utf-8");
 try {
 	require_once("./connect_cgd103g5_felix.php");
-	$sql = "select * from tibamefe_cgd103g5.nm_orders";
+	$sql = "select * from tibamefe_cgd103g5.nm_orders a join `discount_set` b on a.disc_no = b.disc_no";
 	$nm_orders = $pdo->prepare($sql);
 	$nm_orders->execute();
 	$nm_ordersRows = $nm_orders->fetchAll(PDO::FETCH_ASSOC);
