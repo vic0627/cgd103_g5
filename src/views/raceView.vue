@@ -43,104 +43,104 @@ const changeCount = (id) => {
   count.value = id;
 };
 
-const race = ref({
-  1: {
-    id: 1,
-    nation: "Taiwan",
-    startDate: "2022-01-01",
-    src: contest01,
-    endDate: "2022-01-31",
-    raceName: "Drone Race 01",
-  },
-  2: {
-    id: 2,
-    nation: "World",
-    startDate: "2022-02-01",
-    src: contest02,
-    endDate: "2022-02-28",
-    raceName: "Drone Race 02",
-  },
-  3: {
-    id: 3,
-    nation: "Taiwan",
-    startDate: "2022-03-01",
-    src: contest01,
-    endDate: "2022-03-31",
-    raceName: "Drone Race 03",
-  },
-  4: {
-    id: 4,
-    nation: "World",
-    startDate: "2022-04-01",
-    src: contest02,
-    endDate: "2022-04-30",
-    raceName: "Drone Race 04",
-  },
-  5: {
-    id: 5,
-    nation: "Taiwan",
-    startDate: "2022-05-01",
-    src: contest01,
-    endDate: "2022-05-31",
-    raceName: "Drone Race 05",
-  },
-  6: {
-    id: 6,
-    nation: "World",
-    startDate: "2022-06-01",
-    src: contest02,
-    endDate: "2022-06-30",
-    raceName: "Drone Race 06",
-  },
-  7: {
-    id: 7,
-    nation: "Taiwan",
-    startDate: "2022-07-01",
-    src: contest01,
-    endDate: "2022-07-31",
-    raceName: "Drone Race 07",
-  },
-  8: {
-    id: 8,
-    nation: "World",
-    startDate: "2022-08-01",
-    src: contest02,
-    endDate: "2022-08-31",
-    raceName: "Drone Race 08",
-  },
-  9: {
-    id: 9,
-    nation: "Taiwan",
-    startDate: "2022-09-01",
-    src: contest01,
-    endDate: "2022-09-30",
-    raceName: "Drone Race 09",
-  },
-  10: {
-    id: 10,
-    nation: "World",
-    startDate: "2022-10-01",
-    src: contest02,
-    endDate: "2022-10-31",
-    raceName: "Drone Race 10",
-  },
-  11: {
-    id: 11,
-    nation: "Taiwan",
-    startDate: "2022-11-01",
-    src: contest01,
-    endDate: "2022-11-30",
-    raceName: "Drone Race 11",
-  },
-  12: {
-    id: 12,
-    nation: "World",
-    startDate: "2022-12-01",
-    src: contest02,
-    endDate: "2022-12-31",
-    raceName: "Drone Race 12",
-  },
-});
+// const race = ref({
+//   1: {
+//     id: 1,
+//     nation: "Taiwan",
+//     startDate: "2022-01-01",
+//     src: contest01,
+//     endDate: "2022-01-31",
+//     raceName: "Drone Race 01",
+//   },
+//   2: {
+//     id: 2,
+//     nation: "World",
+//     startDate: "2022-02-01",
+//     src: contest02,
+//     endDate: "2022-02-28",
+//     raceName: "Drone Race 02",
+//   },
+//   3: {
+//     id: 3,
+//     nation: "Taiwan",
+//     startDate: "2022-03-01",
+//     src: contest01,
+//     endDate: "2022-03-31",
+//     raceName: "Drone Race 03",
+//   },
+//   4: {
+//     id: 4,
+//     nation: "World",
+//     startDate: "2022-04-01",
+//     src: contest02,
+//     endDate: "2022-04-30",
+//     raceName: "Drone Race 04",
+//   },
+//   5: {
+//     id: 5,
+//     nation: "Taiwan",
+//     startDate: "2022-05-01",
+//     src: contest01,
+//     endDate: "2022-05-31",
+//     raceName: "Drone Race 05",
+//   },
+//   6: {
+//     id: 6,
+//     nation: "World",
+//     startDate: "2022-06-01",
+//     src: contest02,
+//     endDate: "2022-06-30",
+//     raceName: "Drone Race 06",
+//   },
+//   7: {
+//     id: 7,
+//     nation: "Taiwan",
+//     startDate: "2022-07-01",
+//     src: contest01,
+//     endDate: "2022-07-31",
+//     raceName: "Drone Race 07",
+//   },
+//   8: {
+//     id: 8,
+//     nation: "World",
+//     startDate: "2022-08-01",
+//     src: contest02,
+//     endDate: "2022-08-31",
+//     raceName: "Drone Race 08",
+//   },
+//   9: {
+//     id: 9,
+//     nation: "Taiwan",
+//     startDate: "2022-09-01",
+//     src: contest01,
+//     endDate: "2022-09-30",
+//     raceName: "Drone Race 09",
+//   },
+//   10: {
+//     id: 10,
+//     nation: "World",
+//     startDate: "2022-10-01",
+//     src: contest02,
+//     endDate: "2022-10-31",
+//     raceName: "Drone Race 10",
+//   },
+//   11: {
+//     id: 11,
+//     nation: "Taiwan",
+//     startDate: "2022-11-01",
+//     src: contest01,
+//     endDate: "2022-11-30",
+//     raceName: "Drone Race 11",
+//   },
+//   12: {
+//     id: 12,
+//     nation: "World",
+//     startDate: "2022-12-01",
+//     src: contest02,
+//     endDate: "2022-12-31",
+//     raceName: "Drone Race 12",
+//   },
+// });
 
 const no = ref("");
 const name = ref("");
@@ -161,7 +161,7 @@ const showModal = ref(false);
 const props = defineProps(["tab"]);
 const raceRows = ref([]);
 const getProducts = () => {
-  //取得商品資料
+  //取得比賽資料
   fetch("http://localhost/cgd103_g5/public/g5PHP/getRace.php")
     .then((res) => res.json())
     .then((json) => {
@@ -208,7 +208,12 @@ onMounted(() => {
           :key="index"
         >
           <div class="top"></div>
-          <div class="boxBgi_w"></div>
+          <div
+            class="boxBgi_w"
+            :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9)),`"
+          ></div>
+
+          <!-- url(${race[e.id].src}) -->
 
           <div class="listWord">
             <div class="nation">
@@ -546,7 +551,7 @@ h2 {
     .bgi {
       @include l($l-breakpoint) {
         width: 100%;
-        height: 100%;
+        height: 740px;
         background-size: cover;
         background-position: center center;
         position: absolute;

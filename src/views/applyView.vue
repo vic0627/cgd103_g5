@@ -1,36 +1,74 @@
 <script setup>
 import navComponentsVue from "@/components/navComponents.vue";
-import Accordion from "../components/accordionComponents.vue";
+import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
+import raceQuestion from "../components/raceQueston.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
+
 bodyInit();
+
+// const no = ref("");
+const name = ref("");
+const start = ref("");
+const end = ref("");
+const aboard = ref("");
+const photo = ref("");
+const txt = ref("");
+
+// const newcpt_no = ref("");
+const newcpt_name = ref("");
+const newcpt_start = ref("");
+const newcpt_end = ref("");
+const newcpt_aboard = ref("");
+const newcpt_photo = ref("");
+const newcpt_txt = ref("");
+const showModal = ref(false);
+
+const props = defineProps(["tab"]);
+const raceRows = ref([]);
+const getProducts = () => {
+  //取得比賽資料
+  fetch("http://localhost/cgd103_g5/public/g5PHP/getRace.php")
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json);
+      raceRows.value = json;
+    });
+};
+onMounted(() => {
+  getProducts();
+});
+
+const btnStatus = ref(false);
+const submitBtn = () => {
+  if (btnStatus.value) {
+    lightBoxText.value.title.content = "Please log in as a member first!";
+  } else {
+    lightBoxText.value.title.content = "Appointment successful!";
+  }
+};
 </script>
 
 <template>
   <navComponentsVue />
   <!-- Competition information -->
   <section>
-    <div class="race">
-      <h2>Drone Race 01</h2>
+    <div class="race" v-for="(raceRow, index) in raceRows" :key="index">
+      <h2>{{ raceRow.cpt_name }}</h2>
 
       <div class="raceimg">
         <img src="../assets/images/race/contest01.png" alt="Competition" />
       </div>
 
       <div class="date">
-        <h3>20220101</h3>
-        <h3>-</h3>
-        <h3>20220131</h3>
+        <h3>{{ raceRow.cpt_start }}</h3>
+        <h3>~</h3>
+        <h3>{{ raceRow.cpt_end }}</h3>
       </div>
 
       <div class="racetext">
         <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum fugiat,
-          consequuntur sapiente magni vitae neque officia maxime accusantium in
-          unde cum pariatur! Fugiat mollitia modi possimus fugit molestias ut
-          doloribus reiciendis corporis rem beatae similique hic dolores tenetur
-          magnam aut deserunt, esse placeat maiores voluptatum alias nostrum
-          sapiente officiis! Veritatis.
+          {{ raceRow.cpt_txt }}
         </p>
       </div>
     </div>
@@ -40,7 +78,7 @@ bodyInit();
   <section>
     <div class="raceQa">
       <h2>RACE QUESTIONS</h2>
-      <Accordion />
+      <raceQuestion />
     </div>
   </section>
 
@@ -90,8 +128,15 @@ bodyInit();
     </div> -->
 
     <div class="book">
+      <div class="lightBox" v-if="lightBoxShow"></div>
       <div class="Submit">
-        <a href="#" class="btn" id="btn2" data-title="Submit">
+        <a
+          href="#"
+          class="btn submitBtn"
+          id="btn2"
+          data-title="Submit"
+          @click="submitBtn"
+        >
           <span>Submit</span>
         </a>
       </div>
@@ -104,6 +149,7 @@ bodyInit();
 <style lang="scss" scoped>
 @import "../sass/style.scss";
 @import "../sass/component/_btn.scss";
+@import "../sass/component/lightBox";
 // Competition information
 
 header {
@@ -194,5 +240,9 @@ h3 {
   display: flex;
   justify-content: center;
   // margin-bottom: 50px;
+}
+
+.lightBox {
+  @include lightBox();
 }
 </style>
