@@ -158,7 +158,7 @@ const sendEmail = () => {
     let member = JSON.parse(json);
     let html;
     // 這裡的QQ指的是Vue實體
-    QQ.mem_psw = member.mem_psw;
+    QQ.mem_pw = member.mem_pw;
     // html = `<p>${member.mem_psw}</p>`;
     // document.getElementById("show_forget_password").innerHTML = html;
   }
@@ -169,7 +169,7 @@ const sendEmail = () => {
       "template_ojh6tgp",
       {
         user_email: this.forget_password_account,
-        mem_psw: this.mem_psw,
+        mem_pw: this.mem_pw,
       },
       "TWzj5YZjjnkHkkv1N"
     )
@@ -237,23 +237,11 @@ const sendEmail = () => {
                         required
                       />
                     </div>
-                    <div name="mem_psw" id="show_forget_password">
-                      {{ mem_psw }}
-                    </div>
-                    <input
-                      id="forget_password_none"
-                      type="text"
-                      name="mem_psw"
-                      v-model="mem_psw"
-                    />
                     <button class="btn_login" type="submit" @click="sendEmail">
                       驗證信箱
                     </button>
                   </form>
                   <!-- v-if="removeItem" -->
-                  <div class="buttons">
-                    <button @click="clearSess">confirm</button>
-                  </div>
                   <div class="close" @click="lightBoxClose"></div>
                 </div>
               </div>
