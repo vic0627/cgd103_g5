@@ -68,9 +68,9 @@ const nextStep = () => {
     overflow: hidden;
     font: $caption-p;
     h2{
-        width: 100%;
         text-align: center;
-        margin: 100px auto 40px;
+        margin: 100px auto 0;
+        padding-left: 40px;
     }
     
 }
