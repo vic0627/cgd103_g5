@@ -30,10 +30,7 @@ const mainMenu = reactive([
     <div class="container">
       <div class="footer-wrap">
         <div class="footer-logo-pic">
-          <img
-            src="/public/dist/assests/home/g5_logo_EFVP_Horz.png"
-            alt="CART"
-          />
+          <img src="../assets/images/home/g5_logo_EFVP_Horz.png" alt="" />
         </div>
         <div class="foot-item">
           <ul>
@@ -279,6 +276,8 @@ footer {
           }
         }
       }
+    }
+    .detail {
     }
     .copyright {
       width: 90%;
