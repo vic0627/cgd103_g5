@@ -23,6 +23,9 @@ bodyInit();
 
 //bottomBar第二版
 onMounted(() => {
+  session();
+  console.log(prodInfo)
+  console.log(prodInfo.value)
   let lastPos = 0;
   const nav = document.getElementById("purchaseBar");
   // log(nav);
@@ -39,19 +42,6 @@ onMounted(() => {
   });
 });
 
-const raceRows = ref([]);
-const getRace = () => {
-  //取得商品資料
-  axios
-    .get("http://localhost/cgd103_g5/public/g5PHP/getProducts.php")
-    .then((res) => {
-      console.log(res);
-      raceRows.value = res.data;
-    });
-};
-onMounted(() => {
-  getRace();
-});
 
 //商品大圖
 const shopInfoItem = ref({
@@ -76,29 +66,18 @@ const btnLeft = () => {
     count.value = 3;
   }
 };
-
 //抓session資料
+const prodin = ref([]);
 const title = reactive([{ name: "id" }, { name: "price" }, { name: "images" }]);
-const prodInfo = ref([]);
-const prodList = computed(() => prodInfo.value);
+// const prodInfo = computed(() => prodin);
+const strings = ref([]);
 const session = () => {
-  const strings = sessionStorage.getItem("prodInfo");
-  const substrs = strings.substr(0, strings.length - 1).split(",");
-  getprodInfo(substrs);
-  prodInfo.value = JSON.parse(`[${explode.value}]`);
-  console.log(title);
+  strings.value = sessionStorage['prodInfo'];
+  prodin.value = JSON.parse(strings.value)
+  console.log(prodin.value)
+  console.log(prodin.value.price)
 };
 
-//抓session裡面的存放的商品
-const getprodInfo = (substrs) => {
-  for (let i = 0; i <= substrs.length - 1; i++) {
-    if (i === 0) {
-      explode.value = sessionStorage.getItem(substrs[i]);
-    } else {
-      explode.value += "," + sessionStorage.getItem(substrs[i]);
-    }
-  }
-};
 </script>
 
 <template>
@@ -124,9 +103,9 @@ const getprodInfo = (substrs) => {
     </div>
 
     <!-- 主要敘述 -->
-    <article class="mainDesc" v-for="(item, index) in prodList">
-      <h2>{{ item.id }}</h2>
-      <p>USD {{ item.price }}</p>
+    <article class="mainDesc">
+      <h2>{{prodin.title}}</h2>
+      <p>USD {{ prodin.price }}</p>
       <ul>
         <li>5.1K/50fps Professional Imagery</li>
         <li>46-Min Max Flight Time</li>
