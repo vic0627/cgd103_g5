@@ -188,14 +188,14 @@ const NavClass = defineProps({
               >NEWS</router-link
             >
           </li>
-          <li>
+          <!-- <li>
             <router-link
               to="/member"
               class="navHover"
               :style="`color :${NavClass.news}`"
               >M</router-link
             >
-          </li>
+          </li> -->
         </ul>
       </div>
       <div class="shop-cart">

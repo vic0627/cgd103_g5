@@ -103,9 +103,12 @@ onMounted(()=> {});
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
-header{
-    top: 0;
-}
+$text-color:#fff;
+$link-color:#7abcff;
+$btn-color:#007FFB;
+$bg-color:rgb(54, 54, 54);
+
+//table樣式
 table{
     text-align: center;
     width: 100%;
@@ -140,10 +143,11 @@ table tbody tr:last-child td:first-child {
 table tbody tr:last-child td:last-child {
   border-radius: 0 0 10px 0;
 }
-
 span{
     color: rgb(43, 223, 255);
 }
+//
+
 section{
     margin: 0;
 }
@@ -157,23 +161,55 @@ input{
     display: flex;
     justify-content: start;
     gap: 10px;
+    color: $text-color;
     
     .maincontent{
-        width: 75%;
+        width: 100%;
         margin: 0;
         .maininfo{
-            display: flex;
-            gap: 10px;
+           display: block;
         }
         .profiles-list{
             width: 100%;
             margin:10px 0;
             background-color: #333;
             border-radius: 10px;
-            border: 1px solid #333;
-            padding: 70px 30px;
+            padding: 20px;
             box-sizing: border-box;
         }
     }
 }
+
+@include s($s-breakpoint) {//>575px
+    .main{
+        padding: 10px;
+        .sidenav{
+            display: block;
+        }
+        .maincontent{
+            width: 75%;
+            .profiles-list{
+                padding: 50px;
+            }
+            .maininfo{
+                // display: flex;
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+                grid-gap: 10px;
+            }
+        }
+    }
+}
+@include m($m-breakpoint) {//>1023px
+    .main{
+        .maincontent{
+            .profiles-list{
+                padding: 70px 100px;
+            }
+        }
+    }
+}  
+@include l($l-breakpoint) {//>1199px
+    
+} 
 </style>

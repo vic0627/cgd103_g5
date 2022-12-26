@@ -120,17 +120,6 @@ input{
     display: block;
 }
 
-.input-s{
-    width: 100%;
-    box-sizing: border-box;
-    border: 1px solid rgba(0,0,0,.15);
-    height: 40px;
-    padding: 7px 11px;
-    font-size: 20px;
-    line-height: 20px;
-    margin-top: 8px;
-    border-radius: 4px;
-}
 .main{
     max-width: 1200px;
     width: 100%;
@@ -144,104 +133,49 @@ input{
         width: 100%;
         margin: 0;
         .maininfo{
-            // display: flex;
-            // gap: 10px;
             display: block;
         }
-        // .profiles-list{
-        //     width: 100%;
-        //     // height: 500px;
-        //     margin:10px 0;
-        //     background-color: #333;
-        //     padding: 20px;
-        //     box-sizing: border-box;
-        //     border-radius: 10px;
-        //     .tab_panel{
-        //                 label{
-        //                     display: block;
-        //                     margin-top: 24px;
-        //                 }
-        //                 .action{
-        //                     display: flex;
-        //                     gap: 100px;
-        //                     padding-top: 32px;
-        //                     button{
-        //                         width: 100%;
-        //                         height: 48px;
-        //                         border-radius: 10px;
-        //                         font-size: 16px;
-        //                         color: $text-color;
-        //                         background-color: $btn-color;
-        //                     }
-        //                     p{
-        //                         display: block;
-        //                         font-size: 12px;
-        //                         color: $text-color;
-        //                         margin: 8px 0 24px 0;
-        //                         text-align: center;
-        //                         a{
-        //                             color: $link-color;
-        //                             font-size: 12px;
-        //                             display: inline;
-        //                         }
-        //                     }
-        //                 }
-        //                 span{
-        //                     font-size: 12px;
-        //                     color: $text-color;
-        //                 }
-        //                 .username{
-        //                     display: flex;
-        //                     gap: 10px;
-        //                 }
-        //                 .gender{
-        //                     display: flex;
-        //                     gap: 10px;
-        //                     label{
-        //                         margin: 20px 20px 20px 0;
-        //                         font-size: 20px;
-        //                     }
-        //                 }
-        //                 .selcon{
-        //                     display: flex;
-        //                     gap: 10px;
-        //                 }
-        //         }
-        // }
-        .creditCardBox{
+        .payment{//原本是.profiles-list
             width: 100%;
-            
-            @include m($m-breakpoint){
-                display: flex;
-                align-items: flex-start;
+            margin:10px 0;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+            .creditCardBox{
+                box-sizing: border-box;
+                width: 100%;
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+                .cardImg{
+                    img{
+                        width: 100%;
+                        vertical-align: middle;
+                    }
+                }
+                .cardInfo{
+                    // margin: 20px;
+                    font:$caption-h3;
+                    label{
+                       font-size: 30px;
+                    }
+                    input{
+                        width: 300px;
+                        height: 30px;
+                        border-radius: 10px;
+                    }
+                    button{
+                        width: 300px;
+                        height: 30px;
+                        font:$caption-p;
+                        background-color: $blue;
+                        color: #fff;
+                        border-radius: 10px;
+                        border:none;
+                    }
+                }
+    
             }
-            .cardImg{
-                img{
-                    // width: 100%;
-                }
-            }
-            .cardInfo{
-                margin: 20px;
-                font:$caption-h3;
-                label{
-                   font-size: 30px;
-                }
-                input{
-                    width: 300px;
-                    height: 30px;
-                    border-radius: 10px;
-                }
-                button{
-                    width: 300px;
-                    height: 30px;
-                    font:$caption-p;
-                    background-color: $blue;
-                    color: #fff;
-                    border-radius: 10px;
-                    border:none;
-                }
-            }
-
         }
     }
 }
@@ -253,12 +187,14 @@ input{
         }
         .maincontent{
             width: 75%;
-            .profiles-list{
+            .payment{
                 padding: 50px;
             }
             .maininfo{
-                display: flex;
-                gap: 10px;
+                // align-items: center;
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+                grid-gap: 10px;
             }
         }
     }
@@ -266,7 +202,7 @@ input{
 @include m($m-breakpoint) {//>1023px
     .main{
         .maincontent{
-            .profiles-list{
+            .payment{
                 padding: 70px 100px;
             }
         }

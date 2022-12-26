@@ -4,85 +4,147 @@ import footerComponentsVue from '@/components/footerComponents.vue';
 import menuVue from '@/components/memberCenter/menu.vue';
 import memberCardVue from '@/components/memberCenter/memberCard.vue';
 import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
+
+
 // import $ from 'jquery';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
+// import { Script } from 'vm';
 
+const memberinfo =ref({});
 onMounted(()=> {
+    getMemLevel();
+    
+    function getMemLevel(){
+        fetch('/dist/g5PHP/getMemLevel.php',{
+                method: "get",
+            })
+            .then((res) => res.json())//將php response的內容轉成json格式
+            .then(mem =>{//該json
+                console.log(mem);
+                if(mem.mem_acc){//回傳帳號為true時
+                    //取得需要的會員資料
+                    memberinfo.value = {
+                        mem_acc : mem.mem_acc,
+                        mem_first_name : mem.mem_first_name,
+                        mem_last_name : mem.mem_last_name,
+                        mem_gender : mem.mem_gender,
+                        city : mem.city,
+                        address : mem.address,
+                        phone : mem.phone,
+                    }
+                    console.log(memberinfo.value);
+                    // memberinfo.value.mem_first_name = mem.mem_first_name;
+                    // memberinfo.value.mem_email = mem.mem_email;
+                    // memberinfo.value.mem_grade = mem.mem_grade;
+                    // memberinfo.value.mem_points = mem.mem_points;
+                }
+            })
+            .catch(error =>console.log(error));
+    }
+
+    document.getElementById('updateMemberInfo').onclick = sendForm;
+
+    function sendForm(){  
+            let formData = new FormData(); // 一開始表單的資料是空的
+            formData.append('mem_acc', memberinfo.value.mem_acc);
+            formData.append('mem_first_name', memberinfo.value.mem_first_name); 
+            formData.append('mem_last_name', memberinfo.value.mem_last_name);
+            formData.append('city', memberinfo.value.city); 
+            formData.append('address', memberinfo.value.address); 
+            formData.append('phone', memberinfo.value.phone); 
+            fetch('/dist/g5PHP/updateMember.php',{
+                method: "post",
+                body: formData,
+            })
+            .then((res) => res.text())//php echo的內容
+            .then(text =>alert(text))
+            .catch(error =>console.log(error));
+
+        }//function_checkId 
     
 });
+const lightBoxClose = () => {
+	lightBoxShow.value = false;
+};
+const lightBoxShow = ref(true);
+
+
+
+
+
 
 //address
-const state = reactive({
-    frameworksIdx: 0, // 記錄第一層選單的被選取項目
-    contentsIdx: 0, // 記錄第二層選單的被選取項目
-    frameworks : [
-        {
-            type: 'Choose Your Location',
-            contents: [
-                { name: 'Choose Your Country'},
-            ],
-        },
-        {
-            type: 'AMERICAS',
-            contents: [
-                { name: 'USA'},
-                { name: 'Brasil'},
-                { name: 'Canada(English)'},
-                { name: 'Canada(Français)'},
-                { name: 'Mexico'},
-            ],
-        },
-        {
-            type: 'EUROPE',
-            contents: [
-                { name: 'Belgium'},
-                { name: 'Denmark (English)'},
-                { name: 'Deutschland'},
-                { name: 'Finland (English)'},
-                { name: 'France'},
-                { name: 'Ireland'},
-                { name: 'Italia'},
-                { name: 'Luxembourg (English)'},
-                { name: 'Monaco (English)'},
-                { name: 'Nederland (English)'},
-            ],
-        },
-        {
-            type: 'ASIA',
-            contents: [
-                { name: '台灣'},
-                { name: '中國大陸'},
-                { name: '日本'},
-                { name: '대한민국'},
-                { name: '香港特別行政區'},
-                { name: 'Singapore'},
-                { name: 'ประเทศไทย'},
-                { name: 'Việt Nam'},
-            ],
-        },
-        {
-            type: 'OCEANIA',
-            contents: [
-                { name: 'Australia'},
-                { name: 'New Zealand'},
-            ],
-        },
-        {
-            type: 'MIDDLE EAST',
-            contents: [
-                { name: 'UAE (English)'},
-                { name: 'Kuwait (English)'},
-                { name: 'KSA (English)'},
-            ],
-        },
-    ],
-});
-const pickContents = computed(() => {
-    return state.frameworks[state.frameworksIdx].contents;
-});
-watch(() => state.frameworksIdx, (value) =>{
-    state.contentsIdx = 0;
-});
+// const state = reactive({
+//     frameworksIdx: 0, // 記錄第一層選單的被選取項目
+//     contentsIdx: 0, // 記錄第二層選單的被選取項目
+//     frameworks : [
+//         {
+//             type: 'Choose Your Location',
+//             contents: [
+//                 { name: 'Choose Your Country'},
+//             ],
+//         },
+//         {
+//             type: 'AMERICAS',
+//             contents: [
+//                 { name: 'USA'},
+//                 { name: 'Brasil'},
+//                 { name: 'Canada(English)'},
+//                 { name: 'Canada(Français)'},
+//                 { name: 'Mexico'},
+//             ],
+//         },
+//         {
+//             type: 'EUROPE',
+//             contents: [
+//                 { name: 'Belgium'},
+//                 { name: 'Denmark (English)'},
+//                 { name: 'Deutschland'},
+//                 { name: 'Finland (English)'},
+//                 { name: 'France'},
+//                 { name: 'Ireland'},
+//                 { name: 'Italia'},
+//                 { name: 'Luxembourg (English)'},
+//                 { name: 'Monaco (English)'},
+//                 { name: 'Nederland (English)'},
+//             ],
+//         },
+//         {
+//             type: 'ASIA',
+//             contents: [
+//                 { name: '台灣'},
+//                 { name: '中國大陸'},
+//                 { name: '日本'},
+//                 { name: '대한민국'},
+//                 { name: '香港特別行政區'},
+//                 { name: 'Singapore'},
+//                 { name: 'ประเทศไทย'},
+//                 { name: 'Việt Nam'},
+//             ],
+//         },
+//         {
+//             type: 'OCEANIA',
+//             contents: [
+//                 { name: 'Australia'},
+//                 { name: 'New Zealand'},
+//             ],
+//         },
+//         {
+//             type: 'MIDDLE EAST',
+//             contents: [
+//                 { name: 'UAE (English)'},
+//                 { name: 'Kuwait (English)'},
+//                 { name: 'KSA (English)'},
+//             ],
+//         },
+//     ],
+// });
+// const pickContents = computed(() => {
+//     return state.frameworks[state.frameworksIdx].contents;
+// });
+// watch(() => state.frameworksIdx, (value) =>{
+//     state.contentsIdx = 0;
+// });
 
 
 
@@ -103,40 +165,62 @@ watch(() => state.frameworksIdx, (value) =>{
                 <h1>Profile Overview</h1>
                 <form class="tab_panel">
                     <label for="username">Email Address</label>
-                    <input type="email" class="input-s" name="username" id="username" maxlength="35" required>
+                    <input type="text" class="input-s" name="username" id="username" maxlength="35" v-model="memberinfo.mem_acc" disabled>
                     <span class="unameinfo"></span>
+                    <!-- {{memberinfo.mem_acc}} -->
                     
                     <label for="password">Change Password</label>
                     <input type="button" name="password" id="password" maxlength="20" value="Change Password">
 
+                    <div class="lightBox" v-if="lightBoxShow">
+                        <div class="lightBoxContent">
+                            <div class="close" @click="lightBoxClose"></div>
+                            <title>修改密碼</title>
+                            <div>
+                                <label for="">舊密碼</label>
+                                <input type="text">
+                                <label for="">新密碼</label>
+                                <input type="text">
+                                <label for="">確認密碼</label>
+                                <input type="text">
+
+                            </div>
+                        </div>
+                    </div>
+
+
                     <label for="uname">User name</label>
                     <div class="username">
-                        <input type="text" class="input-s" name="" id="uname" maxlength="15" placeholder="First Name" required>
-                        <input type="text" class="input-s" name="" id="" maxlength="15" placeholder="Last Name" required>
+                        <input type="text" class="input-s" name="" id="uname" maxlength="15" placeholder="First Name" v-model="memberinfo.mem_first_name">
+                        <input type="text" class="input-s" name="" id="uname2" maxlength="15" placeholder="Last Name" v-model="memberinfo.mem_last_name">
                     </div>
                     <span class=""></span>
+                    <!-- {{ memberinfo.mem_first_name }} -->
+                    <!-- {{ memberinfo.mem_last_name }} -->
 
                     <label for="">Gender</label>
                     <div class="gender">
-                        <input type="radio" name="Gender" id="male" checked>
+                        <input type="radio" name="Gender" id="male" value="1" v-model="memberinfo.mem_gender" v-if="memberinfo.mem_gender ==1" checked disabled>
+                        <input type="radio" name="Gender" id="male" value="1" v-model="memberinfo.mem_gender" v-else-if="memberinfo.mem_gender ==2" disabled>
                         <label for="male">male</label>
-                        <input type="radio" name="Gender" id="female">
+                        <input type="radio" name="Gender" id="female" value="2" v-model="memberinfo.mem_gender" v-if="memberinfo.mem_gender ==1" disabled>
+                        <input type="radio" name="Gender" id="female" value="2" v-model="memberinfo.mem_gender" v-else-if="memberinfo.mem_gender ==2" checked disabled>
                         <label for="female">female</label>
                     </div>
+                    <!-- {{ memberinfo.mem_gender }} -->
 
-                    <label for="bday">Date of birth</label>
-                    <input type="date" class="input-s" name="" id="bday" value="2022-01-01">
-
+                    
                     <label for="phone_no">Phone number</label>
-                    <input type="number" class="input-s" name="phone_no" id="phone_no" maxlength="15">
+                    <input type="number" class="input-s" name="phone_no" id="phone_no" maxlength="15" v-model="memberinfo.phone">
                     <span class=""></span>
+                    <!-- {{ memberinfo.phone }} -->
 
                     <label for="address">Address</label>
                     <!-- <select name="city" id="" class="input-s">
                         <option>CHOOSE YOUR LOCATION</option>
                         <option :value="i" v-for="i in city" :key="i">{{i}}</option>
                     </select> -->
-                    <div class="selcon">
+                    <!-- <div class="selcon">
                         <select v-model="state.frameworksIdx" class="input-s">
                             <option v-for="(item, index) in state.frameworks" :value="index">
                                 {{item.type}}
@@ -147,13 +231,17 @@ watch(() => state.frameworksIdx, (value) =>{
                                 {{item.name}}
                             </option>
                         </select>
-                    </div>
-                    <input type="text" class="input-s" name="" id="" maxlength="15">
+                    </div> -->
+                    <input type="text" class="input-s" name="" id="" maxlength="15" v-model="memberinfo.city" placeholder="City">
+                    <input type="text" class="input-s" name="" id="" maxlength="100" v-model="memberinfo.address" placeholder="Address">
                     <span class=""></span>
+                    <!-- {{ memberinfo.city }} -->
+                    <!-- {{ memberinfo.address }} -->
 
                     <div class="action">
                         <button type="">Cancel</button>
-                        <button type="submit">Confirmed</button>
+                        <!-- <button type="submit">Confirmed</button> -->
+                        <router-link to="/member"><button type="submit" id="updateMemberInfo">Confirmed</button></router-link>
                     </div>
                 </form>
             </section>
@@ -165,6 +253,13 @@ watch(() => state.frameworksIdx, (value) =>{
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
+@import '@/sass/component/_lightBox.scss';
+.lightBox{
+	@include lightBox();
+	.lightBoxContent{
+		height: 300px;
+	}
+}
 
 
 $text-color:#fff;
@@ -205,18 +300,15 @@ input{
         width: 100%;
         margin: 0;
         .maininfo{
-            // display: flex;
-            // gap: 10px;
             display: block;
         }
         .profiles-list{
             width: 100%;
-            // height: 500px;
             margin:10px 0;
             background-color: #333;
+            border-radius: 10px;
             padding: 20px;
             box-sizing: border-box;
-            border-radius: 10px;
             .tab_panel{
                 label{
                     display: block;
@@ -224,15 +316,17 @@ input{
                 }
                 .action{
                     display: flex;
-                    gap: 100px;
+                    // gap: 100px;
+                    justify-content: space-between;
                     padding-top: 32px;
                     button{
-                        width: 100%;
+                        // width: 100%;
                         height: 48px;
                         border-radius: 10px;
                         font-size: 16px;
                         color: $text-color;
                         background-color: $btn-color;
+                        padding: 0 20px;
                     }
                     p{
                         display: block;
@@ -283,7 +377,9 @@ input{
                 padding: 50px;
             }
             .maininfo{
-                display: flex;
+                // display: flex;
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
                 gap: 10px;
             }
         }
