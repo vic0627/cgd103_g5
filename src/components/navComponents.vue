@@ -115,7 +115,7 @@ const NavClass = defineProps({
     <div class="header">
       <div class="logo">
         <router-link class="header-link" to="/home">
-          <img src="/public/dist/assests/home/g5_logo_EFVP_Horz.png" alt="LOGO">
+          <img src="/dist/assets/home/g5_logo_EFVP_Horz.png" alt="LOGO">
         </router-link>
       </div>
       <input type="checkbox" id="active" />
@@ -132,13 +132,13 @@ const NavClass = defineProps({
             <li>
               <router-link to="/signin" class="shop"
                 >
-              <img src="/public/dist/assests/home/icon1.png" alt="MEMBER">
+              <img src="/dist/assets/home/icon1.png" alt="MEMBER">
               </router-link>
             </li>
             <li>
               <router-link to="/cart" class="shop"
                 >
-                <img src="/public/dist/assests/home/icon2.png" alt="CART">
+                <img src="/dist/assets/home/icon2.png" alt="CART">
               </router-link>
             </li>
           </div>
@@ -201,7 +201,7 @@ const NavClass = defineProps({
       </div>
       <div class="shop-cart">
         <div class="shop memicon">
-          <img src="/public/dist/assests/home/icon1.png" alt="MEMBER">
+          <img src="/dist/assets/home/icon1.png" alt="MEMBER">
           <div class="memHover">
             <li class="memName">Hello {{ mem }}!~</li>
             <li>
@@ -216,6 +216,8 @@ const NavClass = defineProps({
         <router-link to="/cart" class="shop"
           ><img src="../assets/images/home/icon2.png" alt="cart"
         /></router-link>
+        <router-link to="/cart" class="shop"
+          >{{NavClass.count}}</router-link>
       </div>
     </div>
   </header>
