@@ -24,8 +24,9 @@ bodyInit();
 //bottomBar第二版
 onMounted(() => {
   session();
-  console.log(prodInfo)
-  console.log(prodInfo.value)
+
+  console.log(prodInfo);
+  console.log(prodInfo.value);
   let lastPos = 0;
   const nav = document.getElementById("purchaseBar");
   // log(nav);
@@ -41,7 +42,6 @@ onMounted(() => {
     lastPos = currentPos; //再記住現在位置，跟未來的位置做比較
   });
 });
-
 
 //商品大圖
 const shopInfoItem = ref({
@@ -72,12 +72,11 @@ const title = reactive([{ name: "id" }, { name: "price" }, { name: "images" }]);
 // const prodInfo = computed(() => prodin);
 const strings = ref([]);
 const session = () => {
-  strings.value = sessionStorage['prodInfo'];
-  prodin.value = JSON.parse(strings.value)
-  console.log(prodin.value)
-  console.log(prodin.value.price)
+  strings.value = sessionStorage["prodInfo"];
+  prodin.value = JSON.parse(strings.value);
+  console.log(prodin.value);
+  console.log(prodin.value.price);
 };
-
 </script>
 
 <template>
@@ -97,14 +96,14 @@ const session = () => {
   <div class="main">
     <!-- 商品大圖 -->
     <div id="mainPic">
-      <img :src="`/src/assets/images/shopInfo/body_03_${count}.png`" />
+      <img :src="`/dist/assets/{{ prodin.img }}.png`" />
       <div class="button" id="left" @click="btnLeft">&lt;</div>
       <div class="button" id="right" @click="btnRight">&gt;</div>
     </div>
 
     <!-- 主要敘述 -->
     <article class="mainDesc">
-      <h2>{{prodin.title}}</h2>
+      <h2>{{ prodin.title }}</h2>
       <p>USD {{ prodin.price }}</p>
       <ul>
         <li>5.1K/50fps Professional Imagery</li>
