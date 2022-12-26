@@ -30,7 +30,7 @@ const mainMenu = reactive([
         <div class="container">
             <div class="footer-wrap">
                 <div class="footer-logo-pic">
-                    <img src="/dist/assests/g5_logo_EFVP_Horz.png" alt="CART">
+                    <img src="../assets/images/home/g5_logo_EFVP_Horz.png" alt="CART">
                 </div>
                 <div class="foot-item">
                     <ul>

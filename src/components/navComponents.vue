@@ -115,7 +115,7 @@ const NavClass = defineProps({
     <div class="header">
       <div class="logo">
         <router-link class="header-link" to="/home">
-          <img src="@/dist/assests/g5_logo_EFVP_Horz.png" alt="LOGO">
+          <img src="../assets/images/home/g5_logo_EFVP_Horz.png" alt="LOGO">
         </router-link>
       </div>
       <input type="checkbox" id="active" />
@@ -132,13 +132,13 @@ const NavClass = defineProps({
             <li>
               <router-link to="/signin" class="shop"
                 >
-              <img src="@/dist/assests/icon1.png" alt="MEMBER">
+              <img src="/src/assets/images/home/icon1.png" alt="MEMBER">
               </router-link>
             </li>
             <li>
               <router-link to="/cart" class="shop"
                 >
-                <img src="@/dist/assests/icon2.png" alt="CART">
+                <img src="../assets/images/home/icon2.png" alt="CART">
               </router-link>
             </li>
           </div>
