@@ -204,7 +204,7 @@ onMounted(() => {
       <div class="raceList">
         <div
           :class="`raceBox  `"
-          v-for="(raceRow, index) in raceRows"
+          v-for="(raceRow, index) in raceRows.slice(0, 12)"
           :key="index"
         >
           <div class="top"></div>
@@ -435,8 +435,9 @@ h2 {
         display: none;
       }
     }
-    .boxBgi_w,
-    .boxBgi_t {
+    .boxBgi_w {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
+        url(../assets/images/race/contest02.png);
       width: 100%;
       height: 100%;
       background-size: cover;

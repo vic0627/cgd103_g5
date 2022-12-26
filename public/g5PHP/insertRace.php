@@ -8,8 +8,8 @@ try {
 	
     // $race->bindValue(":cpt_no",$_POST["cpt_no"]);
     $race->bindValue(":cpt_name",$_POST["cpt_name"]);
-    $race->bindValue(":cpt_start",$_POST["cpt_start"]);
-    $race->bindValue(":cpt_end",$_POST["cpt_end"]);
+    $race->bindValue(":cpt_start",$_POST["cpt_start"]); //
+    $race->bindValue(":cpt_end",$_POST["cpt_end"]); //
     $race->bindValue(":cpt_aboard",$_POST["cpt_aboard"]);
     $race->bindValue(":cpt_photo",$_POST["cpt_photo"]);
     $race->bindValue(":cpt_txt",$_POST["cpt_txt"]);

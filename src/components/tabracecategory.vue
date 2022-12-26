@@ -270,7 +270,7 @@ const testVal = (e) => {
             v-model="newcpt_no"
             rows="1"
             cols="50"
-            placeholder="請輸入問題"
+            placeholder="請輸入編號"
             maxlength="200"
           ></textarea>
           <textarea
@@ -278,7 +278,7 @@ const testVal = (e) => {
             v-model="newcpt_name"
             rows="1"
             cols="50"
-            placeholder="請輸入回答"
+            placeholder="請輸入名稱"
             maxlength="300"
           ></textarea>
           <textarea
@@ -286,7 +286,7 @@ const testVal = (e) => {
             v-model="newcpt_start"
             rows="1"
             cols="50"
-            placeholder="請輸入回答"
+            placeholder="請輸入日期"
             maxlength="300"
           ></textarea>
           <textarea
@@ -294,7 +294,7 @@ const testVal = (e) => {
             v-model="newcpt_end"
             rows="1"
             cols="50"
-            placeholder="請輸入回答"
+            placeholder="請輸入日期"
             maxlength="300"
           ></textarea>
           <textarea
@@ -302,7 +302,7 @@ const testVal = (e) => {
             v-model="newcpt_aboard"
             rows="1"
             cols="50"
-            placeholder="請輸入回答"
+            placeholder="請輸入地點"
             maxlength="300"
           ></textarea>
           <textarea
@@ -310,7 +310,7 @@ const testVal = (e) => {
             v-model="newcpt_photo"
             rows="1"
             cols="50"
-            placeholder="請輸入回答"
+            placeholder="請輸入照片"
             maxlength="300"
           ></textarea>
           <textarea
@@ -318,7 +318,7 @@ const testVal = (e) => {
             v-model="newcpt_txt"
             rows="10"
             cols="50"
-            placeholder="請輸入回答"
+            placeholder="請輸入內容"
             maxlength="300"
           ></textarea>
           <n-button

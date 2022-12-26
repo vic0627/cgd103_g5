@@ -1,21 +1,21 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
-const name = ref("");
-const start = ref("");
-const end = ref("");
-const aboard = ref("");
-const photo = ref("");
-const txt = ref("");
+const cpt_name = ref("");
+const cpt_start = ref("");
+const cpt_end = ref("");
+const cpt_aboard = ref("");
+const cpt_photo = ref("");
+const cpt_txt = ref("");
 
 const addProduct = () => {
   const payload = {
-    cpt_name: name.value,
-    cpt_start: start.value,
-    cpt_end: end.value,
-    cpt_aboard: aboard.value,
-    cpt_photo: photo.value,
-    cpt_txt: txt.value,
+    cpt_name: cpt_name.value,
+    cpt_start: cpt_start.value,
+    cpt_end: cpt_end.value,
+    cpt_aboard: cpt_aboard.value,
+    cpt_photo: cpt_photo.value,
+    cpt_txt: cpt_txt.value,
   };
   fetch("http://localhost/cgd103_g5/public/g5PHP/insertRace.php", {
     method: "POST",
@@ -73,72 +73,78 @@ function fileChange() {
     </h2>
     <form action="" method="post">
       <div class="cpt">
-        <div class="name">
-          <h3>賽事名稱</h3>
-          <input
-            type="text"
-            name="cpt_name"
-            id="name"
-            placeholder="請輸入賽事名稱"
-            v-model="cpt_name"
-            required
-          />
+        <div>
+          <div class="name">
+            <h3>賽事名稱</h3>
+            <input
+              type="text"
+              name="cpt_name"
+              id="name"
+              placeholder="請輸入賽事名稱"
+              v-model="cpt_name"
+              required
+            />
+          </div>
+
+          <div class="start">
+            <h3>開始日期</h3>
+            <input
+              type="text"
+              name="cpt_start"
+              id="start"
+              placeholder="請輸入開始日期"
+              v-model="cpt_start"
+              required
+            />
+          </div>
+
+          <div class="end">
+            <h3>結束日期</h3>
+            <input
+              type="text"
+              name="cpt_end"
+              id="end"
+              placeholder="請輸入結束日期"
+              v-model="cpt_end"
+              required
+            />
+          </div>
+
+          <div class="aboard">
+            <h3>地點</h3>
+            <input
+              type="text"
+              name="cpt_aboard"
+              id="aboard"
+              placeholder="請輸入地點"
+              v-model="cpt_aboard"
+              required
+            />
+          </div>
         </div>
 
-        <div class="start">
-          <h3>開始日期</h3>
-          <input
-            type="date"
-            name="cpt_start"
-            id="start"
-            placeholder="請輸入開始日期"
-            v-model="cpt_start"
-            required
-          />
-        </div>
+        <div>
+          <!-- <div class="photo">
+            <h3>圖片</h3>
+            <p>
+              <img id="image" />
+            </p>
+            <input type="file" id="theFile" @change="fileChange" />
+          </div> -->
 
-        <div class="end">
-          <h3>結束日期</h3>
-          <input
-            type="date"
-            name="cpt_end"
-            id="end"
-            placeholder="請輸入結束日期"
-            v-model="cpt_end"
-            required
-          />
-        </div>
-
-        <div class="aboard">
-          <h3>地點</h3>
-          <input
-            type="text"
-            name="cpt_aboard"
-            id="aboard"
-            placeholder="請輸入地點"
-            v-model="cpt_aboard"
-            required
-          />
-        </div>
-
-        <div class="photo">
-          <h3>圖片</h3>
-          <p>
-            <img id="image" />
-          </p>
-          <input type="file" id="theFile" @change="fileChange" />
-        </div>
-
-        <div class="txt">
-          <h3>內容</h3>
-          <input
-            type="text"
-            name="cpt_txt"
-            id="txt"
-            placeholder="請輸入內容"
-            v-model="cpt_txt"
-            required
-          />
+          <div class="txt">
+            <h3>內容</h3>
+            <textarea
+              type="text"
+              name="cpt_txt"
+              id="txt"
+              placeholder="請輸入內容"
+              v-model="cpt_txt"
+              rows="10"
+              cols="50"
+              required
+            />
+          </div>
         </div>
       </div>
     </form>
@@ -150,67 +156,17 @@ function fileChange() {
         @click="addProduct()"
       />
     </div>
-    <!-- <div class="box">
-      <div class="word">
-        <div class="title">
-          <h3>賽事名稱</h3>
-          <input
-            type="text"
-            name="tit"
-            id="tit"
-            placeholder="請輸入賽事名稱"
-            required
-          />
-        </div>
-        <div class="title">
-          <h3>地區</h3>
-          <input
-            type="text"
-            name="tit"
-            id="tit"
-            placeholder="請輸入地區"
-            required
-          />
-        </div>
-        <div class="title">
-          <h3>開始日期</h3>
-          <input type="date" name="tit" id="tit" required />
-        </div>
-        <div class="title">
-          <h3>結束日期</h3>
-          <input type="date" name="tit" id="tit" required />
-        </div>
-        <div class="text">
-          <h3>比賽內文</h3>
-          <textarea
-            cols="40"
-            rows="10"
-            name="txt"
-            id="txt"
-            placeholder="請輸入內容"
-            required
-          ></textarea>
-          <div class="btns">
-            <input type="submit" value="送出" id="conFirm" />
-          </div>
-        </div>
-      </div>
-      <div class="imgBox">
-        <p>
-          <img id="image" />
-        </p>
-        <input type="file" id="theFile" @change="fileChange" />
-      </div>
-    </div> -->
   </div>
 </template>
 <style scoped lang="scss">
 @import "@/sass/style.scss";
 
+template {
+}
+
 .top {
   width: 100%;
   display: block;
-  // overflow: scroll;
 }
 // div {
 //   margin: 10px;
@@ -224,6 +180,17 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+h3 {
+  font-size: 20px;
+  color: black;
+}
+
+.cpt {
+  padding-left: 20px;
+  display: flex;
+  gap: 100px;
 }
 
 .proAdd {
@@ -307,7 +274,7 @@ h2 {
 }
 #image {
   width: 50%;
-  height: 490px;
+  height: 200px;
   border-radius: 5px;
   border: 1px solid rgb(124, 124, 124);
 }

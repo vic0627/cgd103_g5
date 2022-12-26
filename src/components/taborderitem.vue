@@ -61,9 +61,6 @@ const createColumns = ({ selectId }) => {
     },
   ];
 };
-const showModal = ref(false);
-const newNmno = ref("");
-const newStatus = ref("");
 const column = createColumns({
   selectId(rowData, index) {
     if (rowData.orders_status === "訂單完成") {
