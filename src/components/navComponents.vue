@@ -115,7 +115,7 @@ const NavClass = defineProps({
     <div class="header">
       <div class="logo">
         <router-link class="header-link" to="/home">
-          <img src="/public/dist/assests/home/g5_logo_EFVP_Horz.png" alt="LOGO">
+          <img src="@/assets/images/home/g5_logo_EFVP_Horz.png" alt="LOGO" />
         </router-link>
       </div>
       <input type="checkbox" id="active" />
@@ -131,14 +131,13 @@ const NavClass = defineProps({
           <div class="icon-wrap">
             <li>
               <router-link to="/signin" class="shop"
-                >
-              <img src="/public/dist/assests/home/icon1.png" alt="MEMBER">
+                ><img src="../assets/images/home/icon1.png" alt="member"
+              />
               </router-link>
             </li>
             <li>
               <router-link to="/cart" class="shop"
-                >
-                <img src="/public/dist/assests/home/icon2.png" alt="CART">
+                ><img src="../assets/images/home/icon2.png" alt="cart" />
               </router-link>
             </li>
           </div>
@@ -201,7 +200,7 @@ const NavClass = defineProps({
       </div>
       <div class="shop-cart">
         <div class="shop memicon">
-          <img src="/public/dist/assests/home/icon1.png" alt="MEMBER">
+          <img src="../assets/images/home/icon1.png" alt="member" />
           <div class="memHover">
             <li class="memName">Hello {{ mem }}!~</li>
             <li>
@@ -216,6 +215,8 @@ const NavClass = defineProps({
         <router-link to="/cart" class="shop"
           ><img src="../assets/images/home/icon2.png" alt="cart"
         /></router-link>
+        <router-link to="/cart" class="shop"
+          ><div>{{NavClass.count}}</div></router-link>
       </div>
     </div>
   </header>
@@ -465,6 +466,12 @@ input[type="checkbox"] {
 }
 
 @include l($l-breakpoint) {
+  // header,.header {
+  //     height: 70px;
+  //     &::before {
+  //         height: 70px;
+  //     }
+  // }
   .header {
     width: 1200px;
     margin: 0 auto;

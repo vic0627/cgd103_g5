@@ -67,7 +67,7 @@ console.clear();
         <div class="panel">
             <div class="panel__img-col">
                 <!-- <img src="../assets/images/home/dji2.jpg" alt="" class="panel__img"> -->
-                <img src="/public/dist/assests/home/dji2.jpg" alt="" class="panel__img">
+                <img src="../assets/images/home/dji2.jpg" alt="" class="panel__img">
             </div>
             <div class="panel__content-col">
                 <div class="panel__content">
@@ -93,7 +93,7 @@ console.clear();
                             <p>Frequently Asked Questions About Time Travel</p>
                         </div>
                         <div class="slide-pic">
-                            <img src="/public/dist/assests/home/news_01.jpg" alt="new01" class="panel__img">
+                            <img src="../assets/images/home/news_01.jpg" alt="new01" class="panel__img">
                         </div>
                     </div>
                     </router-link>
@@ -109,7 +109,7 @@ console.clear();
                             <p>Drones to track Walsall's off-road bikers</p>
                         </div>
                         <div class="slide-pic">
-                            <img src="/public/dist/assests/home/news_02.jpg" alt="new02" class="panel__img">
+                            <img src="../assets/images/home/news_02.jpg" alt="new02" class="panel__img">
                         </div>
                     </div>
                     </router-link>
@@ -125,7 +125,7 @@ console.clear();
                             <p>A quintessentially Irish way to travel</p>
                         </div>
                         <div class="slide-pic">
-                            <img src="/public/dist/assests/home/news_03.jpg" alt="new03" class="panel__img">
+                            <img src="../assets/images/home/news_03.jpg" alt="new03" class="panel__img">
                         </div>
                     </div>
                     </router-link>
@@ -141,7 +141,7 @@ console.clear();
                             <p>Adult social care reform, Energy credit balances, Revolut fraud victims</p>
                         </div>
                         <div class="slide-pic">
-                            <img src="/public/dist/assests/home/dji4.jpg" alt="new04" class="panel__img">
+                            <img src="../assets/images/home/dji4.jpg" alt="new04" class="panel__img">
                         </div>
                     </div>
                     </router-link>

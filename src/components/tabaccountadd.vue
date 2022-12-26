@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, onMounted,ref,h } from 'vue';
-import { zhTW, NPagination,NTable,NDataTable,NButton, } from 'naive-ui';
+import { zhTW, NPagination,NTable,NDataTable,NButton} from 'naive-ui';
 import axios from 'axios';
 const name = ref('');
 const authority = ref('一般管理員');
@@ -78,7 +78,6 @@ const submitData = ()=>{
     <input type="button" value="新增" id="conFirm" @click="submitData()">
   </div>
 </div>
-  
 
 </template>
 <style scoped lang="scss" >
