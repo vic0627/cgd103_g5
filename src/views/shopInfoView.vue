@@ -75,6 +75,18 @@ const session = () => {
   console.log(prodin.value);
   console.log(prodin.value.price);
 };
+const addCart = () => {
+  if(sessionStorage["cartList"]){
+    //判斷購物車無物品，須新增商品
+  }else{
+    //購物車有東西
+    if(sessionStorage["cartList"].includes("111")){
+      //有客製化商品
+    }else{
+      //有一班商品
+    }
+  }
+}
 </script>
 
 <template>
