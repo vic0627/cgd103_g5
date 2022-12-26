@@ -6,9 +6,6 @@ import footerComponentsVue from "@/components/footerComponents.vue";
 import { reactive, ref, onMounted } from "vue";
 import emailjs from "emailjs-com";
 
-const forget_password_account = ref("");
-const mem_pw = ref("");
-
 onMounted(() => {
   function getMemberInfo() {
     let xhr = new XMLHttpRequest();
@@ -121,6 +118,7 @@ onMounted(() => {
 });
 
 //忘記密碼 燈箱
+
 const lightBoxShow = ref(false);
 
 const forgetPW = () => {
@@ -132,6 +130,9 @@ const lightBoxClose = () => {
 };
 
 // ========== 寄 Email  ========== //
+const forget_password_account = ref("");
+const mem_pw = ref("");
+
 const sendEmail = () => {
   // ============== 把忘記的密碼撈出來  =============== //
 
@@ -186,6 +187,9 @@ const sendEmail = () => {
       }
     );
 };
+onMounted(() => {
+  sendEmail();
+});
 </script>
 
 <template>
