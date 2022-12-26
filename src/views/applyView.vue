@@ -47,6 +47,17 @@ const submitBtn = () => {
     lightBoxText.value.title.content = "Appointment successful!";
   }
 };
+
+//book燈箱
+const lightBoxShow = ref(false);
+
+const bookLightBox = () => {
+  lightBoxShow.value = true;
+  console.log(lightBoxShow);
+};
+const lightBoxClose = () => {
+  lightBoxShow.value = false;
+};
 </script>
 
 <template>
@@ -131,11 +142,10 @@ const submitBtn = () => {
       <div class="lightBox" v-if="lightBoxShow"></div>
       <div class="Submit">
         <a
-          href="#"
           class="btn submitBtn"
           id="btn2"
           data-title="Submit"
-          @click="submitBtn"
+          @click="bookLightBox"
         >
           <span>Submit</span>
         </a>

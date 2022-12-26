@@ -172,6 +172,32 @@ const getProducts = () => {
 onMounted(() => {
   getProducts();
 });
+
+const cacheId = ref("");
+
+//判斷比賽名稱
+const selectRace = (id, row) => {
+  cacheId.value = id;
+  let nid;
+  if (row === accessories.value) {
+    nid = id - products.value.length * 2;
+  } else if (row === bundle_A.value) {
+    nid = id - accessories.value.length * 4 + 1;
+  } else if (row === bundle_B.value) {
+    nid = id - accessories.value.length * 4 - 2;
+  } else {
+    nid = id - 1;
+  }
+
+  if (sessionStorage["racename"] == null) {
+    sessionStorage["racename"] = "";
+  }
+
+  set(id, `{"id":"${row[nid].id}","title":"${row[nid].title}"}`);
+
+  let getRace = JSON.parse(sessionStorage.getItem(id));
+  sessionStorage["racename"] = `{"title" : "${getRace.title}"}`;
+};
 </script>
 
 <template>
