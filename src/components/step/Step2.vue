@@ -6,64 +6,74 @@ import {bodyInit} from '@/composables/useOnunmounted';
 bodyInit();
 
 const props = defineProps(['prevStep','nextStep','step']);
-const memRows = ref([]);
-const getMemberInfo = () =>{
-    //取得會員資料
-    let xhr = new XMLHttpRequest();
-    xhr.onload = function(){
-        if(xhr.status == 200){
-            memRows.value = JSON.parse(xhr.responseText);
-        }
+const memberInfo = ref({
+    mem_grade : "",
+    mem_first_name : "",
+    mem_last_name : "",
+    mem_email : "",
+    city : "",
+    address : "",
+    credit_no : ""
+});
+function getMemberInfo (){
+    fetch("/dist/g5PHP/getMemInfo.php",{
+        method:"get",
+    })
+    .then((res)=>res.json())
+    .then(mem => {
+            console.log(mem);
+            memberInfo.value.mem_grade = mem.mem_grade;
+            memberInfo.value.mem_first_name = mem.mem_first_name;
+            memberInfo.value.mem_last_name = mem.mem_last_name;
+            memberInfo.value.phone = mem.phone;
+            memberInfo.value.mem_gender = mem.mem_gender;
+            memberInfo.value.city = mem.city;
+            memberInfo.value.address = mem.address;
+            memberInfo.value.credit_no = mem.credit_no;
+
+    })
+    .catch(error =>console.log(error));
     }
-    xhr.open("get","/dist/g5PHP/getMemInfo.php",true);
-    xhr.send(null);
-}
 onMounted(()=>{
     getMemberInfo();
 })
+
 </script>
 <template>   
     <section class="detail_box">
-            <template  v-for="memRow in memRows" :key="memRow">
-                <table class="confirm_detail">
-                    <tr>
-                        <th colspan="4">Confirm Detail</th>
-                    </tr>
-                    <tr>
-                        <td class="title">Member Grade</td>
-                        <td colspan="3">{{memRow.mem-grade}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">First Name</td>
-                        <td>{{memRow.mem_first_name}}</td>
-                        <td class="title">Last Name</td>
-                        <td>{{memRow.mem_last_name}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Phone</td>
-                        <td >{{memRow.phone}}</td>
-                        <td class="title">Gender</td>
-                        <td>{{memRow.mem_gender}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Order List</td>
-                        <td>EFPV Avata advance bundle BUY 4 Units</td>
-                        <!-- <td colspan="2"></td> -->
-                    </tr>
-                    <tr>
-                        <td class="title">City</td>
-                        <td colspan="3">{{memRow.city}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Address</td>
-                        <td colspan="3">{{memRow.address}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Credit Card No.</td>
-                        <td colspan="3">{{memRow.credit_no}}</td>
-                    </tr>
-                </table>
-            </template>
+            <table class="confirm_detail">
+                <tr>
+                    <th colspan="4">Confirm Detail</th>
+                </tr>
+                <tr>
+                    <td class="title">Member Grade</td>
+                    <td colspan="3">{{memberInfo.mem_grade}}</td>
+                </tr>
+                <tr>
+                    <td class="title">First Name</td>
+                    <td>{{memberInfo.mem_first_name}}</td>
+                    <td class="title">Last Name</td>
+                    <td>{{memberInfo.mem_last_name}}</td>
+                </tr>
+                <tr>
+                    <td class="title">Phone</td>
+                    <td >{{memberInfo.phone}}</td>
+                    <td class="title">Gender</td>
+                    <td>{{memberInfo.mem_gender}}</td>
+                </tr>
+                <tr>
+                    <td class="title">City</td>
+                    <td colspan="3">{{memberInfo.city}}</td>
+                </tr>
+                <tr>
+                    <td class="title">Address</td>
+                    <td colspan="3">{{memberInfo.address}}</td>
+                </tr>
+                <tr>
+                    <td class="title">Credit Card No.</td>
+                    <td colspan="3">{{memberInfo.credit_no}}</td>
+                </tr>
+            </table>
             <div class="buttons">
                 <div class="btnSecond" data-title="Back" @click="props.prevStep()"><span>Back</span></div>
                 <div class="btnPrimary" data-title="Pay" @click="props.nextStep()"><span>Pay</span></div>

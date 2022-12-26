@@ -125,3 +125,9 @@ li {
 ul {
     @include caption-li($caption-li,$caption-color, $spacing-h1);
 }
+label {
+    @include caption-label($caption-label,$allblack, $spacing-h1);
+}
+input {
+    @include caption-label($caption-input,$allblack, $spacing-h1);
+}

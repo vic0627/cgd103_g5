@@ -1,6 +1,6 @@
 <script setup>
 import { reactive, onMounted,ref,h, computed } from 'vue';
-import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
+import { zhTW, NPagination,NTable,NDataTable,NButton,NModal } from 'naive-ui';
 import axios from 'axios';
 const newAdmin_no = ref('');
 const newAdmin_acc = ref('');
@@ -27,8 +27,9 @@ const createColumns = ({
     key: "authority"
   },
   {
-    title: "編輯",
+    title: "編輯 / 刪除",
     key: "actions",
+    titleColSpan: 2,
     render(row, index) {
       return h(
         NButton,
@@ -37,7 +38,7 @@ const createColumns = ({
           color: "#077AF9",
           onClick: () => selectId(row,index),
         },
-        { default: () => "修改" }
+        { default: () => "編輯" }
       );
     }
   },
@@ -59,16 +60,24 @@ const createColumns = ({
   },
   ]
 };
-//欄位按鈕事件觸發
 const column = createColumns({
   selectId(rowData,index) {
-    showModal.value = true;
-    newAdmin_acc.value = adminRows.value[index].admin_acc;
-    newAdmin_no.value = adminRows.value[index].admin_no;
+    if(adminRows.value[index].authority === "一般管理員"){
+        showModal.value = true;
+        newAdmin_acc.value = adminRows.value[index].admin_acc;
+        newAdmin_no.value = adminRows.value[index].admin_no;
+    }else{
+        alert('最高管理員不可編輯')
+    }
+  
   },
   showmodal(user,index){
-     newAdmin_no.value = adminRows.value[index].admin_no;
-    showModal2.value = true
+    if(adminRows.value[index].authority === "一般管理員"){
+        newAdmin_no.value = adminRows.value[index].admin_no;
+        showModal2.value = true
+    }else{
+        alert('最高管理員不可刪除')
+    }
   }
 })
 //取得資料庫資料
@@ -85,8 +94,8 @@ const adminRows = ref([]);
   });
 //分頁js
 const paginationReactive = reactive({
-      page: 2,
-      pageSize: 10,
+      page: 1,
+      pageSize: 8,
       onChange: (page) => {
         paginationReactive.page = page;
       },
@@ -113,9 +122,7 @@ const updateAdmin = (user)=>{
     method: "POST",
     body: new URLSearchParams(newAdmin),
   }).then(res=>{
-    // console.log(newAdmin)
     res.json()
-    //  console.log(res)
   }).then(res => {
     showModal.value = false;
     getAdmin();
@@ -157,23 +164,35 @@ const deleteAdmin = ()=>{
         <n-modal
           v-model:show="showModal"
           preset="dialog"
-          title="確認"
-          content="確認修改嗎?">
-            <label for="admin_acc"> 修改帳號 : </label>
-            <input type="text" name="admin_acc" v-model="newAdmin_acc">
-            <n-button @click="showModal = true; updateAdmin(index)" type="error">
+          title="確認編輯">
+          <div class="modal">
+            <div class="input">
+              <label for="admin_acc"> 編輯帳號 : </label>
+              <input type="text" name="admin_acc" v-model="newAdmin_acc">              
+            </div>
+            <div class="button">
+              <n-button @click="showModal = true; updateAdmin(index)" type="error" class="btnModal">
               確認
-            </n-button>
+              </n-button>
+            </div>
+          </div>
            </n-modal>
             <n-modal
                 v-model:show="showModal2"
                 preset="dialog"
-                title="確認"
-                content="確認刪除嗎?"
-              >
-            <n-button @click="showModal2 = true; deleteAdmin()" type="error">
-              刪除
-            </n-button>
+                title="確認">
+            <div class="modal">
+                <h6>確認刪除帳號</h6>
+                <p>系統將永久移除您的管理員帳號</p>
+                <div class="button">
+                  <n-button @click="showModal2 = false" type="info" class="btnModal">
+                    返回
+                  </n-button>
+                  <n-button @click="showModal2 = true; deleteAdmin()" type="error" class="btnModal">
+                    刪除
+                  </n-button>
+                </div>
+            </div>
            </n-modal>
   </form>
 </div>
@@ -296,5 +315,26 @@ h2 {
       }
     }
   }
+}
+.modal {
+  .input {
+    display: block;
+    margin-top: 30px;
+  }
+  .button {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    .btnModal {
+
+      margin-top: 30px;
+    }
+  }
+}
+h6 {
+  color: #000000;
+}
+p {
+  color: #000000;
 }
 </style>
