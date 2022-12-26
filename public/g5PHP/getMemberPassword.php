@@ -16,7 +16,7 @@ try{
     }else{
       $memRow = $member->fetch(PDO::FETCH_ASSOC);
   
-      $result = ["mem_psw"=>$memRow["mem_psw"]];
+      $result = ["mem_pw"=>$memRow["mem_pw"]];
       
       echo json_encode($result);//送出json字串
     }
