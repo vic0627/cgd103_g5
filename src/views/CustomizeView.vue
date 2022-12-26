@@ -1,6 +1,6 @@
 <script setup>
 import gsap from "gsap";
-import { onMounted, ref, onBeforeUpdate, onUpdated } from 'vue';
+import { onMounted, ref, onBeforeUpdate, onUpdated, onBeforeUnmount } from 'vue';
 import router from '@/router';
 import { log, $$, $all, getW } from '../composables/useCommon';
 import { introduction ,droneModels, propellorModels } from './js/CustomizeGlb';
@@ -50,7 +50,7 @@ onUpdated(() => {
     
 });
 
-let customBodyItem, customPropellorItem, customMotorItem, customControllerItem;
+let customMotorItem, customControllerItem;
 const motorModels = ref({}), controllerModels = ref({});
 const fetchCustom = () => {
     fetch("http://localhost/dist/g5PHP/postCust.php", {
@@ -59,13 +59,9 @@ const fetchCustom = () => {
     })
         .then(res => res.json())
         .then(json => {
-            customBodyItem = json.filter(i => String(i.prd_no).includes('111111'));
-            customPropellorItem = json.filter(i => String(i.prd_no).includes('111112'));
             customMotorItem = json.filter(i => String(i.prd_no).includes('1112111'));
             customControllerItem = json.filter(i => String(i.prd_no).includes('1112112'));
             return {
-                customBodyItem,
-                customPropellorItem,
                 customMotorItem,
                 customControllerItem
             }
@@ -372,7 +368,7 @@ const propellorChosen = ref({
 });
 const propellorChoose = (id, nid, src) => {
     CUS.propellor(id, src);
-    if(bodyChosen.value.type===1){
+    if(id===1){
         propellorChosen.value.weight = propellorModels.value[`propellor0${id}`].weight * 2;
         propellorChosen.value.amount = 2;
     }else{
@@ -526,7 +522,7 @@ const set = (key, val) => {
 const addCart = () => {
     if(sessionStorage.getItem('cartList')===null){
         setSession();
-        router.push('/cart');
+        router.push({path: '/cart'});
     }else{
         lightBoxShow.value = true;
         lightBoxText.value.title.show = true;
@@ -539,7 +535,7 @@ const addCart = () => {
 const reCart = () => {
     sessionStorage.clear();
     setSession();
-    router.push('/cart');
+    router.push({path: '/cart'});
 };
 const setSession = () => {
     let prd_body, prd_propellor;
@@ -599,14 +595,10 @@ const setSession = () => {
             prd_propellor += 'white';
             break;
         }
-    set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`);
-
-    set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}", "img": "${droneModels.value[`body0${bodyChosen.value.type}`].color[bodyChosen.value.color].png}"}`);
-
-    set(`111112${propellorChosen.value.type}${propellorChosen.value.color}`, `{"id":"111112${propellorChosen.value.type}${propellorChosen.value.color}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}", "img": "${propellorModels.value[`propellor0${propellorChosen.value.type}`].color[propellorChosen.value.color].png}"}`);
-
+    set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`)
+    set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}"}`);
+    set(`111112${propellorChosen.value.type}${propellorChosen.value.color}`, `{"id":"111112${propellorChosen.value.type}${propellorChosen.value.color}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}"}`);
     set(`1112111${motorChosen.value.type}`, `{"id":"1112111${motorChosen.value.type}", "name":"${motorModels.value[`motor0${motorChosen.value.type}`].name}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}"}`);
-
     set(`1112112${kgmcChosen.value.type}`, `{"id":"1112112${kgmcChosen.value.type}", "name":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].name}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}"}`);
 };
 const alpha = ref(null);
@@ -680,7 +672,7 @@ const displayMode = () => {
         $all('.boardTitle').forEach(e => e.classList.add('skewX'));
         $all('.boardSpan').forEach(e => e.classList.add('skewX'));
     }else{
-        if(ww>1023 && ww<1200){
+        if(ww>1023){
             $$('#customize3d').width = 400;
             gsap.to('#customize3d', {
                 width: 400,
@@ -773,11 +765,6 @@ const rtl = (e, text) => {
         borderRadius: '20px',
         duration: .25,
     })
-    gsap.to(e.childNodes, {
-        opacity: 0,
-        duration: .25,
-        delay: .25,
-    })
     gsap.to($$('.rotate span'), {
         opacity: 0,
         duration: .25,
@@ -789,7 +776,7 @@ const rtl = (e, text) => {
         delay: .5,
     })
 }
-const rotate = () => {
+const rotate = (e) => {
     if(CUS.controls.autoRotate){
         CUS.controls.autoRotate = false;
         rtl('.rotate', 'Rotate');
@@ -983,16 +970,10 @@ input[type="range"]{
         width: 10%;
         cursor: pointer;
         overflow: hidden;
-        color: #F25A2A;
-        text-shadow: 0 0 10px #F25A2A88;
         border-radius: 20px;
         text-align: center;
         border-right: 2px solid #F25A2A;
         border-left: 2px solid #F25A2A;
-        span{
-            color: #F25A2A;
-            text-shadow: 0 0 10px #F25A2A88;
-        }
     }
     .lightA{
         flex-direction: row-reverse;
