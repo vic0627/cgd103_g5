@@ -123,7 +123,6 @@ const lightBoxShow = ref(false);
 
 const forgetPW = () => {
   lightBoxShow.value = true;
-  console.log(lightBoxShow);
 };
 const lightBoxClose = () => {
   lightBoxShow.value = false;
@@ -135,57 +134,71 @@ const mem_pw = ref("");
 
 const sendEmail = () => {
   // ============== 把忘記的密碼撈出來  =============== //
-
-  let QQ = this; //這裡的QQ指向的Vue實體
-
-  var xhr = new XMLHttpRequest();
+  fetch(
+    `http://localhost/cgd103_g5/public/g5PHP/getMemberPassword.php?mem_acc=${forget_password_account.value}`
+  )
+    .then((res) => res.json())
+    .then((json) => {
+      mem_pw.value = json.mem_pw;
+      emailjs
+        .send(
+          "service_0fkz7ii",
+          "template_ojh6tgp",
+          {
+            user_email: forget_password_account.value,
+            mem_pw: mem_pw.value,
+          },
+          "TWzj5YZjjnkHkkv1N"
+        )
+        .then(
+          (result) => {
+            console.log("SUCCESS!", result.text);
+          },
+          (error) => {
+            console.log("FAILED...", error.text);
+          }
+        );
+    });
+  /* var xhr = new XMLHttpRequest();
   xhr.onload = function () {
     if (xhr.status == 200) {
       //modify here
-      showMember(xhr.responseText);
+      showMember();
     } else {
       alert(xhr.status);
     }
   };
-  var url =
-    "http://localhost/cgd103_g5/public/g5PHP/getMemberPassword.php?mem_acc=" +
-    document.getElementById("forget_password_account").value;
-  xhr.open("get", url, true);
-  xhr.send(null);
   function showMember(json) {
-    var xhr = new XMLHttpRequest();
     var url =
       "http://localhost/cgd103_g5/public/g5PHP/getMemberPassword.php?mem_acc=" +
-      document.getElementById("forget_password_account").value;
+      forget_password_account.value;
     xhr.open("get", url, true);
     xhr.send(null);
-    let member = JSON.parse(json);
-    let html;
-    // 這裡的QQ指的是Vue實體
-    QQ.mem_pw = member.mem_pw;
-    // html = `<p>${member.mem_psw}</p>`;
-    // document.getElementById("show_forget_password").innerHTML = html;
-  }
+    let member = JSON.parse(xhr.responseText);
+    mem_pw.value = member.mem_pw;
+    console.log(mem_pw.value);
+    console.log(forget_password_account.value);
+    emailjs
+      .send(
+        "service_0fkz7ii",
+        "template_ojh6tgp",
+        {
+          user_email: forget_password_account.value,
+          mem_pw: mem_pw.value,
+        },
+        "TWzj5YZjjnkHkkv1N"
+      )
+      .then(
+        (result) => {
+          console.log("SUCCESS!", result.text);
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
+  } */
   console.log(sendEmail);
   // ========== 忘記密碼的 EmailJs ========== //
-  emailjs
-    .send(
-      "service_0fkz7ii",
-      "template_ojh6tgp",
-      {
-        user_email: this.forget_password_account,
-        mem_pw: this.mem_pw,
-      },
-      "TWzj5YZjjnkHkkv1N"
-    )
-    .then(
-      (result) => {
-        console.log("SUCCESS!", result.text);
-      },
-      (error) => {
-        console.log("FAILED...", error.text);
-      }
-    );
 };
 </script>
 
@@ -242,7 +255,11 @@ const sendEmail = () => {
                         required
                       />
                     </div>
-                    <button class="btn_login" type="submit" @click="sendEmail">
+                    <button
+                      class="btn_login"
+                      type="submit"
+                      @click.prevent="sendEmail"
+                    >
                       驗證信箱
                     </button>
                   </form>

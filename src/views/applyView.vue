@@ -58,6 +58,18 @@ const bookLightBox = () => {
 const lightBoxClose = () => {
   lightBoxShow.value = false;
 };
+
+//抓session資料
+const prodin = ref([]);
+const title = reactive([{ name: "no" }, { name: "name" }, { name: "images" }]);
+// const prodInfo = computed(() => prodin);
+const strings = ref([]);
+const session = () => {
+  strings.value = sessionStorage["prodInfo"];
+  prodin.value = JSON.parse(strings.value);
+  console.log(prodin.value);
+  console.log(prodin.value.price);
+};
 </script>
 
 <template>
@@ -68,7 +80,7 @@ const lightBoxClose = () => {
       <h2>{{ raceRow.cpt_name }}</h2>
 
       <div class="raceimg">
-        <img src="../assets/images/race/contest01.png" alt="Competition" />
+        <img src="../assets/images/race/contest02.png" alt="Competition" />
       </div>
 
       <div class="date">
@@ -79,7 +91,12 @@ const lightBoxClose = () => {
 
       <div class="racetext">
         <p>
-          {{ raceRow.cpt_txt }}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Et a laborum
+          excepturi veritatis labore earum consequuntur sit eum voluptatum velit
+          rerum magni similique, necessitatibus quas facilis autem tempora minus
+          tenetur possimus cupiditate, rem vitae mollitia? Suscipit aliquid
+          fugit iste quas, eos fugiat veritatis magnam sapiente eveniet dolorum
+          rerum repellat blanditiis!
         </p>
       </div>
     </div>

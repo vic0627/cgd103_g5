@@ -43,105 +43,6 @@ const changeCount = (id) => {
   count.value = id;
 };
 
-// const race = ref({
-//   1: {
-//     id: 1,
-//     nation: "Taiwan",
-//     startDate: "2022-01-01",
-//     src: contest01,
-//     endDate: "2022-01-31",
-//     raceName: "Drone Race 01",
-//   },
-//   2: {
-//     id: 2,
-//     nation: "World",
-//     startDate: "2022-02-01",
-//     src: contest02,
-//     endDate: "2022-02-28",
-//     raceName: "Drone Race 02",
-//   },
-//   3: {
-//     id: 3,
-//     nation: "Taiwan",
-//     startDate: "2022-03-01",
-//     src: contest01,
-//     endDate: "2022-03-31",
-//     raceName: "Drone Race 03",
-//   },
-//   4: {
-//     id: 4,
-//     nation: "World",
-//     startDate: "2022-04-01",
-//     src: contest02,
-//     endDate: "2022-04-30",
-//     raceName: "Drone Race 04",
-//   },
-//   5: {
-//     id: 5,
-//     nation: "Taiwan",
-//     startDate: "2022-05-01",
-//     src: contest01,
-//     endDate: "2022-05-31",
-//     raceName: "Drone Race 05",
-//   },
-//   6: {
-//     id: 6,
-//     nation: "World",
-//     startDate: "2022-06-01",
-//     src: contest02,
-//     endDate: "2022-06-30",
-//     raceName: "Drone Race 06",
-//   },
-//   7: {
-//     id: 7,
-//     nation: "Taiwan",
-//     startDate: "2022-07-01",
-//     src: contest01,
-//     endDate: "2022-07-31",
-//     raceName: "Drone Race 07",
-//   },
-//   8: {
-//     id: 8,
-//     nation: "World",
-//     startDate: "2022-08-01",
-//     src: contest02,
-//     endDate: "2022-08-31",
-//     raceName: "Drone Race 08",
-//   },
-//   9: {
-//     id: 9,
-//     nation: "Taiwan",
-//     startDate: "2022-09-01",
-//     src: contest01,
-//     endDate: "2022-09-30",
-//     raceName: "Drone Race 09",
-//   },
-//   10: {
-//     id: 10,
-//     nation: "World",
-//     startDate: "2022-10-01",
-//     src: contest02,
-//     endDate: "2022-10-31",
-//     raceName: "Drone Race 10",
-//   },
-//   11: {
-//     id: 11,
-//     nation: "Taiwan",
-//     startDate: "2022-11-01",
-//     src: contest01,
-//     endDate: "2022-11-30",
-//     raceName: "Drone Race 11",
-//   },
-//   12: {
-//     id: 12,
-//     nation: "World",
-//     startDate: "2022-12-01",
-//     src: contest02,
-//     endDate: "2022-12-31",
-//     raceName: "Drone Race 12",
-//   },
-// });
-
 const no = ref("");
 const name = ref("");
 const start = ref("");
@@ -173,30 +74,28 @@ onMounted(() => {
   getProducts();
 });
 
-const cacheId = ref("");
-
 //判斷比賽名稱
+const set = (key, val) => {
+  sessionStorage.setItem(key, val);
+};
+const cacheId = ref("");
 const selectRace = (id, row) => {
-  cacheId.value = id;
-  let nid;
-  if (row === accessories.value) {
-    nid = id - products.value.length * 2;
-  } else if (row === bundle_A.value) {
-    nid = id - accessories.value.length * 4 + 1;
-  } else if (row === bundle_B.value) {
-    nid = id - accessories.value.length * 4 - 2;
-  } else {
-    nid = id - 1;
-  }
-
+  // cacheId.value = id;
+  // let nid;
+  // alert(row);
   if (sessionStorage["racename"] == null) {
     sessionStorage["racename"] = "";
   }
 
-  set(id, `{"id":"${row[nid].id}","title":"${row[nid].title}"}`);
+  set(
+    id,
+    `{"id":"${row.cpt_no}","name":"${row.cpt_name}","start":"${row.cpt_start}","end":"${row.cpt_end}"}`
+  );
 
   let getRace = JSON.parse(sessionStorage.getItem(id));
-  sessionStorage["racename"] = `{"title" : "${getRace.title}"}`;
+  sessionStorage[
+    "racename"
+  ] = `{"name" : "${getRace.name}","start" : "${getRace.start}","end" : "${getRace.end}"}`;
 };
 </script>
 
@@ -256,7 +155,12 @@ const selectRace = (id, row) => {
               <h4>{{ raceRow.cpt_name }}</h4>
             </div>
             <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+              <router-link
+                class="btn"
+                id="btn1"
+                to="/apply"
+                data-title="Learn"
+                @click="selectRace(raceRow.cpt_no, raceRow)"
                 ><span>Learn</span></router-link
               >
             </div>
