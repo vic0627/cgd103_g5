@@ -61,9 +61,18 @@ let customMotorItem, customControllerItem;
 const motorModels = ref({}),
   controllerModels = ref({});
 const fetchCustom = () => {
-    fetch("http://localhost/dist/g5PHP/postCust.php", {
+    fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
         method: "POST",
         body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.customize" }),
+    })
+    .then(res => res.json())
+    .then(e => {
+      customMotorItem = e.filter(e=>String(e.prd_no).includes('1112111'));
+      customControllerItem = e.filter(e=>String(e.prd_no).includes('1112112'));
+      return {
+        customMotorItem,
+        customControllerItem
+      };
     })
     .then((output) => {
       for (let i = 0; i < output.customMotorItem.length; i++) {
@@ -555,6 +564,7 @@ const reCart = () => {
     sessionStorage.clear();
     setSession();
     router.push({path: '/cart'});
+    lightBoxClose();
 };
 const setSession = () => {
     let prd_body, prd_propellor;
@@ -614,10 +624,14 @@ const setSession = () => {
             prd_propellor += 'white';
             break;
         }
-    set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`)
-    set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}"}`);
-    set(`111112${propellorChosen.value.type}${propellorChosen.value.color}`, `{"id":"111112${propellorChosen.value.type}${propellorChosen.value.color}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}"}`);
+    set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`);
+
+    set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}", "img": "${droneModels.value[`body0${bodyChosen.value.type}`].color[`${bodyChosen.value.color}`].png}"}`);
+
+    set(`111112${propellorChosen.value.type}${propellorChosen.value.color}`, `{"id":"111112${propellorChosen.value.type}${propellorChosen.value.color}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}", "img": "${propellorModels.value[`propellor0${propellorChosen.value.type}`].color[`${propellorChosen.value.color}`].png}"}`);
+
     set(`1112111${motorChosen.value.type}`, `{"id":"1112111${motorChosen.value.type}", "name":"${motorModels.value[`motor0${motorChosen.value.type}`].name}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}"}`);
+
     set(`1112112${kgmcChosen.value.type}`, `{"id":"1112112${kgmcChosen.value.type}", "name":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].name}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}"}`);
 };
 const alpha = ref(null);
@@ -1083,10 +1097,32 @@ input[type="range"]{
     position: relative;
     margin: 0 auto;
     padding-top: 80px;
-    @include m($m-breakpoint) {
-        
+
+    .loadBox{
+      width: 180px;
+      height: 24px;
+      position: absolute;
+      top: 50%;
+      left: 25%;
+      border: 2px solid $light-black;
+      border-radius: 20px;
+      overflow: hidden;
+      .loadProgress{
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to right, $purple, $blue);
+      }
+      .loadNum{
+        width: 60px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -30px;
+        text-align: center;
+        line-height: 1.5;
+      }
     }
-  }
+  /* 
   .paths {
     display: flex;
     flex-wrap: nowrap;
@@ -1101,7 +1137,7 @@ input[type="range"]{
     @include l($l-breakpoint) {
       width: 1200px;
       top: 145px;
-    }
+    } */
     .secondTitle{
         display: flex;
         justify-content: space-between;
@@ -1144,8 +1180,8 @@ input[type="range"]{
                 background: linear-gradient(to left, #eee, transparent);
             }
         }
+      
     }
-    
     .paths{
         display: flex;
         flex-wrap: nowrap;
@@ -1163,13 +1199,9 @@ input[type="range"]{
             animation: path 1s linear infinite;
         }
     }
-    p:nth-child(2) {
-      text-align: left;
-      width: 100px;
-      animation: path 1s linear infinite;
-    }
+    
   }
-}
+
 @keyframes path {
   0% {
     color: #eee;
@@ -1342,7 +1374,7 @@ input[type="range"]{
         width: 30%;
         text-align: right;
       }
-    }
+
     .funcControls {
       margin: 20px;
       display: flex;
@@ -1390,7 +1422,7 @@ input[type="range"]{
       }
     }
   }
-}
+
 .colorControls {
   width: 90%;
   margin: 0 auto;
