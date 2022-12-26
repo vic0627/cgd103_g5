@@ -41,14 +41,8 @@ onMounted(()=>{
 </script>
 <template>   
     <section class="detail_box">
+    <h3>Confirm Detail</h3>
             <table class="confirm_detail">
-                <tr>
-                    <th colspan="4">Confirm Detail</th>
-                </tr>
-                <tr>
-                    <td class="title">Member Grade</td>
-                    <td colspan="3">{{memberInfo.mem_grade}}</td>
-                </tr>
                 <tr>
                     <td class="title">First Name</td>
                     <td>{{memberInfo.mem_first_name}}</td>
@@ -60,6 +54,10 @@ onMounted(()=>{
                     <td >{{memberInfo.phone}}</td>
                     <td class="title">Gender</td>
                     <td>{{memberInfo.mem_gender}}</td>
+                </tr>
+                <tr>
+                    <td class="title">Member Grade</td>
+                    <td colspan="3">{{memberInfo.mem_grade}}</td>
                 </tr>
                 <tr>
                     <td class="title">City</td>
@@ -108,9 +106,6 @@ onMounted(()=>{
             font-size: 30px;
         }
         .input_box{
-            // width: 100%;
-            // display: flex;
-            // justify-content: center;
             input{
                 margin: 0 10px;
             }
@@ -120,7 +115,7 @@ onMounted(()=>{
         }
         .confirm_detail{
             background-color: rgba(217, 217, 217, 0.32);
-            max-width: 100%;
+            width: 100%;
             padding: 20px;
             margin: 20px;
             border-top-left-radius: 10px;
@@ -132,9 +127,9 @@ onMounted(()=>{
             overflow: hidden;
             tr{
                 border: 1px solid rgb(125, 124, 124);
-                line-height: 40px;
+                height: 40px;
                 &:nth-child(even){
-                    background-color: #98989880;
+                    // background-color: #98989880;
                 }
                 th{
                     text-align: center;
@@ -148,11 +143,13 @@ onMounted(()=>{
                     }
                     border: 1px solid rgb(168, 168, 168);
                     text-align: left;
-                    padding: 5px ;
+                    padding:20px ;
                     color: rgb(228, 229, 225);
                     font-size: 20px;                   
                     &.title{
-                        color: #333;     
+                        width: 200px;
+                        color: rgb(207, 207, 207);
+                        background-color: darken($ored,5% );     
                         font-weight: bold; 
                     }
                 }
