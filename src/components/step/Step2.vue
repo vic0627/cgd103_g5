@@ -10,7 +10,8 @@ const memberInfo = ref({
     mem_grade : "",
     mem_first_name : "",
     mem_last_name : "",
-    mem_email : "",
+    phone : "",
+    mem_gender : "",
     city : "",
     address : "",
     credit_no : ""
@@ -30,7 +31,6 @@ function getMemberInfo (){
             memberInfo.value.city = mem.city;
             memberInfo.value.address = mem.address;
             memberInfo.value.credit_no = mem.credit_no;
-
     })
     .catch(error =>console.log(error));
     }
@@ -117,7 +117,7 @@ onMounted(()=>{
             background-color: rgba(217, 217, 217, 0.32);
             width: 100%;
             padding: 20px;
-            margin: 20px;
+            // margin: 20px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             border-bottom-left-radius: 10px;
@@ -144,12 +144,11 @@ onMounted(()=>{
                     border: 1px solid rgb(168, 168, 168);
                     text-align: left;
                     padding:20px ;
-                    color: rgb(228, 229, 225);
+                    color: rgb(194, 194, 194);
                     font-size: 20px;                   
                     &.title{
                         width: 200px;
-                        color: rgb(62, 62, 62);
-                        background-color: lighten($blue, 40%);     
+                        color: rgb(228, 229, 225); 
                         font-weight: bold; 
                     }
                     &:not(.title){

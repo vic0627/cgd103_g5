@@ -9,8 +9,6 @@ import { bodyInit } from "../composables/useOnunmounted";
 
 bodyInit();
 
-
-
 //宣告存取itemid的位置
 const cartList = ref([]);
 const prodInfo = ref([]);
@@ -26,11 +24,14 @@ const addProd = (id, row) => {
     cacheId.value = id;
     let nid;
     if(row===accessories.value){
-      nid = id - (products.value.length*2);
+      nid = id - products.value.length - 1;
+      console.log("accessories's nid",nid)
     }else if(row===bundle_A.value ){
-      nid = id - (accessories.value.length*4) + 1;
+      nid = id - (products.value.length*2) - 1;
+      console.log("bundle_A's nid",nid)
     }else if(row===bundle_B.value){
-      nid = id - (accessories.value.length*4) -2;
+      nid = id - (accessories.value.length*2) - 5;
+      console.log("bundle_B's nid",nid)
     } else{
       nid = id - 1;
     }
