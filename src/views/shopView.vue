@@ -46,8 +46,12 @@ const addProd = (id, row) => {
     }else{
       //無，執行set跟get
       set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
+      console.log(`${row[nid].id}`);
       let get = JSON.parse(sessionStorage.getItem(id));
+
       sessionStorage['cartList'] += `${get.id},`;
+
+      
 
       if(sessionStorage['cartList'].includes('111')){
     //跳彈窗
