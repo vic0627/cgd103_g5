@@ -132,13 +132,15 @@ const NavClass = defineProps({
             <li>
               <router-link to="/signin" class="shop"
                 >
-              <img src="/src/assets/images/home/icon1.png" alt="MEMBER">
+              <!-- <img src="/src/assets/images/home/icon1.png" alt="MEMBER"> -->
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(232, 232, 232, 1);transform: ;msFilter:;"><path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2 7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z"></path></svg>
               </router-link>
             </li>
             <li>
               <router-link to="/cart" class="shop"
                 >
-                <img src="../assets/images/home/icon2.png" alt="CART">
+                <!-- <img src="../assets/images/home/icon2.png" alt="CART"> -->
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(232, 232, 232, 1);transform: ;msFilter:;"><path d="M21.822 7.431A1 1 0 0 0 21 7H7.333L6.179 4.23A1.994 1.994 0 0 0 4.333 3H2v2h2.333l4.744 11.385A1 1 0 0 0 10 17h8c.417 0 .79-.259.937-.648l3-8a1 1 0 0 0-.115-.921z"></path><circle cx="10.5" cy="19.5" r="1.5"></circle><circle cx="17.5" cy="19.5" r="1.5"></circle></svg>
               </router-link>
             </li>
           </div>
