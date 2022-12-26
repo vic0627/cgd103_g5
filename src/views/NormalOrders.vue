@@ -6,8 +6,19 @@ import memberCardVue from '@/components/memberCenter/memberCard.vue';
 import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
 // import $ from 'jquery';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
-
-onMounted(()=> {});
+const getMemberNm = ()=>{
+    fetch("/dist/g5PHP/getMemNmorder.php",{
+        method: "get",
+    }).then(res=>{
+        res.json()
+    })
+    .then(mem=>{
+        console.log(mem);
+    })
+}
+onMounted(()=> {
+    getMemberNm();
+});
 
 </script>
 

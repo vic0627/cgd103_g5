@@ -46,7 +46,7 @@ animation();
             
         </div>
         <div class="about-pic">
-            <img src="../assets/images/home/about.jpg" alt="">
+            <img src="/dist/assests/about.jpg" alt="">
         </div>
     </section>
     

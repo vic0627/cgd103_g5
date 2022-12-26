@@ -52,7 +52,7 @@ var y = 100;
         <div class="text"><h1>Ulitimate Flexibility</h1></div>
         <div id="scene">
             <div class="drone layer" data-depth="0.1">
-                <img src="/public/dist/assests/home/fly2.png" alt="drone">
+                <img src="/dist/assests/fly2.png" alt="drone">
             </div>
             <!-- <svgComponents1Vue class="layer" data-depth="0.5" /> -->
         </div>
