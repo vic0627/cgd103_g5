@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted,ref } from 'vue';
+import { reactive, onMounted, ref } from "vue";
 const mainMenu = reactive([
   {
     id: "shop",
@@ -54,25 +54,22 @@ onMounted(() => {
 
   getMemberInfo();
 
-  function memlogout(){
-      let xhr = new XMLHttpRequest();
-      xhr.onload = function(){
+  function memlogout() {
+    let xhr = new XMLHttpRequest();
+    xhr.onload = function () {
       //   document.getElementById("spanLogin").innerText = "登入";
       //   document.getElementById("memName").innerText = "";
-          document.querySelector(".account").style["display"]="none";
-          document.querySelector(".memName").style["display"]="none";
-          document.querySelector(".memstatus").innerHTML="Sign in";
-          document.getElementById("username").value="";
-          document.getElementById("password").value="";
-          document.querySelector(".unameinfo").innerHTML="";
-          document.querySelector(".pswinfo").innerHTML="";
-          
-          
-      }
-      xhr.open("get","/dist/g5PHP/memLogout.php",true);
-      xhr.send(null);
-    }
-    
+      document.querySelector(".account").style["display"] = "none";
+      document.querySelector(".memName").style["display"] = "none";
+      document.querySelector(".memstatus").innerHTML = "Sign in";
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      document.querySelector(".unameinfo").innerHTML = "";
+      document.querySelector(".pswinfo").innerHTML = "";
+    };
+    xhr.open("get", "/dist/g5PHP/memLogout.php", true);
+    xhr.send(null);
+  }
 });
 const NavClass = defineProps({
   home: {
@@ -99,13 +96,12 @@ const NavClass = defineProps({
     type: String,
     default: "",
   },
-  count:{
-    type:Number,
-    default: 0
-  }
+  count: {
+    type: Number,
+    default: 0,
+  },
 });
 // const props = defineProps(['count']);
-
 
 // :style="NavClass.className"
 </script>
@@ -131,8 +127,7 @@ const NavClass = defineProps({
           <div class="icon-wrap">
             <li>
               <router-link to="/signin" class="shop"
-                ><img src="../assets/images/home/icon1.png" alt="member"
-              />
+                ><img src="../assets/images/home/icon1.png" alt="member" />
               </router-link>
             </li>
             <li>
@@ -216,7 +211,8 @@ const NavClass = defineProps({
           ><img src="../assets/images/home/icon2.png" alt="cart"
         /></router-link>
         <router-link to="/cart" class="shop"
-          ><div>{{NavClass.count}}</div></router-link>
+          ><div>{{ NavClass.count }}</div></router-link
+        >
       </div>
     </div>
   </header>

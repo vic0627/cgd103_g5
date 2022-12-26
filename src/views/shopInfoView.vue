@@ -1,5 +1,11 @@
 <script setup>
-import { onMounted, registerRuntimeCompiler, ref } from "vue";
+import {
+  onMounted,
+  registerRuntimeCompiler,
+  ref,
+  reactive,
+  computed,
+} from "vue";
 import { log } from "@/composables/useCommon.js";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
@@ -17,10 +23,10 @@ bodyInit();
 
 //bottomBar第二版
 onMounted(() => {
-  // fetchProducts();
+  session();
 
-  // console.log(ProductsItem.value);
-
+  console.log(prodInfo);
+  console.log(prodInfo.value);
   let lastPos = 0;
   const nav = document.getElementById("purchaseBar");
   // log(nav);
@@ -35,30 +41,6 @@ onMounted(() => {
     }
     lastPos = currentPos; //再記住現在位置，跟未來的位置做比較
   });
-});
-
-// 抓資料
-// const ProductsItem = ref([]);
-// const fetchProducts = () => {
-//   fetch("http://localhost/g5/public/g5PHP/getProducts.php")
-//     .then((res) => res.json())
-//     .then((json) => {
-//       ProductsItem.value = json;
-//     });
-// };
-
-const raceRows = ref([]);
-const getRace = () => {
-  //取得商品資料
-  axios
-    .get("http://localhost/cgd103_g5/public/g5PHP/getProducts.php")
-    .then((res) => {
-      console.log(res);
-      raceRows.value = res.data;
-    });
-};
-onMounted(() => {
-  getRace();
 });
 
 //商品大圖
@@ -84,6 +66,17 @@ const btnLeft = () => {
     count.value = 3;
   }
 };
+//抓session資料
+const prodin = ref([]);
+const title = reactive([{ name: "id" }, { name: "price" }, { name: "images" }]);
+// const prodInfo = computed(() => prodin);
+const strings = ref([]);
+const session = () => {
+  strings.value = sessionStorage["prodInfo"];
+  prodin.value = JSON.parse(strings.value);
+  console.log(prodin.value);
+  console.log(prodin.value.price);
+};
 </script>
 
 <template>
@@ -103,15 +96,15 @@ const btnLeft = () => {
   <div class="main">
     <!-- 商品大圖 -->
     <div id="mainPic">
-      <img :src="`/src/assets/images/shopInfo/body_03_${count}.png`" />
+      <img :src="`/dist/assets/{{ prodin.img }}.png`" />
       <div class="button" id="left" @click="btnLeft">&lt;</div>
       <div class="button" id="right" @click="btnRight">&gt;</div>
     </div>
 
     <!-- 主要敘述 -->
     <article class="mainDesc">
-      <h2>EFPV Mavic 4 Classic</h2>
-      <p>USD $1,599</p>
+      <h2>{{ prodin.title }}</h2>
+      <p>USD {{ prodin.price }}</p>
       <ul>
         <li>5.1K/50fps Professional Imagery</li>
         <li>46-Min Max Flight Time</li>

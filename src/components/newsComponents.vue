@@ -1,9 +1,9 @@
 <script setup>
-import { computed, onMounted, reactive, ref } from 'vue';
-import $ from 'jquery';
+import { computed, onMounted, reactive, ref } from "vue";
+import $ from "jquery";
 import lastNews from "../composables/object";
 onMounted(() => {
-    console.log(lastNews);
+  console.log(lastNews);
 });
 // const lastNews = reactive([
 //     {
@@ -127,84 +127,112 @@ onMounted(() => {
 const vsc = ref(false);
 const filter = ref(0);
 const changeView = (index) => {
-    filter.value = index;
-}   
-
+  filter.value = index;
+};
 </script>
 
 <template>
-    <div class="tab-tag">
-        <button class="tag" @click="changeView(0)">ALL</button> 
-        <button class="tag" @click="changeView(1)">Travel</button>
-        <button class="tag" @click="changeView(2)">FPV</button>        
-        <button class="tag" @click="changeView(3)">Photoshot</button>
-         <button class="tag" @click="changeView(4)">Customed</button>   
-    </div>
+  <div class="tab-tag">
+    <button class="tag" @click="changeView(0)">ALL</button>
+    <button class="tag" @click="changeView(1)">Travel</button>
+    <button class="tag" @click="changeView(2)">FPV</button>
+    <button class="tag" @click="changeView(3)">Photoshot</button>
+    <button class="tag" @click="changeView(4)">Customed</button>
+  </div>
 
-    <div class="label">
-        <div class="output_content_box cards">
-        <div class="content">    
-            <div v-for="(item,index) in lastNews" :key="index">
-                <Transition name="tad" mode="out-in">
-                <div class="card" v-if="filter === 0">
-                    <router-link class="anchor" to="/articleView"><img :src="item.src" :alt="item.id"></router-link>
-                    <div class="item_box">
-                        <div class="item" >{{item.tagName}}</div>
-                    </div>
-                    <div class="title"><p>{{item.title}}</p></div>
-                    <router-link class="article" to="/articleView"><button>Read more &rarr;</button></router-link>
-                </div>
-                </Transition>
-                <Transition name="tad" mode="out-in">
-                <div class="card" v-if="filter === 1 && item.id === 1">
-                    <router-link class="anchor" to="/articleView"><img :src="item.src" :alt="item.id"></router-link>
-                    <div class="item_box">
-                        <div class="item" >{{item.tagName}}</div>
-                    </div>
-                    <div class="title"><p>{{item.title}}</p></div>
-                    <router-link class="article" to="/articleView"><button>Read more &rarr;</button></router-link>
-                </div>
-                </Transition>
-                <Transition name="tad" mode="out-in">
-                <div class="card" v-if="filter === 2 && item.id === 2">
-                    <router-link class="anchor" to="/articleView"><img :src="item.src" :alt="item.id"></router-link>
-                    <div class="item_box">
-                        <div class="item" >{{item.tagName}}</div>
-                    </div>
-                    <div class="title"><p>{{item.title}}</p></div>
-                    <router-link class="article" to="/articleView"><button>Read more &rarr;</button></router-link>
-                </div>
-                </Transition>
-                <Transition name="tad" mode="out-in">
-                <div class="card" v-if="filter === 3 && item.id === 3">
-                    <router-link class="anchor" to="/"><img :src="item.src" :alt="item.id"></router-link>
-                    <div class="item_box">
-                        <div class="item" >{{item.tagName}}</div>
-                    </div>
-                    <div class="title"><p>{{item.title}}</p></div>
-                    <router-link class="article" to="/articleView"><button>Read more &rarr;</button></router-link>
-                </div>
-                </Transition>
-                <Transition name="tad" mode="out-in">
-                <div class="card" v-if="filter === 4 && item.id === 4">
-                    <router-link class="anchor" to="/articleView"><img :src="item.src" :alt="item.id"></router-link>
-                    <div class="item_box">
-                        <div class="item" >{{item.tagName}}</div>
-                    </div>
-                    <div class="title"><p>{{item.title}}</p></div>
-                    <router-link class="article" to="/articleView"><button>Read more &rarr;</button></router-link>
-                </div>
-                </Transition>
+  <div class="label">
+    <div class="output_content_box cards">
+      <div class="content">
+        <div v-for="(newsRow, index) in newsRows" :key="index">
+          <Transition name="tad" mode="out-in">
+            <div class="card" v-if="filter === 0">
+              <router-link class="anchor" to="/articleView"
+                ><img :src="item.src" :alt="item.id"
+              /></router-link>
+              <div class="item_box">
+                <div class="item">{{ newsRow.tag }}</div>
+              </div>
+              <div class="title">
+                <p>{{ newsRow.title }}</p>
+              </div>
+              <router-link class="article" to="/articleView"
+                ><button>Read more &rarr;</button></router-link
+              >
             </div>
+          </Transition>
+          <Transition name="tad" mode="out-in">
+            <div class="card" v-if="filter === 1 && item.id === 1">
+              <router-link class="anchor" to="/articleView"
+                ><img :src="item.src" :alt="item.id"
+              /></router-link>
+              <div class="item_box">
+                <div class="item">{{ newsRow.tag }}</div>
+              </div>
+              <div class="title">
+                <p>{{ newsRow.title }}</p>
+              </div>
+              <router-link class="article" to="/articleView"
+                ><button>Read more &rarr;</button></router-link
+              >
+            </div>
+          </Transition>
+          <Transition name="tad" mode="out-in">
+            <div class="card" v-if="filter === 2 && item.id === 2">
+              <router-link class="anchor" to="/articleView"
+                ><img :src="item.src" :alt="item.id"
+              /></router-link>
+              <div class="item_box">
+                <div class="item">{{ newsRow.tag }}</div>
+              </div>
+              <div class="title">
+                <p>{{ newsRow.title }}</p>
+              </div>
+              <router-link class="article" to="/articleView"
+                ><button>Read more &rarr;</button></router-link
+              >
+            </div>
+          </Transition>
+          <Transition name="tad" mode="out-in">
+            <div class="card" v-if="filter === 3 && item.id === 3">
+              <router-link class="anchor" to="/"
+                ><img :src="item.src" :alt="item.id"
+              /></router-link>
+              <div class="item_box">
+                <div class="item">{{ newsRow.tag }}</div>
+              </div>
+              <div class="title">
+                <p>{{ newsRow.title }}</p>
+              </div>
+              <router-link class="article" to="/articleView"
+                ><button>Read more &rarr;</button></router-link
+              >
+            </div>
+          </Transition>
+          <Transition name="tad" mode="out-in">
+            <div class="card" v-if="filter === 4 && item.id === 4">
+              <router-link class="anchor" to="/articleView"
+                ><img :src="item.src" :alt="item.id"
+              /></router-link>
+              <div class="item_box">
+                <div class="item">{{ newsRow.tag }}</div>
+              </div>
+              <div class="title">
+                <p>{{ newsRow.title }}</p>
+              </div>
+              <router-link class="article" to="/articleView"
+                ><button>Read more &rarr;</button></router-link
+              >
+            </div>
+          </Transition>
         </div>
-        </div>
+      </div>
     </div>
-
+  </div>
 </template>
 
 <style scoped lang="scss">
-@import '@/sass/style.scss';
-@import '@/css/reset.css';
+@import "@/sass/style.scss";
+@import "@/css/reset.css";
 .tad-enter-active {
   animation: tad-in 1.5s;
 }
@@ -223,193 +251,184 @@ const changeView = (index) => {
   }
 }
 
-
 .tab-tag {
-    width: 90%;
-    margin: 60px auto 10px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    @include l($l-breakpoint){
-        width: 1200px;
-    }
+  width: 90%;
+  margin: 60px auto 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  @include l($l-breakpoint) {
+    width: 1200px;
+  }
 }
-.tag {    border-radius: 10px;
-    background: transparent;
-    color: #eeeeee;
-    border: 2px solid #eeeeee;
-    padding: 10px 15px;
-    margin: 10px;
-    cursor: pointer;
-    transition: background 0.5s;
-    &:hover{
-        background: $blue;
-    }
-    &:focus{
-        background: $blue;
-        
-    }
+.tag {
+  border-radius: 10px;
+  background: transparent;
+  color: #eeeeee;
+  border: 2px solid #eeeeee;
+  padding: 10px 15px;
+  margin: 10px;
+  cursor: pointer;
+  transition: background 0.5s;
+  &:hover {
+    background: $blue;
+  }
+  &:focus {
+    background: $blue;
+  }
 }
-
-
 
 .display {
-    display: none;
-    color: red;
+  display: none;
+  color: red;
 }
 .newsPage {
-    width: 1200px;
+  width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  // background: #fff;
+  .card {
+    width: 33.3333%;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+.cards {
+  width: 100%;
+  .content {
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    // background: #fff;
+    justify-content: center;
     .card {
-        width: 33.3333%;
-        img {
-            width: 100%;
-        }
-    }
-}
-
-
-.cards{
-    width: 100%;
-    .content{
+      position: relative;
+      width: 170px;
+      height: 220px;
+      margin: 5px;
+      border-radius: 5px;
+      transition: 0.5s all;
+      background-color: #0f1f3d;
+      overflow: hidden;
+      &:hover {
+        height: 190px;
+        transform: scale(1.05);
+      }
+      &:hover button {
+        opacity: 1;
+      }
+      img {
         width: 100%;
-        max-width: 1200px;
-        margin: 0 auto;
+        height: 150px;
+        border-radius: 5px 5px 0 0;
+      }
+      .item_box {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        .card{
-            position: relative;
-            width: 170px;
-            height: 220px;
-            margin: 5px;
-            border-radius: 5px;
-            transition: 0.5s all;
-            background-color: #0F1F3D;
-            overflow: hidden;
-            &:hover{
-                height: 190px;
-                transform: scale(1.05);
-            }
-            &:hover button{
-                opacity: 1;
-            }
-            img{
-                width: 100%;
-                height: 150px;
-                border-radius: 5px 5px 0 0;
-            }
-            .item_box{
-                display: flex;
-                .item{
-                    display: flex;
-                    width: 50px;
-                    margin:  15px;
-                    padding: 10px;
-                    justify-content: center;
-                    color: rgb(190, 190, 190);
-                    border: 1px solid rgb(170, 170, 170);
-                    cursor: pointer;
-                    background-color: transparent;
-                    margin: 5px;
-                    padding: 3px;
-                    border-radius: 3px;
-                    font-size: 13px;
-                    transition: 0.5s all;
-                    font-family: 'Poppins', sans-serif;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    white-space: nowrap;
-                }
-            }
-            p{
-                margin: 5px 8px;
-                overflow: hidden;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-            }
-            button{
-                position: absolute;
-                bottom: 0px;
-                opacity: 0;
-                width:100%;
-                height: 30px;
-                background-color: $blue;
-                color: #fff;
-                font-size: 18px;
-                align-items: center;
-                border-radius: 5px;
-                border: none;
-                transition: 0.5s all;
-                cursor: pointer;
-                &:hover{
-                    background-color: #1f64e4;
-                }
-            }
+        .item {
+          display: flex;
+          width: 50px;
+          margin: 15px;
+          padding: 10px;
+          justify-content: center;
+          color: rgb(190, 190, 190);
+          border: 1px solid rgb(170, 170, 170);
+          cursor: pointer;
+          background-color: transparent;
+          margin: 5px;
+          padding: 3px;
+          border-radius: 3px;
+          font-size: 13px;
+          transition: 0.5s all;
+          font-family: "Poppins", sans-serif;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
-        @include m($m-breakpoint){
-            
-            .card{
-                width: 290px;
-                height: 280px;
-                margin: 10px;
-                padding: 0;
-                &:hover{
-                    height: 250px;
-                    transform: scale(1.05);
-                }
-                &:hover button{
-                opacity: 1;
-                }
-                img{
-                    height: 200px;
-                    object-fit: cover;
-                }
-                .item_box{
-                    .item{
-                        width: 70px;
-                    }
-                }
-                button{
-                    position: absolute;
-                    bottom: -5px;
-                    opacity: 0;
-                    width:100%;
-                    height: 48px;
-                    background-color: $blue;
-                    color: #fff;
-                    font-size: 18px;
-                    align-items: center;
-                    border-radius: 5px;
-                    border: none;
-                    transition: 0.5s all;
-                    cursor: pointer;
-                    &:hover{
-                        background-color: #1f64e4;
-                    }
-                }
-            }
+      }
+      p {
+        margin: 5px 8px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      button {
+        position: absolute;
+        bottom: 0px;
+        opacity: 0;
+        width: 100%;
+        height: 30px;
+        background-color: $blue;
+        color: #fff;
+        font-size: 18px;
+        align-items: center;
+        border-radius: 5px;
+        border: none;
+        transition: 0.5s all;
+        cursor: pointer;
+        &:hover {
+          background-color: #1f64e4;
         }
-        @include l($l-breakpoint){
-            .card{
-                width: 350px;
-                height: 320px;
-                &:hover{
-                    height: 260px;
-                    transform: scale(1.05);
-                }
-                img{
-                    height: 210px;
-                }
-
-            }
-        }
+      }
     }
+    @include m($m-breakpoint) {
+      .card {
+        width: 290px;
+        height: 280px;
+        margin: 10px;
+        padding: 0;
+        &:hover {
+          height: 250px;
+          transform: scale(1.05);
+        }
+        &:hover button {
+          opacity: 1;
+        }
+        img {
+          height: 200px;
+          object-fit: cover;
+        }
+        .item_box {
+          .item {
+            width: 70px;
+          }
+        }
+        button {
+          position: absolute;
+          bottom: -5px;
+          opacity: 0;
+          width: 100%;
+          height: 48px;
+          background-color: $blue;
+          color: #fff;
+          font-size: 18px;
+          align-items: center;
+          border-radius: 5px;
+          border: none;
+          transition: 0.5s all;
+          cursor: pointer;
+          &:hover {
+            background-color: #1f64e4;
+          }
+        }
+      }
+    }
+    @include l($l-breakpoint) {
+      .card {
+        width: 350px;
+        height: 320px;
+        &:hover {
+          height: 260px;
+          transform: scale(1.05);
+        }
+        img {
+          height: 210px;
+        }
+      }
+    }
+  }
 }
-
-
-
 </style>

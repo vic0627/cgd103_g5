@@ -6,96 +6,127 @@ import {bodyInit} from '@/composables/useOnunmounted';
 bodyInit();
 
 const props = defineProps(['prevStep','nextStep','step']);
-const memRows = ref([]);
-// const getMemberInfo = () =>{
-//     //取得會員資料
-//     let xhr = new XMLHttpRequest();
-//     xhr.onload = function(){
-//         if(xhr.status == 200){
-//             memRows.value = JSON.parse(xhr.responseText);
-//         }
-//     }
-//     xhr.open("get","/dist/g5PHP/getMemInfo.php",true);
-//     xhr.send(null);
+const memberInfo = ref({
+    mem_no: "",
+    mem_grade : "",
+    mem_first_name : "",
+    mem_last_name : "",
+    phone : "",
+    mem_gender : "",
+    mem_email : "",
+    city : "",
+    address : "",
+    credit_no : ""
+});
+function getMemberInfo (){
+    fetch("/dist/g5PHP/getMemInfo.php",{
+        method:"get",
+    })
+    .then((res)=>res.json())
+    .then(mem => {
+            console.log(mem);
+            memberInfo.value.mem_no = mem.mem_no;
+            memberInfo.value.mem_grade = mem.mem_grade;
+            memberInfo.value.mem_first_name = mem.mem_first_name;
+            memberInfo.value.mem_last_name = mem.mem_last_name;
+            memberInfo.value.phone = mem.phone;
+            memberInfo.value.mem_gender = mem.mem_gender;
+            memberInfo.value.city = mem.city;
+            memberInfo.value.address = mem.address;
+            memberInfo.value.credit_no = mem.credit_no;
+    })
+    .catch(error =>console.log(error));
+    }
+const sums = ref('');
+const final = ref('');
+const discount_price = ref('');
+const disc_no = ref('');
+// const getPrice = ()=>{
+//     sums.value = sessionStorage.getItem('sums');
+//     final.value = sessionStorage.getItem('final');
+//     disc_no.value = sessionStorage.getItem('discount');
+//     console.log(sums.value)
 // }
-
-const getMemberInfo = ()=>{
-    fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getMemInfo.php")
-   .then(res=>res.json())
-   .then(json => {
-        memRows.value = json;
-   })
-}
 onMounted(()=>{
     getMemberInfo();
 })
-
-const memInfo = ref("");
-onMounted(() =>{
-    function getMemberInfoSS(){
-              let xhr = new XMLHttpRequest();
-              xhr.onload = function(){
-                  let member = JSON.parse(xhr.responseText);
-                  if(member.Account){//有帳密資料
-                  memInfo.value = [member.FirstName,member.email];
-                  console.log(mem.value)         
-                  }
-              }
-              xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
-              xhr.send(null);
-          }
-    
-    getMemberInfoSS();
-
-})
+/////
+// const mem_no = ref(1)
+// const mem_grade = ref(2)
+// const orders_location = ref('32 Sumter Drive, Wylie,tx, 75098')
+// const credit_no = ref(3544777739071678)
+const submitOrder = ()=>{
+    sums.value = sessionStorage.getItem('sums');
+    final.value = sessionStorage.getItem('final');
+    discount_price.value = sessionStorage.getItem('discount');
+    disc_no.value = sessionStorage.getItem('disc_no');
+    const payload = {
+        mem_no: Number(memberInfo.value.mem_no),
+        mem_grade: Number(memberInfo.value.mem_grade),
+        orders_price: Number(sums.value),
+        discount_price: Number(discount_price.value),
+        total_price: Number(final.value),
+        orders_location: memberInfo.value.address,
+        credit_no: Number(memberInfo.value.credit_no),
+        disc_no: Number(disc_no.value),
+    };
+    fetch("/dist/g5PHP/sessionNmitem.php", {
+        method: "POST",
+        body: new URLSearchParams(payload),
+    }).then(res=>{
+        res.text();
+        // console.log(res);
+    })
+}
 </script>
 <template>   
     <section class="detail_box">
-            <template  v-for="memRow in memRows" :key="memRow">
-                <table class="confirm_detail">
-                    <tr>
-                        <th colspan="4">Confirm Detail</th>
-                    </tr>
-                    <tr>
-                        <td class="title">Member Grade</td>
-                        <td colspan="3">{{memRow.mem-grade}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">First Name</td>
-                        <td>{{memRow.mem_first_name}}</td>
-                        <td class="title">Last Name</td>
-                        <td>{{memRow.mem_last_name}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Phone</td>
-                        <td >{{memRow.phone}}</td>
-                        <td class="title">Gender</td>
-                        <td>{{memRow.mem_gender}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Order List</td>
-                        <td>EFPV Avata advance bundle BUY 4 Units</td>
-                        <!-- <td colspan="2"></td> -->
-                    </tr>
-                    <tr>
-                        <td class="title">City</td>
-                        <td colspan="3">{{memRow.city}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Address</td>
-                        <td colspan="3">{{memRow.address}}</td>
-                    </tr>
-                    <tr>
-                        <td class="title">Credit Card No.</td>
-                        <td colspan="3">{{memRow.credit_no}}</td>
-                    </tr>
-                </table>
-            </template>
+    <h3>Confirm Detail</h3>
+            <table class="confirm_detail">
+                <tr>
+                    <td class="title">First Name</td>
+                    <td>{{memberInfo.mem_first_name}}</td>
+                    <td class="title">Last Name</td>
+                    <td>{{memberInfo.mem_last_name}}</td>
+                </tr>
+                <tr>
+                    <td class="title">Phone</td>
+                    <td >{{memberInfo.phone}}</td>
+                    <td class="title">Gender</td>
+                    <td>{{memberInfo.mem_gender}}</td>
+                </tr>
+                <tr>
+                    <td class="title">Member Grade</td>
+                    <td colspan="3">{{memberInfo.mem_grade}}</td>
+                </tr>
+                <tr>
+                    <td class="title">City</td>
+                    <td colspan="3">{{memberInfo.city}}</td>
+                </tr>
+                <tr>
+                    <td class="title">Address</td>
+                    <td colspan="3">{{memberInfo.address}}</td>
+                </tr>
+                <tr>
+                    <td class="title">Credit Card No.</td>
+                    <td colspan="3">{{memberInfo.credit_no}}</td>
+                </tr>
+            </table>
             <div class="buttons">
                 <div class="btnSecond" data-title="Back" @click="props.prevStep()"><span>Back</span></div>
-                <div class="btnPrimary" data-title="Pay" @click="props.nextStep()"><span>Pay</span></div>
+                <div class="btnPrimary" data-title="Pay" @click="props.nextStep();submitOrder()"><span>Pay</span></div>
             </div>
-    </section>           
+    </section>     
+    <form action="post">
+        <input type="hidden" v-model="memberInfo.mem_no" name="mem_no">
+        <input type="hidden" v-model="memberInfo.mem_grade" name="mem_grade">
+        <input type="hidden" v-model="sums" name="orders_price">
+        <input type="hidden" v-model="discount_price" name="discount_price">
+        <input type="hidden" v-model="final" name="total_price">
+        <input type="hidden" v-model="memberInfo.orders_location" name="orders_location">
+        <input type="hidden" v-model="memberInfo.credit_no" name="credit_no">
+        <input type="hidden" v-model="disc_no" name="disc_no">            
+    </form>      
 </template>
 
 <style scoped lang="scss">
@@ -125,9 +156,6 @@ onMounted(() =>{
             font-size: 30px;
         }
         .input_box{
-            // width: 100%;
-            // display: flex;
-            // justify-content: center;
             input{
                 margin: 0 10px;
             }
@@ -137,9 +165,9 @@ onMounted(() =>{
         }
         .confirm_detail{
             background-color: rgba(217, 217, 217, 0.32);
-            max-width: 100%;
+            width: 100%;
             padding: 20px;
-            margin: 20px;
+            // margin: 20px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             border-bottom-left-radius: 10px;
@@ -149,9 +177,9 @@ onMounted(() =>{
             overflow: hidden;
             tr{
                 border: 1px solid rgb(125, 124, 124);
-                line-height: 40px;
+                height: 40px;
                 &:nth-child(even){
-                    background-color: #98989880;
+                    // background-color: #98989880;
                 }
                 th{
                     text-align: center;
@@ -165,12 +193,17 @@ onMounted(() =>{
                     }
                     border: 1px solid rgb(168, 168, 168);
                     text-align: left;
-                    padding: 5px ;
-                    color: rgb(228, 229, 225);
+                    padding:20px ;
+                    color: rgb(194, 194, 194);
                     font-size: 20px;                   
                     &.title{
-                        color: #333;     
+                        width: 200px;
+                        color: rgb(62, 62, 62);
+                        background-color: lighten($blue, 40%);     
                         font-weight: bold; 
+                    }
+                    &:not(.title){
+                        text-align: center;
                     }
                 }
             }

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, reactive, onUnmounted } from "vue";
+import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import point1 from "../assets/images/race/point1.jpg";
@@ -43,104 +43,60 @@ const changeCount = (id) => {
   count.value = id;
 };
 
-const race = ref({
-  1: {
-    id: 1,
-    nation: "Taiwan",
-    startDate: "2022-01-01",
-    src: contest01,
-    endDate: "2022-01-31",
-    raceName: "Drone Race 01",
-  },
-  2: {
-    id: 2,
-    nation: "World",
-    startDate: "2022-02-01",
-    src: contest02,
-    endDate: "2022-02-28",
-    raceName: "Drone Race 02",
-  },
-  3: {
-    id: 3,
-    nation: "Taiwan",
-    startDate: "2022-03-01",
-    src: contest01,
-    endDate: "2022-03-31",
-    raceName: "Drone Race 03",
-  },
-  4: {
-    id: 4,
-    nation: "World",
-    startDate: "2022-04-01",
-    src: contest02,
-    endDate: "2022-04-30",
-    raceName: "Drone Race 04",
-  },
-  5: {
-    id: 5,
-    nation: "Taiwan",
-    startDate: "2022-05-01",
-    src: contest01,
-    endDate: "2022-05-31",
-    raceName: "Drone Race 05",
-  },
-  6: {
-    id: 6,
-    nation: "World",
-    startDate: "2022-06-01",
-    src: contest02,
-    endDate: "2022-06-30",
-    raceName: "Drone Race 06",
-  },
-  7: {
-    id: 7,
-    nation: "Taiwan",
-    startDate: "2022-07-01",
-    src: contest01,
-    endDate: "2022-07-31",
-    raceName: "Drone Race 07",
-  },
-  8: {
-    id: 8,
-    nation: "World",
-    startDate: "2022-08-01",
-    src: contest02,
-    endDate: "2022-08-31",
-    raceName: "Drone Race 08",
-  },
-  9: {
-    id: 9,
-    nation: "Taiwan",
-    startDate: "2022-09-01",
-    src: contest01,
-    endDate: "2022-09-30",
-    raceName: "Drone Race 09",
-  },
-  10: {
-    id: 10,
-    nation: "World",
-    startDate: "2022-10-01",
-    src: contest02,
-    endDate: "2022-10-31",
-    raceName: "Drone Race 10",
-  },
-  11: {
-    id: 11,
-    nation: "Taiwan",
-    startDate: "2022-11-01",
-    src: contest01,
-    endDate: "2022-11-30",
-    raceName: "Drone Race 11",
-  },
-  12: {
-    id: 12,
-    nation: "World",
-    startDate: "2022-12-01",
-    src: contest02,
-    endDate: "2022-12-31",
-    raceName: "Drone Race 12",
-  },
+const no = ref("");
+const name = ref("");
+const start = ref("");
+const end = ref("");
+const aboard = ref("");
+const photo = ref("");
+const txt = ref("");
+const newcpt_no = ref("");
+const newcpt_name = ref("");
+const newcpt_start = ref("");
+const newcpt_end = ref("");
+const newcpt_aboard = ref("");
+const newcpt_photo = ref("");
+const newcpt_txt = ref("");
+const showModal = ref(false);
+
+const props = defineProps(["tab"]);
+const raceRows = ref([]);
+const getProducts = () => {
+  //取得比賽資料
+  fetch("http://localhost/cgd103_g5/public/g5PHP/getRace.php")
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json);
+      raceRows.value = json;
+    });
+};
+onMounted(() => {
+  getProducts();
 });
+
+//判斷比賽名稱
+const set = (key, val) => {
+  sessionStorage.setItem(key, val);
+};
+const cacheId = ref("");
+const selectRace = (id, row) => {
+  // cacheId.value = id;
+  // let nid;
+  // alert(row);
+  if (sessionStorage["racename"] == null) {
+    sessionStorage["racename"] = "";
+  }
+
+  set(
+    id,
+    `{"id":"${row.cpt_no}","name":"${row.cpt_name}","start":"${row.cpt_start}","end":"${row.cpt_end}"}`
+  );
+
+  let getRace = JSON.parse(sessionStorage.getItem(id));
+  sessionStorage[
+    "racename"
+  ] = `{"name" : "${getRace.name}","start" : "${getRace.start}","end" : "${getRace.end}"}`;
+};
 </script>
 
 <template>
@@ -171,31 +127,40 @@ const race = ref({
 
     <div class="racegg">
       <div class="raceList">
-        <div :class="`raceBox  race${e.id}`" v-for="e in race" :key="e.id">
+        <div
+          :class="`raceBox  `"
+          v-for="(raceRow, index) in raceRows.slice(0, 12)"
+          :key="index"
+        >
           <div class="top"></div>
           <div
             class="boxBgi_w"
-            :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9)),url(${
-              race[e.id].src
-            })`"
+            :style="`background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.9)),`"
           ></div>
+
+          <!-- url(${race[e.id].src}) -->
 
           <div class="listWord">
             <div class="nation">
-              <span class="nation_t">{{ race[e.id].nation }}</span>
+              <span class="nation_t">{{ raceRow.cpt_aboard }}</span>
             </div>
             <div class="date">
-              <span class="span">{{ race[e.id].startDate }}</span>
+              <span class="span">{{ raceRow.cpt_start }}</span>
               <br />
               <span class="span">|</span>
               <br />
-              <span class="span">{{ race[e.id].endDate }}</span>
+              <span class="span">{{ raceRow.cpt_end }}</span>
             </div>
             <div class="competitionName">
-              <h4>{{ race[e.id].raceName }}</h4>
+              <h4>{{ raceRow.cpt_name }}</h4>
             </div>
             <div class="learn">
-              <router-link class="btn" id="btn1" to="/apply" data-title="Learn"
+              <router-link
+                class="btn"
+                id="btn1"
+                to="/apply"
+                data-title="Learn"
+                @click="selectRace(raceRow.cpt_no, raceRow)"
                 ><span>Learn</span></router-link
               >
             </div>
@@ -400,8 +365,9 @@ h2 {
         display: none;
       }
     }
-    .boxBgi_w,
-    .boxBgi_t {
+    .boxBgi_w {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.9)),
+        url(../assets/images/race/contest02.png);
       width: 100%;
       height: 100%;
       background-size: cover;
@@ -516,7 +482,7 @@ h2 {
     .bgi {
       @include l($l-breakpoint) {
         width: 100%;
-        height: 100%;
+        height: 740px;
         background-size: cover;
         background-position: center center;
         position: absolute;

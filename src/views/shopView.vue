@@ -9,8 +9,6 @@ import { bodyInit } from "../composables/useOnunmounted";
 
 bodyInit();
 
-
-
 //宣告存取itemid的位置
 const cartList = ref([]);
 const prodInfo = ref([]);
@@ -26,11 +24,14 @@ const addProd = (id, row) => {
     cacheId.value = id;
     let nid;
     if(row===accessories.value){
-      nid = id - (products.value.length*2);
+      nid = id - products.value.length - 1;
+      console.log("accessories's nid",nid)
     }else if(row===bundle_A.value ){
-      nid = id - (accessories.value.length*4) + 1;
+      nid = id - (products.value.length*2) - 1;
+      console.log("bundle_A's nid",nid)
     }else if(row===bundle_B.value){
-      nid = id - (accessories.value.length*4) -2;
+      nid = id - (accessories.value.length*2) - 5;
+      console.log("bundle_B's nid",nid)
     } else{
       nid = id - 1;
     }
@@ -46,8 +47,12 @@ const addProd = (id, row) => {
     }else{
       //無，執行set跟get
       set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
+      console.log(`${row[nid].id}`);
       let get = JSON.parse(sessionStorage.getItem(id));
+
       sessionStorage['cartList'] += `${get.id},`;
+
+      
 
       if(sessionStorage['cartList'].includes('111')){
     //跳彈窗
@@ -76,10 +81,10 @@ const moreProd = (id, row)=> {
     sessionStorage['prodInfo']='';
   }
   
-      set(id,`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
+      set("prodInfo",`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
 
       let getInfo = JSON.parse(sessionStorage.getItem(id));
-      sessionStorage['prodInfo'] =`{"title":"${getInfo.title}","price":${getInfo.price},"images":"${getInfo.images}"},`;
+      sessionStorage['prodInfo'] =`{"title":"${getInfo.title}","price":${getInfo.price},"images":"${getInfo.images}"}`;
       //  跳轉頁面到產品資訊
       router.push('/shopInfo');
 }

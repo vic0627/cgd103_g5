@@ -7,6 +7,7 @@ header('Access-Control-Allow-Origin:*');
 header("Content-Type:application/json;charset=utf-8");
 try{
   require_once("./connect_cgd103g5.php");
+  // require_once("./connect_cgd103g5_felix.php");
   $sql = "select * from `member` where mem_acc=:memId and mem_pw=:memPsw"; 
   $member = $pdo->prepare($sql);
   // $member->bindValue(":memId", $_POST["username"]);

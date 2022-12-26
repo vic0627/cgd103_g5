@@ -11,7 +11,7 @@ const showModal = ref(false);
 const showModal2 = ref(false);
 
 //data-table
-const createColumns = ({selectId})=>{
+const createColumns = ({selectId,showModal2})=>{
     return [
   {
     title: "編號",
@@ -50,7 +50,7 @@ const createColumns = ({selectId})=>{
           {
             size: "medium",
             color: "#FF4E4E",
-            onClick: () => showmodal(row,index),
+            onClick: () => showModal2(row,index),
           },
           { default: () => "刪除" }
         );
@@ -67,7 +67,7 @@ const column = createColumns({
     newFaq_no.value = faqRows.value[index].faq_no;
     newFaq_ans.value = faqRows.value[index].faq_ans;
   },
-  showmodal(rowData,index){
+  showModal2(rowData,index){
     showModal2.value = true
     newFaq_no.value = faqRows.value[index].faq_no;
   }
@@ -123,7 +123,7 @@ const updateFaq = (user)=>{
 )}
 
 // 刪除資料
-const deleteFaq = ()=>{
+const deleteFaq = (user)=>{
   const delFaq = {
     faq_no: Number(newFaq_no.value)
   }
@@ -146,7 +146,7 @@ const returnFaq = computed(() => {
   let cache = faqRows.value;
   if(search.value!==''){
     cache = cache.filter(i => String(i[select[selectVal.value].val]).includes(search.value))
-    if(search.value=='All'){
+    if(search.value=='all'){
       cache = faqRows.value;
     }
   }else{
@@ -191,7 +191,7 @@ const testVal = (e) => {
       </select>
       <p>查詢</p>
       <label for="search" class="label">
-        <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入All或${select[selectVal].title}`">
+        <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入all或${select[selectVal].title}`">
       </label>
     </div>
 

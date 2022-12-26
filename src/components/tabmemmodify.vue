@@ -2,6 +2,26 @@
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
 import { reactive, onMounted,ref ,defineComponent,h,computed} from 'vue';
 
+// Model + 會員總資訊
+const showModal = ref(false);
+const newMem_no = ref('');
+const newMem_acc = ref('');
+const newMem_pw = ref('');
+const newMem_first_name = ref('');
+const newMem_last_name = ref('');
+const newMem_email = ref('');
+const newMem_phone = ref('');
+const newMem_city = ref('');
+const newMem_address = ref('');
+const newMem_credit_no = ref('');
+const newMem_grade = ref('');
+const newMem_gender = ref('');
+
+
+
+
+
+
 //data-table
 const createColumns = ({selectId})=>{
     return [
@@ -47,6 +67,26 @@ const createColumns = ({selectId})=>{
     },
   ]
 };
+
+// 查看資訊
+const lookMem = (user)=>{
+  const newMem = {
+    mem_no: Number(newMem_no.value),
+    mem_email: newMem_email.value, 
+    // mem_ans: newFaq_ans.value
+  }
+  fetch("http://localhost/g5/public/g5PHP/getBmem.php", {
+    method: "POST",
+    body: new URLSearchParams(newMem),
+  }).then(res=>{
+    console.log(res)
+    res.json()
+  }).then(res=>{
+    showModal.value = false
+    getProducts();
+  }
+)}
+
 //解析內容跟事件
 const column = createColumns({
   selectId(rowData,index) {
@@ -56,10 +96,22 @@ const column = createColumns({
     newMem_first_name.value = bmemRows.value[index].mem_first_name;
     newMem_last_name.value = bmemRows.value[index].mem_last_name;
     newMem_email.value = bmemRows.value[index].mem_email;
+    newMem_gender.value = bmemRows.value[index].mem_gender;
+    newMem_pw.value = bmemRows.value[index].mem_pw;
+    newMem_phone.value = bmemRows.value[index].phone;
+    newMem_city.value = bmemRows.value[index].city;
+    newMem_address.value = bmemRows.value[index].address;
+    newMem_credit_no.value = bmemRows.value[index].credit_no;
+    newMem_grade.value = bmemRows.value[index].mem_grade;
+    // newMem_dur.value = bmemRows.value[index].mem_dur;
+    // newMem_sec.value = bmemRows.value[index].mem_sec;
+    
   },
   showmodal(rowData,index){
-    showModal2.value = true
+    showModal.value = true
     newMem_no.value = bmemRows.value[index].mem_no;
+    newMem_pw.value = bmemRows.value[index].mem_pw;
+    newMem_acc.value = bmemRows.value[index].mem_acc;
   }
 })
 //取得資料庫資料
@@ -76,6 +128,20 @@ const bmemRows = ref([]);
 onMounted(()=>{
 	getProducts();
 });
+
+//分頁js
+// const paginationReactive = reactive({
+//       page: 2,
+//       pageSize: 10,
+//       onChange: (page) => {
+//         paginationReactive.page = page;
+//       },
+//       onUpdatePageSize: (pageSize) => {
+//         paginationReactive.pageSize = pageSize;
+//         paginationReactive.page = 1;
+//       }
+//     });
+// const  pagination = paginationReactive;
 
 // 搜尋
 
@@ -153,34 +219,65 @@ const testVal = (e) => {
     <div class="tables" id="products" align="center">
     <form action="" method="post">
       <n-data-table :columns="column" :data="returnMem" :pagination="pagination"  :bordered="true" :single-line="false" />
-      <!-- <n-modal
+      <n-modal
         v-model:show="showModal"
         preset="dialog"
-        title="確認"
-        content="你確定嗎?"
-      >
-            <label for="faq_des"> 修改問題 : </label>
-            <textarea name="faq_des" v-model="newFaq_des" rows="10" cols="50" placeholder="請輸入問題" maxlength="200"></textarea>
-            <textarea name="faq_ans" v-model="newFaq_ans" rows="10" cols="50" placeholder="請輸入回答" maxlength="300" ></textarea>
-            <n-button @click="showModal = true; updateFaq(index)" type="error">
-              確認
-            </n-button>
+        title="資訊總覽"
+        content="">
+      <div class="box">
+        <div class="word">
+          <label for="mem_no"><div class="text"> 會員編號 : </div></label>
+          <input type="text" name="mem_no" v-model="newMem_no" disabled class="inputs">
+        </div>
+        <div class="word">
+          <label for="mem_acc"> <div class="text"> 帳號<span class="gender">(信箱)</span>  : </div></label>
+          <input type="text" name="mem_acc" v-model="newMem_acc" disabled class="inputs">
+        </div>
+        <div class="word">
+          <label for="mem_pw"> <div class="text"> 密碼 : </div></label>
+          <input type="text" name="mem_pw" v-model="newMem_pw" disabled class="inputs">
+        </div>
+        <div class="word">
+          <label for="mem_first_name"> <div class="text"> 名: </div> </label>
+          <input type="text" name="mem_first_name" v-model="newMem_first_name" disabled class="inputs">
+        </div>
+        <div class="word">
+          <label for="mem_last_name"><div class="text"> 姓 : </div> </label>
+          <input type="text" name="mem_last_name" v-model="newMem_last_name" disabled class="inputs">
+        </div>
+        <div class="word">
+          <label for="mem_gender"> <div class="text"> 性別 :<span class="gender">(1男2女)</span> :  </div> </label>
+          <input type="text" name="mem_gender" v-model="newMem_gender" disabled class="inputs">
+        </div>
+        <div class="word">
+          <label for="mem_email"> <div class="text"> 信箱 : </div></label>
+          <input type="text" name="mem_email" v-model="newMem_email" disabled class="inputs">
+        </div>
+        <div class="word">
+          <label for="phone" > <div class="text"> 電話 : </div></label>
+          <input type="text" name="phone" v-model="newMem_phone" disabled class="inputs">
+        </div>
+        <div class="word">
+          <label for="city"> <div class="text"> 縣市 : </div> </label>
+          <input type="text" name="city" v-model="newMem_city" disabled class="inputs">
+        </div>
+        <label for="address" class="word"> <div class="text"> 詳細地址 : </div></label>
+          <textarea type="text" name="address" v-model="newMem_address"  cols="150" disabled class="inputs"></textarea>
+        <div class="word">
+          <label for="credit_no"> <div class="text">信用卡號 : </div> </label>
+          <input type="text" name="credit_no" v-model="newMem_credit_no" disabled class="inputs">
+        </div>
+        <div class="word">
+          <label for="mem_grade"> <div class="text"> 會員等級 : </div></label>
+          <input type="text" name="mem_grade" v-model="newMem_grade" disabled class="inputs">
+        </div>
+      </div>
+      <!-- <n-button @click="showModal = true; lookMem(index)" type="error">
+        查看
+      </n-button> -->
       </n-modal>
-      <n-modal
-          v-model:show="showModal2"
-          preset="dialog"
-          title="確認"
-          content="你確定嗎?"
-        >
-      <n-button @click="showModal2 = true; deleteFaq(index)" type="error">
-        刪除
-      </n-button>
-      </n-modal> -->
   </form>
   </div>
-
- 
- 
 </div>
 
     
@@ -188,7 +285,20 @@ const testVal = (e) => {
 </template>
 <style  scoped lang="scss">
 @import '@/sass/style.scss';
+.gender{
+  color: #999;
+  font-size: 12px;
+}
 
+
+.text {
+  font-size:18px;
+  margin-right: 10px;
+}
+.word{
+  display: flex;
+  margin-top: 15px;
+}
 // 最上方的標題欄
 .tops {
   width: 85%;
@@ -207,7 +317,10 @@ h2 {
   justify-content: space-between;
   align-items: center;
 }
-
+textarea{
+  width: 100%;
+  font-family: inherit;
+}
 .tables {
   width: 95%;
   margin: auto;
@@ -244,6 +357,12 @@ h2 {
       }
     }
   }
+}
+.inputs{
+  border:none;
+  background: none;
+  font-size: 20px;
+  
 }
 
 </style>

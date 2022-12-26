@@ -1,16 +1,21 @@
 <script setup>
 import { reactive, onMounted,ref,h } from 'vue';
-import { zhTW, NPagination,NTable,NDataTable,NButton, } from 'naive-ui';
+import { zhTW, NPagination,NTable,NDataTable,NButton} from 'naive-ui';
 import axios from 'axios';
-// const adminRows = ref([]);
-// 		const getAdmin = () => {
-// 			//取得管理員資料
-//        axios.get("http://localhost/CGD103-G5/public/g5PHP/getAdmin.php",)
-//       .then(res=> {
-//         console.log(res.data)
-//         adminRows.value = res.data
-//       })
-// 		}
+const name = ref('');
+const authority = ref('一般管理員');
+const account = ref('');
+const password = ref('');
+const adminRows = ref([]);
+		const getAdmin = () => {
+			//取得管理員資料
+       axios.get("http://localhost/CGD103-G5/public/g5PHP/getAdmin.php",)
+      .then(res=> {
+        console.log(res.data)
+        adminRows.value = res.data
+      })
+		}
+//新增資料到資料庫
 const submitData = ()=>{
   const payload = {
     admin_name: name.value,
@@ -18,26 +23,29 @@ const submitData = ()=>{
     admin_acc: account.value,
     admin_pw: password.value,
   };
-   fetch("http://localhost/CGD103-G5/public/g5PHP/insertAdmin.php", {
-      method: "POST",
-      body: new URLSearchParams(payload),
-  }).then(res=>{
-    res.text();
-    console.log(res);
-  })
-  // .then(result=>{
-  //   console.log(result);
-  // })
+  
+    for(let i=0;i<adminRows.value.length;i++){
+      if(account.value === adminRows.value[i].admin_acc && password.value === adminRows.value[i].admin_pw){
+        alert("帳號密碼已重複");
+        break;    
+      }else if (name.value === '' || account.value === '' || password.value === ''){
+        alert("不可空白，請輸入帳號密碼")
+        break;
+      }else if(account.value != adminRows.value[i].admin_acc && password.value != adminRows.value[i].admin_pw){
+        fetch("http://localhost/CGD103-G5/public/g5PHP/insertAdmin.php", {
+          method: "POST",
+          body: new URLSearchParams(payload),
+        }).then(res=>{
+          res.text();
+        })
+        alert("新增成功")
+        break;
+      }
+    }
 }
-    
 	onMounted(()=>{
-		// getAdmin();
-
+		getAdmin();
   });
-  const name = ref('');
-  const authority = ref('一般管理員');
-  const account = ref('');
-  const password = ref('');
 </script>
 <template>
 <div class="top">
@@ -70,7 +78,6 @@ const submitData = ()=>{
     <input type="button" value="新增" id="conFirm" @click="submitData()">
   </div>
 </div>
-  
 
 </template>
 <style scoped lang="scss" >
