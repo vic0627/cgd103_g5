@@ -92,17 +92,17 @@ const createColumns = ({ selectId, showmodal }) => {
 const column = createColumns({
   selectId(rowData, index) {
     showModal.value = true;
-    newdisc_no.value = discRows.value[index].disc_no;
-    newdisc_title.value = discRows.value[index].disc_title;
-    newdisc_txt.value = discRows.value[index].disc_txt;
-    newdisc_start.value = discRows.value[index].disc_start;
-    newdisc_end.value = discRows.value[index].disc_end;
-    newdisc_off.value = discRows.value[index].disc_off;
-    newdisc_code.value = discRows.value[index].disc_code;
+    newDisc_no.value = discRows.value[index].disc_no;
+    newDisc_title.value = discRows.value[index].disc_title;
+    newDisc_txt.value = discRows.value[index].disc_txt;
+    newDisc_start.value = discRows.value[index].disc_start;
+    newDisc_end.value = discRows.value[index].disc_end;
+    newDisc_off.value = discRows.value[index].disc_off;
+    newDisc_code.value = discRows.value[index].disc_code;
   },
   showmodal(rowData, index) {
     // showModal2.value = true;
-    newdisc_no.value = discRows.value[index].disc_no;
+    newDisc_no.value = discRows.value[index].disc_no;
   },
 });
 //分頁js
@@ -256,7 +256,7 @@ const testVal = (e) => {
           <label for="faq_des"> 修改優惠 : </label>
           <textarea
             name="disc_no"
-            v-model="newdisc_no"
+            v-model="newDisc_no"
             rows="1"
             cols="50"
             placeholder="請輸入編號"
@@ -264,7 +264,7 @@ const testVal = (e) => {
           ></textarea>
           <textarea
             name="disc_title"
-            v-model="newdisc_title"
+            v-model="newDisc_title"
             rows="1"
             cols="50"
             placeholder="請輸入名稱"
@@ -272,7 +272,7 @@ const testVal = (e) => {
           ></textarea>
           <textarea
             name="disc_txt"
-            v-model="newdisc_txt"
+            v-model="newDisc_txt"
             rows="1"
             cols="50"
             placeholder="請輸入敘述"
@@ -280,7 +280,7 @@ const testVal = (e) => {
           ></textarea>
           <textarea
             name="disc_start"
-            v-model="newdisc_start"
+            v-model="newDisc_start"
             rows="1"
             cols="50"
             placeholder="請輸入開始日期"
@@ -288,7 +288,7 @@ const testVal = (e) => {
           ></textarea>
           <textarea
             name="disc_end"
-            v-model="newdisc_end"
+            v-model="newDisc_end"
             rows="1"
             cols="50"
             placeholder="請輸入結束日期"
@@ -296,7 +296,7 @@ const testVal = (e) => {
           ></textarea>
           <textarea
             name="disc_off"
-            v-model="newdisc_off"
+            v-model="newDisc_off"
             rows="1"
             cols="50"
             placeholder="請輸入折扣數"
@@ -304,7 +304,7 @@ const testVal = (e) => {
           ></textarea>
           <textarea
             name="disc_code"
-            v-model="newdisc_code"
+            v-model="newDisc_code"
             rows="10"
             cols="50"
             placeholder="請輸入優惠碼"
