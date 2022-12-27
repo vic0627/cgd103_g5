@@ -5,15 +5,14 @@ import menuVue from '@/components/memberCenter/menu.vue';
 import memberCardVue from '@/components/memberCenter/memberCard.vue';
 import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
 
-
-// import $ from 'jquery';
+import $ from 'jquery';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
 // import { Script } from 'vm';
 
 const memberinfo =ref({});
 onMounted(()=> {
+
     getMemLevel();
-    
     function getMemLevel(){
         fetch('/dist/g5PHP/getMemLevel.php',{
                 method: "get",
@@ -43,8 +42,8 @@ onMounted(()=> {
     }
 
     document.getElementById('updateMemberInfo').onclick = sendForm;
-
     function sendForm(){  
+        if(window.confirm("Do you really want to change your profile?")){
             let formData = new FormData(); // 一開始表單的資料是空的
             formData.append('mem_acc', memberinfo.value.mem_acc);
             formData.append('mem_first_name', memberinfo.value.mem_first_name); 
@@ -59,9 +58,8 @@ onMounted(()=> {
             .then((res) => res.text())//php echo的內容
             .then(text =>alert(text))
             .catch(error =>console.log(error));
-
+        }
         }//function_checkId 
-    
 });
 
 
@@ -70,102 +68,79 @@ const lightBoxClose = () => {
 };
 const lightBoxShow = ref(false);
 
+
+const mempsw =ref({});
 function changePsw(){
     lightBoxShow.value = true;
-    fetch('/dist/g5PHP/updateMemPassword.php',{
-                method: "post",
-                // body : ,
-    })
-    .then((res) => res.json())//php echo的內容
-    .then(text =>alert(text))
-    .catch(error =>console.log(error));
-
-
+    if(mempsw.value.newpsw != mempsw.value.newpsw2){
+        alert("new password and comfirm password are not the same,please check again!");
+    }else if(!showinfo1() || !showinfo2() || !showinfo3()){
+        alert("please chcek your password again");
+        return false;
+    }else if(window.confirm("Do you really want to change your password?")){
+        
+        let formData = new FormData(); // 一開始表單的資料是空的
+        formData.append('mem_oldpsw', mempsw.value.oldpsw);
+        formData.append('mem_newpsw', mempsw.value.newpsw);
+        fetch('/dist/g5PHP/updateMemPassword.php',{
+            method: "post",
+            body: formData,
+        })
+        .then((res) => res.text())//php echo的內容
+        .then(text =>alert(text))
+        .catch(error =>console.log(error));
+    }
 }
 
-
-
-
-
-
-
-
-//address
-// const state = reactive({
-//     frameworksIdx: 0, // 記錄第一層選單的被選取項目
-//     contentsIdx: 0, // 記錄第二層選單的被選取項目
-//     frameworks : [
-//         {
-//             type: 'Choose Your Location',
-//             contents: [
-//                 { name: 'Choose Your Country'},
-//             ],
-//         },
-//         {
-//             type: 'AMERICAS',
-//             contents: [
-//                 { name: 'USA'},
-//                 { name: 'Brasil'},
-//                 { name: 'Canada(English)'},
-//                 { name: 'Canada(Français)'},
-//                 { name: 'Mexico'},
-//             ],
-//         },
-//         {
-//             type: 'EUROPE',
-//             contents: [
-//                 { name: 'Belgium'},
-//                 { name: 'Denmark (English)'},
-//                 { name: 'Deutschland'},
-//                 { name: 'Finland (English)'},
-//                 { name: 'France'},
-//                 { name: 'Ireland'},
-//                 { name: 'Italia'},
-//                 { name: 'Luxembourg (English)'},
-//                 { name: 'Monaco (English)'},
-//                 { name: 'Nederland (English)'},
-//             ],
-//         },
-//         {
-//             type: 'ASIA',
-//             contents: [
-//                 { name: '台灣'},
-//                 { name: '中國大陸'},
-//                 { name: '日本'},
-//                 { name: '대한민국'},
-//                 { name: '香港特別行政區'},
-//                 { name: 'Singapore'},
-//                 { name: 'ประเทศไทย'},
-//                 { name: 'Việt Nam'},
-//             ],
-//         },
-//         {
-//             type: 'OCEANIA',
-//             contents: [
-//                 { name: 'Australia'},
-//                 { name: 'New Zealand'},
-//             ],
-//         },
-//         {
-//             type: 'MIDDLE EAST',
-//             contents: [
-//                 { name: 'UAE (English)'},
-//                 { name: 'Kuwait (English)'},
-//                 { name: 'KSA (English)'},
-//             ],
-//         },
-//     ],
-// });
-// const pickContents = computed(() => {
-//     return state.frameworks[state.frameworksIdx].contents;
-// });
-// watch(() => state.frameworksIdx, (value) =>{
-//     state.contentsIdx = 0;
-// });
-
-
-
-
+let regex_psw=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+function showinfo1(){
+    if(mempsw.value.oldpsw !=""){//輸入時
+        if(!regex_psw.test(mempsw.value.oldpsw)){
+            $('.info1').addClass("warning");
+            mempsw.value.info1="Incorrect password format"
+        }else if(regex_psw.test(mempsw.value.oldpsw)){
+            $('.info1').addClass("pass");
+            mempsw.value.info1="Good!";
+            return true;
+        }
+    }else{
+        mempsw.value.info="";
+        $('.info1').removeClass("warning");
+    }
+    return false;
+}
+function showinfo2(){
+    if(mempsw.value.newpsw !=""){//輸入時
+        if(!regex_psw.test(mempsw.value.newpsw)){
+            $('.info2').addClass("warning");
+            mempsw.value.info2="Incorrect password format"
+        }else if(regex_psw.test(mempsw.value.newpsw)){
+            $('.info2').addClass("pass");
+            mempsw.value.info2="Good!";
+            return true;
+        }
+    }else{
+        mempsw.value.info2="";
+        $('.info2').removeClass("warning");
+    }
+    return false;
+}
+function showinfo3(){
+    if(mempsw.value.newpsw2 !=""){//輸入時
+        if(!regex_psw.test(mempsw.value.newpsw2)){
+            $('.info3').addClass("warning");
+            mempsw.value.info3="Incorrect password format"
+        }else if(regex_psw.test(mempsw.value.newpsw2)){
+            $('.info3').addClass("pass");
+            mempsw.value.info3="Good!";
+            return true;
+        }
+    }else{
+        mempsw.value.info3="";
+        $('.info3').removeClass("warning");
+    }
+    return false;
+}
 
 </script>
 
@@ -187,21 +162,26 @@ function changePsw(){
                     <!-- {{memberinfo.mem_acc}} -->
                     
                     <label for="password">Change Password</label>
-                    <input type="button" name="password" id="changepsw" maxlength="20" value="Change Password" @click="lightBoxShow=true">
+                    <input type="button" name="password" id="changepsw" class="change_btn" value="Change Password" @click="lightBoxShow=true">
 
                     <div class="lightBox" v-if="lightBoxShow">
                         <div class="lightBoxContent">
                             <div class="close" @click="lightBoxClose"></div>
-                            <title>修改密碼</title>
+                            <title>Change Password</title>
                             <div>
-                                <label for="">舊密碼</label>
-                                <input type="text">
-                                <label for="">新密碼</label>
-                                <input type="text">
-                                <label for="">確認密碼</label>
-                                <input type="text">
-                                <router-link to="/profile"><button id="nochange">取消</button></router-link>
-                                <router-link to="/member"><button id="comchange" @click="changePsw">確認</button></router-link>
+                                <label for="">Password</label>
+                                <input type="password" class="input-s" v-model="mempsw.oldpsw" @input="showinfo1">
+                                <span class="info1">{{ mempsw.info1 }}</span>
+                                
+                                <label for="">New password</label>
+                                <input type="password" class="input-s" v-model="mempsw.newpsw" @input="showinfo2">
+                                <span class="info2">{{ mempsw.info2 }}</span>
+                                
+                                <label for="">Enter new password again</label>
+                                <input type="password" class="input-s" v-model="mempsw.newpsw2" @input="showinfo3">
+                                <span class="info3">{{ mempsw.info3 }}</span>
+
+                                <router-link to="/profile"><button id="comchange" class="change_btn2" @click="changePsw">確認</button></router-link>
 
                             </div>
                         </div>
@@ -251,8 +231,8 @@ function changePsw(){
                             </option>
                         </select>
                     </div> -->
-                    <input type="text" class="input-s" name="" id="" maxlength="15" v-model="memberinfo.city" placeholder="City">
-                    <input type="text" class="input-s" name="" id="" maxlength="100" v-model="memberinfo.address" placeholder="Address">
+                    <input type="text" class="input-s" maxlength="15" v-model="memberinfo.city" placeholder="City">
+                    <input type="text" class="input-s" maxlength="100" v-model="memberinfo.address" placeholder="Address">
                     <span class=""></span>
                     <!-- {{ memberinfo.city }} -->
                     <!-- {{ memberinfo.address }} -->
@@ -279,12 +259,34 @@ $btn-color:#007FFB;
 $bg-color:rgb(54, 54, 54);
 .lightBox{
 	@include lightBox();
+    background: rgba(0, 0, 0, 0.8);
 	.lightBoxContent{
-		height: 300px;
+		height: fit-content;
+        padding: 40px;
+        width: fit-content;
+        title{
+            display: block;
+            font-size: 40px;
+            padding: 20px;
+            border-bottom: 3px solid rgb(125, 125, 125);
+        }
 	}
 }
 label{
     color: $text-color;
+}
+
+.warning{
+    display: block;
+    color: rgb(255, 25, 25);
+    font-size: 16px;
+    margin: 10px 0;
+}
+.pass{
+    display: block;
+    color: #49ff49;
+    font-size: 16px;
+    margin: 10px 0;
 }
 
 
@@ -296,6 +298,24 @@ section{
 }
 input{
     display: block;
+}
+.change_btn{
+    height: 48px;
+    border-radius: 10px;
+    font-size: 16px;
+    color: $text-color;
+    background-color: $btn-color;
+    padding: 0 20px;
+    margin: 10px 0;
+}
+.change_btn2{
+    width: 100%;
+    height: 48px;
+    border-radius: 10px;
+    font-size: 16px;
+    color: $text-color;
+    background-color: $btn-color;
+    margin: 50px 0 0;
 }
 
 .input-s{
@@ -317,6 +337,7 @@ input{
     display: flex;
     justify-content: start;
     gap: 10px;
+    color: #fff;
     
     .maincontent{
         width: 100%;
@@ -364,8 +385,8 @@ input{
                     }
                 }
                 span{
-                    font-size: 12px;
-                    color: $text-color;
+                    // font-size: 12px;
+                    // color: $text-color;
                 }
                 .username{
                     display: flex;

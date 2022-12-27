@@ -378,6 +378,7 @@ span {
           label {
             display: block;
             margin-top: 24px;
+            color: #fff;
           }
           .forget_password {
             font-style: italic;

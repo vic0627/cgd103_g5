@@ -24,6 +24,7 @@ try{
 
     //登入成功,將登入者的欄位資料寫入session
     // session_start();
+    $_SESSION["Number"] = $memRow["mem_no"];
     $_SESSION["Account"] = $memRow["mem_acc"];
     $_SESSION["Password"] = $memRow["mem_pw"];
     $_SESSION["FirstName"] = $memRow["mem_first_name"];
@@ -32,7 +33,7 @@ try{
 
 
 
-    $result = ["Account"=>$_SESSION["Account"],"Password"=>$_SESSION["Password"],"FirstName"=>$_SESSION["FirstName"],"email"=>$_SESSION["email"]];//打包session
+    $result = ["Number"=>$_SESSION["Number"],"Account"=>$_SESSION["Account"],"Password"=>$_SESSION["Password"],"FirstName"=>$_SESSION["FirstName"],"email"=>$_SESSION["email"]];//打包session
     echo json_encode($result);//送出session內的資料
     
   }

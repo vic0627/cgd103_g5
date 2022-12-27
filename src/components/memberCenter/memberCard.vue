@@ -98,7 +98,7 @@ onMounted(() =>{
     // width: 50%;
     // background: #888;
     border-radius: 10px;
-    padding: 30px;
+    padding: 20px;
     position: relative;
     display: flex;
     flex-direction: row;

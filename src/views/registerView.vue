@@ -394,6 +394,7 @@ header{
                         label{
                             display: block;
                             margin-top: 24px;
+                            color: #fff;
                         }
                         .login_info{
                             display: flex;
