@@ -66,22 +66,21 @@ const createColumns = ({ selectId, showmodal }) => {
         );
       },
     },
-    // {
-    //   title: "刪除",
-    //   key: "actions",
-    //   render(row, index) {
-    //     return h(
-    //       NButton,
-    //       {
-    //         size: "medium",
-    //         color: "#077AF9",
-    //         // onClick: () => selectId(),
-    //         onClick: () => showmodal(row, index),
-    //       },
-    //       { default: () => "刪除" }
-    //     );
-    //   },
-    // },
+    {
+      title: "刪除",
+      key: "actions",
+      render(row, index) {
+        return h(
+          NButton,
+          {
+            size: "medium",
+            color: "#077AF9",
+            onClick: () => showmodal(row, index),
+          },
+          { default: () => "刪除" }
+        );
+      },
+    },
   ];
 };
 //解析內容跟事件
@@ -139,17 +138,19 @@ const updateNews = (user) => {
     news_time: newnews_time.value,
     news_photo: newnews_photo.value,
     news_tag: newnews_tag.value,
-  }
+  };
   fetch("http://localhost/cgd103_g5/public/g5PHP/updateNews.php", {
     method: "POST",
     body: new URLSearchParams(newnews),
-  }).then((res) => {
-    console.log(res);
-    res.json();
-  }).then(res => {
-    showModal.value = false;
-    getNews();
   })
+    .then((res) => {
+      console.log(res);
+      res.json();
+    })
+    .then((res) => {
+      showModal.value = false;
+      getNews();
+    });
 };
 
 // 搜尋
@@ -187,19 +188,19 @@ const testVal = (e) => {
 };
 
 // 刪除資料
-// const deleteRace = () => {
-//   const delRace = {
-//     cpt_no: Number(newcpt_no.value),
-//   };
-//   fetch("http://localhost/cgd103_g5/public/g5PHP/deleteRace.php", {
-//     method: "POST",
-//     body: new URLSearchParams(delRace),
-//   }).then((res) => {
-//     res.json();
-//   });
-//   showModal2.value = false;
-//   getProducts();
-// };
+const deleteNews = (user) => {
+  const delNews = {
+    news_no: Number(newnews_no.value),
+  };
+  fetch("http://localhost/cgd103_g5/public/g5PHP/deleteNews.php", {
+    method: "POST",
+    body: new URLSearchParams(delNews),
+  }).then((res) => {
+    res.json();
+  });
+  showModal2.value = false;
+  getNews();
+};
 </script>
 
 <template>
@@ -408,5 +409,4 @@ h2 {
   display: table-cell;
   vertical-align: middle;
 }
-
 </style>
