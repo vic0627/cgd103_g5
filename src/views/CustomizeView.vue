@@ -63,7 +63,7 @@ const motorModels = ref({}),
   controllerModels = ref({});
 const fetchCustom = () => {
     // fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
-    fetch("http://localhost/CGD103-G5/public/g5PHP/postCust.php", {
+    fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
         method: "POST",
         body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.customize" }),
     })
@@ -565,8 +565,9 @@ const addCart = () => {
 const reCart = () => {
     sessionStorage.clear();
     setSession();
-    router.push({path: '/cart'});
+    set("intro", "read");
     lightBoxClose();
+    router.push({path: '/cart'});
 };
 const setSession = () => {
     let prd_body, prd_propellor;
@@ -626,15 +627,19 @@ const setSession = () => {
             prd_propellor += 'white';
             break;
         }
-    set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color},111112${propellorChosen.value.type}${propellorChosen.value.color},1112111${motorChosen.value.type},1112112${kgmcChosen.value.type}`);
+    let bodyId = `111111${bodyChosen.value.type}${bodyChosen.value.color}`,
+        propellorId = `111112${propellorChosen.value.type}${propellorChosen.value.color}`,
+        motorId = `1112111${motorChosen.value.type}`,
+        controlId = `1112112${kgmcChosen.value.type}`;
+    set('cartList', `${bodyId},${propellorId},${motorId},${controlId}`);
 
-    set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}", "img": "${droneModels.value[`body0${bodyChosen.value.type}`].color[`${bodyChosen.value.color}`].png}"}`);
+    set(bodyId, `{"id":"${bodyId}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}", "img": "${droneModels.value[`body0${bodyChosen.value.type}`].color[`${bodyChosen.value.color}`].png}"}`);
 
-    set(`111112${propellorChosen.value.type}${propellorChosen.value.color}`, `{"id":"111112${propellorChosen.value.type}${propellorChosen.value.color}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}", "img": "${propellorModels.value[`propellor0${propellorChosen.value.type}`].color[`${propellorChosen.value.color}`].png}"}`);
+    set(propellorId, `{"id":"${propellorId}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}", "img": "${propellorModels.value[`propellor0${propellorChosen.value.type}`].color[`${propellorChosen.value.color}`].png}"}`);
 
-    set(`1112111${motorChosen.value.type}`, `{"id":"1112111${motorChosen.value.type}", "name":"${motorModels.value[`motor0${motorChosen.value.type}`].name}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}"}`);
+    set(motorId, `{"id":"${motorId}", "name":"${motorModels.value[`motor0${motorChosen.value.type}`].name}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}", "img": ""}`);
 
-    set(`1112112${kgmcChosen.value.type}`, `{"id":"1112112${kgmcChosen.value.type}", "name":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].name}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}"}`);
+    set(controlId, `{"id":"${controlId}", "name":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].name}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}", "img": ""}`);
 };
 const alpha = ref(null);
 const selectionAlpha = (e) => {
@@ -722,7 +727,7 @@ const displayMode = () => {
             })
             CUS.camera.aspect = 400 / 400;
             CUS.renderer.setSize(400, 400);
-        }else if(ww>1199){
+        }else{
             $$('#customize3d').width = 500;
             gsap.to('#customize3d', {
                 width: 500,
@@ -990,9 +995,9 @@ const amount = (e) => {
                 <img v-if="lightBoxText.img.show" :src="introduction[lightBoxText.img.idt].img" alt="introduction">
             </div>
             <p v-if="lightBoxText.text.show">{{ lightBoxText.text.content }}</p>
-            <div class="confirm" data-title="OK" v-if="lightBoxText.confirm" @click="reCart">
+            <button class="confirm" data-title="OK" v-if="lightBoxText.confirm" @click="reCart">
                 <span>OK</span>
-            </div>
+            </button>
             <div class="next" data-title="Next" v-if="lightBoxText.img.idt !== 7 && lightBoxText.img.show" @click="introductionFlow">
                 <span>Next</span>
             </div>
@@ -1167,6 +1172,9 @@ input[type="range"]{
     .confirm {
       @include primaryBtn(60px);
       margin: 20px 0 0 auto;
+      -webkit-appearance: none;
+      border: none;
+      box-sizing: content-box
     }
     .next {
       @include secondBtn(60px);
