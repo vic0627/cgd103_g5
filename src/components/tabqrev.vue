@@ -15,7 +15,8 @@ const createColumns = ({selectId,showModal2})=>{
     return [
   {
     title: "編號",
-    key: "faq_no"
+    key: "faq_no",
+    sorter: (row1, row2) => row2.faq_no - row1.faq_no,
   },
   {
     title: "問題",
@@ -63,13 +64,13 @@ const createColumns = ({selectId,showModal2})=>{
 const column = createColumns({
   selectId(rowData,index) {
     showModal.value = true;
-    newFaq_des.value = faqRows.value[index].faq_des;
-    newFaq_no.value = faqRows.value[index].faq_no;
-    newFaq_ans.value = faqRows.value[index].faq_ans;
+    newFaq_des.value = rowData.faq_des;
+    newFaq_no.value = rowData.faq_no;
+    newFaq_ans.value = rowData.faq_ans;
   },
   showModal2(rowData,index){
     showModal2.value = true
-    newFaq_no.value = faqRows.value[index].faq_no;
+    newFaq_no.value = rowData.faq_no;
   }
 })
 

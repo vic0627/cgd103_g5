@@ -144,7 +144,9 @@ const testVal = (e) => {
 @import '@/sass/style.scss';
 .top {
   width: 85%;
+  height: 100%;
   display: block;
+  overflow-y: auto;
 }
 .table {
   width: 85%;

@@ -529,6 +529,7 @@ body{
 
 .logo{
   width: 100%;
+  margin: 80px auto;
   padding: 20px 0;
   background-color: rgba(255, 255, 255, 0.033);
   .logo_box{
@@ -748,10 +749,11 @@ body{
 @include l($l-breakpoint){
   .store_rofile{
     width: 100%;
+    margin: 80px auto;
     .store_container{
       height: 500px;
       width: 1200px;
-      margin: auto;
+      margin: 30px auto;
       display: flex;
       .box{
         position: relative;

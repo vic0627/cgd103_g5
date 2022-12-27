@@ -80,36 +80,6 @@ export const introduction = ref({
     text: `In each step, if you're not satisfy of your previous selection, try clicking the "Undo" button. While finishing the cutomizing, click the "buy" button to add your drone to the shopping cart.`,
   },
 });
-import png11 from '../../assets/images/shop/body_01_black_3.png';
-import png12 from '../../assets/images/shop/body_01_blue_3.png';
-import png13 from '../../assets/images/shop/body_01_green_3.png';
-import png14 from '../../assets/images/shop/body_01_red_3.png';
-import png15 from '../../assets/images/shop/body_01_white_3.png';
-import png21 from '../../assets/images/shop/body_02_black_1.png';
-import png22 from '../../assets/images/shop/body_02_blue_1.png';
-import png23 from '../../assets/images/shop/body_02_green_1.png';
-import png24 from '../../assets/images/shop/body_02_red_1.png';
-import png25 from '../../assets/images/shop/body_02_white_1.png';
-import png31 from '../../assets/images/shop/body_03_black_1.png';
-import png32 from '../../assets/images/shop/body_03_blue_1.png';
-import png33 from '../../assets/images/shop/body_02_green_1.png';
-import png34 from '../../assets/images/shop/body_03_red_1.png';
-import png35 from '../../assets/images/shop/body_03_white_1.png';
-import png41 from '../../assets/images/shop/propellor_01_black_1.png';
-import png42 from '../../assets/images/shop/propellor_01_blue_1.png';
-import png43 from '../../assets/images/shop/propellor_01_green_1.png';
-import png44 from '../../assets/images/shop/propellor_01_red_1.png';
-import png45 from '../../assets/images/shop/propellor_01_white_1.png';
-import png51 from '../../assets/images/shop/propellor_02_black_1.png';
-import png52 from '../../assets/images/shop/propellor_02_blue_1.png';
-import png53 from '../../assets/images/shop/propellor_02_green_1.png';
-import png54 from '../../assets/images/shop/propellor_02_red_1.png';
-import png55 from '../../assets/images/shop/propellor_02_white_1.png';
-import png61 from '../../assets/images/shop/propellor_03_black_1.png';
-import png62 from '../../assets/images/shop/propellor_03_blue_1.png';
-import png63 from '../../assets/images/shop/propellor_03_green_1.png';
-import png64 from '../../assets/images/shop/propellor_03_red_1.png';
-import png65 from '../../assets/images/shop/propellor_02_white_1.png';
 export const droneModels = ref({
   body01: {
     id: 1,
@@ -120,27 +90,27 @@ export const droneModels = ref({
       1: {
         id: 1,
         src: body01black,
-        png: png11
+        png: "body_01_black_3.png"
       },
       2: {
         id: 2,
         src: body01blue,
-        png: png12
+        png: "body_01_blue_3.png"
       },
       3: {
         id: 3,
         src: body01green,
-        png: png13
+        png: "body_01_green_3.png"
       },
       4: {
         id: 4,
         src: body01red,
-        png: png14
+        png: "body_01_red_3.png"
       },
       5: {
         id: 5,
         src: body01white,
-        png: png15
+        png: "body_01_white_3.png"
       },
     },
   },
@@ -153,27 +123,27 @@ export const droneModels = ref({
       1: {
         id: 1,
         src: body02black,
-        png: png21
+        png: "body_02_black_1.png"
       },
       2: {
         id: 2,
         src: body02blue,
-        png: png22
+        png: "body_02_blue_1.png"
       },
       3: {
         id: 3,
         src: body02green,
-        png: png23
+        png: "body_02_green_1.png"
       },
       4: {
         id: 4,
         src: body02red,
-        png: png24
+        png: "body_02_red_1.png"
       },
       5: {
         id: 5,
         src: body02white,
-        png: png25
+        png: "body_02_white_1.png"
       },
     },
   },
@@ -186,27 +156,27 @@ export const droneModels = ref({
       1: {
         id: 1,
         src: body03black,
-        png: png31
+        png: "body_03_black_1.png"
       },
       2: {
         id: 2,
         src: body03blue,
-        png: png32
+        png: "body_03_blue_1.png"
       },
       3: {
         id: 3,
         src: body03green,
-        png: png33
+        png: "body_02_green_1.png"
       },
       4: {
         id: 4,
         src: body03red,
-        png: png34
+        png: "body_03_red_1.png"
       },
       5: {
         id: 5,
         src: body03white,
-        png: png35
+        png: "body_03_white_1.png"
       },
     },
   },
@@ -221,27 +191,27 @@ export const propellorModels = ref({
       1: {
         id: 1,
         src: propellor01black,
-        png: png41
+        png: "propellor_01_black_1.png"
       },
       2: {
         id: 2,
         src: propellor01blue,
-        png: png42
+        png: "propellor_01_blue_1.png"
       },
       3: {
         id: 3,
         src: propellor01green,
-        png: png43
+        png: "propellor_01_green_1.png"
       },
       4: {
         id: 4,
         src: propellor01red,
-        png: png44
+        png: "propellor_01_red_1.png"
       },
       5: {
         id: 5,
         src: propellor01white,
-        png: png45
+        png: "propellor_01_white_1.png"
       },
     },
   },
@@ -254,27 +224,27 @@ export const propellorModels = ref({
       1: {
         id: 1,
         src: propellor02black,
-        png: png51
+        png: "propellor_02_black_1.png"
       },
       2: {
         id: 2,
         src: propellor02blue,
-        png: png52
+        png: "propellor_02_blue_1.png"
       },
       3: {
         id: 3,
         src: propellor02green,
-        png: png53
+        png: "propellor_02_green_1.png"
       },
       4: {
         id: 4,
         src: propellor02red,
-        png: png54
+        png: "propellor_02_red_1.png"
       },
       5: {
         id: 5,
         src: propellor02white,
-        png: png55
+        png: "propellor_02_white_1.png"
       },
     },
   },
@@ -287,27 +257,27 @@ export const propellorModels = ref({
       1: {
         id: 1,
         src: propellor03black,
-        png: png61
+        png: "propellor_03_black_1.png"
       },
       2: {
         id: 2,
         src: propellor03blue,
-        png: png62
+        png: "propellor_03_blue_1.png"
       },
       3: {
         id: 3,
         src: propellor03green,
-        png: png63
+        png: "propellor_03_green_1.png"
       },
       4: {
         id: 4,
         src: propellor03red,
-        png: png64
+        png: "propellor_03_red_1.png"
       },
       5: {
         id: 5,
         src: propellor03white,
-        png: png65
+        png: "propellor_02_white_1.png"
       },
     },
   },

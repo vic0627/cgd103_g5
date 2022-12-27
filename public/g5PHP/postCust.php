@@ -3,7 +3,7 @@ header('Access-Control-Allow-Origin:*');
 header("Content-Type:application/json;charset=utf-8");
 try {
 	// require_once("./connect_cgd103g5_vic.php");
-	require_once("./connect_cgd103g5_felix.php");
+	require_once("./connect_cgd103g5_vic.php");
 	$sql = $_POST["sql"];
 	$cus = $pdo->prepare($sql);
 	$cus->execute();
