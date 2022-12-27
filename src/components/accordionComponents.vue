@@ -68,7 +68,7 @@ const showModal2 = ref(false);
 .faq_field_wrapper{
     width: 90%;
     max-width: 900px;
-    margin: 10px auto;
+    margin: 30px auto;
     .faq_field{
         width: 100%;
         // height: 52px;

@@ -38,39 +38,40 @@ export default{
     });
   }
 }
+
 </script>
 
 <script setup>
 import { ref, reactive} from 'vue';
 import axios from 'axios';
 
-const admins = ref("");
-const admin_name = ref('');
-const adminRows = ref([]);
-	const getAdmin = () => {
-	//取得管理員資料
-    axios.get("http://localhost/g5/public/g5PHP/getLogin.php")
-    .then(res=> {
-    // console.log(res.data)
-    adminRows.value = res.data;
-    // 董董教法
-    let admins = res.data;
-    console.log(admins[0])
-    let index = -1;
-    let adminObj = "";
-    adminObj = admins.find(function(admins,i){
-    index = i;
-    return admins.name == admin_name
-    })
-    // console.log(adminObj);
-    })
-}
-// const 
-onMounted(()=>{
-    getAdmin();
+const admins = ref({
+  admin_acc:"",
+  admin_pw:"",
+  admin_name:"",
 });
 
-// console.log(admins);
+onMounted(()=> {
+    
+    getMemLevel();
+    
+    function getMemLevel(){
+        fetch('/dist/g5PHP/getadmininfo.php',{
+                method: "get",
+            })
+            .then((res) => res.json())//php echo的內容
+            .then(mem =>{
+                // console.log("mem:"+mem);
+                admins.value.admin_acc = mem.admin_acc;
+                admins.value.admin_pw = mem.admin_pw;
+                admins.value.admin_name = mem.admin_name;
+                
+            })
+            .catch(error =>console.log(error));
+
+    }
+});
+
 
 
 </script>
@@ -79,7 +80,7 @@ onMounted(()=>{
 <template>
 <div class="tops">
   <h2 class="accinfo">
-    <span id="admin_name" class="admin_name">歡迎{{admins}}</span>   <!-- 使用者姓名 -->
+    <span id="admin_name" class="admin_name">歡迎回來! &nbsp; {{admins.admin_name}}</span>  <!-- 管理員姓名 -->
     <outComponents />
   </h2>
   <div class="box">
