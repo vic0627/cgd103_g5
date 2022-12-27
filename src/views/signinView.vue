@@ -243,7 +243,7 @@ const sendEmail = () => {
               <div class="lightBox" v-if="lightBoxShow">
                 <div class="lightBoxContent">
                   <h2>Forget Password ?</h2>
-                  <form @submit="sendEmail">
+                  <form @submit="sendEmail" class="pwForm">
                     <div>
                       <p>Your email</p>
                       <input
@@ -255,13 +255,15 @@ const sendEmail = () => {
                         required
                       />
                     </div>
-                    <button
+                    <div
                       class="btn_login"
                       type="submit"
+                      id="btn1"
                       @click.prevent="sendEmail"
+                      data-title="Submit"
                     >
-                      驗證信箱
-                    </button>
+                      <span>Submit</span>
+                    </div>
                   </form>
                   <!-- v-if="removeItem" -->
                   <div class="close" @click="lightBoxClose"></div>
@@ -314,6 +316,8 @@ const sendEmail = () => {
 <style scoped lang="scss">
 @import "@/sass/style.scss";
 @import "@/sass/component/_lightBox.scss";
+@import "@/sass/component/_btn.scss";
+
 $text-color: #fff;
 $link-color: #0080ff;
 $btn-color: #007ffb;
@@ -538,6 +542,8 @@ span {
   @include lightBox();
   margin: auto;
   z-index: 15;
+  margin-top: 50px;
+
   .lightBoxContent {
     padding: 10px;
     height: 300px;
@@ -545,20 +551,37 @@ span {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    h2 {
+      margin: 40px 0 20px;
+    }
     p {
       text-align: center;
       line-height: 50px;
     }
-    .buttons {
+    .pwForm {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      p {
+        font-weight: 800;
+      }
+      input {
+        padding: 10px;
+        margin-bottom: 5px;
+      }
       text-align: center;
-      button {
+      #btn1 {
         font: $caption-p;
-        width: 100px;
-        height: 40px;
-        margin: 20px;
-        border-radius: 10px;
-        padding: 0 5px;
-        border: none;
+        cursor: pointer;
+      }
+      @include l($l-breakpoint) {
+        flex-direction: column;
+        input {
+          width: 300px;
+        }
+        #btn1 {
+          margin-left: 80px;
+        }
       }
     }
   }

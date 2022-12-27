@@ -18,28 +18,25 @@ const getNews = () => {
 };
 onMounted(() => {
   getNews(newsRows.value);
-  
 });
-onUpdated(() => {
-  
-})
+onUpdated(() => {});
 bodyInit();
 const compuNews = computed(() => {
   let cache = newsRows.value;
-  switch(filter.value){
+  switch (filter.value) {
     case 0:
       break;
     case 1:
-      cache = cache.filter(e => e.news_tag.includes("Travel"));
+      cache = cache.filter((e) => e.news_tag.includes("Travel"));
       break;
     case 2:
-      cache = cache.filter(e => e.news_tag.includes("FPV"));
+      cache = cache.filter((e) => e.news_tag.includes("FPV"));
       break;
     case 3:
-      cache = cache.filter(e => e.news_tag.includes("Photoshot"));
+      cache = cache.filter((e) => e.news_tag.includes("Photoshot"));
       break;
     case 4:
-      cache = cache.filter(e => e.news_tag.includes("Customed"));
+      cache = cache.filter((e) => e.news_tag.includes("Customed"));
       break;
   }
   return cache;
@@ -65,10 +62,17 @@ const changeView = (index) => {
     <div class="output_content_box cards">
       <div class="content">
         <div class="contentBox">
-          <div name="tad" mode="out-in" v-for="newsRow in compuNews" :key="newsRow">
+          <div
+            name="tad"
+            mode="out-in"
+            v-for="newsRow in compuNews"
+            :key="newsRow"
+          >
             <div class="card">
               <router-link class="anchor" to="/articleView"
-                ><img :src="`http://localhost/cgd103_g5/src/assets/images/news/${newsRow.news_photo}`" :alt="newsRows.news_no"
+                ><img
+                  :src="`/dist/assets/${newsRow.news_photo}`"
+                  :alt="newsRows.news_no"
               /></router-link>
               <div class="item_box">
                 <div class="item">{{ newsRow.news_tag }}</div>
@@ -233,7 +237,7 @@ const changeView = (index) => {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
-      }
+    }
     .card {
       position: relative;
       width: 170px;

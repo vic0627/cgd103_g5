@@ -547,18 +547,6 @@ const toCart = () => {
         }
       }
     }
-
-    @include l($l-breakpoint) {
-      margin-top: 60px;
-      img {
-      }
-      .button {
-      }
-      #left {
-      }
-      #right {
-      }
-    }
   }
 
   //商品敘述
@@ -604,8 +592,6 @@ const toCart = () => {
 
       h2 {
         margin: 0px;
-      }
-      p {
       }
       ul {
         li {
