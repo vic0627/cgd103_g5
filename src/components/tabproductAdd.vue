@@ -144,10 +144,8 @@ h2 {
 }
 
 .proAdd {
-  width: 100%;
+  // width: 100%;
   margin: 50px;
-
-  overflow: scroll;
   .proCol {
     h3 {
       font-size: 30px;
