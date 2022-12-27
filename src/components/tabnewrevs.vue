@@ -74,7 +74,7 @@ const createColumns = ({ selectId, showmodal }) => {
           NButton,
           {
             size: "medium",
-            color: "#077AF9",
+            color: "#FF4E4E",
             onClick: () => showmodal(row, index),
           },
           { default: () => "刪除" }
@@ -329,6 +329,7 @@ const deleteNews = (user) => {
     </div>
   </div>
 </template>
+
 <style scoped lang="scss">
 @import "@/sass/style.scss";
 

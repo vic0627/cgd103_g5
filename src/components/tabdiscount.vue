@@ -70,22 +70,22 @@ const createColumns = ({ selectId, showmodal }) => {
         );
       },
     },
-    // {
-    //   title: "刪除",
-    //   key: "actions",
-    //   render(row, index) {
-    //     return h(
-    //       NButton,
-    //       {
-    //         size: "medium",
-    //         color: "#D03050",
-    //         // onClick: () => selectId(row,index),
-    //         onClick: () => showmodal(row, index),
-    //       },
-    //       { default: () => "刪除" }
-    //     );
-    //   },
-    // },
+    {
+      title: "刪除",
+      key: "actions",
+      render(row, index) {
+        return h(
+          NButton,
+          {
+            size: "medium",
+            color: "#FF4E4E",
+            // onClick: () => selectId(row,index),
+            onClick: () => showmodal(row, index),
+          },
+          { default: () => "刪除" }
+        );
+      },
+    },
   ];
 };
 //解析內容跟事件
@@ -340,6 +340,7 @@ const deleteDisc = (user) => {
     </div>
   </div>
 </template>
+
 <style scoped lang="scss">
 @import "@/sass/style.scss";
 
