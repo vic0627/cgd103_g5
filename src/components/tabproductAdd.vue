@@ -127,12 +127,10 @@ function fileChange() {
 @import "@/sass/style.scss";
 
 .top {
-  width: 100%;
+  width: 85%;
+  height: 100%;
   display: block;
-  overflow: scroll;
-}
-div {
-  margin: 10px;
+  overflow-y: auto;
 }
 h2 {
   font-size: 40px;
@@ -149,8 +147,6 @@ h2 {
   width: 100%;
   height: 100vh;
   margin: 50px;
-
-  overflow: scroll;
   .proCol {
     h3 {
       font-size: 30px;
