@@ -19,16 +19,30 @@ const addCard = ()=>{
     const payload = {
         credit_no : credit_no.value
     };
-    fetch("http://localhost/cgd103_g5_v2/public/g5PHP/updateCreditCard.php"),{
+    fetch("http://localhost/cgd103_g5_v2/public/g5PHP/updateCreditCard.php",{
         method: "POST",
         body: new URLSearchParams(payload),
-    }
-    .then((res) => {
-        res.text();
-    });
+    }).then((res) => {res.text()});
 };
 onMounted(()=> {
     addCard();
+})
+//信用卡驗證
+
+$(document).ready(()=>{
+    $('#credit').on('input',()=>{
+        $('.remindTxt span').css('color','red');
+        $('#credit').text()
+        let noLength = document.getElementById('credit').value;
+        if(noLength.length>=16){
+            $('.remindTxt').text("Success! please click add button to renew your credit card number").css('color','green');
+        }
+        // console.log(noLength.length);
+        // console.log(typeof(noLength));
+    })
+    $('#credit').blur(()=>{
+        $('.remindTxt span').css('color','white');
+    })
 })
 </script>
 
@@ -53,7 +67,8 @@ onMounted(()=> {
                         </div>
                         <div class="cardInfo">
                             <label for="card_no">Card Number</label>
-                            <input type="text" id="credit" v-model="credit_no" maxlength="16" placeholder="please type in 16 number">
+                            <input type="number" id="credit" v-model="credit_no" oninput="if(value.length>16) value=value.slice(0,16)">
+                            <p class="remindTxt">please type in <span>16</span> number</p>
                             <div class="buttons">
                                 <button class="btn" @click="addCard">Add </button>
                                 <button class="btn2" @click="clear">reset</button>

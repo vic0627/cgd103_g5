@@ -129,9 +129,9 @@ function fileChange() {
 .top {
   width: 85%;
   height: 100%;
-  display: block;
   overflow-y: auto;
 }
+
 h2 {
   font-size: 40px;
   color: #fff;
@@ -145,18 +145,21 @@ h2 {
 
 .proAdd {
   width: 100%;
-  height: 100vh;
   margin: 50px;
+
+  overflow: scroll;
   .proCol {
     h3 {
       font-size: 30px;
       color: rgb(26, 26, 26);
     }
+    label{
+      font: $caption-p;
+    }
     input {
       width: 50%;
       height: 40px;
       margin-top: 10px;
-      margin-left: 50px;
       border: 1px solid rgb(124, 124, 124);
       border-radius: 5px;
       padding-left: 10px;
