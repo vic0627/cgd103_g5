@@ -88,13 +88,16 @@ const discConfirm = () => {
         console.log(discRows.value[i].disc_code)
         if(discount.value === discRows.value[i].disc_code){
             discPercent.value = discRows.value[i].disc_off;
-            discount.value = '';
             sessionStorage.setItem('discount',discPercent.value)
+            sessionStorage.setItem('disc_no',discRows.value[i].disc_no)
+            discount.value = '';
             alert('恭喜折價');
             break;         
         }else{
             alert('無此優惠編號')
             sessionStorage.setItem('discount',discPercent.value)
+            sessionStorage.setItem('disc_no', discount.value)
+            discount.value = '';
             break;                    
         }
     } 
@@ -123,30 +126,6 @@ const getcartItem = (substrs)=>{
       explode.value += ',' + sessionStorage.getItem(substrs[i]);
     }
   }
-}
-const mem_no = ref(1)
-const mem_grade = ref(2)
-const orders_location = ref('32 Sumter Drive, Wylie,tx, 75098')
-const credit_no = ref(3544777739071678)
-const disc_no = ref(1)
-const submitOrder = ()=>{
-    const payload = {
-        mem_no: Number(mem_no.value),
-        mem_grade: Number(mem_grade.value),
-        orders_price: Number(sums.value),
-        discount_price: Number(discPercent.value),
-        total_price: Number(finalprice.value),
-        orders_location: orders_location.value,
-        credit_no: Number(credit_no.value),
-        disc_no: Number(disc_no.value),
-    };
-    fetch("http://localhost/CGD103-G5/public/g5PHP/sessionNmitem.php", {
-        method: "POST",
-        body: new URLSearchParams(payload),
-    }).then(res=>{
-        res.text();
-        // console.log(res);
-    })
 }
 </script>
 <template>
@@ -219,16 +198,6 @@ const submitOrder = ()=>{
                 </div>
             </div>
         </div>
-        <form action="post">
-            <input type="hidden" v-model="mem_no" name="mem_no">
-            <input type="hidden" v-model="mem_grade" name="mem_grade">
-            <input type="hidden" v-model="sums" name="orders_price">
-            <input type="hidden" v-model="discPercent" name="discount_price">
-            <input type="hidden" v-model="finalprice" name="total_price">
-            <input type="hidden" v-model="orders_location" name="orders_location">
-            <input type="hidden" v-model="credit_no" name="credit_no">
-            <input type="hidden" v-model="disc_no" name="disc_no">            
-        </form>
     </section>
     <section>
     </section> 

@@ -9,8 +9,6 @@ import { bodyInit } from "../composables/useOnunmounted";
 
 bodyInit();
 
-
-
 //宣告存取itemid的位置
 const cartList = ref([]);
 const prodInfo = ref([]);
@@ -26,11 +24,14 @@ const addProd = (id, row) => {
     cacheId.value = id;
     let nid;
     if(row===accessories.value){
-      nid = id - (products.value.length*2);
+      nid = id - products.value.length - 1;
+      console.log("accessories's nid",nid)
     }else if(row===bundle_A.value ){
-      nid = id - (accessories.value.length*4) + 1;
+      nid = id - (products.value.length*2) - 1;
+      console.log("bundle_A's nid",nid)
     }else if(row===bundle_B.value){
-      nid = id - (accessories.value.length*4) -2;
+      nid = id - (accessories.value.length*2) - 5;
+      console.log("bundle_B's nid",nid)
     } else{
       nid = id - 1;
     }
@@ -80,10 +81,8 @@ const moreProd = (id, row)=> {
     sessionStorage['prodInfo']='';
   }
   
-      set(id,`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
+      set("prodInfo",`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
 
-      let getInfo = JSON.parse(sessionStorage.getItem(id));
-      sessionStorage['prodInfo'] =`{"title":"${getInfo.title}","price":${getInfo.price},"images":"${getInfo.images}"},`;
       //  跳轉頁面到產品資訊
       router.push('/shopInfo');
 }
@@ -114,8 +113,8 @@ const assRows = ref([]);
 const products = ref([]), accessories = ref([]) ,bundle_A = ref([]),bundle_B = ref([]);
 
 const getShopInfo = () =>{
-  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
-  // fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
+  // fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+  fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
   // fetch("/dist/g5PHP/getShop.php")
     .then(res => res.json())
     .then(json => {

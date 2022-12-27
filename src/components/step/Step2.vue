@@ -7,9 +7,12 @@ bodyInit();
 
 const props = defineProps(['prevStep','nextStep','step']);
 const memberInfo = ref({
+    mem_no: "",
     mem_grade : "",
     mem_first_name : "",
     mem_last_name : "",
+    phone : "",
+    mem_gender : "",
     mem_email : "",
     city : "",
     address : "",
@@ -22,6 +25,7 @@ function getMemberInfo (){
     .then((res)=>res.json())
     .then(mem => {
             console.log(mem);
+            memberInfo.value.mem_no = mem.mem_no;
             memberInfo.value.mem_grade = mem.mem_grade;
             memberInfo.value.mem_first_name = mem.mem_first_name;
             memberInfo.value.mem_last_name = mem.mem_last_name;
@@ -30,14 +34,50 @@ function getMemberInfo (){
             memberInfo.value.city = mem.city;
             memberInfo.value.address = mem.address;
             memberInfo.value.credit_no = mem.credit_no;
-
     })
     .catch(error =>console.log(error));
     }
+const sums = ref('');
+const final = ref('');
+const discount_price = ref('');
+const disc_no = ref('');
+// const getPrice = ()=>{
+//     sums.value = sessionStorage.getItem('sums');
+//     final.value = sessionStorage.getItem('final');
+//     disc_no.value = sessionStorage.getItem('discount');
+//     console.log(sums.value)
+// }
 onMounted(()=>{
     getMemberInfo();
 })
-
+/////
+// const mem_no = ref(1)
+// const mem_grade = ref(2)
+// const orders_location = ref('32 Sumter Drive, Wylie,tx, 75098')
+// const credit_no = ref(3544777739071678)
+const submitOrder = ()=>{
+    sums.value = sessionStorage.getItem('sums');
+    final.value = sessionStorage.getItem('final');
+    discount_price.value = sessionStorage.getItem('discount');
+    disc_no.value = sessionStorage.getItem('disc_no');
+    const payload = {
+        mem_no: Number(memberInfo.value.mem_no),
+        mem_grade: Number(memberInfo.value.mem_grade),
+        orders_price: Number(sums.value),
+        discount_price: Number(discount_price.value),
+        total_price: Number(final.value),
+        orders_location: memberInfo.value.address,
+        credit_no: Number(memberInfo.value.credit_no),
+        disc_no: Number(disc_no.value),
+    };
+    fetch("/dist/g5PHP/sessionNmitem.php", {
+        method: "POST",
+        body: new URLSearchParams(payload),
+    }).then(res=>{
+        res.text();
+        // console.log(res);
+    })
+}
 </script>
 <template>   
     <section class="detail_box">
@@ -74,9 +114,19 @@ onMounted(()=>{
             </table>
             <div class="buttons">
                 <div class="btnSecond" data-title="Back" @click="props.prevStep()"><span>Back</span></div>
-                <div class="btnPrimary" data-title="Pay" @click="props.nextStep()"><span>Pay</span></div>
+                <div class="btnPrimary" data-title="Pay" @click="props.nextStep();submitOrder()"><span>Pay</span></div>
             </div>
-    </section>           
+    </section>     
+    <form action="post">
+        <input type="hidden" v-model="memberInfo.mem_no" name="mem_no">
+        <input type="hidden" v-model="memberInfo.mem_grade" name="mem_grade">
+        <input type="hidden" v-model="sums" name="orders_price">
+        <input type="hidden" v-model="discount_price" name="discount_price">
+        <input type="hidden" v-model="final" name="total_price">
+        <input type="hidden" v-model="memberInfo.orders_location" name="orders_location">
+        <input type="hidden" v-model="memberInfo.credit_no" name="credit_no">
+        <input type="hidden" v-model="disc_no" name="disc_no">            
+    </form>      
 </template>
 
 <style scoped lang="scss">
@@ -117,7 +167,7 @@ onMounted(()=>{
             background-color: rgba(217, 217, 217, 0.32);
             width: 100%;
             padding: 20px;
-            margin: 20px;
+            // margin: 20px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             border-bottom-left-radius: 10px;
@@ -144,7 +194,7 @@ onMounted(()=>{
                     border: 1px solid rgb(168, 168, 168);
                     text-align: left;
                     padding:20px ;
-                    color: rgb(228, 229, 225);
+                    color: rgb(194, 194, 194);
                     font-size: 20px;                   
                     &.title{
                         width: 200px;

@@ -1,5 +1,11 @@
 <script setup>
-import { onMounted, registerRuntimeCompiler, ref } from "vue";
+import {
+  onMounted,
+  registerRuntimeCompiler,
+  ref,
+  reactive,
+  computed,
+} from "vue";
 import { log } from "@/composables/useCommon.js";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
@@ -17,9 +23,7 @@ bodyInit();
 
 //bottomBar第二版
 onMounted(() => {
-  // fetchProducts();
-
-  // console.log(ProductsItem.value);
+  session();
 
   let lastPos = 0;
   const nav = document.getElementById("purchaseBar");
@@ -35,30 +39,6 @@ onMounted(() => {
     }
     lastPos = currentPos; //再記住現在位置，跟未來的位置做比較
   });
-});
-
-// 抓資料
-// const ProductsItem = ref([]);
-// const fetchProducts = () => {
-//   fetch("http://localhost/g5/public/g5PHP/getProducts.php")
-//     .then((res) => res.json())
-//     .then((json) => {
-//       ProductsItem.value = json;
-//     });
-// };
-
-const raceRows = ref([]);
-const getRace = () => {
-  //取得商品資料
-  axios
-    .get("http://localhost/cgd103_g5/public/g5PHP/getProducts.php")
-    .then((res) => {
-      console.log(res);
-      raceRows.value = res.data;
-    });
-};
-onMounted(() => {
-  getRace();
 });
 
 //商品大圖
@@ -84,6 +64,64 @@ const btnLeft = () => {
     count.value = 3;
   }
 };
+//抓session資料
+const prodin = ref([]);
+const title = reactive([{ name: "id" }, { name: "price" }, { name: "images" }]);
+// const prodInfo = computed(() => prodin);
+const strings = ref([]);
+const session = () => {
+  strings.value = sessionStorage["prodInfo"];
+  prodin.value = JSON.parse(strings.value);
+  console.log(prodin.value);
+  console.log(prodin.value.price);
+};
+
+//addCart
+const set = (key, val) => {
+  sessionStorage.setItem(key, val);
+};
+
+const cartList = ref([]);
+const cacheId = ref("");
+const addCart = (id, row) => {
+  cacheId.value = id;
+  if (sessionStorage["cartList"] == null) {
+    //判斷購物車無物品，須新增商品
+    sessionStorage["cartList"] = "";
+    set(
+      `${row.id}`,
+      `{"id":"${row.id}","name":"${row.title}","amount":1,"price":${row.Original_Price},"images":"${row.src}"}`
+    );
+    console.log(`${row.id}`);
+    let get = JSON.parse(sessionStorage.getItem(id));
+
+    sessionStorage["cartList"] += `${get.id},`;
+    router.push("/cart");
+  } else {
+    //購物車有東西
+    if (sessionStorage["cartList"].includes("111")) {
+      //有客製化商品
+      //跳彈窗
+      lightBoxShow.value = true;
+      //sessionStorage沒有商品
+    } else if (sessionStorage.getItem(id)) {
+      //有一班商品
+      alert("You have checked.");
+    }
+  }
+};
+
+//modal-btn 清空後再加上一般商品
+const clearSess = () => {
+  sessionStorage.clear();
+  lightBoxClose();
+  addProd(cacheId.value);
+};
+const lightBoxClose = () => {
+  lightBoxShow.value = false;
+};
+//modal預設false
+const lightBoxShow = ref(false);
 </script>
 
 <template>
@@ -103,15 +141,15 @@ const btnLeft = () => {
   <div class="main">
     <!-- 商品大圖 -->
     <div id="mainPic">
-      <img :src="`/src/assets/images/shopInfo/body_03_${count}.png`" />
+      <img :src="`/dist/assets/${prodin.images}`" />
       <div class="button" id="left" @click="btnLeft">&lt;</div>
       <div class="button" id="right" @click="btnRight">&gt;</div>
     </div>
 
     <!-- 主要敘述 -->
     <article class="mainDesc">
-      <h2>EFPV Mavic 4 Classic</h2>
-      <p>USD $1,599</p>
+      <h2>{{ prodin.title }}</h2>
+      <p>USD {{ prodin.price }}</p>
       <ul>
         <li>5.1K/50fps Professional Imagery</li>
         <li>46-Min Max Flight Time</li>
@@ -301,17 +339,66 @@ const btnLeft = () => {
 
     <div class="pnp">
       <span> USD $1,599 </span>
-      <router-link class="purchaseBar_btn" id="" to="/cart" data-title="Buy now"
-        ><span>Buy</span></router-link
+      <button
+        class="purchaseBar_btn"
+        @click="addProd(prodRow.id, products), addCartCount()"
+        value="Add"
       >
+        <span>Buy</span>
+      </button>
     </div>
   </nav>
+  <div class="lightBox" v-if="lightBoxShow">
+    <div class="lightBoxContent">
+      <h2>Reminder!</h2>
+      <p>you already have customize products in cart.</p>
+      <p>Do you want your chosen product(s) replace them?</p>
+      <!-- v-if="removeItem" -->
+      <div class="buttons">
+        <button @click="clearSess">confirm</button>
+        <button @click="addCart">back cart</button>
+      </div>
+      <div class="close" @click="lightBoxClose"></div>
+    </div>
+  </div>
   <footerComponentsVue />
 </template>
 
 <style lang="scss">
 @import "@/sass/style.scss";
 @import "@/sass/component/_btn.scss";
+@import "@/sass/component/_lightBox.scss";
+
+//lightbox
+.lightBox {
+  @include lightBox();
+  margin: auto;
+  z-index: 15;
+  .lightBoxContent {
+    padding: 10px;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      text-align: center;
+      line-height: 50px;
+    }
+    .buttons {
+      text-align: center;
+      button {
+        font: $caption-p;
+        width: 100px;
+        height: 40px;
+        margin: 20px;
+        border-radius: 10px;
+        padding: 0 5px;
+        border: none;
+      }
+    }
+  }
+}
 
 // 跑馬燈
 .saleBar {
@@ -1135,7 +1222,7 @@ h2 {
     .purchaseBar_btn {
       background: linear-gradient(0deg, #1890ff, #40a9ff);
       border-radius: 5px;
-
+      border: 0px;
       margin: 0;
       width: 80vw;
       text-align: center;
@@ -1150,11 +1237,13 @@ h2 {
     .pnp {
       flex-direction: row;
       .purchaseBar_btn {
-        width: 100px;
+        width: 150px;
         line-height: 40px;
         padding: 0 15px;
 
         margin: 0 400px 0 60px;
+
+        cursor: pointer;
       }
     }
   }
