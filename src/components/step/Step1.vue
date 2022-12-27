@@ -12,13 +12,25 @@ const title = reactive([
 const cartItem = ref([]);
 const cartList = computed(() => cartItem.value)
 const session = ()=> {
+    // if(sessionStorage.v)
     const strings = sessionStorage.getItem('cartList')
+    console.log(strings)
     const substrs = strings.substr(0, strings.length - 1).split(',')
+    console.log(substrs)
     getcartItem(substrs);
-    // let jsonItem = JSON.parse(`[${explode.value}]`);
+    console.log(explode.value)
     cartItem.value = JSON.parse(`[${explode.value}]`);
-    // cartsem.value = jsonItem
-    // console.log(cartsem);
+    console.log(cartItem.value)
+}
+//抓session裡面的存放的商品放進購物車
+const getcartItem = (substrs)=>{
+  for(let i=0;i<substrs.length;i++){
+    if(i===0){
+      explode.value = sessionStorage.getItem(substrs[i])
+    }else{
+      explode.value += ',' + sessionStorage.getItem(substrs[i]);
+    }
+  }
 }
 //判斷session裡面是否有東西 沒有就文字顯示沒東西
 const storgeNull = reactive(sessionStorage.getItem('cartList'))
@@ -95,12 +107,19 @@ const discConfirm = () => {
             break;         
         }else{
             alert('無此優惠編號')
+            discount.value = '';
+            // discount.value = null;
             sessionStorage.setItem('discount',discPercent.value)
             sessionStorage.setItem('disc_no', discount.value)
-            discount.value = '';
             break;                    
         }
     } 
+}
+//下一步確認
+const check = ()=> {
+    if(sessionStorage.getItem('cartList') === null){
+        alert("請購買商品")
+    }
 }
 //取得資料庫資料
 const discRows = ref([]);
@@ -117,16 +136,6 @@ onMounted(()=>{
     //mounted裡面不要使用const去做定義 有區域問題
     session();
 })
-//抓session裡面的存放的商品放進購物車
-const getcartItem = (substrs)=>{
-  for(let i=0;i<=substrs.length-1;i++){
-    if(i===0){
-      explode.value = sessionStorage.getItem(substrs[i])
-    }else{
-      explode.value += ',' + sessionStorage.getItem(substrs[i]);
-    }
-  }
-}
 </script>
 <template>
     <section>
@@ -141,7 +150,7 @@ const getcartItem = (substrs)=>{
                 <div class="cartItem">
                     <div class="cartProduct">
                         <div class="cartProduct-pic">
-                            <img :src="`/dist/assets/${item.images}`" alt="">
+                            <img v-if="item.img != ''" :src="`/dist/assets/${item.img}`" alt="">
                         </div>
                         <div class="cartProduct-txt">
                             <h5>{{item.name}}</h5>
@@ -194,7 +203,7 @@ const getcartItem = (substrs)=>{
                         <span>Shop</span>
                     </router-link>
                     <!-- <button @click="props.nextStep();submitOrder()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button> -->
-                    <button @click="props.nextStep();" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
+                    <button @click="props.nextStep();check()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
                 </div>
             </div>
         </div>

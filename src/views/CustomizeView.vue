@@ -62,7 +62,8 @@ let customMotorItem, customControllerItem;
 const motorModels = ref({}),
   controllerModels = ref({});
 const fetchCustom = () => {
-    fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+    // fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+    fetch("http://localhost/CGD103-G5/public/g5PHP/postCust.php", {
         method: "POST",
         body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.customize" }),
     })
@@ -625,7 +626,7 @@ const setSession = () => {
             prd_propellor += 'white';
             break;
         }
-    set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color}, 111112${propellorChosen.value.type}${propellorChosen.value.color}, 1112111${motorChosen.value.type}, 1112112${kgmcChosen.value.type}`);
+    set('cartList', `111111${bodyChosen.value.type}${bodyChosen.value.color},111112${propellorChosen.value.type}${propellorChosen.value.color},1112111${motorChosen.value.type},1112112${kgmcChosen.value.type}`);
 
     set(`111111${bodyChosen.value.type}${bodyChosen.value.color}`, `{"id":"111111${bodyChosen.value.type}${bodyChosen.value.color}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}", "img": "${droneModels.value[`body0${bodyChosen.value.type}`].color[`${bodyChosen.value.color}`].png}"}`);
 
