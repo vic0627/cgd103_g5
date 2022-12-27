@@ -5,6 +5,7 @@ import menuVue from '@/components/memberCenter/menu.vue';
 import memberCardVue from '@/components/memberCenter/memberCard.vue';
 import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
 // import $ from 'jquery';
+import axios from 'axios';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
 const NmOrder = ref({
     orders_no: "",
@@ -13,22 +14,50 @@ const NmOrder = ref({
     orders_status: "",
     mem_no: "",
 })
+const nmorders = ref([]);
 const getMemberNm = ()=>{
     fetch("/dist/g5PHP/getMemNmorder.php",{
         method: "get",
     }).then(res=>{
-        res.json()
-    }).then(nm=>{
-        console.log(nm);
-        // NmOrder.value.orders_no = nm.orders_no;
-        // NmOrder.value.purchase_date = nm.purchase_date;
-        // NmOrder.value.total_price = nm.total_price;
-        // NmOrder.value.orders_status = nm.orders_status;
-        // NmOrder.value.mem_no = nm.mem_no;
-        // console.log(NmOrder.value.purchase_date)
+        return res.json();
+    }).then(mem=>{
+        console.log(mem);
+        nmorders.value = mem;
+        console.log(nmorders.value)    
     })
-
 }
+const NmorderItem = ref([]);
+const getMemberNmitem = ()=>{
+    fetch("/dist/g5PHP/getMemNmitem.php",{
+        method: "get",
+    }).then(res=>{
+        return res.json();
+    }).then(mem=>{
+        console.log(mem);
+        // if(mem[])
+        NmorderItem.value = mem;
+
+        console.log(NmorderItem.value)    
+    })
+}
+const lightBoxShow = ref(false);
+const lightBoxClose = () => {
+    lightBoxShow.value = false;
+};
+//判斷哪個訂單編號的明細
+const currenty = ref(0);
+const lightBoxOpen =(index)=> {
+    lightBoxShow.value = true;
+    getMemberNmitem();
+    for(let i=0;i<NmorderItem.value.length;i++){
+        if(NmorderItem.value[i].orders_no = nmorders.value[index].orders_no){
+            currenty.value = nmorders.value[index].orders_no
+            console.log(currenty.value);
+            break;
+        }
+    }
+    // if(currenty.value === )
+};
 onMounted(()=> {
     getMemberNm();
 });
@@ -46,7 +75,7 @@ onMounted(()=> {
             </section>
             <section class="profiles-list">
                 <h1>Normal Orders</h1>
-                <table>
+                <table v-for="(item,index) in nmorders" :key="index">
                     <thead>
                         <th>Order No.</th>
                         <th>Date</th>
@@ -56,69 +85,46 @@ onMounted(()=> {
                     </thead>
                     <tbody>
                         <tr>
-                            <td><router-link to=""><span>{{NmOrder.orders_no}}</span></router-link></td>
-                            <td>{{NmOrder.purchase_date}}</td>
-                            <td>{{NmOrder.total_price}}</td>
-                            <td>{{NmOrder.orders_status}}</td>
-                            <td>{{NmOrder.mem_no}}</td>
+                            <td><router-link to=""  @click="lightBoxOpen(index)"><span>{{nmorders[index].orders_no}}</span></router-link></td>
+                            <td>{{nmorders[index].purchase_date}}</td>
+                            <td>{{nmorders[index].total_price}}</td>
+                            <td>{{nmorders[index].orders_status}}</td>
+                            <td>{{nmorders[index].mem_no}}</td>
                         </tr>
                     </tbody>
                 </table>
-                <!-- <table>
-                    <thead>
-                        <th>Order No.</th>
-                        <th>Date</th>
-                        <th>Total Price</th>
-                        <th>Status</th>
-                        <th>Tracing No.</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><router-link to=""><span>20221201001</span></router-link></td>
-                            <td>2022-12-01</td>
-                            <td>USD $899.9</td>
-                            <td>Preparing</td>
-                            <td>4756382</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <thead>
-                        <th>Order No.</th>
-                        <th>Date</th>
-                        <th>Total Price</th>
-                        <th>Status</th>
-                        <th>Tracing No.</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><router-link to=""><span>20221201001</span></router-link></td>
-                            <td>2022-12-01</td>
-                            <td>USD $899.9</td>
-                            <td>Preparing</td>
-                            <td>4756382</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table>
-                    <thead>
-                        <th>Order No.</th>
-                        <th>Date</th>
-                        <th>Total Price</th>
-                        <th>Status</th>
-                        <th>Tracing No.</th>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><router-link to=""><span>20221201001</span></router-link></td>
-                            <td>2022-12-01</td>
-                            <td>USD $899.9</td>
-                            <td>Preparing</td>
-                            <td>4756382</td>
-                        </tr>
-                    </tbody>
-                </table> -->
             </section>
+            <div class="lightBox" v-if="lightBoxShow">
+                <div class="lightBoxContent">
+                    <div class="close" @click="lightBoxClose"></div>
+                    <div v-for="(item,index) in NmorderItem" :key="index">
+                        <!-- v-show="NmorderItem[index].orders_no = currenty.value" -->
+                        <form action="get">
+                            <input type="hidden" name="currenty" v-model="currenty">                            
+                        </form>
+                    <table>
+                        <thead>
+                            <th>Item No.</th>
+                            <th>Order No.</th>
+                            <th>Product No.</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Discount</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span>{{NmorderItem[index].item_no}}</span></td>
+                                <td>{{NmorderItem[index].orders_no}}</td>
+                                <td>{{NmorderItem[index].prd_no}}</td>
+                                <td>{{NmorderItem[index].item_quantity}}</td>
+                                <td>{{NmorderItem[index].item_sub}}</td>
+                                <td>{{NmorderItem[index].item_discount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <footerComponentsVue />
@@ -127,6 +133,13 @@ onMounted(()=> {
 
 <style scoped lang="scss">
 @import '@/sass/style.scss';
+@import "@/sass/component/_lightBox.scss";
+.lightBox {
+  @include lightBox();
+  .lightBoxContent {
+    max-height: 1000px;
+  }
+}
 header{
     top: 0;
 }
@@ -166,6 +179,7 @@ table tbody tr:last-child td:last-child {
 }
 
 span{
+    cursor: pointer;
     color: rgb(43, 223, 255);
 }
 section{
