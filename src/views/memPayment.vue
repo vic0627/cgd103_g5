@@ -43,7 +43,7 @@ onMounted(()=> {
                 <memberLevelVue/>
             </section>
             <section class="payment">
-                <form method="post">
+                <!-- <form method="post"> -->
                     <h2>Payment</h2>
                     <p>Note: New payment methods can only be added during checkout due to verification requirements.</p>
                     <div class="creditCardBox">
@@ -61,7 +61,7 @@ onMounted(()=> {
                         
                         </div>
                     </div>
-                </form>
+                <!-- </form> -->
             </section>
         </div>
     </div>
