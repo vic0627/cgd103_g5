@@ -77,6 +77,10 @@ const session = () => {
 };
 
 //addCart
+const set = (key, val) => {
+  sessionStorage.setItem(key, val);
+};
+
 const cartList = ref([]);
 const cacheId = ref("");
 const addCart = (id, row) => {

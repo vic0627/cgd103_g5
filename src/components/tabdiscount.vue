@@ -8,7 +8,13 @@ import {
   NButton,
   NModal,
 } from "naive-ui";
-import axios from "axios";
+const no = ref("");
+const title = ref("");
+const txt = ref("");
+const start = ref("");
+const end = ref("");
+const off = ref("");
+const code = ref("");
 const newDisc_no = ref("");
 const newDisc_title = ref("");
 const newDisc_txt = ref("");
@@ -52,7 +58,6 @@ const createColumns = ({ selectId, showmodal }) => {
     {
       title: "編輯 / 刪除",
       key: "actions",
-      titleColSpan: 2,
       render(row, index) {
         return h(
           NButton,
@@ -65,37 +70,40 @@ const createColumns = ({ selectId, showmodal }) => {
         );
       },
     },
-    {
-      title: "刪除",
-      key: "actions",
-      render(row, index) {
-        return h(
-          NButton,
-          {
-            size: "medium",
-            color: "#D03050",
-            // onClick: () => selectId(row,index),
-            onClick: () => showmodal(row, index),
-          },
-          { default: () => "刪除" }
-        );
-      },
-    },
+    // {
+    //   title: "刪除",
+    //   key: "actions",
+    //   render(row, index) {
+    //     return h(
+    //       NButton,
+    //       {
+    //         size: "medium",
+    //         color: "#D03050",
+    //         // onClick: () => selectId(row,index),
+    //         onClick: () => showmodal(row, index),
+    //       },
+    //       { default: () => "刪除" }
+    //     );
+    //   },
+    // },
   ];
 };
-const column = createColumns({});
-//取得資料庫資料
-const discRows = ref([]);
-const getDisc = () => {
-  //取得管理員資料
-  axios
-    .get("http://localhost/cgd103_g5/public/g5PHP/getDisc.php")
-    .then((res) => {
-      discRows.value = res.data;
-    });
-};
-onMounted(() => {
-  getDisc();
+//解析內容跟事件
+const column = createColumns({
+  selectId(rowData, index) {
+    showModal.value = true;
+    newdisc_no.value = discRows.value[index].disc_no;
+    newdisc_title.value = discRows.value[index].disc_title;
+    newdisc_txt.value = discRows.value[index].disc_txt;
+    newdisc_start.value = discRows.value[index].disc_start;
+    newdisc_end.value = discRows.value[index].disc_end;
+    newdisc_off.value = discRows.value[index].disc_off;
+    newdisc_code.value = discRows.value[index].disc_code;
+  },
+  showmodal(rowData, index) {
+    // showModal2.value = true;
+    newdisc_no.value = discRows.value[index].disc_no;
+  },
 });
 //分頁js
 const paginationReactive = reactive({
@@ -110,6 +118,22 @@ const paginationReactive = reactive({
   },
 });
 const pagination = paginationReactive;
+
+const props = defineProps(["tab"]);
+//取得資料庫資料
+const discRows = ref([]);
+const getDisc = () => {
+  //取得商品資料
+  fetch("http://localhost/cgd103_g5/public/g5PHP/getDisc.php")
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json);
+      discRows.value = json;
+    });
+};
+onMounted(() => {
+  getDisc();
+});
 
 //更新資料
 const updateDisc = (user) => {
@@ -134,25 +158,60 @@ const updateDisc = (user) => {
       getDisc();
     });
 };
-//刪除資料庫
-const deleteDisc = () => {
-  const deleteDis = {
-    disc_no: Number(newDisc_no.value),
-  };
-  fetch("http://localhost/CGD103-G5/public/g5PHP/deleteDisc.php", {
-    method: "POST",
-    body: new URLSearchParams(deleteDis),
-  })
-    .then((res) => {
-      res.json();
-      console.log(res);
-    })
-    .then((res) => {
-      showModal2.value = false;
-      getAdmin();
-    });
+// 搜尋
+
+const search = ref("");
+const returnDisc = computed(() => {
+  let cache = discRows.value;
+  if (search.value !== "") {
+    cache = cache.filter((i) =>
+      String(i[select[selectVal.value].val]).includes(search.value)
+    );
+    if (search.value == "All") {
+      cache = discRows.value;
+    }
+  } else {
+    cache = [];
+  }
+  return cache;
+});
+const select = [
+  {
+    id: 0,
+    title: "優惠編號",
+    val: "disc_no",
+  },
+  {
+    id: 1,
+    title: "優惠名稱",
+    val: "disc_title",
+  },
+];
+const selectVal = ref("0");
+const testVal = (e) => {
+  selectVal.value = e.target.value;
 };
+
+//刪除資料庫
+// const deleteDisc = () => {
+//   const deleteDis = {
+//     disc_no: Number(newDisc_no.value),
+//   };
+//   fetch("http://localhost/CGD103-G5/public/g5PHP/deleteDisc.php", {
+//     method: "POST",
+//     body: new URLSearchParams(deleteDis),
+//   })
+//     .then((res) => {
+//       res.json();
+//       console.log(res);
+//     })
+//     .then((res) => {
+//       showModal2.value = false;
+//       getAdmin();
+//     });
+// };
 </script>
+
 <template>
   <div class="top">
     <h2>
@@ -160,116 +219,137 @@ const deleteDisc = () => {
       <outComponents />
     </h2>
     <div class="search_box">
-      <label for="search" class="label"
-        >查詢編號<input
+      <p>依</p>
+      <select name="searchMethods" id="searchMethods" @change="testVal">
+        <option v-for="i in select" :key="i.id" :value="i.id">
+          {{ i.title }}
+        </option>
+      </select>
+      <p>查詢</p>
+      <label for="search" class="label">
+        <input
           type="search"
           id="search"
           name="search"
-          placeholder="請輸入編號"
-      /></label>
-      <div class="btn">
-        <button class="magBox">
-          <img src="../assets/images/About/search.png" alt="search" />
-        </button>
-      </div>
+          v-model="search"
+          :placeholder="`請輸入All或${select[selectVal].title}`"
+        />
+      </label>
     </div>
-    <form method="post" class="table">
-      <n-data-table
-        :columns="column"
-        :data="adminRows"
-        :pagination="pagination"
-        :bordered="true"
-        :single-line="false"
-      />
 
-      <n-modal v-model:show="showModal" preset="dialog" title="確認編輯">
-        <div class="modal">
-          <div class="input">
-            <label for="disc_title"> 編輯名稱 : </label>
-            <input type="text" name="disc_title" v-model="newDisc_title" />
-          </div>
-          <div class="input">
-            <label for="disc_txt"> 編輯名稱 : </label>
-            <input type="text" name="disc_txt" v-model="newDisc_txt" />
-          </div>
-          <div class="input">
-            <label for="disc_start"> 編輯名稱 : </label>
-            <input type="text" name="disc_start" v-model="newDisc_start" />
-          </div>
-          <div class="input">
-            <label for="disc_end"> 編輯名稱 : </label>
-            <input type="text" name="disc_end" v-model="newDisc_end" />
-          </div>
-          <div class="input">
-            <label for="disc_off"> 編輯名稱 : </label>
-            <input type="text" name="disc_off" v-model="newDisc_off" />
-          </div>
-          <div class="input">
-            <label for="disc_code"> 編輯名稱 : </label>
-            <input type="text" name="disc_code" v-model="newDisc_code" />
-          </div>
-          <div class="button">
-            <n-button
-              @click="
-                showModal = true;
-                updateDisc(index);
-              "
-              type="error"
-              class="btnModal"
-            >
-              確認
-            </n-button>
-          </div>
-        </div>
-      </n-modal>
-      <n-modal v-model:show="showModal2" preset="dialog" title="確認">
-        <div class="modal">
-          <h6>確認刪除帳號</h6>
-          <p>系統將永久移除您的管理員帳號</p>
-          <div class="button">
-            <n-button @click="showModal2 = false" type="info" class="btnModal">
-              返回
-            </n-button>
-            <n-button
-              @click="
-                showModal2 = true;
-                deleteDisc();
-              "
-              type="error"
-              class="btnModal"
-            >
-              刪除
-            </n-button>
-          </div>
-        </div>
-      </n-modal>
-    </form>
+    <div class="tables" id="products" align="center">
+      <form method="post" class="table">
+        <n-data-table
+          :columns="column"
+          :data="discRows"
+          :pagination="pagination"
+          :bordered="true"
+          :single-line="false"
+        />
+
+        <n-modal
+          v-model:show="showModal"
+          preset="dialog"
+          title="確認"
+          content="你確定嗎?"
+        >
+          <label for="faq_des"> 修改優惠 : </label>
+          <textarea
+            name="disc_no"
+            v-model="newdisc_no"
+            rows="1"
+            cols="50"
+            placeholder="請輸入編號"
+            maxlength="200"
+          ></textarea>
+          <textarea
+            name="disc_title"
+            v-model="newdisc_title"
+            rows="1"
+            cols="50"
+            placeholder="請輸入名稱"
+            maxlength="300"
+          ></textarea>
+          <textarea
+            name="disc_txt"
+            v-model="newdisc_txt"
+            rows="1"
+            cols="50"
+            placeholder="請輸入敘述"
+            maxlength="300"
+          ></textarea>
+          <textarea
+            name="disc_start"
+            v-model="newdisc_start"
+            rows="1"
+            cols="50"
+            placeholder="請輸入開始日期"
+            maxlength="300"
+          ></textarea>
+          <textarea
+            name="disc_end"
+            v-model="newdisc_end"
+            rows="1"
+            cols="50"
+            placeholder="請輸入結束日期"
+            maxlength="300"
+          ></textarea>
+          <textarea
+            name="disc_off"
+            v-model="newdisc_off"
+            rows="1"
+            cols="50"
+            placeholder="請輸入折扣數"
+            maxlength="300"
+          ></textarea>
+          <textarea
+            name="disc_code"
+            v-model="newdisc_code"
+            rows="10"
+            cols="50"
+            placeholder="請輸入優惠碼"
+            maxlength="300"
+          ></textarea>
+          <n-button
+            @click="
+              showModal = true;
+              updateDisc(index);
+            "
+            type="error"
+          >
+            確認
+          </n-button>
+        </n-modal>
+        <n-modal
+          v-model:show="showModal2"
+          preset="dialog"
+          title="確認"
+          content="你確定嗎?"
+        >
+          <n-button
+            @click="
+              showModal2 = true;
+              deleteDisc(index);
+            "
+            type="error"
+          >
+            刪除
+          </n-button>
+        </n-modal>
+      </form>
+    </div>
   </div>
 </template>
 <style scoped lang="scss">
 @import "@/sass/style.scss";
-.top {
-  width: 100%;
-  display: block;
-}
-.table {
-  width: 95%;
-  margin: auto;
-}
-h2 {
-  font-size: 40px;
-  color: #fff;
-  margin: 10px 10px;
-  padding: 10px 10px;
-  background-color: #597897;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .search_box {
   display: flex;
   justify-content: right;
   margin: 30px 15px;
+  p {
+    color: #000;
+  }
   label {
     margin-right: 10px;
     font-size: 20px;
@@ -295,92 +375,49 @@ h2 {
       }
     }
   }
-  .btn {
-    button {
-      width: 50px;
-      text-align: center;
-      border: none;
-      background: #597897;
-      border-radius: 5px;
-      padding: 5px;
-      transition: background 0.5s;
-      cursor: pointer;
-      &:hover {
-        background: $blue;
-      }
-      img {
-        width: 20px;
-        height: 20px;
-        margin-top: 2px;
-      }
-    }
-  }
+}
+
+textarea {
+  margin-top: 10px;
+}
+
+.top {
+  width: 100%;
+  display: block;
+}
+h2 {
+  font-size: 40px;
+  color: #fff;
+  margin: 10px 10px;
+  padding: 10px 10px;
+  background-color: #597897;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .tables {
-  width: 100%;
+  width: 95%;
   margin: auto;
-  table {
-    width: 95%;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 20px;
-    border: 1px solid #c0c0c0;
-    tr {
-      border: 1px solid #c0c0c0;
-      &:hover td {
-        background: rgba(89, 120, 151, 0.11);
-      }
-      th {
-        padding: 20px 10px;
-        background-color: #597897;
-        color: #fff;
-        border: 1px solid #c0c0c0;
-        border-top: 1px solid #597897;
-      }
-      td {
-        border: 1px solid #c0c0c0;
-        padding: 20px 10px;
-        overflow: hidden;
-        a {
-          color: #273747;
-          span {
-            color: #273747;
-          }
-          .block {
-            &:hover {
-              border-bottom: 1px solid #273747;
-            }
-          }
-          .red {
-            color: #f25a2a;
-            &:hover {
-              border-bottom: 1px solid #f25a2a;
-            }
-          }
-        }
-      }
-    }
+  ::v-deep(n-data-table-td) {
+    border-bottom: 1 solid #111;
+    background-color: #222;
   }
 }
-.modal {
-  .input {
-    display: block;
-    margin-top: 30px;
-  }
-  .button {
-    display: flex;
-    width: 100%;
-    justify-content: space-between;
-    .btnModal {
-      margin-top: 30px;
-    }
-  }
+
+.modal-mask {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
 }
-h6 {
-  color: #000000;
-}
-p {
-  color: #000000;
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
 }
 </style>

@@ -1,35 +1,168 @@
-<script></script>
+<script setup>
+import { ref, onMounted } from "vue";
+
+const disc_title = ref("");
+const disc_txt = ref("");
+const disc_start = ref("");
+const disc_end = ref("");
+const disc_off = ref("");
+const disc_code = ref("");
+
+const addProduct = () => {
+  const payload = {
+    disc_title: disc_title.value,
+    disc_txt: disc_txt.value,
+    disc_start: disc_start.value,
+    disc_end: disc_end.value,
+    disc_off: disc_off.value,
+    disc_code: disc_code.value,
+  };
+  fetch("http://localhost/cgd103_g5/public/g5PHP/insertDisc.php", {
+    method: "POST",
+    body: new URLSearchParams(payload),
+  }).then((res) => {
+    res.text();
+  });
+};
+// const getCat = () => {
+//   fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getProCat.php")
+//     .then((res) => res.json())
+//     .then((json) => {
+//       cat_no.value = json;
+//     });
+// };
+
+// onMounted(() => {
+//   // getCat();
+//   addProduct();
+
+//   function doFirst() {
+//     // 先跟 HTML 畫面產生關連，再建事件聆聽功能
+//     document.getElementById("theFile").onchange = fileChange;
+//   }
+
+//   window.addEventListener("load", doFirst);
+// });
+// function fileChange() {
+//   let file = document.getElementById("theFile").files[0];
+//   console.log("input");
+//   // ==========
+//   let readFile = new FileReader();
+//   readFile.readAsDataURL(file);
+
+//   readFile.addEventListener("load", () => {
+//     let image = document.getElementById("image");
+//     image.src = readFile.result;
+//     image.style.maxWidth = "550px";
+//     image.style.maxHeight = "550px";
+//   });
+
+//   const formData = new FormData();
+//   formData.append("image", file);
+//   fetch("http://localhost/cgd103_g5/public/g5PHP/insertPhoto.php", {
+//     method: "POST",
+//     body: formData,
+//   });
+// }
+</script>
 <template>
   <div class="top">
     <h2>
       優惠新增
       <outComponents />
     </h2>
-    <div class="discount">
-      <div class="name">
-        <h3>優惠名稱</h3>
-        <input type="text" placeholder="輸入優惠名稱" id="name" />
+    <form action="" method="post">
+      <div class="cpt">
+        <div>
+          <div class="name">
+            <h3>優惠名稱</h3>
+            <input
+              type="text"
+              name="disc_title"
+              id="name"
+              placeholder="請輸入優惠名稱"
+              v-model="disc_title"
+              required
+            />
+          </div>
+
+          <div class="start">
+            <h3>優惠敘述</h3>
+            <input
+              type="text"
+              name="disc_txt"
+              id="start"
+              placeholder="請輸入優惠敘述"
+              v-model="disc_txt"
+              required
+            />
+          </div>
+
+          <div class="end">
+            <h3>開始日期</h3>
+            <input
+              type="text"
+              name="disc_start"
+              id="end"
+              placeholder="請輸入開始日期"
+              v-model="disc_start"
+              required
+            />
+          </div>
+
+          <div class="aboard">
+            <h3>結束日期</h3>
+            <input
+              type="text"
+              name="disc_end"
+              id="aboard"
+              placeholder="請輸入結束日期"
+              v-model="disc_end"
+              required
+            />
+          </div>
+
+          <div class="aboard">
+            <h3>折扣數</h3>
+            <input
+              type="text"
+              name="disc_off"
+              id="aboard"
+              placeholder="請輸入折扣數"
+              v-model="disc_off"
+              required
+            />
+          </div>
+
+          <div class="aboard">
+            <h3>折扣碼</h3>
+            <input
+              type="text"
+              name="disc_code"
+              id="aboard"
+              placeholder="請輸入折扣碼"
+              v-model="disc_code"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- <div class="photo">
+            <h3>圖片</h3>
+            <p>
+              <img id="image" />
+            </p>
+            <input type="file" id="theFile" @change="fileChange" />
+          </div> -->
       </div>
-      <div class="description">
-        <h3>優惠描述</h3>
-        <input type="text" placeholder="輸入優惠描述" id="description" />
-      </div>
-      <div class="start">
-        <h3>優惠開始時間</h3>
-        <input type="date" id="start" />
-      </div>
-      <div class="end">
-        <h3>優惠結束時間</h3>
-        <input type="date" id="end" />
-      </div>
-      <div class="papa">
-        <h3>折扣設定</h3>
-        <input type="text" placeholder="輸入折扣設定" id="papa" />
-      </div>
-    </div>
+    </form>
     <div class="btn">
-      <input type="submit" value="取消新增" id="cancel" />
-      <input type="submit" value="確定新增" id="confirm" />
+      <input
+        type="button"
+        value="確定新增"
+        id="conFirm"
+        @click="addProduct()"
+      />
     </div>
   </div>
 </template>
@@ -40,6 +173,9 @@
   width: 100%;
   display: block;
 }
+// div {
+//   margin: 10px;
+// }
 h2 {
   font-size: 40px;
   color: #fff;
@@ -50,18 +186,31 @@ h2 {
   justify-content: space-between;
   align-items: center;
 }
-.discount {
+
+h3 {
+  font-size: 20px;
+  color: black;
+}
+
+.cpt {
+  padding-left: 20px;
+  display: flex;
+  gap: 100px;
+}
+
+.proAdd {
   width: 100%;
+  height: 100vh;
   margin: 50px;
-  .name {
-    display: flex;
+
+  overflow: scroll;
+  .proCol {
     h3 {
       font-size: 30px;
       color: rgb(26, 26, 26);
-      width: 200px;
     }
     input {
-      width: 800px;
+      width: 50%;
       height: 40px;
       margin-top: 10px;
       margin-left: 50px;
@@ -82,125 +231,14 @@ h2 {
         color: rgba(181, 181, 181, 0.749);
       }
     }
-  }
-  .description {
-    display: flex;
-    h3 {
-      font-size: 30px;
-      color: rgb(26, 26, 26);
-      width: 200px;
-    }
-    input {
-      width: 800px;
+    select {
+      width: 50%;
       height: 40px;
-      margin-top: 10px;
-      padding-left: 10px;
-      margin-left: 50px;
-      font-size: 18px;
-      border: 1px solid rgb(124, 124, 124);
       border-radius: 5px;
-      &:focus {
-        color: #06519d;
-        border: 1px solid #1671cd;
-        outline: none;
-        &::placeholder {
-          opacity: 0;
-        }
-      }
-      &::placeholder {
-        padding-left: 5px;
-        color: rgba(181, 181, 181, 0.749);
-      }
-    }
-  }
-  .start {
-    display: flex;
-    h3 {
-      font-size: 30px;
-      color: rgb(26, 26, 26);
-      width: 200px;
-    }
-    input {
-      width: 800px;
-      height: 40px;
       margin-top: 10px;
-      padding-left: 10px;
       margin-left: 50px;
-      font-size: 18px;
       border: 1px solid rgb(124, 124, 124);
-      border-radius: 5px;
-      &:focus {
-        color: #06519d;
-        border: 1px solid #1671cd;
-        outline: none;
-        &::placeholder {
-          opacity: 0;
-        }
-      }
-      &::placeholder {
-        padding-left: 5px;
-        color: rgba(181, 181, 181, 0.749);
-      }
-    }
-  }
-  .end {
-    display: flex;
-    h3 {
-      font-size: 30px;
-      color: rgb(26, 26, 26);
-      width: 200px;
-    }
-    input {
-      width: 800px;
-      height: 40px;
-      margin-top: 10px;
-      padding-left: 10px;
-      margin-left: 50px;
-      font-size: 18px;
-      border: 1px solid rgb(124, 124, 124);
-      border-radius: 5px;
-      &:focus {
-        color: #06519d;
-        border: 1px solid #1671cd;
-        outline: none;
-        &::placeholder {
-          opacity: 0;
-        }
-      }
-      &::placeholder {
-        padding-left: 5px;
-        color: rgba(181, 181, 181, 0.749);
-      }
-    }
-  }
-  .papa {
-    display: flex;
-    h3 {
-      font-size: 30px;
-      color: rgb(26, 26, 26);
-      width: 200px;
-    }
-    input {
-      width: 800px;
-      height: 40px;
-      margin-top: 10px;
-      padding-left: 10px;
-      margin-left: 50px;
-      font-size: 18px;
-      border: 1px solid rgb(124, 124, 124);
-      border-radius: 5px;
-      &:focus {
-        color: #06519d;
-        border: 1px solid #1671cd;
-        outline: none;
-        &::placeholder {
-          opacity: 0;
-        }
-      }
-      &::placeholder {
-        padding-left: 5px;
-        color: rgba(181, 181, 181, 0.749);
-      }
+      font-size: 20px;
     }
   }
 }
@@ -215,7 +253,7 @@ h2 {
     text-align: center;
     border: none;
   }
-  #cancel {
+  #canCel {
     border-radius: 5px;
     border: 1px solid #999;
     background-color: rgb(255, 255, 255);
@@ -225,7 +263,7 @@ h2 {
       background: rgba(204, 204, 204, 0.326);
     }
   }
-  #confirm {
+  #conFirm {
     border-radius: 5px;
     background-color: $blue;
     color: #fff;
@@ -235,5 +273,17 @@ h2 {
       background: #06519d;
     }
   }
+}
+.imgBox {
+  margin-top: 25px;
+}
+#image {
+  width: 50%;
+  height: 200px;
+  border-radius: 5px;
+  border: 1px solid rgb(124, 124, 124);
+}
+#theFile {
+  border: none;
 }
 </style>
