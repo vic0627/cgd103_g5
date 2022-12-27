@@ -57,8 +57,8 @@ if(sessionStorage['cartList'].includes('111')){
         orders_price: Number(sums.value),
         discount_price: Number(discount_price.value),
         total_price: Number(final.value),
-        orders_location: memberInfo.value.address,
-        credit_no: Number(memberInfo.value.credit_no),
+        orders_location: String(memberInfo.value.address),
+        credit_no: String(memberInfo.value.credit_no),
     };
     fetch("/dist/g5PHP/sessionNmitem.php", {
         method: "POST",
@@ -69,14 +69,18 @@ if(sessionStorage['cartList'].includes('111')){
         getmaxOrder();
     })
 }else{
+    sums.value = sessionStorage.getItem('sums');
+    final.value = sessionStorage.getItem('final');
+    discount_price.value = sessionStorage.getItem('discount');
+    disc_no.value = sessionStorage.getItem('disc_no');
     const payload = {
         mem_no: Number(memberInfo.value.mem_no),
         mem_grade: Number(memberInfo.value.mem_grade),
         orders_price: Number(sums.value),
         discount_price: Number(discount_price.value),
         total_price: Number(final.value),
-        orders_location: memberInfo.value.address,
-        credit_no: Number(memberInfo.value.credit_no),
+        orders_location: String(memberInfo.value.address),
+        credit_no: String(memberInfo.value.credit_no),
     };
     fetch("/dist/g5PHP/sessionNmitem.php", {
         method: "POST",
@@ -95,7 +99,8 @@ const getmaxOrder = () => {
     axios.get("/dist/g5PHP/getsessionNm.php")
     .then(res=> {
         maxOrder.value = res.data
-        sessionStorage.setItem('order_no',maxOrder.value);
+        // console.log(maxOrder.value.order_no)
+        sessionStorage.setItem('order_no',maxOrder.value.order_no);
     })
 }
 </script>
