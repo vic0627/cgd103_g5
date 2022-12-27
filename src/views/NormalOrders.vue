@@ -196,7 +196,7 @@ input{
     display: flex;
     justify-content: start;
     gap: 10px;
-    color: $text-color;
+    // color: $text-color;
     
     .maincontent{
         width: 100%;
