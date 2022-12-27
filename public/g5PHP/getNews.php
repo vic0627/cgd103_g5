@@ -3,11 +3,11 @@
  header("Content-Type:application/json;charset=utf-8");
 try {
 	require_once("./connect_cgd103g5_vic.php");
-	$sql = "select * from tibamefe_cgd103g5.discount_set";
-	$disc = $pdo->prepare($sql);
-	$disc->execute();
-	$discRows = $disc->fetchAll(PDO::FETCH_ASSOC);
-	echo json_encode($discRows);
+	$sql = "select * from tibamefe_cgd103g5.news";
+	$race = $pdo->prepare($sql);
+	$race->execute();
+	$raceRows = $race->fetchAll(PDO::FETCH_ASSOC);
+	echo json_encode($raceRows);
 } catch (PDOException $e) {
 	//echo "錯誤原因 : ", $e->getMessage(), "<br>";
 	//echo "錯誤行號 : ", $e->getLine(), "<br>";

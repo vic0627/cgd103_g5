@@ -12,7 +12,7 @@ bodyInit();
 
 useMousePosition();
 let ww = window.innerWidth, wh = window.innerHeight;
-let wrap, canvas, conatinerInfo, infoList, conatinerClose, closeH3, bgText, ws, co, cc0, cc1, cc2, cc3, cc4, infoListTotalH = 0, el, wl;
+let wrap, canvas, conatinerInfo, infoList, conatinerClose, closeH3, bgText, ws, co, cc0, cc1, cc2, cc3, cc4, infoListTotalH = 0, el, wl,sumWs;
 const wW = ref(window.innerWidth);
 
 onMounted(()=> {
@@ -20,6 +20,7 @@ onMounted(()=> {
     canvas = $$('#product3d');
     conatinerInfo = $$('.containerInfo');
     infoList = document.querySelectorAll('.infoList');
+    el = $$('.specOl').getBoundingClientRect();
     for(let i=0; i<infoList.length-1; i++){
         infoListTotalH += infoList[i].offsetHeight;
     }
@@ -37,16 +38,8 @@ onMounted(()=> {
     wrap.addEventListener('scroll', ()=> {
         el = $$('.specOl').getBoundingClientRect();
         wl = $$('.productInfoWrap').getBoundingClientRect();
-        let sumWs = ws-co-cc0-cc1-cc2-cc3-cc4;
-        scrollModel();
         
-        if(el.top==0 || el.y==0 || el.bottom==$$('.specOl').offsetHeight || sumWs>=0){
-            $$('.specOl').style.pointerEvents = 'auto';
-        }else{
-            $$('.specOl').style.pointerEvents = 'none';
-        }
-    });
-    $$('.specOl').addEventListener('scroll', ()=> {
+        scrollModel();
         scrollSum();
     });
     const scrollModel = () => {
@@ -61,6 +54,7 @@ onMounted(()=> {
         cc2 = conatinerClose[2].offsetHeight;
         cc3 = conatinerClose[3].offsetHeight;
         cc4 = conatinerClose[4].offsetHeight;
+        sumWs = ws-co-cc0-cc1-cc2-cc3-cc4;
         if(ws!=0){
             gsap.to('.controlPanel', {
                 opacity: 0,
@@ -455,86 +449,89 @@ const pointLightMove = () => {
 
 let xxx, zzz;
 const scrollList = (e, delay = 0, dur = .1) => {
-    let os = $$('.specOl').scrollTop - (delay * 977);
-    xxx = Math.sin(os / 977 * Math.PI);
-    zzz = Math.cos(os / 977 * Math.PI);
-    let xrwd;
-    if(ww<576){
-        xrwd = 0;
-    }else{
-        xrwd = xxx;
-    }
-    if(zzz<0){
-        $$(e).style['z-index'] = '-1';
-        $$(e).firstChild.style.filter = `blur(2px) grayscale(80%)`;
-        /* gsap.to($$(e).firstChild, {
-            filter: `blur(2px) grayscale(80%)`,
-            duration: 0,
-        }) */
-    }else{
-        $$(e).style['z-index'] = '2';
-        $$(e).firstChild.style.filter = `blur(0px) grayscale(80%)`;
-        /* gsap.to($$(e).firstChild, {
-            filter: `blur(0px) grayscale(80%)`,
-            duration: 0,
-        }) */
-    }
-    gsap.to(e, {
-        top: 50*($$('.specOl').scrollTop / $$('.specOl').offsetHeight)+'%',
-        rotateX: xrwd*10,
-        rotateY: 180*(os / 977),
-        rotateZ: -zzz*10,
-        left: 50+xxx*40+'%',
-        scale: (zzz+1)/2+.5,
-        duration: dur,
-    })
-    if(PRO.Rain){
-        gsap.to(PRO.Rain.rotation, {
-            x: -($$('.specOl').scrollTop / $$('.specOl').offsetHeight / 30),
-            duration: 1,
+    if(sumWs>0){
+        let os = sumWs - (delay * wh);
+        xxx = Math.sin(os / wh * Math.PI);
+        zzz = Math.cos(os / wh * Math.PI);
+        let xrwd;
+        log(50+xxx*40)
+        if(ww<576){
+            xrwd = 0;
+        }else{
+            xrwd = xxx;
+        }
+        if(zzz<0){
+            $$(e).style['z-index'] = '-1';
+            $$(e).firstChild.style.filter = `blur(2px) grayscale(80%)`;
+            /* gsap.to($$(e).firstChild, {
+                filter: `blur(2px) grayscale(80%)`,
+                duration: 0,
+            }) */
+        }else{
+            $$(e).style['z-index'] = '2';
+            $$(e).firstChild.style.filter = `blur(0px) grayscale(80%)`;
+            /* gsap.to($$(e).firstChild, {
+                filter: `blur(0px) grayscale(80%)`,
+                duration: 0,
+            }) */
+        }
+        gsap.to(e, {
+            top: 100*(os / wh)+'%',
+            rotateX: xrwd*10,
+            rotateY: 180*(os / wh),
+            rotateZ: -zzz*10,
+            left: 50+xxx*40+'%',
+            scale: (zzz+1)/2+.5,
+            duration: dur,
         })
-    }
-    
+        if(PRO.Rain){
+            gsap.to(PRO.Rain.rotation, {
+                x: -(os / wh / 30),
+                duration: 1,
+            })
+        }
+        
 
-    gsap.to($$(e).lastChild, {
-        left: 0,
-        opacity: 0,
-        duration: .3,
-    })
-    gsap.to($$(e).lastChild.previousSibling, {
-        left: 0,
-        opacity: 0,
-        duration: .3,
-        delay: .3,
-    })
+        gsap.to($$(e).lastChild, {
+            left: 0,
+            opacity: 0,
+            duration: .3,
+        })
+        gsap.to($$(e).lastChild.previousSibling, {
+            left: 0,
+            opacity: 0,
+            duration: .3,
+            delay: .3,
+        })
 
-    if(PRO.modelObj){
-        gsap.to(PRO.modelObj.rotation, {
-            x: .15,
-            y: -($$('.specOl').scrollTop / $$('.specOl').offsetHeight),
-            z: -.35,
-            duration: 1,
-        })
-        gsap.to(PRO.modelObj.position, {
-            x: 0,
-            y: -1-($$('.specOl').scrollTop / $$('.specOl').offsetHeight / 5),
-            z: 0,
-            duration: 1,
-        })
+        if(PRO.modelObj){
+            gsap.to(PRO.modelObj.rotation, {
+                x: .15,
+                y: -(sumWs / wh),
+                z: -.35,
+                duration: 1,
+            })
+            gsap.to(PRO.modelObj.position, {
+                x: 0,
+                y: -1-(sumWs / wh / 5),
+                z: 0,
+                duration: 1,
+            })
+        }
     }
     
 };
 const scrollSum = () => {
-    scrollList('.specLi1')
-    scrollList('.specLi2', .6)
-    scrollList('.specLi3', 1.2)
-    scrollList('.specLi4', 1.8)
-    scrollList('.specLi5', 2.4)
-    scrollList('.specLi6', 3)
-    scrollList('.specLi7', 3.6)
-    scrollList('.specLi8', 4.2)
-    scrollList('.specLi9', 4.8)
-    scrollList('.specLi10', 5.4)
+    scrollList('.specLi1', .6)
+    scrollList('.specLi2', 1.2)
+    scrollList('.specLi3', 1.8)
+    scrollList('.specLi4', 2.4)
+    scrollList('.specLi5', 3)
+    scrollList('.specLi6', 3.6)
+    scrollList('.specLi7', 4.2)
+    scrollList('.specLi8', 4.8)
+    scrollList('.specLi9', 5.4)
+    scrollList('.specLi10', 6)
 };
 const toImg = (e) => {
     //let topPercent = (Number(e.target.parentNode.style.top.split('%')[0])/100);
@@ -848,25 +845,32 @@ const allFloat = () => {
 }
 .containerSpec{
     width: 100%;
-    height: 100%;
+    height: 250%;
     overflow: hidden;
+    @include s($s-breakpoint) {
+        height: 300%;
+    }
+    @include m($m-breakpoint) {
+        height: auto;
+    }
     ol{
         width: 100%;
-        height: 100%;
-        overflow-y: auto;
+        //height: 100%;
+        //overflow-y: auto;
         position: relative;
     }
     li{
-        width: 25%;
-        height: 10%;
+        width: 150px;
+        height: 100px;
         list-style: none;
-        margin-left: -12.5%;
+        margin-left: -75px;
         position: relative;
         transform: perspective(1000px);
         transform-style: preserve-3d;
         cursor: pointer;
         @include s($s-breakpoint) {
-            height: 18.75%;
+            width: 200px;
+            height: 150px;
         }
         @include m($m-breakpoint) {
             width: 400px;
@@ -876,9 +880,7 @@ const allFloat = () => {
         img{
             width: 100%;
             height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
+            object-fit: cover;
             background-position-x: 0;
             transform-origin: 0 100%;
             pointer-events: none;
@@ -924,13 +926,13 @@ const allFloat = () => {
         }
     }
     li:nth-child(1){
-        margin-top: 35vh;
+        margin-top: 100vh;
     }
     li:nth-child(10){
         margin-bottom: 100vh;
-        @include s($s-breakpoint) {
+        /* @include s($s-breakpoint) {
             margin-bottom: 300vh;
-        }
+        } */
     }
 }
 

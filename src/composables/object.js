@@ -1,4 +1,4 @@
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref, defineProps } from "vue";
 
 import img01 from "../assets/images/news/img_05.jpg";
 import img02 from "../assets/images/news/img_06.jpg";
@@ -20,8 +20,7 @@ import img17 from "../assets/images/news/news_11.jpg";
 import img18 from "../assets/images/news/news_12.jpg";
 import img19 from "../assets/images/news/news_13.jpg";
 
-import { bodyInit } from "../composables/useOnunmounted";
-bodyInit();
+
 
 const no = ref("");
 const title = ref("");
@@ -38,21 +37,9 @@ const news_tag = ref("");
 const showModal = ref(false);
 
 const props = defineProps(["tab"]);
-const newsRows = ref([]);
-const getNews = () => {
-  //取得消息資料
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getNews.php")
-    .then((res) => res.json())
-    .then((json) => {
-      console.log(json);
-      newsRow.value = json;
-    });
-};
-onMounted(() => {
-  getNews();
-});
 
-const lastNews = reactive([
+
+export const lastNews = reactive([
   {
     id: 3,
     tagName: "Photoshop",

@@ -1,128 +1,49 @@
 <script setup>
-import { computed, onMounted, reactive, ref } from "vue";
+import { computed, onMounted, reactive, ref, onUpdated } from "vue";
+import { bodyInit } from "../composables/useOnunmounted";
+import { lastNews } from "../composables/object";
 import $ from "jquery";
-import lastNews from "../composables/object";
+const newsRows = ref([]);
+const getNews = () => {
+  //取得消息資料
+  fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+    method: "POST",
+    body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.news" }),
+  })
+    .then((res) => res.json())
+    .then((json) => {
+      newsRows.value = json;
+      console.log(newsRows.value);
+    });
+};
 onMounted(() => {
-  console.log(lastNews);
+  getNews(newsRows.value);
+  
 });
-// const lastNews = reactive([
-//     {
-//         "id": 3,
-//         "tagName": "Photoshop",
-//         "title": "SkyPixel 8th style free ",
-//         "src": "/images/about/img_05.jpg",
-//     },
-//     {
-//         "id": 1,
-//         "tagName": "Travel",
-//         "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-//         "src": "/images/about/img_06.jpg",
-//     },
-//     {
-//         "id": 1,
-//         "tagName": "Travel",
-//         "title": "Mens Casual Premium Slim Fit T-Shirts",
-//         "src": "/images/about/img_07.jpg",
-//     },
-//     {
-//         "id": 2,
-//         "tagName": "FPV",
-//         "title": "Mens Cotton Jacket",
-//         "src": "/images/about/img_08.jpg",
-//     },
-//     {
-//         "id": 4,
-//         "tagName": "Customed",
-//         "title": "Sol Gold Petite Micropave",
-//         "src": "/images/about/img_09.jpg",
-//     },
-//     {
-//         "id": 1,
-//         "tagName": "Travel",
-//         "title": "White Gold Plated Princess",
-//         "src": "/images/about/img_12.jpg",
-//     },
-//     //-------------------
-//     {
-//         "id": 1,
-//         "tagName": "Travel",
-//         "title": "Peak District cloud inversion leaves drone pilot speechless",
-//         "src": "/images/news/news_04.jpg",
-//     },
-//     {
-//         "id": 4,
-//         "tagName": "Customed",
-//         "title": "Drone footage shows deadly Brazil flooding",
-//         "src": "/images/news/news_02.jpg",
-//     },
-//     {
-//         "id": 2,
-//         "tagName": "FPV",
-//         "title": "Drones to track Walsall's off-road bikers",
-//         "src": "/images/news/news_03.jpg",
-//     },
-//     {
-//         "id": 1,
-//         "tagName": "Travel",
-//         "title": "Frequently Asked Questions About Time Travel",
-//         "src": "/images/news/news_04.jpg",
-//     },
-//     {
-//         "id": 2,
-//         "tagName": "FPV",
-//         "title": "UK drone pilots have 25 days to register with regulator",
-//         "src": "/images/news/news_05.jpg",
-//     },
-//     {
-//         "id": 1,
-//         "tagName": "Travel",
-//         "title": "A quintessentially Irish way to travel",
-//         "src": "/images/news/news_06.jpg",
-//     },
-//     {
-//         "id": 3,
-//         "tagName": "Photoshop",
-//         "title": "Frank Lampard photoshop used to promote New York park",
-//         "src": "/images/news/news_07.jpg",
-//     },
-//     {
-//         "id": 2,
-//         "tagName": "FPV",
-//         "title": "Drone racing: How it works",
-//         "src": "/images/news/news_08.jpg",
-//     },
-//     {
-//         "id": 3,
-//         "tagName": "Photoshop",
-//         "title": "Adobe Voco 'Photoshop-for-voice' causes concern",
-//         "src": "/images/news/news_09.jpg",
-//     },
-//     {
-//         "id": 4,
-//         "tagName": "Customed",
-//         "title": "Adult social care reform, Energy credit balances, Revolut fraud victims",
-//         "src": "/images/news/news_10.jpg",
-//     },
-//     {
-//         "id": 3,
-//         "tagName": "Photoshop",
-//         "title": "Tones, Drones and Arpeggios: The Magic of Minimalism",
-//         "src": "/images/news/news_11.jpg",
-//     },
-//     {
-//         "id": 3,
-//         "tagName": "Photoshop",
-//         "title": "Why mourners are opting to scatter ashes by drone",
-//         "src": "/images/news/news_12.jpg",
-//     },
-//     {
-//         "id": 4,
-//         "tagName": "Customed",
-//         "title": "RealityCapture. Create 3D maps and models from drone images. Fast. Accurate. Simple.",
-//         "src": "/images/news/news_13.jpg",
-//     },
-// ])
-
+onUpdated(() => {
+  
+})
+bodyInit();
+const compuNews = computed(() => {
+  let cache = newsRows.value;
+  switch(filter.value){
+    case 0:
+      break;
+    case 1:
+      cache = cache.filter(e => e.news_tag.includes("Travel"));
+      break;
+    case 2:
+      cache = cache.filter(e => e.news_tag.includes("FPV"));
+      break;
+    case 3:
+      cache = cache.filter(e => e.news_tag.includes("Photoshot"));
+      break;
+    case 4:
+      cache = cache.filter(e => e.news_tag.includes("Customed"));
+      break;
+  }
+  return cache;
+});
 // const view = ref(1);
 const vsc = ref(false);
 const filter = ref(0);
@@ -143,17 +64,33 @@ const changeView = (index) => {
   <div class="label">
     <div class="output_content_box cards">
       <div class="content">
-        <div v-for="(newsRow, index) in newsRows" :key="index">
-          <Transition name="tad" mode="out-in">
-            <div class="card" v-if="filter === 0">
+        <div class="contentBox">
+          <div name="tad" mode="out-in" v-for="newsRow in compuNews" :key="newsRow">
+            <div class="card">
               <router-link class="anchor" to="/articleView"
-                ><img :src="item.src" :alt="item.id"
+                ><img :src="`http://localhost/cgd103_g5/src/assets/images/news/${newsRow.news_photo}`" :alt="newsRows.news_no"
               /></router-link>
               <div class="item_box">
-                <div class="item">{{ newsRow.tag }}</div>
+                <div class="item">{{ newsRow.news_tag }}</div>
               </div>
               <div class="title">
-                <p>{{ newsRow.title }}</p>
+                <p>{{ newsRow.news_title }}</p>
+              </div>
+              <router-link class="article" to="/articleView"
+                ><button>Read more &rarr;</button></router-link
+              >
+            </div>
+          </div>
+          <Transition name="tad" mode="out-in">
+            <div class="card" v-if="filter === 1 && item.news_no === 1">
+              <!-- <router-link class="anchor" to="/articleView"
+                ><img :src="item.src" :alt="item.news_no"
+              /></router-link> -->
+              <div class="item_box">
+                <div class="item">{{ newsRow[0].news_tag }}</div>
+              </div>
+              <div class="title">
+                <p>{{ newsRow[0].news_title }}</p>
               </div>
               <router-link class="article" to="/articleView"
                 ><button>Read more &rarr;</button></router-link
@@ -161,15 +98,15 @@ const changeView = (index) => {
             </div>
           </Transition>
           <Transition name="tad" mode="out-in">
-            <div class="card" v-if="filter === 1 && item.id === 1">
-              <router-link class="anchor" to="/articleView"
+            <div class="card" v-if="filter === 2 && item.news_no === 2">
+              <!-- <router-link class="anchor" to="/articleView"
                 ><img :src="item.src" :alt="item.id"
-              /></router-link>
+              /></router-link> -->
               <div class="item_box">
-                <div class="item">{{ newsRow.tag }}</div>
+                <div class="item">{{ newsRow[0].news_tag }}</div>
               </div>
               <div class="title">
-                <p>{{ newsRow.title }}</p>
+                <p>{{ newsRow[0].news_title }}</p>
               </div>
               <router-link class="article" to="/articleView"
                 ><button>Read more &rarr;</button></router-link
@@ -177,15 +114,15 @@ const changeView = (index) => {
             </div>
           </Transition>
           <Transition name="tad" mode="out-in">
-            <div class="card" v-if="filter === 2 && item.id === 2">
-              <router-link class="anchor" to="/articleView"
+            <div class="card" v-if="filter === 3 && item.news_no === 3">
+              <!-- <router-link class="anchor" to="/"
                 ><img :src="item.src" :alt="item.id"
-              /></router-link>
+              /></router-link> -->
               <div class="item_box">
-                <div class="item">{{ newsRow.tag }}</div>
+                <div class="item">{{ newsRow[0].news_tag }}</div>
               </div>
               <div class="title">
-                <p>{{ newsRow.title }}</p>
+                <p>{{ newsRow[0].news_title }}</p>
               </div>
               <router-link class="article" to="/articleView"
                 ><button>Read more &rarr;</button></router-link
@@ -193,31 +130,15 @@ const changeView = (index) => {
             </div>
           </Transition>
           <Transition name="tad" mode="out-in">
-            <div class="card" v-if="filter === 3 && item.id === 3">
-              <router-link class="anchor" to="/"
+            <div class="card" v-if="filter === 4 && item.news_no === 4">
+              <!-- <router-link class="anchor" to="/articleView"
                 ><img :src="item.src" :alt="item.id"
-              /></router-link>
+              /></router-link> -->
               <div class="item_box">
-                <div class="item">{{ newsRow.tag }}</div>
+                <div class="item">{{ newsRow[0].news_tag }}</div>
               </div>
               <div class="title">
-                <p>{{ newsRow.title }}</p>
-              </div>
-              <router-link class="article" to="/articleView"
-                ><button>Read more &rarr;</button></router-link
-              >
-            </div>
-          </Transition>
-          <Transition name="tad" mode="out-in">
-            <div class="card" v-if="filter === 4 && item.id === 4">
-              <router-link class="anchor" to="/articleView"
-                ><img :src="item.src" :alt="item.id"
-              /></router-link>
-              <div class="item_box">
-                <div class="item">{{ newsRow.tag }}</div>
-              </div>
-              <div class="title">
-                <p>{{ newsRow.title }}</p>
+                <p>{{ newsRow[0].news_title }}</p>
               </div>
               <router-link class="article" to="/articleView"
                 ><button>Read more &rarr;</button></router-link
@@ -305,6 +226,14 @@ const changeView = (index) => {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    .contentBox {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      }
     .card {
       position: relative;
       width: 170px;

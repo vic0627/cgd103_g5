@@ -2,12 +2,18 @@ import * as THREE from 'three';
 import { ref } from 'vue';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass';
+import { RGBShiftShader } from 'three/examples/jsm/shaders/RGBShiftShader';
+import { DotScreenShader } from 'three/examples/jsm/shaders/DotScreenShader';
+import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass';
 import { droneModels, propellorModels } from './CustomizeGlb';
 import gsap from 'gsap';
 
-export let  scene, renderer, camera, modelObj, directionalLight, spotLight1, spotLight2, controls;
+export let  scene, renderer, camera, modelObj, directionalLight, spotLight1, spotLight2, controls, effect1, effect2, composer;
 
-
+let glitchPass;
 
 
 export function sceneInit () {
@@ -58,7 +64,31 @@ export function sceneInit () {
     scene.add(directionalLight);
 
     let light1 = new THREE.AmbientLight(0xffffff, .1);   
-    scene.add(light1);   
+    scene.add(light1);
+
+    composer = new EffectComposer( renderer );
+	composer.addPass( new RenderPass( scene, camera ) );
+
+	glitchPass = new GlitchPass(32);
+    glitchPass.goWild = true;
+    glitchPass.curF = .5;
+
+    effect1 = new ShaderPass( DotScreenShader );
+	effect1.uniforms[ 'scale' ].value = 4;
+    effect1.uniforms[ 'angle' ].value = Math.PI;
+	//composer.addPass( effect1 );
+
+	effect2 = new ShaderPass( RGBShiftShader );
+	effect2.uniforms[ 'amount' ].value = .1;
+	effect2.uniforms[ 'tDiffuse' ].value = .1;
+	//composer.addPass( effect2 );
+};
+export const glitchTrigger = () => {
+    composer.addPass( glitchPass );
+    setTimeout(() => {
+        composer.removePass( glitchPass );
+        composer.dispose( glitchPass );
+    }, 500)
 };
 /* ------body------ */
 export let modelLoading = ref(0);
@@ -253,7 +283,7 @@ export function animation () {
 };
 
 function render () {
-    renderer.render(scene, camera);
+    composer.render(scene, camera);
 };
 
 function windowResize () {
