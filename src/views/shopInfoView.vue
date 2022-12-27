@@ -7,6 +7,7 @@ import {
   computed,
 } from "vue";
 import { log } from "@/composables/useCommon.js";
+import router from "../router";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
@@ -23,8 +24,9 @@ bodyInit();
 
 //bottomBar第二版
 onMounted(() => {
+  
+  
   session();
-
   let lastPos = 0;
   const nav = document.getElementById("purchaseBar");
   // log(nav);
@@ -65,37 +67,30 @@ const btnLeft = () => {
   }
 };
 //抓session資料
-const prodin = ref([]);
+const prodin = ref({});
 const title = reactive([{ name: "id" }, { name: "price" }, { name: "images" }]);
 // const prodInfo = computed(() => prodin);
 const strings = ref([]);
 const session = () => {
   strings.value = sessionStorage["prodInfo"];
   prodin.value = JSON.parse(strings.value);
-  console.log(prodin.value);
-  console.log(prodin.value.price);
 };
 
 //addCart
 const set = (key, val) => {
   sessionStorage.setItem(key, val);
 };
-
 const cartList = ref([]);
-const cacheId = ref("");
-const addCart = (id, row) => {
-  cacheId.value = id;
-  if (sessionStorage["cartList"] == null) {
+const addCart = () => {
+  if (sessionStorage["cartList"] == undefined) {
     //判斷購物車無物品，須新增商品
     sessionStorage["cartList"] = "";
     set(
-      `${row.id}`,
-      `{"id":"${row.id}","name":"${row.title}","amount":1,"price":${row.Original_Price},"images":"${row.src}"}`
+      `${prodin.value.id}`,
+      `{"id":"${prodin.value.id}","name":"${prodin.value.title}","amount":1,"price":${prodin.value.price},"images":"${prodin.value.images}"}`
     );
-    console.log(`${row.id}`);
-    let get = JSON.parse(sessionStorage.getItem(id));
 
-    sessionStorage["cartList"] += `${get.id},`;
+    sessionStorage["cartList"] = `${prodin.value.id},`;
     router.push("/cart");
   } else {
     //購物車有東西
@@ -104,7 +99,7 @@ const addCart = (id, row) => {
       //跳彈窗
       lightBoxShow.value = true;
       //sessionStorage沒有商品
-    } else if (sessionStorage.getItem(id)) {
+    } else if (sessionStorage.getItem(prodin.value.id)) {
       //有一班商品
       alert("You have checked.");
     }
@@ -114,14 +109,22 @@ const addCart = (id, row) => {
 //modal-btn 清空後再加上一般商品
 const clearSess = () => {
   sessionStorage.clear();
+  set(
+      `${prodin.value.id}`,
+      `{"id":"${prodin.value.id}","name":"${prodin.value.title}","amount":1,"price":${prodin.value.price},"images":"${prodin.value.images}"}`
+    );
+  set("cartList", `${prodin.value.id}`);
   lightBoxClose();
-  addProd(cacheId.value);
+  router.push("/cart");
 };
 const lightBoxClose = () => {
   lightBoxShow.value = false;
 };
 //modal預設false
 const lightBoxShow = ref(false);
+const toCart = () => {
+  router.push("/cart");
+}
 </script>
 
 <template>
@@ -341,7 +344,7 @@ const lightBoxShow = ref(false);
       <span> USD $1,599 </span>
       <button
         class="purchaseBar_btn"
-        @click="addProd(prodRow.id, products), addCartCount()"
+        @click="addCart"
         value="Add"
       >
         <span>Buy</span>
@@ -356,7 +359,7 @@ const lightBoxShow = ref(false);
       <!-- v-if="removeItem" -->
       <div class="buttons">
         <button @click="clearSess">confirm</button>
-        <button @click="addCart">back cart</button>
+        <button @click="toCart">back cart</button>
       </div>
       <div class="close" @click="lightBoxClose"></div>
     </div>
