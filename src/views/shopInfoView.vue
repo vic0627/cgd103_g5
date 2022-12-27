@@ -48,7 +48,7 @@ const morePrd = ref([])
 const fetchItem = () => {
   fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
     method: "POST",
-    body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.products" }),
+    body: new URLSearchParams({ sql: `select * from tibamefe_cgd103g5.products where cat_no = ${Number(prodin.value.cat_no)}` }),
   })
   .then(res => res.json())
   .then(json => {

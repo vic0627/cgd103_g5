@@ -290,7 +290,7 @@ onMounted(()=> {
                 duration: 0,
             })
         }
-        if(PRO.modelObj && ws>=co+cc0+cc1+cc2+cc3+cc4/2){
+        if(PRO.modelObj && ws>=co+cc0+cc1+cc2+cc3+cc4/2 && ws<co+cc0+cc1+cc2+cc3+cc4){
             PRO.actionHover.play();
             gsap.to(PRO.modelObj.position, {
                 x: 0,
@@ -304,7 +304,7 @@ onMounted(()=> {
                 z: .3-(.65/cc4/2)*(ws-co-cc0-cc1-cc2-cc3+cc4/2),
                 duration: .3,
             })
-        }else{
+        }else if(ws<=co+cc0+cc1+cc2+cc3+cc4/2){
             PRO.actionHover.stop();
         }
     };
@@ -454,7 +454,6 @@ const scrollList = (e, delay = 0, dur = .1) => {
         xxx = Math.sin(os / wh * Math.PI);
         zzz = Math.cos(os / wh * Math.PI);
         let xrwd;
-        log(50+xxx*40)
         if(ww<576){
             xrwd = 0;
         }else{
@@ -476,12 +475,12 @@ const scrollList = (e, delay = 0, dur = .1) => {
             }) */
         }
         gsap.to(e, {
-            top: 100*(os / wh)+'%',
+            top: sumWs/Math.ceil(ww/wh),
             rotateX: xrwd*10,
             rotateY: 180*(os / wh),
             rotateZ: -zzz*10,
             left: 50+xxx*40+'%',
-            scale: (zzz+1)/2+.5,
+            scale: (zzz+1)/2+.2,
             duration: dur,
         })
         if(PRO.Rain){
@@ -509,14 +508,15 @@ const scrollList = (e, delay = 0, dur = .1) => {
                 x: .15,
                 y: -(sumWs / wh),
                 z: -.35,
-                duration: 1,
+                duration: .3,
             })
             gsap.to(PRO.modelObj.position, {
                 x: 0,
-                y: -1-(sumWs / wh / 5),
+                y: -1+(-Math.sin(sumWs/wh))*1.5,
                 z: 0,
-                duration: 1,
+                duration: .3,
             })
+            log(-1+(Math.sin(sumWs/wh))*5)
         }
     }
     
@@ -543,7 +543,7 @@ const toImg = (e) => {
             rotateX: 0,
             rotateY: 0,
             rotateZ: 0,
-            scale: 2,
+            scale: 1,
             duration: .3,
         })
         gsap.to(e.target.firstChild, {
@@ -615,7 +615,7 @@ const allFloat = () => {
                 <p v-if="wW > 1024 && i.id == 1" class="closeMouseMove">Try to move your mouse around to discover!</p>
             </div>
         </div>
-        <div class="containerSpec">
+        <div class="containerSpec" v-show="ww>1023">
             <ol class="specOl">
                 <li v-for="n in 10" :class="`specLi${n}`" @click.capture="toImg" :key="n">
                     <img :src="fpv.special.item[n].src">
@@ -894,6 +894,8 @@ const allFloat = () => {
             opacity: 0;
             pointer-events: none;
             font-size: 0;
+            line-height: 1.2;
+            text-shadow: 0 0 5px #111;
             @include s($s-breakpoint) {
                 width: 200px;
                 font-size: 16px;
@@ -913,6 +915,7 @@ const allFloat = () => {
             line-height: 1.2;
             opacity: 0;
             pointer-events: none;
+            text-shadow: 0 0 5px #111;
             @include s($s-breakpoint) {
                 top: 50%;
                 width: 200px;
@@ -926,13 +929,13 @@ const allFloat = () => {
         }
     }
     li:nth-child(1){
-        margin-top: 100vh;
+        margin-top: 66vh;
     }
     li:nth-child(10){
-        margin-bottom: 100vh;
-        /* @include s($s-breakpoint) {
-            margin-bottom: 300vh;
-        } */
+        //margin-bottom: 100vh;
+        @include m($m-breakpoint) {
+            margin-bottom: 333vh;
+        }
     }
 }
 
