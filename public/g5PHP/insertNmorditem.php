@@ -6,16 +6,15 @@ header("Content-Type:application/json;charset=utf-8");
         // echo json_encode($result);//變json字串後回傳
         try{
             require_once("./connect_cgd103g5_felix.php");
-            $sql = "INSERT INTO tibamefe_cgd103g5.nm_orders (mem_no,mem_grade,orders_price,discount_price,total_price,orders_location,credit_no
-            VALUES (:mem_no,:mem_grade,:orders_price,:discount_price,:total_price,:orders_location,:credit_no)"; 
+            $sql = "INSERT INTO tibamefe_cgd103g5.nm_order_item (orders_no,prd_no,item_quantity,item_price,item_sub,item_discount)
+            VALUES (:orders_no,:prd_no,:item_quantity,:item_price,:item_sub,:item_discount)"; 
             $insertOrder = $pdo->prepare($sql);
-            $insertOrder->bindValue(":mem_no", $_POST["mem_no"]);
-            $insertOrder->bindValue(":mem_grade", $_POST["mem_grade"]);
-            $insertOrder->bindValue(":orders_price", $_POST["orders_price"]);
-            $insertOrder->bindValue(":discount_price", $_POST["discount_price"]);
-            $insertOrder->bindValue(":total_price", $_POST["total_price"]);
-            $insertOrder->bindValue(":orders_location", $_POST["orders_location"]);
-            $insertOrder->bindValue(":credit_no", $_POST["credit_no"]);
+            $insertOrder->bindValue(":orders_no", $_POST["orders_no"]);
+            $insertOrder->bindValue(":prd_no", $_POST["prd_no"]);
+            $insertOrder->bindValue(":item_quantity", $_POST["item_quantity"]);
+            $insertOrder->bindValue(":item_price", $_POST["item_price"]);
+            $insertOrder->bindValue(":item_sub", $_POST["item_sub"]);
+            $insertOrder->bindValue(":item_discount", $_POST["item_discount"]);
             $insertOrder->execute();
             $msg = "success";
         }catch (PDOException $e) {

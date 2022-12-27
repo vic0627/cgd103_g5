@@ -2,7 +2,7 @@
 import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
 import {bodyInit} from '@/composables/useOnunmounted';
-
+import axios from 'axios';
 bodyInit();
 
 const props = defineProps(['prevStep','nextStep','step']);
@@ -41,21 +41,12 @@ const sums = ref('');
 const final = ref('');
 const discount_price = ref('');
 const disc_no = ref('');
-// const getPrice = ()=>{
-//     sums.value = sessionStorage.getItem('sums');
-//     final.value = sessionStorage.getItem('final');
-//     disc_no.value = sessionStorage.getItem('discount');
-//     console.log(sums.value)
-// }
 onMounted(()=>{
     getMemberInfo();
 })
-/////
-// const mem_no = ref(1)
-// const mem_grade = ref(2)
-// const orders_location = ref('32 Sumter Drive, Wylie,tx, 75098')
-// const credit_no = ref(3544777739071678)
+//辦認客製化或一般商品
 const submitOrder = ()=>{
+if(sessionStorage['cartList'].includes('111')){
     sums.value = sessionStorage.getItem('sums');
     final.value = sessionStorage.getItem('final');
     discount_price.value = sessionStorage.getItem('discount');
@@ -68,14 +59,43 @@ const submitOrder = ()=>{
         total_price: Number(final.value),
         orders_location: memberInfo.value.address,
         credit_no: Number(memberInfo.value.credit_no),
-        disc_no: Number(disc_no.value),
     };
     fetch("/dist/g5PHP/sessionNmitem.php", {
         method: "POST",
         body: new URLSearchParams(payload),
     }).then(res=>{
         res.text();
-        // console.log(res);
+    }).then(res=>{
+        getmaxOrder();
+    })
+}else{
+    const payload = {
+        mem_no: Number(memberInfo.value.mem_no),
+        mem_grade: Number(memberInfo.value.mem_grade),
+        orders_price: Number(sums.value),
+        discount_price: Number(discount_price.value),
+        total_price: Number(final.value),
+        orders_location: memberInfo.value.address,
+        credit_no: Number(memberInfo.value.credit_no),
+    };
+    fetch("/dist/g5PHP/sessionNmitem.php", {
+        method: "POST",
+        body: new URLSearchParams(payload),
+    }).then(res=>{
+        res.text();
+    }).then(res=>{
+        getmaxOrder();
+    })
+}
+}
+
+const maxOrder = ref('');
+const getmaxOrder = () => {
+    //取得管理員資料
+    axios.get("/dist/g5PHP/getsessionNm.php")
+    .then(res=> {
+        maxOrder.value = res.data
+        sessionStorage.setItem('order_no',maxOrder.value);
     })
 }
 </script>
@@ -125,7 +145,6 @@ const submitOrder = ()=>{
         <input type="hidden" v-model="final" name="total_price">
         <input type="hidden" v-model="memberInfo.orders_location" name="orders_location">
         <input type="hidden" v-model="memberInfo.credit_no" name="credit_no">
-        <input type="hidden" v-model="disc_no" name="disc_no">            
     </form>      
 </template>
 
@@ -178,9 +197,9 @@ const submitOrder = ()=>{
             tr{
                 border: 1px solid rgb(125, 124, 124);
                 height: 40px;
-                &:nth-child(even){
-                    // background-color: #98989880;
-                }
+                // &:nth-child(even){
+                //     // background-color: #98989880;
+                // }
                 th{
                     text-align: center;
                 }

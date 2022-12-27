@@ -9,8 +9,8 @@ try{
         $member = $pdo->prepare($sql);
         $member->bindValue(1, $_SESSION["Account"]);
         $member->execute();
-        $memRow = $member->fetch(PDO::FETCH_ASSOC);
-        echo json_encode($memRow);//送出該會員的資料
+        $memRows = $member->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($memRows);//送出該會員的資料
     }else{ //尚未登入
         echo "{}";//回傳空字串，保持登出狀態
     }
