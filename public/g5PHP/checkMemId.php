@@ -5,8 +5,8 @@ header('Access-Control-Allow-Origin:*');
 // $datas = json_decode($_POST["formData"],true);
 // echo $_POST["mem_acc"];
 try{
-	// require_once("./connect_cgd103g5_Lily.php");
-	require_once("./connect_cgd103g5_felix.php");
+	require_once("./connect_cgd103g5.php");
+	// require_once("./connect_cgd103g5_felix.php");
 	$sql = "select * from `member` where mem_acc = ? ";
 	$memberC = $pdo->prepare($sql);
 	$memberC->bindValue(1, $_POST["mem_acc"]);

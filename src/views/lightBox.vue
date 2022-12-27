@@ -2,6 +2,7 @@
 import { ref } from "vue";
 import emailjs from "emailjs-com";
 
+
 const lightBoxClose = () => {
   lightBoxShow.value = false;
 };

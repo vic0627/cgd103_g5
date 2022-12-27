@@ -6,8 +6,8 @@ $datas = json_decode($_POST["datas"],true);//將前端datas送過來的json字�
 header('Access-Control-Allow-Origin:*');
 header("Content-Type:application/json;charset=utf-8");
 try{
-  // require_once("./connect_cgd103g5_Lily.php");
-  require_once("./connect_cgd103g5_felix.php");
+  require_once("./connect_cgd103g5.php");
+  // require_once("./connect_cgd103g5_felix.php");
   $sql = "select * from `member` where mem_acc=:memId and mem_pw=:memPsw"; 
   $member = $pdo->prepare($sql);
   // $member->bindValue(":memId", $_POST["username"]);
@@ -24,15 +24,15 @@ try{
 
     //登入成功,將登入者的欄位資料寫入session
     // session_start();
-
     $_SESSION["Account"] = $memRow["mem_acc"];
+    $_SESSION["Password"] = $memRow["mem_pw"];
     $_SESSION["FirstName"] = $memRow["mem_first_name"];
     $_SESSION["LastName"] = $memRow["mem_last_name"];
     $_SESSION["email"] = $memRow["mem_email"];
 
 
 
-    $result = ["Account"=>$_SESSION["Account"],"FirstName"=>$_SESSION["FirstName"],"email"=>$_SESSION["email"]];//打包session
+    $result = ["Number"=>$_SESSION["Number"],"Account"=>$_SESSION["Account"],"Password"=>$_SESSION["Password"],"FirstName"=>$_SESSION["FirstName"],"email"=>$_SESSION["email"]];//打包session
     echo json_encode($result);//送出session內的資料
     
   }

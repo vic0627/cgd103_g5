@@ -71,7 +71,7 @@ onMounted(()=> {
     <div class="memgrade">
         <div class="level"><span>LEVEL {{memberinfo.mem_grade}}</span></div>
         <h6>{{memberinfo.grade_name}} Member</h6>
-        <p>Member Discount :<br> All products <span style="color: red">{{100-(memberinfo.mem_discount*100)}}%Off</span> </p>
+        <p>Member Discount :<br> All products <span class="memdis">{{100-(memberinfo.mem_discount*100)}}%Off</span> </p>
         <!-- <input type="text" class="pgg" v-model="percent"> -->
         <div class="pb">
             <!-- <div class="progress-wrap progress" :data-progress-percent="10"> -->
@@ -100,10 +100,14 @@ onMounted(()=> {
 .memgrade{
     box-sizing: border-box;
     // flex-grow: 1;
-    width: 50%;
-    background-color: #616574;
+    // width: 50%;
+    background-color: #2d2f35;
     border-radius: 10px;
     padding: 10px;
+    .memdis{
+        color: #ffe400;
+        font-weight: 700;
+    }
     p,h6{
         padding:0 10px;
     }
@@ -114,7 +118,7 @@ onMounted(()=> {
             width: fit-content;
             display: block;
             padding: 10px;
-            background: rgb(226, 185, 2);
+            background: rgb(14, 56, 127);
             border-radius: 10px;
             font-size: 20px;
         }
@@ -128,7 +132,8 @@ onMounted(()=> {
         }
         .progress-wrap {
             border: 2px solid #273747;
-            background: linear-gradient(270deg, #ff8000 10%, #EDC793 90%);
+            // background: linear-gradient(270deg, #ff8000 10%, #EDC793 90%);
+            background: linear-gradient(135.57deg, #4591D8 15.58%, #6723C7 82.75%);
             // margin: 20px 0;
             overflow: hidden;
             position: relative;
