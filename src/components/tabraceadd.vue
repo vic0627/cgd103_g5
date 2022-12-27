@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted } from "vue";
 
+// const cpt_no = ref("");
 const cpt_name = ref("");
 const cpt_start = ref("");
 const cpt_end = ref("");
@@ -10,6 +11,7 @@ const cpt_txt = ref("");
 
 const addProduct = () => {
   const payload = {
+    // cpt_no: cpt_no.value,
     cpt_name: cpt_name.value,
     cpt_start: cpt_start.value,
     cpt_end: cpt_end.value,
@@ -74,6 +76,17 @@ function fileChange() {
     <form action="" method="post">
       <div class="cpt">
         <div>
+          <!-- <div class="name">
+            <h3>賽事編號</h3>
+            <input
+              type="text"
+              name="cpt_no"
+              id="name"
+              placeholder="請輸入賽事編號"
+              v-model="cpt_no"
+              required
+            />
+          </div> -->
           <div class="name">
             <h3>賽事名稱</h3>
             <input
@@ -124,13 +137,12 @@ function fileChange() {
         </div>
 
         <div>
-          <!-- <div class="photo">
-            <h3>圖片</h3>
+          <div class="imgBox">
             <p>
               <img id="image" />
             </p>
-            <input type="file" id="theFile" @change="fileChange" />
-          </div> -->
+          </div>
+          <input type="file" id="theFile" @change="fileChange" />
 
           <div class="txt">
             <h3>內容</h3>
