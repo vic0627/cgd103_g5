@@ -47,7 +47,7 @@ const addProd = (id, row) => {
 
     }else{
       //無，執行set跟get
-      set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
+      set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"img":"${row[nid].src}"}`);
       console.log(`${row[nid].id}`);
       let get = JSON.parse(sessionStorage.getItem(id));
       if(sessionStorage['cartList'] == ''){
@@ -86,7 +86,7 @@ const moreProd = (id, row)=> {
     sessionStorage['prodInfo']='';
   }
   
-      set("prodInfo",`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
+      set("prodInfo",`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"img":"${row[nid].src}"}`);
 
       //  跳轉頁面到產品資訊
       router.push('/shopInfo');
@@ -118,8 +118,8 @@ const assRows = ref([]);
 const products = ref([]), accessories = ref([]) ,bundle_A = ref([]),bundle_B = ref([]);
 
 const getShopInfo = () =>{
-  // fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
-  fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
+  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
+  // fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
   // fetch("/dist/g5PHP/getShop.php")
     .then(res => res.json())
     .then(json => {
