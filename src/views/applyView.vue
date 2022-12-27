@@ -40,6 +40,7 @@ onMounted(() => {
   session();
   getMemberInfoSS();
   membook();
+  getMemberInfo();
 });
 
 const getMemberInfoSS = () => {
@@ -116,6 +117,41 @@ const membook = () => {
     });
   }
 };
+
+//抓會員
+const memberInfo = ref({
+  mem_no: "",
+  mem_grade: "",
+  mem_first_name: "",
+  mem_last_name: "",
+  phone: "",
+  mem_gender: "",
+  mem_email: "",
+  city: "",
+  address: "",
+  credit_no: "",
+});
+function getMemberInfo() {
+  fetch("http://localhost/cgd103_g5/public/g5PHP/getMemInfo.php", {
+    method: "POST",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((mem) => {
+      console.log(mem);
+      memberInfo.value.mem_no = mem.mem_no;
+      memberInfo.value.mem_grade = mem.mem_grade;
+      memberInfo.value.mem_first_name = mem.mem_first_name;
+      memberInfo.value.mem_last_name = mem.mem_last_name;
+      memberInfo.value.phone = mem.phone;
+      memberInfo.value.mem_gender = mem.mem_gender;
+      memberInfo.value.city = mem.city;
+      memberInfo.value.address = mem.address;
+      memberInfo.value.credit_no = mem.credit_no;
+    })
+    .catch((error) => console.log(error));
+}
 </script>
 
 <template>
@@ -164,6 +200,7 @@ const membook = () => {
           <span>Book</span>
         </a>
       </div>
+
       <div class="lightBox" v-if="lightBoxShow">
         <div class="lightBoxContent">
           <form @submit="sendEmail">
@@ -176,6 +213,13 @@ const membook = () => {
         </div>
       </div>
     </div>
+
+    <form action="post">
+      <input type="hidden" v-model="memberInfo.regis_no" name="regis_no" />
+      <input type="hidden" v-model="comp_no" name="comp_no" />
+      <input type="hidden" v-model="mem_no" name="mem_no" />
+      <input type="hidden" v-model="regis_date" name="regis_date" />
+    </form>
   </section>
 
   <footerComponentsVue />

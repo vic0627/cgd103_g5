@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref, h } from "vue";
+import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
 import {
   zhTW,
   NPagination,
@@ -62,6 +62,45 @@ const getBook = () => {
 onMounted(() => {
   getBook();
 });
+
+// 搜尋
+
+const search = ref("");
+const returnRace = computed(() => {
+  let cache = bookRows.value;
+  if (search.value !== "") {
+    cache = cache.filter((i) =>
+      String(i[select[selectVal.value].val]).includes(search.value)
+    );
+    if (search.value == "All") {
+      cache = bookRows.value;
+    }
+  } else {
+    cache = [];
+  }
+  return cache;
+});
+const select = [
+  {
+    id: 0,
+    title: "報名編號",
+    val: "regis_no",
+  },
+  {
+    id: 1,
+    title: "賽事編號",
+    val: "comp_no",
+  },
+  {
+    id: 1,
+    title: "會員編號",
+    val: "mem_no",
+  },
+];
+const selectVal = ref("0");
+const testVal = (e) => {
+  selectVal.value = e.target.value;
+};
 </script>
 <template>
   <div class="top">
@@ -69,10 +108,28 @@ onMounted(() => {
       報名資料查詢
       <outComponents />
     </h2>
+    <div class="search_box">
+      <p>依</p>
+      <select name="searchMethods" id="searchMethods" @change="testVal">
+        <option v-for="i in select" :key="i.id" :value="i.id">
+          {{ i.title }}
+        </option>
+      </select>
+      <p>查詢</p>
+      <label for="search" class="label">
+        <input
+          type="search"
+          id="search"
+          name="search"
+          v-model="search"
+          :placeholder="`請輸入All或${select[selectVal].title}`"
+        />
+      </label>
+    </div>
     <div class="table">
       <n-data-table
         :columns="column"
-        :data="bookRows"
+        :data="returnRace"
         :pagination="pagination"
         :bordered="true"
         :single-line="false"
@@ -91,28 +148,14 @@ onMounted(() => {
 </template>
 <style scoped lang="scss">
 @import "@/sass/style.scss";
-.top {
-  width: 100%;
-  display: block;
-}
-.table {
-  width: 95%;
-  margin: auto;
-}
-h2 {
-  font-size: 40px;
-  color: #fff;
-  margin: 10px 10px;
-  padding: 10px 10px;
-  background-color: #597897;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+
 .search_box {
   display: flex;
   justify-content: right;
   margin: 30px 15px;
+  p {
+    color: #000;
+  }
   label {
     margin-right: 10px;
     font-size: 20px;
@@ -138,73 +181,10 @@ h2 {
       }
     }
   }
-  .btn {
-    button {
-      width: 50px;
-      text-align: center;
-      border: none;
-      background: #597897;
-      border-radius: 5px;
-      padding: 5px;
-      transition: background 0.5s;
-      cursor: pointer;
-      &:hover {
-        background: $blue;
-      }
-      img {
-        width: 20px;
-        height: 20px;
-        margin-top: 2px;
-      }
-    }
-  }
 }
 
-.tables {
-  width: 100%;
-  margin: auto;
-  table {
-    width: 95%;
-    margin: 0 auto;
-    text-align: center;
-    font-size: 20px;
-    border: 1px solid #c0c0c0;
-    tr {
-      border: 1px solid #c0c0c0;
-      &:hover td {
-        background: rgba(89, 120, 151, 0.11);
-      }
-      th {
-        padding: 20px 10px;
-        background-color: #597897;
-        color: #fff;
-        border: 1px solid #c0c0c0;
-        border-top: 1px solid #597897;
-      }
-      td {
-        border: 1px solid #c0c0c0;
-        padding: 20px 10px;
-        overflow: hidden;
-        a {
-          color: #273747;
-          span {
-            color: #273747;
-          }
-          .block {
-            &:hover {
-              border-bottom: 1px solid #273747;
-            }
-          }
-          .red {
-            color: #f25a2a;
-            &:hover {
-              border-bottom: 1px solid #f25a2a;
-            }
-          }
-        }
-      }
-    }
-  }
+textarea {
+  margin-top: 10px;
 }
 
 .top {
@@ -220,5 +200,30 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.tables {
+  width: 95%;
+  margin: auto;
+  ::v-deep(n-data-table-td) {
+    border-bottom: 1 solid #111;
+    background-color: #222;
+  }
+}
+
+.modal-mask {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: table;
+  transition: opacity 0.3s ease;
+}
+.modal-wrapper {
+  display: table-cell;
+  vertical-align: middle;
 }
 </style>
