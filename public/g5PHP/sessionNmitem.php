@@ -6,8 +6,7 @@ header("Content-Type:application/json;charset=utf-8");
         // echo json_encode($result);//變json字串後回傳
         try{
             require_once("./connect_cgd103g5_felix.php");
-            $sql = "INSERT INTO tibamefe_cgd103g5.nm_orders (mem_no,mem_grade,orders_price,discount_price,total_price,orders_location,credit_no
-            VALUES (:mem_no,:mem_grade,:orders_price,:discount_price,:total_price,:orders_location,:credit_no)"; 
+            $sql = "INSERT INTO `nm_orders` (`orders_no`, `mem_no`, `mem_grade`, `purchase_date`, `orders_status`, `orders_price`, `discount_price`, `total_price`, `orders_location`, `credit_no`) VALUES (NULL, :mem_no, :mem_grade, CURRENT_TIMESTAMP, '待處理', :orders_price, :discount_price, :total_price, :orders_location, :credit_no);"; 
             $insertOrder = $pdo->prepare($sql);
             $insertOrder->bindValue(":mem_no", $_POST["mem_no"]);
             $insertOrder->bindValue(":mem_grade", $_POST["mem_grade"]);

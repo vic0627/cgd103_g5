@@ -2,7 +2,7 @@
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
-	require_once("./connect_cgd103g5_vic.php");
+	require_once("./connect_cgd103g5_adam.php");
 	$sql = "UPDATE tibamefe_cgd103g5.news
 	SET news_no = :news_no, news_title = :news_title, news_txt = :news_txt, news_time = :news_time, news_photo = :news_photo, news_tag = :news_tag
   WHERE news_no = :news_no";
