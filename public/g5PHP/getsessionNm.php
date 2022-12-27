@@ -3,10 +3,10 @@
  header("Content-Type:application/json;charset=utf-8");
 try {
 	require_once("./connect_cgd103g5_felix.php");
-	$sql = "SELECT max(a.orders_no) FROM `nm_orders` a";
+	$sql = "SELECT max(a.orders_no) order_no FROM `nm_orders` a";
 	$nm_orders = $pdo->prepare($sql);
 	$nm_orders->execute();
-	$nm_ordersRows = $nm_orders->fetchAll(PDO::FETCH_ASSOC);
+	$nm_ordersRows = $nm_orders->fetch(PDO::FETCH_ASSOC);
 	echo json_encode($nm_ordersRows);
 } catch (PDOException $e) {
 	//echo "錯誤原因 : ", $e->getMessage(), "<br>";

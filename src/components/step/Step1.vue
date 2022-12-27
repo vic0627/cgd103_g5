@@ -12,15 +12,10 @@ const title = reactive([
 const cartItem = ref([]);
 const cartList = computed(() => cartItem.value)
 const session = ()=> {
-    // if(sessionStorage.v)
     const strings = sessionStorage.getItem('cartList')
-    console.log(strings)
-    const substrs = strings.substr(0, strings.length - 1).split(',')
-    console.log(substrs)
+    const substrs = strings.substr(0, strings.length).split(',')
     getcartItem(substrs);
-    console.log(explode.value)
     cartItem.value = JSON.parse(`[${explode.value}]`);
-    console.log(cartItem.value)
 }
 //抓session裡面的存放的商品放進購物車
 const getcartItem = (substrs)=>{
@@ -61,11 +56,13 @@ const final = computed(()=>{
         return totalprice
 })
 const addCount = (index) => {
-    return cartList.value[index].amount +=1;
+    cartList.value[index].amount +=1;
+    sessionStorage.setItem(`${cartList.value[index].id}`,`{"id":"${cartList.value[index].id}","name":"${cartList.value[index].name}","amount":${cartList.value[index].amount},"price":${cartList.value[index].price},"img":"${cartList.value[index].img}"}`)
 }
 const reduceCount = (index) => {
     if(cartList.value[index].amount > 1){
-        return cartList.value[index].amount --;  
+        cartList.value[index].amount --; 
+        sessionStorage.setItem(`${cartList.value[index].id}`,`{"id":"${cartList.value[index].id}","name":"${cartList.value[index].name}","amount":${cartList.value[index].amount},"price":${cartList.value[index].price},"img":"${cartList.value[index].img}"}`) 
     }
 }
 //刪除商品
