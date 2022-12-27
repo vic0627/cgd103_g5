@@ -1,5 +1,6 @@
 <script setup>
-import { reactive, onMounted, ref } from "vue";
+import { reactive, onMounted, ref, onUpdated } from "vue";
+import { getCartLength } from "../composables/useCommon";
 const mainMenu = reactive([
   {
     id: "shop",
@@ -24,6 +25,7 @@ const mainMenu = reactive([
 ]);
 const mem = ref("");
 onMounted(() => {
+  count.value = getCartLength();
   // console.log(mainMenu);
   function getMemberInfo() {
     let xhr = new XMLHttpRequest();
@@ -70,6 +72,7 @@ onMounted(() => {
     xhr.open("get", "/dist/g5PHP/memLogout.php", true);
     xhr.send(null);
   }
+  
 });
 const NavClass = defineProps({
   home: {
@@ -99,10 +102,13 @@ const NavClass = defineProps({
   count: {
     type: Number,
     default: 0,
-  },
+  }
 });
 // const props = defineProps(['count']);
-
+const count = ref(0);
+onUpdated(() => {
+  count.value = NavClass.count;
+});
 // :style="NavClass.className"
 </script>
 
@@ -211,7 +217,7 @@ const NavClass = defineProps({
           ><img src="../assets/images/home/icon2.png" alt="cart"
         /></router-link>
         <router-link to="/cart" class="shop"
-          ><div>{{ NavClass.count }}</div></router-link
+          ><div>{{ count }}</div></router-link
         >
       </div>
     </div>
