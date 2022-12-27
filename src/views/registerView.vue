@@ -9,87 +9,81 @@
 
 
     const getQuery = (classname) =>document.querySelector(classname);
-    // const sendForm = ()=>{
-    //     if(!verifyuname() || !verifypsw1() || !verifypsw1()){
-    //         alert("check your enter");
-    //         return false;
-    //     }
-    // }
-
 
     //address
-    const state = reactive({
-            frameworksIdx: 0, // 記錄第一層選單的被選取項目
-            contentsIdx: 0, // 記錄第二層選單的被選取項目
-            frameworks : [
-                {
-                    type: 'Choose Your Location',
-                    contents: [
-                        { name: 'Choose Your Country'},
+    // const state = reactive({
+    //         frameworksIdx: 0, // 記錄第一層選單的被選取項目
+    //         contentsIdx: 0, // 記錄第二層選單的被選取項目
+    //         frameworks : [
+    //             {
+    //                 type: 'Choose Your Location',
+    //                 contents: [
+    //                     { name: 'Choose Your Country'},
                         
-                    ],
-                },
-                {
-                    type: 'AMERICAS',
-                    contents: [
-                        { name: 'USA'},
-                        { name: 'Brasil'},
-                        { name: 'Canada(English)'},
-                        { name: 'Canada(Français)'},
-                        { name: 'Mexico'},
-                    ],
-                },
-                {
-                    type: 'EUROPE',
-                    contents: [
-                        { name: 'Belgium'},
-                        { name: 'Denmark (English)'},
-                        { name: 'Deutschland'},
-                        { name: 'Finland (English)'},
-                        { name: 'France'},
-                        { name: 'Ireland'},
-                        { name: 'Italia'},
-                        { name: 'Luxembourg (English)'},
-                        { name: 'Monaco (English)'},
-                        { name: 'Nederland (English)'},
-                    ],
-                },
-                {
-                    type: 'ASIA',
-                    contents: [
-                        { name: '台灣'},
-                        { name: '中國大陸'},
-                        { name: '日本'},
-                        { name: '대한민국'},
-                        { name: '香港特別行政區'},
-                        { name: 'Singapore'},
-                        { name: 'ประเทศไทย'},
-                        { name: 'Việt Nam'},
-                    ],
-                },
-                {
-                    type: 'OCEANIA',
-                    contents: [
-                        { name: 'Australia'},
-                        { name: 'New Zealand'},
-                    ],
-                },
-                {
-                    type: 'MIDDLE EAST',
-                    contents: [
-                        { name: 'UAE (English)'},
-                        { name: 'Kuwait (English)'},
-                        { name: 'KSA (English)'},
-                    ],
-                },
-            ],
-    });
-    const pickContents = computed(() => {
-        return state.frameworks[state.frameworksIdx].contents;
-    });
-    watch(() => state.frameworksIdx, (value) =>{
-        state.contentsIdx = 0;
-    });
+    //                 ],
+    //             },
+    //             {
+    //                 type: 'AMERICAS',
+    //                 contents: [
+    //                     { name: 'USA'},
+    //                     { name: 'Brasil'},
+    //                     { name: 'Canada(English)'},
+    //                     { name: 'Canada(Français)'},
+    //                     { name: 'Mexico'},
+    //                 ],
+    //             },
+    //             {
+    //                 type: 'EUROPE',
+    //                 contents: [
+    //                     { name: 'Belgium'},
+    //                     { name: 'Denmark (English)'},
+    //                     { name: 'Deutschland'},
+    //                     { name: 'Finland (English)'},
+    //                     { name: 'France'},
+    //                     { name: 'Ireland'},
+    //                     { name: 'Italia'},
+    //                     { name: 'Luxembourg (English)'},
+    //                     { name: 'Monaco (English)'},
+    //                     { name: 'Nederland (English)'},
+    //                 ],
+    //             },
+    //             {
+    //                 type: 'ASIA',
+    //                 contents: [
+    //                     { name: '台灣'},
+    //                     { name: '中國大陸'},
+    //                     { name: '日本'},
+    //                     { name: '대한민국'},
+    //                     { name: '香港特別行政區'},
+    //                     { name: 'Singapore'},
+    //                     { name: 'ประเทศไทย'},
+    //                     { name: 'Việt Nam'},
+    //                 ],
+    //             },
+    //             {
+    //                 type: 'OCEANIA',
+    //                 contents: [
+    //                     { name: 'Australia'},
+    //                     { name: 'New Zealand'},
+    //                 ],
+    //             },
+    //             {
+    //                 type: 'MIDDLE EAST',
+    //                 contents: [
+    //                     { name: 'UAE (English)'},
+    //                     { name: 'Kuwait (English)'},
+    //                     { name: 'KSA (English)'},
+    //                 ],
+    //             },
+    //         ],
+    // });
+
+    // const pickContents = computed(() => {
+    //     return state.frameworks[state.frameworksIdx].contents;
+    // });
+    // watch(() => state.frameworksIdx, (value) =>{
+    //     state.contentsIdx = 0;
+    // });
 
 
 
@@ -112,20 +106,11 @@
         function sendForm(){
             if(!verifyuname() || !verifypsw1() || !verifypsw2()){
                 alert("please chcek your Id or password");
-                // if(document.getElementById("username").value == ""){
-                //     $("#username").focus();
-                // }
                 return false;
             }else{
                 // alert("要送出囉！");
                 checkId();
             }
-
-
-            // if(document.getElementById("username").value = ""){
-            //     alert("go");
-            //         $("#username").focus();
-            // }
         }
         document.getElementById('btnLogin').onclick = sendForm;
 
@@ -156,16 +141,6 @@
             
         }
 
-        //check if email has been used
-        uname.addEventListener('blur',()=>{
-            if(uname.value !=""){//有輸入資料時
-                // checkId();
-            }else{
-                return false;
-            }
-
-        });
-
         //帳號驗證
         function checkId(){  
             let formData = new FormData(); // 一開始表單的資料是空的
@@ -178,6 +153,7 @@
             formData.append('city', memberinfo.value.city); 
             formData.append('address', memberinfo.value.address); 
             formData.append('phone', memberinfo.value.phone); 
+            console.log("123:"+formData);
             fetch('/dist/g5PHP/checkMemId.php',{
                 method: "post",
                 body: formData,
@@ -235,12 +211,7 @@
             return false;
         }
 
-
-        let aaa = document.querySelector(".dd");
-        aaa.firstElementChild.setAttribute("disabled", "");
-        let cc = document.querySelector(".cc");
-        cc.firstElementChild.setAttribute("disabled", "");
-    })
+    });
 
     
 
@@ -306,19 +277,21 @@
                                 <option>CHOOSE YOUR LOCATION</option>
                                 <option :value="i" v-for="i in city" :key="i">{{i}}</option>
                             </select> -->
-                            <select v-model="state.frameworksIdx" class="input-s dd" >
-                                <option v-for="(item, index) in state.frameworks" :key="index">
+                            <!-- <select v-model="state.frameworksIdx" class="input-s dd" >
+                                <option v-for="(item, index) in state.frameworks" :value="index">
                                     {{item.type}}
                                 </option>
                             </select>
                             <select v-model="state.contentsIdx" class="input-s cc">
-                                <option v-for="(item, index) in pickContents" :key="index">
+                                <option v-for="(item, index) in pickContents" :value="index">
                                     {{item.name}}
                                 </option>
-                            </select>
+                            </select> -->
                             
-                            <input type="text" class="input-s" name="" id="" maxlength="15" v-model="memberinfo.address">
+                            <input type="text" class="input-s" name="" id="" maxlength="15" v-model="memberinfo.city" placeholder="City">
+                            <input type="text" class="input-s" name="" id="" maxlength="15" v-model="memberinfo.address" placeholder="Address">
                             <span class=""></span>
+                            <!-- {{ memberinfo.city }} -->
                             <!-- {{ memberinfo.address }} -->
 
 
@@ -421,6 +394,7 @@ header{
                         label{
                             display: block;
                             margin-top: 24px;
+                            color: #fff;
                         }
                         .login_info{
                             display: flex;

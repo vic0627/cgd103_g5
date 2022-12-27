@@ -105,8 +105,10 @@ section {
       margin: 0 auto;
       .meminfo{
         aspect-ratio: 16/9;
-        padding: 30px;
+        // padding: 30px;
+        
       }
+
       // .member_card {
       //   position: relative;
       //   width: 100%;
@@ -190,7 +192,7 @@ section {
       .member_drone {
         // width: 90%;
         max-width: 700px;
-        margin: 15px auto;
+        // margin: 15px auto;
         text-align: center;
         img {
           margin: 15px 0;
@@ -295,8 +297,10 @@ section {
   }
   @include m($m-breakpoint) {
     .member_top {
-      display: flex;
+      // display: flex;
       align-items: center;
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
     }
   }
 }

@@ -9,17 +9,18 @@ const item_quantity =ref('');
 const item_price = ref('');
 const item_sub =ref('');
 const item_discount =ref('');
+const explode = ref('');
 //
 const cartItem = ref([]);
 // const cartList = computed(() => cartItem.value);
 const session = ()=> {
     const strings = sessionStorage.getItem('cartList')
-    const substrs = strings.substr(0, strings.length - 1).split(',')
+    const substrs = strings.substr(0, strings.length).split(',')
     getcartItem(substrs);
     cartItem.value = JSON.parse(`[${explode.value}]`);
 }
 const getcartItem = (substrs)=>{
-  for(let i=0;i<=substrs.length-1;i++){
+  for(let i=0;i<substrs.length;i++){
     if(i===0){
       explode.value = sessionStorage.getItem(substrs[i])
     }else{
@@ -32,12 +33,13 @@ const submitOrdItem = ()=> {
     orders_no.value = sessionStorage.getItem('order_no');
     item_discount.value = sessionStorage.getItem('discount');
     item_sub.value =sessionStorage.getItem('final');
+    console.log(orders_no.value);
     for(let i=0;i<cartItem.value.length;i++){
         const payload = {
             orders_no: Number(orders_no.value),
             prd_no: Number(cartItem.value[i].id),
             item_quantity: Number(cartItem.value[i].amount),
-            item_price: Number(cartItem.value[i]),
+            item_price: Number(cartItem.value[i].price),
             item_sub: Number(item_sub.value),
             item_discount: Number(item_discount.value),
         };
