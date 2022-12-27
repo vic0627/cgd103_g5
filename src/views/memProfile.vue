@@ -63,10 +63,27 @@ onMounted(()=> {
         }//function_checkId 
     
 });
+
+
 const lightBoxClose = () => {
 	lightBoxShow.value = false;
 };
-const lightBoxShow = ref(true);
+const lightBoxShow = ref(false);
+
+function changePsw(){
+    lightBoxShow.value = true;
+    fetch('/dist/g5PHP/updateMemPassword.php',{
+                method: "post",
+                // body : ,
+    })
+    .then((res) => res.json())//php echo的內容
+    .then(text =>alert(text))
+    .catch(error =>console.log(error));
+
+
+}
+
+
 
 
 
@@ -170,7 +187,7 @@ const lightBoxShow = ref(true);
                     <!-- {{memberinfo.mem_acc}} -->
                     
                     <label for="password">Change Password</label>
-                    <input type="button" name="password" id="password" maxlength="20" value="Change Password">
+                    <input type="button" name="password" id="changepsw" maxlength="20" value="Change Password" @click="lightBoxShow=true">
 
                     <div class="lightBox" v-if="lightBoxShow">
                         <div class="lightBoxContent">
@@ -183,6 +200,8 @@ const lightBoxShow = ref(true);
                                 <input type="text">
                                 <label for="">確認密碼</label>
                                 <input type="text">
+                                <router-link to="/profile"><button id="nochange">取消</button></router-link>
+                                <router-link to="/member"><button id="comchange" @click="changePsw">確認</button></router-link>
 
                             </div>
                         </div>
@@ -254,18 +273,21 @@ const lightBoxShow = ref(true);
 <style scoped lang="scss">
 @import '@/sass/style.scss';
 @import '@/sass/component/_lightBox.scss';
+$text-color:#fff;
+$link-color:#7abcff;
+$btn-color:#007FFB;
+$bg-color:rgb(54, 54, 54);
 .lightBox{
 	@include lightBox();
 	.lightBoxContent{
 		height: 300px;
 	}
 }
+label{
+    color: $text-color;
+}
 
 
-$text-color:#fff;
-$link-color:#7abcff;
-$btn-color:#007FFB;
-$bg-color:rgb(54, 54, 54);
 header{
     top: 0;
 }
@@ -287,6 +309,7 @@ input{
     margin-top: 8px;
     border-radius: 4px;
 }
+
 .main{
     max-width: 1200px;
     width: 100%;
@@ -294,7 +317,6 @@ input{
     display: flex;
     justify-content: start;
     gap: 10px;
-    color: $text-color;
     
     .maincontent{
         width: 100%;
