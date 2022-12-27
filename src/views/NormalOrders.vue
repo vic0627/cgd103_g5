@@ -197,28 +197,29 @@ section {
 input {
   display: block;
 }
-.main {
-  max-width: 1200px;
-  width: 100%;
-  margin: 90px auto;
-  display: flex;
-  justify-content: start;
-  gap: 10px;
-  color: red;
-
-  .maincontent {
+.main{
+    max-width: 1200px;
     width: 100%;
-    margin: 0;
-    .maininfo {
-      display: block;
-    }
-    .profiles-list {
-      width: 100%;
-      margin: 10px 0;
-      background-color: #333;
-      border-radius: 10px;
-      padding: 20px;
-      box-sizing: border-box;
+    margin: 90px auto;
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+    // color: $text-color;
+
+    .maincontent{
+        width: 100%;
+        margin: 0;
+        .maininfo{
+           display: block;
+        }
+        .profiles-list{
+            width: 100%;
+            margin:10px 0;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
     }
   }
 }
