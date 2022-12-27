@@ -80,6 +80,7 @@ const Delete = (index)=> {
     sessionStorage['cartList'] = sessionStorage['cartList'].replace(`${cartList.value[index].id},`,``)
     sessionStorage.removeItem(cartList.value[index].id)
     cartList.value.splice(index,1);
+    console.log(sessionStorage['cartList'].length);
 }
 //建議商品
 const suggest = reactive([
