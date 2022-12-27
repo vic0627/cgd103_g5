@@ -5,9 +5,33 @@ import menuVue from "@/components/memberCenter/menu.vue";
 import memberCardVue from "@/components/memberCenter/memberCard.vue";
 import memberLevelVue from "@/components/memberCenter/memberLevel.vue";
 // import $ from 'jquery';
-import { ref, onMounted, reactive, computed, watch } from "vue";
+import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
+import { log } from "../composables/useCommon";
 
-onMounted(() => {});
+const racebook = ref({
+  regis_no: "",
+  comp_no: "",
+  regis_date: "",
+  // orders_status: "",
+  // mem_no: "",
+});
+const nmorders = ref([]);
+const getMemberNm = () => {
+  fetch("/dist/g5PHP/getRacing.php", {
+    method: "get",
+  })
+    .then((res) => {
+      return res.json();
+    })
+    .then((mem) => {
+      console.log(mem);
+      console.log(nmorders.value);
+      nmorders.value = mem;
+    });
+};
+onMounted(() => {
+  getMemberNm();
+});
 </script>
 
 <template>
@@ -21,76 +45,19 @@ onMounted(() => {});
       </section>
       <section class="profiles-list">
         <h1>My Racing</h1>
-        <table>
+        <table v-for="(item, index) in nmorders" :key="index">
           <thead>
-            <th>Racing No.</th>
-            <th>Racing Name</th>
-            <th>Period</th>
-            <th>Tracing No.</th>
+            <th>Registration Number</th>
+            <th>Race No.</th>
+            <th>Registration Date</th>
           </thead>
           <tbody>
             <tr>
               <td>
-                <router-link to=""><span>20221201001</span></router-link>
+                <span>{{ nmorders[index].regis_no }}</span>
               </td>
-              <td>Drone Race01</td>
-              <td>20221201001</td>
-              <td>4756382</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <th>Racing No.</th>
-            <th>Racing Name</th>
-            <th>Period</th>
-            <th>Tracing No.</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <router-link to=""><span>20221201002</span></router-link>
-              </td>
-              <td>Drone Race02</td>
-              <td>20221201002</td>
-              <td>4756382</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <table>
-          <thead>
-            <th>Racing No.</th>
-            <th>Racing Name</th>
-            <th>Period</th>
-            <th>Tracing No.</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <router-link to=""><span>20221201003</span></router-link>
-              </td>
-              <td>Drone Race03</td>
-              <td>20221201003</td>
-              <td>4756382</td>
-            </tr>
-          </tbody>
-        </table>
-        <table>
-          <thead>
-            <th>Racing No.</th>
-            <th>Racing Name</th>
-            <th>Period</th>
-            <th>Tracing No.</th>
-          </thead>
-          <tbody>
-            <tr>
-              <td>
-                <router-link to=""><span>20221201004</span></router-link>
-              </td>
-              <td>Drone Race04</td>
-              <td>20221201004</td>
-              <td>4756382</td>
+              <td>{{ nmorders[index].comp_no }}</td>
+              <td>{{ nmorders[index].regis_date }}</td>
             </tr>
           </tbody>
         </table>

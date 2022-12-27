@@ -37,26 +37,34 @@ const getProducts = () => {
 };
 onMounted(() => {
   getProducts();
+  session();
+  getMemberInfoSS();
+  membook();
 });
 
-const btnStatus = ref(false);
-const submitBtn = () => {
-  if (btnStatus.value) {
-    lightBoxText.value.title.content = "Please log in as a member first!";
-  } else {
-    lightBoxText.value.title.content = "Appointment successful!";
-  }
-};
-
-//book燈箱
-const lightBoxShow = ref(false);
-
-const bookLightBox = () => {
-  lightBoxShow.value = true;
-  console.log(lightBoxShow);
-};
-const lightBoxClose = () => {
-  lightBoxShow.value = false;
+const getMemberInfoSS = () => {
+  const xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+    const member = JSON.parse(xhr.responseText);
+    // console.log("SS:"+member);
+    if (member.Account) {
+      //有帳密資料
+      // $id("memName").innerText = member.memName;
+      // $id("spanLogin").innerText = "登出";
+      // meminfo.value = [member.memName,member.email];
+      // console.log(mem.value)
+    } else {
+      alert("Please log in before checkout!");
+      // location.href="http://localhost:8888/dist/home";
+      router.push("/signin");
+    }
+  };
+  xhr.open(
+    "GET",
+    "http://localhost/cgd103_g5/public/g5PHP/getMemberInfo.php",
+    true
+  ); //查看使用者是否有登入
+  xhr.send(null);
 };
 
 //抓session資料
@@ -65,10 +73,48 @@ const title = reactive([{ name: "no" }, { name: "name" }, { name: "images" }]);
 // const prodInfo = computed(() => prodin);
 const strings = ref([]);
 const session = () => {
-  strings.value = sessionStorage["prodInfo"];
+  strings.value = sessionStorage["racename"];
   prodin.value = JSON.parse(strings.value);
   console.log(prodin.value);
   console.log(prodin.value.price);
+};
+
+//預約成功 燈箱
+const lightBoxShow = ref(false);
+
+const forgetPW = () => {
+  lightBoxShow.value = true;
+};
+const lightBoxClose = () => {
+  lightBoxShow.value = false;
+};
+
+//送出預約資訊進後台
+
+const regis_no = ref("");
+const comp_no = ref("");
+const mem_no = ref("");
+const regis_date = ref("");
+
+const cartItem = ref([]);
+
+const membook = () => {
+  let id = sessionStorage["race"];
+  let aaa = JSON.parse(`${sessionStorage[id]}`);
+  console.log(aaa);
+  /* regis_no.value = sessionStorage.getItem("regis_no");
+  comp_no.value = sessionStorage.getItem("comp_no");
+  mem_no.value = sessionStorage.getItem("mem_no");
+  regis_date.value = sessionStorage.getItem("regis_date"); */
+  for (let i = 0; i < cartItem.value.length; i++) {
+    const payload = {};
+    fetch("http://localhost/cgd103_g5/public/g5PHP/insertBook.php", {
+      method: "POST",
+      body: new URLSearchParams(payload),
+    }).then((res) => {
+      res.text();
+    });
+  }
 };
 </script>
 
@@ -76,17 +122,17 @@ const session = () => {
   <navComponentsVue />
   <!-- Competition information -->
   <section>
-    <div class="race" v-for="(raceRow, index) in raceRows" :key="index">
-      <h2>{{ raceRow.cpt_name }}</h2>
+    <div class="race">
+      <h2>{{ prodin.name }}</h2>
 
       <div class="raceimg">
         <img src="../assets/images/race/contest02.png" alt="Competition" />
       </div>
 
       <div class="date">
-        <h3>{{ raceRow.cpt_start }}</h3>
+        <h3>{{ prodin.start }}</h3>
         <h3>~</h3>
-        <h3>{{ raceRow.cpt_end }}</h3>
+        <h3>{{ prodin.end }}</h3>
       </div>
 
       <div class="racetext">
@@ -112,60 +158,22 @@ const session = () => {
 
   <!-- Registration Form -->
   <section>
-    <!-- <div class="form">
-      <h2>REGISTRATION FORM</h2>
-
-      <form action="#">
-        <div class="name">
-          <label for="">
-            Name :
-            <input class="shot" type="text" placeholder="First Name" />
-            <input class="shot" type="text" placeholder="Last Name" />
-          </label>
-        </div>
-
-        <div class="sex">
-          <p class="ggg" style="display: inline">Sex :</p>
-          <input type="radio" id="Male" name="sex" value="Male" />
-          <label class="ggg" for="Male"> Male</label>
-          <input type="radio" id="Female" name="sex" value="Female" />
-          <label class="ggg" for="Female"> Female</label>
-        </div>
-
-        <div class="email">
-          <label for="">
-            Email :
-            <input class="long" type="email" />
-          </label>
-        </div>
-
-        <div class="phone">
-          <label for="">
-            Phone :
-            <input class="long" type="tel" />
-          </label>
-        </div>
-
-        <div class="address">
-          <label for="">
-            Address :
-            <input class="long" type="text" />
-          </label>
-        </div>
-      </form>
-    </div> -->
-
     <div class="book">
-      <div class="lightBox" v-if="lightBoxShow"></div>
       <div class="Submit">
-        <a
-          class="btn submitBtn"
-          id="btn2"
-          data-title="Submit"
-          @click="bookLightBox"
-        >
-          <span>Submit</span>
+        <a class="btn submitBtn" id="btn2" data-title="Book" @click="forgetPW">
+          <span>Book</span>
         </a>
+      </div>
+      <div class="lightBox" v-if="lightBoxShow">
+        <div class="lightBoxContent">
+          <form @submit="sendEmail">
+            <div>
+              <p>Success</p>
+            </div>
+          </form>
+          <!-- v-if="removeItem" -->
+          <div class="close" @click="lightBoxClose"></div>
+        </div>
       </div>
     </div>
   </section>
@@ -271,5 +279,31 @@ h3 {
 
 .lightBox {
   @include lightBox();
+  margin: auto;
+  z-index: 10;
+  .lightBoxContent {
+    padding: 10px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    p {
+      font-size: 50px;
+      text-align: center;
+    }
+    .buttons {
+      text-align: center;
+      button {
+        font: $caption-p;
+        width: 100px;
+        height: 40px;
+        margin: 20px;
+        border-radius: 10px;
+        padding: 0 5px;
+        border: none;
+      }
+    }
+  }
 }
 </style>

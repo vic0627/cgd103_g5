@@ -92,6 +92,8 @@ const selectRace = (id, row) => {
     `{"id":"${row.cpt_no}","name":"${row.cpt_name}","start":"${row.cpt_start}","end":"${row.cpt_end}"}`
   );
 
+  set("race", `${row.cpt_no}`);
+
   let getRace = JSON.parse(sessionStorage.getItem(id));
   sessionStorage[
     "racename"
