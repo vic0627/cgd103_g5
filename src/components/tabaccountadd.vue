@@ -2,6 +2,8 @@
 import { reactive, onMounted,ref,h } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton} from 'naive-ui';
 import axios from 'axios';
+const props = defineProps(["tab"])
+
 const name = ref('');
 const authority = ref('一般管理員');
 const account = ref('');
@@ -39,6 +41,7 @@ const submitData = ()=>{
           res.text();
         })
         alert("新增成功")
+        props.tab("accountfix");
         break;
       }
     }
@@ -74,8 +77,7 @@ const submitData = ()=>{
     </div>
   </form>
   <div class="btn">
-    <input type="reset" value="取消新增" id="canCel" @click="canCel()">
-    <input type="button" value="新增" id="conFirm" @click="submitData()">
+    <input type="button" value="新增" id="conFirm" @click="submitData(),props.tab('accountfix')">
   </div>
 </div>
 
