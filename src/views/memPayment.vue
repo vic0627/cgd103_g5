@@ -22,7 +22,9 @@ const addCard = ()=>{
     fetch("http://localhost/cgd103_g5_v2/public/g5PHP/updateCreditCard.php",{
         method: "POST",
         body: new URLSearchParams(payload),
-    }).then((res) => {res.text()});
+    }).then((res) => {
+        res.text();
+    });
 };
 onMounted(()=> {
     addCard();
@@ -37,18 +39,16 @@ $(document).ready(()=>{
         if(noLength.length>=16){
             $('.remindTxt').text("Success! please click add button to renew your credit card number").css('color','green');
         }
-        // console.log(noLength.length);
-        // console.log(typeof(noLength));
     })
     $('#credit').blur(()=>{
         $('.remindTxt span').css('color','white');
+        // $('.remindTxt').text("please type in 16 number").css('color','white');
     })
 })
 </script>
 
 <template>
     <navComponentsVue />
-
     <div class="main">
         <menuVue />
         <div class="maincontent">
@@ -73,7 +73,6 @@ $(document).ready(()=>{
                                 <button class="btn" @click="addCard">Add </button>
                                 <button class="btn2" @click="clear">reset</button>
                             </div>
-                        
                         </div>
                     </div>
                 <!-- </form> -->
