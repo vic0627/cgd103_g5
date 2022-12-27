@@ -370,7 +370,7 @@ const propellorChosen = ref({
 });
 const propellorChoose = (id, nid, src) => {
     CUS.propellor(id, src);
-    if(id===1){
+    if(bodyChosen.value.type===1){
         propellorChosen.value.weight = propellorModels.value[`propellor0${id}`].weight * 2;
         propellorChosen.value.amount = 2;
     }else{
@@ -553,6 +553,9 @@ const addCart = () => {
     if(sessionStorage.getItem('cartList')===null){
         setSession();
         router.push({path: '/cart'});
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000)
     }else{
         lightBoxShow.value = true;
         lightBoxText.value.title.show = true;
@@ -568,6 +571,9 @@ const reCart = () => {
     set("intro", "read");
     lightBoxClose();
     router.push({path: '/cart'});
+    setTimeout(() => {
+        window.location.reload();
+    }, 1000)
 };
 const setSession = () => {
     let prd_body, prd_propellor;
@@ -633,13 +639,13 @@ const setSession = () => {
         controlId = `1112112${kgmcChosen.value.type}`;
     set('cartList', `${bodyId},${propellorId},${motorId},${controlId}`);
 
-    set(bodyId, `{"id":"${bodyId}", "name":"${prd_body}", "amount":"1", "price":"${droneModels.value[`body0${bodyChosen.value.type}`].price}", "img": "${droneModels.value[`body0${bodyChosen.value.type}`].color[`${bodyChosen.value.color}`].png}"}`);
+    set(bodyId, `{"id":"${bodyId}", "name":"${prd_body}", "amount":1, "price":${droneModels.value[`body0${bodyChosen.value.type}`].price}, "img": "${droneModels.value[`body0${bodyChosen.value.type}`].color[`${bodyChosen.value.color}`].png}"}`);
 
-    set(propellorId, `{"id":"${propellorId}", "name":"${prd_propellor}", "amount":"${propellorChosen.value.amount}", "price":"${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}", "img": "${propellorModels.value[`propellor0${propellorChosen.value.type}`].color[`${propellorChosen.value.color}`].png}"}`);
+    set(propellorId, `{"id":"${propellorId}", "name":"${prd_propellor}", "amount":${propellorChosen.value.amount}, "price":${propellorModels.value[`propellor0${propellorChosen.value.type}`].price}, "img": "${propellorModels.value[`propellor0${propellorChosen.value.type}`].color[`${propellorChosen.value.color}`].png}"}`);
 
-    set(motorId, `{"id":"${motorId}", "name":"${motorModels.value[`motor0${motorChosen.value.type}`].name}", "amount":"1", "price":"${motorModels.value[`motor0${motorChosen.value.type}`].price}", "img": ""}`);
+    set(motorId, `{"id":"${motorId}", "name":"${motorModels.value[`motor0${motorChosen.value.type}`].name}", "amount":1, "price":${motorModels.value[`motor0${motorChosen.value.type}`].price}, "img": ""}`);
 
-    set(controlId, `{"id":"${controlId}", "name":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].name}", "amount":"1", "price":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}", "img": ""}`);
+    set(controlId, `{"id":"${controlId}", "name":"${controllerModels.value[`controller0${kgmcChosen.value.type}`].name}", "amount":1, "price":${controllerModels.value[`controller0${kgmcChosen.value.type}`].price}, "img": ""}`);
 };
 const alpha = ref(null);
 const selectionAlpha = (e) => {
