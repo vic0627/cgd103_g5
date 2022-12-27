@@ -5,7 +5,7 @@ import { ref, reactive, onMounted, computed, onUpdated } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
-
+import { getCartLength } from "../composables/useCommon";
 
 bodyInit();
 
@@ -19,6 +19,7 @@ const set = (key, val) =>{
 
 
 const cacheId = ref('');
+const count = ref(getCartLength());
 //點擊add按鈕會啟動的func
 const addProd = (id, row) => {
     cacheId.value = id;
@@ -49,10 +50,14 @@ const addProd = (id, row) => {
       set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"images":"${row[nid].src}"}`);
       console.log(`${row[nid].id}`);
       let get = JSON.parse(sessionStorage.getItem(id));
-
-      sessionStorage['cartList'] += `${get.id},`;
-
+      if(sessionStorage['cartList'] == ''){
+        sessionStorage['cartList'] = `${get.id}`;
+      }else{
+        sessionStorage['cartList'] += `,${get.id}`;
+      }
       
+      //addCartCount();
+      count.value = getCartLength();
 
       if(sessionStorage['cartList'].includes('111')){
     //跳彈窗
@@ -94,7 +99,7 @@ const moreProd = (id, row)=> {
 const addCart = () =>{
   router.push('/cart');
 }
-//modal-btn 清空後再加上一般商品
+//modal-btn 清空後再加上一般商品  
 const clearSess = ()=>{
     sessionStorage.clear();
     lightBoxClose();
@@ -223,11 +228,7 @@ $(document).ready(() => {
     $(".show").toggle();
   });
 });
-//將count的次數傳回navComponent
-const count = ref(0);
-const addCartCount = ()=>{
-    count.value++;
-}
+
 </script>
 
 
@@ -383,7 +384,7 @@ const addCartCount = ()=>{
                   <input
                     type="button"
                     class="btn"
-                    @click="addProd(prodRow.id, products),addCartCount()"
+                    @click="addProd(prodRow.id, products)"
                     value="Add"
                     >
                 </div>
@@ -427,7 +428,7 @@ const addCartCount = ()=>{
                 <input
                   type="button"
                   class="btn"
-                  @click="addProd(assRow.id, accessories),addCartCount()"
+                  @click="addProd(assRow.id, accessories)"
                   value="Add"
                 >
               </div>
@@ -476,7 +477,7 @@ const addCartCount = ()=>{
               <input
                 type="button"
                 class="btn"
-                @click="addProd(bundleRow1.id, bundle_A),addCartCount()"
+                @click="addProd(bundleRow1.id, bundle_A)"
                 value="Add"
               >
             </div>
@@ -508,7 +509,7 @@ const addCartCount = ()=>{
               <input 
                 type="button"
                 class="btn"
-                @click="addProd(bundleRow2.id, bundle_B),addCartCount()"
+                @click="addProd(bundleRow2.id, bundle_B)"
                 value="Add"
               >
             </div>

@@ -7,15 +7,28 @@ import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
 import $ from 'jquery';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
 
-const searchText = ref("");
+//輸入信用卡的input
+const credit_no = ref("");
+
+//清空信用卡的號碼
+const clear = ()=>{
+    credit_no.value = "";
+}
+//將寫進的資料存進資料庫
+const addCard = ()=>{
+    const payload = {
+        credit_no : credit_no.value
+    };
+    fetch("http://localhost/cgd103_g5_v2/public/g5PHP/updateCreditCard.php"),{
+        method: "POST",
+        body: new URLSearchParams(payload),
+    }
+    .then((res) => {
+        res.text();
+    });
+};
 onMounted(()=> {
-    // $('.btn').click(()=>{
-    //     $('#img').attr('src','src/assets/images/Signin/creditCard.png');
-    // })
-    // $('.btn2').click(()=>{
-    //     $('#img').attr('src','src/assets/images/Signin/empty_creditCard.png');
-    // })
-   
+    addCard();
 })
 </script>
 
@@ -30,26 +43,26 @@ onMounted(()=> {
                 <memberLevelVue/>
             </section>
             <section class="payment">
-                <h2>Payment</h2>
-                <p>Note: New payment methods can only be added during checkout due to verification requirements.</p>
-                <div class="creditCardBox">
-                    <div class="cardImg">
-                        <img  id="img" src="../assets/images/Signin/empty_creditCard.png" alt="creditCard">
-                        <p class="card_no">{{searchText}}</p>
-                    </div>
-                    <div class="cardInfo">
-                        <label for="card_no">Card Number</label>
-                        <input type="text" v-model="searchText">
-                        <p>請輸入16碼</p>
-                        <div class="buttons">
-                            <button class="btn">Add </button>
-                            <button class="btn2">redo</button>
+                <form method="post">
+                    <h2>Payment</h2>
+                    <p>Note: New payment methods can only be added during checkout due to verification requirements.</p>
+                    <div class="creditCardBox">
+                        <div class="cardImg">
+                            <img  id="img" src="../assets/images/Signin/empty_creditCard.png" alt="creditCard">
+                            <p class="card_no" >{{credit_no}}</p>
                         </div>
-                       
+                        <div class="cardInfo">
+                            <label for="card_no">Card Number</label>
+                            <input type="text" id="credit" v-model="credit_no" maxlength="16" placeholder="please type in 16 number">
+                            <div class="buttons">
+                                <button class="btn" @click="addCard">Add </button>
+                                <button class="btn2" @click="clear">reset</button>
+                            </div>
+                        
+                        </div>
                     </div>
-                </div>
+                </form>
             </section>
-       
         </div>
     </div>
     <footerComponentsVue />
@@ -123,15 +136,19 @@ input{
                 .buttons{
                     margin-left: 112px;
                     button{
-                    width:90px;
-                    height: 30px;
-                    font:$caption-p;
-                    background-color: $blue;
-                    color: #fff;
-                    border-radius: 10px;
-                    border:none;
-                    margin: 5px;
-                }
+                        width:90px;
+                        height: 30px;
+                        font:$caption-p;
+                        background-color: $blue;
+                        color: #fff;
+                        border-radius: 10px;
+                        border:none;
+                        margin: 5px;
+                    }
+                    .btn2{
+                        background-color: transparent;
+                        border: 1px solid rgb(201, 198, 198);
+                    }
                 }
                
             }
