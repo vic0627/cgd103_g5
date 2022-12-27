@@ -78,43 +78,43 @@ function fileChange() {
               type="text"
               name="news_title"
               id="name"
-              placeholder="請輸入賽事名稱"
+              placeholder="請輸入消息名稱"
               v-model="news_title"
               required
             />
           </div>
 
           <div class="start">
-            <h3>開始日期</h3>
+            <h3>消息內文</h3>
             <input
               type="text"
               name="news_txt"
               id="start"
-              placeholder="請輸入開始日期"
+              placeholder="請輸入消息內文"
               v-model="news_txt"
               required
             />
           </div>
 
           <div class="end">
-            <h3>結束日期</h3>
+            <h3>發布日期</h3>
             <input
               type="text"
               name="news_time"
               id="end"
-              placeholder="請輸入結束日期"
+              placeholder="請輸入發布日期"
               v-model="news_time"
               required
             />
           </div>
 
           <div class="aboard">
-            <h3>地點</h3>
+            <h3>標籤</h3>
             <input
               type="text"
               name="news_tag"
               id="aboard"
-              placeholder="請輸入地點"
+              placeholder="請輸入標籤"
               v-model="news_tag"
               required
             />

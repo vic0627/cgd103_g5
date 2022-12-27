@@ -103,7 +103,7 @@ const column = createColumns({
 //分頁js
 const paginationReactive = reactive({
   page: 1,
-  pageSize: 3,
+  pageSize: 2,
   onChange: (page) => {
     paginationReactive.page = page;
   },
@@ -139,16 +139,17 @@ const updateNews = (user) => {
     news_time: newnews_time.value,
     news_photo: newnews_photo.value,
     news_tag: newnews_tag.value,
-  };
+  }
   fetch("http://localhost/cgd103_g5/public/g5PHP/updateNews.php", {
     method: "POST",
     body: new URLSearchParams(newnews),
   }).then((res) => {
     console.log(res);
     res.json();
-  });
-  showModal.value = false;
-  getNews();
+  }).then(res => {
+    showModal.value = false;
+    getNews();
+  })
 };
 
 // 搜尋
@@ -245,7 +246,7 @@ const testVal = (e) => {
       <form action="" method="post">
         <n-data-table
           :columns="column"
-          :data="returnNews"
+          :data="newsRows"
           :pagination="pagination"
           :bordered="true"
           :single-line="false"
@@ -407,4 +408,5 @@ h2 {
   display: table-cell;
   vertical-align: middle;
 }
+
 </style>

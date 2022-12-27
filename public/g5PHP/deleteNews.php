@@ -4,7 +4,7 @@
  header("Content-Type:application/json;charset=utf-8");
 
  try {
-	require_once("./connect_cgd103g5_adam.php");
+	require_once("./connect_cgd103g5_vic.php");
 	$sql = "DELETE FROM tibamefe_cgd103g5.news
 	WHERE news_no = :news_no";
 	$delNews = $pdo->prepare($sql);

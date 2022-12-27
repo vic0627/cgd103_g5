@@ -2,7 +2,7 @@
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
-	require_once("./connect_cgd103g5_adam.php");
+	require_once("./connect_cgd103g5_vic.php");
 	$sql = "insert into tibamefe_cgd103g5.news values( null, :news_title, :news_txt, :news_time, :news_photo, :news_tag)";
 	$news = $pdo->prepare($sql);
 	
