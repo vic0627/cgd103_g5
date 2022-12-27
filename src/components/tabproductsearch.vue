@@ -12,7 +12,7 @@ import { ref,reactive, onMounted } from 'vue';
 
     getProductSearch();
     
-    const table = ref(['編號','商品名稱','商品分類','售價','顏色','圖片'])
+    const table = ref(['編號','商品名稱','商品分類','售價','折價','折價後價格','顏色','圖片'])
 </script>
 <template>
   <div class="productQuery">
@@ -50,8 +50,10 @@ import { ref,reactive, onMounted } from 'vue';
                 <td>{{prodRow.prd_name}}</td>
                 <td>{{prodRow.cat_no}}</td>
                 <td>{{prodRow.prd_price}}</td>
+                <td>{{prodRow.sale}}</td>
+                <td>{{prodRow.sale_price}}</td>
                 <td>{{prodRow.color}}</td>
-                <td><img :src="prodRow.image" alt="product_pic"></td>
+                <td><img :src="`/dist/assets/${prodRow.images}`" alt="product_pic"></td>
             </tr>
         </table>
         <span class="infoCount">目前頁數 1 / 2，總共有15筆資訊</span>
@@ -66,9 +68,9 @@ import { ref,reactive, onMounted } from 'vue';
 <style scoped lang="scss">
 @import '@/sass/style.scss';
 .productQuery {
-    width: 100%;
-  height: 100vh;
-  overflow: scroll;
+    width: 85%;
+  height: 100%;
+  overflow-y: auto;
   .top{
     display: flex;
     justify-content: space-between;

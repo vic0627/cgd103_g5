@@ -85,11 +85,12 @@ const moreProd = (id, row)=> {
   if(sessionStorage['prodInfo'] == null){
     sessionStorage['prodInfo']='';
   }
-  
       set("prodInfo",`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"img":"${row[nid].src}"}`);
-
       //  跳轉頁面到產品資訊
       router.push('/shopInfo');
+      setTimeout(()=>{
+        window.location.reload()
+      },100);
 }
 
 //modal
@@ -237,7 +238,7 @@ $(document).ready(() => {
       <div class="lightBoxContent">
       <h2>Reminder!</h2>
         <p>you already have customize products in cart.</p>
-        <p>Do you want your chosen product(s) replace them?</p>
+        <p>Do to choose normal product(s) to replace them?</p>
         <!-- v-if="removeItem" -->
         <div class="buttons" >
           <button @click="clearSess">confirm</button>
@@ -281,7 +282,7 @@ $(document).ready(() => {
             <div class="number">
                 <p>Step 1</p>
             </div>
-            <div class="text">Choose your favorite color</div>
+            <div class="text">Choose <span>Fusrlage</span></div>
         </div>
         <div class="slide percent p50">
             <svg>
@@ -291,7 +292,7 @@ $(document).ready(() => {
             <div class="number">
                 <p>Step 2</p>
             </div>
-            <div class="text">Choose your favorite propellor</div>
+            <div class="text">Choose <span>Propellor</span></div>
         </div>
         <div class="slide percent p75">
             <svg>
@@ -301,7 +302,7 @@ $(document).ready(() => {
             <div class="number">
                 <p>Step 3</p>
             </div>
-            <div class="text">Choose your favorite motor</div>
+            <div class="text">Choose <span>motor</span></div>
         </div>
         <div class="slide percent p100">
             <svg>
@@ -311,7 +312,7 @@ $(document).ready(() => {
             <div class="number">
                 <p>Step 4</p>
             </div>
-            <div class="text">Finish your exclusive FVP</div>
+            <div class="text">Add<br><span>Cart</span></div>
         </div>
     </div>
     <div class="buttons">
@@ -319,8 +320,8 @@ $(document).ready(() => {
         class="anchors btnSecond"
         data-title="More"
         to="/shopInfo"
-        ><span>More</span></router-link
-      >
+        ><span>More</span>
+      </router-link>
     </div>
   </section>
   <!-- step end-->
@@ -639,6 +640,7 @@ $(document).ready(() => {
     &:first-child {
       font: $caption-s-h4;
       color: $ored;
+      font-weight: bold;
       @include m($m-breakpoint) {
         font: $caption-m-h4;
       }
@@ -698,8 +700,8 @@ $(document).ready(() => {
             width: 150px;
             height: 150px;
             fill: none;
-            stroke-width: 10;
-            transform: translate(5px,5px);
+            stroke-width: 20;
+            transform: translate(10px,10px);
             stroke-dasharray: 440;
             stroke-dashoffset: 440;
             &:nth-child(1){
@@ -715,26 +717,74 @@ $(document).ready(() => {
         .text{
           position: absolute;
           top: 100px;
-          text-shadow: 5px 5px  10px #f5f5f5;
+          margin: 0 20px;
+          text-shadow: 5px 5px 5px #f5f5f5;
+          @include l($l-breakpoint) {
+            top: 100px;
+            left: 30px;
+            margin: 0 30px;
+          }
+          span{
+            font-size: 28px;
+          }
         }
     }
    
     .p25 svg circle:nth-child(2){
       stroke-dashoffset:330;
-      stroke: #03a9f4;
     }
     .p50 svg circle:nth-child(2){
       stroke-dashoffset:220;
       stroke: #03a9f4;
+      transition: all .3s;
+      animation-name: p50;
+      animation-delay: 1s;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
     }
     .p75 svg circle:nth-child(2){
       stroke-dashoffset:110;
       stroke: #03a9f4;
+      transition: all .3s;
+      animation-name: p75;
+      animation-delay: 2s;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
     }
     .p100 svg circle:nth-child(2){
       stroke-dashoffset:0;
       stroke: #03a9f4;
+      transition: all .3s;
+      animation-name: p100;
+      animation-delay: 3s;
+      animation-duration: 3s;
+      animation-iteration-count: infinite;
     }
+
+      @keyframes p50 {
+        from{
+          stroke-dashoffset:250;
+        }
+        to{
+          stroke-dashoffset:220;
+        }
+      }
+      @keyframes p75 {
+        from{
+          stroke-dashoffset:250;
+        }
+        to{
+          stroke-dashoffset:110;
+        }
+      }
+      @keyframes p100 {
+        from{
+          stroke-dashoffset:250;
+        }
+        to{
+          stroke-dashoffset:0;
+        }
+      }
     }
 }
 //buttons
@@ -757,6 +807,7 @@ $(document).ready(() => {
     @include secondBtn(130px);
   }
   .btn{
+    cursor: pointer;
     font-size: 20px;
     width: 100px;
     height: 40px;
