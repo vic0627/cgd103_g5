@@ -22,7 +22,7 @@ function getMemberInfo (){
     fetch("/dist/g5PHP/getMemInfo.php",{
         method:"get",
     })
-    .then((res)=>res.json())
+    .then((res)=> {return res.json()})
     .then(mem => {
             console.log(mem);
             memberInfo.value.mem_no = mem.mem_no;
@@ -199,7 +199,7 @@ const submitOrder = ()=>{
                     &.title{
                         width: 200px;
                         color: rgb(62, 62, 62);
-                        background-color: lighten($blue, 40%);     
+                        // background-color: lighten($blue, 40%);     
                         font-weight: bold; 
                     }
                     &:not(.title){

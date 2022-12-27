@@ -24,6 +24,7 @@ try{
 
     //登入成功,將登入者的欄位資料寫入session
     // session_start();
+
     $_SESSION["Account"] = $memRow["mem_acc"];
     $_SESSION["FirstName"] = $memRow["mem_first_name"];
     $_SESSION["LastName"] = $memRow["mem_last_name"];
