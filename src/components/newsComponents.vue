@@ -71,7 +71,7 @@ const changeView = (index) => {
             <div class="card">
               <router-link class="anchor" to="/articleView"
                 ><img
-                  :src="`/dist/assets/${newsRow.news_photo}.jpg`"
+                  :src="`/dist/assets/${newsRow.news_photo}`"
                   :alt="newsRows.news_no"
               /></router-link>
               <div class="item_box">
