@@ -193,23 +193,23 @@ const testVal = (e) => {
 };
 
 //刪除資料庫
-// const deleteDisc = () => {
-//   const deleteDis = {
-//     disc_no: Number(newDisc_no.value),
-//   };
-//   fetch("http://localhost/CGD103-G5/public/g5PHP/deleteDisc.php", {
-//     method: "POST",
-//     body: new URLSearchParams(deleteDis),
-//   })
-//     .then((res) => {
-//       res.json();
-//       console.log(res);
-//     })
-//     .then((res) => {
-//       showModal2.value = false;
-//       getAdmin();
-//     });
-// };
+const deleteDisc = (user) => {
+  const delDisc = {
+    disc_no: Number(newDisc_no.value),
+  };
+  fetch("http://localhost/CGD103-G5/public/g5PHP/deleteDisc.php", {
+    method: "POST",
+    body: new URLSearchParams(delDisc),
+  })
+    .then((res) => {
+      res.json();
+      console.log(res);
+    })
+    .then((res) => {
+      showModal2.value = false;
+      getDisc();
+    });
+};
 </script>
 
 <template>

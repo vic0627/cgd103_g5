@@ -7,10 +7,10 @@
 	require_once("./connect_cgd103g5_vic.php");
 	$sql = "DELETE FROM tibamefe_cgd103g5.discount_set  
 	WHERE disc_no = :disc_no";
-	$updateDisc = $pdo->prepare($sql);
-    $updateDisc->bindValue(":disc_no", $_POST["disc_no"]);
-	$updateDisc->execute();
-    $msg = "success";
+	$Disc = $pdo->prepare($sql);
+	$Disc->bindValue(":disc_no", $_POST["disc_no"]);
+	$Disc->execute();
+	$msg = "success";
 } catch (PDOException $e) {
 	$msg = "error_line: ".$e->getLine().", error_msg: ".$e->getMessage();   
 }

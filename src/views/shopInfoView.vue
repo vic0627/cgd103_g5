@@ -24,8 +24,6 @@ bodyInit();
 
 //bottomBar第二版
 onMounted(() => {
-  
-  
   session();
   let lastPos = 0;
   const nav = document.getElementById("purchaseBar");
@@ -68,8 +66,6 @@ const btnLeft = () => {
 };
 //抓session資料
 const prodin = ref({});
-const title = reactive([{ name: "id" }, { name: "price" }, { name: "images" }]);
-// const prodInfo = computed(() => prodin);
 const strings = ref([]);
 const session = () => {
   strings.value = sessionStorage["prodInfo"];
@@ -87,7 +83,7 @@ const addCart = () => {
     sessionStorage["cartList"] = "";
     set(
       `${prodin.value.id}`,
-      `{"id":"${prodin.value.id}","name":"${prodin.value.title}","amount":1,"price":${prodin.value.price},"images":"${prodin.value.images}"}`
+      `{"id":"${prodin.value.id}","name":"${prodin.value.title}","amount":1,"price":${prodin.value.price},"img":"${prodin.value.img}"}`
     );
 
     sessionStorage["cartList"] = `${prodin.value.id},`;
@@ -110,9 +106,9 @@ const addCart = () => {
 const clearSess = () => {
   sessionStorage.clear();
   set(
-      `${prodin.value.id}`,
-      `{"id":"${prodin.value.id}","name":"${prodin.value.title}","amount":1,"price":${prodin.value.price},"images":"${prodin.value.images}"}`
-    );
+    `${prodin.value.id}`,
+    `{"id":"${prodin.value.id}","name":"${prodin.value.title}","amount":1,"price":${prodin.value.price},"img":"${prodin.value.img}"}`
+  );
   set("cartList", `${prodin.value.id}`);
   lightBoxClose();
   router.push("/cart");
@@ -124,7 +120,7 @@ const lightBoxClose = () => {
 const lightBoxShow = ref(false);
 const toCart = () => {
   router.push("/cart");
-}
+};
 </script>
 
 <template>
@@ -144,7 +140,7 @@ const toCart = () => {
   <div class="main">
     <!-- 商品大圖 -->
     <div id="mainPic">
-      <img :src="`/dist/assets/${prodin.images}`" />
+      <img :src="`/dist/assets/${prodin.img}`" />
       <div class="button" id="left" @click="btnLeft">&lt;</div>
       <div class="button" id="right" @click="btnRight">&gt;</div>
     </div>
@@ -342,11 +338,7 @@ const toCart = () => {
 
     <div class="pnp">
       <span> USD $1,599 </span>
-      <button
-        class="purchaseBar_btn"
-        @click="addCart"
-        value="Add"
-      >
+      <button class="purchaseBar_btn" @click="addCart" value="Add">
         <span>Buy</span>
       </button>
     </div>
