@@ -31,16 +31,15 @@ const addProduct = () => {
 // };
 
 onMounted(() => {
-  // getCat();
   addProduct();
 
   function doFirst() {
     // 先跟 HTML 畫面產生關連，再建事件聆聽功能
     document.getElementById("theFile").onchange = fileChange;
   }
-
   window.addEventListener("load", doFirst);
 });
+
 function fileChange() {
   let file = document.getElementById("theFile").files[0];
   console.log("input");
@@ -120,18 +119,14 @@ function fileChange() {
             />
           </div>
         </div>
-
-        <div>
-          <!-- <div class="photo">
-            <h3>圖片</h3>
-            <p>
-              <img id="image" />
-            </p>
-            <input type="file" id="theFile" @change="fileChange" />
-          </div> -->
-        </div>
       </div>
     </form>
+    <div class="imgBox">
+      <p>
+        <img id="image" />
+      </p>
+    </div>
+    <input type="file" id="theFile" @change="fileChange" />
     <div class="btn">
       <input
         type="button"
@@ -144,9 +139,6 @@ function fileChange() {
 </template>
 <style scoped lang="scss">
 @import "@/sass/style.scss";
-
-template {
-}
 
 .top {
   width: 100%;
