@@ -83,10 +83,10 @@ const addCart = () => {
     sessionStorage["cartList"] = "";
     set(
       `${prodin.value.id}`,
-      `{"id":"${prodin.value.id}","name":"${prodin.value.title}","amount":1,"price":${prodin.value.price},"img":"${prodin.value.img}"}`
+      `{"id":"${prodin.value.id}","name":"${prodin.value.title}","amount":1,"price":"${prodin.value.price}","img":"${prodin.value.img}"}`
     );
 
-    sessionStorage["cartList"] = `${prodin.value.id},`;
+    sessionStorage["cartList"] = `${prodin.value.id}`;
     router.push("/cart");
   } else {
     //購物車有東西
@@ -98,6 +98,12 @@ const addCart = () => {
     } else if (sessionStorage.getItem(prodin.value.id)) {
       //有一班商品
       alert("You have checked.");
+    }else{
+      sessionStorage["cartList"] += `,${prodin.value.id}`;
+      set(
+        `${prodin.value.id}`,
+        `{"id":"${prodin.value.id}","name":"${prodin.value.title}","amount":"1","price":"${prodin.value.price}","img":"${prodin.value.img}"}`
+      );
     }
   }
 };
