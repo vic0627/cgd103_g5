@@ -71,7 +71,7 @@ const backendCategory = ref({
       },
       d: {
         cn: "商品新增",
-        tab: "productadd",
+        tab: "productAdd",
       },
       e: {
         cn: "商品分類管理",
