@@ -550,7 +550,8 @@ const set = (key, val) => {
 };
 
 const addCart = () => {
-    if(sessionStorage.getItem('cartList')===null){
+  let cartList = sessionStorage.getItem('cartList')
+    if(cartList===null || cartList===""){
         setSession();
         router.push({path: '/cart'});
         setTimeout(() => {
@@ -1206,6 +1207,13 @@ input[type="range"]{
     position: relative;
     margin: 0 auto;
     padding-top: 80px;
+    .customizeTitle{
+      width: 90%;
+      margin: 0 auto;
+      @include l($l-breakpoint) {
+          width: 100%;
+      }
+    }
 
     .loadBox{
       width: 180px;
