@@ -1,11 +1,11 @@
 <script setup>
-import { reactive, onMounted, ref, computed } from 'vue';
-import { zhTW, NPagination, NDataTable } from 'naive-ui';
+import { reactive, onMounted, ref, computed, h } from 'vue';
+import { zhTW, NPagination, NDataTable, NButton, NModal } from 'naive-ui';
 import { log, $$ } from '@/composables/useCommon';
 
 const page = ref(2);
 const pageSize = ref(3);
-const createColumns = () => {
+const createColumns = ({ update }) => {
   return [
     {
       title: '訂單編號',
@@ -23,6 +23,31 @@ const createColumns = () => {
       key: 'mem_grade',
       defaultSortOrder: false,
       sorter: (a, b) => b.mem_grade - a.mem_grade,
+    },
+    {
+      title: '訂單狀態',
+      key: 'orders_status',
+      filterOptions: [
+        {
+          label: '待處理',
+          value: '待處理'
+        },
+        {
+          label: '處理中',
+          value: '處理中'
+        },
+        {
+          label: '運送中',
+          value: '運送中'
+        },
+        {
+          label: '訂單完成',
+          value: '訂單完成'
+        }
+      ],
+      filter (value, row) {
+        return ~row.orders_status.indexOf(value)
+      }
     },
     {
       title: '購買日期',
@@ -66,9 +91,94 @@ const createColumns = () => {
       title: '優惠編號',
       key: 'disc_no',
     },
+    {
+      title: "編輯",
+      key: "actions",
+      render(row) {
+        return h(NButton,{
+          size: "small",
+          color: "#077AF9",
+          onClick: () => update(row),
+        },
+        { default: () => "編輯" });
+      },
+    },
   ];
 };
-const column = createColumns({});
+const units = [
+    {
+      title: "訂單編號",
+      key: "orders_no",
+    },
+    {
+      title: "會員編號",
+      key: "mem_no",
+    },
+    {
+      title: "會員等級",
+      key: "mem_grade",
+    },
+    {
+      title: "訂單狀態",
+      key: "orders_status",
+    },
+    {
+      title: "購買日期",
+      key: "purchase_date",
+    },
+    {
+      title: "折扣金額",
+      key: "discount_price",
+    },
+    {
+      title: "實付金額",
+      key: "orders_price",
+    },
+    {
+      title: "總金額",
+      key: "total",
+    },
+    {
+      title: "運送地點",
+      key: "orders_location",
+    },
+    {
+      title: "組裝費用",
+      key: "fee",
+    },
+    {
+      title: "信用卡號",
+      key: "credit_no",
+    },
+    {
+      title: "優惠編號",
+      key: "disc_no",
+    },
+];
+const udPack = ref({
+  orders_no: null,
+  mem_no: null,
+  mem_grade: null,
+  orders_status: null,
+  purchase_date: null,
+  discount_price: null,
+  orders_price: null,
+  total: null,
+  orders_location: null,
+  fee: null,
+  credit_no: null,
+  disc_no: null,
+});
+const lightBoxText = ref('');
+const column = createColumns({
+  update(e) {
+    lightBoxShow.value = true;
+    lightBoxText.value = '編輯訂單狀態';
+    for(let i=0; i<units.length; i++){
+      udPack.value[units[i].key] = e[units[i].key];
+    }
+  },
+});
 const pagination = reactive({
   page: 2,
   pageSize: 10,
@@ -89,6 +199,17 @@ const fetchItem = () => {
   .then(res => res.json())
   .then(json => {
     cmOrderRows.value = json;
+  })
+};
+const fixOdStat = () => {
+  fetch("http://localhost/cgd103_g5/public/g5PHP/manageCmOrder.php", {
+    method: "POST",
+    body: new URLSearchParams({ orders_no: udPack.value.orders_no, orders_status: udPack.value.orders_status }),
+  })
+  .catch(err=>log(err))
+  .then(res => {
+    showModal.value = false;
+    fetchItem();
   })
 };
 onMounted(() => {
@@ -123,6 +244,22 @@ const selectVal = ref('0');
 const testVal = (e) => {
   selectVal.value = e.target.value;
 };
+const lightBoxShow = ref(false), showModal = ref(false);
+const modal = () => {
+  if(udPack.value.orders_status==="待處理" ||
+    udPack.value.orders_status==="處理中" ||
+    udPack.value.orders_status==="運送中" ||
+    udPack.value.orders_status==="訂單完成"){
+      showModal.value = true;
+    }else{
+      alert("字串格式不符!請重新確認!");
+    }
+};
+const confirm = () => {
+  fixOdStat();
+  lightBoxShow.value = false;
+  showModal.value = false;
+};
 </script>
 <template>
 <div class="top">
@@ -151,14 +288,44 @@ const testVal = (e) => {
     />
   </div>
 </div>
-
+<n-modal
+  v-model:show="lightBoxShow"
+  preset="dialog"
+  :title="lightBoxText"
+>
+  <label v-for="i in units" :key="i" :for="i.key" class="inputTable">
+    <p class="modalText">{{ i.title }}:</p>
+    <input type="text" :name="i.key" disabled v-model="udPack[i.key]" v-if="i.key!==`orders_status`">
+    <select name="orders_status" v-if="i.key===`orders_status`" v-model="udPack.orders_status">
+      <option value="待處理">待處理</option>
+      <option value="處理中">處理中</option>
+      <option value="運送中">運送中</option>
+      <option value="訂單完成">訂單完成</option>
+    </select>
+  </label>
+  <n-button @click="modal" type="error" class="btnCheck">
+    確認
+  </n-button>
+</n-modal>
+<n-modal
+  v-model:show="showModal"
+  preset="dialog"
+  title="確認"
+>
+  <p class="modalText">確定要修改嗎?</p>
+  <n-button type="error" class="btnCheck" @click="confirm">
+    確定
+  </n-button>
+</n-modal>
   
 </template>
 <style scoped lang="scss">
 @import '@/sass/style.scss';
 .top {
   width: 85%;
+  height: 100%;
   display: block;
+  overflow-y: auto;
 }
 h2 {
   font-size: 40px;
@@ -170,14 +337,18 @@ h2 {
   justify-content: space-between;
   align-items: center;
 }
+p{
+    color: #000;
+}
+.inputTable{
+  display: flex;
+}
 .search_box{
   display: flex;
   justify-content: right;
   width: 85%;
   margin: 30px auto;
-  p{
-    color: #000;
-  }
+  
   label {
     margin-right: 10px;
     font-size: 20px;
