@@ -186,15 +186,16 @@ const testVal = (e) => {
       <outComponents />
     </h2>
     <div class="search_box">
-      <p>依</p>
-      <select name="searchMethods" id="searchMethods" @change="testVal">
-        <option v-for="i in select" :key="i.id" :value="i.id">{{ i.title }}</option>
-      </select>
-      <p>查詢</p>
-      <label for="search" class="label">
-        <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入all或${select[selectVal].title}`">
-      </label>
-    </div>
+        <p>依</p>
+        <select name="searchMethods" id="searchMethods" @change="testVal">
+          <option v-for="i in select" :key="i.id" :value="i.id">{{ i.title }}</option>
+        </select>
+        <p>查詢</p>
+        <label for="search" class="label">
+          <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
+        </label>
+        <p>輸入"all"可查詢所有項目</p>
+      </div>
 
  
   <div class="tables" id="products" align="center">
@@ -232,6 +233,14 @@ const testVal = (e) => {
 <style scoped lang="scss">
 
 @import '@/sass/style.scss';
+.options{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .addBox{
+    width: 20%;
+  }
+}
 
 .search_box{
   display: flex;

@@ -144,6 +144,42 @@ const deleteAdmin = ()=>{
     getAdmin();
   })
 }
+// 搜尋
+
+const search = ref('');
+const returnAdmin = computed(() => {
+  let cache = adminRows.value;
+  if(search.value!==''){
+    cache = cache.filter(i => String(i[select[selectVal.value].val]).includes(search.value))
+    if(search.value=='all'){
+      cache = adminRows.value;
+    }
+  }else{
+    cache = [];
+  }
+  return cache;
+});
+const select = [
+  {
+    id: 0,
+    title: '編號',
+    val: 'admin_no',
+  },
+  {
+    id: 1,
+    title: '管理員帳號',
+    val: 'admin_acc',
+  },
+  {
+    id: 2,
+    title: '管理員姓名',
+    val: 'admin_name',
+  },
+];
+const selectVal = ref('0');
+const testVal = (e) => {
+  selectVal.value = e.target.value;
+};
 
 </script>
 <template>
@@ -153,13 +189,18 @@ const deleteAdmin = ()=>{
     <outComponents />
   </h2>
   <div class="search_box">
-    <label for="search" class="label">查詢編號<input type="search" id="search" name="search" placeholder="請輸入編號"></label>
-    <div class="btn">
-      <button class="magBox"><img src="../assets/images/About/search.png" alt="search"></button>
-    </div>
-  </div>
+        <p>依</p>
+        <select name="searchMethods" id="searchMethods" @change="testVal">
+          <option v-for="i in select" :key="i.id" :value="i.id">{{ i.title }}</option>
+        </select>
+        <p>查詢</p>
+        <label for="search" class="label">
+          <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
+        </label>
+        <p>輸入"all"可查詢所有項目</p>
+      </div>
   <form method="post" class="table">
-    <n-data-table :columns="column" :data="adminRows" :pagination="pagination" :bordered="true" :single-line="false" />
+    <n-data-table :columns="column" :data="returnAdmin" :pagination="pagination" :bordered="true" :single-line="false" />
     
         <n-modal
           v-model:show="showModal"
@@ -218,6 +259,14 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+.options{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .addBox{
+    width: 20%;
+  }
 }
 .search_box{
   display: flex;
