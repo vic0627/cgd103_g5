@@ -6,7 +6,7 @@
  try {
 	require_once("./connect_cgd103g5_adam.php");
 	$sql = "UPDATE tibamefe_cgd103g5.discount_set 
-	SET disc_title = :disc_title, disc_txt = :disc_txt, disc_start = :disc_start, disc_end = :disc_end, disc_off = :disc_off, disc_code = :disc_code, 
+	SET disc_no = :disc_no, disc_title = :disc_title, disc_txt = :disc_txt, disc_start = :disc_start, disc_end = :disc_end, disc_off = :disc_off, disc_code = :disc_code, 
 	WHERE disc_no = :disc_no";
 	$updateDisc = $pdo->prepare($sql);
     $updateDisc->bindValue(":disc_no", $_POST["disc_no"]);
