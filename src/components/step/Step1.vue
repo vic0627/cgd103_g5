@@ -10,10 +10,17 @@ const title = reactive([
     {"name": "Product"},{"name": "Price"},{"name":"Quantity"},{"name":"Delete"}
 ]);
 const cartItem = ref([]);
+const cusBtn = ref(true);
 const cartList = computed(() => cartItem.value)
 const session = ()=> {
-    const strings = sessionStorage.getItem('cartList')
-    const substrs = strings.substr(0, strings.length).split(',')
+    const strings = sessionStorage.getItem('cartList');
+    if(strings==undefined)return;
+    if(strings.includes('111')){
+        cusBtn.value = false;
+    }else{
+        
+    }
+    let substrs = strings.substr(0, strings.length).split(',')
     getcartItem(substrs);
     cartItem.value = JSON.parse(`[${explode.value}]`);
 }
@@ -132,7 +139,10 @@ onMounted(()=>{
     getDisc();
     //mounted裡面不要使用const去做定義 有區域問題
     session();
-})
+});
+const showBtn = () => {
+
+};
 </script>
 <template>
     <section>
@@ -155,9 +165,9 @@ onMounted(()=>{
                     </div>
                     <div class="amount-price">
                         <div class="cartQuantity">
-                            <button class="qtyBtn" @click="reduceCount(index)">-</button>
+                            <button class="qtyBtn" @click="reduceCount(index)" v-if="cusBtn">-</button>
                             <input type="text" min="1" v-model="item.amount" class="input">
-                            <button class="qtyBtn" @click="addCount(index)">+</button>
+                            <button class="qtyBtn" @click="addCount(index);" v-if="cusBtn">+</button>
                         </div>
                         <div class="cartPrice">
                             <h6>${{item.price*item.amount}}</h6>
