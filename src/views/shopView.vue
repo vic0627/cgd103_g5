@@ -85,18 +85,23 @@ const moreProd = (id, row)=> {
   if(sessionStorage['prodInfo'] == null){
     sessionStorage['prodInfo']='';
   }
-      set("prodInfo",`{"id":"${row[nid].id}","title":"${row[nid].title}","price":${row[nid].Original_Price},"img":"${row[nid].src}"}`);
+  
+      set("prodInfo",`{"id":"${row[nid].id}","cat_no":"${row[nid].cat_no}","title":"${row[nid].title}","price":${row[nid].Original_Price},"img":"${row[nid].src}"}`);
+
       //  跳轉頁面到產品資訊
-      router.push('/shopInfo');
+      router.push({path:'/shopInfo'});
       setTimeout(()=>{
         window.location.reload()
-      },100);
+      },1000)
 }
 
 //modal
 // modal-btn 去購物車
 const addCart = () =>{
-  router.push('/cart');
+  router.push({path:'/cart'});
+  setTimeout(()=>{
+    window.location.reload()
+  },1000)
 }
 //modal-btn 清空後再加上一般商品  
 const clearSess = ()=>{
@@ -139,6 +144,7 @@ const getShopInfo = () =>{
       for(let i=0; i<output.prodRows.value.length; i++){
           products.value[i] = {
           id: output.prodRows.value[i].prd_no,
+          cat_no: output.prodRows.value[i].cat_no,
           title: output.prodRows.value[i].prd_name,
           Original_Price: output.prodRows.value[i].prd_price,
           Discount_Price: output.prodRows.value[i].prd_price*.8,
@@ -149,6 +155,7 @@ const getShopInfo = () =>{
         for(let i=0; i<output.assRows.value.length; i++){
           accessories.value[i] = {
           id: output.assRows.value[i].prd_no,
+          cat_no: output.assRows.value[i].cat_no,
           title: output.assRows.value[i].prd_name,
           Original_Price: output.assRows.value[i].prd_price,
           Discount_Price: output.assRows.value[i].prd_price*.8,
@@ -159,6 +166,7 @@ const getShopInfo = () =>{
       for(let i=0; i<output.bundleRows_beginner.value.length; i++){
           bundle_A.value[i] = {
           id: output.bundleRows_beginner.value[i].prd_no,
+          cat_no: output.bundleRows_beginner.value[i].cat_no,
           title: output.bundleRows_beginner.value[i].prd_name,
           Original_Price: output.bundleRows_beginner.value[i].prd_price,
           Discount_Price: output.bundleRows_beginner.value[i].prd_price*.8,
@@ -169,6 +177,7 @@ const getShopInfo = () =>{
       for(let i=0; i<output.bundleRows_veteran.value.length; i++){
           bundle_B.value[i] = {
           id: output.bundleRows_veteran.value[i].prd_no,
+          cat_no: output.bundleRows_veteran.value[i].cat_no,
           title: output.bundleRows_veteran.value[i].prd_name,
           Original_Price: output.bundleRows_veteran.value[i].prd_price,
           Discount_Price: output.bundleRows_veteran.value[i].prd_price*.8,
