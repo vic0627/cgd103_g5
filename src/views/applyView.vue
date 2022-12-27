@@ -4,6 +4,7 @@ import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
 import raceQuestion from "../components/raceQueston.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
+import router from "@/router";
 
 bodyInit();
 
@@ -55,9 +56,9 @@ const getMemberInfoSS = () => {
       // meminfo.value = [member.memName,member.email];
       // console.log(mem.value)
     } else {
-      alert("Please log in before checkout!");
+      // alert("Please log in before checkout!");
       // location.href="http://localhost:8888/dist/home";
-      router.push("/signin");
+      // router.push({ path: "/signin" });
     }
   };
   xhr.open(
@@ -162,7 +163,10 @@ function getMemberInfo() {
       <h2>{{ prodin.name }}</h2>
 
       <div class="raceimg">
-        <img src="../assets/images/race/contest02.png" alt="Competition" />
+        <img
+          :src="`http://localhost/cgd103_g5/src/assets/images/race/${prodin.img}`"
+          alt="Competition"
+        />
       </div>
 
       <div class="date">

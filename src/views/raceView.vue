@@ -89,7 +89,7 @@ const selectRace = (id, row) => {
 
   set(
     id,
-    `{"id":"${row.cpt_no}","name":"${row.cpt_name}","start":"${row.cpt_start}","end":"${row.cpt_end}"}`
+    `{"id":"${row.cpt_no}","name":"${row.cpt_name}","start":"${row.cpt_start}","end":"${row.cpt_end}","img":"${row.cpt_photo}"}`
   );
 
   set("race", `${row.cpt_no}`);
@@ -97,7 +97,7 @@ const selectRace = (id, row) => {
   let getRace = JSON.parse(sessionStorage.getItem(id));
   sessionStorage[
     "racename"
-  ] = `{"name" : "${getRace.name}","start" : "${getRace.start}","end" : "${getRace.end}"}`;
+  ] = `{"name" : "${getRace.name}","start" : "${getRace.start}","end" : "${getRace.end}","img" : "${getRace.img}"}`;
 };
 </script>
 
@@ -153,8 +153,16 @@ const selectRace = (id, row) => {
               <br />
               <span class="span">{{ raceRow.cpt_end }}</span>
             </div>
+
             <div class="competitionName">
               <h4>{{ raceRow.cpt_name }}</h4>
+            </div>
+            <div class="img_box">
+              <img
+                :src="`http://localhost/cgd103_g5/src/assets/images/race/${raceRow.cpt_photo}`"
+                alt="product_img"
+                class="racepic"
+              />
             </div>
             <div class="learn">
               <router-link
@@ -410,6 +418,9 @@ h2 {
       text-align: center;
       @include l($l-breakpoint) {
         display: none;
+        .racepic {
+          width: 250px;
+        }
       }
       .nation {
         .nation_t {
@@ -434,7 +445,7 @@ h2 {
       }
       h4 {
         font-size: 40px;
-        margin: 35px 0;
+        margin: 3px 0;
         font-weight: bold;
       }
       .learn {
