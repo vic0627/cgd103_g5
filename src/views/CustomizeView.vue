@@ -1,5 +1,6 @@
 <script setup>
 import gsap from "gsap";
+import * as THREE from 'three';
 import {
   onMounted,
   ref,
@@ -700,12 +701,14 @@ const displayMode = () => {
         });
         $$('#customize3d').classList.remove('bg3d');
         $$('.lightA').classList.add('skewX');
+        $$('.effect1').classList.add('skewX');
         $$('.lightB').classList.add('skew-X');
+        $$('.effect2').classList.add('skew-X');
         $all('.digiBoard').forEach(e => e.classList.add('skewX'));
         $all('.boardTitle').forEach(e => e.classList.add('skewX'));
         $all('.boardSpan').forEach(e => e.classList.add('skewX'));
     }else{
-        if(ww>1023){
+        if(ww>1023 && ww<1200){
             $$('#customize3d').width = 400;
             gsap.to('#customize3d', {
                 width: 400,
@@ -765,7 +768,9 @@ const displayMode = () => {
         });
         $$('#customize3d').classList.add('bg3d');
         $$('.lightA').classList.remove('skewX');
+        $$('.effect1').classList.remove('skewX');
         $$('.lightB').classList.remove('skew-X');
+        $$('.effect2').classList.remove('skew-X');
         $all('.digiBoard').forEach(e => e.classList.remove('skewX'));
         $all('.boardTitle').forEach(e => e.classList.remove('skewX'));
         $all('.boardSpan').forEach(e => e.classList.remove('skewX'));
@@ -810,6 +815,7 @@ const rtl = (e, text) => {
     })
 }
 const rotate = (e) => {
+    CUS.glitchTrigger();
     if(CUS.controls.autoRotate){
         CUS.controls.autoRotate = false;
         rtl('.rotate', 'Rotate');
@@ -819,13 +825,56 @@ const rotate = (e) => {
     }
 };
 const spot = (e) => {
-    let s = 3 - 3 / 100 * Number(e.target.value);
+    let s = 6 - 6 / 100 * Number(e.target.value);
     CUS.spotLight1.intensity = s;
     CUS.spotLight2.intensity = s;
 };
 const direct = (e) => {
-    let d = 3 / 100 * Number(e.target.value);
+    let d = 6 / 100 * Number(e.target.value);
     CUS.directionalLight.intensity = d;
+};
+const lightAcolor = (e) => {
+    let c = '0x'+e.target.value.split('#')[1];
+    let color = new THREE.Color( Number(c) );
+    CUS.spotLight1.color = color;
+    CUS.spotLight2.color = color;
+};
+const fx1 = ref(false), fx2 = ref(false);
+const effect1 = () => {
+    switch(fx1.value){
+      case true:
+        fx1.value = false;
+        $$('.effect1P').classList.remove('chosenP');
+        CUS.composer.removePass(CUS.effect1);
+        CUS.composer.dispose(CUS.effect1);
+        break;
+      case false:
+        fx1.value = true;
+        $$('.effect1P').classList.add('chosenP');
+        CUS.composer.addPass(CUS.effect1);
+        break;
+    } 
+};
+const effect2 = () => {
+    switch(fx2.value){
+      case true:
+        fx2.value = false;
+        $$('.effect2P').classList.remove('chosenP');
+        CUS.composer.removePass(CUS.effect2);
+        CUS.composer.dispose(CUS.effect2);
+        break;
+      case false:
+        fx2.value = true;
+        $$('.effect2P').classList.add('chosenP');
+        CUS.composer.addPass(CUS.effect2);
+        break;
+    } 
+};
+const scale = (e) => {
+    CUS.effect1.uniforms[ 'scale' ].value = 1 + 8/100 * Number(e.target.value);
+};
+const amount = (e) => {
+    CUS.effect2.uniforms[ 'amount' ].value = .2/100 * Number(e.target.value);
 };
 </script>
 
@@ -851,9 +900,20 @@ const direct = (e) => {
             <dashBoardGroupComponent class="boards" :toggle-board="toggleBoard" :display-switch="displaySwitch"/>
             <canvas id="customize3d" class="customize3d bg3d"></canvas>
             <div class="displayControls" v-show="displayShow">
+                <div class="effects">
+                    <div class="effect1">
+                        <p @click="effect1" class="effect1P">Effect1</p>
+                        <input type="range" name="scale" min="0" max="100" value="50" @input="scale">
+                    </div>
+                    <div class="effect2">
+                        <p @click="effect2" class="effect2P">Effect2</p>
+                        <input type="range" name="amount" min="0" max="100" value="50" @input="amount">
+                    </div>
+                </div>
                 <label for="lightA" class="lightA">
+                    <input type="color" @input="lightAcolor">
                     <p>Spot Light</p>
-                    <input type="range" name="lightA" min="0" max="100" value="0" @input="spot">
+                    <input type="range" name="lightA" min="0" max="100" value="50" @input="spot">
                 </label>
                 <p class="rotate" @click="rotate">
                     <span>Pause</span>
@@ -984,13 +1044,46 @@ const direct = (e) => {
 input[type="range"]{
     cursor: pointer;
 }
+.chosenP{
+  color: $ored;
+  text-shadow: 0 0 5px #F25A2A88;
+  transition: all .5s;
+}
 .displayControls{
     width: 100%;
     position: absolute;
     bottom: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     align-items: center;
+    .effects{
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      div{
+        display: flex;
+        border-top: 2px solid $light-black;
+        p{
+          width: 90px;
+          text-align: center;
+          cursor: pointer;
+          transition: all .5s;
+        }
+      }
+      div:nth-child(1){
+        border-right: 2px solid $light-black;
+        border-top-right-radius: 20px;
+        flex-direction: row-reverse;
+        input[type="range"]::-webkit-slider-runnable-track{
+            background: linear-gradient(to right, #eee, transparent);
+        }
+      }
+      div:nth-child(2){
+        border-left: 2px solid $light-black;
+        border-top-left-radius: 20px;
+      }
+    }
     label{
         display: flex;
         width: 30%;
@@ -1011,6 +1104,7 @@ input[type="range"]{
     .lightA{
         flex-direction: row-reverse;
         justify-content: start;
+        align-items: center;
         border-right: 2px solid $light-black;
         border-top-right-radius: 20px;
         input[type="range"]::-webkit-slider-runnable-track{
@@ -1107,6 +1201,7 @@ input[type="range"]{
       border: 2px solid $light-black;
       border-radius: 20px;
       overflow: hidden;
+      display: none;
       .loadProgress{
         width: 100%;
         height: 100%;
