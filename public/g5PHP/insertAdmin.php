@@ -3,7 +3,7 @@
  header("Content-Type:application/json;charset=utf-8");
 
  try {
-	require_once("./connect_cgd103g5_felix.php");
+	require_once("./connect_cgd103g5.php");
 	$sql = "insert into tibamefe_cgd103g5.administrator values( null, :admin_name, :authority, :admin_acc, :admin_pw)";
 	$admin = $pdo->prepare($sql);
     $admin->bindValue(":admin_name", $_POST["admin_name"]);

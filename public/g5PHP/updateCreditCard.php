@@ -5,7 +5,7 @@
 try {
 	if( isset($_SESSION["Account"])==true){
 		//辨認是否登入
-		require_once("./connect_cgd103g5_Lily.php");
+		require_once("./connect_cgd103g5.php");
 		//用前台榜的值來更新會員裡的信用卡欄位
 		$sql = "UPDATE `member`  SET  credit_no = :credit_no where mem_acc = :mem_acc";
 

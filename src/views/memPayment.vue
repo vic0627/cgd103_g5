@@ -6,7 +6,7 @@ import memberCardVue from '@/components/memberCenter/memberCard.vue';
 import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
 import $ from 'jquery';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
-
+import { BIND_URL } from "../composables/useCommon";
 //輸入信用卡的input
 const credit_no = ref("");
 
@@ -19,7 +19,8 @@ const addCard = ()=>{
     const payload = {
         credit_no : credit_no.value
     };
-    fetch("http://localhost/cgd103_g5_v2/public/g5PHP/updateCreditCard.php",{
+    
+    fetch(`${BIND_URL('updateCreditCard.php',g5PHP)}`,{
         method: "POST",
         body: new URLSearchParams(payload),
     }).then((res) => {
@@ -29,8 +30,8 @@ const addCard = ()=>{
 onMounted(()=> {
     addCard();
 })
-//信用卡驗證
 
+//信用卡驗證
 $(document).ready(()=>{
     $('#credit').on('input',()=>{
         $('.remindTxt span').css('color','red');
