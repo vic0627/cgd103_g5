@@ -242,8 +242,8 @@ const sendEmail = () => {
             />
             <span class="pswinfo"></span>
             <div class="login_info">
-              <input type="checkbox" name="remember" id="remember" />
-              <label for="remember">Remember me</label>
+              <!-- <input type="checkbox" name="remember" id="remember" /> -->
+              <!-- <label for="remember">Remember me</label> -->
               <!-- <a href="" class="forget_password">Forget Password?</a> -->
               <p class="forget_password" @click="forgetPW">Forget Password?</p>
               <div class="lightBox" v-if="lightBoxShow">
