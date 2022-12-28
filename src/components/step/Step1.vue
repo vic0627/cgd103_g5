@@ -11,10 +11,11 @@ const cartItem = ref([]);
 const cartList = computed(() => cartItem.value)
 const session = ()=> {
     const strings = sessionStorage.getItem('cartList')
-    const substrs = strings.substr(0, strings.length - 1).split(',')
+    const substrs = strings.substr(0, strings.length).split(',')
     getcartItem(substrs);
     // let jsonItem = JSON.parse(`[${explode.value}]`);
     cartItem.value = JSON.parse(`[${explode.value}]`);
+    console.log(cartList)
     // cartsem.value = jsonItem
     // console.log(cartsem);
 }
@@ -201,7 +202,7 @@ onMounted(()=>{
             <div class="cartFor" v-for="(item,index) in cartList" :key="index">
                 <div class="cartItem">
                     <div class="cartProduct">
-                        <div class="cartProduct-pic">`${BIND_URL('`${item.img}`')}`
+                        <div class="cartProduct-pic">
                             <img v-if="item.img != ''" :src="`${BIND_URL(item.img)}`" alt="">
                         </div>
                         <div class="cartProduct-txt">
