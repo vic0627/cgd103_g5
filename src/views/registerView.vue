@@ -2,7 +2,7 @@
     // import headerComponentsVue from '@/components/headerComponents.vue';
     import navComponentsVue from '@/components/navComponents.vue';
     import footerComponentsVue from '@/components/footerComponents.vue';
-    import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
+    import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
     // import { verify } from 'crypto';
     import $ from 'jquery';
     import axios from "axios";
