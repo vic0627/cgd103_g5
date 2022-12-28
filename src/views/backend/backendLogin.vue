@@ -9,65 +9,56 @@ import axios from 'axios';
 
 
 // 抓後台管理帳密資料
-const admin_pw = ref("");
-const admin_acc = ref("");
-const adminRows = ref([]); 
-const admin22 =ref({
-  admin_acc:"",
-  admin_pw:"",
+// const admin22 =ref({
+//   admin_acc:"",
+//   admin_pw:"",
 
-});
-
-
-	const getAdmin = () => {
-	//取得管理員資料
-  // `${BIND_URL('getbackLogin.php','g5PHP')}`
-  /* axios.post("/dist/g5PHP/getbackLogin.php",{
-    //??
-    admin_acc:admin_acc.value,
-    admin_pw:admin_pw.value,
-  })
-  .then(res=> {
-    console.log(res);
-    // adminRows.value = res.data;
-  }) */
- 
-  let formData = new FormData(); // 一開始表單的資料是空的
-  formData.append('admin_acc', admin22.value.admin_acc);
-  formData.append('admin_pw', admin22.value.admin_pw);
-  fetch("/dist/g5PHP/getbackLogin.php", {
-    method: "POST",
-    body: formData,
-  })  
-  .then(res => {
-    res.json();
-  })
-  .then(aa => console.log("bb:"+aa));
-}
-
-
-
-onMounted(()=>{
-  function login (){
-    getAdmin();
-    console.log(admin_acc.value);
-    console.log(adminRows.value);
-    /* for(let i=0;i<=adminRows.value.length;i++){
-      if(admin_acc.value === adminRows.value[i].admin_acc && admin_pw.value === adminRows.value[i].admin_pw){
-          window.location.href="/dist/backend";
-      }else{
-        document.querySelector(".mess").textContent = "帳密錯誤";
-        document.querySelector(".mess").style["color"] = "red";
-      }
-    } */
-  }
-
-})
+// });
+// document.querySelector("#btnLogin").addEventListener("click",()=>{
+//     alert("nope");
+//     let formData = new FormData(); // 一開始表單的資料是空的
+//   formData.append('admin_acc', admin22.value.admin_acc);
+//   formData.append('admin_pw', admin22.value.admin_pw);
+//   fetch("/dist/g5PHP/getbackLogin.php", {
+//     method: "POST",
+//     body: formData,
+//   })  
+//   .then(res => {
+//     res.json();
+//   })
+//   .then(aa => console.log("bb:"+aa));
+//     console.log(admin_acc.value);
+//     console.log(adminRows.value);
+//     /* for(let i=0;i<=adminRows.value.length;i++){
+//       if(admin_acc.value === adminRows.value[i].admin_acc && admin_pw.value === adminRows.value[i].admin_pw){
+//           window.location.href="/dist/backend";
+//       }else{
+//         document.querySelector(".mess").textContent = "帳密錯誤";
+//         document.querySelector(".mess").style["color"] = "red";
+//       }
+//     } */
+//   })
 // 1.點登入辨認是否有這個帳號
 // 2.如果有就跳轉到後台首頁,沒有就彈窗錯誤
 
+// document.getElementById("btnLogin").("click",()=>{alert("nope");})
 
+
+//
 // 帳號驗證
+
+
+// const admin_pw = ref("");
+// const admin_acc = ref("");
+// const adminRows = ref([]); 
+// let formData = new FormData();
+//  fetch("/dist/g5PHP/getbackLogin.php", {
+//   method: "POST",
+//   body: formData,
+// })  
+// .then((res) => res.text())//php echo的內容
+// .catch(error =>console.log(error));
+
 onMounted(() => {
   const psw = document.getElementById("admin_acc");
   psw.addEventListener("input", function () {
@@ -136,13 +127,15 @@ function shows() {
           <h2>後台登入</h2>
           <div class="form-group">
             <label for="admin_acc">管理員帳號</label>
-            <input type="text" id="admin_acc" class="acc" name="admin_acc"  maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數帳號" v-model="admin22.admin_acc">
-            {{admin22.admin_acc}}
+            <!-- v-model="admin22.admin_acc" -->
+            <input type="text" id="admin_acc" class="acc" name="admin_acc"  maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數帳號" >
+            <!-- {{admin22.admin_acc}} -->
           </div>
                 <div class="form-group">
                     <label for="admin_pw">管理員密碼</label>
-                    <input type="password" id="admin_pw" name="admin_pw" class="admin_pw" maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數密碼" v-model="admin22.admin_pw">
-                    {{admin22.admin_pw}}
+                    <input type="password" id="admin_pw" name="admin_pw" class="admin_pw" maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數密碼" >
+                    <!-- v-model="admin22.admin_pw" -->
+                    <!-- {{admin22.admin_pw}} -->
                     <div class="down">
                         <label class="in">
                         <input type="checkbox" id="check" @click="shows" class="pw"><span>顯示密碼</span>
@@ -150,7 +143,7 @@ function shows() {
                         <p class="message mess"></p>
                     </div>
                 </div>
-                <button type="button" class="btn"  id="btnLogin" v-on:click="login">登入</button>
+                <button type="button" class="btn"  id="btnLogin" onclick="btnLogin()">登入</button>
             </form>
             <div class="links">
                 <router-link to="/" class="leave link" >離開後台</router-link>

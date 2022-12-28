@@ -12,7 +12,7 @@ try {
 
     if($admin->rowCount()==0){
         // 查無此人
-        echo "{}";
+        echo "{錯誤}";
     }else {
         // 登入成功 去資料庫取資料
         $adminRows = $admin->fetch(PDO::FETCH_ASSOC);
