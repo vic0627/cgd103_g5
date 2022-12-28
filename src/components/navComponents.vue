@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, onMounted, ref, onUpdated } from "vue";
 import { getCartLength } from "../composables/useCommon";
-import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
+import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
 const mainMenu = reactive([
   {
     id: "shop",

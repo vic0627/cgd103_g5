@@ -5,7 +5,7 @@ import footerComponentsVue from '@/components/footerComponents.vue';
 import menuVue from '@/components/memberCenter/menu.vue';
 import memberCardVue from '@/components/memberCenter/memberCard.vue';
 import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
-import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
+import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
 import $ from 'jquery';
 import { ref, onMounted } from 'vue';
 

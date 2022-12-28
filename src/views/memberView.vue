@@ -4,7 +4,7 @@ import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import memberCardVue from '@/components/memberCenter/memberCard.vue';
-import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
+import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
 bodyInit();
 // const meminfo = ref("");
 onMounted(() =>{
