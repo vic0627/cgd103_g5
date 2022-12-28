@@ -5,7 +5,7 @@ header("Content-Type:application/json;charset=utf-8");
         // $result = ["Account"=>$_SESSION["Account"],"FirstName"=>$_SESSION["FirstName"],"email"=>$_SESSION["email"]];//打包session
         // echo json_encode($result);//變json字串後回傳
         try{
-            require_once("./connect_cgd103g5_felix.php");
+            require_once("./connect_cgd103g5.php");
             $sql = "INSERT INTO cm_order_item (orders_no,products_no,item_quantity,item_price,item_sub,item_discount)
             VALUES (:orders_no,:products_no,:item_quantity,:item_price,:item_sub,:item_discount)"; 
             $insertOrder = $pdo->prepare($sql);
