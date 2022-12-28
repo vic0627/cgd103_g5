@@ -1,4 +1,5 @@
 <script setup>
+import { BIND_URL } from "../composables/useCommon";
 import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
 import {
   zhTW,
@@ -126,7 +127,7 @@ const props = defineProps(["tab"]);
 const raceRows = ref([]);
 const getProducts = () => {
   //取得商品資料
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getRace.php")
+  fetch(`${BIND_URL('getRace.php','g5PHP')}`)
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
@@ -148,7 +149,7 @@ const updateRace = (user) => {
     cpt_photo: newcpt_photo.value,
     cpt_txt: newcpt_txt.value,
   };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/updateRace.php", {
+  fetch(`${BIND_URL('updateRace.php','g5PHP')}`, {  
     method: "POST",
     body: new URLSearchParams(newcpt),
   }).then((res) => {
