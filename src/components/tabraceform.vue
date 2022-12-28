@@ -1,4 +1,5 @@
 <script setup>
+import { BIND_URL } from "../composables/useCommon";
 import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
 import {
   zhTW,
@@ -52,12 +53,10 @@ const pagination = paginationReactive;
 const bookRows = ref([]);
 const getBook = () => {
   //取得商品資料
-  axios
-    .get("http://localhost/cgd103_g5/public/g5PHP/getBook.php")
-    .then((res) => {
-      // console.log(res)
-      bookRows.value = res.data;
-    });
+  axios.get(`${BIND_URL("getBook.php", "g5PHP")}`).then((res) => {
+    // console.log(res)
+    bookRows.value = res.data;
+  });
 };
 onMounted(() => {
   getBook();

@@ -7,6 +7,7 @@ import memberLevelVue from "@/components/memberCenter/memberLevel.vue";
 // import $ from 'jquery';
 import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
 import { log } from "../composables/useCommon";
+import { BIND_URL } from "../composables/useCommon";
 
 const racebook = ref({
   regis_no: "",
@@ -17,7 +18,7 @@ const racebook = ref({
 });
 const nmorders = ref([]);
 const getMemberNm = () => {
-  fetch("/dist/g5PHP/getRacing.php", {
+  fetch(`${BIND_URL("getRacing.php", "g5PHP")}`, {
     method: "get",
   })
     .then((res) => {

@@ -8,7 +8,7 @@ import point3 from "../assets/images/race/point3.jpg";
 import point4 from "../assets/images/race/point4.jpg";
 import contest01 from "../assets/images/race/contest01.png";
 import contest02 from "../assets/images/race/contest02.png";
-
+import { BIND_URL } from "../composables/useCommon";
 import { bodyInit } from "../composables/useOnunmounted";
 bodyInit();
 
@@ -63,7 +63,7 @@ const props = defineProps(["tab"]);
 const raceRows = ref([]);
 const getProducts = () => {
   //取得比賽資料
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getRace.php")
+  fetch(`${BIND_URL("getRace.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
@@ -159,7 +159,7 @@ const selectRace = (id, row) => {
             </div>
             <div class="img_box">
               <img
-                :src="`http://localhost/cgd103_g5/src/assets/images/race/${raceRow.cpt_photo}`"
+                :src="`${BIND_URL(raceRow.cpt_photo)}`"
                 alt="product_img"
                 class="racepic"
               />
@@ -217,6 +217,7 @@ const selectRace = (id, row) => {
 
           <div class="cardPic">
             <img :src="areaText[e.id].src" alt="aerialPoint" />
+            areaText[e.id].src
           </div>
 
           <div class="cardContent">

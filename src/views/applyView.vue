@@ -5,6 +5,7 @@ import raceQuestion from "../components/raceQueston.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import router from "@/router";
+import { BIND_URL } from "../composables/useCommon";
 
 bodyInit();
 
@@ -29,7 +30,7 @@ const props = defineProps(["tab"]);
 const raceRows = ref([]);
 const getProducts = () => {
   //取得比賽資料
-  fetch("/dist/g5PHP/getRace.php")
+  fetch(`${BIND_URL("getRace.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
@@ -61,7 +62,7 @@ const getMemberInfoSS = () => {
       // router.push({ path: "/signin" });
     }
   };
-  xhr.open("GET", "/dist/g5PHP/getMemberInfo.php", true); //查看使用者是否有登入
+  xhr.open("GET", `${BIND_URL("getMemberInfo.php", "g5PHP")}`, true); //查看使用者是否有登入
   xhr.send(null);
 };
 
@@ -112,7 +113,7 @@ const membook = () => {
     comp_no: Number(comp_no.value),
     mem_no: Number(mem_no.value),
   };
-  fetch("/dist/g5PHP/insertBook.php", {
+  fetch(`${BIND_URL("insertBook.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(payload),
   }).then((res) => {
@@ -134,7 +135,7 @@ const memberInfo = ref({
   // credit_no: "",
 });
 function getMemberInfo() {
-  fetch("/dist/g5PHP/getMemInfo.php", {
+  fetch(`${BIND_URL("getMemInfo.php", "g5PHP")}`, {
     method: "GET",
   })
     .then((res) => {
@@ -156,10 +157,7 @@ function getMemberInfo() {
       <h2>{{ prodin.name }}</h2>
 
       <div class="raceimg">
-        <img
-          :src="`http://localhost/cgd103_g5/src/assets/images/race/${prodin.img}`"
-          alt="Competition"
-        />
+        <img :src="`${BIND_URL(prodin.img)}`" prodin.img alt="Competition" />
       </div>
 
       <div class="date">

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { BIND_URL } from "../composables/useCommon";
 
 // const cpt_no = ref("");
 const cpt_name = ref("");
@@ -19,7 +20,7 @@ const addProduct = () => {
     cpt_photo: cpt_photo.value,
     cpt_txt: cpt_txt.value,
   };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/insertRace.php", {
+  fetch(`${BIND_URL('insertRace.php','g5PHP')}`, {
     method: "POST",
     body: new URLSearchParams(payload),
   }).then((res) => {
@@ -61,7 +62,7 @@ function fileChange() {
 
   const formData = new FormData();
   formData.append("image", file);
-  fetch("http://localhost/cgd103_g5/public/g5PHP/insertPhoto.php", {
+  fetch(`${BIND_URL('insertPhoto.php','g5PHP')}`, {  
     method: "POST",
     body: formData,
   });
