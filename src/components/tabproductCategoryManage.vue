@@ -6,7 +6,7 @@ import { BIND_URL } from "../composables/useCommon";
 const cateRows = ref([]);
 
 const getProCat = () =>{
-    fetch(`${BIND_URL('getProCat.php',g5PHP)}`)
+    fetch(`${BIND_URL('getProCat.php','g5PHP')}`)
         .then(res => res.json())
         .then(json => {
             cateRows.value = json;
@@ -29,7 +29,7 @@ onMounted(()=>{
             cat_no: Number(newNo.value),
             cat_id: newName.value,
         }
-        fetch(`${BIND_URL('getProCat.php',g5PHP)}`, {
+        fetch(`${BIND_URL('getProCat.php','g5PHP')}`, {
             method: "POST",
             body: new URLSearchParams(newCate),
         }).then(res=>{
@@ -44,7 +44,7 @@ onMounted(()=>{
             cat_no: Number(newNo.value)
         }
         
-        fetch(`${BIND_URL('deleteCat.php',g5PHP)}`, {
+        fetch(`${BIND_URL('deleteCat.php','g5PHP')}`, {
             method: "POST",
             body: new URLSearchParams(delCat),
         }).then(res=>{

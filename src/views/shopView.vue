@@ -122,7 +122,7 @@ const products = ref([]), accessories = ref([]) ,bundle_A = ref([]),bundle_B = r
 
 const getShopInfo = () =>{
   
-  fetch(`${BIND_URL('getProduct.php',g5PHP)}`)
+  fetch(`${BIND_URL('getProduct.php','g5PHP')}`)
     .then(res => res.json())
     .then(json => {
         bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'));

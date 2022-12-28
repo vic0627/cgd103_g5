@@ -7,7 +7,7 @@ import { BIND_URL } from "../composables/useCommon";
 
     const getProductSearch = () =>{
      
-    fetch(`${BIND_URL('getProduct.php',g5PHP)}`)
+    fetch(`${BIND_URL('getProduct.php','g5PHP')}`)
         .then(res => res.json())
         .then(json => {
             prodRows.value = json;
@@ -31,7 +31,7 @@ import { BIND_URL } from "../composables/useCommon";
             prd_no: Number(newPrd_no.value)
         }
         
-        fetch(`${BIND_URL('updatePro.php',g5PHP)}`, {
+        fetch(`${BIND_URL('updatePro.php','g5PHP')}`, {
             method: "POST",
             body: new URLSearchParams(newPro),
         }).then(res=>{
