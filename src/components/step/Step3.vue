@@ -2,7 +2,7 @@
 import { ref, reactive,onMounted } from 'vue';
 import {bodyInit} from '@/composables/useOnunmounted';
 import axios from 'axios';
-import {BIND_URL } from "../composables/useCommon";
+import {BIND_URL } from "../../composables/useCommon";
 bodyInit();
 const orders_no =ref('');
 const prd_no =ref('');

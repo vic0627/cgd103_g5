@@ -8,6 +8,8 @@ import {
   NButton,
   NModal,
 } from "naive-ui";
+import { log, BIND_URL } from "../composables/useCommon";
+
 const no = ref("");
 const title = ref("");
 const txt = ref("");

@@ -87,18 +87,18 @@ const moreProd = (id, row)=> {
 
       //  跳轉頁面到產品資訊
       router.push({path:'/shopInfo'});
-      setTimeout(()=>{
+      /* setTimeout(()=>{
         window.location.reload()
-      },1000)
+      },1000) */
 }
 
 //modal
 // modal-btn 去購物車
 const addCart = () =>{
   router.push({path:'/cart'});
-  setTimeout(()=>{
+  /* setTimeout(()=>{
     window.location.reload()
-  },1000)
+  },1000) */
 }
 //modal-btn 清空後再加上一般商品  
 const clearSess = ()=>{

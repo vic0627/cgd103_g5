@@ -66,7 +66,6 @@ const getProducts = () => {
   fetch(`${BIND_URL("getRace.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
       raceRows.value = json;
     });
 };

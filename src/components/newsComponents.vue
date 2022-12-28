@@ -87,9 +87,9 @@ const changeView = (index) => {
             </div>
           </div>
           <Transition name="tad" mode="out-in">
-            <div class="card" v-if="filter === 1 && item.news_no === 1">
+            <div class="card" v-if="filter === 1 && newsRows.news_no === 1">
               <!-- <router-link class="anchor" to="/articleView"
-                ><img :src="item.src" :alt="item.news_no"
+                ><img :src="newsRows.src" :alt="newsRows.news_no"
               /></router-link> -->
               <div class="item_box">
                 <div class="item">{{ newsRow[0].news_tag }}</div>
@@ -103,9 +103,9 @@ const changeView = (index) => {
             </div>
           </Transition>
           <Transition name="tad" mode="out-in">
-            <div class="card" v-if="filter === 2 && item.news_no === 2">
+            <div class="card" v-if="filter === 2 && newsRows.news_no === 2">
               <!-- <router-link class="anchor" to="/articleView"
-                ><img :src="item.src" :alt="item.id"
+                ><img :src="newsRows.src" :alt="newsRows.id"
               /></router-link> -->
               <div class="item_box">
                 <div class="item">{{ newsRow[0].news_tag }}</div>
@@ -119,7 +119,7 @@ const changeView = (index) => {
             </div>
           </Transition>
           <Transition name="tad" mode="out-in">
-            <div class="card" v-if="filter === 3 && item.news_no === 3">
+            <div class="card" v-if="filter === 3 && newsRows.news_no === 3">
               <!-- <router-link class="anchor" to="/"
                 ><img :src="item.src" :alt="item.id"
               /></router-link> -->
@@ -135,7 +135,7 @@ const changeView = (index) => {
             </div>
           </Transition>
           <Transition name="tad" mode="out-in">
-            <div class="card" v-if="filter === 4 && item.news_no === 4">
+            <div class="card" v-if="filter === 4 && newsRows.news_no === 4">
               <!-- <router-link class="anchor" to="/articleView"
                 ><img :src="item.src" :alt="item.id"
               /></router-link> -->

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from 'vue';
-import {BIND_URL } from "../composables/useCommon";
+import { BIND_URL } from "../../composables/useCommon";
 
 import axios from 'axios';
 
@@ -14,7 +14,7 @@ const admin_acc = ref("");
 const adminRows = ref([]);
 	const getAdmin = () => {
 	//取得管理員資料
-  axios.get(`${BIND_URL('getLogin.php','g5PHP')}`)
+  axios.get(`${BIND_URL('getbackLogin.php','g5PHP')}`)
   .then(res=> {
   // console.log(res.data);
   adminRows.value = res.data;
@@ -22,7 +22,7 @@ const adminRows = ref([]);
 }
 // const 
 onMounted(()=>{
-    getAdmin();
+    //getAdmin();
 });
 
 // 1.點登入辨認是否有這個帳號
@@ -30,7 +30,7 @@ onMounted(()=>{
 const login =()=>{
   for(let i=0;i<=adminRows.value.length;i++){
     if(admin_acc.value === adminRows.value[i].admin_acc && admin_pw.value === adminRows.value[i].admin_pw){
-        window.location.href="http://localhost:5173/backend";
+        window.location.href="/dist/backend";
     }else{
       document.querySelector(".mess").textContent = "帳密錯誤";
       document.querySelector(".mess").style["color"] = "red";
@@ -116,12 +116,12 @@ function shows() {
                     <input type="password" id="admin_pw" name="admin_pw" class="admin_pw" maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數密碼" v-model="admin_pw">
                     <div class="down">
                         <label class="in">
-                        <input type="checkbox" id="check" @click="shows()" class="pw"><span>顯示密碼</span>
+                        <input type="checkbox" id="check" @click="shows" class="pw"><span>顯示密碼</span>
                         </label>
                         <p class="message mess"></p>
                     </div>
                 </div>
-                <button type="button" class="btn"  id="btnLogin" @click="login()">登入</button>
+                <button type="button" class="btn"  id="btnLogin" @click="login">登入</button>
             </form>
             <div class="links">
                 <router-link to="/" class="leave link" >離開後台</router-link>

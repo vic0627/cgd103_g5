@@ -1,6 +1,6 @@
 <script setup>
 import { onMounted ,ref} from 'vue';
-import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
+import { log, $$, $all, getW, BIND_URL }from "../../composables/useCommon" ;
 
 // const meminfo = ref("");
 
