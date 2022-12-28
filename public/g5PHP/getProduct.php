@@ -3,7 +3,6 @@
  header("Content-Type:application/json;charset=utf-8");
 try {
 	require_once("./connect_cgd103g5.php");
-	// require_once("./connect_cgd103g5_felix.php");
 	$sql = "select * from tibamefe_cgd103g5.products p join tibamefe_cgd103g5.product_category c
 	on p.cat_no = c.cat_no";
 	$prod = $pdo->prepare($sql);

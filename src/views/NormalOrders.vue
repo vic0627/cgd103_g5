@@ -6,7 +6,7 @@ import memberCardVue from "@/components/memberCenter/memberCard.vue";
 import memberLevelVue from "@/components/memberCenter/memberLevel.vue";
 // import $ from 'jquery';
 import axios from "axios";
-import {BIND_URL } from "../composables/useCommon";
+import { BIND_URL } from "../composables/useCommon";
 import { ref, onMounted, reactive, computed, watch } from "vue";
 const NmOrder = ref({
   orders_no: "",
@@ -17,7 +17,7 @@ const NmOrder = ref({
 });
 const nmorders = ref([]);
 const getMemberNm = () => {
-  fetch(`${BIND_URL('getMemNmorder.php','g5PHP')}`, {
+  fetch(`${BIND_URL("getMemNmorder.php", "g5PHP")}`, {
     method: "get",
   })
     .then((res) => {
@@ -31,7 +31,7 @@ const getMemberNm = () => {
 };
 const NmorderItem = ref([]);
 const getMemberNmitem = () => {
-  fetch(`${BIND_URL('getMemNmitem.php','g5PHP')}`, {
+  fetch(`${BIND_URL("getMemNmitem.php", "g5PHP")}`, {
     method: "get",
   })
     .then((res) => {
@@ -90,9 +90,7 @@ onMounted(() => {
           <tbody>
             <tr>
               <td>
-                <router-link to="" @click="lightBoxOpen(index)"
-                  ><span>{{ nmorders[index].orders_no }}</span></router-link
-                >
+                {{ nmorders[index].orders_no }}
               </td>
               <td>{{ nmorders[index].purchase_date }}</td>
               <td>{{ nmorders[index].total_price }}</td>
@@ -122,7 +120,7 @@ onMounted(() => {
               <tbody>
                 <tr>
                   <td>
-                    <span>{{ NmorderItem[index].item_no }}</span>
+                    {{ NmorderItem[index].item_no }}
                   </td>
                   <td>{{ NmorderItem[index].orders_no }}</td>
                   <td>{{ NmorderItem[index].prd_no }}</td>
@@ -143,10 +141,10 @@ onMounted(() => {
 <style scoped lang="scss">
 @import "@/sass/style.scss";
 @import "@/sass/component/_lightBox.scss";
-$text-color:#fff;
-$link-color:#7abcff;
-$btn-color:#007FFB;
-$bg-color:rgb(54, 54, 54);
+$text-color: #fff;
+$link-color: #7abcff;
+$btn-color: #007ffb;
+$bg-color: rgb(54, 54, 54);
 .lightBox {
   @include lightBox();
   .lightBoxContent {
@@ -171,6 +169,7 @@ th {
 td {
   vertical-align: middle;
   background: #fff;
+  color: #000;
 }
 td {
   height: 80px;
@@ -208,70 +207,72 @@ input {
   margin: 90px auto;
   display: block;
   color: $text-color;
-  .sidenav{
-      width: 100%;
-      box-sizing: border-box;
+  .sidenav {
+    width: 100%;
+    box-sizing: border-box;
   }
-  .maincontent{
+  .maincontent {
+    width: 100%;
+    margin: 0;
+    .maininfo {
+      display: flex;
+      flex-direction: column;
       width: 100%;
-      margin: 0;
-      .maininfo{
-          display: flex;
-          flex-direction: column;
-          width: 100%;
-          .meminfo{
-              aspect-ratio: 16/9;
-          }
-          .memgrade{
-              aspect-ratio: 16/9;
-          }
+      .meminfo {
+        aspect-ratio: 16/9;
       }
-      .profiles-list{
-          width: 100%;
-          margin:10px 0;
-          background-color: #333;
-          border-radius: 10px;
-          padding: 20px;
-          box-sizing: border-box;
+      .memgrade {
+        aspect-ratio: 16/9;
       }
+    }
+    .profiles-list {
+      width: 100%;
+      margin: 10px 0;
+      background-color: #333;
+      border-radius: 10px;
+      padding: 20px;
+      box-sizing: border-box;
+    }
   }
 }
 
-@include s($s-breakpoint) {//>575px
-    .main{
-        .sidenav{
-            display: block;
-        }
-        .maincontent{
-            .profiles-list{
-                padding: 50px;
-            }
-            .maininfo{
-                display: grid;
-                grid-template-columns: repeat(2,1fr);
-                grid-gap: 10px;
-                .meminfo{
-                    aspect-ratio: 0;
-                }
-                .memgrade{
-                    aspect-ratio: 0;
-                }
-            }
-        }
+@include s($s-breakpoint) {
+  //>575px
+  .main {
+    .sidenav {
+      display: block;
     }
+    .maincontent {
+      .profiles-list {
+        padding: 50px;
+      }
+      .maininfo {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 10px;
+        .meminfo {
+          aspect-ratio: 0;
+        }
+        .memgrade {
+          aspect-ratio: 0;
+        }
+      }
+    }
+  }
 }
-@include m($m-breakpoint) {//>1023px
-    .main{
-        display: flex;
-        .sidenav{
-            width: 30%;
-        }
-        .maincontent{
-            width: 70%;
-            .profiles-list{
-                padding: 70px 100px;
-            }
-        }
+@include m($m-breakpoint) {
+  //>1023px
+  .main {
+    display: flex;
+    .sidenav {
+      width: 30%;
     }
-}  
+    .maincontent {
+      width: 70%;
+      .profiles-list {
+        padding: 70px 100px;
+      }
+    }
+  }
+}
 </style>
