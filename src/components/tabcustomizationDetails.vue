@@ -64,7 +64,7 @@ const pagination = reactive({
 });
 const cmDetailsRows = ref([]);
 const fetchItem = () => {
-  fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+  fetch(`${BIND_URL('postCust.php','g5PHP')}`, {
     method: "POST",
     body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.cm_order_item" }),
   })

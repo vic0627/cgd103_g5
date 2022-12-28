@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, onMounted, ref, h, computed, onUpdated } from "vue";
 import { zhTW, NPagination, NTable, NDataTable, NButton, NModal } from "naive-ui";
-import { log } from "../composables/useCommon";
+import { log, BIND_URL } from "../composables/useCommon";
 const createColumns = ({ update, dele }) => {
   return [
     {
@@ -175,7 +175,8 @@ const pagination = paginationReactive;
 
 const custRows = ref([]);
 const getCust = () => {
-  fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+  //fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+  fetch(`${BIND_URL('postCust.php','g5PHP')}`, {
     method: "POST",
     body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.customize where prd_no > 0 order by prd_no" }),
   })
@@ -207,7 +208,7 @@ const fixCmItem = (sql, method) => {
     sql,
     method,
   }
-  fetch("http://localhost/cgd103_g5/public/g5PHP/manageCust.php", {
+  fetch(`${BIND_URL('manageCust.php','g5PHP')}`, {
     method: "POST",
     body: new URLSearchParams(alterForm),
   })

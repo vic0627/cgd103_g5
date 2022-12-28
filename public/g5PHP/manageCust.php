@@ -20,7 +20,7 @@
 	$kgmc = giveNull($_POST["kgmc"]);
 	$prd_glb = giveNull($_POST["prd_glb"]);
 	$method = $_POST["method"];
-	require_once("./connect_cgd103g5_vic.php");
+	require_once("./connect_cgd103g5.php");
 	$sql = $_POST["sql"];
 	$admin = $pdo->prepare($sql);
 	if($method==="update" || $method==="insert"){

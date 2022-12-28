@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, onMounted, ref, computed, h } from 'vue';
 import { zhTW, NPagination, NDataTable, NButton, NModal } from 'naive-ui';
-import { log, $$ } from '@/composables/useCommon';
+import { log, $$, BIND_URL } from '@/composables/useCommon';
 
 const page = ref(2);
 const pageSize = ref(3);
@@ -192,7 +192,7 @@ const pagination = reactive({
 });
 const cmOrderRows = ref([]);
 const fetchItem = () => {
-  fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+  fetch(`${BIND_URL('postCust.php','g5PHP')}`, {
     method: "POST",
     body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.cm_order" }),
   })
@@ -202,7 +202,7 @@ const fetchItem = () => {
   })
 };
 const fixOdStat = () => {
-  fetch("http://localhost/cgd103_g5/public/g5PHP/manageCmOrder.php", {
+  fetch(`${BIND_URL('manageCmOrder.php','g5PHP')}`, {
     method: "POST",
     body: new URLSearchParams({ orders_no: udPack.value.orders_no, orders_status: udPack.value.orders_status }),
   })
