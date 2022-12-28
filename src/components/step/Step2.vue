@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
-import {BIND_URL } from "../composables/useCommon";
+import {BIND_URL } from "../../composables/useCommon";
 import {bodyInit} from '@/composables/useOnunmounted';
 
 bodyInit();

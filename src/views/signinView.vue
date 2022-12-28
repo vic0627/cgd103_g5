@@ -20,7 +20,8 @@ onMounted(() => {
       }
     };
     // xhr.open("get", "/dist/g5PHP/getMemberInfo.php", true); //查看使用者是否有登入
-    xhr.open("get", `${BIND_URL("getMemberInfo.php", "g5pHP")}`, true); //查看使用者是否有登入
+    xhr.open("get", `${BIND_URL("getMemberInfo.php", "g5PHP")}`, true); //查看使用者是否有登入
+    xhr.withCredentials = true;
     xhr.send(null);
   }
 
@@ -59,7 +60,8 @@ onMounted(() => {
       }
     };
     // xhr.open("post", "/dist/g5PHP/memLogin.php", true); //連接到php
-    xhr.open("post", `${BIND_URL("memLogin.php", "g5pHP")}`, true);
+    xhr.open("post", `${BIND_URL("memLogin.php", "g5PHP")}`, true);
+    xhr.withCredentials = true;
     xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded"); //php格式
 
     let datas = {};
@@ -242,8 +244,8 @@ const sendEmail = () => {
             />
             <span class="pswinfo"></span>
             <div class="login_info">
-              <input type="checkbox" name="remember" id="remember" />
-              <label for="remember">Remember me</label>
+              <!-- <input type="checkbox" name="remember" id="remember" /> -->
+              <!-- <label for="remember">Remember me</label> -->
               <!-- <a href="" class="forget_password">Forget Password?</a> -->
               <p class="forget_password" @click="forgetPW">Forget Password?</p>
               <div class="lightBox" v-if="lightBoxShow">

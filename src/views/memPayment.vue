@@ -4,7 +4,6 @@ import footerComponentsVue from '@/components/footerComponents.vue';
 import menuVue from '@/components/memberCenter/menu.vue';
 import memberCardVue from '@/components/memberCenter/memberCard.vue';
 import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
-import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
 import $ from 'jquery';
 import { ref, onMounted,reactive,computed,watch } from 'vue';
 import { BIND_URL } from "../composables/useCommon";
@@ -20,8 +19,7 @@ const addCard = ()=>{
     const payload = {
         credit_no : credit_no.value
     };
-    
-    fetch(`${BIND_URL('updateCreditCard.php',g5PHP)}`,{
+    fetch(`${BIND_URL('updateCreditCard.php','g5PHP')}`,{
         method: "POST",
         body: new URLSearchParams(payload),
     }).then((res) => {

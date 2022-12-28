@@ -97,7 +97,6 @@ const session = () => {
 const set = (key, val) => {
   sessionStorage.setItem(key, val);
 };
-set("prodInfo", `{"id":"1","title":"sefsefef","price":123124,"img":"awdawfa"}`);
 const cartList = ref([]);
 const addCart = () => {
   prdCache.value.id = prodin.value.prd_no;
@@ -364,11 +363,6 @@ const toCart = () => {
       </div>
     </div>
   </div>
-  <!-- FAQ -->
-  <section class="faqs">
-    <h2>Let’s Answer Your Questions</h2>
-    <Accordion />
-  </section>
 
   <!-- 購買連結 -->
   <nav id="purchaseBar" :class="navShow ? 'navOn' : 'navOff'">

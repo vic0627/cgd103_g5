@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from 'vue';
 import {bodyInit} from '@/composables/useOnunmounted';
-import {BIND_URL } from "../composables/useCommon";
+import { BIND_URL } from "../../composables/useCommon";
 import axios from 'axios';
 import router from '@/router';
 bodyInit();
@@ -17,6 +17,15 @@ const session = ()=> {
     cartItem.value = JSON.parse(`[${explode.value}]`);
     // cartsem.value = jsonItem
     // console.log(cartsem);
+}
+const getcartItem = (substrs)=>{
+  for(let i=0;i<substrs.length;i++){
+    if(i===0){
+      explode.value = sessionStorage.getItem(substrs[i])
+    }else{
+      explode.value += ',' + sessionStorage.getItem(substrs[i]);
+    }
+  }
 }
 //判斷session裡面是否有東西 沒有就文字顯示沒東西
 const storgeNull = reactive(sessionStorage.getItem('cartList'))

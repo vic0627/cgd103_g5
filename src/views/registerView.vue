@@ -80,7 +80,7 @@
             formData.append('phone', memberinfo.value.phone); 
             console.log("123:"+formData);
             // fetch('/dist/g5PHP/checkMemId.php',{
-            fetch(`${BIND_URL('checkMemId.php', 'g5pHP')}`,{
+            fetch(`${BIND_URL('checkMemId.php', 'g5PHP')}`,{
                 method: "post",
                 body: formData,
             })
@@ -223,11 +223,11 @@
 
 
 
-                            <div class="login_info">
+                            <!-- <div class="login_info">
                                 <input type="checkbox" name="remember" id="remember">
                                 <label for="remember">Remember me</label>
-                                <!-- <a href="" class="forget_password">Forget Password?</a> -->
-                            </div>
+                                <a href="" class="forget_password">Forget Password?</a>
+                            </div> -->
                             <div class="action">
                                 
                                 <!-- <input type="button" id="btnLogin" value="submit"> -->

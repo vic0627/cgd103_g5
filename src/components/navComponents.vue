@@ -52,7 +52,8 @@ onMounted(() => {
       }
     };
     // xhr.open("get", "/dist/g5PHP/getMemberInfo.php", true); //查看使用者是否有登入
-    xhr.open("get",`${BIND_URL('getMemberInfo.php', 'g5pHP')}`, true); 
+    xhr.open("get",`${BIND_URL('getMemberInfo.php', 'g5PHP')}`, true); 
+    xhr.withCredentials = true;
     xhr.send(null);
   }
 
@@ -72,7 +73,8 @@ onMounted(() => {
       document.querySelector(".pswinfo").innerHTML = "";
     };
     // xhr.open("get", "/dist/g5PHP/memLogout.php", true);
-    xhr.open("get", `${BIND_URL('memLogout.php', 'g5pHP')}`, true);
+    xhr.open("get", `${BIND_URL('memLogout.php', 'g5PHP')}`, true);
+    xhr.withCredentials = true;
     xhr.send(null);
   }
   

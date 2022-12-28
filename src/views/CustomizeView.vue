@@ -553,9 +553,9 @@ const addCart = () => {
     if(cartList===null || cartList===""){
         setSession();
         router.push({path: '/cart'});
-        setTimeout(() => {
+        /* setTimeout(() => {
           window.location.reload();
-        }, 1000)
+        }, 1000) */
     }else{
         lightBoxShow.value = true;
         lightBoxText.value.title.show = true;
@@ -571,9 +571,9 @@ const reCart = () => {
     set("intro", "read");
     lightBoxClose();
     router.push({path: '/cart'});
-    setTimeout(() => {
+    /* setTimeout(() => {
         window.location.reload();
-    }, 1000)
+    }, 1000) */
 };
 const setSession = () => {
     let prd_body, prd_propellor;
