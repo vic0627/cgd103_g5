@@ -5,6 +5,7 @@ import footerComponentsVue from '@/components/footerComponents.vue';
 import menuVue from '@/components/memberCenter/menu.vue';
 import memberCardVue from '@/components/memberCenter/memberCard.vue';
 import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
+import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
 import $ from 'jquery';
 import { ref, onMounted } from 'vue';
 
@@ -50,17 +51,24 @@ input{
     max-width: 1200px;
     width: 100%;
     margin: 90px auto;
-    display: flex;
-    justify-content: start;
-    gap: 10px;
     color: $text-color;
-    
+    .sidenav{
+        width: 100%;
+        box-sizing: border-box;
+    }
     .maincontent{
         width: 100%;
         margin: 0;
         .maininfo{
-            // display: flex;
-            display: block;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            .meminfo{
+                aspect-ratio: 16/9;
+            }
+            .memgrade{
+                aspect-ratio: 16/9;
+            }
         }
         .profiles-list{
             width: 100%;
@@ -75,36 +83,41 @@ input{
 }
 @include s($s-breakpoint) {//>575px
     .main{
-        padding: 10px;
         .sidenav{
             display: block;
         }
         .maincontent{
-            width: 75%;
             .profiles-list{
                 padding: 50px;
             }
             .maininfo{
-                // display: flex;
                 display: grid;
                 grid-template-columns: repeat(2,1fr);
                 gap: 10px;
+                .meminfo{
+                    aspect-ratio: 0;
+                }
+                .memgrade{
+                    aspect-ratio: 0;
+                }
             }
         }
     }
 }
 @include m($m-breakpoint) {//>1023px
     .main{
+        display: flex;
+        .sidenav{
+            width: 30%;
+        }
         .maincontent{
+            width: 70%;
             .profiles-list{
                 padding: 70px 100px;
             }
         }
     }
 }  
-@include l($l-breakpoint) {//>1199px
-    
-} 
 
 
 </style>
