@@ -1,5 +1,4 @@
 <?php 
-session_start();//session之前，要先啟用session_start()
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
