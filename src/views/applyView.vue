@@ -33,7 +33,7 @@ const getProducts = () => {
   fetch(`${BIND_URL("getRace.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
+      // console.log(json);
       raceRows.value = json;
     });
 };
@@ -57,9 +57,9 @@ const getMemberInfoSS = () => {
       // meminfo.value = [member.memName,member.email];
       // console.log(mem.value)
     } else {
-      // alert("Please log in before checkout!");
+      alert("Please log in before checkout!");
       // location.href="http://localhost:8888/dist/home";
-      // router.push({ path: "/signin" });
+      router.push({ path: "/signin" });
     }
   };
   xhr.open("GET", `${BIND_URL("getMemberInfo.php", "g5PHP")}`, true); //查看使用者是否有登入
@@ -74,8 +74,8 @@ const strings = ref([]);
 const session = () => {
   strings.value = sessionStorage["racename"];
   prodin.value = JSON.parse(strings.value);
-  console.log(prodin.value);
-  console.log(prodin.value.price);
+  // console.log(prodin.value);
+  // console.log(prodin.value.price);
 };
 
 //預約成功 燈箱
@@ -86,6 +86,7 @@ const lightBoxShow = ref(false);
 // };
 const lightBoxClose = () => {
   lightBoxShow.value = false;
+  router.push({ path: "/racing" });
 };
 
 //送出預約資訊進後台
@@ -100,10 +101,10 @@ const cartItem = ref([]);
 const membook = () => {
   let id = sessionStorage["race"];
   let aaa = JSON.parse(`${sessionStorage[id]}`);
-  console.log(aaa);
+  // console.log(aaa);
   comp_no.value = sessionStorage.getItem("race");
   // mem_no.value = mem.mem_no;
-  console.log(comp_no);
+  // console.log(comp_no);
   lightBoxShow.value = true;
   /* regis_no.value = sessionStorage.getItem("regis_no");
   comp_no.value = sessionStorage.getItem("comp_no");
@@ -142,7 +143,7 @@ function getMemberInfo() {
       return res.json();
     })
     .then((mem) => {
-      console.log(mem);
+      // console.log(mem);
       mem_no.value = mem.mem_no;
     })
     .catch((error) => console.log(error));

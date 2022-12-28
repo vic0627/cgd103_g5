@@ -14,29 +14,32 @@ const admin_acc = ref("");
 const adminRows = ref([]);
 	const getAdmin = () => {
 	//取得管理員資料
-  axios.get(`${BIND_URL('getbackLogin.php','g5PHP')}`)
+  axios.post(`${BIND_URL('getbackLogin.php','g5PHP')}`,{
+    //??
+    admin_acc:admin_acc.value,
+    admin_pw:admin_pw.value,
+  })
   .then(res=> {
-  // console.log(res.data);
-  adminRows.value = res.data;
+    console.log("res"+res);
+    // adminRows.value = res.data;
   })
 }
 // const 
-onMounted(()=>{
-    //getAdmin();
-});
+
 
 // 1.點登入辨認是否有這個帳號
 // 2.如果有就跳轉到後台首頁,沒有就彈窗錯誤
 const login =()=>{
-  for(let i=0;i<=adminRows.value.length;i++){
-    if(admin_acc.value === adminRows.value[i].admin_acc && admin_pw.value === adminRows.value[i].admin_pw){
-        window.location.href="/dist/backend";
-    }else{
-      document.querySelector(".mess").textContent = "帳密錯誤";
-      document.querySelector(".mess").style["color"] = "red";
+  getAdmin();
+  // for(let i=0;i<=adminRows.value.length;i++){
+  //   if(admin_acc.value === adminRows.value[i].admin_acc && admin_pw.value === adminRows.value[i].admin_pw){
+  //       window.location.href="/dist/backend";
+  //   }else{
+  //     document.querySelector(".mess").textContent = "帳密錯誤";
+  //     document.querySelector(".mess").style["color"] = "red";
 
-    }
-  }
+  //   }
+  // }
 }
 
 
