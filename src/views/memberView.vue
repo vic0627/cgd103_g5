@@ -4,70 +4,73 @@ import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import memberCardVue from '@/components/memberCenter/memberCard.vue';
+import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
 bodyInit();
 // const meminfo = ref("");
 onMounted(() =>{
-  function getMemberInfoSS(){
+	getMemberInfoSS();
+  	function getMemberInfoSS(){
             let xhr = new XMLHttpRequest();
             xhr.onload = function(){
                 let member = JSON.parse(xhr.responseText);
-                // console.log("SS:"+member);
                 if(member.Account){//有帳密資料
                     // $id("memName").innerText = member.memName;
                     // $id("spanLogin").innerText = "登出"; 
-                // meminfo.value = [member.memName,member.email];
-                // console.log(mem.value)         
                 }else{
                   alert("Please log in first!");
-                  // location.href="http://localhost:8888/dist/home";
                   window.history.back();
                 }
             }
-            xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
+            // xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
+            xhr.open("get",`${BIND_URL('getMemberInfo.php', 'g5pHP')}`,true);
             xhr.send(null);
-        }
-  
-  getMemberInfoSS();
+    }
 
 })
-
-
 
 </script>
 
 <template>
-	<navComponentsVue />
-	<section class="member">
-		<div class="member_box">
-			<div class="member_top">
-				<memberCardVue/>
-				<div class="member_drone">
-					<img src="../assets/images/member/mem_drone02.png" alt="drone" />
-					<div class="drone_word">
-						<h3>FPV Name </h3>
-						<router-link class="drone_more" to="/machineView"
-						><button>Leam more</button></router-link
-						>
-					</div>
-				</div>
-			</div>
-			<div class="mem_down">
-				<div class="round_item">
-					<router-link class="anchor" to="/profile">PROFILE</router-link>
-				</div>
-				<div class="round_item">
-					<router-link class="anchor" to="/NormalOrders">NORMAL ORDERS</router-link>
-				</div>
-				<div class="round_item">
-					<router-link class="anchor" to="/CustomizedOrders">CUSTOM ORDERS</router-link>
-				</div>
-				<div class="round_item">
-					<router-link class="anchor" to="/racing">RACING</router-link>
-				</div>
-			</div>
-		</div>
-	</section>
-	<footerComponentsVue />
+  <navComponentsVue />
+  <section class="member">
+    <div class="member_box">
+      <div class="member_top">
+        <memberCardVue/>
+        <div class="member_drone">
+          <img src="../assets/images/member/mem_drone02.png" alt="drone" />
+          <div class="drone_word">
+            <h3>FPV Name </h3>
+            <router-link class="drone_more" to="/machineView"
+              ><button>Leam more</button></router-link
+            >
+          </div>
+        </div>
+      </div>
+      <div class="mem_down">
+        <router-link class="anchor" to="/profile">
+          <div class="round_item">
+            <p>PROFILE</p>
+          </div>
+        </router-link>
+        <router-link class="anchor" to="/NormalOrders">
+        <div class="round_item">
+            <p>NORMAL ORDERS</p>
+          </div>
+        </router-link>
+        <router-link class="anchor" to="/CustomizedOrders">
+        <div class="round_item">
+            <p>CUSTOM ORDERS</p>
+          </div>
+        </router-link>
+        <router-link class="anchor" to="/racing">
+        <div class="round_item">
+            <p>RACING</p>
+          </div>
+        </router-link>
+      </div>
+    </div>
+  </section>
+  <footerComponentsVue />
 </template>
 
 <style lang="scss" scoped>
@@ -150,19 +153,17 @@ section {
 			display: flex;
 			align-items: center;
 			justify-content: center;
-			&:hover {
-				opacity: 1;
-				background: linear-gradient(119.47deg, rgba(20, 134, 239, 0.56) 24.7%, rgba(219, 0, 255, 0.56) 77.81%);
-			}
-			a{
+      background: linear-gradient(119.47deg, rgba(20, 134, 239, 0.56) 24.7%, rgba(219, 0, 255, 0.56) 77.81%);
+			p{
 				font-size: 25px;
+        text-align: center;
 			}
 		}
 	}
 
 }
 .meminfo{
-		border: 1px solid rgb(255, 0, 0);
+		// border: 1px solid rgb(255, 0, 0);
 		aspect-ratio: 18/9;
 		margin: 0;
 		border-radius: 0;
@@ -183,7 +184,7 @@ section {
 				.meminfo{
 					aspect-ratio: 18/9;
 					margin: 20px;
-					border: 1px solid white;
+					// border: 1px solid white;
 					border-radius: 20px;
 					
 				}
@@ -211,8 +212,10 @@ section {
 				opacity: 1;
 				background: linear-gradient(119.47deg, rgba(20, 134, 239, 0.56) 24.7%, rgba(219, 0, 255, 0.56) 77.81%);
 			}
-				a{
+				p{
 					font-size: 25px;
+
+        text-align: center;
 				}
 			}
 		}
@@ -225,9 +228,9 @@ section {
 		.member_box{
 			.member_top{
 				.meminfo{
-					aspect-ratio: 18/9;
+					aspect-ratio: 16/9;
 					margin: 20px;
-					border: 1px solid white;
+					// border: 1px solid white;
 					border-radius: 20px;
 				}
 				.member_card {
@@ -256,8 +259,10 @@ section {
 					opacity: 1;
 					background: linear-gradient(119.47deg, rgba(20, 134, 239, 0.56) 24.7%, rgba(219, 0, 255, 0.56) 77.81%);
 				}
-					a{
+					p{
 						font-size: 25px;
+
+        text-align: center;
 					}
 				}
 			}
@@ -270,7 +275,4 @@ section {
 	
 	
 }
-
-
-
 </style>

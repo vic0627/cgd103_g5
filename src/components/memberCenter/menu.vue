@@ -1,15 +1,16 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import $ from "jquery";
-onMounted(() => {
-  $(".List-item>a").parent().siblings().find("ul").hide();
-  $(".List-item>a").click(function (e) {
-    e.preventDefault();
-    $(this).parent().siblings().find("ul").slideUp();
-    $(this).parent().find("ul").slideToggle();
-    // $(this).parent().siblings().find('a').removeClass('rmminus');
-    // $(this).toggleClass('rmminus');
-  });
+import { ref, onMounted} from 'vue';
+import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
+import $ from 'jquery';
+onMounted(()=> {
+    $('.List-item>a').parent().siblings().find('ul').hide();
+    $('.List-item>a').click(function (e) { 
+        e.preventDefault();
+        $(this).parent().siblings().find('ul').slideUp();
+        $(this).parent().find('ul').slideToggle();
+        // $(this).parent().siblings().find('a').removeClass('rmminus');
+        // $(this).toggleClass('rmminus');
+    });
 });
 const sidenav = ref({
   account: {

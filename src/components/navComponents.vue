@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, onMounted, ref, onUpdated } from "vue";
 import { getCartLength } from "../composables/useCommon";
+import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
 const mainMenu = reactive([
   {
     id: "shop",
@@ -50,7 +51,8 @@ onMounted(() => {
         document.querySelector(".memName").style["display"] = "none";
       }
     };
-    xhr.open("get", "/dist/g5PHP/getMemberInfo.php", true); //查看使用者是否有登入
+    // xhr.open("get", "/dist/g5PHP/getMemberInfo.php", true); //查看使用者是否有登入
+    xhr.open("get",`${BIND_URL('getMemberInfo.php', 'g5pHP')}`, true); 
     xhr.send(null);
   }
 
@@ -69,7 +71,8 @@ onMounted(() => {
       document.querySelector(".unameinfo").innerHTML = "";
       document.querySelector(".pswinfo").innerHTML = "";
     };
-    xhr.open("get", "/dist/g5PHP/memLogout.php", true);
+    // xhr.open("get", "/dist/g5PHP/memLogout.php", true);
+    xhr.open("get", `${BIND_URL('memLogout.php', 'g5pHP')}`, true);
     xhr.send(null);
   }
   
