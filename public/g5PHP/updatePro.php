@@ -2,7 +2,7 @@
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
-	require_once("./connect_cgd103g5_Lily.php");
+	require_once("./connect_cgd103g5.php");
 	$sql = "UPDATE `products` 
 	SET  prd_name = :prd_name,prd_price = :prd_price,sale = :sale,sale_price = :sale_price,color = :color,images = :images
 	WHERE prd_no = :prd_no ";
