@@ -123,8 +123,9 @@ onMounted(() => {
 });
 
 //忘記密碼 燈箱
-
+const hintShow = ref(false);
 const lightBoxShow = ref(false);
+const formShow = ref(true);
 
 const forgetPW = () => {
   lightBoxShow.value = true;
@@ -167,6 +168,8 @@ const sendEmail = () => {
           }
         );
     });
+    formShow.value = false;
+    hintShow.value = true;
   /* var xhr = new XMLHttpRequest();
   xhr.onload = function () {
     if (xhr.status == 200) {
@@ -251,7 +254,7 @@ const sendEmail = () => {
               <div class="lightBox" v-if="lightBoxShow">
                 <div class="lightBoxContent">
                   <h2>Forget Password ?</h2>
-                  <form @submit="sendEmail" class="pwForm">
+                  <form @submit="sendEmail" class="pwForm" v-if="formShow">
                     <div>
                       <p>Your email</p>
                       <input
@@ -275,6 +278,7 @@ const sendEmail = () => {
                   </form>
                   <!-- v-if="removeItem" -->
                   <div class="close" @click="lightBoxClose"></div>
+                  <p class="hint" v-if="hintShow">We've sent an email within your password to your email, if you do not receive, check you have registered and key in the right email.</p>
                 </div>
               </div>
             </div>
