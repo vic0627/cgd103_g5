@@ -1,5 +1,6 @@
 <?php 
 session_start();//查看session
+require_once("./cors_cookie.php");
 header('Access-Control-Allow-Origin:*');
 header("Content-Type:application/json;charset=utf-8");
 try{

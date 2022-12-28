@@ -14,6 +14,7 @@ const  cmorders = ref('');
 const getMemberCmitem = ()=>{
     fetch(`${BIND_URL('getMemCmorder.php','g5PHP')}`,{
         method: "get",
+        credentials: 'include',
     }).then(res=>{
         return res.json();
     }).then(mem=>{
