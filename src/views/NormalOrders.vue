@@ -6,6 +6,7 @@ import memberCardVue from "@/components/memberCenter/memberCard.vue";
 import memberLevelVue from "@/components/memberCenter/memberLevel.vue";
 // import $ from 'jquery';
 import axios from "axios";
+import {BIND_URL } from "../composables/useCommon";
 import { ref, onMounted, reactive, computed, watch } from "vue";
 const NmOrder = ref({
   orders_no: "",
@@ -16,7 +17,7 @@ const NmOrder = ref({
 });
 const nmorders = ref([]);
 const getMemberNm = () => {
-  fetch("/dist/g5PHP/getMemNmorder.php", {
+  fetch(`${BIND_URL('getMemNmorder.php','g5PHP')}`, {
     method: "get",
   })
     .then((res) => {
@@ -30,7 +31,7 @@ const getMemberNm = () => {
 };
 const NmorderItem = ref([]);
 const getMemberNmitem = () => {
-  fetch("/dist/g5PHP/getMemNmitem.php", {
+  fetch(`${BIND_URL('getMemNmitem.php','g5PHP')}`, {
     method: "get",
   })
     .then((res) => {
@@ -208,11 +209,6 @@ input {
 
   .maincontent {
     width: 100%;
-<<<<<<< HEAD
-    margin: 0;
-    .maininfo {
-      display: block;
-=======
     margin: 90px auto;
     display: flex;
     justify-content: start;
@@ -233,7 +229,6 @@ input {
             padding: 20px;
             box-sizing: border-box;
         }
->>>>>>> 550fb24 (fix)
     }
     .profiles-list {
       width: 100%;

@@ -6,10 +6,24 @@ import menuVue from '@/components/memberCenter/menu.vue';
 import memberCardVue from '@/components/memberCenter/memberCard.vue';
 import memberLevelVue from '@/components/memberCenter/memberLevel.vue';
 import $ from 'jquery';
+import {BIND_URL } from "../composables/useCommon";
 import { ref, onMounted } from 'vue';
 
-onMounted(()=> {});
+onMounted(()=> {getMemberCmitem();});
+const  cmorders = ref('');
+const getMemberCmitem = ()=>{
+    fetch(`${BIND_URL('getMemCmorder.php','g5PHP')}`,{
+        method: "get",
+    }).then(res=>{
+        return res.json();
+    }).then(mem=>{
+        console.log(mem);
+        // if(mem[])
+        cmorders.value = mem;
 
+        console.log(cmorders.value)    
+    })
+}
 
 </script>
 
@@ -23,7 +37,25 @@ onMounted(()=> {});
                 <memberLevelVue/>
             </section>
             <section class="profiles-list">
-                <!-- 內容 -->
+                <h1>Custom Orders</h1>
+                <table v-for="(item,index) in cmorders" :key="index">
+                    <thead>
+                        <th>Order No.</th>
+                        <th>Date</th>
+                        <th>Total Price</th>
+                        <th>Status</th>
+                        <th>Member No.</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{cmorders[index].orders_no}}</td>
+                            <td>{{cmorders[index].purchase_date}}</td>
+                            <td>{{cmorders[index].total}}</td>
+                            <td>{{cmorders[index].orders_status}}</td>
+                            <td>{{cmorders[index].mem_acc}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
         </div>
     </div>
@@ -43,6 +75,52 @@ header{
 section{
     margin: 0;
 }
+table{
+    text-align: center;
+    width: 100%;
+    margin: 30px auto;
+}
+input{
+    display: block;
+}
+tr{
+    border-top: 1px solid #777;
+}
+th{ 
+    background: #bbb;
+    padding: 20px;
+}
+td{
+    vertical-align: middle;
+    background: #fff;
+}
+td{
+    height: 80px;
+}
+tr:hover{
+    background: #333;
+}
+table thead th:first-child {
+  border-radius: 10px 0 0 0;
+}
+table thead th:last-child {
+  border-radius: 0 10px 0 0;
+}
+table tbody tr:last-child td:first-child {
+  border-radius: 0 0 0 10px;
+}
+table tbody tr:last-child td:last-child {
+  border-radius: 0 0 10px 0;
+}
+span{
+    cursor: pointer;
+    color: rgb(43, 223, 255);
+}
+//
+
+section{
+    margin: 0;
+}
 input{
     display: block;
 }
@@ -53,7 +131,7 @@ input{
     display: flex;
     justify-content: start;
     gap: 10px;
-    color: $text-color;
+    // color: $text-color;
     
     .maincontent{
         width: 100%;
@@ -61,10 +139,10 @@ input{
         .maininfo{
             // display: flex;
             display: block;
+            
         }
         .profiles-list{
             width: 100%;
-            height: 500px;//有內容後就刪掉
             margin:10px 0;
             background-color: #333;
             border-radius: 10px;
@@ -97,7 +175,7 @@ input{
     .main{
         .maincontent{
             .profiles-list{
-                padding: 70px 100px;
+                padding: 70px 50px;
             }
         }
     }
