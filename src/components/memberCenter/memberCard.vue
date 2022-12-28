@@ -28,6 +28,7 @@ onMounted(() =>{
               }
             //   xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
               xhr.open("get",`${BIND_URL('getMemberInfo.php',"g5PHP")}`,true);
+              xhr.withCredentials = true;
               xhr.send(null);
           }
 
@@ -38,6 +39,7 @@ onMounted(() =>{
         // fetch('/dist/g5PHP/getMemLevel.php',{
         fetch(`${BIND_URL('getMemLevel.php',"g5PHP")}`,{
                 method: "get",
+                credentials: 'include',
             })
             .then((res) => res.json())//將php response的內容轉成json格式
             .then(mem =>{//該json
