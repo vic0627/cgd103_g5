@@ -1,9 +1,9 @@
 <?php
 session_start();//開始session
+require_once("./cors_cookie.php");
 // $json = file_get_contents("php://input");
 // $datas = json_decode($json,true);
 $datas = json_decode($_POST["datas"],true);//將前端datas送過來的json字串還原成 關聯式陣列
-header('Access-Control-Allow-Origin:*');
 header("Content-Type:application/json;charset=utf-8");
 try{
   require_once("./connect_cgd103g5.php");
@@ -32,7 +32,7 @@ try{
 
 
 
-    $result = ["Number"=>$_SESSION["Number"],"Account"=>$_SESSION["Account"],"Password"=>$_SESSION["Password"],"FirstName"=>$_SESSION["FirstName"],"email"=>$_SESSION["email"]];//打包session
+    $result = ["Account"=>$_SESSION["Account"],"Account"=>$_SESSION["Account"],"Password"=>$_SESSION["Password"],"FirstName"=>$_SESSION["FirstName"],"email"=>$_SESSION["email"]];//打包session
     echo json_encode($result);//送出session內的資料
     
   }
