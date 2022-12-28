@@ -125,6 +125,7 @@ const getShopInfo = () =>{
   fetch(`${BIND_URL('getProduct.php','g5PHP')}`)
     .then(res => res.json())
     .then(json => {
+      console.log(json);
         bundleRows_beginner.value = json.filter(i => i.cat_no == 3 && i.prd_name.includes('simple'));
         bundleRows_veteran.value = json.filter(i => i.cat_no == 3 && i.prd_name.includes('pro'));
         prodRows.value = json.filter(i => i.cat_no == 1);
