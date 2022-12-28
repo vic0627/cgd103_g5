@@ -11,7 +11,7 @@ const cartItem = ref([]);
 const cartList = computed(() => cartItem.value)
 const session = ()=> {
     const strings = sessionStorage.getItem('cartList')
-    const substrs = strings.substr(0, strings.length - 1).split(',')
+    const substrs = strings.substr(0, strings.length).split(',')
     getcartItem(substrs);
     // let jsonItem = JSON.parse(`[${explode.value}]`);
     cartItem.value = JSON.parse(`[${explode.value}]`);
