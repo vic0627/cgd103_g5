@@ -223,11 +223,11 @@
 
 
 
-                            <div class="login_info">
+                            <!-- <div class="login_info">
                                 <input type="checkbox" name="remember" id="remember">
                                 <label for="remember">Remember me</label>
-                                <!-- <a href="" class="forget_password">Forget Password?</a> -->
-                            </div>
+                                <a href="" class="forget_password">Forget Password?</a>
+                            </div> -->
                             <div class="action">
                                 
                                 <!-- <input type="button" id="btnLogin" value="submit"> -->
