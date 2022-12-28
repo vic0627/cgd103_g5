@@ -42,7 +42,6 @@ const createColumns = ({ selectId, showModal2 }) => {
       title: "發布時間",
       key: "news_time",
     },
-
     {
       title: "編輯",
       key: "actions",
@@ -80,16 +79,16 @@ const createColumns = ({ selectId, showModal2 }) => {
 const column = createColumns({
   selectId(rowData, index) {
     showModal.value = true;
-    newnews_no.value = rowData.news_no;
-    newnews_title.value = rowData.news_title;
-    newnews_txt.value = rowData.news_txt;
-    newnews_time.value = rowData.news_time;
-    newnews_photo.value = rowData.news_photo;
-    newnews_tag.value = rowData.news_tag;
+    newnews_no.value = newsRows.value[index].news_no;
+    newnews_title.value = newsRows.value[index].news_title;
+    newnews_txt.value = newsRows.value[index].news_txt;
+    newnews_time.value = newsRows.value[index].news_time;
+    newnews_photo.value = newsRows.value[index].news_photo;
+    newnews_tag.value = newsRows.value[index].news_tag;
   },
   showModal2(rowData, index) {
     showModal2.value = true;
-    newnews_no.value = rowData.news_no;
+    newnews_no.value = newsRows.value[index].news_no;
   },
 });
 //分頁js
@@ -111,7 +110,7 @@ const props = defineProps(["tab"]);
 const newsRows = ref([]);
 const getNews = () => {
   //取得商品資料
-  fetch("http://localhost/g5/public/g5PHP/getNews.php")
+  fetch("http://localhost/cgd103_g5/public/g5PHP/getNews.php")
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
@@ -126,13 +125,13 @@ onMounted(() => {
 const updateNews = (user) => {
   const newnews = {
     news_no: Number(newnews_no.value),
-    news_title: newnews_title.value,
-    news_txt: newnews_txt.value,
-    news_time: newnews_time.value,
-    news_photo: newnews_photo.value,
-    news_tag: newnews_tag.value,
+    news_title: news_title.value,
+    news_txt: news_txt.value,
+    news_time: news_time.value,
+    news_photo: news_photo.value,
+    news_tag: news_tag.value,
   };
-  fetch("http://localhost/g5/public/g5PHP/updateNews.php", {
+  fetch("http://localhost/cgd103_g5/public/g5PHP/updateNews.php", {
     method: "POST",
     body: new URLSearchParams(newnews),
   })
@@ -183,9 +182,9 @@ const testVal = (e) => {
 // 刪除資料
 const deleteNews = (user) => {
   const delNews = {
-    news_no: Number(newnews_no.value)
+    news_no: Number(newnews_no.value),
   };
-  fetch("http://localhost/g5/public/g5PHP/deleteNews.php", {
+  fetch("http://localhost/cgd103_g5/public/g5PHP/deleteNews.php", {
     method: "POST",
     body: new URLSearchParams(delNews),
   }).then((res) => {
@@ -197,20 +196,27 @@ const deleteNews = (user) => {
 </script>
 
 <template>
-  <div class="tops">
+  <div class="top">
     <h2>消息列表<outComponents /></h2>
 
     <div class="search_box">
-        <p>依</p>
-        <select name="searchMethods" id="searchMethods" @change="testVal">
-          <option v-for="i in select" :key="i.id" :value="i.id">{{ i.title }}</option>
-        </select>
-        <p>查詢</p>
-        <label for="search" class="label">
-          <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
-        </label>
-        <p>輸入"all"可查詢所有項目</p>
-      </div>
+      <p>依</p>
+      <select name="searchMethods" id="searchMethods" @change="testVal">
+        <option v-for="i in select" :key="i.id" :value="i.id">
+          {{ i.title }}
+        </option>
+      </select>
+      <p>查詢</p>
+      <label for="search" class="label">
+        <input
+          type="search"
+          id="search"
+          name="search"
+          v-model="search"
+          :placeholder="`請輸入all或${select[selectVal].title}`"
+        />
+      </label>
+    </div>
 
     <!-- <div class="bigbox">
       <div class="search_box">
@@ -259,7 +265,7 @@ const deleteNews = (user) => {
             rows="3"
             cols="50"
             placeholder="請輸入名稱"
-            maxlength="30000"
+            maxlength="3000"
           ></textarea>
           <textarea
             name="news_txt"
@@ -352,21 +358,7 @@ const deleteNews = (user) => {
     }
   }
 }
-.tops {
-  width: 85%;
-  display: block;
-  overflow-y: auto;
-  height: 100%;
-  overflow: auto;
-}
-.options{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  .addBox{
-    width: 20%;
-  }
-}
+
 textarea {
   margin-top: 10px;
 }
@@ -389,6 +381,10 @@ h2 {
 .tables {
   width: 95%;
   margin: auto;
+  ::v-deep(n-data-table-td) {
+    border-bottom: 1 solid #111;
+    background-color: #222;
+  }
 }
 
 .modal-mask {
@@ -406,7 +402,7 @@ h2 {
   display: table-cell;
   vertical-align: middle;
 }
-textarea{
-  overflow: auto;
+.textarea {
+  overflow: y;
 }
 </style>
