@@ -125,6 +125,7 @@ const getShopInfo = () =>{
   fetch(`${BIND_URL('getProduct.php','g5PHP')}`)
     .then(res => res.json())
     .then(json => {
+      console(json);
         bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'));
         bundleRows_veteran.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('pro'));
         prodRows.value = json.filter(i => i.cat_no === 1);
@@ -137,6 +138,10 @@ const getShopInfo = () =>{
       }
     })
     .then(output => {
+      console.log(output.prodRows.value)
+      console.log(output.assRows.value)
+      console.log(output.bundleRows_beginner.value)
+      console.log(output.bundleRows_veteran.value)
       for(let i=0; i<output.prodRows.value.length; i++){
           products.value[i] = {
           id: output.prodRows.value[i].prd_no,
@@ -181,7 +186,13 @@ const getShopInfo = () =>{
           sale: output.bundleRows_veteran.value[i].sale,
         };
       }
-    })
+      
+    }).then(a => {
+      console.log(products.value)
+      console.log(accessories.value)
+      console.log(bundle_A.value)
+      console.log(bundle_B.value)
+    }).catch(err => console.log(err))
 }
 
 // fuselage searchBar
