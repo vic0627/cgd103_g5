@@ -9,7 +9,7 @@ import {
   onBeforeUnmount,
 } from "vue";
 import router from "@/router";
-import { log, $$, $all, getW } from "../composables/useCommon";
+import { log, $$, $all, getW, BIND_URL } from "../composables/useCommon";
 import { introduction, droneModels, propellorModels } from "./js/CustomizeGlb";
 import * as CUS from "./js/CustomizeThree";
 import dashBoardGroupComponent from "@/components/dashBoardGroupComponents.vue";
@@ -62,8 +62,7 @@ let customMotorItem, customControllerItem;
 const motorModels = ref({}),
   controllerModels = ref({});
 const fetchCustom = () => {
-    // fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
-    fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+    fetch(`${BIND_URL('postCust.php','g5PHP')}`, {
         method: "POST",
         body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.customize" }),
     })

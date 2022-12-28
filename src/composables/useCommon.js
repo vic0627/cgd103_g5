@@ -13,4 +13,5 @@ export const getCartLength = () => {
         cartLength = cartItem.split(",");
     }
     return cartLength.length;
-}
+};
+export const BIND_URL = (url, path = 'assets') => `http://localhost/dist/${path}/${url}`;
