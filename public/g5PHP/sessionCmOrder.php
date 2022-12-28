@@ -2,7 +2,7 @@
 header('Access-Control-Allow-Origin:*');
 header("Content-Type:application/json;charset=utf-8");
     try{
-        require_once("./connect_cgd103g5_felix.php");
+        require_once("./connect_cgd103g5.php");
         $sql = "INSERT INTO `cm_order` (`orders_no`, `mem_no`, `mem_grade`, `purchase_date`, `orders_status`, `orders_price`, `discount_price`, `total`, `orders_location`, `fee` ,`credit_no`) VALUES (NULL, :mem_no , :mem_grade , CURRENT_TIMESTAMP, '待處理', :orders_price, :discount_price, :total, :orders_location, :fee, :credit_no);"; 
         $insertOrder = $pdo->prepare($sql);
         $insertOrder->bindValue(":mem_no", $_POST["mem_no"]);
