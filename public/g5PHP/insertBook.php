@@ -2,7 +2,7 @@
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
-	require_once("./connect_cgd103g5_adam.php");
+	require_once("./connect_cgd103g5.php");
 	$sql = "INSERT INTO tibamefe_cgd103g5.competition_registration (comp_no,mem_no)
     VALUES (:comp_no,:mem_no)";
 	$insertRace = $pdo->prepare($sql);
