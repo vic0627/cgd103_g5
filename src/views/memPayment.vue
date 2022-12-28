@@ -21,7 +21,7 @@ const addCard = ()=>{
         credit_no : credit_no.value
     };
     
-    fetch(`${BIND_URL('updateCreditCard.php',g5PHP)}`,{
+    fetch(`${BIND_URL('updateCreditCard.php',"g5PHP")}`,{
         method: "POST",
         body: new URLSearchParams(payload),
     }).then((res) => {

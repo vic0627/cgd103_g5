@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted} from 'vue';
+import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
 import $ from 'jquery';
 
 
@@ -38,7 +39,8 @@ onMounted(()=> {
     getMemLevel();
     
     function getMemLevel(){
-        fetch('/dist/g5PHP/getMemLevel.php',{
+        // fetch('/dist/g5PHP/getMemLevel.php',{
+        fetch(`${BIND_URL('getMemLevel.php',g5PHP)}`,{
                 method: "get",
             })
             .then((res) => res.json())//php echo的內容

@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted ,ref} from 'vue';
+import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
 
 // const meminfo = ref("");
 
@@ -25,7 +26,8 @@ onMounted(() =>{
                   // console.log(mem.value)         
                   }
               }
-              xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
+            //   xhr.open("get","/dist/g5PHP/getMemberInfo.php",true);//查看使用者是否有登入
+              xhr.open("get",`${BIND_URL('getMemberInfo.php',g5PHP)}`,true);
               xhr.send(null);
           }
 
@@ -33,7 +35,8 @@ onMounted(() =>{
     getMemLevel();
     
     function getMemLevel(){
-        fetch('/dist/g5PHP/getMemLevel.php',{
+        // fetch('/dist/g5PHP/getMemLevel.php',{
+        fetch(`${BIND_URL('getMemLevel.php',g5PHP)}`,{
                 method: "get",
             })
             .then((res) => res.json())//將php response的內容轉成json格式
