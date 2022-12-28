@@ -6,7 +6,7 @@ import $ from "jquery";
 const newsRows = ref([]);
 const getNews = () => {
   //取得消息資料
-  fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+  fetch("http://localhost/g5/public/g5PHP/getNews.php", {
     method: "POST",
     body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.news" }),
   })

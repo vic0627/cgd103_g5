@@ -15,7 +15,7 @@ const addProduct = () => {
     news_photo: news_photo.value,
     news_tag: news_tag.value,
   };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/insertNews.php", {
+  fetch("http://localhost/g5/public/g5PHP/insertNews.php", {
     method: "POST",
     body: new URLSearchParams(payload),
   }).then((res) => {
@@ -56,7 +56,7 @@ function fileChange() {
 
   const formData = new FormData();
   formData.append("image", file);
-  fetch("http://localhost/cgd103_g5/public/g5PHP/insertPhoto.php", {
+  fetch("http://localhost/g5/public/g5PHP/insertPhoto.php", {
     method: "POST",
     body: formData,
   });

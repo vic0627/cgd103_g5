@@ -21,10 +21,10 @@ const newnews_time = ref("");
 const newnews_photo = ref("");
 const newnews_tag = ref("");
 const showModal = ref(false);
-// const showModal2 = ref(false);
+const showModal2 = ref(false);
 
 //data-table
-const createColumns = ({ selectId, showmodal }) => {
+const createColumns = ({ selectId, showModal2 }) => {
   return [
     {
       title: "消息編號",
@@ -42,14 +42,7 @@ const createColumns = ({ selectId, showmodal }) => {
       title: "發布時間",
       key: "news_time",
     },
-    {
-      title: "圖片路徑",
-      key: "news_photo",
-    },
-    {
-      title: "標籤",
-      key: "news_tag",
-    },
+
     {
       title: "編輯",
       key: "actions",
@@ -75,7 +68,7 @@ const createColumns = ({ selectId, showmodal }) => {
           {
             size: "medium",
             color: "#FF4E4E",
-            onClick: () => showmodal(row, index),
+            onClick: () => showModal2(row, index),
           },
           { default: () => "刪除" }
         );
@@ -87,16 +80,16 @@ const createColumns = ({ selectId, showmodal }) => {
 const column = createColumns({
   selectId(rowData, index) {
     showModal.value = true;
-    newnews_no.value = newsRows.value[index].news_no;
-    newnews_title.value = newsRows.value[index].news_title;
-    newnews_txt.value = newsRows.value[index].news_txt;
-    newnews_time.value = newsRows.value[index].news_time;
-    newnews_photo.value = newsRows.value[index].news_photo;
-    newnews_tag.value = newsRows.value[index].news_tag;
+    newnews_no.value = rowData.news_no;
+    newnews_title.value = rowData.news_title;
+    newnews_txt.value = rowData.news_txt;
+    newnews_time.value = rowData.news_time;
+    newnews_photo.value = rowData.news_photo;
+    newnews_tag.value = rowData.news_tag;
   },
-  showmodal(rowData, index) {
-    // showModal2.value = true;
-    newnews_no.value = newsRows.value[index].newnews_no;
+  showModal2(rowData, index) {
+    showModal2.value = true;
+    newnews_no.value = rowData.news_no;
   },
 });
 //分頁js
@@ -118,7 +111,7 @@ const props = defineProps(["tab"]);
 const newsRows = ref([]);
 const getNews = () => {
   //取得商品資料
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getNews.php")
+  fetch("http://localhost/g5/public/g5PHP/getNews.php")
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
@@ -139,7 +132,7 @@ const updateNews = (user) => {
     news_photo: newnews_photo.value,
     news_tag: newnews_tag.value,
   };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/updateNews.php", {
+  fetch("http://localhost/g5/public/g5PHP/updateNews.php", {
     method: "POST",
     body: new URLSearchParams(newnews),
   })
@@ -162,7 +155,7 @@ const returnNews = computed(() => {
     cache = cache.filter((i) =>
       String(i[select[selectVal.value].val]).includes(search.value)
     );
-    if (search.value == "All") {
+    if (search.value == "all") {
       cache = newsRows.value;
     }
   } else {
@@ -190,9 +183,9 @@ const testVal = (e) => {
 // 刪除資料
 const deleteNews = (user) => {
   const delNews = {
-    news_no: Number(newnews_no.value),
+    news_no: Number(newnews_no.value)
   };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/deleteNews.php", {
+  fetch("http://localhost/g5/public/g5PHP/deleteNews.php", {
     method: "POST",
     body: new URLSearchParams(delNews),
   }).then((res) => {
@@ -204,27 +197,20 @@ const deleteNews = (user) => {
 </script>
 
 <template>
-  <div class="top">
+  <div class="tops">
     <h2>消息列表<outComponents /></h2>
 
     <div class="search_box">
-      <p>依</p>
-      <select name="searchMethods" id="searchMethods" @change="testVal">
-        <option v-for="i in select" :key="i.id" :value="i.id">
-          {{ i.title }}
-        </option>
-      </select>
-      <p>查詢</p>
-      <label for="search" class="label">
-        <input
-          type="search"
-          id="search"
-          name="search"
-          v-model="search"
-          :placeholder="`請輸入All或${select[selectVal].title}`"
-        />
-      </label>
-    </div>
+        <p>依</p>
+        <select name="searchMethods" id="searchMethods" @change="testVal">
+          <option v-for="i in select" :key="i.id" :value="i.id">{{ i.title }}</option>
+        </select>
+        <p>查詢</p>
+        <label for="search" class="label">
+          <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
+        </label>
+        <p>輸入"all"可查詢所有項目</p>
+      </div>
 
     <!-- <div class="bigbox">
       <div class="search_box">
@@ -247,7 +233,7 @@ const deleteNews = (user) => {
       <form action="" method="post">
         <n-data-table
           :columns="column"
-          :data="newsRows"
+          :data="returnNews"
           :pagination="pagination"
           :bordered="true"
           :single-line="false"
@@ -270,18 +256,18 @@ const deleteNews = (user) => {
           <textarea
             name="news_title"
             v-model="newnews_title"
-            rows="1"
+            rows="3"
             cols="50"
             placeholder="請輸入名稱"
-            maxlength="300"
+            maxlength="30000"
           ></textarea>
           <textarea
             name="news_txt"
             v-model="newnews_txt"
-            rows="1"
+            rows="10"
             cols="50"
             placeholder="請輸入內文"
-            maxlength="300"
+            maxlength="30000"
           ></textarea>
           <textarea
             name="news_photo"
@@ -366,7 +352,21 @@ const deleteNews = (user) => {
     }
   }
 }
-
+.tops {
+  width: 85%;
+  display: block;
+  overflow-y: auto;
+  height: 100%;
+  overflow: auto;
+}
+.options{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .addBox{
+    width: 20%;
+  }
+}
 textarea {
   margin-top: 10px;
 }
@@ -389,10 +389,6 @@ h2 {
 .tables {
   width: 95%;
   margin: auto;
-  ::v-deep(n-data-table-td) {
-    border-bottom: 1 solid #111;
-    background-color: #222;
-  }
 }
 
 .modal-mask {
@@ -409,5 +405,8 @@ h2 {
 .modal-wrapper {
   display: table-cell;
   vertical-align: middle;
+}
+textarea{
+  overflow: auto;
 }
 </style>
