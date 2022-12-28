@@ -1,10 +1,12 @@
 <script setup>
 import { ref,reactive, onMounted } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
+import { BIND_URL } from "../composables/useCommon";
+
 const cateRows = ref([]);
 
 const getProCat = () =>{
-    fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getProCat.php")
+    fetch(`${BIND_URL('getProCat.php',g5PHP)}`)
         .then(res => res.json())
         .then(json => {
             cateRows.value = json;
@@ -27,7 +29,7 @@ onMounted(()=>{
             cat_no: Number(newNo.value),
             cat_id: newName.value,
         }
-        fetch("http://localhost/cgd103_g5_v2/public/g5PHP/updateCat.php", {
+        fetch(`${BIND_URL('getProCat.php',g5PHP)}`, {
             method: "POST",
             body: new URLSearchParams(newCate),
         }).then(res=>{
@@ -41,7 +43,8 @@ onMounted(()=>{
         const delCat = {
             cat_no: Number(newNo.value)
         }
-        fetch("http://localhost/cgd103_g5_v2/public/g5PHP/deleteCat.php", {
+        
+        fetch(`${BIND_URL('deleteCat.php',g5PHP)}`, {
             method: "POST",
             body: new URLSearchParams(delCat),
         }).then(res=>{
