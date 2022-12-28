@@ -80,7 +80,7 @@
             formData.append('phone', memberinfo.value.phone); 
             console.log("123:"+formData);
             // fetch('/dist/g5PHP/checkMemId.php',{
-            fetch(`${BIND_URL('checkMemId.php', 'g5pHP')}`,{
+            fetch(`${BIND_URL('checkMemId.php', 'g5PHP')}`,{
                 method: "post",
                 body: formData,
             })

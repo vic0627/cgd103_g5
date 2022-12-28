@@ -42,6 +42,7 @@ onMounted(()=> {
         // fetch('/dist/g5PHP/getMemLevel.php',{
         fetch(`${BIND_URL('getMemLevel.php',"g5PHP")}`,{
                 method: "get",
+                credentials: 'include',
             })
             .then((res) => res.json())//php echo的內容
             .then(mem =>{

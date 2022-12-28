@@ -1,6 +1,6 @@
 <?php
 session_start();//開始session
-header('Access-Control-Allow-Origin:*');
+require_once("./cors_cookie.php");
 try{
     if($_SESSION["Password"] != $_POST["mem_oldpsw"]){
 
