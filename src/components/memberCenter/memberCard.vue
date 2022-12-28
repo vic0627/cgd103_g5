@@ -145,5 +145,9 @@ onMounted(() =>{
             height: 140px;
             border-radius: 50%;
         }
-    }
+}
+@include m($m-breakpoint) {//手機到平板
+}
+@include l($l-breakpoint) {//平板以上電腦
+}
 </style>

@@ -122,7 +122,6 @@ input{
         margin: 0;
         .maininfo{
             display: block;
-            background-color: #333;
         }
         // .profiles-list{
         //     width: 100%;
@@ -193,7 +192,7 @@ input{
             }
             .cardImg{
                 img{
-                    // width: 100%;
+                    width: 100%;
                 }
             }
             .cardInfo{

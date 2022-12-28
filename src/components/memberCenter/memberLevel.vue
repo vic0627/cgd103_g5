@@ -131,7 +131,7 @@ onMounted(()=> {
             height: 20px;
         }
         .progress-wrap {
-            border: 2px solid #273747;
+            border: 2px solid #1d498d;
             // background: linear-gradient(270deg, #ff8000 10%, #EDC793 90%);
             background: linear-gradient(135.57deg, #4591D8 15.58%, #6723C7 82.75%);
             // margin: 20px 0;
@@ -142,7 +142,7 @@ onMounted(()=> {
             justify-content: center;
             .progress-bar {
                 border-radius: 0;
-                background: #273747;
+                background: #000;
                 left: 0;
                 position: absolute;
                 top: 0;

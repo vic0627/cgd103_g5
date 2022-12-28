@@ -378,8 +378,9 @@ input{
                 padding: 50px;
             }
             .maininfo{
-                display: flex;
-                gap: 10px;
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+                grid-gap: 10px;
             }
         }
     }

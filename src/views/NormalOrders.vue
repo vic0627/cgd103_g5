@@ -208,9 +208,32 @@ input {
 
   .maincontent {
     width: 100%;
+<<<<<<< HEAD
     margin: 0;
     .maininfo {
       display: block;
+=======
+    margin: 90px auto;
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+    color: #fff;
+    
+    .maincontent{
+        width: 100%;
+        margin: 0;
+        .maininfo{
+           display: block;
+        }
+        .profiles-list{
+            width: 100%;
+            margin:10px 0;
+            background-color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+>>>>>>> 550fb24 (fix)
     }
     .profiles-list {
       width: 100%;
