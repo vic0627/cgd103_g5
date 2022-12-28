@@ -15,7 +15,7 @@ const addProduct = () => {
     color: color.value,
   };
   
-  fetch(`${BIND_URL('insertProducts.php',g5PHP)}`, {
+  fetch(`${BIND_URL('insertProducts.php','g5PHP')}`, {
     method: "POST",
     body: new URLSearchParams(payload),
   }).then((res) => {
@@ -24,7 +24,7 @@ const addProduct = () => {
 };
 
 const getCat = () => {
-  fetch(`${BIND_URL('getProCat.php',g5PHP)}`)
+  fetch(`${BIND_URL('getProCat.php','g5PHP')}`)
     .then((res) => res.json())
     .then((json) => {
       cat_no.value = json;
