@@ -18,7 +18,8 @@ const racebook = ref({
 });
 const nmorders = ref([]);
 const getMemberNm = () => {
-  fetch("/dist/g5PHP/getRacing.php", {
+  // fetch("/dist/g5PHP/getRacing.php", {
+  fetch(`${BIND_URL('getRacing.php',g5PHP)}`, {
     method: "get",
   })
     .then((res) => {
