@@ -123,7 +123,7 @@ const props = defineProps(["tab"]);
 const discRows = ref([]);
 const getDisc = () => {
   //取得商品資料
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getDisc.php")
+  fetch(`${BIND_URL("getDisc.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
@@ -145,7 +145,7 @@ const updateDisc = (user) => {
     disc_off: newDisc_off.value,
     disc_code: newDisc_code.value,
   };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/updateDisc.php", {
+  fetch(`${BIND_URL("updateDisc.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(newDisc),
   })
@@ -196,7 +196,7 @@ const deleteDisc = (user) => {
   const delDisc = {
     disc_no: Number(newDisc_no.value),
   };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/deleteDisc.php", {
+  fetch(`${BIND_URL("deleteDisc.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(delDisc),
   })
