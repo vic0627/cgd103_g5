@@ -7,6 +7,7 @@ import memberLevelVue from "@/components/memberCenter/memberLevel.vue";
 import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
 // import $ from 'jquery';
 import axios from "axios";
+import {BIND_URL } from "../composables/useCommon";
 import { ref, onMounted, reactive, computed, watch } from "vue";
 const NmOrder = ref({
   orders_no: "",
@@ -17,8 +18,7 @@ const NmOrder = ref({
 });
 const nmorders = ref([]);
 const getMemberNm = () => {
-  // fetch("/dist/g5PHP/getMemNmorder.php", {
-  fetch(`${BIND_URL('getMemNmorder.php', 'g5pHP')}`, {
+  fetch(`${BIND_URL('getMemNmorder.php','g5PHP')}`, {
     method: "get",
   })
     .then((res) => {
@@ -32,8 +32,7 @@ const getMemberNm = () => {
 };
 const NmorderItem = ref([]);
 const getMemberNmitem = () => {
-  // fetch("/dist/g5PHP/getMemNmitem.php", {
-  fetch(`${BIND_URL('getMemNmitem.php', 'g5pHP')}`, {
+  fetch(`${BIND_URL('getMemNmitem.php','g5PHP')}`, {
     method: "get",
   })
     .then((res) => {
