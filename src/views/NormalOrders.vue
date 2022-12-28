@@ -19,30 +19,26 @@ const nmorders = ref([]);
 const getMemberNm = () => {
   fetch(`${BIND_URL("getMemNmorder.php", "g5PHP")}`, {
     method: "get",
+    credentials: 'include',
   })
     .then((res) => {
       return res.json();
     })
     .then((mem) => {
-      console.log(mem);
       nmorders.value = mem;
-      console.log(nmorders.value);
     });
 };
 const NmorderItem = ref([]);
 const getMemberNmitem = () => {
   fetch(`${BIND_URL("getMemNmitem.php", "g5PHP")}`, {
     method: "get",
+    credentials: 'include',
   })
     .then((res) => {
       return res.json();
     })
     .then((mem) => {
-      console.log(mem);
-      // if(mem[])
       NmorderItem.value = mem;
-
-      console.log(NmorderItem.value);
     });
 };
 const lightBoxShow = ref(false);
@@ -57,7 +53,6 @@ const lightBoxOpen = (index) => {
   for (let i = 0; i < NmorderItem.value.length; i++) {
     if ((NmorderItem.value[i].orders_no = nmorders.value[index].orders_no)) {
       currenty.value = nmorders.value[index].orders_no;
-      console.log(currenty.value);
       break;
     }
   }
@@ -260,19 +255,18 @@ input {
     }
   }
 }
-@include m($m-breakpoint) {
-  //>1023px
-  .main {
-    display: flex;
-    .sidenav {
-      width: 30%;
+@include m($m-breakpoint) {//>1023px
+    .main{
+        display: flex;
+        .sidenav{
+            width: 30%;
+        }
+        .maincontent{
+            width: 70%;
+            .profiles-list{
+                padding: 70px 50px;
+            }
+        }
     }
-    .maincontent {
-      width: 70%;
-      .profiles-list {
-        padding: 70px 100px;
-      }
-    }
-  }
-}
+}  
 </style>

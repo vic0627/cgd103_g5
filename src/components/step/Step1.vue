@@ -6,6 +6,7 @@ import axios from 'axios';
 import router from '@/router';
 bodyInit();
 const explode = ref('');
+const cusBtn = ref(true);
 const props = defineProps(['nextStep','step']);
 const cartItem = ref([]);
 const cartList = computed(() => cartItem.value)
@@ -19,6 +20,7 @@ const session = ()=> {
     // cartsem.value = jsonItem
     // console.log(cartsem);
 }
+//抓session裡面的存放的商品放進購物車
 const getcartItem = (substrs)=>{
   for(let i=0;i<substrs.length;i++){
     if(i===0){
@@ -40,6 +42,7 @@ const sum = computed(()=>{
     }
     sessionStorage.setItem('sums', total.value)
     sessionStorage.setItem('discount',0)
+    sessionStorage.setItem('disc_no',0)
     sums.value = total.value
     return total;
 })
@@ -86,11 +89,13 @@ const assembly = computed(()=>{
     }
 })
 const addCount = (index) => {
-    return cartList.value[index].amount +=1;
+    cartList.value[index].amount +=1;
+    sessionStorage.setItem(`${cartList.value[index].id}`,`{"id":"${cartList.value[index].id}","name":"${cartList.value[index].name}","amount":${cartList.value[index].amount},"price":${cartList.value[index].price},"img":"${cartList.value[index].img}"}`)
 }
 const reduceCount = (index) => {
     if(cartList.value[index].amount > 1){
-        return cartList.value[index].amount --;  
+        cartList.value[index].amount --; 
+        sessionStorage.setItem(`${cartList.value[index].id}`,`{"id":"${cartList.value[index].id}","name":"${cartList.value[index].name}","amount":${cartList.value[index].amount},"price":${cartList.value[index].price},"img":"${cartList.value[index].img}"}`) 
     }
 }
 //刪除商品
@@ -132,7 +137,6 @@ const discConfirm = () => {
         router.push('/shop');
     }else{
         for(let i=0;i<=discRows.value.length;i++){
-        console.log(discRows.value[i].disc_code)
         if(discount.value === discRows.value[i].disc_code){
             discPercent.value = discRows.value[i].disc_off;
             sessionStorage.setItem('discount',discPercent.value)
@@ -211,9 +215,9 @@ onMounted(()=>{
                     </div>
                     <div class="amount-price">
                         <div class="cartQuantity">
-                            <button class="qtyBtn" @click="reduceCount(index)">-</button>
+                            <button class="qtyBtn" @click="reduceCount(index)" v-if="cusBtn">-</button>
                             <input type="text" min="1" v-model="item.amount" class="input">
-                            <button class="qtyBtn" @click="addCount(index)">+</button>
+                            <button class="qtyBtn" @click="addCount(index)" v-if="cusBtn">+</button>
                         </div>
                         <div class="cartPrice">
                             <h6>${{item.price*item.amount}}</h6>

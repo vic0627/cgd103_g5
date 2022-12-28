@@ -21,10 +21,13 @@ const addCard = ()=>{
     };
     fetch(`${BIND_URL('updateCreditCard.php','g5PHP')}`,{
         method: "POST",
+        credentials: 'include',
         body: new URLSearchParams(payload),
     }).then((res) => {
         res.text();
-    });
+    }).then((text)=>{
+        alert(text);
+    })
 };
 onMounted(()=> {
     addCard();

@@ -9,25 +9,21 @@ import $ from "jquery";
 import { BIND_URL } from "../composables/useCommon";
 import { ref, onMounted } from "vue";
 
-onMounted(() => {
-  getMemberCmitem();
-});
-const cmorders = ref("");
-const getMemberCmitem = () => {
-  fetch(`${BIND_URL("getMemCmorder.php", "g5PHP")}`, {
-    method: "get",
-  })
-    .then((res) => {
-      return res.json();
+onMounted(()=> {getMemberCmitem();});
+const  cmorders = ref('');
+const getMemberCmitem = ()=>{
+    fetch(`${BIND_URL('getMemCmorder.php','g5PHP')}`,{
+        method: "get",
+        credentials: 'include',
+        credentials: 'include',
+    }).then(res=>{
+        return res.json();
+    }).then(mem=>{
+        // if(mem[])
+        cmorders.value = mem;
     })
-    .then((mem) => {
-      console.log(mem);
-      // if(mem[])
-      cmorders.value = mem;
+}
 
-      console.log(cmorders.value);
-    });
-};
 </script>
 
 <template>

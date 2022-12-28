@@ -43,7 +43,6 @@ onMounted(() => {
         document.querySelector(".account").style["display"] = "block";
         document.querySelector(".memName").style["display"] = "inline";
         mem.value = member.FirstName;
-        console.log(mem.value);
         // alert("Hi!~"+member.memName);
       } else {
         // alert("尚未登入!");

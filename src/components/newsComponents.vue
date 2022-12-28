@@ -14,7 +14,6 @@ const getNews = () => {
     .then((res) => res.json())
     .then((json) => {
       newsRows.value = json;
-      console.log(newsRows.value);
     });
 };
 onMounted(() => {
