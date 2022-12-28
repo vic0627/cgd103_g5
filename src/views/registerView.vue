@@ -2,6 +2,7 @@
     // import headerComponentsVue from '@/components/headerComponents.vue';
     import navComponentsVue from '@/components/navComponents.vue';
     import footerComponentsVue from '@/components/footerComponents.vue';
+    import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
     // import { verify } from 'crypto';
     import $ from 'jquery';
     import axios from "axios";
@@ -9,82 +10,6 @@
 
 
     const getQuery = (classname) =>document.querySelector(classname);
-
-    //address
-    // const state = reactive({
-    //         frameworksIdx: 0, // 記錄第一層選單的被選取項目
-    //         contentsIdx: 0, // 記錄第二層選單的被選取項目
-    //         frameworks : [
-    //             {
-    //                 type: 'Choose Your Location',
-    //                 contents: [
-    //                     { name: 'Choose Your Country'},
-                        
-    //                 ],
-    //             },
-    //             {
-    //                 type: 'AMERICAS',
-    //                 contents: [
-    //                     { name: 'USA'},
-    //                     { name: 'Brasil'},
-    //                     { name: 'Canada(English)'},
-    //                     { name: 'Canada(Français)'},
-    //                     { name: 'Mexico'},
-    //                 ],
-    //             },
-    //             {
-    //                 type: 'EUROPE',
-    //                 contents: [
-    //                     { name: 'Belgium'},
-    //                     { name: 'Denmark (English)'},
-    //                     { name: 'Deutschland'},
-    //                     { name: 'Finland (English)'},
-    //                     { name: 'France'},
-    //                     { name: 'Ireland'},
-    //                     { name: 'Italia'},
-    //                     { name: 'Luxembourg (English)'},
-    //                     { name: 'Monaco (English)'},
-    //                     { name: 'Nederland (English)'},
-    //                 ],
-    //             },
-    //             {
-    //                 type: 'ASIA',
-    //                 contents: [
-    //                     { name: '台灣'},
-    //                     { name: '中國大陸'},
-    //                     { name: '日本'},
-    //                     { name: '대한민국'},
-    //                     { name: '香港特別行政區'},
-    //                     { name: 'Singapore'},
-    //                     { name: 'ประเทศไทย'},
-    //                     { name: 'Việt Nam'},
-    //                 ],
-    //             },
-    //             {
-    //                 type: 'OCEANIA',
-    //                 contents: [
-    //                     { name: 'Australia'},
-    //                     { name: 'New Zealand'},
-    //                 ],
-    //             },
-    //             {
-    //                 type: 'MIDDLE EAST',
-    //                 contents: [
-    //                     { name: 'UAE (English)'},
-    //                     { name: 'Kuwait (English)'},
-    //                     { name: 'KSA (English)'},
-    //                 ],
-    //             },
-    //         ],
-    // });
-
-    // const pickContents = computed(() => {
-    //     return state.frameworks[state.frameworksIdx].contents;
-    // });
-    // watch(() => state.frameworksIdx, (value) =>{
-    //     state.contentsIdx = 0;
-    // });
-
 
 
     const memberinfo =ref({
@@ -154,13 +79,15 @@
             formData.append('address', memberinfo.value.address); 
             formData.append('phone', memberinfo.value.phone); 
             console.log("123:"+formData);
-            fetch('/dist/g5PHP/checkMemId.php',{
+            // fetch('/dist/g5PHP/checkMemId.php',{
+            fetch(`${BIND_URL('checkMemId.php', 'g5pHP')}`,{
                 method: "post",
                 body: formData,
             })
             .then((res) => res.text())//php echo的內容
             .then(text =>alert(text))
             .catch(error =>console.log(error));
+            
 
         }//function_checkId 
 
@@ -308,7 +235,7 @@
                                 <p>Already have an account?<router-link to="/signin">Log in now</router-link></p>
                             </div>
                         </form>
-                        <div class="divider">
+                        <!-- <div class="divider">
                             <span> or login with </span>
                         </div>
                         <div class="login_with">
@@ -319,7 +246,7 @@
                         </div>
                         <div class="divider">
                             <span></span>
-                        </div>
+                        </div> -->
                     </div>
                 </main>
             </div>

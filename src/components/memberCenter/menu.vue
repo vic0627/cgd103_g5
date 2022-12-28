@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted} from 'vue';
+import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
 import $ from 'jquery';
 onMounted(()=> {
     $('.List-item>a').parent().siblings().find('ul').hide();
@@ -38,7 +39,7 @@ const sidenav = ref({
         list : {
           a:{
             cn :"My Racing",
-            path : "/home",
+            path : "/racing",
           }},
     },
     person :{
