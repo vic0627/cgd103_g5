@@ -2,7 +2,7 @@
 // import headerComponentsVue from '@/components/headerComponents.vue';
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
-import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
+import { log, $$, $all, getw, BIND_URL } from "../composables/useCommon";
 // import { verify } from 'crypto';
 import { reactive, ref, onMounted } from "vue";
 import emailjs from "emailjs-com";
@@ -20,7 +20,7 @@ onMounted(() => {
       }
     };
     // xhr.open("get", "/dist/g5PHP/getMemberInfo.php", true); //查看使用者是否有登入
-    xhr.open("get", `${BIND_URL('getMemberInfo.php', 'g5pHP')}`, true); //查看使用者是否有登入
+    xhr.open("get", `${BIND_URL("getMemberInfo.php", "g5pHP")}`, true); //查看使用者是否有登入
     xhr.send(null);
   }
 
@@ -59,7 +59,7 @@ onMounted(() => {
       }
     };
     // xhr.open("post", "/dist/g5PHP/memLogin.php", true); //連接到php
-    xhr.open("post", `${BIND_URL('memLogin.php', 'g5pHP')}`, true);
+    xhr.open("post", `${BIND_URL("memLogin.php", "g5pHP")}`, true);
     xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded"); //php格式
 
     let datas = {};
@@ -138,7 +138,10 @@ const mem_pw = ref("");
 const sendEmail = () => {
   // ============== 把忘記的密碼撈出來  =============== //
   fetch(
-    `http://localhost/cgd103_g5/public/g5PHP/getMemberPassword.php?mem_acc=${forget_password_account.value}`
+    `${BIND_URL(
+      `getMemberPassword.php?mem_acc=${forget_password_account.value}`,
+      "g5PHP"
+    )}`
   )
     .then((res) => res.json())
     .then((json) => {
