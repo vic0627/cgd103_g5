@@ -11,14 +11,16 @@ const props = defineProps(['nextStep','step']);
 const cartItem = ref([]);
 const cartList = computed(() => cartItem.value)
 const session = ()=> {
-    const strings = sessionStorage.getItem('cartList')
+    const strings = sessionStorage.getItem('cartList');
+    if(strings==undefined)return;
+    if(strings.includes('111')){
+        cusBtn.value = false;
+    }else{
+        
+    }
     const substrs = strings.substr(0, strings.length).split(',')
     getcartItem(substrs);
-    // let jsonItem = JSON.parse(`[${explode.value}]`);
     cartItem.value = JSON.parse(`[${explode.value}]`);
-    console.log(cartList)
-    // cartsem.value = jsonItem
-    // console.log(cartsem);
 }
 //抓session裡面的存放的商品放進購物車
 const getcartItem = (substrs)=>{
@@ -497,10 +499,10 @@ section {
             width: 100%;
             display: flex;
             justify-content: center;
-            padding: 40px 10px 10px;
+            padding: 10px;
             img {
                 width: 60%;
-                object-fit: cover;
+                object-fit: contain;
             }
         }
     }
@@ -585,7 +587,7 @@ section {
             width: 40%;
             img {
                 width: 90%;
-                object-fit: cover;
+                object-fit: contain;
             }
         }
         .cartProduct-txt {
@@ -623,7 +625,7 @@ section {
             width: 40%;
             img {
                 width: 90%;
-                object-fit: cover;
+                object-fit: contain;
             }
         }
         .cartProduct-txt {

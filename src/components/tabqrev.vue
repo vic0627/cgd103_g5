@@ -2,6 +2,7 @@
 import { reactive, onMounted,ref ,defineComponent,h,computed} from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
 import {BIND_URL } from "../composables/useCommon";
+import axios from 'axios';
 
 const des = ref("");
 const ans = ref("");
@@ -97,9 +98,9 @@ const faqRows = ref([]);
 			//取得商品資料
       fetch(`${BIND_URL('getFaqs.php','g5PHP')}`)
       .then(res => res.json())
-      .then(json => {
-        console.log(json)
-        faqRows.value = json;
+      .then(res => {
+        // console.log(res)
+        faqRows.value = res;
       })
 		}
 	onMounted(()=>{
@@ -113,11 +114,11 @@ const updateFaq = (user)=>{
     faq_des: newFaq_des.value, 
     faq_ans: newFaq_ans.value
   }
-  fetch(`${BIND_URL('updateFaqs.php','g5PHP')}`, {
+  fetch(`${BIND_URL('updateFaqs.php','g5PHP')}`,{
     method: "POST",
     body: new URLSearchParams(newFaq),
   }).then(res=>{
-    console.log(res)
+    // console.log(res)
     res.json()
   }).then(res=>{
     showModal.value = false
@@ -130,7 +131,7 @@ const deleteFaq = (user)=>{
   const delFaq = {
     faq_no: Number(newFaq_no.value)
   }
-  fetch(`${BIND_URL('deleteFaqs.php','g5PHP')}`,{
+  fetch(`${BIND_URL('deleteFaq.php','g5PHP')}`,{
     method: "POST",
     body: new URLSearchParams(delFaq),
   }).then(res=>{

@@ -46,10 +46,17 @@ var y = 100;
 			},
 		2 ), 1.3)
 });
+const star = ref({id:"5",cat_no: "1",title:"body01white",price:900,img:"body_01_white_1.png"});
+const addcart =(index)=>{
+   if(sessionStorage['prodInfo'] == null){
+    sessionStorage['prodInfo']='';
+  }
+  sessionStorage.setItem("prodInfo",`{"id":"${star.value.id}","cat_no":"${star.value.cat_no}","title":"${star.value.title}","price":${star.value.price},"img":"${star.value.img}"}`);
+}
 </script>
 <template>
     <div class="home">
-        <div class="text"><h1>Ulitimate Flexibility</h1></div>
+        <div class="text"><h1>Next Generation of FPV</h1></div>
         <div id="scene">
             <div class="drone layer" data-depth="0.1">
                 <img src="../assets/images/home/fly2.png" alt="drone">
@@ -71,7 +78,7 @@ var y = 100;
         <div class="home1-btn">
             <router-link to="/showcase" class="btnFirst" id="btn1" data-title="Learn">
             <span>Learn</span></router-link>
-            <router-link to="/shopInfo" class="btnSecond" id="btn2" data-title="Buy">
+            <router-link to="/shopInfo" class="btnSecond" id="btn2" data-title="Buy" @click="addcart()">
             <span>Buy</span></router-link>
         </div>
     </div>     
