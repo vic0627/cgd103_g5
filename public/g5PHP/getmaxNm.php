@@ -2,7 +2,7 @@
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
-	require_once("./connect_cgd103g5_felix.php");
+	require_once("./connect_cgd103g5.php");
 	$sql = "SELECT max(a.orders_no) order_no FROM `nm_orders` a";
 	$nm_orders = $pdo->prepare($sql);
 	$nm_orders->execute();

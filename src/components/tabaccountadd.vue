@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, onMounted,ref,h } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton} from 'naive-ui';
+import {BIND_URL } from "../composables/useCommon";
 import axios from 'axios';
 const props = defineProps(["tab"])
 
@@ -11,7 +12,7 @@ const password = ref('');
 const adminRows = ref([]);
 		const getAdmin = () => {
 			//取得管理員資料
-       axios.get("http://localhost/CGD103-G5/public/g5PHP/getAdmin.php",)
+       axios.get(`${BIND_URL('getAdmin.php','g5PHP')}`,)
       .then(res=> {
         console.log(res.data)
         adminRows.value = res.data
@@ -34,7 +35,7 @@ const submitData = ()=>{
         alert("不可空白，請輸入帳號密碼")
         break;
       }else if(account.value != adminRows.value[i].admin_acc && password.value != adminRows.value[i].admin_pw){
-        fetch("http://localhost/CGD103-G5/public/g5PHP/insertAdmin.php", {
+        fetch(`${BIND_URL('insertAdmin.php','g5PHP')}`, {
           method: "POST",
           body: new URLSearchParams(payload),
         }).then(res=>{

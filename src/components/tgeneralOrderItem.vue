@@ -2,6 +2,7 @@
 import { reactive, onMounted,ref,h } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal } from 'naive-ui';
 import axios from 'axios';
+import {BIND_URL } from "../composables/useCommon";
 const createColumns = ({
   selectId})=>{
     return [
@@ -61,7 +62,7 @@ const paginationReactive = reactive({
 const NmitemRows = ref([]);
 		const getNmOrder = () => {
 			//取得商品資料
-      axios.get("http://localhost/CGD103-G5/public/g5PHP/getNmitem.php")
+      axios.get(`${BIND_URL('getNmitem.php','g5PHP')}`)
       .then(res=> {
         console.log(res.data)
         NmitemRows.value = res.data
