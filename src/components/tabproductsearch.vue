@@ -163,58 +163,57 @@ const testVal = (e) => {
 </script>
 <template>
     <div class="productQuery">
-     <div class="top">
-        <h2>商品查詢</h2>
-        <outComponents />
-    </div>   
-    <div class="search_box">
-            <p>依</p>
-            <select name="searchMethods" id="searchMethods" @change="testVal">
-            <option v-for="i in select" :key="i.id" :value="i.id">{{ i.title }}</option>
-            </select>
-            <p>查詢</p>
-            <label for="search" class="label">
-            <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
-            </label>
-            <p>輸入"all"可查詢所有項目</p>
-    </div>
-    <div class="mainContent" id="products">
-        <form action="" method="post">
-            <n-data-table :columns="column" :data="returnPro" :pagination="pagination"  :bordered="true" :single-line="false" />
-                <n-modal
-                    v-model:show="showModal"
-                    preset="dialog"
-                    title="確認"
-                    content="你確定嗎?"
-                >
-                
-                    <input type="hidden" name="prd_no" v-model="newPrd_no">
-                    <label for="prd_name"> 產品名稱 : </label>
-                    <input type="text" name="prd_name" v-model="newName"><br>
+      <div class="top">
+          <h2>商品查詢</h2>
+          <outComponents />
+      </div>   
+      <div class="search_box">
+              <p>依</p>
+              <select name="searchMethods" id="searchMethods" @change="testVal">
+              <option v-for="i in select" :key="i.id" :value="i.id">{{ i.title }}</option>
+              </select>
+              <p>查詢</p>
+              <label for="search" class="label">
+              <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
+              </label>
+              <p>輸入"all"可查詢所有項目</p>
+      </div>
+      <div class="mainContent" id="products">
+          <form action="" method="post">
+              <n-data-table :columns="column" :data="returnPro" :pagination="pagination"  :bordered="true" :single-line="false" />
+                  <n-modal
+                      v-model:show="showModal"
+                      preset="dialog"
+                      title="確認"
+                      content="你確定嗎?"
+                  >
+                  
+                      <input type="hidden" name="prd_no" v-model="newPrd_no">
+                      <label for="prd_name"> 產品名稱 : </label>
+                      <input type="text" name="prd_name" v-model="newName"><br>
 
-                    <label for="prd_price"> 產品價格 : </label>
-                    <input type="number" name="prd_price" v-model="newPrice"><br>
+                      <label for="prd_price"> 產品價格 : </label>
+                      <input type="number" name="prd_price" v-model="newPrice"><br>
 
-                    <label for="sale"> 產品優惠 : </label>
-                    <input type="number" name="sale" v-model="newSale"><br>
-                
-                    <label for="sale_price"> 優惠價格 : </label>
-                    <input type="number" name="sale_price" v-model="newSalePrice"><br>
+                      <label for="sale"> 產品優惠 : </label>
+                      <input type="number" name="sale" v-model="newSale"><br>
+                  
+                      <label for="sale_price"> 優惠價格 : </label>
+                      <input type="number" name="sale_price" v-model="newSalePrice"><br>
 
-                    <label for="color"> 產品顏色 : </label>
-                    <input type="text" name="color" v-model="newColor"><br>
-                
-                    <label for="images"> 產品圖片 : </label>
-                    <input type="text" name="images" v-model="newImg"><br>
+                      <label for="color"> 產品顏色 : </label>
+                      <input type="text" name="color" v-model="newColor"><br>
+                  
+                      <label for="images"> 產品圖片 : </label>
+                      <input type="text" name="images" v-model="newImg"><br>
 
-                    <n-button @click="showModal = true; updatePro(index)" type="error">
-                    確認
-                    </n-button>
-                </n-modal>
-        </form>
-    
-    </div>
- 
+                      <n-button @click="showModal = true; updatePro(index)" type="error">
+                      確認
+                      </n-button>
+                  </n-modal>
+          </form>
+      
+      </div>
   </div>
 </template>
 <style scoped lang="scss">
@@ -224,19 +223,16 @@ const testVal = (e) => {
     display: block;
     overflow-y: auto;
     height: 100%;
-    overflow: auto;
   .top{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 20px ;
-    padding: 20px ;
+    margin: 10px ;
     background-color: #597897;
     h2 {
         font-size: 40px;
         color: #fff;
         margin: 10px 10px;
-        padding: 10px 10px;
         background-color: #597897;
         display: flex;
         justify-content: space-between;
