@@ -74,11 +74,11 @@ const backendCategory = ref({
         tab: "productAdd",
       },
       e: {
-        cn: "商品分類管理",
+        cn: "商品分類",
         tab: "productCategoryManage",
       },
       f: {
-        cn: "客製化商品管理",
+        cn: "客製化商品",
         tab: "customizeitem",
       },
     },
@@ -95,11 +95,33 @@ const backendCategory = ref({
         cn: "一般訂單明細查詢",
         tab: "generalOrderItem",
       },
-      c: {
+      // c: {
+      //   cn: "客製化訂單查詢",
+      //   tab: "customizationOrderItem",
+      // },
+      // d: {
+      //   cn: "客製化訂單明細查詢",
+      //   tab: "customizationDetails",
+      // },
+    },
+  },
+  customItem: {
+    title: "客製化訂單管理",
+    show: false,
+    text: {
+      // a: {
+      //   cn: "一般訂單查詢",
+      //   tab: "orderItem",
+      // },
+      // b: {
+      //   cn: "一般訂單明細查詢",
+      //   tab: "generalOrderItem",
+      // },
+      a: {
         cn: "客製化訂單查詢",
         tab: "customizationOrderItem",
       },
-      d: {
+      b: {
         cn: "客製化訂單明細查詢",
         tab: "customizationDetails",
       },
@@ -170,7 +192,7 @@ const backendCategory = ref({
     show: false,
     text: {
       a: {
-        cn: "會員帳號管理",
+        cn: "會員帳號查詢",
         tab: "memmodify",
       },
     },

@@ -36,7 +36,7 @@ const addProduct = () => {
 
 onMounted(() => {
   // getCat();
-  addProduct();
+  // addProduct();
 
   function doFirst() {
     // 先跟 HTML 畫面產生關連，再建事件聆聽功能

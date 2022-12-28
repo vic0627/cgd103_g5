@@ -104,6 +104,9 @@ const membook = () => {
   let id = sessionStorage["race"];
   let aaa = JSON.parse(`${sessionStorage[id]}`);
   console.log(aaa);
+  comp_no.value = sessionStorage.getItem("race");
+  console.log(comp_no);
+
   /* regis_no.value = sessionStorage.getItem("regis_no");
   comp_no.value = sessionStorage.getItem("comp_no");
   mem_no.value = sessionStorage.getItem("mem_no");

@@ -227,9 +227,10 @@ const testVal = (e) => {
           id="search"
           name="search"
           v-model="search"
-          :placeholder="`請輸入All或${select[selectVal].title}`"
+          :placeholder="`請輸入${select[selectVal].title}`"
         />
       </label>
+      <p>輸入"all"可查詢所有項目</p>
     </div>
 
     <!-- <div class="bigbox">
