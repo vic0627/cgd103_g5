@@ -1,6 +1,6 @@
 <?php 
 session_start();//查看session
-header('Access-Control-Allow-Origin:*');
+require_once("./cors_cookie.php");
 header("Content-Type:application/json;charset=utf-8");
 try{
     if( isset($_SESSION["Account"])==true){//session內有memId代表登入中

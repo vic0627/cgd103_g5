@@ -20,6 +20,7 @@ const nmorders = ref([]);
 const getMemberNm = () => {
   fetch(`${BIND_URL('getMemNmorder.php','g5PHP')}`, {
     method: "get",
+    credentials: 'include',
   })
     .then((res) => {
       return res.json();
@@ -34,16 +35,13 @@ const NmorderItem = ref([]);
 const getMemberNmitem = () => {
   fetch(`${BIND_URL('getMemNmitem.php','g5PHP')}`, {
     method: "get",
+    credentials: 'include',
   })
     .then((res) => {
       return res.json();
     })
     .then((mem) => {
-      console.log(mem);
-      // if(mem[])
       NmorderItem.value = mem;
-
-      console.log(NmorderItem.value);
     });
 };
 const lightBoxShow = ref(false);
@@ -58,7 +56,6 @@ const lightBoxOpen = (index) => {
   for (let i = 0; i < NmorderItem.value.length; i++) {
     if ((NmorderItem.value[i].orders_no = nmorders.value[index].orders_no)) {
       currenty.value = nmorders.value[index].orders_no;
-      console.log(currenty.value);
       break;
     }
   }
@@ -270,7 +267,7 @@ input {
         .maincontent{
             width: 70%;
             .profiles-list{
-                padding: 70px 100px;
+                padding: 70px 50px;
             }
         }
     }

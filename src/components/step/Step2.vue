@@ -22,6 +22,7 @@ const memberInfo = ref({
 function getMemberInfo (){
     fetch(`${BIND_URL('getMemInfo.php','g5PHP')}`,{
         method:"get",
+        credentials: 'include',
     })
     .then((res)=>res.json())
     .then(mem => {

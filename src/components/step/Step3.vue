@@ -35,9 +35,7 @@ const getmaxOrder = ()=>{
         axios.get(`${BIND_URL('getmaxCm.php','g5PHP')}`)
         .then(res=> {
             maxOrder.value = res.data
-            console.log(maxOrder.value.order_no)
             sessionStorage.setItem('order_no',maxOrder.value.order_no);
-            console.log(sessionStorage.getItem('order_no'));        
         }).then(res=>{
             submitOrdItem();
         })
@@ -45,9 +43,7 @@ const getmaxOrder = ()=>{
         axios.get(`${BIND_URL('getmaxNm.php','g5PHP')}`)
         .then(res=> {
             maxOrder.value = res.data
-            console.log(maxOrder.value.order_no)
             sessionStorage.setItem('order_no',maxOrder.value.order_no);
-            console.log(sessionStorage.getItem('order_no'));        
         }).then(res=>{
             submitOrdItem();
         })
@@ -59,7 +55,6 @@ const submitOrdItem = ()=> {
         orders_no.value = sessionStorage.getItem('order_no');
         item_discount.value = sessionStorage.getItem('discount');
         item_sub.value =sessionStorage.getItem('final');
-        console.log(orders_no.value);
         for(let i=0;i<cartItem.value.length;i++){
             const payload = {
                 orders_no: Number(orders_no.value),
@@ -82,7 +77,6 @@ const submitOrdItem = ()=> {
         orders_no.value = sessionStorage.getItem('order_no');
         item_discount.value = sessionStorage.getItem('discount');
         item_sub.value =sessionStorage.getItem('final');
-        console.log(orders_no.value);
         for(let i=0;i<cartItem.value.length;i++){
             const payload = {
                 orders_no: Number(orders_no.value),
