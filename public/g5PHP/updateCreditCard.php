@@ -15,10 +15,9 @@ try {
 		$cdn-> bindValue(":mem_acc", $_SESSION["Account"]);
 		$cdn->bindValue(":credit_no",$_POST["credit_no"]);
 		$cdn->execute();
-		
-		// $memRow = $cdn->fetch(PDO::FETCH_ASSOC);
-		// echo json_encode($memRow);
-		$msg = "success";
+		$msg = "success add";
+		$result=$msg;
+		echo json_encode($result);
 	}else{
 		echo "{}";
 	}
