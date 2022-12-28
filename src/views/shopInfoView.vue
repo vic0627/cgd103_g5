@@ -41,21 +41,25 @@ onMounted(() => {
     lastPos = currentPos; //再記住現在位置，跟未來的位置做比較
   });
 });
-const randomNumber = (min, max) => { 
-    return Math.floor(Math.random() * (max - min) + min);
+const randomNumber = (min, max) => {
+  return Math.floor(Math.random() * (max - min) + min);
 };
-const morePrd = ref([])
+const morePrd = ref([]);
 const fetchItem = () => {
   fetch(`${BIND_URL("postCust.php", "g5PHP")}`, {
     method: "POST",
-    body: new URLSearchParams({ sql: `select * from tibamefe_cgd103g5.products where cat_no = ${Number(prodin.value.cat_no)}` }),
+    body: new URLSearchParams({
+      sql: `select * from tibamefe_cgd103g5.products where cat_no = ${Number(
+        prodin.value.cat_no
+      )}`,
+    }),
   })
-  .then(res => res.json())
-  .then(json => {
-    for(let i=0; i<3; i++){
-      morePrd.value[i] = json[randomNumber(1, json.length)];
-    };
-  })
+    .then((res) => res.json())
+    .then((json) => {
+      for (let i = 0; i < 3; i++) {
+        morePrd.value[i] = json[randomNumber(1, json.length)];
+      }
+    });
 };
 const returnMore = computed(() => morePrd.value);
 //商品大圖
@@ -93,7 +97,7 @@ const session = () => {
 const set = (key, val) => {
   sessionStorage.setItem(key, val);
 };
-set("prodInfo",`{"id":"1","title":"sefsefef","price":123124,"img":"awdawfa"}`);
+set("prodInfo", `{"id":"1","title":"sefsefef","price":123124,"img":"awdawfa"}`);
 const cartList = ref([]);
 const addCart = () => {
   prdCache.value.id = prodin.value.prd_no;
@@ -120,7 +124,7 @@ const addCart = () => {
     } else if (sessionStorage.getItem(prodin.value.id)) {
       //有一班商品
       alert("You have checked.");
-    }else{
+    } else {
       sessionStorage["cartList"] += `,${prodin.value.id}`;
       set(
         `${prodin.value.id}`,
@@ -130,17 +134,20 @@ const addCart = () => {
   }
 };
 const prdCache = ref({
-  id: '',
-  title: '',
-  price: '',
-  img: '',
-})
+  id: "",
+  title: "",
+  price: "",
+  img: "",
+});
 const addMore = (i) => {
   prdCache.value.id = i.prd_no;
   prdCache.value.title = i.prd_name;
   prdCache.value.price = i.prd_price;
   prdCache.value.img = i.images;
-  if (sessionStorage["cartList"] == undefined || sessionStorage["cartList"] == "") {
+  if (
+    sessionStorage["cartList"] == undefined ||
+    sessionStorage["cartList"] == ""
+  ) {
     sessionStorage["cartList"] = i.prd_no;
     set(
       `${i.prd_no}`,
@@ -155,7 +162,7 @@ const addMore = (i) => {
     } else if (sessionStorage.getItem(i.prd_no)) {
       //有一班商品
       alert("You have checked.");
-    }else{
+    } else {
       sessionStorage["cartList"] += `,${i.prd_no}`;
       set(
         `${i.prd_no}`,
@@ -202,7 +209,7 @@ const toCart = () => {
   <div class="main">
     <!-- 商品大圖 -->
     <div id="mainPic">
-      <img :src="`http://localhost/cgd103_g5/src/assets/images/shop/${prodin.img}`" />
+      <img :src="`${BIND_URL(prodin.img)}`" />
       <div class="button" id="left" @click="btnLeft">&lt;</div>
       <div class="button" id="right" @click="btnRight">&gt;</div>
     </div>
@@ -337,53 +344,25 @@ const toCart = () => {
     <div class="cardRow" v-for="i in returnMore" :key="i.prd_no">
       <div class="card">
         <div class="cardPic">
-          <img :src="`/src/assets/images/shop/${i.images}`" :alt="i.images" />
+          <img :src="`${BIND_URL(i.images)}`" :alt="i.images" />
         </div>
         <div class="cardInfo">
           <h5>{{ i.prd_name }}</h5>
           <span>USD ${{ i.prd_price }}</span>
           <a class="buttons">
-            <router-link to="/cart" class="buy" id="btn2" data-title="Buy" @click="addMore(i)">
+            <router-link
+              to="/cart"
+              class="buy"
+              id="btn2"
+              data-title="Buy"
+              @click="addMore(i)"
+            >
               <span>Buy</span>
             </router-link>
           </a>
         </div>
       </div>
     </div>
-
-    <!-- <div class="cardRow">
-      <div class="card">
-        <div class="cardPic">
-          <img src="/src/assets/images/shopInfo/controller.png" alt="" />
-        </div>
-        <div class="cardInfo">
-          <h5>EFPV Mavic 3</h5>
-          <span>USD $1,199</span>
-          <a class="buttons">
-            <router-link to="/cart" class="buy" id="btn2" data-title="Buy">
-              <span>Buy</span>
-            </router-link>
-          </a>
-        </div>
-      </div>
-    </div>
-
-    <div class="cardRow">
-      <div class="card">
-        <div class="cardPic">
-          <img src="/src/assets/images/shopInfo/controller.png" alt="" />
-        </div>
-        <div class="cardInfo">
-          <h5>EFPV Mavic 2</h5>
-          <span>USD $999</span>
-          <a class="buttons">
-            <router-link to="/cart" class="buy" id="btn2" data-title="Buy">
-              <span>Buy</span>
-            </router-link>
-          </a>
-        </div>
-      </div>
-    </div> -->
   </div>
   <!-- FAQ -->
   <section class="faqs">
@@ -394,7 +373,6 @@ const toCart = () => {
   <!-- 購買連結 -->
   <nav id="purchaseBar" :class="navShow ? 'navOn' : 'navOff'">
     <div class="purchaseBar_ship">
-      <img src="" alt="ship" />
       <p>Delivered on 12/16</p>
     </div>
 

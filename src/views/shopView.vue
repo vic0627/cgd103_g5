@@ -5,7 +5,7 @@ import { ref, reactive, onMounted, computed, onUpdated } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
-import { getCartLength } from "../composables/useCommon";
+import { getCartLength,BIND_URL } from "../composables/useCommon";
 
 bodyInit();
 
@@ -26,13 +26,10 @@ const addProd = (id, row) => {
     let nid;
     if(row===accessories.value){
       nid = id - products.value.length - 1;
-      console.log("accessories's nid",nid)
     }else if(row===bundle_A.value ){
       nid = id - (products.value.length*2) - 1;
-      console.log("bundle_A's nid",nid)
     }else if(row===bundle_B.value){
       nid = id - (accessories.value.length*2) - 5;
-      console.log("bundle_B's nid",nid)
     } else{
       nid = id - 1;
     }
@@ -124,9 +121,8 @@ const assRows = ref([]);
 const products = ref([]), accessories = ref([]) ,bundle_A = ref([]),bundle_B = ref([]);
 
 const getShopInfo = () =>{
-  fetch("http://localhost/cgd103_g5_v2/public/g5PHP/getShop.php")
-  // fetch("http://localhost/CGD103-G5/public/g5PHP/getProduct.php")
-  // fetch("/dist/g5PHP/getShop.php")
+  
+  fetch(`${BIND_URL('getProduct.php',g5PHP)}`)
     .then(res => res.json())
     .then(json => {
         bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'));
@@ -373,7 +369,7 @@ $(document).ready(() => {
           <div v-if="prodRow.sale == 1" class="sale"><span>Sale</span></div>
             <div class="product_box">
               <div class="img_box">
-                <img :src="`/dist/assets/${prodRow.src}`" alt="product_img"/>
+                <img :src="`${BIND_URL(prodRow.src)}`" alt="product_img"/>
               </div>
               <div class="detail_box">
                 <h5 class="title">{{ prodRow.title}}</h5>
@@ -417,7 +413,7 @@ $(document).ready(() => {
           <div v-if="assRow.sale == 1" class="sale"><span>Sale</span></div>
           <div class="product_box">
             <div class="img_box">
-              <img :src="`/dist/assets/${assRow.src}`" alt="product_img" />
+              <img :src="`${BIND_URL(assRow.src)}`" alt="product_img" />
             </div>
             <div class="detail_box">
               <h5 class="title">{{assRow.title}}</h5>
@@ -467,7 +463,7 @@ $(document).ready(() => {
           >
           <div v-if="bundleRow1.sale == true " class="sale"><span>Sale</span></div>
             <div class="pic">
-              <img :src="`/dist/assets/${bundleRow1.src}`" alt="beginner" />
+              <img :src="`${BIND_URL(bundleRow1.src)}`" alt="beginner" />
             </div>
             <h5>
               <span>{{bundleRow1.title}}</span>
@@ -500,7 +496,7 @@ $(document).ready(() => {
           >
           <div v-if="bundleRow2.sale == true " class="sale"><span>Sale</span></div>
             <div class="pic">
-              <img :src="`/dist/assets/${bundleRow2.src}`" alt="veteran" />
+              <img :src="`${BIND_URL(bundleRow2.src)}`" alt="veteran" />
             </div>
             <h5>
               <span>{{bundleRow2.title}}</span>

@@ -4,6 +4,7 @@ import footerComponentsVue from "@/components/footerComponents.vue";
 import menuVue from "@/components/memberCenter/menu.vue";
 import memberCardVue from "@/components/memberCenter/memberCard.vue";
 import memberLevelVue from "@/components/memberCenter/memberLevel.vue";
+import { log, $$, $all, getw, BIND_URL }from "../composables/useCommon" ;
 // import $ from 'jquery';
 import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
 import { log } from "../composables/useCommon";
@@ -54,7 +55,7 @@ onMounted(() => {
           <tbody>
             <tr>
               <td>
-                <span>{{ nmorders[index].regis_no }}</span>
+                {{ nmorders[index].regis_no }}
               </td>
               <td>{{ nmorders[index].comp_no }}</td>
               <td>{{ nmorders[index].regis_date }}</td>
@@ -120,26 +121,71 @@ input {
   max-width: 1200px;
   width: 100%;
   margin: 90px auto;
-  display: flex;
-  justify-content: start;
-  gap: 10px;
-
+  display: block;
+  color: #fff;
+  .sidenav{
+        width: 100%;
+        box-sizing: border-box;
+    }
   .maincontent {
-    width: 75%;
+    width: 100%;
     margin: 0;
-    .maininfo {
-      display: flex;
-      gap: 10px;
+    .maininfo{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .meminfo{
+            aspect-ratio: 16/9;
+        }
+        .memgrade{
+            aspect-ratio: 16/9;
+        }
     }
     .profiles-list {
       width: 100%;
-      margin: 10px 0;
-      background-color: #333;
-      border-radius: 10px;
-      border: 1px solid #333;
-      padding: 70px 30px;
-      box-sizing: border-box;
+        margin:10px 0;
+        background-color: #333;
+        border-radius: 10px;
+        padding: 20px;
+        box-sizing: border-box;
     }
   }
 }
+@include s($s-breakpoint) {//>575px
+    .main{
+        .sidenav{
+            display: block;
+        }
+        .maincontent{
+            .profiles-list{
+                padding: 50px;
+            }
+            .maininfo{
+                display: grid;
+                grid-template-columns: repeat(2,1fr);
+                grid-gap: 10px;
+                .meminfo{
+                    aspect-ratio: 0;
+                }
+                .memgrade{
+                    aspect-ratio: 0;
+                }
+            }
+        }
+    }
+}
+@include m($m-breakpoint) {//>1023px
+    .main{
+        display: flex;
+        .sidenav{
+            width: 30%;
+        }
+        .maincontent{
+            width: 70%;
+            .profiles-list{
+                padding: 70px 100px;
+            }
+        }
+    }
+}  
 </style>

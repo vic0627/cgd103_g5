@@ -1,57 +1,22 @@
 <script setup>
-import {ref,onMounted} from "vue";
-import axios from 'axios';
-const props = defineProps(["tab"])
-
-
+import {ref} from "vue";
+import {BIND_URL } from "../composables/useCommon";
 const des = ref("");
 const ans = ref("");
-const faqRows = ref([]);
-
-const getProducts = () => {
-			//取得管理員資料
-       axios.get("http://localhost/g5/public/g5PHP/getFaqs.php",)
-      .then(res=> {
-        console.log(res.data)
-        faqRows.value = res.data
-      })
-		}
-
 const add =()=>{
   const payload = {
     faq_des : des.value,
     faq_ans : ans.value
-  };  
-
-  for(let i=0;i<faqRows.value.length;i++){
-      if(des.value === faqRows.value[i].faq_des && ans.value === faqRows.value[i].faq_ans){
-        alert("問題回答已重複");
-       
-        break;    
-      }else if (des.value === '' || ans.value === '' ){
-        alert("不可空白");
-        break;
-      }else if(des.value != faqRows.value[i].faq_des && ans.value != faqRows.value[i].faq_ans){
-        fetch("http://localhost/g5/public/g5PHP/insertaddFaqs.php", {
-          method: "POST",
-          body: new URLSearchParams(payload),
-        }).then(res=>{
-          res.text();
-        })
-        alert("新增成功");
-        props.tab("qrev");
-        break;
-      }
-    }
+  };
+  fetch(`${BIND_URL('insertaddFaqs.php','g5PHP')}`,{
+    method:'POST',
+    body:new URLSearchParams(payload), 
+  }
+  ).then(res=>{
+    res.text();
+  })
+  
 }
-
-onMounted(()=>{
-	getProducts();
-});
-
-</script>
-<script>
-
 </script>
 
 <template>
@@ -73,7 +38,8 @@ onMounted(()=>{
   </div>
 </form>
   <div class="btn">
-    <button id="conFirm" @click="add() ,props.tab('qrev')" >確定新增</button>
+    <button value="確定新增" id="conFirm" @click="add()">確定新增</button>
+    
   </div>
   
 </div>
@@ -191,15 +157,5 @@ h2 {
       background: #06519d;
     }
   }
-}
-#conBack{
-  border-radius: 5px;
-  background-color: rgb(143, 68, 255);
-  color: #fff;
-  cursor: pointer;
-  transition: background 0.5s;
-    &:hover{
-      background: #580571;
-    }
 }
 </style>

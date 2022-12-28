@@ -42,7 +42,7 @@ export default {
     tabdiscount,
     tabdiscountadd,
     tabcustomizeitem,
-    tabmemmodify,
+    tabmemmodify
   },
 };
 </script>
@@ -74,17 +74,17 @@ const backendCategory = ref({
         tab: "productAdd",
       },
       e: {
-        cn: "商品分類",
+        cn: "商品分類管理",
         tab: "productCategoryManage",
       },
       f: {
-        cn: "客製化商品",
+        cn: "客製化品項查詢",
         tab: "customizeitem",
       },
     },
   },
   orderItem: {
-    title: "訂單管理",
+    title: "一般訂單管理",
     show: false,
     text: {
       a: {
@@ -95,33 +95,11 @@ const backendCategory = ref({
         cn: "一般訂單明細查詢",
         tab: "generalOrderItem",
       },
-      // c: {
-      //   cn: "客製化訂單查詢",
-      //   tab: "customizationOrderItem",
-      // },
-      // d: {
-      //   cn: "客製化訂單明細查詢",
-      //   tab: "customizationDetails",
-      // },
-    },
-  },
-  customItem: {
-    title: "客製化訂單管理",
-    show: false,
-    text: {
-      // a: {
-      //   cn: "一般訂單查詢",
-      //   tab: "orderItem",
-      // },
-      // b: {
-      //   cn: "一般訂單明細查詢",
-      //   tab: "generalOrderItem",
-      // },
-      a: {
+      c: {
         cn: "客製化訂單查詢",
         tab: "customizationOrderItem",
       },
-      b: {
+      d: {
         cn: "客製化訂單明細查詢",
         tab: "customizationDetails",
       },
@@ -174,7 +152,7 @@ const backendCategory = ref({
     },
   },
   account: {
-    title: "帳號管理",
+    title: "管理員管理",
     show: false,
     text: {
       a: {
@@ -192,7 +170,7 @@ const backendCategory = ref({
     show: false,
     text: {
       a: {
-        cn: "會員帳號查詢",
+        cn: "會員帳號管理",
         tab: "memmodify",
       },
     },

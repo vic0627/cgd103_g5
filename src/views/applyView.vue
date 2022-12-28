@@ -29,7 +29,7 @@ const props = defineProps(["tab"]);
 const raceRows = ref([]);
 const getProducts = () => {
   //取得比賽資料
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getRace.php")
+  fetch("/dist/g5PHP/getRace.php")
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
@@ -40,7 +40,7 @@ onMounted(() => {
   getProducts();
   session();
   getMemberInfoSS();
-  membook();
+  // membook();
   getMemberInfo();
 });
 
@@ -61,11 +61,7 @@ const getMemberInfoSS = () => {
       // router.push({ path: "/signin" });
     }
   };
-  xhr.open(
-    "GET",
-    "http://localhost/cgd103_g5/public/g5PHP/getMemberInfo.php",
-    true
-  ); //查看使用者是否有登入
+  xhr.open("GET", "/dist/g5PHP/getMemberInfo.php", true); //查看使用者是否有登入
   xhr.send(null);
 };
 
@@ -84,19 +80,19 @@ const session = () => {
 //預約成功 燈箱
 const lightBoxShow = ref(false);
 
-const forgetPW = () => {
-  lightBoxShow.value = true;
-};
+// const forgetPW = () => {
+//   lightBoxShow.value = true;
+// };
 const lightBoxClose = () => {
   lightBoxShow.value = false;
 };
 
 //送出預約資訊進後台
 
-const regis_no = ref("");
+// const regis_no = ref("");
 const comp_no = ref("");
 const mem_no = ref("");
-const regis_date = ref("");
+// const regis_date = ref("");
 
 const cartItem = ref([]);
 
@@ -105,54 +101,48 @@ const membook = () => {
   let aaa = JSON.parse(`${sessionStorage[id]}`);
   console.log(aaa);
   comp_no.value = sessionStorage.getItem("race");
+  // mem_no.value = mem.mem_no;
   console.log(comp_no);
-
+  lightBoxShow.value = true;
   /* regis_no.value = sessionStorage.getItem("regis_no");
   comp_no.value = sessionStorage.getItem("comp_no");
   mem_no.value = sessionStorage.getItem("mem_no");
   regis_date.value = sessionStorage.getItem("regis_date"); */
-  for (let i = 0; i < cartItem.value.length; i++) {
-    const payload = {};
-    fetch("http://localhost/cgd103_g5/public/g5PHP/insertBook.php", {
-      method: "POST",
-      body: new URLSearchParams(payload),
-    }).then((res) => {
-      res.text();
-    });
-  }
+  const payload = {
+    comp_no: Number(comp_no.value),
+    mem_no: Number(mem_no.value),
+  };
+  fetch("/dist/g5PHP/insertBook.php", {
+    method: "POST",
+    body: new URLSearchParams(payload),
+  }).then((res) => {
+    res.text();
+  });
 };
 
 //抓會員
 const memberInfo = ref({
   mem_no: "",
-  mem_grade: "",
-  mem_first_name: "",
-  mem_last_name: "",
-  phone: "",
-  mem_gender: "",
-  mem_email: "",
-  city: "",
-  address: "",
-  credit_no: "",
+  // mem_grade: "",
+  // mem_first_name: "",
+  // mem_last_name: "",
+  // phone: "",
+  // mem_gender: "",
+  // mem_email: "",
+  // city: "",
+  // address: "",
+  // credit_no: "",
 });
 function getMemberInfo() {
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getMemInfo.php", {
-    method: "POST",
+  fetch("/dist/g5PHP/getMemInfo.php", {
+    method: "GET",
   })
     .then((res) => {
       return res.json();
     })
     .then((mem) => {
       console.log(mem);
-      memberInfo.value.mem_no = mem.mem_no;
-      memberInfo.value.mem_grade = mem.mem_grade;
-      memberInfo.value.mem_first_name = mem.mem_first_name;
-      memberInfo.value.mem_last_name = mem.mem_last_name;
-      memberInfo.value.phone = mem.phone;
-      memberInfo.value.mem_gender = mem.mem_gender;
-      memberInfo.value.city = mem.city;
-      memberInfo.value.address = mem.address;
-      memberInfo.value.credit_no = mem.credit_no;
+      mem_no.value = mem.mem_no;
     })
     .catch((error) => console.log(error));
 }
@@ -174,7 +164,7 @@ function getMemberInfo() {
 
       <div class="date">
         <h3>{{ prodin.start }}</h3>
-        <h3>~</h3>
+        <h3 class="gggg">~</h3>
         <h3>{{ prodin.end }}</h3>
       </div>
 
@@ -203,7 +193,7 @@ function getMemberInfo() {
   <section>
     <div class="book">
       <div class="Submit">
-        <a class="btn submitBtn" id="btn2" data-title="Book" @click="forgetPW">
+        <a class="btn submitBtn" id="btn2" data-title="Book" @click="membook">
           <span>Book</span>
         </a>
       </div>
@@ -222,10 +212,10 @@ function getMemberInfo() {
     </div>
 
     <form action="post">
-      <input type="hidden" v-model="memberInfo.regis_no" name="regis_no" />
+      <!-- <input type="hidden" v-model="memberInfo.regis_no" name="regis_no" /> -->
       <input type="hidden" v-model="comp_no" name="comp_no" />
       <input type="hidden" v-model="mem_no" name="mem_no" />
-      <input type="hidden" v-model="regis_date" name="regis_date" />
+      <!-- <input type="hidden" v-model="regis_date" name="regis_date" /> -->
     </form>
   </section>
 
@@ -264,9 +254,11 @@ section {
       }
     }
     .racetext {
+      text-align: center;
       @include l($l-breakpoint) {
         max-width: 1000px;
         margin: auto;
+        text-align: left;
       }
     }
   }
@@ -285,6 +277,10 @@ section {
 h3 {
   display: inline-block;
   letter-spacing: 0.5rem;
+}
+
+.gggg {
+  display: block;
 }
 .date {
   text-align: center;

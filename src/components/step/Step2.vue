@@ -19,6 +19,7 @@ const memberInfo = ref({
     credit_no : ""
 });
 function getMemberInfo (){
+    fetch(`${BIND_URL('getProduct.php',g5PHP)}`)
     fetch("/dist/g5PHP/getMemInfo.php",{
         method:"get",
     })

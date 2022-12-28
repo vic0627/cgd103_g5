@@ -17,7 +17,7 @@ const addProduct = () => {
     disc_off: disc_off.value,
     disc_code: disc_code.value,
   };
-  fetch("http://localhost/g5/public/g5PHP/insertDisc.php", {
+  fetch(`${BIND_URL("insertDisc.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(payload),
   }).then((res) => {

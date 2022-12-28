@@ -1,12 +1,13 @@
 <script setup>
 import { onMounted,ref } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal,NCollapse,NCollapseItem } from 'naive-ui';
+import {BIND_URL } from "../composables/useCommon";
 
 const props = defineProps(["tab"])
 const faqRows = ref([]);
 		const getProducts = () => {
 			//取得商品資料
-      fetch("http://localhost/g5/public/g5PHP/getFaqs.php")
+      fetch(`${BIND_URL('getFaq.php','g5PHP')}`)
       .then(res => res.json())
       .then(json => {
         console.log(json)
@@ -68,7 +69,7 @@ const showModal2 = ref(false);
 .faq_field_wrapper{
     width: 90%;
     max-width: 900px;
-    margin: 30px auto;
+    margin: 10px auto;
     .faq_field{
         width: 100%;
         // height: 52px;

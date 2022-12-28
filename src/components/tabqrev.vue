@@ -1,6 +1,8 @@
 <script setup>
 import { reactive, onMounted,ref ,defineComponent,h,computed} from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
+import {BIND_URL } from "../composables/useCommon";
+
 const des = ref("");
 const ans = ref("");
 const no = ref("");
@@ -93,7 +95,7 @@ const props = defineProps(["tab"])
 const faqRows = ref([]);
 		const getProducts = () => {
 			//取得商品資料
-      fetch("http://localhost/g5/public/g5PHP/getFaqs.php")
+      fetch(`${BIND_URL('getFaqs.php','g5PHP')}`)
       .then(res => res.json())
       .then(json => {
         console.log(json)
@@ -111,7 +113,7 @@ const updateFaq = (user)=>{
     faq_des: newFaq_des.value, 
     faq_ans: newFaq_ans.value
   }
-  fetch("http://localhost/g5/public/g5PHP/updateFaqs.php", {
+  fetch(`${BIND_URL('updateFaqs.php','g5PHP')}`, {
     method: "POST",
     body: new URLSearchParams(newFaq),
   }).then(res=>{
@@ -128,7 +130,7 @@ const deleteFaq = (user)=>{
   const delFaq = {
     faq_no: Number(newFaq_no.value)
   }
-  fetch("http://localhost/g5/public/g5PHP/deleteFaq.php",{
+  fetch(`${BIND_URL('deleteFaqs.php','g5PHP')}`,{
     method: "POST",
     body: new URLSearchParams(delFaq),
   }).then(res=>{
@@ -195,7 +197,7 @@ const testVal = (e) => {
           <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
         </label>
         <p>輸入"all"可查詢所有項目</p>
-      </div>
+    </div>
 
  
   <div class="tables" id="products" align="center">
