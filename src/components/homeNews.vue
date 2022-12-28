@@ -162,6 +162,12 @@ console.clear();
     display: flex;
     flex-wrap: wrap;
     padding-top: 150px;
+    @include m($m-breakpoint){
+        padding-top: 300px;
+    }
+    @include l($l-breakpoint){
+        padding-top: 150px;
+    }
 }
 
 h3 {

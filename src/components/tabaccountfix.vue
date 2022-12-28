@@ -4,6 +4,7 @@ import { zhTW, NPagination,NTable,NDataTable,NButton,NModal } from 'naive-ui';
 import axios from 'axios';
 const newAdmin_no = ref('');
 const newAdmin_acc = ref('');
+const newAdmin_name = ref('')
 const showModal = ref(false);
 const showModal2 = ref(false);
 import {BIND_URL } from "../composables/useCommon";
@@ -13,7 +14,7 @@ const createColumns = ({
     return [
   {
     title: "編號",
-    key: "admin_no"
+    key: "admin_no",
   },
   {
     title: "管理員帳號",
@@ -67,7 +68,8 @@ const column = createColumns({
         showModal.value = true;
         newAdmin_acc.value = adminRows.value[index].admin_acc;
         newAdmin_no.value = adminRows.value[index].admin_no;
-    }else{
+        newAdmin_name.value =adminRows.value[index].newAdmin_name;
+    }else if(adminRows.value[index].authority === "最高管理員"){
         alert('最高管理員不可編輯')
     }
   
@@ -76,7 +78,7 @@ const column = createColumns({
     if(adminRows.value[index].authority === "一般管理員"){
         newAdmin_no.value = adminRows.value[index].admin_no;
         showModal2.value = true
-    }else{
+    }else if(adminRows.value[index].authority === "一般管理員"){
         alert('最高管理員不可刪除')
     }
   }
@@ -118,6 +120,7 @@ const updateAdmin = (user)=>{
   const newAdmin = {
     admin_no: Number(newAdmin_no.value),
     admin_acc: newAdmin_acc.value, 
+    admin_name: newAdmin_name.value
   }
   fetch(`${BIND_URL('updateAdmin.php','g5PHP')}`, {
     method: "POST",
@@ -139,7 +142,6 @@ const deleteAdmin = ()=>{
     body: new URLSearchParams(deleteAcc),
   }).then(res=>{
     res.json()
-    console.log(res)
   }).then(res => {
     showModal2.value = false;
     getAdmin();
@@ -211,6 +213,10 @@ const testVal = (e) => {
             <div class="input">
               <label for="admin_acc"> 編輯帳號 : </label>
               <input type="text" name="admin_acc" v-model="newAdmin_acc">              
+            </div>
+            <div class="input">
+              <label for="admin_name"> 編輯姓名 : </label>
+              <input type="text" name="admin_name" v-model="newAdmin_name">              
             </div>
             <div class="button">
               <n-button @click="showModal = true; updateAdmin(index)" type="error" class="btnModal">
