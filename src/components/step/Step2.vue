@@ -1,7 +1,7 @@
 <script setup>
 import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
-import {BIND_URL } from "../composables/useCommon";
+import {BIND_URL } from "../../composables/useCommon";
 import {bodyInit} from '@/composables/useOnunmounted';
 
 bodyInit();
@@ -216,7 +216,7 @@ const submitOrder = ()=>{
                     &.title{
                         width: 200px;
                         color: rgb(62, 62, 62);
-                        background-color: lighten($blue, 40%);     
+                        // background-color: lighten($blue, 40%);     
                         font-weight: bold; 
                     }
                     &:not(.title){

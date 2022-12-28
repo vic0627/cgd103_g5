@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted} from 'vue';
-import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
+import { log, $$, $all, getW, BIND_URL }from "../../composables/useCommon" ;
 import $ from 'jquery';
 onMounted(()=> {
     $('.List-item>a').parent().siblings().find('ul').hide();

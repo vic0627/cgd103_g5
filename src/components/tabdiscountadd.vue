@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { log, BIND_URL } from "../composables/useCommon";
 
 const disc_title = ref("");
 const disc_txt = ref("");

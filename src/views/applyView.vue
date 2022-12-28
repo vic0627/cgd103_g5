@@ -5,6 +5,7 @@ import raceQuestion from "../components/raceQueston.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
 import router from "@/router";
+import { BIND_URL } from "../composables/useCommon";
 
 bodyInit();
 
@@ -29,10 +30,10 @@ const props = defineProps(["tab"]);
 const raceRows = ref([]);
 const getProducts = () => {
   //取得比賽資料
-  fetch("/dist/g5PHP/getRace.php")
+  fetch(`${BIND_URL("getRace.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
+      // console.log(json);
       raceRows.value = json;
     });
 };
@@ -56,12 +57,12 @@ const getMemberInfoSS = () => {
       // meminfo.value = [member.memName,member.email];
       // console.log(mem.value)
     } else {
-      // alert("Please log in before checkout!");
+      alert("Please log in before checkout!");
       // location.href="http://localhost:8888/dist/home";
-      // router.push({ path: "/signin" });
+      router.push({ path: "/signin" });
     }
   };
-  xhr.open("GET", "/dist/g5PHP/getMemberInfo.php", true); //查看使用者是否有登入
+  xhr.open("GET", `${BIND_URL("getMemberInfo.php", "g5PHP")}`, true); //查看使用者是否有登入
   xhr.send(null);
 };
 
@@ -73,8 +74,8 @@ const strings = ref([]);
 const session = () => {
   strings.value = sessionStorage["racename"];
   prodin.value = JSON.parse(strings.value);
-  console.log(prodin.value);
-  console.log(prodin.value.price);
+  // console.log(prodin.value);
+  // console.log(prodin.value.price);
 };
 
 //預約成功 燈箱
@@ -85,6 +86,7 @@ const lightBoxShow = ref(false);
 // };
 const lightBoxClose = () => {
   lightBoxShow.value = false;
+  router.push({ path: "/racing" });
 };
 
 //送出預約資訊進後台
@@ -99,10 +101,10 @@ const cartItem = ref([]);
 const membook = () => {
   let id = sessionStorage["race"];
   let aaa = JSON.parse(`${sessionStorage[id]}`);
-  console.log(aaa);
+  // console.log(aaa);
   comp_no.value = sessionStorage.getItem("race");
   // mem_no.value = mem.mem_no;
-  console.log(comp_no);
+  // console.log(comp_no);
   lightBoxShow.value = true;
   /* regis_no.value = sessionStorage.getItem("regis_no");
   comp_no.value = sessionStorage.getItem("comp_no");
@@ -112,7 +114,7 @@ const membook = () => {
     comp_no: Number(comp_no.value),
     mem_no: Number(mem_no.value),
   };
-  fetch("/dist/g5PHP/insertBook.php", {
+  fetch(`${BIND_URL("insertBook.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(payload),
   }).then((res) => {
@@ -134,14 +136,14 @@ const memberInfo = ref({
   // credit_no: "",
 });
 function getMemberInfo() {
-  fetch("/dist/g5PHP/getMemInfo.php", {
+  fetch(`${BIND_URL("getMemInfo.php", "g5PHP")}`, {
     method: "GET",
   })
     .then((res) => {
       return res.json();
     })
     .then((mem) => {
-      console.log(mem);
+      // console.log(mem);
       mem_no.value = mem.mem_no;
     })
     .catch((error) => console.log(error));
@@ -156,10 +158,7 @@ function getMemberInfo() {
       <h2>{{ prodin.name }}</h2>
 
       <div class="raceimg">
-        <img
-          :src="`http://localhost/cgd103_g5/src/assets/images/race/${prodin.img}`"
-          alt="Competition"
-        />
+        <img :src="`${BIND_URL(prodin.img)}`" prodin.img alt="Competition" />
       </div>
 
       <div class="date">

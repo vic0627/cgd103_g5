@@ -7,7 +7,7 @@ const props = defineProps(["tab"])
 const faqRows = ref([]);
 		const getProducts = () => {
 			//取得商品資料
-      fetch(`${BIND_URL('getFaq.php','g5PHP')}`)
+      fetch(`${BIND_URL('getFaqs.php','g5PHP')}`)
       .then(res => res.json())
       .then(json => {
         console.log(json)

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from 'vue';
 import {bodyInit} from '@/composables/useOnunmounted';
-import {BIND_URL } from "../composables/useCommon";
+import { BIND_URL } from "../../composables/useCommon";
 import axios from 'axios';
 import router from '@/router';
 bodyInit();
@@ -16,6 +16,7 @@ const session = ()=> {
     getcartItem(substrs);
     // let jsonItem = JSON.parse(`[${explode.value}]`);
     cartItem.value = JSON.parse(`[${explode.value}]`);
+    console.log(cartList)
     // cartsem.value = jsonItem
     // console.log(cartsem);
 }

@@ -2,7 +2,7 @@
 // import headerComponentsVue from '@/components/headerComponents.vue';
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
-import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
+import { log, $$, $all, getW, BIND_URL } from "../composables/useCommon";
 // import { verify } from 'crypto';
 import { reactive, ref, onMounted } from "vue";
 import emailjs from "emailjs-com";
@@ -20,7 +20,8 @@ onMounted(() => {
       }
     };
     // xhr.open("get", "/dist/g5PHP/getMemberInfo.php", true); //查看使用者是否有登入
-    xhr.open("get", `${BIND_URL("getMemberInfo.php", "g5pHP")}`, true); //查看使用者是否有登入
+    xhr.open("get", `${BIND_URL("getMemberInfo.php", "g5PHP")}`, true); //查看使用者是否有登入
+    xhr.withCredentials = true;
     xhr.send(null);
   }
 
@@ -59,7 +60,8 @@ onMounted(() => {
       }
     };
     // xhr.open("post", "/dist/g5PHP/memLogin.php", true); //連接到php
-    xhr.open("post", `${BIND_URL("memLogin.php", "g5pHP")}`, true);
+    xhr.open("post", `${BIND_URL("memLogin.php", "g5PHP")}`, true);
+    xhr.withCredentials = true;
     xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded"); //php格式
 
     let datas = {};
@@ -121,8 +123,9 @@ onMounted(() => {
 });
 
 //忘記密碼 燈箱
-
+const hintShow = ref(false);
 const lightBoxShow = ref(false);
+const formShow = ref(true);
 
 const forgetPW = () => {
   lightBoxShow.value = true;
@@ -165,6 +168,8 @@ const sendEmail = () => {
           }
         );
     });
+    formShow.value = false;
+    hintShow.value = true;
   /* var xhr = new XMLHttpRequest();
   xhr.onload = function () {
     if (xhr.status == 200) {
@@ -242,14 +247,14 @@ const sendEmail = () => {
             />
             <span class="pswinfo"></span>
             <div class="login_info">
-              <input type="checkbox" name="remember" id="remember" />
-              <label for="remember">Remember me</label>
+              <!-- <input type="checkbox" name="remember" id="remember" /> -->
+              <!-- <label for="remember">Remember me</label> -->
               <!-- <a href="" class="forget_password">Forget Password?</a> -->
               <p class="forget_password" @click="forgetPW">Forget Password?</p>
               <div class="lightBox" v-if="lightBoxShow">
                 <div class="lightBoxContent">
                   <h2>Forget Password ?</h2>
-                  <form @submit="sendEmail" class="pwForm">
+                  <form @submit="sendEmail" class="pwForm" v-if="formShow">
                     <div>
                       <p>Your email</p>
                       <input
@@ -273,6 +278,7 @@ const sendEmail = () => {
                   </form>
                   <!-- v-if="removeItem" -->
                   <div class="close" @click="lightBoxClose"></div>
+                  <p class="hint" v-if="hintShow">We've sent an email within your password to your email, if you do not receive, check you have registered and key in the right email.</p>
                 </div>
               </div>
             </div>
@@ -590,6 +596,14 @@ span {
           margin-left: 80px;
         }
       }
+    }
+  }
+  .hint {
+    margin: 20px 10px;
+
+    font-size: 20px;
+    @include m($m-breakpoint) {
+      font-size: 26px;
     }
   }
 }

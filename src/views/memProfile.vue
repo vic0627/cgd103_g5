@@ -16,8 +16,9 @@ onMounted(()=> {
     getMemLevel();
     function getMemLevel(){
         // fetch('/dist/g5PHP/getMemLevel.php',{
-        fetch(`${BIND_URL('getMemLevel.php', 'g5pHP')}`,{
+        fetch(`${BIND_URL('getMemLevel.php', 'g5PHP')}`,{
                 method: "get",
+                credentials: 'include',
             })
             .then((res) => res.json())//將php response的內容轉成json格式
             .then(mem =>{//該json
@@ -50,7 +51,7 @@ onMounted(()=> {
             formData.append('address', memberinfo.value.address); 
             formData.append('phone', memberinfo.value.phone); 
             // fetch('/dist/g5PHP/updateMember.php',{
-            fetch(`${BIND_URL('updateMember.php', 'g5pHP')}`,{
+            fetch(`${BIND_URL('updateMember.php', 'g5PHP')}`,{
                 method: "post",
                 body: formData,
             })
@@ -82,8 +83,9 @@ function changePsw(){
         formData.append('mem_oldpsw', mempsw.value.oldpsw);
         formData.append('mem_newpsw', mempsw.value.newpsw);
         // fetch('/dist/g5PHP/updateMemPassword.php',{
-        fetch(`${BIND_URL('updateMemPassword.php', 'g5pHP')}`,{
+        fetch(`${BIND_URL('updateMemPassword.php', 'g5PHP')}`,{
             method: "post",
+            credentials: 'include',
             body: formData,
         })
         .then((res) => res.text())//php echo的內容

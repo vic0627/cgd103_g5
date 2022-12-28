@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
+import { log, BIND_URL } from "../composables/useCommon";
 
 const news_title = ref("");
 const news_txt = ref("");

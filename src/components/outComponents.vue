@@ -4,7 +4,7 @@ onMounted(()=>{
   document.getElementById('btnLogout').onclick = newOut;
   function newOut(){
   alert("登出後台");
-  fetch('/dist/g5PHP/adminloginout.php',{
+  fetch(`${BIND_URL('adminloginout.php','g5PHP')}`,{
     method:"get",
   })
   .then((res)=> res.text())

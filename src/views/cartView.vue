@@ -20,10 +20,14 @@ onMounted(() =>{
                 }else{
                   alert("Please log in before checkout!");
                   router.push('/signin');
+                  setTimeout(()=>{
+                    window.location.reload()
+                  },1000)
                 }
             }
             // /dist/g5PHP/getMemberInfo.php
-            xhr.open("get",`${BIND_URL('getMemberInfo.php',g5PHP)}`,true);//查看使用者是否有登入
+            xhr.open("get",`${BIND_URL('getMemberInfo.php','g5PHP')}`,true);//查看使用者是否有登入
+            xhr.withCredentials = true;//跨域
             xhr.send(null);
         }
   getMemberInfoSS();
