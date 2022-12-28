@@ -84,7 +84,7 @@ const backendCategory = ref({
     },
   },
   orderItem: {
-    title: "訂單管理",
+    title: "一般訂單管理",
     show: false,
     text: {
       a: {
@@ -152,7 +152,7 @@ const backendCategory = ref({
     },
   },
   account: {
-    title: "帳號管理",
+    title: "管理員管理",
     show: false,
     text: {
       a: {

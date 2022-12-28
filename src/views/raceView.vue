@@ -410,12 +410,17 @@ h2 {
       }
     }
 
+    .racepic {
+      width: 250px;
+    }
+
     .listWord {
       min-width: 100%;
       position: absolute;
       top: 0;
       left: 0;
       text-align: center;
+      width: 250px;
       @include l($l-breakpoint) {
         display: none;
         .racepic {

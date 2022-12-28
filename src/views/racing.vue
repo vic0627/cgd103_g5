@@ -54,7 +54,7 @@ onMounted(() => {
           <tbody>
             <tr>
               <td>
-                <span>{{ nmorders[index].regis_no }}</span>
+                {{ nmorders[index].regis_no }}
               </td>
               <td>{{ nmorders[index].comp_no }}</td>
               <td>{{ nmorders[index].regis_date }}</td>

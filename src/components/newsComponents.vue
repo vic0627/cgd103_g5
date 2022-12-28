@@ -1,12 +1,12 @@
 <script setup>
 import { computed, onMounted, reactive, ref, onUpdated } from "vue";
 import { bodyInit } from "../composables/useOnunmounted";
-import { lastNews } from "../composables/object";
+// import { lastNews } from "../composables/object";
 import $ from "jquery";
 const newsRows = ref([]);
 const getNews = () => {
   //取得消息資料
-  fetch("http://localhost/g5/public/g5PHP/getNews.php", {
+  fetch("http://localhost/cgd103_g5/public/g5PHP/getNews.php", {
     method: "POST",
     body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.news" }),
   })

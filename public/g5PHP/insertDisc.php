@@ -15,7 +15,7 @@
     $disc->bindValue(":disc_code", $_POST["disc_code"]);
 	$disc->execute();
     $msg = "success";
-	// $adminRows = $disc->fetchAll(PDO::FETCH_ASSOC);
+	// $adminRows = $admin->fetchAll(PDO::FETCH_ASSOC);
 	// echo json_encode($adminRows);
 } catch (PDOException $e) {
 	//echo "錯誤原因 : ", $e->getMessage(), "<br>";

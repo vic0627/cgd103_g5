@@ -91,17 +91,17 @@ const createColumns = ({ selectId, showModal2 }) => {
 const column = createColumns({
   selectId(rowData, index) {
     showModal.value = true;
-    newDisc_no.value = rowData.disc_no;
-    newDisc_title.value = rowData.disc_title;
-    newDisc_txt.value = rowData.disc_txt;
-    newDisc_start.value = rowData.disc_start;
-    newDisc_end.value = rowData.disc_end;
-    newDisc_off.value = rowData.disc_off;
-    newDisc_code.value = rowData.disc_code;
+    newDisc_no.value = discRows.value[index].disc_no;
+    newDisc_title.value = discRows.value[index].disc_title;
+    newDisc_txt.value = discRows.value[index].disc_txt;
+    newDisc_start.value = discRows.value[index].disc_start;
+    newDisc_end.value = discRows.value[index].disc_end;
+    newDisc_off.value = discRows.value[index].disc_off;
+    newDisc_code.value = discRows.value[index].disc_code;
   },
   showModal2(rowData, index) {
     showModal2.value = true;
-    newDisc_no.value = rowData.disc_no;
+    newDisc_no.value = discRows.value[index].disc_no;
   },
 });
 //分頁js
@@ -123,7 +123,7 @@ const props = defineProps(["tab"]);
 const discRows = ref([]);
 const getDisc = () => {
   //取得商品資料
-  fetch("http://localhost/g5/public/g5PHP/getDisc.php")
+  fetch("http://localhost/cgd103_g5/public/g5PHP/getDisc.php")
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
@@ -145,7 +145,7 @@ const updateDisc = (user) => {
     disc_off: newDisc_off.value,
     disc_code: newDisc_code.value,
   };
-  fetch("http://localhost/g5/public/g5PHP/updateDisc.php", {
+  fetch("http://localhost/cgd103_g5/public/g5PHP/updateDisc.php", {
     method: "POST",
     body: new URLSearchParams(newDisc),
   })
@@ -196,7 +196,7 @@ const deleteDisc = (user) => {
   const delDisc = {
     disc_no: Number(newDisc_no.value),
   };
-  fetch("http://localhost/g5/public/g5PHP/deleteDisc.php", {
+  fetch("http://localhost/cgd103_g5/public/g5PHP/deleteDisc.php", {
     method: "POST",
     body: new URLSearchParams(delDisc),
   })
@@ -217,18 +217,24 @@ const deleteDisc = (user) => {
       優惠管理
       <outComponents />
     </h2>
-
     <div class="search_box">
-        <p>依</p>
-        <select name="searchMethods" id="searchMethods" @change="testVal">
-          <option v-for="i in select" :key="i.id" :value="i.id">{{ i.title }}</option>
-        </select>
-        <p>查詢</p>
-        <label for="search" class="label">
-          <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
-        </label>
-        <p>輸入"all"可查詢所有項目</p>
-      </div>
+      <p>依</p>
+      <select name="searchMethods" id="searchMethods" @change="testVal">
+        <option v-for="i in select" :key="i.id" :value="i.id">
+          {{ i.title }}
+        </option>
+      </select>
+      <p>查詢</p>
+      <label for="search" class="label">
+        <input
+          type="search"
+          id="search"
+          name="search"
+          v-model="search"
+          :placeholder="`請輸入all或${select[selectVal].title}`"
+        />
+      </label>
+    </div>
 
     <div class="tables" id="products" align="center">
       <form method="post" class="table">
