@@ -1,6 +1,7 @@
 <script setup>
 import { zhTW, NPagination,NTable,NDataTable,NButton,NModal, } from 'naive-ui';
 import { reactive, onMounted,ref ,defineComponent,h,computed} from 'vue';
+import {BIND_URL } from "../composables/useCommon";
 
 // Model + 會員總資訊
 const showModal = ref(false);
@@ -75,7 +76,7 @@ const lookMem = (user)=>{
     mem_email: newMem_email.value, 
     // mem_ans: newFaq_ans.value
   }
-  fetch("http://localhost/g5/public/g5PHP/getBmem.php", {
+  fetch(`${BIND_URL('getBmem.php','g5PHP')}`, {
     method: "POST",
     body: new URLSearchParams(newMem),
   }).then(res=>{
@@ -103,8 +104,6 @@ const column = createColumns({
     newMem_address.value = bmemRows.value[index].address;
     newMem_credit_no.value = bmemRows.value[index].credit_no;
     newMem_grade.value = bmemRows.value[index].mem_grade;
-    // newMem_dur.value = bmemRows.value[index].mem_dur;
-    // newMem_sec.value = bmemRows.value[index].mem_sec;
     
   },
   showmodal(rowData,index){
@@ -118,7 +117,7 @@ const column = createColumns({
 const bmemRows = ref([]);
 	const getProducts = () => {
 	//取得商品資料
-    fetch("http://localhost/g5/public/g5PHP/getBmem.php")
+    fetch(`${BIND_URL('getBmem.php','g5PHP')}`)
     .then(res => res.json())
     .then(json => {
         // console.log(json)

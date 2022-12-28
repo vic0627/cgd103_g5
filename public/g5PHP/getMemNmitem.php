@@ -4,7 +4,7 @@ header('Access-Control-Allow-Origin:*');
 header("Content-Type:application/json;charset=utf-8");
 try{
     if( isset($_SESSION["Account"])==true){//session內有memId代表登入中
-        require_once("./connect_cgd103g5_felix.php");
+        require_once("./connect_cgd103g5.php");
         $sql = "select a.item_no , a.orders_no, a.prd_no,a.item_quantity,a.item_price,a.item_sub,a.item_discount from `nm_order_item` as a  left join `nm_orders` as b ON a.`orders_no` = b.`orders_no` join `member` c ON b.`mem_no` = c.`mem_no` where mem_acc = ? and orders_no = :order_no";
         $member = $pdo->prepare($sql);
         $member->bindeValue(":orders_no",$_GET["currenty"]);

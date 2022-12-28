@@ -4,7 +4,7 @@
  header("Content-Type:application/json;charset=utf-8");
 
  try {
-	require_once("./connect_cgd103g5_felix.php");
+	require_once("./connect_cgd103g5.php");
 	$sql = "DELETE FROM tibamefe_cgd103g5.administrator  
 	WHERE admin_no = :admin_no";
 	$updateAdmin = $pdo->prepare($sql);

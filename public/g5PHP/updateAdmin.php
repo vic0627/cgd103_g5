@@ -3,7 +3,7 @@
  header("Content-Type:application/json;charset=utf-8");
 
  try {
-	require_once("./connect_cgd103g5_felix.php");
+	require_once("./connect_cgd103g5.php");
 	$sql = "UPDATE tibamefe_cgd103g5.administrator 
 	SET admin_acc = :admin_acc 
 	WHERE admin_no = :admin_no";

@@ -3,7 +3,7 @@ session_start();
 //  header('Access-Control-Allow-Origin:*');
 //  header("Content-Type:application/json;charset=utf-8");
 try {
-	require_once("./connect_cgd103g5_ting.php");
+	require_once("./connect_cgd103g5.php");
 	$sql = "select * from tibamefe_cgd103g5.administrator where admin_acc = :admin_acc and admin_pw = :admin_pw";
 	$admin = $pdo->prepare($sql);
 	$admin->bindValue(":admin_acc",$_POST["admin_acc"]);

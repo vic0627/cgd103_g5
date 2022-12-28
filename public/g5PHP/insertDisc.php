@@ -4,7 +4,7 @@
  header("Content-Type:application/json;charset=utf-8");
 
  try {
-	require_once("./connect_cgd103g5_ting.php");
+	require_once("./connect_cgd103g5.php");
 	$sql = "insert into tibamefe_cgd103g5.discount_set values( null, :disc_title, :disc_txt, :disc_start, :disc_end, :disc_off, :disc_code)";
 	$disc = $pdo->prepare($sql);
     $disc->bindValue(":disc_title", $_POST["disc_title"]);
