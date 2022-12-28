@@ -1,56 +1,44 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from 'vue';
 import {bodyInit} from '@/composables/useOnunmounted';
-import { NAlert} from 'naive-ui';
+import {BIND_URL } from "../composables/useCommon";
 import axios from 'axios';
+import router from '@/router';
 bodyInit();
 const explode = ref('');
 const props = defineProps(['nextStep','step']);
-const title = reactive([
-    {"name": "Product"},{"name": "Price"},{"name":"Quantity"},{"name":"Delete"}
-]);
 const cartItem = ref([]);
-const cusBtn = ref(true);
 const cartList = computed(() => cartItem.value)
 const session = ()=> {
-    const strings = sessionStorage.getItem('cartList');
-    if(strings==undefined)return;
-    if(strings.includes('111')){
-        cusBtn.value = false;
-    }else{
-        
-    }
-    let substrs = strings.substr(0, strings.length).split(',')
+    const strings = sessionStorage.getItem('cartList')
+    const substrs = strings.substr(0, strings.length - 1).split(',')
     getcartItem(substrs);
+    // let jsonItem = JSON.parse(`[${explode.value}]`);
     cartItem.value = JSON.parse(`[${explode.value}]`);
-}
-//抓session裡面的存放的商品放進購物車
-const getcartItem = (substrs)=>{
-  for(let i=0;i<substrs.length;i++){
-    if(i===0){
-      explode.value = sessionStorage.getItem(substrs[i])
-    }else{
-      explode.value += ',' + sessionStorage.getItem(substrs[i]);
-    }
-  }
+    // cartsem.value = jsonItem
+    // console.log(cartsem);
 }
 //判斷session裡面是否有東西 沒有就文字顯示沒東西
 const storgeNull = reactive(sessionStorage.getItem('cartList'))
 //數量加減//價格變動
 const sums = ref(0);
+const fee = ref(0)
 const sum = computed(()=>{
     let total = ref(0);
-        for(const items in cartList.value){
-            total.value += cartList.value[items]['price']*cartList.value[items]['amount'];
-        }
-        sessionStorage.setItem('sums', total.value)
-        sums.value = total.value
-        return total;
+    for(const items in cartList.value){
+        total.value += cartList.value[items]['price']*cartList.value[items]['amount'];
+    }
+    sessionStorage.setItem('sums', total.value)
+    sessionStorage.setItem('discount',0)
+    sums.value = total.value
+    return total;
 })
 //總價判斷是否有折扣 有就乘折扣  沒有就不乘折扣
 const finalprice = ref(0);
 const final = computed(()=>{
     let totalprice = ref(0);
+    if(sessionStorage['cartList'].includes('111')){
+        fee.value = sessionStorage.getItem('fee') 
         for(const items in cartList.value){
             if(discPercent.value != 0){
                 totalprice.value += cartList.value[items]['price']*cartList.value[items]['amount']*discPercent.value;
@@ -58,78 +46,114 @@ const final = computed(()=>{
                 totalprice.value += cartList.value[items]['price']*cartList.value[items]['amount']
             }
         }
-        sessionStorage.setItem('final', totalprice.value)
-        finalprice.value = totalprice.value
-        return totalprice
+        totalprice.value += Number(fee.value)
+    }else{
+        for(const items in cartList.value){
+            if(discPercent.value != 0){
+                totalprice.value += cartList.value[items]['price']*cartList.value[items]['amount']*discPercent.value;
+            }else{
+                totalprice.value += cartList.value[items]['price']*cartList.value[items]['amount']
+            }
+        }
+    }
+    sessionStorage.setItem('final', totalprice.value)
+    finalprice.value = totalprice.value
+    return totalprice
+})
+//組裝費
+const assemblyfee = ref(0);
+const assembly = computed(()=>{
+    let total = ref(0);
+    if(sessionStorage['cartList'].includes('111')){
+        assemblyfee.value = 50;
+        sessionStorage.setItem("fee", assemblyfee.value)
+        total.value = 50
+        return total;
+    }else{
+        assemblyfee.value = 0;
+        total.value = 0;
+        return total;
+    }
 })
 const addCount = (index) => {
-    cartList.value[index].amount +=1;
-    sessionStorage.setItem(`${cartList.value[index].id}`,`{"id":"${cartList.value[index].id}","name":"${cartList.value[index].name}","amount":${cartList.value[index].amount},"price":${cartList.value[index].price},"img":"${cartList.value[index].img}"}`)
+    return cartList.value[index].amount +=1;
 }
 const reduceCount = (index) => {
     if(cartList.value[index].amount > 1){
-        cartList.value[index].amount --; 
-        sessionStorage.setItem(`${cartList.value[index].id}`,`{"id":"${cartList.value[index].id}","name":"${cartList.value[index].name}","amount":${cartList.value[index].amount},"price":${cartList.value[index].price},"img":"${cartList.value[index].img}"}`) 
+        return cartList.value[index].amount --;  
     }
 }
 //刪除商品
 const cart = ref(false); 
+const lightBoxShow = ref(false);
 const Delete = (index)=> {
     //抓到按刪除鍵的key就刪除session資訊
-    //必須先刪除cartList裡面的東西,再刪除個別的id,不然如果先移除id會抓不到key值
-    sessionStorage['cartList'] = sessionStorage['cartList'].replace(`${cartList.value[index].id},`,``)
-    sessionStorage.removeItem(cartList.value[index].id)
-    cartList.value.splice(index,1);
-    console.log(sessionStorage['cartList'].length);
+    if(sessionStorage['cartList'].includes('111')){
+        lightBoxShow.value = true;
+    }else{
+        if(cartList.value.length>1){
+            if(index==0){
+                sessionStorage['cartList'] = sessionStorage['cartList'].replace(`${cartList.value[index].id},`,``)
+            }else{
+                sessionStorage['cartList'] = sessionStorage['cartList'].replace(`,${cartList.value[index].id}`,``)
+            }
+        }else{
+            sessionStorage['cartList']= '';
+        }
+        sessionStorage.removeItem(cartList.value[index].id)
+        cartList.value.splice(index,1);
+    }
 }
-//建議商品
-const suggest = reactive([
-    {
-        "title": "MAVIC PRO 1",
-        "image": "/images/cart/body_01_red_1.png",
-    },
-    {
-        "title": "MAVIC PRO 2",
-        "image": "/images/cart/body_02_blue_1.png",
-    },
-    {
-        "title": "MAVIC PRO 3",
-        "image": "/images/cart/body_03_black_1.png",
-    },
-])
+const lightBoxClose = () => {
+    lightBoxShow.value = false;
+};
+const clearSession = ()=>{
+    sessionStorage.clear();
+    sessionStorage['cartList'] = '';
+    cartList.value.splice(0,cartList.value.length);
+    lightBoxShow.value = false;    
+}
 //discount 
 const discount = ref('');
 const discPercent = ref('0');
 const discConfirm = () => {
-    for(let i=0;i<=discRows.value.length;i++){
+    if(sessionStorage['cartList'] === ''){
+        alert('Please purchase products');
+        router.push('/shop');
+    }else{
+        for(let i=0;i<=discRows.value.length;i++){
         console.log(discRows.value[i].disc_code)
         if(discount.value === discRows.value[i].disc_code){
             discPercent.value = discRows.value[i].disc_off;
             sessionStorage.setItem('discount',discPercent.value)
             sessionStorage.setItem('disc_no',discRows.value[i].disc_no)
             discount.value = '';
-            alert('恭喜折價');
+            alert('Congratulations discount !');
             break;         
         }else{
-            alert('無此優惠編號')
+            alert('No such offer number')
             discount.value = '';
-            // discount.value = null;
             sessionStorage.setItem('discount',discPercent.value)
             sessionStorage.setItem('disc_no', discount.value)
+            discount.value = '';
             break;                    
         }
     } 
+    }
 }
 //下一步確認
 const check = ()=> {
-    if(sessionStorage.getItem('cartList') === null){
-        alert("請購買商品")
+    if(sessionStorage.getItem('cartList') === ''){
+        alert("Please purchase products")
+    }else{
+        props.nextStep();
     }
 }
+
 //取得資料庫資料
 const discRows = ref([]);
     const getDisc = () => {
-    fetch("http://localhost/CGD103-G5/public/g5PHP/getDiscCart.php")
+    fetch(`${BIND_URL('getDiscCart.php','g5PHP')}`)
     .then(res => res.json())
     .then(json => {
         discRows.value = json;
@@ -137,28 +161,39 @@ const discRows = ref([]);
     )
 }
 onMounted(()=>{
-    getDisc();
     //mounted裡面不要使用const去做定義 有區域問題
+    getDisc();
     session();
 });
-const showBtn = () => {
-
-};
 </script>
 <template>
+
     <section>
         <div class="shopCart">
-            <div v-if="storgeNull == null">
+            <!-- <div v-if="storgeNull == null"> -->
+            <div v-if="storgeNull == ''">
                 <div class="empty">
                     <h3>Your bag is empty.</h3>
                     <p>Sign in to see if you have any saved items. Or continue shopping.</p>
                 </div>
             </div>
+             <div class="lightBox" v-if="lightBoxShow">
+                <div class="lightBoxContent">
+                    <div class="close" @click="lightBoxClose"></div>
+                    <div class="clearAll">
+                        <h2>Confirm delete</h2>
+                        <p>If you click the button below, all the items in the shopping cart will be cleared, are you sure?</p>
+                        <div class="btnFirst" id="btn1" data-title="Clear All" @click="clearSession()">
+                        <span>Clear All</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="cartFor" v-for="(item,index) in cartList" :key="index">
                 <div class="cartItem">
                     <div class="cartProduct">
-                        <div class="cartProduct-pic">
-                            <img v-if="item.img != ''" :src="`/dist/assets/${item.img}`" alt="">
+                        <div class="cartProduct-pic">`${BIND_URL('`${item.img}`')}`
+                            <img v-if="item.img != ''" :src="`${BIND_URL(item.img)}`" alt="">
                         </div>
                         <div class="cartProduct-txt">
                             <h5>{{item.name}}</h5>
@@ -166,9 +201,9 @@ const showBtn = () => {
                     </div>
                     <div class="amount-price">
                         <div class="cartQuantity">
-                            <button class="qtyBtn" @click="reduceCount(index)" v-if="cusBtn">-</button>
+                            <button class="qtyBtn" @click="reduceCount(index)">-</button>
                             <input type="text" min="1" v-model="item.amount" class="input">
-                            <button class="qtyBtn" @click="addCount(index);" v-if="cusBtn">+</button>
+                            <button class="qtyBtn" @click="addCount(index)">+</button>
                         </div>
                         <div class="cartPrice">
                             <h6>${{item.price*item.amount}}</h6>
@@ -195,9 +230,9 @@ const showBtn = () => {
                     <p>${{sum}}</p>
                 </div>
                 <div class="summaryPrice">
-                    <p>Assembly cost</p>
-                    <p>$0</p>
-                </div>
+                    <p>Assembly fee</p>
+                    <p>${{assembly}}</p>
+                </div>  
                 <div class="summaryPrice">
                     <p>Discount</p>
                     <p>{{discPercent}}</p>
@@ -210,33 +245,11 @@ const showBtn = () => {
                     <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shop">
                         <span>Shop</span>
                     </router-link>
-                    <!-- <button @click="props.nextStep();submitOrder()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button> -->
-                    <button @click="props.nextStep();check()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
+                    <button @click="check()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
                 </div>
             </div>
         </div>
     </section>
-    <section>
-    </section> 
-        <div class="suggest-title">
-            <h3>Guess You May Like</h3>
-        </div>
-        <div class="suggest">
-            <div class="suggest-item" v-for="item in suggest" :key="item.title">
-                <h6>{{item.title}}</h6>
-                <div class="suggest-item-pic">
-                    <img :src="item.image" :alt="item.title">
-                </div>
-                <div class="suggest-item-btn">
-                    <router-link to="/cart" class="btnFirst" id="btn1" data-title="Add cart">
-                        <span>Add cart</span>
-                    </router-link>
-                </div>
-            </div>
-            <div class="suggest-more">
-                <router-link to="/shop"><button class="button-read" style="vertical-align:middle"><span>See more products</span></button></router-link>
-            </div>
-        </div>
         
     <footerComponentsVue />
 </template>
@@ -244,6 +257,23 @@ const showBtn = () => {
 <style lang="scss" scoped>
 @import '@/sass/style.scss';
 @import '@/css/reset.css';
+@import "@/sass/component/_lightBox.scss";
+.lightBox {
+  @include lightBox();
+  .lightBoxContent {
+    max-height: 1000px;
+    .clearAll {
+        text-align: left;
+        margin: 30px;
+        P {
+            margin: 10px 0;
+        }
+        // button {
+        //     background: transparent;
+        // }
+    }
+  }
+}
 $center: center;
 $left: left;
 $l-w:1200px;
@@ -300,6 +330,18 @@ section {
     width: 90%;
     height: 100%;
     background-color: transparent;
+}
+.cartProduct-pic{
+    height: 150px;
+    @include s($s-breakpoint){
+        height: 300px;
+    }
+    @include m($m-breakpoint){
+        height: 400px;
+    }
+    @include l($l-breakpoint){
+        height: 130px;
+    }
 }
 .discount {
     width: 90%;

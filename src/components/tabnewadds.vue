@@ -15,7 +15,7 @@ const addProduct = () => {
     news_photo: news_photo.value,
     news_tag: news_tag.value,
   };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/insertNews.php", {
+  fetch(`${BIND_URL("insertNews.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(payload),
   }).then((res) => {

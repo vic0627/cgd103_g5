@@ -110,7 +110,7 @@ const props = defineProps(["tab"]);
 const newsRows = ref([]);
 const getNews = () => {
   //取得商品資料
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getNews.php")
+  fetch(`${BIND_URL("getNews.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
       console.log(json);
@@ -131,7 +131,7 @@ const updateNews = (user) => {
     news_photo: news_photo.value,
     news_tag: news_tag.value,
   };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/updateNews.php", {
+  fetch(`${BIND_URL("updateNews.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(newnews),
   })
@@ -184,7 +184,7 @@ const deleteNews = (user) => {
   const delNews = {
     news_no: Number(newnews_no.value),
   };
-  fetch("http://localhost/cgd103_g5/public/g5PHP/deleteNews.php", {
+  fetch(`${BIND_URL("deleteNews.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(delNews),
   }).then((res) => {

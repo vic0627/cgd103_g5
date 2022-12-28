@@ -1,7 +1,8 @@
 <script setup>
 import { ref, reactive,onMounted } from 'vue';
 import {bodyInit} from '@/composables/useOnunmounted';
-
+import axios from 'axios';
+import {BIND_URL } from "../composables/useCommon";
 bodyInit();
 const orders_no =ref('');
 const prd_no =ref('');
@@ -12,7 +13,6 @@ const item_discount =ref('');
 const explode = ref('');
 //
 const cartItem = ref([]);
-// const cartList = computed(() => cartItem.value);
 const session = ()=> {
     const strings = sessionStorage.getItem('cartList')
     const substrs = strings.substr(0, strings.length).split(',')
@@ -28,32 +28,84 @@ const getcartItem = (substrs)=>{
     }
   }
 }
+//抓最新訂單編號之後再去呼叫傳送訂單明細
+const maxOrder = ref('');
+const getmaxOrder = ()=>{
+    if(sessionStorage['cartList'].includes('111')){
+        axios.get(`${BIND_URL('getmaxCm.php','g5PHP')}`)
+        .then(res=> {
+            maxOrder.value = res.data
+            console.log(maxOrder.value.order_no)
+            sessionStorage.setItem('order_no',maxOrder.value.order_no);
+            console.log(sessionStorage.getItem('order_no'));        
+        }).then(res=>{
+            submitOrdItem();
+        })
+    }else{
+        axios.get(`${BIND_URL('getmaxNm.php','g5PHP')}`)
+        .then(res=> {
+            maxOrder.value = res.data
+            console.log(maxOrder.value.order_no)
+            sessionStorage.setItem('order_no',maxOrder.value.order_no);
+            console.log(sessionStorage.getItem('order_no'));        
+        }).then(res=>{
+            submitOrdItem();
+        })
+    }
+}
 //傳訂單明細
 const submitOrdItem = ()=> {
-    orders_no.value = sessionStorage.getItem('order_no');
-    item_discount.value = sessionStorage.getItem('discount');
-    item_sub.value =sessionStorage.getItem('final');
-    console.log(orders_no.value);
-    for(let i=0;i<cartItem.value.length;i++){
-        const payload = {
-            orders_no: Number(orders_no.value),
-            prd_no: Number(cartItem.value[i].id),
-            item_quantity: Number(cartItem.value[i].amount),
-            item_price: Number(cartItem.value[i].price),
-            item_sub: Number(item_sub.value),
-            item_discount: Number(item_discount.value),
-        };
-        fetch("/dist/g5PHP/insertNmorditem.php", {
-            method: "POST",
-            body: new URLSearchParams(payload),
-        }).then(res=>{
-            res.text();
-        })
+    if(sessionStorage['cartList'].includes('111')){
+        orders_no.value = sessionStorage.getItem('order_no');
+        item_discount.value = sessionStorage.getItem('discount');
+        item_sub.value =sessionStorage.getItem('final');
+        console.log(orders_no.value);
+        for(let i=0;i<cartItem.value.length;i++){
+            const payload = {
+                orders_no: Number(orders_no.value),
+                prd_no: Number(cartItem.value[i].id),
+                item_quantity: Number(cartItem.value[i].amount),
+                item_price: Number(cartItem.value[i].price),
+                item_sub: Number(item_sub.value),
+                item_discount: Number(item_discount.value),
+            };
+            fetch(`${BIND_URL('insertCmorditem.php','g5PHP')}`, {
+                method: "POST",
+                body: new URLSearchParams(payload),
+            }).then(res=>{
+                res.text();
+            }).then(res=>{
+                sessionStorage.clear();
+            })
+        }
+    }else{
+        orders_no.value = sessionStorage.getItem('order_no');
+        item_discount.value = sessionStorage.getItem('discount');
+        item_sub.value =sessionStorage.getItem('final');
+        console.log(orders_no.value);
+        for(let i=0;i<cartItem.value.length;i++){
+            const payload = {
+                orders_no: Number(orders_no.value),
+                prd_no: Number(cartItem.value[i].id),
+                item_quantity: Number(cartItem.value[i].amount),
+                item_price: Number(cartItem.value[i].price),
+                item_sub: Number(item_sub.value),
+                item_discount: Number(item_discount.value),
+            };
+            fetch(`${BIND_URL('insertNmorditem.php','g5PHP')}`, {
+                method: "POST",
+                body: new URLSearchParams(payload),
+            }).then(res=>{
+                res.text();
+            }).then(res=>{
+                sessionStorage.clear();
+            })
+        }
     }
 }
 onMounted(()=>{
     session();
-    submitOrdItem();
+    getmaxOrder();
 })
 </script>
 <template> 
@@ -72,14 +124,6 @@ onMounted(()=>{
             </router-link>
         </p>
     </section>
-    <form action="post">     
-        <input type="hidden" v-model="orders_no" name="orders_no">
-        <input type="hidden" v-model="prd_no" name="prd_no">
-        <input type="hidden" v-model="item_quantity" name="item_quantity">
-        <input type="hidden" v-model="item_price" name="item_price">
-        <input type="hidden" v-model="item_sub" name="item_sub">
-        <input type="hidden" v-model="item_discount" name="item_discount">
-    </form>
 </template>
 
 <style scoped lang="scss">

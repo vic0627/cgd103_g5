@@ -12,6 +12,7 @@ import axios from "axios";
 const showModal = ref(false);
 const newNmno = ref("");
 const newStatus = ref("");
+import {BIND_URL } from "../composables/useCommon";
 //資料放進表格
 const createColumns = ({ selectId }) => {
   return [
@@ -90,8 +91,7 @@ const pagination = paginationReactive;
 const NmOrderRows = ref([]);
 const getNmOrder = () => {
   //取得商品資料
-  axios
-    .get("http://localhost/CGD103-G5/public/g5PHP/getNmOrder.php")
+  axios.get(`${BIND_URL('getNmOrder.php','g5PHP')}`)
     .then((res) => {
       NmOrderRows.value = res.data;
     })
@@ -112,7 +112,7 @@ const updateStatus = () => {
     orders_no: Number(newNmno.value),
     orders_status: newStatus.value,
   };
-  fetch("http://localhost/CGD103-G5/public/g5PHP/updateNm_status.php", {
+  fetch(`${BIND_URL('updateNm_status.php','g5PHP')}`, {
     method: "POST",
     body: new URLSearchParams(newNm),
   }).then((res) => {

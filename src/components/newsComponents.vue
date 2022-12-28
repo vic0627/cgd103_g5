@@ -3,10 +3,11 @@ import { computed, onMounted, reactive, ref, onUpdated } from "vue";
 import { bodyInit } from "../composables/useOnunmounted";
 // import { lastNews } from "../composables/object";
 import $ from "jquery";
+import { log, $$, $all, getW, BIND_URL } from "../composables/useCommon";
 const newsRows = ref([]);
 const getNews = () => {
   //取得消息資料
-  fetch("http://localhost/cgd103_g5/public/g5PHP/getNews.php", {
+  fetch(`${BIND_URL("getNews.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams({ sql: "select * from tibamefe_cgd103g5.news" }),
   })
@@ -71,7 +72,7 @@ const changeView = (index) => {
             <div class="card">
               <router-link class="anchor" to="/articleView"
                 ><img
-                  :src="`/dist/assets/${newsRow.news_photo}`"
+                  :src="`${BIND_URL(newsRow.news_photo)}`"
                   :alt="newsRows.news_no"
               /></router-link>
               <div class="item_box">

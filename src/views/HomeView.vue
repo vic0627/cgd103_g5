@@ -18,23 +18,6 @@ onMounted(() => {
     relativeInput: true,
   });
 });
-const raceContent = reactive([
-  {
-    id: 1,
-    title: "SkyPixel 8th style free",
-    image: "/images/about/img_05.jpg",
-  },
-  {
-    id: 2,
-    title: "Mens Casual Premium Slim Fit T-Shirts",
-    image: "/images/about/img_06.jpg",
-  },
-  {
-    id: 3,
-    title: "SMens Cotton Jacket",
-    image: "/images/about/img_07.jpg",
-  },
-]);
 const view = ref(1);
 const changeView = (index) => {
     view.value = index;
@@ -74,7 +57,6 @@ const isOpen = ref(true)
     <section class="sect1">
         <div class="home-custom">
             <div class="custom-pic">
-                <!-- <img src="../assets/images/home/customize.jpeg" alt="customize"> -->
                 <img src="../assets/images/home/customize.jpeg" alt="customize">
             </div>
             <div class="custom-txt">
@@ -84,19 +66,16 @@ const isOpen = ref(true)
                 </div>
                 <div class="custIcon">
                     <div class="custIcon-wrap">
-                        <!-- <img src="@/assets/images/cusIcon1.png" alt=""> -->
                         <img src="../assets/images/home/cusIcon1.png" alt="icon1">
                         <p>Speed destroy personal</p>
                         <p>King is come back</p>
                     </div>
                     <div class="custIcon-wrap">
-                        <!-- <img src="@/assets/images/cusIcon2.png" alt=""> -->
                         <img src="../assets/images/home/cusIcon2.png" alt="icon2">
                         <p>Speed destroy personal</p>
                         <p>King is come back</p>
                     </div>
                     <div class="custIcon-wrap">  
-                        <!-- <img src="@/assets/images/cusIcon3.png" alt=""> -->
                         <img src="../assets/images/home/cusIcon3.png" alt="icon3">
                         <p>Speed destroy personal</p>
                         <p>King is come back</p>
@@ -111,9 +90,8 @@ const isOpen = ref(true)
         </div>
         <!-- <svgComponents1Vue :circle1="1"/> -->
     </section>
-    <svglineComponentsVue :line1="1"/>
+    <!-- <svglineComponentsVue :line1="1"/> -->
     
-    <!-- <svglineComponentsVue :class="{position : isOpen}"  /> -->
     <section class="sect2">
         <div class="accWrap">
             <div class="homeAcc">
@@ -150,8 +128,8 @@ const isOpen = ref(true)
                             <img src="../assets/images/home/accs02.png" alt="propellor">
                         </div>
                         <div class="homeAccWrap2-txt">
-                            <h6>Drone Remote controller</h6>
-                            <p>You can preview your design in real time.</p>
+                            <h4>Propeller PPK </h4>
+                            <p>Propeller PPK is a processing solution designed to minimize time in the field</p>
                             <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
                                 <span>Learn</span>
                             </router-link>
@@ -165,12 +143,11 @@ const isOpen = ref(true)
                 <div class="homeAccWrap2">
                     <div class="accSection">
                         <div class="homeAccWrap2-pic">
-                            <!-- <img src="../assets/images/body_01_blue_1.png" alt=""> -->
                             <img src="../assets/images/home/body_01_blue_1.png" alt="body2">
                         </div>
                         <div class="homeAccWrap2-txt">
-                            <h6>Drone Remote controller</h6>
-                            <p>You can preview your design in real time.</p>
+                            <h4>Drone Body</h4>
+                            <p>The Drone will allow photographers to take HD pictures that are sharp and crisp.</p>
                             <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
                                 <span>Learn</span>
                             </router-link>
@@ -180,8 +157,6 @@ const isOpen = ref(true)
             </div>
         </div>
     </section>
-<!-- <svglineComponentsVue :line2="2"/> -->
-<!-- <svgComponents1Vue :circle2="2"/> -->
     <about />
     <section class="contest sect3">
         <div class="contestTitle">
@@ -191,7 +166,6 @@ const isOpen = ref(true)
             <transition name="tad" mode="out-in">
                 <div class="homeContest" v-if="view === 1">
                     <div class="homeContest-pic">
-                        <!-- <img src="@/assets/images/contest.png" alt=""> -->
                         <img src="../assets/images/home/contest.png" alt="contest1">
                     </div>
                     <div class="homeContest-txt">
@@ -206,7 +180,6 @@ const isOpen = ref(true)
                 </div>
                 <div class="homeContest" v-else-if="view === 2">
                     <div class="homeContest-pic">
-                        <!-- <img src="/images/about/img_06.jpg" alt=""> -->
                         <img src="../assets/images/home/race_01.jpg" alt="race2">
                     </div>
                     <div class="homeContest-txt">
@@ -269,7 +242,7 @@ const isOpen = ref(true)
 }
 .sect2 {
     padding: 50px 0 100px;
-    background-image: url('../assets/images/home/5.png'),url('../assets/images/home/5.png');
+    background-image: url('../assets/images/home/5.png');
     background-size: 80% , 40%;
     background-position: 100% 5%,85% 97%;
     background-repeat: no-repeat, no-repeat;
@@ -434,7 +407,7 @@ section {
   .mainAcc {
     background: linear-gradient(98.29deg, #077af9 10.1%, #9c4dd6 82.53%);
     border-radius: $img-radius;
-    margin: 20px;
+    // margin: 20px;
     @include flexCenter($center);
     flex-direction: column;
   }
@@ -631,6 +604,11 @@ section {
   }
 }
 //電腦版
+@include m($m-breakpoint) {
+  .mainAcc {
+    margin: 10px;
+  }
+}
 @include l($l-breakpoint) {
   //cusotom
     .home-custom {
@@ -662,6 +640,7 @@ section {
     .mainAcc {
       display: flex;
       flex-direction: row;
+      margin: 20px;
     }
     &-pic {
       img {

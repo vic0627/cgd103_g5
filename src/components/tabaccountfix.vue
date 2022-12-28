@@ -6,6 +6,7 @@ const newAdmin_no = ref('');
 const newAdmin_acc = ref('');
 const showModal = ref(false);
 const showModal2 = ref(false);
+import {BIND_URL } from "../composables/useCommon";
 //資料放進表格
 const createColumns = ({
   selectId,showmodal})=>{
@@ -84,7 +85,7 @@ const column = createColumns({
 const adminRows = ref([]);
 		const getAdmin = () => {
 			//取得管理員資料
-       axios.get("http://localhost/CGD103-G5/public/g5PHP/getAdmin.php")
+       axios.get(`${BIND_URL('getAdmin.php','g5PHP')}`)
       .then(res=> {
         adminRows.value = res.data
       })
@@ -118,7 +119,7 @@ const updateAdmin = (user)=>{
     admin_no: Number(newAdmin_no.value),
     admin_acc: newAdmin_acc.value, 
   }
-  fetch("http://localhost/CGD103-G5/public/g5PHP/updateAdmin.php", {
+  fetch(`${BIND_URL('updateAdmin.php','g5PHP')}`, {
     method: "POST",
     body: new URLSearchParams(newAdmin),
   }).then(res=>{
@@ -133,7 +134,7 @@ const deleteAdmin = ()=>{
   const deleteAcc = {
     admin_no: Number(newAdmin_no.value)
   }
-  fetch("http://localhost/CGD103-G5/public/g5PHP/deleteAdmin.php",{
+  fetch(`${BIND_URL('deleteAdmin.php','g5PHP')}`,{
     method: "POST",
     body: new URLSearchParams(deleteAcc),
   }).then(res=>{

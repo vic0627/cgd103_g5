@@ -1,8 +1,9 @@
 <script setup>
 import { ref, reactive,onMounted } from 'vue';
 import $ from 'jquery';
+import {BIND_URL } from "../composables/useCommon";
 import {bodyInit} from '@/composables/useOnunmounted';
-import axios from 'axios';
+
 bodyInit();
 
 const props = defineProps(['prevStep','nextStep','step']);
@@ -19,11 +20,10 @@ const memberInfo = ref({
     credit_no : ""
 });
 function getMemberInfo (){
-    fetch(`${BIND_URL('getProduct.php',g5PHP)}`)
-    fetch("/dist/g5PHP/getMemInfo.php",{
+    fetch(`${BIND_URL('getMemInfo.php','g5PHP')}`,{
         method:"get",
     })
-    .then((res)=> {return res.json()})
+    .then((res)=>res.json())
     .then(mem => {
             console.log(mem);
             memberInfo.value.mem_no = mem.mem_no;
@@ -42,67 +42,57 @@ const sums = ref('');
 const final = ref('');
 const discount_price = ref('');
 const disc_no = ref('');
+const fee = ref('');
 onMounted(()=>{
     getMemberInfo();
 })
-//辦認客製化或一般商品
+/////
 const submitOrder = ()=>{
-if(sessionStorage['cartList'].includes('111')){
-    sums.value = sessionStorage.getItem('sums');
-    final.value = sessionStorage.getItem('final');
-    discount_price.value = sessionStorage.getItem('discount');
-    disc_no.value = sessionStorage.getItem('disc_no');
-    const payload = {
-        mem_no: Number(memberInfo.value.mem_no),
-        mem_grade: Number(memberInfo.value.mem_grade),
-        orders_price: Number(sums.value),
-        discount_price: Number(discount_price.value),
-        total_price: Number(final.value),
-        orders_location: String(memberInfo.value.address),
-        credit_no: String(memberInfo.value.credit_no),
-    };
-    fetch("/dist/g5PHP/sessionNmitem.php", {
-        method: "POST",
-        body: new URLSearchParams(payload),
-    }).then(res=>{
-        res.text();
-    }).then(res=>{
-        getmaxOrder();
-    })
-}else{
-    sums.value = sessionStorage.getItem('sums');
-    final.value = sessionStorage.getItem('final');
-    discount_price.value = sessionStorage.getItem('discount');
-    disc_no.value = sessionStorage.getItem('disc_no');
-    const payload = {
-        mem_no: Number(memberInfo.value.mem_no),
-        mem_grade: Number(memberInfo.value.mem_grade),
-        orders_price: Number(sums.value),
-        discount_price: Number(discount_price.value),
-        total_price: Number(final.value),
-        orders_location: String(memberInfo.value.address),
-        credit_no: String(memberInfo.value.credit_no),
-    };
-    fetch("/dist/g5PHP/sessionNmitem.php", {
-        method: "POST",
-        body: new URLSearchParams(payload),
-    }).then(res=>{
-        res.text();
-    }).then(res=>{
-        getmaxOrder();
-    })
-}
-}
-
-const maxOrder = ref('');
-const getmaxOrder = () => {
-    //取得管理員資料
-    axios.get("/dist/g5PHP/getsessionNm.php")
-    .then(res=> {
-        maxOrder.value = res.data
-        // console.log(maxOrder.value.order_no)
-        sessionStorage.setItem('order_no',maxOrder.value.order_no);
-    })
+    if(sessionStorage['cartList'].includes('111')){
+        sums.value = sessionStorage.getItem('sums');
+        final.value = sessionStorage.getItem('final');
+        discount_price.value = sessionStorage.getItem('discount');
+        // disc_no.value = sessionStorage.getItem('disc_no');
+        fee.value = sessionStorage.getItem('fee');
+        const payload = {
+            mem_no: Number(memberInfo.value.mem_no),
+            mem_grade: Number(memberInfo.value.mem_grade),
+            orders_price: Number(sums.value),
+            discount_price: Number(discount_price.value),
+            total_price: Number(final.value),
+            orders_location: String(memberInfo.value.address),
+            fee: Number(fee.value),
+            credit_no: String(memberInfo.value.credit_no),
+        };
+        fetch(`${BIND_URL('sessionCmOrder.php','g5PHP')}`, {
+            method: "POST",
+            body: new URLSearchParams(payload),
+        }).then(res=>{
+            res.text();
+        }).then(res=>{
+            // getmaxOrder();
+        })
+    }else{
+        sums.value = sessionStorage.getItem('sums');
+        final.value = sessionStorage.getItem('final');
+        discount_price.value = sessionStorage.getItem('discount');
+        // disc_no.value = sessionStorage.getItem('disc_no');
+        const payload = {
+            mem_no: Number(memberInfo.value.mem_no),
+            mem_grade: Number(memberInfo.value.mem_grade),
+            orders_price: Number(sums.value),
+            discount_price: Number(discount_price.value),
+            total_price: Number(final.value),
+            orders_location: String(memberInfo.value.address),
+            credit_no: String(memberInfo.value.credit_no),
+        };
+        fetch(`${BIND_URL('sessionNmOrder.php','g5PHP')}`, {
+            method: "POST",
+            body: new URLSearchParams(payload),
+        }).then(res=>{
+            res.text();
+        })
+    }
 }
 </script>
 <template>   
@@ -151,6 +141,7 @@ const getmaxOrder = () => {
         <input type="hidden" v-model="final" name="total_price">
         <input type="hidden" v-model="memberInfo.orders_location" name="orders_location">
         <input type="hidden" v-model="memberInfo.credit_no" name="credit_no">
+        <input type="hidden" v-model="fee" name="fee">
     </form>      
 </template>
 
@@ -224,7 +215,7 @@ const getmaxOrder = () => {
                     &.title{
                         width: 200px;
                         color: rgb(62, 62, 62);
-                        // background-color: lighten($blue, 40%);     
+                        background-color: lighten($blue, 40%);     
                         font-weight: bold; 
                     }
                     &:not(.title){
