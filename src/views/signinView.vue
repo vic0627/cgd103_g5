@@ -2,7 +2,7 @@
 // import headerComponentsVue from '@/components/headerComponents.vue';
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
-import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
+import { log, $$, $all, getW, BIND_URL } from "../composables/useCommon";
 // import { verify } from 'crypto';
 import { reactive, ref, onMounted } from "vue";
 import emailjs from "emailjs-com";
@@ -123,6 +123,7 @@ onMounted(() => {
 //忘記密碼 燈箱
 
 const lightBoxShow = ref(false);
+const hintShow = ref(false);
 
 const forgetPW = () => {
   lightBoxShow.value = true;
@@ -165,46 +166,8 @@ const sendEmail = () => {
           }
         );
     });
-  /* var xhr = new XMLHttpRequest();
-  xhr.onload = function () {
-    if (xhr.status == 200) {
-      //modify here
-      showMember();
-    } else {
-      alert(xhr.status);
-    }
-  };
-  function showMember(json) {
-    var url =
-      "http://localhost/cgd103_g5/public/g5PHP/getMemberPassword.php?mem_acc=" +
-      forget_password_account.value;
-    xhr.open("get", url, true);
-    xhr.send(null);
-    let member = JSON.parse(xhr.responseText);
-    mem_pw.value = member.mem_pw;
-    console.log(mem_pw.value);
-    console.log(forget_password_account.value);
-    emailjs
-      .send(
-        "service_0fkz7ii",
-        "template_ojh6tgp",
-        {
-          user_email: forget_password_account.value,
-          mem_pw: mem_pw.value,
-        },
-        "TWzj5YZjjnkHkkv1N"
-      )
-      .then(
-        (result) => {
-          console.log("SUCCESS!", result.text);
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
-        }
-      );
-  } */
-  console.log(sendEmail);
-  // ========== 忘記密碼的 EmailJs ========== //
+  fgShow.value = false;
+  hintShow.value = true;
 };
 </script>
 
@@ -247,7 +210,7 @@ const sendEmail = () => {
               <!-- <a href="" class="forget_password">Forget Password?</a> -->
               <p class="forget_password" @click="forgetPW">Forget Password?</p>
               <div class="lightBox" v-if="lightBoxShow">
-                <div class="lightBoxContent">
+                <div class="lightBoxContent" v-if="fgShow">
                   <h2>Forget Password ?</h2>
                   <form @submit="sendEmail" class="pwForm">
                     <div>
@@ -273,6 +236,11 @@ const sendEmail = () => {
                   </form>
                   <!-- v-if="removeItem" -->
                   <div class="close" @click="lightBoxClose"></div>
+                  <p class="hint" v-if="hintShow">
+                    We've sent an email within your password, if you do not
+                    receive it, make sure you've registered and keyed in the
+                    right email.
+                  </p>
                 </div>
               </div>
             </div>
@@ -290,25 +258,6 @@ const sendEmail = () => {
               </p>
             </div>
           </form>
-          <!-- <div class="divider">
-            <span> or login with </span>
-          </div>
-          <div class="login_with">
-            <a href=""
-              ><img
-                src="../assets/images/Signin/btn_google_signin_dark_normal_web@2x.png"
-                alt=""
-            /></a>
-          </div>
-          <div class="login_agree">
-            <span
-              >By continuing, you hereby agree to the Privacy Policy and Terms
-              of Use</span
-            >
-          </div>
-          <div class="divider">
-            <span></span>
-          </div> -->
         </div>
       </main>
     </div>
@@ -590,6 +539,14 @@ span {
           margin-left: 80px;
         }
       }
+    }
+  }
+  .hint {
+    margin: 20px 10px;
+
+    font-size: 20px;
+    @include m($m-breakpoint) {
+      font-size: 26px;
     }
   }
 }
