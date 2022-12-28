@@ -18,7 +18,7 @@ import body3 from "../assets/images/shopInfo/body_03_3.png";
 import { products, accessories, bundle_A, bundle_B } from "./js/Shop";
 import { method } from "lodash";
 import axios from "axios";
-// import { json } from "stream/consumers";
+import { BIND_URL } from "../composables/useCommon";
 
 bodyInit();
 
@@ -46,7 +46,7 @@ const randomNumber = (min, max) => {
 };
 const morePrd = ref([])
 const fetchItem = () => {
-  fetch("http://localhost/cgd103_g5/public/g5PHP/postCust.php", {
+  fetch(`${BIND_URL("postCust.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams({ sql: `select * from tibamefe_cgd103g5.products where cat_no = ${Number(prodin.value.cat_no)}` }),
   })

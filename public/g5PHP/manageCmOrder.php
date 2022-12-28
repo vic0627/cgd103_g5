@@ -4,7 +4,7 @@
  header("Content-Type:application/json;charset=utf-8");
 
  try {
-	require_once("./connect_cgd103g5_vic.php");
+	require_once("./connect_cgd103g5.php");
 	$sql = "UPDATE tibamefe_cgd103g5.cm_order SET orders_status = :orders_status WHERE orders_no = :orders_no";
 	$admin = $pdo->prepare($sql);
     $admin->bindParam(":orders_status", $_POST["orders_status"]);
