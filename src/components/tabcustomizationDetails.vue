@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, onMounted, ref, computed } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable } from 'naive-ui';
-import { log } from '@/composables/useCommon';
+import { log, BIND_URL } from '@/composables/useCommon';
 
 const page = ref(2);
 const pageSize = ref(3);
