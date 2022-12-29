@@ -127,7 +127,6 @@ const getDisc = () => {
   fetch(`${BIND_URL("getDisc.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
       discRows.value = json;
     });
 };
@@ -203,7 +202,6 @@ const deleteDisc = (user) => {
   })
     .then((res) => {
       res.json();
-      console.log(res);
     })
     .then((res) => {
       showModal2.value = false;

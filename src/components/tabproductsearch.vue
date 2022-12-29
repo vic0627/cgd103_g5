@@ -11,7 +11,6 @@ import { BIND_URL } from "../composables/useCommon";
         .then(res => res.json())
         .then(json => {
             prodRows.value = json;
-            console.log('prodRows',prodRows)
         })
     }
 

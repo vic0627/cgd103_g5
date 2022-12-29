@@ -8,9 +8,7 @@ onMounted(()=>{
   fetch(`${BIND_URL('adminloginout.php','g5PHP')}`,{
     method:"get",
   })
-  .then((res)=> res.text())
-  .then((text)=> console.log(text))
-  .catch(error=>console.log(error));}
+  .then((res)=> res.text())}
   sessionStorage.clear();
 })
 const props = defineProps(['page01'])
