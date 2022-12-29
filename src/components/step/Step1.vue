@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, reactive, computed } from 'vue';
 import {bodyInit} from '@/composables/useOnunmounted';
-import { BIND_URL } from "../../composables/useCommon";
+import { BIND_URL, getCartLength } from "../../composables/useCommon";
 import axios from 'axios';
 import router from '@/router';
 bodyInit();
@@ -33,7 +33,7 @@ const getcartItem = (substrs)=>{
   }
 }
 //判斷session裡面是否有東西 沒有就文字顯示沒東西
-const storgeNull = reactive(sessionStorage.getItem('cartList'))
+const storgeNull = () => sessionStorage.getItem('cartList');
 //數量加減//價格變動
 const sums = ref(0);
 const fee = ref(0)
@@ -120,6 +120,7 @@ const Delete = (index)=> {
         sessionStorage.removeItem(cartList.value[index].id)
         cartList.value.splice(index,1);
     }
+    emit("updateCart", getCartLength());
 }
 const lightBoxClose = () => {
     lightBoxShow.value = false;
@@ -129,6 +130,7 @@ const clearSession = ()=>{
     sessionStorage['cartList'] = '';
     cartList.value.splice(0,cartList.value.length);
     lightBoxShow.value = false;    
+    emit("updateCart", getCartLength());
 }
 //discount 
 const discount = ref('');
@@ -181,13 +183,14 @@ onMounted(()=>{
     getDisc();
     session();
 });
+const emit = defineEmits(["updateCart"]);
 </script>
 <template>
 
     <section>
         <div class="shopCart">
             <!-- <div v-if="storgeNull == null"> -->
-            <div v-if="storgeNull == ''">
+            <div v-if="storgeNull() == ''">
                 <div class="empty">
                     <h3>Your bag is empty.</h3>
                     <p>Sign in to see if you have any saved items. Or continue shopping.</p>
@@ -230,7 +233,7 @@ onMounted(()=>{
                     </div>
                 </div>
             </div>
-            <div class="discount"  v-if="storgeNull != null">
+            <div class="discount"  v-if="storgeNull() != null">
                 <p>Discount code :</p>
                 <input type="text" v-model="discount">
                 <button class="discount-btn" @click="discConfirm()">Confirm</button>
@@ -266,8 +269,6 @@ onMounted(()=>{
             </div>
         </div>
     </section>
-        
-    <footerComponentsVue />
 </template>
 
 <style lang="scss" scoped>

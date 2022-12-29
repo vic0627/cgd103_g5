@@ -114,7 +114,7 @@ const NavClass = defineProps({
 // const props = defineProps(['count']);
 const count = ref(0);
 onUpdated(() => {
-  count.value = NavClass.count;
+  count.value = getCartLength();
 });
 // :style="NavClass.className"
 </script>

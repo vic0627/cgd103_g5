@@ -5,7 +5,7 @@ import { ref, reactive, onMounted, computed, onUpdated } from "vue";
 import navComponentsVue from "@/components/navComponents.vue";
 import footerComponentsVue from "@/components/footerComponents.vue";
 import { bodyInit } from "../composables/useOnunmounted";
-import { getCartLength,BIND_URL } from "../composables/useCommon";
+import { getCartLength,BIND_URL, log } from "../composables/useCommon";
 
 bodyInit();
 
@@ -18,11 +18,15 @@ const set = (key, val) =>{
 }
 
 
-const cacheId = ref('');
+const cacheId = ref({
+  id: null,
+  row: null
+});
 const count = ref(getCartLength());
 //點擊add按鈕會啟動的func
 const addProd = (id, row) => {
-    cacheId.value = id;
+    
+    cacheId.value.row = row;
     let nid;
     if(row===accessories.value){
       nid = id - products.value.length - 1;
@@ -33,6 +37,7 @@ const addProd = (id, row) => {
     } else{
       nid = id - 1;
     }
+    cacheId.value.id = nid;
   //存放點擊過的item的id
     if(sessionStorage['cartList'] == null){
       sessionStorage['cartList'] = '';
@@ -43,24 +48,29 @@ const addProd = (id, row) => {
       alert('You have checked.');
 
     }else{
-      //無，執行set跟get
-      set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"img":"${row[nid].src}"}`);
-
-      let get = JSON.parse(sessionStorage.getItem(id));
-      if(sessionStorage['cartList'] == ''){
-        sessionStorage['cartList'] = `${get.id}`;
+      if(sessionStorage['cartList'].includes('111')){
+      //跳彈窗
+        lightBoxShow.value = true;
+      //sessionStorage沒有商品
       }else{
-        sessionStorage['cartList'] += `,${get.id}`;
+        
+        //無，執行set跟get
+        set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"img":"${row[nid].src}"}`);
+
+        let get = JSON.parse(sessionStorage.getItem(id));
+        if(sessionStorage['cartList'] == ''){
+          sessionStorage['cartList'] = `${get.id}`;
+        }else{
+          sessionStorage['cartList'] += `,${get.id}`;
+        }
       }
+      
+      
       
       //addCartCount();
       count.value = getCartLength();
 
-      if(sessionStorage['cartList'].includes('111')){
-    //跳彈窗
-      lightBoxShow.value = true;
-    //sessionStorage沒有商品
-    }
+      
     }
 };
 
@@ -104,7 +114,8 @@ const addCart = () =>{
 const clearSess = ()=>{
     sessionStorage.clear();
     lightBoxClose();
-    addProd(cacheId.value);
+    addProd(cacheId.value.id, cacheId.value.row);
+    count.value = getCartLength();
 }
 const lightBoxClose = () => {
   lightBoxShow.value = false;
