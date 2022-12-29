@@ -1,7 +1,7 @@
 <script setup>
-import { ref, onMounted, reactive, computed } from 'vue';
+import { ref, onMounted, reactive, computed,onBeforeUpdate} from 'vue';
 import {bodyInit} from '@/composables/useOnunmounted';
-import { BIND_URL } from "../../composables/useCommon";
+import { getCartLength,BIND_URL } from "../../composables/useCommon";
 import axios from 'axios';
 import router from '@/router';
 bodyInit();
@@ -176,11 +176,16 @@ const discRows = ref([]);
     }
     )
 }
+const count = ref(0);
 onMounted(()=>{
     //mounted裡面不要使用const去做定義 有區域問題
     getDisc();
     session();
 });
+onBeforeUpdate(()=>{
+    count.value = getCartLength();
+    console.log(count.value);
+})
 </script>
 <template>
 

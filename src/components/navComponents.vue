@@ -27,7 +27,7 @@ const mainMenu = reactive([
 ]);
 const mem = ref("");
 onMounted(() => {
-  count.value = getCartLength();
+  // count.value = getCartLength();
   // console.log(mainMenu);
   function getMemberInfo() {
     let xhr = new XMLHttpRequest();
@@ -115,6 +115,7 @@ const NavClass = defineProps({
 const count = ref(0);
 onUpdated(() => {
   count.value = NavClass.count;
+  count.value = getCartLength();
 });
 // :style="NavClass.className"
 </script>
@@ -225,7 +226,7 @@ onUpdated(() => {
         <router-link to="/cart" class="shop"
           ><img src="../assets/images/home/icon2.png" alt="cart"
         /></router-link>
-        <router-link to="/cart" class="shop"
+        <router-link to="/cart" class="shop countNum"
           ><div>{{ count }}</div></router-link
         >
       </div>
@@ -236,7 +237,13 @@ onUpdated(() => {
 <style lang="scss" scoped>
 @import "@/sass/style.scss";
 @import "@/css/reset.css";
-
+.countNum{  
+  position: relative;
+  top: -10px;
+  left: -10px;
+  color: $blue;
+  font-weight: bold;  border-radius: 50%;
+}
 header {
   top: 0;
   position: fixed;
@@ -301,6 +308,7 @@ header {
               brightness(97%) contrast(108%);
           }
         }
+
       }
       .memHover {
         display: none;

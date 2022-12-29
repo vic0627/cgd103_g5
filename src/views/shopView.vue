@@ -40,7 +40,7 @@ const addProd = (id, row) => {
     //判斷商品是否被點擊過
     if(sessionStorage.getItem(id)){
       //有，跳提示，不給加
-      alert('You have checked.');
+      alert('You have checked the same product.');
 
     }else{
       //無，執行set跟get
@@ -94,11 +94,12 @@ const moreProd = (id, row)=> {
 
 //modal
 // modal-btn 去購物車
-const addCart = () =>{
-  router.push({path:'/cart'});
-  /* setTimeout(()=>{
-    window.location.reload()
-  },1000) */
+const addCart = (index) =>{
+  if(!sessionStorage["cartList"].includes('111')){
+    sessionStorage["cartList"].removeItem(cartList.value[index].id);
+  }else{
+    router.push({path:'/cart'});
+  }
 }
 //modal-btn 清空後再加上一般商品  
 const clearSess = ()=>{
@@ -1191,7 +1192,6 @@ $(document).ready(() => {
           @include m($m-breakpoint) {
           }
           .img_box {
-            width: 100%;
             height: 200px;
             display: flex;
             justify-content: space-between;
