@@ -46,6 +46,30 @@ const submitData = ()=>{
       }
     }
 }
+function verifypsw(val) {
+    let regex_psw = /^[0-9a-fA-F]{3,10}$/;
+    let type;
+    if(val==account.value){
+      type = "帳號";
+    }else{
+      type = "密碼";
+    }
+    if (val != "") {
+      if (regex_psw.test(val) == false) {
+        $$(".mess").textContent = `${type}格式錯誤`;
+        $$(".mess").style["color"] = "red";
+      } else if (regex_psw.test(val)) {
+        $$(".mess").textContent = " 正確";
+        $$(".mess").style["color" ] = "lightgreen";
+        return true;
+      }
+    } else {
+      $$(".mess").textContent =
+        "欄位請輸入符合大小寫英數格式";
+      $$(".mess").style["color"] = "#888";
+    }
+    return false;
+}
 	onMounted(()=>{
 		getAdmin();
   });
@@ -68,7 +92,8 @@ const submitData = ()=>{
       </div>
       <div class="question">
         <h3>管理員帳號</h3>
-        <input type="text" placeholder="請輸入帳號" id="admin_acc" name="admin_acc" v-model="account" required>
+        <input type="text" id="admin_acc" name="admin_acc" v-model="account"  maxlength="16" minlength="3" required placeholder="請輸入3-10位含大小寫英數帳" onkeyup="value=value.replace(/[\W]/g,'')" onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"/>
+
       </div>
       <div class="answer">
         <h3>管理員密碼</h3>
