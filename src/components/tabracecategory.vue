@@ -24,7 +24,6 @@ const newcpt_aboard = ref("");
 const newcpt_photo = ref("");
 const newcpt_txt = ref("");
 const showModal = ref(false);
-// const showModal2 = ref(false);
 
 //data-table
 const createColumns = ({ selectId, showmodal }) => {
@@ -73,39 +72,23 @@ const createColumns = ({ selectId, showmodal }) => {
         );
       },
     },
-    // {
-    //   title: "刪除",
-    //   key: "actions",
-    //   render(row, index) {
-    //     return h(
-    //       NButton,
-    //       {
-    //         size: "medium",
-    //         color: "#077AF9",
-    //         // onClick: () => selectId(),
-    //         onClick: () => showmodal(row, index),
-    //       },
-    //       { default: () => "刪除" }
-    //     );
-    //   },
-    // },
   ];
 };
 //解析內容跟事件
 const column = createColumns({
   selectId(rowData, index) {
     showModal.value = true;
-    newcpt_no.value = raceRows.value[index].cpt_no;
-    newcpt_name.value = raceRows.value[index].cpt_name;
-    newcpt_start.value = raceRows.value[index].cpt_start;
-    newcpt_end.value = raceRows.value[index].cpt_end;
-    newcpt_aboard.value = raceRows.value[index].cpt_aboard;
-    newcpt_photo.value = raceRows.value[index].cpt_photo;
-    newcpt_txt.value = raceRows.value[index].cpt_txt;
+    newcpt_no.value = rowData.cpt_no;
+    newcpt_name.value = rowData.cpt_name;
+    newcpt_start.value = rowData.cpt_start;
+    newcpt_end.value = rowData.cpt_end;
+    newcpt_aboard.value = rowData.cpt_aboard;
+    newcpt_photo.value = rowData.cpt_photo;
+    newcpt_txt.value = rowData.cpt_txt;
   },
   showmodal(rowData, index) {
     // showModal2.value = true;
-    newcpt_no.value = raceRows.value[index].cpt_no;
+    newcpt_no.value = rowData.cpt_no;
   },
 });
 //分頁js
@@ -149,7 +132,7 @@ const updateRace = (user) => {
     cpt_photo: newcpt_photo.value,
     cpt_txt: newcpt_txt.value,
   };
-  fetch(`${BIND_URL("getFaq.php", "g5PHP")}`, {
+  fetch(`${BIND_URL("updateRace.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(newcpt),
   }).then((res) => {
@@ -395,8 +378,10 @@ textarea {
 }
 
 .top {
-  width: 100%;
+  width: 85%;
+  height: 100%;
   display: block;
+  overflow-y: auto;
 }
 h2 {
   font-size: 40px;

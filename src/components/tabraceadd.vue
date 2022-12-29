@@ -178,8 +178,10 @@ template {
 }
 
 .top {
-  width: 100%;
+  width: 85%;
+  height: 100%;
   display: block;
+  overflow-y: auto;
 }
 // div {
 //   margin: 10px;
