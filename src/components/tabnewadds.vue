@@ -146,9 +146,7 @@ function fileChange() {
   overflow-y: auto;
   height: 100%;
 }
-// div {
-//   margin: 10px;
-// }
+
 h2 {
   font-size: 40px;
   color: #fff;
