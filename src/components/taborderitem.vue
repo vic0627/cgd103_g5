@@ -1,5 +1,6 @@
 <script setup>
 import { reactive, onMounted, ref, h, computed } from "vue";
+import { BIND_URL } from "../composables/useCommon";
 import {
   zhTW,
   NPagination,
@@ -9,7 +10,6 @@ import {
   NModal,
 } from "naive-ui";
 import axios from "axios";
-import {BIND_URL } from "../composables/useCommon";
 const showModal = ref(false);
 const newNmno = ref("");
 const newStatus = ref("");

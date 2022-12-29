@@ -170,7 +170,6 @@ getAdmin();
   display: block;
   overflow-y: auto;
   height: 100%;
-  overflow: auto;
 }
 h2 {
   font-size: 40px;

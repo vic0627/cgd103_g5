@@ -125,11 +125,11 @@ onMounted(() => {
 const updateNews = (user) => {
   const newNews = {
     news_no: Number(newNews_no.value),
-    news_title: news_title.value,
-    news_txt: news_txt.value,
-    news_time: news_time.value,
-    news_photo: news_photo.value,
-    news_tag: news_tag.value,
+    news_title: newNews_title.value,
+    news_txt: newNews_txt.value,
+    news_time: newNews_time.value,
+    news_photo: newNews_photo.value,
+    news_tag: newNews_tag.value,
   };
   fetch(`${BIND_URL("updateNews.php", "g5PHP")}`, {
     method: "POST",

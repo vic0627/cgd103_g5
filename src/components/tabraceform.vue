@@ -191,8 +191,10 @@ textarea {
 }
 
 .top {
-  width: 100%;
+  width: 85%;
   display: block;
+  overflow-y: auto;
+  height: 100%;
 }
 h2 {
   font-size: 40px;

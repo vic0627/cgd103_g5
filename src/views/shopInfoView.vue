@@ -364,12 +364,6 @@ const toCart = () => {
     </div>
   </div>
 
-  <!-- faq -->
-  <section class="faqs">
-    <h2>FAQ</h2>
-    <Accordion />
-  </section>
-
   <!-- 購買連結 -->
   <nav id="purchaseBar" :class="navShow ? 'navOn' : 'navOff'">
     <div class="purchaseBar_ship">
@@ -1267,13 +1261,6 @@ h2 {
         cursor: pointer;
       }
     }
-  }
-}
-
-.faqs {
-  width: 100%;
-  h2 {
-    text-align: center;
   }
 }
 </style>

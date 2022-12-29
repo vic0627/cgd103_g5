@@ -1,4 +1,4 @@
-<script>
+<script setup>
 import video_01 from '@/assets/video/about/video_01.mp4'
 import { onMounted, registerRuntimeCompiler } from 'vue';
 import Accordion from '../components/accordionComponents.vue';
@@ -6,20 +6,10 @@ import mem from '../components/memComponents.vue';
 import navComponentsVue from '@/components/navComponents.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
 import {bodyInit} from '../composables/useOnunmounted';
-bodyInit();
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+bodyInit();
 AOS.init();
-
-export default{
-  components:{
-    Accordion,
-    mem,
-  }
-}
-
-
-
 
 </script>
 
