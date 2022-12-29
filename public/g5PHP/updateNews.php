@@ -8,12 +8,12 @@ try {
   WHERE news_no = :news_no";
 
 	  $news = $pdo->prepare($sql);
-    $news->bindValue(":news_no",$_POST["news_no"]);
-	  $news->bindValue(":news_title",$_POST["news_title"]);
-    $news->bindValue(":news_txt",$_POST["news_txt"]);
-    $news->bindValue(":news_time",$_POST["news_time"]);
-    $news->bindValue(":news_photo",$_POST["news_photo"]);
-    $news->bindValue(":news_tag",$_POST["news_tag"]);
+      $news->bindValue(":news_no",$_POST["news_no"]);
+      $news->bindValue(":news_title",$_POST["news_title"]);
+      $news->bindValue(":news_txt",$_POST["news_txt"]);
+      $news->bindValue(":news_time",$_POST["news_time"]);
+      $news->bindValue(":news_photo",$_POST["news_photo"]);
+      $news->bindValue(":news_tag",$_POST["news_tag"]);
     $news->execute();
     $msg = "success";
 } catch (PDOException $e) {

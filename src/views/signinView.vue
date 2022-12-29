@@ -123,9 +123,9 @@ onMounted(() => {
 });
 
 //忘記密碼 燈箱
-
-const lightBoxShow = ref(false);
 const hintShow = ref(false);
+const lightBoxShow = ref(false);
+const formShow = ref(true);
 
 const forgetPW = () => {
   lightBoxShow.value = true;
@@ -168,8 +168,48 @@ const sendEmail = () => {
           }
         );
     });
-  fgShow.value = false;
-  hintShow.value = true;
+    formShow.value = false;
+    hintShow.value = true;
+  /* var xhr = new XMLHttpRequest();
+  xhr.onload = function () {
+    if (xhr.status == 200) {
+      //modify here
+      showMember();
+    } else {
+      alert(xhr.status);
+    }
+  };
+  function showMember(json) {
+    var url =
+      "http://localhost/cgd103_g5/public/g5PHP/getMemberPassword.php?mem_acc=" +
+      forget_password_account.value;
+    xhr.open("get", url, true);
+    xhr.send(null);
+    let member = JSON.parse(xhr.responseText);
+    mem_pw.value = member.mem_pw;
+    console.log(mem_pw.value);
+    console.log(forget_password_account.value);
+    emailjs
+      .send(
+        "service_0fkz7ii",
+        "template_ojh6tgp",
+        {
+          user_email: forget_password_account.value,
+          mem_pw: mem_pw.value,
+        },
+        "TWzj5YZjjnkHkkv1N"
+      )
+      .then(
+        (result) => {
+          console.log("SUCCESS!", result.text);
+        },
+        (error) => {
+          console.log("FAILED...", error.text);
+        }
+      );
+  } */
+  console.log(sendEmail);
+  // ========== 忘記密碼的 EmailJs ========== //
 };
 </script>
 
@@ -212,9 +252,9 @@ const sendEmail = () => {
               <!-- <a href="" class="forget_password">Forget Password?</a> -->
               <p class="forget_password" @click="forgetPW">Forget Password?</p>
               <div class="lightBox" v-if="lightBoxShow">
-                <div class="lightBoxContent" v-if="fgShow">
+                <div class="lightBoxContent">
                   <h2>Forget Password ?</h2>
-                  <form @submit="sendEmail" class="pwForm">
+                  <form @submit="sendEmail" class="pwForm" v-if="formShow">
                     <div>
                       <p>Your email</p>
                       <input
@@ -238,11 +278,7 @@ const sendEmail = () => {
                   </form>
                   <!-- v-if="removeItem" -->
                   <div class="close" @click="lightBoxClose"></div>
-                  <p class="hint" v-if="hintShow">
-                    We've sent an email within your password, if you do not
-                    receive it, make sure you've registered and keyed in the
-                    right email.
-                  </p>
+                  <p class="hint" v-if="hintShow">We've sent an email within your password to your email, if you do not receive, check you have registered and key in the right email.</p>
                 </div>
               </div>
             </div>
@@ -260,6 +296,25 @@ const sendEmail = () => {
               </p>
             </div>
           </form>
+          <!-- <div class="divider">
+            <span> or login with </span>
+          </div>
+          <div class="login_with">
+            <a href=""
+              ><img
+                src="../assets/images/Signin/btn_google_signin_dark_normal_web@2x.png"
+                alt=""
+            /></a>
+          </div>
+          <div class="login_agree">
+            <span
+              >By continuing, you hereby agree to the Privacy Policy and Terms
+              of Use</span
+            >
+          </div>
+          <div class="divider">
+            <span></span>
+          </div> -->
         </div>
       </main>
     </div>

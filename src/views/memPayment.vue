@@ -10,10 +10,7 @@ import { BIND_URL } from "../composables/useCommon";
 //輸入信用卡的input
 const credit_no = ref("");
 
-//清空信用卡的號碼
-const clear = ()=>{
-    credit_no.value = "";
-}
+
 //將寫進的資料存進資料庫
 const addCard = ()=>{
     const payload = {
@@ -21,15 +18,21 @@ const addCard = ()=>{
     };
     fetch(`${BIND_URL('updateCreditCard.php','g5PHP')}`,{
         method: "POST",
+        credentials: 'include',
         body: new URLSearchParams(payload),
     }).then((res) => {
         res.text();
-    });
+    })
 };
 onMounted(()=> {
     addCard();
 })
 
+//清空信用卡的號碼
+const clear = ()=>{
+    credit_no.value = "";
+    $('.remindTxt').text("please type in 16 number").css('color','white');
+}
 //信用卡驗證
 $(document).ready(()=>{
     $('#credit').on('input',()=>{
@@ -37,13 +40,17 @@ $(document).ready(()=>{
         $('#credit').text()
         let noLength = document.getElementById('credit').value;
         if(noLength.length>=16){
-            $('.remindTxt').text("Success! please click add button to renew your credit card number").css('color','green');
+            $('.remindTxt').text("Success! please click add button to renew your credit card number").css('color','#00FF38');
         }
     })
     $('#credit').blur(()=>{
         $('.remindTxt span').css('color','white');
-        // $('.remindTxt').text("please type in 16 number").css('color','white');
     })
+    // $('.btn').click(()=>{
+    //     setTimeout(()=>{
+    //         $('#credit').text("");
+    //     },2000)
+    // })
 })
 </script>
 
@@ -59,7 +66,7 @@ $(document).ready(()=>{
             <section class="payment">
                 <!-- <form method="post"> -->
                     <h2>Payment</h2>
-                    <p>Note: New payment methods can only be added during checkout due to verification requirements.</p>
+                    <p>Note: please fill in your credit card number before checkout.</p>
                     <div class="creditCardBox">
                         <div class="cardImg">
                             <img  id="img" src="../assets/images/Signin/empty_creditCard.png" alt="creditCard">
@@ -140,7 +147,7 @@ input{
             }
             .cardImg{
                 img{
-                    width: 100%;
+                    width: 300px;
                 }
             }
             .cardInfo{
@@ -148,6 +155,7 @@ input{
                 font:$caption-h3;
                 label{
                    font-size: 30px;
+                   color:$fff;
                 }
                 input{
                     width: 300px;
@@ -155,8 +163,9 @@ input{
                     border-radius: 10px;
                 }
                 .buttons{
-                    margin-left: 112px;
+                    text-align: right;
                     button{
+                        cursor: pointer;
                         width:90px;
                         height: 30px;
                         font:$caption-p;
@@ -165,10 +174,17 @@ input{
                         border-radius: 10px;
                         border:none;
                         margin: 5px;
+                        &:hover{
+      background-color: lighten($blue,10%);
+    }
                     }
                     .btn2{
+                        cursor: pointer;
                         background-color: transparent;
                         border: 1px solid rgb(201, 198, 198);
+                        &:hover{
+      background-color: darken($black,1%);
+    }
                     }
                 }
             }

@@ -6,16 +6,13 @@ try {
 	$sql = "insert into tibamefe_cgd103g5.news values( null, :news_title, :news_txt, :news_time, :news_photo, :news_tag)";
 	$news = $pdo->prepare($sql);
 	
-    // $news->bindValue(":cpt_no",$_POST["cpt_no"]);
-    $news->bindValue(":news_title",$_POST["news_title"]);
-    $news->bindValue(":news_txt",$_POST["news_txt"]); //
-    $news->bindValue(":news_time",$_POST["news_time"]); //
-    $news->bindValue(":news_photo",$_POST["news_photo"]);
-    $news->bindValue(":news_tag",$_POST["news_tag"]);
+        // $news->bindValue(":cpt_no",$_POST["cpt_no"]);
+        $news->bindValue(":news_title",$_POST["news_title"]);
+        $news->bindValue(":news_txt",$_POST["news_txt"]); //
+        $news->bindValue(":news_time",$_POST["news_time"]); //
+        $news->bindValue(":news_photo",$_POST["news_photo"]);
+        $news->bindValue(":news_tag",$_POST["news_tag"]);
     $news->execute();
-
-	
-
     $msg = "success";
 } catch (PDOException $e) {
 	//echo "錯誤原因 : ", $e->getMessage(), "<br>";

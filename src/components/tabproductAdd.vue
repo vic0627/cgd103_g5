@@ -133,6 +133,7 @@ function fileChange() {
 .top {
   width: 85%;
   height: 100%;
+  display: block;
   overflow-y: auto;
 }
 
@@ -146,48 +147,86 @@ h2 {
   justify-content: space-between;
   align-items: center;
 }
-
+label{
+  font: $caption-p;
+  margin: 10px 0;
+}
+input {
+  margin: 10px 0;
+  width: 50%;
+  height: 40px;
+  border: 1px solid rgb(124, 124, 124);
+  border-radius: 5px;
+  padding-left: 10px;
+  font-size: 18px;
+  &:focus {
+    color: #06519d;
+    border: 1px solid #1671cd;
+    outline: none;
+    &::placeholder {
+      opacity: 0;
+    }
+  }
+  &::placeholder {
+    padding-left: 5px;
+    color: rgba(181, 181, 181, 0.749);
+  }
+}
+select {
+  width: 50%;
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 10px;
+  margin-left: 50px;
+  border: 1px solid rgb(124, 124, 124);
+  font-size: 20px;
+}
 .proAdd {
-  // width: 100%;
   margin: 50px;
   .proCol {
     h3 {
       font-size: 30px;
       color: rgb(26, 26, 26);
     }
-    label{
-      font: $caption-p;
-    }
-    input {
-      width: 50%;
-      height: 40px;
-      margin-top: 10px;
-      border: 1px solid rgb(124, 124, 124);
-      border-radius: 5px;
-      padding-left: 10px;
-      font-size: 18px;
-      &:focus {
-        color: #06519d;
-        border: 1px solid #1671cd;
-        outline: none;
-        &::placeholder {
-          opacity: 0;
+    form{
+      div{
+        label{
+          font: $caption-p;
+          margin: 10px 0;
+        }
+        input {
+          margin: 10px 0;
+          width: 50%;
+          height: 40px;
+          border: 1px solid rgb(124, 124, 124);
+          border-radius: 5px;
+          padding-left: 10px;
+          font-size: 18px;
+          &:focus {
+            color: #06519d;
+            border: 1px solid #1671cd;
+            outline: none;
+            &::placeholder {
+              opacity: 0;
+            }
+          }
+          &::placeholder {
+            padding-left: 5px;
+            color: rgba(181, 181, 181, 0.749);
+          }
+        }
+        select {
+          width: 50%;
+          height: 40px;
+          border-radius: 5px;
+          margin-top: 10px;
+          margin-left: 50px;
+          border: 1px solid rgb(124, 124, 124);
+          font-size: 20px;
         }
       }
-      &::placeholder {
-        padding-left: 5px;
-        color: rgba(181, 181, 181, 0.749);
-      }
     }
-    select {
-      width: 50%;
-      height: 40px;
-      border-radius: 5px;
-      margin-top: 10px;
-      margin-left: 50px;
-      border: 1px solid rgb(124, 124, 124);
-      font-size: 20px;
-    }
+ 
   }
 }
 .btn {

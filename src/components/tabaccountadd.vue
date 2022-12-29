@@ -78,7 +78,7 @@ const submitData = ()=>{
     </div>
   </form>
   <div class="btn">
-    <input type="button" value="新增" id="conFirm" @click="submitData(),props.tab('accountfix')">
+    <input type="button" value="新增" id="conFirm" @click="submitData()">
   </div>
 </div>
 

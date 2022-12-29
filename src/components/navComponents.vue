@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, onMounted, ref, onUpdated } from "vue";
 import { getCartLength } from "../composables/useCommon";
+import router from '@/router';
 import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
 const mainMenu = reactive([
   {
@@ -34,6 +35,8 @@ onMounted(() => {
       let member = JSON.parse(xhr.responseText);
       if (member.Account) {
         //有帳密資料
+
+        document.querySelector("#memicon").addEventListener("click",()=>{router.push({path:'/member'})});
         document.querySelector(".memstatus").innerHTML = "Log out";
         if ((document.querySelector(".memstatus").innerHTML = "Log out")) {
           document
@@ -43,7 +46,6 @@ onMounted(() => {
         document.querySelector(".account").style["display"] = "block";
         document.querySelector(".memName").style["display"] = "inline";
         mem.value = member.FirstName;
-        console.log(mem.value);
         // alert("Hi!~"+member.memName);
       } else {
         // alert("尚未登入!");
@@ -137,7 +139,7 @@ onUpdated(() => {
           </li>
           <div class="icon-wrap">
             <li>
-              <router-link to="/signin" class="shop"
+              <router-link to="/signin" class="shop" id="memicon"
                 ><img src="../assets/images/home/icon1.png" alt="member" />
               </router-link>
             </li>
@@ -145,6 +147,8 @@ onUpdated(() => {
               <router-link to="/cart" class="shop"
                 ><img src="../assets/images/home/icon2.png" alt="cart" />
               </router-link>
+              <router-link to="/cart" class="shop"
+                ><span class="cartCount">{{ count }}</span></router-link>
             </li>
           </div>
         </ul>
@@ -335,6 +339,12 @@ header {
   transition: all 0.6s ease-in-out;
   .icon-wrap {
     display: flex;
+    .cartCount{
+      position: relative;
+      top: -20px;
+      left: 10px;
+      font-size: 20px;
+    }
   }
 }
 #active:checked ~ .wrapper {

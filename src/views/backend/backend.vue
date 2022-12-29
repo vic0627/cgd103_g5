@@ -42,12 +42,12 @@ export default {
     tabdiscount,
     tabdiscountadd,
     tabcustomizeitem,
-    tabmemmodify
+    tabmemmodify,
   },
 };
 </script>
 <script setup>
-import { ref, computed, markRaw } from "vue";
+import { ref, computed, onUnmounted } from "vue";
 const backendCategory = ref({
   home: {
     title: "後臺首頁",
@@ -74,11 +74,11 @@ const backendCategory = ref({
         tab: "productAdd",
       },
       e: {
-        cn: "商品分類管理",
+        cn: "商品分類",
         tab: "productCategoryManage",
       },
       f: {
-        cn: "客製化品項查詢",
+        cn: "客製化商品",
         tab: "customizeitem",
       },
     },
@@ -95,11 +95,17 @@ const backendCategory = ref({
         cn: "一般訂單明細查詢",
         tab: "generalOrderItem",
       },
-      c: {
+    },
+  },
+  customItem: {
+    title: "客製化訂單管理",
+    show: false,
+    text: {
+      a: {
         cn: "客製化訂單查詢",
         tab: "customizationOrderItem",
       },
-      d: {
+      b: {
         cn: "客製化訂單明細查詢",
         tab: "customizationDetails",
       },
@@ -138,7 +144,7 @@ const backendCategory = ref({
     show: false,
     text: {
       a: {
-        cn: "賽事類別",
+        cn: "賽事列表",
         tab: "racecategory",
       },
       b: {
@@ -170,7 +176,7 @@ const backendCategory = ref({
     show: false,
     text: {
       a: {
-        cn: "會員帳號管理",
+        cn: "會員帳號查詢",
         tab: "memmodify",
       },
     },
@@ -192,8 +198,9 @@ const changeShow = (e) => {
     e.show = false;
   }
 };
-
-const log = (e) => console.log(e);
+onUnmounted(()=>{
+  sessionStorage.clear();
+})
 </script>
 
 <template>

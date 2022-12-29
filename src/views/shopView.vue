@@ -45,7 +45,7 @@ const addProd = (id, row) => {
     }else{
       //無，執行set跟get
       set(`${row[nid].id}`,`{"id":"${row[nid].id}","name":"${row[nid].title}","amount":1,"price":${row[nid].Original_Price},"img":"${row[nid].src}"}`);
-      console.log(`${row[nid].id}`);
+
       let get = JSON.parse(sessionStorage.getItem(id));
       if(sessionStorage['cartList'] == ''){
         sessionStorage['cartList'] = `${get.id}`;
@@ -125,10 +125,10 @@ const getShopInfo = () =>{
   fetch(`${BIND_URL('getProduct.php','g5PHP')}`)
     .then(res => res.json())
     .then(json => {
-        bundleRows_beginner.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('simple'));
-        bundleRows_veteran.value = json.filter(i => i.cat_no === 3 && i.prd_name.includes('pro'));
-        prodRows.value = json.filter(i => i.cat_no === 1);
-        assRows.value = json.filter(i => i.cat_no === 2);
+        bundleRows_beginner.value = json.filter(i => i.cat_no == 3 && i.prd_name.includes('simple'));
+        bundleRows_veteran.value = json.filter(i => i.cat_no == 3 && i.prd_name.includes('pro'));
+        prodRows.value = json.filter(i => i.cat_no == 1);
+        assRows.value = json.filter(i => i.cat_no == 2);
       return {
         bundleRows_beginner,
         bundleRows_veteran,
@@ -181,7 +181,8 @@ const getShopInfo = () =>{
           sale: output.bundleRows_veteran.value[i].sale,
         };
       }
-    })
+      
+    }).catch(err => console.log(err))
 }
 
 // fuselage searchBar
@@ -261,15 +262,6 @@ $(document).ready(() => {
       <div class="img_box">
         <img src="../assets/images/shop/new.jpg" alt="newProduct" />
         <img src="../assets/images/shop/new2.jpg" alt="newProduct" />
-      </div>
-      <div class="buttons">
-        <router-link
-          class="anchors btnSecond"
-          data-title="More"
-          to="/shopInfo"
-        >
-          <span>More</span>
-        </router-link>
       </div>
     </section>
   <!-- banner end-->

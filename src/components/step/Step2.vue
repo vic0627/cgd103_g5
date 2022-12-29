@@ -22,6 +22,7 @@ const memberInfo = ref({
 function getMemberInfo (){
     fetch(`${BIND_URL('getMemInfo.php','g5PHP')}`,{
         method:"get",
+        credentials: 'include',
     })
     .then((res)=>res.json())
     .then(mem => {
@@ -215,7 +216,7 @@ const submitOrder = ()=>{
                     &.title{
                         width: 200px;
                         color: rgb(62, 62, 62);
-                        background-color: lighten($blue, 40%);     
+                        // background-color: lighten($blue, 40%);     
                         font-weight: bold; 
                     }
                     &:not(.title){

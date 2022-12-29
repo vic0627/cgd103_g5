@@ -57,7 +57,7 @@ const createColumns = ({ selectId, showModal2 }) => {
       key: "disc_code",
     },
     {
-      title: "編輯 / 刪除",
+      title: "編輯",
       key: "actions",
       render(row, index) {
         return h(
@@ -92,17 +92,17 @@ const createColumns = ({ selectId, showModal2 }) => {
 const column = createColumns({
   selectId(rowData, index) {
     showModal.value = true;
-    newDisc_no.value = discRows.value[index].disc_no;
-    newDisc_title.value = discRows.value[index].disc_title;
-    newDisc_txt.value = discRows.value[index].disc_txt;
-    newDisc_start.value = discRows.value[index].disc_start;
-    newDisc_end.value = discRows.value[index].disc_end;
-    newDisc_off.value = discRows.value[index].disc_off;
-    newDisc_code.value = discRows.value[index].disc_code;
+    newDisc_no.value = rowData.disc_no;
+    newDisc_title.value = rowData.disc_title;
+    newDisc_txt.value = rowData.disc_txt;
+    newDisc_start.value = rowData.disc_start;
+    newDisc_end.value = rowData.disc_end;
+    newDisc_off.value = rowData.disc_off;
+    newDisc_code.value = rowData.disc_code;
   },
   showModal2(rowData, index) {
     showModal2.value = true;
-    newDisc_no.value = discRows.value[index].disc_no;
+    newDisc_no.value = rowData.disc_no;
   },
 });
 //分頁js

@@ -1,121 +1,59 @@
 <script setup>
-import { ref, onMounted, reactive, computed } from 'vue';
-import { BIND_URL } from "../../composables/useCommon";
-
-import axios from 'axios';
-
-
-
-
-
+import { ref, onMounted, reactive, computed, onUpdated } from 'vue';
+import { BIND_URL,$$,log } from "../../composables/useCommon";
+import router from '../../router';
 // 抓後台管理帳密資料
-// const admin22 =ref({
-//   admin_acc:"",
-//   admin_pw:"",
-
-// });
-// document.querySelector("#btnLogin").addEventListener("click",()=>{
-//     alert("nope");
-//     let formData = new FormData(); // 一開始表單的資料是空的
-//   formData.append('admin_acc', admin22.value.admin_acc);
-//   formData.append('admin_pw', admin22.value.admin_pw);
-//   fetch("/dist/g5PHP/getbackLogin.php", {
-//     method: "POST",
-//     body: formData,
-//   })  
-//   .then(res => {
-//     res.json();
-//   })
-//   .then(aa => console.log("bb:"+aa));
-//     console.log(admin_acc.value);
-//     console.log(adminRows.value);
-//     /* for(let i=0;i<=adminRows.value.length;i++){
-//       if(admin_acc.value === adminRows.value[i].admin_acc && admin_pw.value === adminRows.value[i].admin_pw){
-//           window.location.href="/dist/backend";
-//       }else{
-//         document.querySelector(".mess").textContent = "帳密錯誤";
-//         document.querySelector(".mess").style["color"] = "red";
-//       }
-//     } */
-//   })
-// 1.點登入辨認是否有這個帳號
-// 2.如果有就跳轉到後台首頁,沒有就彈窗錯誤
-
-// document.getElementById("btnLogin").("click",()=>{alert("nope");})
-
-
-//
-// 帳號驗證
-
-
-// const admin_pw = ref("");
-// const admin_acc = ref("");
-// const adminRows = ref([]); 
-// let formData = new FormData();
-//  fetch("/dist/g5PHP/getbackLogin.php", {
-//   method: "POST",
-//   body: formData,
-// })  
-// .then((res) => res.text())//php echo的內容
-// .catch(error =>console.log(error));
-
-onMounted(() => {
-  const psw = document.getElementById("admin_acc");
-  psw.addEventListener("input", function () {
-    verifypsw();
-  });
-  function verifypsw() {
+const admin_pw = ref("");
+const admin_acc = ref("");
+let adminRows;
+const getAdmin = () => {
+  fetch(`${BIND_URL('getbackLogin.php','g5PHP')}`, {
+    method: "POST",
+    body: new URLSearchParams({
+      admin_acc: admin_acc.value,
+      admin_pw: admin_pw.value,
+    }),
+  })
+  .then(result=>adminRows = result.json())
+  .then(e => {
+    if(e.admin_no==undefined){
+      alert("帳號或密碼錯誤!")
+    }else{
+      sessionStorage.setItem("admin", `{"admin_name": "${e.admin_name}", "authority": "${e.authority}"}`);
+      router.push("/backend");
+    }
+  })
+}
+function verifypsw(val) {
     let regex_psw = /^[0-9a-fA-F]{3,10}$/;
-    if (psw.value != "") {
-      if (regex_psw.test(psw.value) == false) {
-        document.querySelector(".mess").textContent = "帳號格式錯誤";
-        document.querySelector(".mess").style["color"] = "red";
-      } else if (regex_psw.test(psw.value)) {
-        document.querySelector(".mess").textContent = " 正確";
-        document.querySelector(".mess").style["color"] = "lightgreen";
+    let type;
+    if(val==admin_acc.value){
+      type = "帳號";
+    }else{
+      type = "密碼";
+    }
+    if (val != "") {
+      if (regex_psw.test(val) == false) {
+        $$(".mess").textContent = `${type}格式錯誤`;
+        $$(".mess").style["color"] = "red";
+      } else if (regex_psw.test(val)) {
+        $$(".mess").textContent = " 正確";
+        $$(".mess").style["color"] = "lightgreen";
         return true;
       }
     } else {
-      document.querySelector(".mess").textContent =
+      $$(".mess").textContent =
         "欄位請輸入符合大小寫英數格式";
-      document.querySelector(".mess").style["color"] = "#888";
+      $$(".mess").style["color"] = "#888";
     }
     return false;
-  }
-});
-// 密碼驗證
-onMounted(() => {
-  const psw = document.getElementById("admin_pw");
-  psw.addEventListener("input", function () {
-    verifypsw();
-  });
-  function verifypsw() {
-    let regex_psw = /^[0-9a-fA-F]{3,10}$/;
-    if (psw.value != "") {
-      if (regex_psw.test(psw.value) == false) {
-        document.querySelector(".message").textContent = "密碼格式錯誤";
-        document.querySelector(".message").style["color"] = "red";
-      } else if (regex_psw.test(psw.value)) {
-        document.querySelector(".message").textContent = " 正確";
-        document.querySelector(".message").style["color"] = "lightgreen";
-        return true;
-      }
-    } else {
-      document.querySelector(".message").textContent =
-        "欄位請輸入符合大小寫英數格式";
-      document.querySelector(".message").style["color"] = "#888";
-    }
-    return false;
-  }
-});
-
+}
 // 點按顯示密碼
 function shows() {
-  var x = document.getElementById("admin_pw");
-  if (x.type === "password") {
-    x.type = "text";
+  if ($$('#admin_pw').type === "password") {
+    $$('#admin_pw').type = "text";
   } else {
-    x.type = "password";
+    $$('#admin_pw').type = "password";
   }
 }
 </script>
@@ -127,15 +65,11 @@ function shows() {
           <h2>後台登入</h2>
           <div class="form-group">
             <label for="admin_acc">管理員帳號</label>
-            <!-- v-model="admin22.admin_acc" -->
-            <input type="text" id="admin_acc" class="acc" name="admin_acc"  maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數帳號" >
-            <!-- {{admin22.admin_acc}} -->
+            <input type="text" id="admin_acc" class="acc" name="admin_acc"  maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數帳號" v-model="admin_acc">
           </div>
                 <div class="form-group">
                     <label for="admin_pw">管理員密碼</label>
-                    <input type="password" id="admin_pw" name="admin_pw" class="admin_pw" maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數密碼" >
-                    <!-- v-model="admin22.admin_pw" -->
-                    <!-- {{admin22.admin_pw}} -->
+                    <input type="password" id="admin_pw" name="admin_pw" class="admin_pw" maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數密碼" v-model="admin_pw">
                     <div class="down">
                         <label class="in">
                         <input type="checkbox" id="check" @click="shows" class="pw"><span>顯示密碼</span>
@@ -143,7 +77,7 @@ function shows() {
                         <p class="message mess"></p>
                     </div>
                 </div>
-                <button type="button" class="btn"  id="btnLogin" onclick="btnLogin()">登入</button>
+                <button type="button" class="btn"  id="btnLogin" @click="login">登入</button>
             </form>
             <div class="links">
                 <router-link to="/" class="leave link" >離開後台</router-link>
