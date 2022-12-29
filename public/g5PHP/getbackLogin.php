@@ -3,15 +3,14 @@
  header("Content-Type:application/json;charset=utf-8");
 try {
 	require_once("./connect_cgd103g5.php");
-    $sql = "select * from `administrator` where admin_acc=:admin_acc and admin_pw=:admin_pw"; 
+    $sql = "SELECT * FROM tibamefe_cgd103g5.administrator WHERE admin_acc = :acc AND admin_pw = :pw;"; 
 	$admin = $pdo->prepare($sql);
-    $admin->bindValue(":admin_acc", $_POST["admin_acc"]);
-    $admin->bindValue(":admin_pw", $_POST["admin_pw"]);
+    $admin->bindValue(":acc", $_POST["admin_acc"]);
+    $admin->bindValue(":pw", $_POST["admin_pw"]);
 	$admin->execute();
-
     if($admin->rowCount()==0){
         // 查無此人
-        echo "{}";
+        echo "{錯誤}";
     }else {
         // 登入成功 去資料庫取資料
         $adminRow = $admin->fetch(PDO::FETCH_ASSOC);
@@ -25,10 +24,9 @@ try {
 
         echo json_encode($adminRow);
     }
-	
 } catch (PDOException $e) {
-	$result = ["msg"=>"系統錯誤, 請通知系統維護人員"];
-	echo json_encode($result);
-    echo $e->getMessage();
+    $msg = "error_line: ".$e->getLine().", error_msg: ".$e->getMessage();
+    $result=$msg;
+    echo json_encode($result);
 }
 ?>

@@ -43,7 +43,6 @@ onMounted(() => {
 
 function fileChange() {
   let file = document.getElementById("theFile").files[0];
-  console.log("input");
   // ==========
   let readFile = new FileReader();
   readFile.readAsDataURL(file);

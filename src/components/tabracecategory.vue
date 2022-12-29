@@ -127,10 +127,9 @@ const props = defineProps(["tab"]);
 const raceRows = ref([]);
 const getProducts = () => {
   //取得商品資料
-  fetch(`${BIND_URL('getRace.php','g5PHP')}`)
+  fetch(`${BIND_URL("getRace.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
       raceRows.value = json;
     });
 };
@@ -149,11 +148,10 @@ const updateRace = (user) => {
     cpt_photo: newcpt_photo.value,
     cpt_txt: newcpt_txt.value,
   };
-  fetch(`${BIND_URL('updateRace.php','g5PHP')}`, {  
+  fetch(`${BIND_URL("getFaq.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(newcpt),
   }).then((res) => {
-    console.log(res);
     res.json();
   });
   showModal.value = false;
@@ -169,7 +167,7 @@ const returnRace = computed(() => {
     cache = cache.filter((i) =>
       String(i[select[selectVal.value].val]).includes(search.value)
     );
-    if (search.value == "All") {
+    if (search.value == "all") {
       cache = raceRows.value;
     }
   } else {
@@ -212,7 +210,7 @@ const testVal = (e) => {
 
 <template>
   <div class="top">
-    <h2>比賽列表<outComponents /></h2>
+    <h2>賽事列表<outComponents /></h2>
 
     <div class="search_box">
       <p>依</p>

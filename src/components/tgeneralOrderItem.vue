@@ -43,8 +43,7 @@ const newStatus = ref('');
 const column = createColumns({
   selectId(rowData) {
     showModal.value = true;
-    newStatus.value = rowData.orders_no;
-    // console.log(newStatus.value)
+    newStatus.value = row.orders_no;
   }
 });
 //分頁js
@@ -66,7 +65,6 @@ const NmitemRows = ref([]);
 			//取得商品資料
       axios.get(`${BIND_URL('getNmitem.php','g5PHP')}`)
       .then(res=> {
-        // console.log(res.data)
         NmitemRows.value = res.data
       })
 }

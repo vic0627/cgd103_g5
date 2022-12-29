@@ -80,7 +80,6 @@ const lookMem = (user)=>{
     method: "POST",
     body: new URLSearchParams(newMem),
   }).then(res=>{
-    console.log(res)
     res.json()
   }).then(res=>{
     showModal.value = false
