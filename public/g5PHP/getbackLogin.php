@@ -1,5 +1,4 @@
 <?php 
-session_start(); 
  header('Access-Control-Allow-Origin:*');
  header("Content-Type:application/json;charset=utf-8");
 try {
@@ -11,21 +10,23 @@ try {
 	$admin->execute();
     if($admin->rowCount()==0){
         // 查無此人
-        echo "{}";
+        echo "{錯誤}";
     }else {
         // 登入成功 去資料庫取資料
         $adminRow = $admin->fetch(PDO::FETCH_ASSOC);
-        //登入成功,將登入者的資料寫入session
-        $_SESSION["admin_no"] = $adminRow["admin_no"];
-        $_SESSION["admin_name"] = $adminRow["admin_name"];
-        $_SESSION["authority"] = $adminRow["authority"];
 
-        $result = ["admin_no"=>$_SESSION["admin_no"],"admin_name"=>$_SESSION["admin_name"],"authority"=>$_SESSION["authority"]];
-        echo json_encode($result);
+        //登入成功,將登入者的資料寫入session
+        $_SESSION["admin_acc"] = $adminRow["admin_acc"];
+        $_SESSION["admin_pw"] = $adminRow["admin_pw"];
+
+        //送出登入者的資料
+        $result = ["admin_acc"=>$_SESSION["admin_acc"], "admin_pw"=>$_SESSION["admin_pw"]];
+
+        echo json_encode($adminRow);
     }
 } catch (PDOException $e) {
-	$result = ["msg"=>"系統錯誤, 請通知系統維護人員"];
-	echo json_encode($result);
-    echo $e->getMessage();
+    $msg = "error_line: ".$e->getLine().", error_msg: ".$e->getMessage();
+    $result=$msg;
+    echo json_encode($result);
 }
 ?>
