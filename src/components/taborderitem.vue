@@ -1,5 +1,6 @@
 <script setup>
 import { reactive, onMounted, ref, h } from "vue";
+import {BIND_URL } from "../composables/useCommon";
 import {
   zhTW,
   NPagination,
@@ -12,7 +13,6 @@ import axios from "axios";
 const showModal = ref(false);
 const newNmno = ref("");
 const newStatus = ref("");
-import {BIND_URL } from "../composables/useCommon";
 //資料放進表格
 const createColumns = ({ selectId }) => {
   return [
