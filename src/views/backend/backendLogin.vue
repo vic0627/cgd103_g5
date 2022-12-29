@@ -17,8 +17,9 @@ const getAdmin = () => {
   .then(result=>adminRows = result.json())
   .then(e => {
     if(e.admin_no==undefined){
-      alert("查無此帳戶")
+      alert("帳號或密碼錯誤!")
     }else{
+      sessionStorage.setItem("admin", `{"admin_name": "${e.admin_name}", "authority": "${e.authority}"}`);
       router.push("/backend");
     }
   })

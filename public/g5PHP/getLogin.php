@@ -3,7 +3,7 @@ session_start();
 header('Access-Control-Allow-Origin:*');
 header("Content-Type:application/json;charset=utf-8");
 try {
-	if(isset($_SESSION["admin_name"])==true){
+	if(isset($_SESSION["admin_name"])){
 		echo $_SESSION["admin_name"];
 	}else{
 		echo "{}";

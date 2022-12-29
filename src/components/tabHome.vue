@@ -43,35 +43,21 @@ export default{
 
 <script setup>
 import { ref, reactive} from 'vue';
-import axios from 'axios';
+import router from '../router';
+import { BIND_URL } from '../composables/useCommon';
 
 const admins = ref("");
-const admin_name = ref('');
-const adminRows = ref([]);
-	const getAdmin = () => {
-	//取得管理員資料
-    fetch(`${BIND_URL('getLogin.php','g5PHP')}`)
-    .then(res=> {
-    console.log(res)
-    adminRows.value = res.data;
-    // 董董教法
-    let admins = res.data;
-    console.log(admins)
-    let index = -1;
-    let adminObj = "";
-    adminObj = admins.find(function(admins,i){
-    index = i;
-    return admins.name == admin_name
-    })
-    // console.log(adminObj);
-    })
-}
-// const 
-onMounted(()=>{
-    getAdmin();
-});
 
-// console.log(admins);
+const getAdmin = () => {
+  let admin = sessionStorage["admin"];
+	if(admin==undefined || admin==''){
+    router.push("/backendlogin");
+  }else{
+    let json = JSON.parse(admin);
+    admins.value = json.authority+json.admin_name;
+  }
+};
+getAdmin();
 
 
 </script>
