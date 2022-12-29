@@ -157,6 +157,7 @@ const submitOrder = ()=>{
 
     .detail_box{
         // height: 500px;
+        width: 100%;
         background-color: rgba(142, 142, 142, 0.19);
         display: flex;
         flex-direction: column;
@@ -182,7 +183,7 @@ const submitOrder = ()=>{
         }
         .confirm_detail{
             background-color: rgba(217, 217, 217, 0.32);
-            width: 100%;
+            // width: 100%;
             padding: 20px;
             // margin: 20px;
             border-top-left-radius: 10px;
@@ -195,9 +196,6 @@ const submitOrder = ()=>{
             tr{
                 border: 1px solid rgb(125, 124, 124);
                 height: 40px;
-                // &:nth-child(even){
-                //     // background-color: #98989880;
-                // }
                 th{
                     text-align: center;
                 }
