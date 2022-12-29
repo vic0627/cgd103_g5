@@ -16,12 +16,12 @@ const txt = ref("");
 const time = ref("");
 const photo = ref("");
 const tag = ref("");
-const newnews_no = ref("");
-const newnews_title = ref("");
-const newnews_txt = ref("");
-const newnews_time = ref("");
-const newnews_photo = ref("");
-const newnews_tag = ref("");
+const newNews_no = ref("");
+const newNews_title = ref("");
+const newNews_txt = ref("");
+const newNews_time = ref("");
+const newNews_photo = ref("");
+const newNews_tag = ref("");
 const showModal = ref(false);
 const showModal2 = ref(false);
 
@@ -54,7 +54,6 @@ const createColumns = ({ selectId, showModal2 }) => {
             size: "medium",
             color: "#077AF9",
             onClick: () => selectId(row, index),
-            // onClick: () => modal(row)
           },
           { default: () => "編輯" }
         );
@@ -81,16 +80,16 @@ const createColumns = ({ selectId, showModal2 }) => {
 const column = createColumns({
   selectId(rowData, index) {
     showModal.value = true;
-    newnews_no.value = newsRows.value[index].news_no;
-    newnews_title.value = newsRows.value[index].news_title;
-    newnews_txt.value = newsRows.value[index].news_txt;
-    newnews_time.value = newsRows.value[index].news_time;
-    newnews_photo.value = newsRows.value[index].news_photo;
-    newnews_tag.value = newsRows.value[index].news_tag;
+    newNews_no.value = rowData.news_no;
+    newNews_title.value = rowData.news_title;
+    newNews_txt.value = rowData.news_txt;
+    newNews_time.value = rowData.news_time;
+    newNews_photo.value = rowData.news_photo;
+    newNews_tag.value = rowData.news_tag;
   },
   showModal2(rowData, index) {
     showModal2.value = true;
-    newnews_no.value = newsRows.value[index].news_no;
+    newNews_no.value = rowData.news_no;
   },
 });
 //分頁js
@@ -115,7 +114,6 @@ const getNews = () => {
   fetch(`${BIND_URL("getNews.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
       newsRows.value = json;
     });
 };
@@ -125,8 +123,8 @@ onMounted(() => {
 
 //更新資料
 const updateNews = (user) => {
-  const newnews = {
-    news_no: Number(newnews_no.value),
+  const newNews = {
+    news_no: Number(newNews_no.value),
     news_title: news_title.value,
     news_txt: news_txt.value,
     news_time: news_time.value,
@@ -135,10 +133,9 @@ const updateNews = (user) => {
   };
   fetch(`${BIND_URL("updateNews.php", "g5PHP")}`, {
     method: "POST",
-    body: new URLSearchParams(newnews),
+    body: new URLSearchParams(newNews),
   })
     .then((res) => {
-      console.log(res);
       res.json();
     })
     .then((res) => {
@@ -184,7 +181,7 @@ const testVal = (e) => {
 // 刪除資料
 const deleteNews = (user) => {
   const delNews = {
-    news_no: Number(newnews_no.value),
+    news_no: Number(newNews_no.value),
   };
   fetch(`${BIND_URL("deleteNews.php", "g5PHP")}`, {
     method: "POST",
@@ -220,23 +217,6 @@ const deleteNews = (user) => {
       </label>
     </div>
 
-    <!-- <div class="bigbox">
-      <div class="search_box">
-        <label for="search" class="label"
-          >查詢編號<input
-            type="search"
-            id="search"
-            name="search"
-            placeholder="請輸入編號"
-        /></label>
-        <div class="btn">
-          <button class="magBox">
-            <img src="../assets/images/About/search.png" alt="search" />
-          </button>
-        </div>
-      </div>
-    </div> -->
-
     <div class="tables" id="products" align="center">
       <form action="" method="post">
         <n-data-table
@@ -255,7 +235,7 @@ const deleteNews = (user) => {
           <label for="faq_des"> 修改消息 : </label>
           <textarea
             name="news_no"
-            v-model="newnews_no"
+            v-model="newNews_no"
             rows="1"
             cols="50"
             placeholder="請輸入編號"
@@ -263,7 +243,7 @@ const deleteNews = (user) => {
           ></textarea>
           <textarea
             name="news_title"
-            v-model="newnews_title"
+            v-model="newNews_title"
             rows="3"
             cols="50"
             placeholder="請輸入名稱"
@@ -271,7 +251,7 @@ const deleteNews = (user) => {
           ></textarea>
           <textarea
             name="news_txt"
-            v-model="newnews_txt"
+            v-model="newNews_txt"
             rows="10"
             cols="50"
             placeholder="請輸入內文"
@@ -279,7 +259,7 @@ const deleteNews = (user) => {
           ></textarea>
           <textarea
             name="news_photo"
-            v-model="newnews_photo"
+            v-model="newNews_photo"
             rows="1"
             cols="50"
             placeholder="請輸入圖片"
@@ -287,7 +267,7 @@ const deleteNews = (user) => {
           ></textarea>
           <textarea
             name="news_tag"
-            v-model="newnews_tag"
+            v-model="newNews_tag"
             rows="1"
             cols="50"
             placeholder="請輸入標籤"

@@ -116,7 +116,6 @@ const updateStatus = () => {
     method: "POST",
     body: new URLSearchParams(newNm),
   }).then((res) => {
-    console.log(res);
     // res.data[0]
   });
   showModal.value = false;

@@ -20,8 +20,8 @@ onMounted(()=> {
     
     // SIGNATURE PROGRESS
     function moveProgressBar() {
-        console.log("moveProgressBar");
-        console.log("hihi"+memberinfo.value.mem_points+"and"+memberinfo.value.upgrade_point);
+        // console.log("moveProgressBar");
+        // console.log("hihi"+memberinfo.value.mem_points+"and"+memberinfo.value.upgrade_point);
         var getPercent = memberinfo.value.mem_points/memberinfo.value.upgrade_point;
         // var getPercent = 0.1;
         var getProgressWrapWidth = $('.progress-wrap').width();
@@ -46,7 +46,7 @@ onMounted(()=> {
             })
             .then((res) => res.json())//php echo的內容
             .then(mem =>{
-                console.log(mem);
+                // console.log(mem);
                 memberinfo.value.mem_grade = mem.mem_grade;
                 memberinfo.value.grade_name = mem.grade_name;
                 memberinfo.value.mem_discount   =mem.mem_discount;

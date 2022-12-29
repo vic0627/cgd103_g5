@@ -100,7 +100,6 @@ onMounted(()=>{
             method: "POST",
             body: new URLSearchParams(newCate),
         }).then(res=>{
-            console.log(res)
             res.json()
         })
         showModal.value = false
@@ -116,7 +115,6 @@ onMounted(()=>{
             method: "POST",
             body: new URLSearchParams(delCat),
         }).then(res=>{
-            console.log(res)
             res.json()
         })
         showModal2.value = false

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted} from 'vue';
+import { BIND_URL } from '../composables/useCommon';
 onMounted(()=>{
   document.getElementById('btnLogout').onclick = newOut;
   function newOut(){
@@ -7,10 +8,8 @@ onMounted(()=>{
   fetch(`${BIND_URL('adminloginout.php','g5PHP')}`,{
     method:"get",
   })
-  .then((res)=> res.text())
-  .then((text)=> console.log(text))
-  .catch(error=>console.log(error));}
-
+  .then((res)=> res.text())}
+  sessionStorage.clear();
 })
 const props = defineProps(['page01'])
 </script>

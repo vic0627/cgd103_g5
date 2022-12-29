@@ -1,106 +1,59 @@
 <script setup>
-import { ref, onMounted, reactive, computed } from 'vue';
-import { BIND_URL } from "../../composables/useCommon";
-
-import axios from 'axios';
-
-
-
-
-
+import { ref, onMounted, reactive, computed, onUpdated } from 'vue';
+import { BIND_URL,$$,log } from "../../composables/useCommon";
+import router from '../../router';
 // 抓後台管理帳密資料
 const admin_pw = ref("");
 const admin_acc = ref("");
-const adminRows = ref([]);
-	const getAdmin = () => {
-	//取得管理員資料
-  axios.post(`${BIND_URL('getbackLogin.php','g5PHP')}`,{
-    //??
-    admin_acc:admin_acc.value,
-    admin_pw:admin_pw.value,
+let adminRows;
+const getAdmin = () => {
+  fetch(`${BIND_URL('getbackLogin.php','g5PHP')}`, {
+    method: "POST",
+    body: new URLSearchParams({
+      admin_acc: admin_acc.value,
+      admin_pw: admin_pw.value,
+    }),
   })
-  .then(res=> {
-    console.log("res"+res);
-    // adminRows.value = res.data;
+  .then(result=>adminRows = result.json())
+  .then(e => {
+    if(e.admin_no==undefined){
+      alert("帳號或密碼錯誤!")
+    }else{
+      sessionStorage.setItem("admin", `{"admin_name": "${e.admin_name}", "authority": "${e.authority}"}`);
+      router.push("/backend");
+    }
   })
 }
-// const 
-
-
-// 1.點登入辨認是否有這個帳號
-// 2.如果有就跳轉到後台首頁,沒有就彈窗錯誤
-const login =()=>{
-  getAdmin();
-  // for(let i=0;i<=adminRows.value.length;i++){
-  //   if(admin_acc.value === adminRows.value[i].admin_acc && admin_pw.value === adminRows.value[i].admin_pw){
-  //       window.location.href="/dist/backend";
-  //   }else{
-  //     document.querySelector(".mess").textContent = "帳密錯誤";
-  //     document.querySelector(".mess").style["color"] = "red";
-
-  //   }
-  // }
-}
-
-
-// 帳號驗證
-onMounted(() => {
-  const psw = document.getElementById("admin_acc");
-  psw.addEventListener("input", function () {
-    verifypsw();
-  });
-  function verifypsw() {
+function verifypsw(val) {
     let regex_psw = /^[0-9a-fA-F]{3,10}$/;
-    if (psw.value != "") {
-      if (regex_psw.test(psw.value) == false) {
-        document.querySelector(".mess").textContent = "帳號格式錯誤";
-        document.querySelector(".mess").style["color"] = "red";
-      } else if (regex_psw.test(psw.value)) {
-        document.querySelector(".mess").textContent = " 正確";
-        document.querySelector(".mess").style["color"] = "lightgreen";
+    let type;
+    if(val==admin_acc.value){
+      type = "帳號";
+    }else{
+      type = "密碼";
+    }
+    if (val != "") {
+      if (regex_psw.test(val) == false) {
+        $$(".mess").textContent = `${type}格式錯誤`;
+        $$(".mess").style["color"] = "red";
+      } else if (regex_psw.test(val)) {
+        $$(".mess").textContent = " 正確";
+        $$(".mess").style["color"] = "lightgreen";
         return true;
       }
     } else {
-      document.querySelector(".mess").textContent =
+      $$(".mess").textContent =
         "欄位請輸入符合大小寫英數格式";
-      document.querySelector(".mess").style["color"] = "#888";
+      $$(".mess").style["color"] = "#888";
     }
     return false;
-  }
-});
-// 密碼驗證
-onMounted(() => {
-  const psw = document.getElementById("admin_pw");
-  psw.addEventListener("input", function () {
-    verifypsw();
-  });
-  function verifypsw() {
-    let regex_psw = /^[0-9a-fA-F]{3,10}$/;
-    if (psw.value != "") {
-      if (regex_psw.test(psw.value) == false) {
-        document.querySelector(".message").textContent = "密碼格式錯誤";
-        document.querySelector(".message").style["color"] = "red";
-      } else if (regex_psw.test(psw.value)) {
-        document.querySelector(".message").textContent = " 正確";
-        document.querySelector(".message").style["color"] = "lightgreen";
-        return true;
-      }
-    } else {
-      document.querySelector(".message").textContent =
-        "欄位請輸入符合大小寫英數格式";
-      document.querySelector(".message").style["color"] = "#888";
-    }
-    return false;
-  }
-});
-
+}
 // 點按顯示密碼
 function shows() {
-  var x = document.getElementById("admin_pw");
-  if (x.type === "password") {
-    x.type = "text";
+  if ($$('#admin_pw').type === "password") {
+    $$('#admin_pw').type = "text";
   } else {
-    x.type = "password";
+    $$('#admin_pw').type = "password";
   }
 }
 </script>
