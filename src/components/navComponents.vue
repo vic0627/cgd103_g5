@@ -1,6 +1,7 @@
 <script setup>
 import { reactive, onMounted, ref, onUpdated } from "vue";
 import { getCartLength } from "../composables/useCommon";
+import router from '@/router';
 import { log, $$, $all, getW, BIND_URL }from "../composables/useCommon" ;
 const mainMenu = reactive([
   {
@@ -34,6 +35,8 @@ onMounted(() => {
       let member = JSON.parse(xhr.responseText);
       if (member.Account) {
         //有帳密資料
+
+        document.querySelector("#memicon").addEventListener("click",()=>{router.push({path:'/member'})});
         document.querySelector(".memstatus").innerHTML = "Log out";
         if ((document.querySelector(".memstatus").innerHTML = "Log out")) {
           document
@@ -136,7 +139,7 @@ onUpdated(() => {
           </li>
           <div class="icon-wrap">
             <li>
-              <router-link to="/signin" class="shop"
+              <router-link to="/signin" class="shop" id="memicon"
                 ><img src="../assets/images/home/icon1.png" alt="member" />
               </router-link>
             </li>
