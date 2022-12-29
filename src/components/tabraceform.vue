@@ -1,5 +1,4 @@
 <script setup>
-import { BIND_URL } from "../composables/useCommon";
 import { reactive, onMounted, ref, defineComponent, h, computed } from "vue";
 import {
   zhTW,
@@ -10,6 +9,7 @@ import {
   NModal,
 } from "naive-ui";
 import axios from "axios";
+import { BIND_URL } from "../composables/useCommon";
 const createColumns = ({ sendMail, showModal }) => {
   return [
     {
@@ -50,8 +50,6 @@ const paginationReactive = reactive({
 });
 const pagination = paginationReactive;
 
-const props = defineProps(["tab"]);
-
 const bookRows = ref([]);
 const getBook = () => {
   //取得商品資料
@@ -74,7 +72,7 @@ const returnBook = computed(() => {
     cache = cache.filter((i) =>
       String(i[select[selectVal.value].val]).includes(search.value)
     );
-    if (search.value == "all") {
+    if (search.value == "All") {
       cache = bookRows.value;
     }
   } else {

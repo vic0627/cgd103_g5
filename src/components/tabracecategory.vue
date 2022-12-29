@@ -24,7 +24,6 @@ const newcpt_aboard = ref("");
 const newcpt_photo = ref("");
 const newcpt_txt = ref("");
 const showModal = ref(false);
-// const showModal2 = ref(false);
 
 //data-table
 const createColumns = ({ selectId, showmodal }) => {
@@ -73,22 +72,6 @@ const createColumns = ({ selectId, showmodal }) => {
         );
       },
     },
-    // {
-    //   title: "刪除",
-    //   key: "actions",
-    //   render(row, index) {
-    //     return h(
-    //       NButton,
-    //       {
-    //         size: "medium",
-    //         color: "#077AF9",
-    //         // onClick: () => selectId(),
-    //         onClick: () => showmodal(row, index),
-    //       },
-    //       { default: () => "刪除" }
-    //     );
-    //   },
-    // },
   ];
 };
 //解析內容跟事件
@@ -148,7 +131,7 @@ const updateRace = (user) => {
     cpt_photo: newcpt_photo.value,
     cpt_txt: newcpt_txt.value,
   };
-  fetch(`${BIND_URL("getFaq.php", "g5PHP")}`, {
+  fetch(`${BIND_URL("updateRace.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(newcpt),
   }).then((res) => {

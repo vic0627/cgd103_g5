@@ -20,7 +20,7 @@ const addProduct = () => {
     cpt_photo: cpt_photo.value,
     cpt_txt: cpt_txt.value,
   };
-  fetch(`${BIND_URL('insertRace.php','g5PHP')}`, {
+  fetch(`${BIND_URL("insertRace.php", "g5PHP")}`, {
     method: "POST",
     body: new URLSearchParams(payload),
   }).then((res) => {
@@ -48,7 +48,7 @@ onMounted(() => {
 });
 function fileChange() {
   let file = document.getElementById("theFile").files[0];
-    // ==========
+  // ==========
   let readFile = new FileReader();
   readFile.readAsDataURL(file);
 
@@ -61,7 +61,7 @@ function fileChange() {
 
   const formData = new FormData();
   formData.append("image", file);
-  fetch(`${BIND_URL('insertPhoto.php','g5PHP')}`, {  
+  fetch(`${BIND_URL("insertPhoto.php", "g5PHP")}`, {
     method: "POST",
     body: formData,
   });
@@ -172,7 +172,6 @@ function fileChange() {
 </template>
 <style scoped lang="scss">
 @import "@/sass/style.scss";
-
 
 .top {
   width: 85%;
