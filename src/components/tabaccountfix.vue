@@ -13,7 +13,9 @@ import { BIND_URL } from "../composables/useCommon";
 const newAdmin_no = ref("");
 const newAdmin_acc = ref("");
 const newAdmin_name = ref("");
+const newAdmin_pw = ref('');
 const showModal = ref(false);
+const showModals = ref(false);
 const showModal2 = ref(false);
 
 //資料放進表格
@@ -76,6 +78,7 @@ const column = createColumns({
         newAdmin_acc.value = rowData.admin_acc;
         newAdmin_no.value = rowData.admin_no;
         newAdmin_name.value = rowData.admin_name;
+        newAdmin_pw.value = rowData.admin_pw;
     }else if (rowData.authority === "最高管理員"){
         alert('最高管理員不可編輯')
     }
@@ -126,6 +129,7 @@ const updateAdmin = (user) => {
     admin_no: Number(newAdmin_no.value),
     admin_acc: newAdmin_acc.value,
     admin_name: newAdmin_name.value,
+    admin_pw: newAdmin_pw.value
   };
   fetch(`${BIND_URL("updateAdmin.php", "g5PHP")}`, {
     method: "POST",
@@ -136,6 +140,7 @@ const updateAdmin = (user) => {
     })
     .then((res) => {
       showModal.value = false;
+      showModals.value = false;
       getAdmin();
     });
 };
@@ -232,8 +237,20 @@ const testVal = (e) => {
       <n-modal v-model:show="showModal" preset="dialog" title="確認編輯">
         <div class="modal">
           <div class="input">
+            <label for="admin_no">  編號 : </label>
+            <input type="text" name="admin_no" v-model="newAdmin_no" disabled />
+          </div>
+          <div class="input">
+            <label for="admin_au"> 權限 : </label>
+            <input type="text" name="admin_au" value="一般管理員" disabled/>
+          </div>
+          <div class="input">
             <label for="admin_acc"> 編輯帳號 : </label>
             <input type="text" name="admin_acc" v-model="newAdmin_acc" />
+          </div>
+          <div class="input">
+            <label for="admin_acc"> 編輯密碼 : </label>
+            <input type="text" name="admin_pw" v-model="newAdmin_pw" />
           </div>
           <div class="input">
             <label for="admin_name"> 編輯姓名 : </label>
@@ -241,39 +258,31 @@ const testVal = (e) => {
           </div>
           <div class="button">
             <n-button
-              @click="
-                showModal = true;
-                updateAdmin(index);
-              "
-              type="error"
-              class="btnModal"
-            >
+              @click="showModals = true;" type="error" class="btnModal">
               確認
             </n-button>
           </div>
         </div>
       </n-modal>
+      <n-modal v-model:show="showModals" preset="dialog" title="確認">
+          <p class="modalText">確定要修改嗎?</p>
+          <n-button type="error" class="btnCheck" @click="updateAdmin(index)">
+            確定
+          </n-button>
+        </n-modal>
       <n-modal v-model:show="showModal2" preset="dialog" title="確認">
         <div class="modal">
           <h6>確認刪除帳號</h6>
           <p>系統將永久移除您的管理員帳號</p>
           <div class="button">
-            <n-button @click="showModal2 = false" type="info" class="btnModal">
-              返回
-            </n-button>
             <n-button
-              @click="
-                showModal2 = true;
-                deleteAdmin();
-              "
-              type="error"
-              class="btnModal"
-            >
+              @click="showModal2 = true;deleteAdmin();" type="error" class="btnModal">
               刪除
             </n-button>
           </div>
         </div>
       </n-modal>
+
     </form>
   </div>
 </template>

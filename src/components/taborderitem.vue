@@ -13,7 +13,40 @@ import axios from "axios";
 const showModal = ref(false);
 const newNmno = ref("");
 const newStatus = ref("");
-
+const newMemno = ref('');
+const newPur = ref('');
+const newLoco = ref('')
+const newPrice = ref('');
+const showModal2 = ref(false)
+// const orderInput = ref({
+//   orders_no: 
+// })
+const units = [
+    {
+      title: "訂單編號",
+      key: "orders_no",
+    },
+    {
+      title: "會員編號",
+      key: "mem_no",
+    },
+    {
+      title: "購買日期",
+      key: "purchase_date",
+    },
+    {
+      title: "訂單狀態",
+      key: "orders_status",
+    },
+    {
+      title: "運送地點",
+      key: "orders_location",
+    },
+    {
+      title: "總金額",
+      key: "total_price",
+    },
+]
 //資料放進表格
 const createColumns = ({ selectId }) => {
   return [
@@ -40,7 +73,7 @@ const createColumns = ({ selectId }) => {
     },
     {
       title: "總金額",
-      key: "orders_price",
+      key: "total_price",
     },
     {
       title: "編輯訂單狀態",
@@ -69,6 +102,10 @@ const column = createColumns({
       showModal.value = true;
       newNmno.value = rowData.orders_no;
       newStatus.value = rowData.orders_status;
+      newMemno.value =  rowData.mem_no;
+      newPur.value = rowData.purchase_date;
+      newPrice.value = rowData.total_price;
+      newLoco.value = rowData.orders_location;
     }
   },
 });
@@ -115,9 +152,10 @@ const updateStatus = () => {
     body: new URLSearchParams(newNm),
   }).then((res) => {
     // res.data[0]
-  });
+  showModal2.value = false;
   showModal.value = false;
   getNmOrder();
+  })
 };
 
 
@@ -181,22 +219,43 @@ const testVal = (e) => {
           :single-line="false"
         />
         <n-modal v-model:show="showModal" preset="dialog" title="編輯訂單狀態">
-          <label for="orders_status"> 修改狀態 : </label>
-          <!-- <input type="text" name="admin_acc" placeholder="修改狀態" v-model="newAdmin_acc"> -->
-          <select name="orders_status" id="" v-model="newStatus">
-            <option value="待處理">待處理</option>
-            <option value="處理中">處理中</option>
-            <option value="運送中">運送中</option>
-            <option value="訂單完成">訂單完成</option>
-          </select>
-          <n-button
-            @click="
-              showModal = true;
-              updateStatus();
-            "
-            type="error"
-          >
+          <label class="label" for="orders_no">
+            <p>訂單編號 :</p>
+            <input type="text" name="orders_no" v-model="newNmno" disabled>
+          </label>
+          <label class="label" for="mem_no">
+            <p>會員編號 :</p>
+            <input type="text" name="mem_no" v-model="newMemno" disabled>
+          </label>
+          <label class="label" for="purchase_date">
+            <p>購買日期 :</p>
+            <input type="text" name="purchase_date" v-model="newPur" disabled>
+          </label>
+          <div class="label">
+            <p>訂單狀態 :</p>
+           <select name="orders_status" id="" v-model="newStatus">
+              <option value="待處理">待處理</option>
+              <option value="處理中">處理中</option>
+              <option value="運送中">運送中</option>
+              <option value="訂單完成">訂單完成</option>
+            </select>
+          </div>
+          <label class="label" for="orders_location">
+            <p>運送狀態 :</p>
+            <input type="text" name="orders_location" v-model="newLoco" disabled>
+          </label>
+          <label class="label" for="total_price">
+            <p>總金額 :</p>
+            <input type="text" name="total_price" v-model="newPrice" disabled>
+          </label>
+          <n-button @click="showModal2 = true;" type="error">
             確認
+          </n-button>
+        </n-modal>
+        <n-modal v-model:show="showModal2" preset="dialog" title="確認">
+          <p class="modalText">確定要修改嗎?</p>
+          <n-button type="error" class="btnCheck" @click="updateStatus()">
+            確定
           </n-button>
         </n-modal>
       </div>
@@ -223,7 +282,16 @@ const testVal = (e) => {
     width: 20%;
   }
 }
-
+p {
+  color: #000;
+  margin-right: 5px;
+}
+.label {
+  display: flex;
+}
+.inputTable{
+  display: flex;
+}
 h2 {
   font-size: 40px;
   color: #fff;
