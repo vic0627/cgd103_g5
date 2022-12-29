@@ -273,6 +273,14 @@ $(document).ready(() => {
         <img src="../assets/images/shop/new.jpg" alt="newProduct" />
         <img src="../assets/images/shop/new2.jpg" alt="newProduct" />
       </div>
+      <div class="buttons">
+      <router-link
+        class="anchors btnSecond"
+        data-title="More"
+        to="/showcase"
+        ><span>More</span>
+      </router-link>
+    </div>
     </section>
   <!-- banner end-->
 
@@ -326,7 +334,7 @@ $(document).ready(() => {
       <router-link
         class="anchors btnSecond"
         data-title="More"
-        to="/shopInfo"
+        to="/custom"
         ><span>More</span>
       </router-link>
     </div>
