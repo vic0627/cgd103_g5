@@ -1004,10 +1004,10 @@ const amount = (e) => {
             <button class="confirm" data-title="OK" v-if="lightBoxText.confirm" @click="reCart">
                 <span>OK</span>
             </button>
-            <div class="next" data-title="Next" v-if="lightBoxText.img.idt !== 7 && lightBoxText.img.show" @click="introductionFlow">
+            <div class="next" data-title="Next" v-if="lightBoxText.img.idt !== 8 && lightBoxText.img.show" @click="introductionFlow">
                 <span>Next</span>
             </div>
-            <div class="start" data-title="Start" v-if="lightBoxText.img.idt === 7 && lightBoxText.img.show" @click="lightBoxClose(true)">
+            <div class="start" data-title="Start" v-if="lightBoxText.img.idt === 8 && lightBoxText.img.show" @click="lightBoxClose(true)">
                 <span>Start</span>
             </div>
             <!-- <scroll-hint-component class="shc" v-if="lightBoxText.img.show"/> -->
@@ -1421,6 +1421,7 @@ input[type="range"]{
         .funcControls{
             margin: 20px;
             display: flex;
+            width: 90%;
             flex-wrap: wrap;
             justify-content: space-around;
             .funcControl{

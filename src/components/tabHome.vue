@@ -50,13 +50,13 @@ const admin_name = ref('');
 const adminRows = ref([]);
 	const getAdmin = () => {
 	//取得管理員資料
-    axios.get(`${BIND_URL('getLogin.php','g5PHP')}`)
+    fetch(`${BIND_URL('getLogin.php','g5PHP')}`)
     .then(res=> {
-    // console.log(res.data)
+    console.log(res)
     adminRows.value = res.data;
     // 董董教法
     let admins = res.data;
-    console.log(admins[0])
+    console.log(admins)
     let index = -1;
     let adminObj = "";
     adminObj = admins.find(function(admins,i){
