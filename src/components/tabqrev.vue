@@ -79,7 +79,7 @@ const column = createColumns({
 
 //分頁js
 const paginationReactive = reactive({
-      page: 2,
+      page: 1,
       pageSize: 10,
       onChange: (page) => {
         paginationReactive.page = page;
