@@ -58,7 +58,6 @@ const getBook = () => {
   fetch(`${BIND_URL("getBook.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
       bookRows.value = json;
     });
 };

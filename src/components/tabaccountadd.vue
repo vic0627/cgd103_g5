@@ -14,7 +14,6 @@ const adminRows = ref([]);
 			//取得管理員資料
        axios.get(`${BIND_URL('getAdmin.php','g5PHP')}`,)
       .then(res=> {
-        console.log(res.data)
         adminRows.value = res.data
       })
 		}
