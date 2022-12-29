@@ -169,7 +169,7 @@ const returnRace = computed(() => {
     cache = cache.filter((i) =>
       String(i[select[selectVal.value].val]).includes(search.value)
     );
-    if (search.value == "All") {
+    if (search.value == "all") {
       cache = raceRows.value;
     }
   } else {

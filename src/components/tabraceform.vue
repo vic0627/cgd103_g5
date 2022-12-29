@@ -50,13 +50,17 @@ const paginationReactive = reactive({
 });
 const pagination = paginationReactive;
 
+const props = defineProps(["tab"]);
+
 const bookRows = ref([]);
 const getBook = () => {
   //取得商品資料
-  axios.get(`${BIND_URL("getBook.php", "g5PHP")}`).then((res) => {
-    // console.log(res)
-    bookRows.value = res.data;
-  });
+  fetch(`${BIND_URL("getBook.php", "g5PHP")}`)
+    .then((res) => res.json())
+    .then((json) => {
+      console.log(json);
+      bookRows.value = json;
+    });
 };
 onMounted(() => {
   getBook();
@@ -65,13 +69,13 @@ onMounted(() => {
 // 搜尋
 
 const search = ref("");
-const returnRace = computed(() => {
+const returnBook = computed(() => {
   let cache = bookRows.value;
   if (search.value !== "") {
     cache = cache.filter((i) =>
       String(i[select[selectVal.value].val]).includes(search.value)
     );
-    if (search.value == "All") {
+    if (search.value == "all") {
       cache = bookRows.value;
     }
   } else {
@@ -91,7 +95,7 @@ const select = [
     val: "comp_no",
   },
   {
-    id: 1,
+    id: 2,
     title: "會員編號",
     val: "mem_no",
   },
@@ -129,7 +133,7 @@ const testVal = (e) => {
     <div class="table">
       <n-data-table
         :columns="column"
-        :data="returnRace"
+        :data="returnBook"
         :pagination="pagination"
         :bordered="true"
         :single-line="false"
