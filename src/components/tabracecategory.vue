@@ -130,7 +130,6 @@ const getProducts = () => {
   fetch(`${BIND_URL("getRace.php", "g5PHP")}`)
     .then((res) => res.json())
     .then((json) => {
-      console.log(json);
       raceRows.value = json;
     });
 };
@@ -153,7 +152,6 @@ const updateRace = (user) => {
     method: "POST",
     body: new URLSearchParams(newcpt),
   }).then((res) => {
-    console.log(res);
     res.json();
   });
   showModal.value = false;
