@@ -14,4 +14,6 @@ export const getCartLength = () => {
     }
     return cartLength.length;
 };
-export const BIND_URL = (url, path = 'assets') => `http://localhost/dist/${path}/${url}`;
+//export const BIND_URL = (url, path = 'assets') => `http://localhost/dist/${path}/${url}`;
+//export const BIND_URL = (url, path = 'assets') => `http://localhost/cgd103_g5/public/${path}/${url}`;
+export const BIND_URL = (url, path = 'assets') => `https://tibamef2e.com/cgd103/g5/${path}/${url}`;

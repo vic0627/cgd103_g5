@@ -12,7 +12,8 @@ export default defineConfig({
     },
   },
   assetsInclude: ["**/*.glb", "**/*.gltf"],
-  base: "/dist/",
+  //base: "/dist/",
+  base: "/cgd103/g5/",
   build: {
     rollupOptions: {
       output: {

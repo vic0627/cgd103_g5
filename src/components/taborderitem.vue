@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, onMounted, ref, h } from "vue";
+import { reactive, onMounted, ref, h, computed } from "vue";
 import {
   zhTW,
   NPagination,
@@ -9,10 +9,11 @@ import {
   NModal,
 } from "naive-ui";
 import axios from "axios";
+import {BIND_URL } from "../composables/useCommon";
 const showModal = ref(false);
 const newNmno = ref("");
 const newStatus = ref("");
-import {BIND_URL } from "../composables/useCommon";
+
 //資料放進表格
 const createColumns = ({ selectId }) => {
   return [
@@ -205,8 +206,10 @@ const testVal = (e) => {
 <style scoped lang="scss">
 @import "@/sass/style.scss";
 .top {
-  width: 100%;
+  width: 85%;
+  height: 100%;
   display: block;
+  overflow-y: scroll;
 }
 .table {
   width: 95%;

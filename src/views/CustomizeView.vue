@@ -1227,6 +1227,7 @@ input[type="range"]{
       .loadProgress{
         width: 100%;
         height: 100%;
+        border-radius: 20px;
         background: linear-gradient(to right, $purple, $blue);
       }
       .loadNum{

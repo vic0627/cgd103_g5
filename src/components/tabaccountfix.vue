@@ -280,8 +280,10 @@ const testVal = (e) => {
 <style scoped lang="scss">
 @import "@/sass/style.scss";
 .top {
-  width: 100%;
+  width: 85%;
+  height: 100%;
   display: block;
+  overflow-y: scroll;
 }
 .table {
   width: 95%;

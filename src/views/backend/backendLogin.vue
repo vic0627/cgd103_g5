@@ -65,11 +65,11 @@ function shows() {
           <h2>後台登入</h2>
           <div class="form-group">
             <label for="admin_acc">管理員帳號</label>
-            <input type="text" id="admin_acc" class="acc" name="admin_acc"  maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數帳號" v-model="admin_acc">
+            <input type="text" id="admin_acc" class="acc" name="admin_acc"  maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數帳號" v-model="admin_acc" @input="verifypsw(admin_acc)">
           </div>
                 <div class="form-group">
                     <label for="admin_pw">管理員密碼</label>
-                    <input type="password" id="admin_pw" name="admin_pw" class="admin_pw" maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數密碼" v-model="admin_pw">
+                    <input type="password" id="admin_pw" name="admin_pw" class="admin_pw" maxlength="10" minlength="3" required placeholder="請輸入3-10位含大小寫英數密碼" v-model="admin_pw" @input="verifypsw(admin_pw)">
                     <div class="down">
                         <label class="in">
                         <input type="checkbox" id="check" @click="shows" class="pw"><span>顯示密碼</span>
@@ -77,7 +77,7 @@ function shows() {
                         <p class="message mess"></p>
                     </div>
                 </div>
-                <button type="button" class="btn"  id="btnLogin" @click="login">登入</button>
+                <button type="button" class="btn"  id="btnLogin" @click="getAdmin">登入</button>
             </form>
             <div class="links">
                 <router-link to="/" class="leave link" >離開後台</router-link>

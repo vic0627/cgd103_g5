@@ -95,17 +95,17 @@ const createColumns = ({ selectId, showmodal }) => {
 const column = createColumns({
   selectId(rowData, index) {
     showModal.value = true;
-    newcpt_no.value = raceRows.value[index].cpt_no;
-    newcpt_name.value = raceRows.value[index].cpt_name;
-    newcpt_start.value = raceRows.value[index].cpt_start;
-    newcpt_end.value = raceRows.value[index].cpt_end;
-    newcpt_aboard.value = raceRows.value[index].cpt_aboard;
-    newcpt_photo.value = raceRows.value[index].cpt_photo;
-    newcpt_txt.value = raceRows.value[index].cpt_txt;
+    newcpt_no.value = rowData.cpt_no;
+    newcpt_name.value = rowData.cpt_name;
+    newcpt_start.value = rowData.cpt_start;
+    newcpt_end.value = rowData.cpt_end;
+    newcpt_aboard.value = rowData.cpt_aboard;
+    newcpt_photo.value = rowData.cpt_photo;
+    newcpt_txt.value = rowData.cpt_txt;
   },
   showmodal(rowData, index) {
     // showModal2.value = true;
-    newcpt_no.value = raceRows.value[index].cpt_no;
+    newcpt_no.value = rowData.cpt_no;
   },
 });
 //分頁js

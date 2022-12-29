@@ -52,7 +52,7 @@ const createColumns = () => {
 };
 const column = createColumns({});
 const pagination = reactive({
-  page: 2,
+  page: 1,
   pageSize: 10,
   onChange: (page) => {
     pagination.page = page;
