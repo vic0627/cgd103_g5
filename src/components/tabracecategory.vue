@@ -248,59 +248,66 @@ const testVal = (e) => {
           content="你確定嗎?"
         >
           <label for="faq_des"> 修改比賽資訊 : </label>
+          <h6>賽事編號</h6>
           <textarea
             name="cpt_no"
             v-model="newcpt_no"
             rows="1"
-            cols="50"
+            cols="33"
             placeholder="請輸入編號"
             maxlength="200"
           ></textarea>
+          <h6>賽事名稱</h6>
           <textarea
             name="cpt_name"
             v-model="newcpt_name"
             rows="1"
-            cols="50"
+            cols="33"
             placeholder="請輸入名稱"
             maxlength="300"
           ></textarea>
+          <h6>開始日期</h6>
           <textarea
             name="cpt_start"
             v-model="newcpt_start"
             rows="1"
-            cols="50"
+            cols="33"
             placeholder="請輸入日期"
             maxlength="300"
           ></textarea>
+          <h6>結束日期</h6>
           <textarea
             name="cpt_end"
             v-model="newcpt_end"
             rows="1"
-            cols="50"
+            cols="33"
             placeholder="請輸入日期"
             maxlength="300"
           ></textarea>
+          <h6>請輸入地點</h6>
           <textarea
             name="cpt_aboard"
             v-model="newcpt_aboard"
             rows="1"
-            cols="50"
+            cols="33"
             placeholder="請輸入地點"
             maxlength="300"
           ></textarea>
+          <h6>請加入圖片</h6>
           <textarea
             name="cpt_photo"
             v-model="newcpt_photo"
             rows="1"
-            cols="50"
+            cols="33"
             placeholder="請輸入照片"
             maxlength="300"
           ></textarea>
+          <h6>請加入文字</h6>
           <textarea
             name="cpt_txt"
             v-model="newcpt_txt"
             rows="10"
-            cols="50"
+            cols="33"
             placeholder="請輸入內容"
             maxlength="300"
           ></textarea>
@@ -314,28 +321,21 @@ const testVal = (e) => {
             確認
           </n-button>
         </n-modal>
-        <n-modal
-          v-model:show="showModal2"
-          preset="dialog"
-          title="確認"
-          content="你確定嗎?"
-        >
-          <n-button
-            @click="
-              showModal2 = true;
-              deleteRace(index);
-            "
-            type="error"
-          >
-            刪除
-          </n-button>
-        </n-modal>
       </form>
     </div>
   </div>
 </template>
 <style scoped lang="scss">
 @import "@/sass/style.scss";
+
+h6 {
+  color: #000;
+  line-height: 2rem;
+}
+
+textarea {
+  font-size: 20px;
+}
 
 .search_box {
   display: flex;
