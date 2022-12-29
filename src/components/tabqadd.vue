@@ -3,18 +3,26 @@ import {ref} from "vue";
 import {BIND_URL } from "../composables/useCommon";
 const des = ref("");
 const ans = ref("");
+const props = defineProps(["tab"])
 const add =()=>{
-  const payload = {
-    faq_des : des.value,
-    faq_ans : ans.value
-  };
+  if(des.value === '' || ans.value === ''){
+    alert('不可空白，請輸入問題或答案')
+    
+  }else{
+     const payload = {
+        faq_des : des.value,
+        faq_ans : ans.value
+    };
   fetch(`${BIND_URL('insertaddFaqs.php','g5PHP')}`,{
     method:'POST',
     body:new URLSearchParams(payload), 
   }
   ).then(res=>{
     res.text();
+  }).then(res=>{
+    props.tab("qrev");
   })
+  }
   
 }
 </script>

@@ -2,6 +2,7 @@
 import { ref, onMounted, reactive } from 'vue';
 import $ from 'jquery';
 import Parallax from 'parallax-js';
+import router from '@/router';
 import {bodyInit} from '../composables/useOnunmounted';
 import navComponentsVue from '@/components/navComponents.vue';
 import svglineComponentsVue from '@/components/svglineComponents.vue';
@@ -46,7 +47,36 @@ const changeView = (index) => {
       $(btn[1]).css("border-bottom","3px solid #8a8a8a");
     }
 }
+const acc = ref([
+  {
+    "id": "11",
+    "cat_no": "1",
+    "title": "body03black",
+    "price": 1100,
+    "img": "body_03_black_1.png",
+  },
+  {
+    "id": "22",
+    "cat_no": "2",
+    "title": "propellor02blue",
+    "price": 250,
+    "img": "propellor_02_blue_1.png",
+  },
+  {
+    "id": "2",
+    "cat_no": "1",
+    "title": "body01blue",
+    "price": 900,
+    "img": "body_01_blue_1.png",
+  },
+])
 const isOpen = ref(true)
+const submitPrd = (index)=>{
+  if(sessionStorage['prodInfo'] == null){
+    sessionStorage['prodInfo']='';
+  }
+  sessionStorage.setItem("prodInfo",`{"id":"${acc.value[index].id}","cat_no":"${acc.value[index].cat_no}","title":"${acc.value[index].title}","price":${acc.value[index].price},"img":"${acc.value[index].img}"}`);
+}
 </script>
 
 <template>
@@ -67,18 +97,16 @@ const isOpen = ref(true)
                 <div class="custIcon">
                     <div class="custIcon-wrap">
                         <img src="../assets/images/home/cusIcon1.png" alt="icon1">
-                        <p>Speed destroy personal</p>
-                        <p>King is come back</p>
+                        <p>Drone body is placed on the 3 different axes around the camera.</p>
                     </div>
                     <div class="custIcon-wrap">
                         <img src="../assets/images/home/cusIcon2.png" alt="icon2">
-                        <p>Speed destroy personal</p>
-                        <p>King is come back</p>
+                        <p>Drone Propeller have two counter clockwise motor</p>
+                        <!-- <p>King is come back</p> -->
                     </div>
                     <div class="custIcon-wrap">  
                         <img src="../assets/images/home/cusIcon3.png" alt="icon3">
-                        <p>Speed destroy personal</p>
-                        <p>King is come back</p>
+                        <p>Drone Motor provides stability through equalizing the turning force.</p>
                     </div>
                 </div>
                 <div class="customBtn">
@@ -102,14 +130,13 @@ const isOpen = ref(true)
                 <div class="homeAccWrap1">
                     <div class="mainAcc">
                         <div class="homeAccWrap1-pic">
-                            <!-- <img src="../assets/images/body_03_black_1.png" alt=""> -->
                             <img src="../assets/images/home/body_03_black_1.png" alt="body">
                         </div>
                         <div class="homeAccWrap1-txt">
                             <h5>Stay Flying Longer-Up to 60mins</h5>
                             <p>You can preview your design in real time.</p>
                             <div class="accBtn">
-                            <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
+                            <router-link to="/shopInfo" class="btnFirst" id="btn1" data-title="Learn" @click="submitPrd(0)">
                                 <span>Learn</span>
                             </router-link>
                         </div>
@@ -124,13 +151,12 @@ const isOpen = ref(true)
                 <div class="homeAccWrap2">
                      <div class="accSection">
                         <div class="homeAccWrap2-pic">
-                            <!-- <img src="../assets/images/propellor_02_black_1.png" alt=""> -->
                             <img src="../assets/images/home/accs02.png" alt="propellor">
                         </div>
                         <div class="homeAccWrap2-txt">
                             <h4>Propeller PPK </h4>
                             <p>Propeller PPK is a processing solution designed to minimize time in the field</p>
-                            <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
+                            <router-link to="/shopInfo" class="btnFirst" id="btn1" data-title="Learn" @click="submitPrd(1)">
                                 <span>Learn</span>
                             </router-link>
                         </div>
@@ -148,7 +174,7 @@ const isOpen = ref(true)
                         <div class="homeAccWrap2-txt">
                             <h4>Drone Body</h4>
                             <p>The Drone will allow photographers to take HD pictures that are sharp and crisp.</p>
-                            <router-link to="/shop" class="btnFirst" id="btn1" data-title="Learn">
+                            <router-link to="/shopInfo" class="btnFirst" id="btn1" data-title="Learn" @click="submitPrd(2)">
                                 <span>Learn</span>
                             </router-link>
                         </div>
@@ -351,7 +377,7 @@ section {
       width: 100%;
       border-radius: $img-radius;
       object-fit: cover;
-      height: 500px;
+      height: 600px;
     }
     &::before {
       content: "";
@@ -378,9 +404,9 @@ section {
       margin: 50px auto;
       width: 90%;
       .custIcon-wrap {
-        width: 33.33333%;
+        width: 30%;
         img {
-          width: 20%;
+          width: 40%;
         }
         p {
           margin-top: 10px;
@@ -389,7 +415,15 @@ section {
     }
   }
 }
-
+@include l($l-breakpoint) {
+.custIcon{
+  .custIcon-wrap{
+    img {
+      width: 20%;
+    }
+  }
+}
+}
 //ACCESSORIES
 .homeAcc {
   @include divCenter(90%, $left);
@@ -552,7 +586,7 @@ section {
   .buttonDiv {
     width: 90%;
     position: absolute;
-    bottom: -39%;
+    bottom: -30%;
     margin-left: 10px;
     .raceChange {
       background-color: transparent;
@@ -623,6 +657,13 @@ section {
             .homeCustom {
             @include titleStyle($center);
             }
+            .custIcon {
+              .custIcon-wrap  {
+                img {
+                  width: 20%;
+                }
+              }
+            }
         }      
     }
 
@@ -659,15 +700,6 @@ section {
     margin: 120px auto;
     .about-pic img {
       width: 30%;
-    }
-  }
-
-  //game
-  .homeGame {
-    height: 650px;
-    @include divCenter($l-w, $center);
-    video {
-      height: 650px;
     }
   }
   //contest

@@ -144,6 +144,8 @@ onUpdated(() => {
               <router-link to="/cart" class="shop"
                 ><img src="../assets/images/home/icon2.png" alt="cart" />
               </router-link>
+              <router-link to="/cart" class="shop"
+                ><span class="cartCount">{{ count }}</span></router-link>
             </li>
           </div>
         </ul>
@@ -334,6 +336,12 @@ header {
   transition: all 0.6s ease-in-out;
   .icon-wrap {
     display: flex;
+    .cartCount{
+      position: relative;
+      top: -20px;
+      left: 10px;
+      font-size: 20px;
+    }
   }
 }
 #active:checked ~ .wrapper {
