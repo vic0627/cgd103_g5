@@ -141,8 +141,10 @@ function fileChange() {
 @import "@/sass/style.scss";
 
 .top {
-  width: 100%;
+  width: 85%;
   display: block;
+  overflow-y: auto;
+  height: 100%;
 }
 // div {
 //   margin: 10px;

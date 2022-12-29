@@ -3,7 +3,6 @@ import video_01 from '@/assets/video/about/video_01.mp4'
 import { onMounted, registerRuntimeCompiler } from 'vue';
 import Accordion from '../components/accordionComponents.vue';
 import mem from '../components/memComponents.vue';
-import navComponentsVue from '@/components/navComponents.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
 import {bodyInit} from '../composables/useOnunmounted';
 import AOS from 'aos';
@@ -14,7 +13,6 @@ AOS.init();
 </script>
 
 <template>
-  <nav-component/>
   <nav-component :about="`#077AF9`"/>
   <!-- 01 video start -->
   <section class="video_box" >

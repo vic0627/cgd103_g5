@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, reactive, computed,onBeforeUpdate} from 'vue';
 import {bodyInit} from '@/composables/useOnunmounted';
-import { getCartLength,BIND_URL } from "../../composables/useCommon";
+import { BIND_URL, getCartLength } from "../../composables/useCommon";
 import axios from 'axios';
 import router from '@/router';
 bodyInit();
@@ -10,6 +10,7 @@ const cusBtn = ref(true);
 const props = defineProps(['nextStep','step']);
 const cartItem = ref([]);
 const cartList = computed(() => cartItem.value)
+const emit = defineEmits(["updateCart"]);
 const session = ()=> {
     const strings = sessionStorage.getItem('cartList');
     if(strings==undefined)return;
@@ -33,7 +34,7 @@ const getcartItem = (substrs)=>{
   }
 }
 //判斷session裡面是否有東西 沒有就文字顯示沒東西
-const storgeNull = reactive(sessionStorage.getItem('cartList'))
+const storgeNull = () => sessionStorage.getItem('cartList');
 //數量加減//價格變動
 const sums = ref(0);
 const fee = ref(0)
@@ -51,6 +52,7 @@ const sum = computed(()=>{
 //總價判斷是否有折扣 有就乘折扣  沒有就不乘折扣
 const finalprice = ref(0);
 const final = computed(()=>{
+    if(sessionStorage['cartList']==undefined)return;
     let totalprice = ref(0);
     if(sessionStorage['cartList'].includes('111')){
         fee.value = sessionStorage.getItem('fee') 
@@ -78,6 +80,7 @@ const final = computed(()=>{
 //組裝費
 const assemblyfee = ref(0);
 const assembly = computed(()=>{
+    if(sessionStorage['cartList']==undefined)return;
     let total = ref(0);
     if(sessionStorage['cartList'].includes('111')){
         assemblyfee.value = 50;
@@ -120,6 +123,7 @@ const Delete = (index)=> {
         sessionStorage.removeItem(cartList.value[index].id)
         cartList.value.splice(index,1);
     }
+    emit("updateCart", getCartLength());
 }
 const lightBoxClose = () => {
     lightBoxShow.value = false;
@@ -129,6 +133,7 @@ const clearSession = ()=>{
     sessionStorage['cartList'] = '';
     cartList.value.splice(0,cartList.value.length);
     lightBoxShow.value = false;    
+    emit("updateCart", getCartLength());
 }
 //discount 
 const discount = ref('');
@@ -182,17 +187,13 @@ onMounted(()=>{
     getDisc();
     session();
 });
-onBeforeUpdate(()=>{
-    count.value = getCartLength();
-    console.log(count.value);
-})
 </script>
 <template>
 
     <section>
         <div class="shopCart">
             <!-- <div v-if="storgeNull == null"> -->
-            <div v-if="storgeNull == ''">
+            <div v-if="storgeNull() == ''">
                 <div class="empty">
                     <h3>Your bag is empty.</h3>
                     <p>Sign in to see if you have any saved items. Or continue shopping.</p>
@@ -235,7 +236,7 @@ onBeforeUpdate(()=>{
                     </div>
                 </div>
             </div>
-            <div class="discount"  v-if="storgeNull != null">
+            <div class="discount"  v-if="storgeNull() != null">
                 <p>Discount code :</p>
                 <input type="text" v-model="discount">
                 <button class="discount-btn" @click="discConfirm()">Confirm</button>
@@ -271,8 +272,6 @@ onBeforeUpdate(()=>{
             </div>
         </div>
     </section>
-        
-    <footerComponentsVue />
 </template>
 
 <style lang="scss" scoped>
