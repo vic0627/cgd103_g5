@@ -12,7 +12,7 @@ onMounted(() => {
     let xhr = new XMLHttpRequest();
     xhr.onload = function () {
       let member = JSON.parse(xhr.responseText);
-      console.log(member);
+      // console.log(member);
       if (member.Account) {
         //有帳密資料
         // $id("memName").innerText = member.memName;
@@ -48,7 +48,7 @@ onMounted(() => {
     let xhr = new XMLHttpRequest();
     xhr.onload = function () {
       let member = JSON.parse(xhr.responseText);
-      console.log(member);
+      // console.log(member);
       if (member.Account) {
         //帳密正確
         document.getElementById("username").value = "";

@@ -43,7 +43,7 @@ onMounted(() =>{
             })
             .then((res) => res.json())//將php response的內容轉成json格式
             .then(mem =>{//該json
-                console.log(mem);
+                // console.log(mem);
                 if(mem.mem_acc){//回傳帳號為true時
                     //取得需要的會員資料
                     memberinfo.value.mem_first_name = mem.mem_first_name;
@@ -53,20 +53,20 @@ onMounted(() =>{
                     memberinfo.value.mem_points = mem.mem_points;
                     switch(mem.mem_grade){
                         case "1"://銅
-                            console.log("1.you are level :"+mem.mem_grade);
+                            // console.log("1.you are level :"+mem.mem_grade);
                             document.querySelector(".meminfo").style["background"] = "linear-gradient(107.48deg, #E6BA79 0.51%, rgba(173, 99, 12, 0.83) 98.54%)";
                             document.querySelector(".mememail").style["color"] = "#253253";
                             document.querySelector(".mempoint").style["color"] = "#ffd700";
                             break;
                         case "2"://銀
-                            console.log("2.you are level :"+mem.mem_grade);
+                            // console.log("2.you are level :"+mem.mem_grade);
                             // document.querySelector(".meminfo").style["background"] = "linear-gradient(107.48deg, rgba(208, 205, 196, 0.6) 0.51%, rgba(96, 96, 96, 0.53) 98.54%)";
                             document.querySelector(".meminfo").style["background"] = "rgba(208, 205, 196, 0.6)";
                             document.querySelector(".mememail").style["color"] = "#fff";
                             document.querySelector(".mempoint").style["color"] = "#ffd700";
                             break;
                         case "3"://金
-                            console.log("3.you are level :"+mem.mem_grade);
+                            // console.log("3.you are level :"+mem.mem_grade);
                             document.querySelector(".meminfo").style["background"] = "linear-gradient(-200deg, #f9f48f, #fbc65d, #e8b443, #e4b445)";
                             document.querySelector(".mememail").style["color"] = "#253253";
                             document.querySelector(".mempoint").style["color"] = "rgb(31 76 185)";
