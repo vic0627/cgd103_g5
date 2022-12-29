@@ -516,7 +516,6 @@ const scrollList = (e, delay = 0, dur = .1) => {
                 z: 0,
                 duration: .3,
             })
-            log(-1+(Math.sin(sumWs/wh))*5)
         }
     }
     

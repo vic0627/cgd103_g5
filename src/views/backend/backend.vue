@@ -47,7 +47,7 @@ export default {
 };
 </script>
 <script setup>
-import { ref, computed, markRaw } from "vue";
+import { ref, computed, onUnmounted } from "vue";
 const backendCategory = ref({
   home: {
     title: "後臺首頁",
@@ -95,28 +95,12 @@ const backendCategory = ref({
         cn: "一般訂單明細查詢",
         tab: "generalOrderItem",
       },
-      // c: {
-      //   cn: "客製化訂單查詢",
-      //   tab: "customizationOrderItem",
-      // },
-      // d: {
-      //   cn: "客製化訂單明細查詢",
-      //   tab: "customizationDetails",
-      // },
     },
   },
   customItem: {
     title: "客製化訂單管理",
     show: false,
     text: {
-      // a: {
-      //   cn: "一般訂單查詢",
-      //   tab: "orderItem",
-      // },
-      // b: {
-      //   cn: "一般訂單明細查詢",
-      //   tab: "generalOrderItem",
-      // },
       a: {
         cn: "客製化訂單查詢",
         tab: "customizationOrderItem",
@@ -214,8 +198,9 @@ const changeShow = (e) => {
     e.show = false;
   }
 };
-
-const log = (e) => console.log(e);
+onUnmounted(()=>{
+  sessionStorage.clear();
+})
 </script>
 
 <template>

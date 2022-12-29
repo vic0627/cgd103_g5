@@ -22,7 +22,7 @@ onMounted(()=> {
             })
             .then((res) => res.json())//將php response的內容轉成json格式
             .then(mem =>{//該json
-                console.log(mem);
+                // console.log(mem);
                 if(mem.mem_acc){//回傳帳號為true時
                     //取得需要的會員資料
                     memberinfo.value = {
@@ -34,7 +34,7 @@ onMounted(()=> {
                         address : mem.address,
                         phone : mem.phone,
                     }
-                    console.log(memberinfo.value);
+                    // console.log(memberinfo.value);
                 }
             })
             .catch(error =>console.log(error));

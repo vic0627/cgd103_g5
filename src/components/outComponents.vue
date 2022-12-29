@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted} from 'vue';
+import { BIND_URL } from '../composables/useCommon';
 onMounted(()=>{
   document.getElementById('btnLogout').onclick = newOut;
   function newOut(){
@@ -10,7 +11,7 @@ onMounted(()=>{
   .then((res)=> res.text())
   .then((text)=> console.log(text))
   .catch(error=>console.log(error));}
-
+  sessionStorage.clear();
 })
 const props = defineProps(['page01'])
 </script>

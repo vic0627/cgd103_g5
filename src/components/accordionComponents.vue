@@ -10,7 +10,7 @@ const faqRows = ref([]);
       fetch(`${BIND_URL('getFaqs.php','g5PHP')}`)
       .then(res => res.json())
       .then(json => {
-        console.log(json)
+        // console.log(json)
         faqRows.value = json;
       })
 		}
