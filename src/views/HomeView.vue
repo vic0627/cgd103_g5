@@ -111,7 +111,7 @@ const submitPrd = (index)=>{
                 </div>
                 <div class="customBtn">
                     <router-link to="/custom" class="btnFirst" id="btn1" data-title="Learn">
-                        <span>Learn</span>
+                        <span>More</span>
                     </router-link>
                 </div>
             </div>
@@ -137,7 +137,7 @@ const submitPrd = (index)=>{
                             <p>You can preview your design in real time.</p>
                             <div class="accBtn">
                             <router-link to="/shopInfo" class="btnFirst" id="btn1" data-title="Learn" @click="submitPrd(0)">
-                                <span>Learn</span>
+                                <span>More</span>
                             </router-link>
                         </div>
                         </div>
@@ -157,7 +157,7 @@ const submitPrd = (index)=>{
                             <h4>Propeller PPK </h4>
                             <p>Propeller PPK is a processing solution designed to minimize time in the field</p>
                             <router-link to="/shopInfo" class="btnFirst" id="btn1" data-title="Learn" @click="submitPrd(1)">
-                                <span>Learn</span>
+                                <span>More</span>
                             </router-link>
                         </div>
                     </div>
@@ -175,7 +175,7 @@ const submitPrd = (index)=>{
                             <h4>Drone Body</h4>
                             <p>The Drone will allow photographers to take HD pictures that are sharp and crisp.</p>
                             <router-link to="/shopInfo" class="btnFirst" id="btn1" data-title="Learn" @click="submitPrd(2)">
-                                <span>Learn</span>
+                                <span>More</span>
                             </router-link>
                         </div>
                     </div>
@@ -199,7 +199,7 @@ const submitPrd = (index)=>{
                             <h5>DRL Vegas Championship Race</h5>
                             <p>Thursday, Nov 17th 2022</p>
                             <router-link to="/race" class="btnFirst" id="btn1" data-title="Learn">
-                                <span>Learn</span>
+                                <span>More</span>
                             </router-link>
                         </div>
                     </div>
@@ -213,7 +213,7 @@ const submitPrd = (index)=>{
                             <h5>Miami 3-0-Fly Finals</h5>
                             <p>Sunday, Mar 26th 2023</p>
                             <router-link to="/race" class="btnFirst" id="btn1" data-title="Learn">
-                                <span>Learn</span>
+                                <span>More</span>
                             </router-link>
                         </div>
                     </div>
@@ -228,7 +228,7 @@ const submitPrd = (index)=>{
                         <h5>SIM Series - Alpine Valley</h5>
                         <p>Tuesday, Dec 6th 2022</p>
                         <router-link to="/race" class="btnFirst" id="btn1" data-title="Learn">
-                            <span>Learn</span>
+                            <span>More</span>
                         </router-link>
                     </div>
                 </div>

@@ -77,7 +77,7 @@ const addcart =(index)=>{
         </div>
         <div class="home1-btn">
             <router-link to="/showcase" class="btnFirst" id="btn1" data-title="Learn">
-            <span>Learn</span></router-link>
+            <span>More</span></router-link>
             <router-link to="/shopInfo" class="btnSecond" id="btn2" data-title="Buy" @click="addcart()">
             <span>Buy</span></router-link>
         </div>
@@ -148,7 +148,7 @@ const addcart =(index)=>{
         height: 400px;
      }
     @include l($l-breakpoint){
-        height: 500px;
+        height: 600px;
         position: relative;
     }
     .drone {
