@@ -143,8 +143,12 @@ const addcart =(index)=>{
     bottom: 0;
     margin:auto;
     top: 40%;
+    height: 300px;
+     @include m($m-breakpoint){
+        height: 400px;
+     }
     @include l($l-breakpoint){
-        // padding-top: 180px;
+        height: 500px;
         position: relative;
     }
     .drone {

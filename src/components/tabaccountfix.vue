@@ -64,21 +64,21 @@ const createColumns = ({
 };
 const column = createColumns({
   selectId(rowData,index) {
-    if(adminRows.value[index].authority === "一般管理員"){
+    if(rowData.authority === "一般管理員"){
         showModal.value = true;
-        newAdmin_acc.value = adminRows.value[index].admin_acc;
-        newAdmin_no.value = adminRows.value[index].admin_no;
-        newAdmin_name.value =adminRows.value[index].newAdmin_name;
-    }else if(adminRows.value[index].authority === "最高管理員"){
+        newAdmin_acc.value = rowData.admin_acc;
+        newAdmin_no.value = rowData.admin_no;
+        newAdmin_name.value = rowData.admin_name;
+    }else if (rowData.authority === "最高管理員"){
         alert('最高管理員不可編輯')
     }
   
   },
-  showmodal(user,index){
-    if(adminRows.value[index].authority === "一般管理員"){
-        newAdmin_no.value = adminRows.value[index].admin_no;
+  showmodal(rowData,index){
+    if(rowData.authority === "一般管理員"){
+        newAdmin_no.value = rowData.admin_no;
         showModal2.value = true
-    }else if(adminRows.value[index].authority === "一般管理員"){
+    }else if(rowData.authority === "一般管理員"){
         alert('最高管理員不可刪除')
     }
   }

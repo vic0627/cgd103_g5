@@ -19,6 +19,7 @@ const createColumns = ({ selectId }) => {
     {
       title: "訂單編號",
       key: "orders_no",
+      sorter: (row1, row2) => row2.orders_no - row1.orders_no,
     },
     {
       title: "會員編號",
@@ -39,10 +40,6 @@ const createColumns = ({ selectId }) => {
     {
       title: "總金額",
       key: "orders_price",
-    },
-    {
-      title: "優惠編號",
-      key: "disc_no",
     },
     {
       title: "編輯訂單狀態",
@@ -122,6 +119,40 @@ const updateStatus = () => {
   showModal.value = false;
   getNmOrder();
 };
+
+
+
+// 搜尋
+
+const search = ref('');
+const returnNmOrder= computed(() => {
+  let cache = NmOrderRows.value;
+  if(search.value!==''){
+    cache = cache.filter(i => String(i[select[selectVal.value].val]).includes(search.value))
+    if(search.value=='all'){
+      cache = NmOrderRows.value;
+    }
+  }else{
+    cache = [];
+  }
+  return cache;
+});
+const select = [
+  {
+    id: 0,
+    title: '訂單編號',
+    val: 'orders_no',
+  },
+  {
+    id: 1,
+    title: '會員編號',
+    val: 'mem_no',
+  },
+];
+const selectVal = ref('0');
+const testVal = (e) => {
+  selectVal.value = e.target.value;
+};
 </script>
 <template>
   <div class="top">
@@ -129,11 +160,22 @@ const updateStatus = () => {
       一般訂單查詢
       <outComponents />
     </h2>
+    <div class="search_box">
+      <p>依</p>
+      <select name="searchMethods" id="searchMethods" @change="testVal">
+        <option v-for="i in select" :key="i.id" :value="i.id">{{ i.title }}</option>
+      </select>
+      <p>查詢</p>
+      <label for="search" class="label">
+        <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
+      </label>
+      <p>輸入"all"可查詢所有項目</p>
+    </div>
     <form method="post">
       <div class="table">
         <n-data-table
           :columns="column"
-          :data="NmOrderRows"
+          :data="returnNmOrder"
           :pagination="pagination"
           :bordered="true"
           :single-line="false"
@@ -171,6 +213,15 @@ const updateStatus = () => {
   width: 95%;
   margin: auto;
 }
+.options{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .addBox{
+    width: 20%;
+  }
+}
+
 h2 {
   font-size: 40px;
   color: #fff;
@@ -181,57 +232,39 @@ h2 {
   justify-content: space-between;
   align-items: center;
 }
-.search_box {
+.search_box{
   display: flex;
   justify-content: right;
   margin: 30px 15px;
+  p{
+    color: #000;
+  }
   label {
     margin-right: 10px;
     font-size: 20px;
     color: rgb(26, 26, 26);
-    input {
+    input{
       margin-left: 10px;
       height: 35px;
       border: 1px solid rgb(124, 124, 124);
       border-radius: 5px;
       padding-left: 10px;
       font-size: 18px;
-      &:focus {
+      &:focus{
         color: #06519d;
         border: 1px solid #1671cd;
         outline: none;
-        &::placeholder {
+          &::placeholder{
           opacity: 0;
-        }
+          }
       }
-      &::placeholder {
+      &::placeholder{
         padding-left: 5px;
         color: rgba(181, 181, 181, 0.749);
       }
     }
   }
-  .btn {
-    button {
-      width: 50px;
-      text-align: center;
-      border: none;
-      background: #597897;
-      border-radius: 5px;
-      padding: 5px;
-      transition: background 0.5s;
-      cursor: pointer;
-      &:hover {
-        background: $blue;
-      }
-      img {
-        width: 20px;
-        height: 20px;
-        margin-top: 2px;
-      }
-    }
-  }
 }
-
 .tables {
   width: 100%;
   margin: auto;

@@ -133,7 +133,7 @@ animation();
         width: 70%;
         position: absolute;
         z-index: -1;
-        top: 10%;
+        top: 20%;
         @include l($l-breakpoint){
             width: 47.5%;
             position: relative;

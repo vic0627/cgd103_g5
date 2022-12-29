@@ -8,11 +8,13 @@ const createColumns = ({
     return [
   {
     title: "明細編號",
-    key: "item_no"
+    key: "item_no",
+    sorter: (row1, row2) => row2.item_no - row1.item_no,
   },
   {
     title: "訂單編號",
-    key: "orders_no"
+    key: "orders_no",
+    sorter: (row1, row2) => row2.orders_no - row1.orders_no,
   },
   {
     title: "商品編號",
@@ -41,10 +43,10 @@ const newStatus = ref('');
 const column = createColumns({
   selectId(rowData) {
     showModal.value = true;
-    newStatus.value = row.orders_no;
-    console.log(newStatus.value)
+    newStatus.value = rowData.orders_no;
+    // console.log(newStatus.value)
   }
-})
+});
 //分頁js
 const paginationReactive = reactive({
       page: 1,
@@ -64,13 +66,47 @@ const NmitemRows = ref([]);
 			//取得商品資料
       axios.get(`${BIND_URL('getNmitem.php','g5PHP')}`)
       .then(res=> {
-        console.log(res.data)
+        // console.log(res.data)
         NmitemRows.value = res.data
       })
 }
 onMounted(()=>{
 		getNmOrder();
 })
+
+
+
+// 搜尋
+
+const search = ref('');
+const returnNmorder = computed(() => {
+  let cache = NmitemRows.value;
+  if(search.value!==''){
+    cache = cache.filter(i => String(i[select[selectVal.value].val]).includes(search.value))
+    if(search.value=='all'){
+      cache = NmitemRows.value;
+    }
+  }else{
+    cache = [];
+  }
+  return cache;
+});
+const select = [
+  {
+    id: 0,
+    title: '明細編號',
+    val: 'item_no',
+  },
+  {
+    id: 1,
+    title: '訂單編號',
+    val: 'orders_no',
+  },
+];
+const selectVal = ref('0');
+const testVal = (e) => {
+  selectVal.value = e.target.value;
+};
   
 </script>
 <template>
@@ -79,8 +115,19 @@ onMounted(()=>{
     一般訂單明細查詢
     <outComponents />
   </h2>
+  <div class="search_box">
+    <p>依</p>
+    <select name="searchMethods" id="searchMethods" @change="testVal">
+      <option v-for="i in select" :key="i.id" :value="i.id">{{ i.title }}</option>
+    </select>
+    <p>查詢</p>
+    <label for="search" class="label">
+      <input type="search" id="search" name="search" v-model="search" :placeholder="`請輸入${select[selectVal].title}`">
+    </label>
+    <p>輸入"all"可查詢所有項目</p>
+  </div>
   <div class="table">
-    <n-data-table :columns="column" :data="NmitemRows" :pagination="pagination"  :bordered="true" :single-line="false" />
+    <n-data-table :columns="column" :data="returnNmorder" :pagination="pagination"  :bordered="true" :single-line="false" />
   </div>
 
 </div>
@@ -88,6 +135,14 @@ onMounted(()=>{
 </template>
 <style scoped lang="scss">
 @import '@/sass/style.scss';
+.options{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .addBox{
+    width: 20%;
+  }
+}
 .top {
   width: 100%;
   display: block;
@@ -110,6 +165,9 @@ h2 {
   display: flex;
   justify-content: right;
   margin: 30px 15px;
+  p{
+    color: #000;
+  }
   label {
     margin-right: 10px;
     font-size: 20px;
@@ -132,26 +190,6 @@ h2 {
       &::placeholder{
         padding-left: 5px;
         color: rgba(181, 181, 181, 0.749);
-      }
-    }
-  }
-  .btn {
-    button{
-      width: 50px;
-      text-align: center;
-      border: none;
-      background:#597897;
-      border-radius: 5px;
-      padding: 5px;
-      transition: background 0.5s;
-      cursor: pointer;
-      &:hover{
-        background: $blue;
-      }
-      img{
-        width: 20px;
-        height: 20px;
-        margin-top: 2px;
       }
     }
   }

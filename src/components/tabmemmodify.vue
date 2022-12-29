@@ -92,25 +92,25 @@ const lookMem = (user)=>{
 const column = createColumns({
   selectId(rowData,index) {
     showModal.value = true;
-    newMem_no.value = bmemRows.value[index].mem_no;
-    newMem_acc.value = bmemRows.value[index].mem_acc;
-    newMem_first_name.value = bmemRows.value[index].mem_first_name;
-    newMem_last_name.value = bmemRows.value[index].mem_last_name;
-    newMem_email.value = bmemRows.value[index].mem_email;
-    newMem_gender.value = bmemRows.value[index].mem_gender;
-    newMem_pw.value = bmemRows.value[index].mem_pw;
-    newMem_phone.value = bmemRows.value[index].phone;
-    newMem_city.value = bmemRows.value[index].city;
-    newMem_address.value = bmemRows.value[index].address;
-    newMem_credit_no.value = bmemRows.value[index].credit_no;
-    newMem_grade.value = bmemRows.value[index].mem_grade;
+    newMem_no.value = rowData.mem_no;
+    newMem_acc.value = rowData.mem_acc;
+    newMem_first_name.value = rowData.mem_first_name;
+    newMem_last_name.value = rowData.mem_last_name;
+    newMem_email.value = rowData.mem_email;
+    newMem_gender.value = rowData.mem_gender;
+    newMem_pw.value = rowData.mem_pw;
+    newMem_phone.value = rowData.phone;
+    newMem_city.value = rowData.city;
+    newMem_address.value = rowData.address;
+    newMem_credit_no.value = rowData.credit_no;
+    newMem_grade.value = rowData.mem_grade;
     
   },
   showmodal(rowData,index){
     showModal.value = true
-    newMem_no.value = bmemRows.value[index].mem_no;
-    newMem_pw.value = bmemRows.value[index].mem_pw;
-    newMem_acc.value = bmemRows.value[index].mem_acc;
+    newMem_no.value = rowData.mem_no;
+    newMem_pw.value = rowData.mem_pw;
+    newMem_acc.value = rowData.mem_acc;
   }
 })
 //取得資料庫資料
@@ -162,6 +162,8 @@ const select = [
     id: 0,
     title: '會員編號',
     val: 'mem_no',
+    sorter: (row1, row2) => row2.mem_no - row1.mem_no,
+
   },
   {
     id: 1,
