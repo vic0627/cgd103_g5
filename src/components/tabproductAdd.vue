@@ -115,7 +115,7 @@ function fileChange() {
           <label for="">商品圖片路徑</label>
           <input
             type="text"
-            name="color"
+            name="images"
             placeholder="Ex:body_01.png"
             v-model="images"
           />
