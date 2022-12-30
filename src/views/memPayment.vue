@@ -22,6 +22,8 @@ const addCard = ()=>{
         body: new URLSearchParams(payload),
     }).then((res) => {
         res.text();
+    }).then((res)=>{
+        alert(res);
     })
 };
 onMounted(()=> {
