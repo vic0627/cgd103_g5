@@ -241,7 +241,7 @@ const testVal = (e) => {
             </select>
           </div>
           <label class="label" for="orders_location">
-            <p>運送狀態 :</p>
+            <p>運送地點 :</p>
             <input type="text" name="orders_location" v-model="newLoco" disabled>
           </label>
           <label class="label" for="total_price">
