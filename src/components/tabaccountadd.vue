@@ -1,7 +1,7 @@
 <script setup>
 import { reactive, onMounted,ref,h } from 'vue';
 import { zhTW, NPagination,NTable,NDataTable,NButton} from 'naive-ui';
-import {BIND_URL } from "../composables/useCommon";
+import {BIND_URL,$$ } from "../composables/useCommon";
 import axios from 'axios';
 const props = defineProps(["tab"])
 
@@ -9,6 +9,7 @@ const name = ref('');
 const authority = ref('一般管理員');
 const account = ref('');
 const password = ref('');
+const againpassword = ref('');
 const adminRows = ref([]);
 		const getAdmin = () => {
 			//取得管理員資料
@@ -27,13 +28,16 @@ const submitData = ()=>{
   };
   
     for(let i=0;i<adminRows.value.length;i++){
-      if(account.value === adminRows.value[i].admin_acc && password.value === adminRows.value[i].admin_pw){
-        alert("帳號密碼已重複");
+      if(account.value === adminRows.value[i].admin_acc || password.value === adminRows.value[i].admin_pw){
+        alert("帳號或密碼已重複");
         break;    
       }else if (name.value === '' || account.value === '' || password.value === ''){
         alert("不可空白，請輸入帳號密碼")
         break;
-      }else if(account.value != adminRows.value[i].admin_acc && password.value != adminRows.value[i].admin_pw){
+      }else if(password.value != againpassword.value){
+        alert("確認密碼錯誤");
+        break;
+      }else if(account.value != adminRows.value[i].admin_acc && password.value != adminRows.value[i].admin_pw && password.value === againpassword.value){
         fetch(`${BIND_URL('insertAdmin.php','g5PHP')}`, {
           method: "POST",
           body: new URLSearchParams(payload),
@@ -68,11 +72,15 @@ const submitData = ()=>{
       </div>
       <div class="question">
         <h3>管理員帳號</h3>
-        <input type="text" placeholder="請輸入帳號" id="admin_acc" name="admin_acc" v-model="account" required>
+        <input type="text" id="admin_acc" name="admin_acc" v-model="account"  maxlength="16" minlength="3" required placeholder="請輸入帳號"/>
       </div>
       <div class="answer">
         <h3>管理員密碼</h3>
-        <input type="password" placeholder="請輸入密碼" id="admin_pw" name="admin_pw" v-model="password" required>
+        <input type="password" placeholder="請輸入密碼" id="admin_pw" name="admin_pw" v-model="password" minlength="3" maxlength="16" required pattern="^([a-zA-Z]+\d+|\d+[a-zA-Z]+)[a-zA-Z0-9]*$">
+      </div>
+      <div class="answer">
+        <h3>確認密碼</h3>
+        <input type="password" placeholder="確認密碼" id="admin_pw" v-model="againpassword" required>
       </div>
     </div>
   </form>
@@ -88,6 +96,9 @@ const submitData = ()=>{
 .top {
   width: 100%;
   display: block;
+}
+h3 {
+  width: 160px;
 }
 h2 {
   font-size: 40px;

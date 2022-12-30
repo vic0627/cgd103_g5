@@ -27,8 +27,7 @@ const mainMenu = reactive([
 ]);
 const mem = ref("");
 onMounted(() => {
-  // count.value = getCartLength();
-  // console.log(mainMenu);
+  count.value = getCartLength();
   function getMemberInfo() {
     let xhr = new XMLHttpRequest();
     xhr.onload = function () {
@@ -111,13 +110,10 @@ const NavClass = defineProps({
     default: 0,
   }
 });
-// const props = defineProps(['count']);
 const count = ref(0);
 onUpdated(() => {
-  count.value = NavClass.count;
   count.value = getCartLength();
 });
-// :style="NavClass.className"
 </script>
 
 <template>
@@ -241,7 +237,7 @@ onUpdated(() => {
   position: relative;
   top: -10px;
   left: -10px;
-  color: $blue;
+  color: #e8e8e8;
   font-weight: bold;  border-radius: 50%;
 }
 header {

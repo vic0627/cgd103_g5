@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive,onMounted } from 'vue';
+import { ref, reactive,onMounted, onUpdated } from 'vue';
 import $ from 'jquery';
 import navComponentsVue from '@/components/navComponents.vue';
 import footerComponentsVue from '@/components/footerComponents.vue';
@@ -9,7 +9,7 @@ import Step2 from '@/components/step/Step2.vue';
 import Step3 from '@/components/step/Step3.vue';
 import {bodyInit} from '../composables/useOnunmounted';
 import router from '@/router';
-import { BIND_URL } from '../composables/useCommon';
+import { BIND_URL, getCartLength } from '../composables/useCommon';
 onMounted(() =>{
   function getMemberInfoSS(){
             let xhr = new XMLHttpRequest();
@@ -40,14 +40,16 @@ const prevStep = () => {
 }
 const nextStep = () => {
     step.value++
-}
+};
+const count = ref(0);
+const updateCart = (val) => count.value = val;
 </script>
 <template>
-    <navComponentsVue />
+    <navComponentsVue :count="count"/>
     <section class="member_detail">
         <h2>SHOPPING CART</h2> 
         <OrderStepVue :step="step"/>  
-        <Step1 v-if="step===1" :next-step="nextStep"></Step1>  
+        <Step1 v-if="step===1" :next-step="nextStep" @updateCart="updateCart"></Step1>  
         <Step2 v-if="step===2" :next-step="nextStep" :prev-step="prevStep" ></Step2>
         <Step3 v-if="step===3"></Step3>
     </section>

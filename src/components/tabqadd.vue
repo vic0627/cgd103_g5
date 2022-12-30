@@ -1,30 +1,55 @@
 <script setup>
-import {ref} from "vue";
+import {ref,onMounted} from "vue";
+import axios from 'axios';
 import {BIND_URL } from "../composables/useCommon";
+
+const props = defineProps(["tab"])
+
+
 const des = ref("");
 const ans = ref("");
-const props = defineProps(["tab"])
+const faqRows = ref([]);
+
+const getProducts = () => {
+			//取得管理員資料
+       axios.get(`${BIND_URL('getFaq.php','g5PHP')}`,)
+      .then(res=> {
+        console.log(res.data)
+        faqRows.value = res.data
+      })
+		}
+
 const add =()=>{
-  if(des.value === '' || ans.value === ''){
-    alert('不可空白，請輸入問題或答案')
-    
-  }else{
-     const payload = {
-        faq_des : des.value,
-        faq_ans : ans.value
-    };
-  fetch(`${BIND_URL('insertaddFaqs.php','g5PHP')}`,{
-    method:'POST',
-    body:new URLSearchParams(payload), 
-  }
-  ).then(res=>{
-    res.text();
-  }).then(res=>{
-    props.tab("qrev");
-  })
-  }
-  
+  const payload = {
+    faq_des : des.value,
+    faq_ans : ans.value
+  };  
+
+  for(let i=0;i<faqRows.value.length;i++){
+      if(des.value === faqRows.value[i].faq_des && ans.value === faqRows.value[i].faq_ans){
+        alert("問題回答已重複");
+       
+        break;    
+      }else if (des.value === '' || ans.value === '' ){
+        alert("不可空白");
+        break;
+      }else if(des.value != faqRows.value[i].faq_des && ans.value != faqRows.value[i].faq_ans){
+        fetch(`${BIND_URL('insertaddFaq.php','g5PHP')}`, {
+          method: "POST",
+          body: new URLSearchParams(payload),
+        }).then(res=>{
+          res.text();
+        })
+        alert("新增成功");
+        props.tab("qrev");
+        break;
+      }
+    }
 }
+
+onMounted(()=>{
+	getProducts();
+});
 </script>
 
 <template>
@@ -44,15 +69,11 @@ const add =()=>{
       <input type="text" placeholder="請輸入答案" id="ansWer" name="faq_ans" v-model="ans" required>
     </div>
   </div>
-</form>
+  </form>
   <div class="btn">
-    <button value="確定新增" id="conFirm" @click="add()">確定新增</button>
-    
-  </div>
-  
+    <button id="conFirm" @click="add() ,props.tab('qrev')" >確定新增</button>
+  </div>  
 </div>
-  
-
 </template>
 <style scoped lang="scss" >
 @import '@/sass/style.scss';
