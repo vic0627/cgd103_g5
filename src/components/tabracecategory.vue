@@ -284,7 +284,7 @@ const testVal = (e) => {
             placeholder="請輸入日期"
             maxlength="300"
           ></textarea>
-          <h6>請輸入地點</h6>
+          <h6>地點</h6>
           <textarea
             name="cpt_aboard"
             v-model="newcpt_aboard"
@@ -293,7 +293,7 @@ const testVal = (e) => {
             placeholder="請輸入地點"
             maxlength="300"
           ></textarea>
-          <h6>請加入圖片</h6>
+          <h6>圖片</h6>
           <textarea
             name="cpt_photo"
             v-model="newcpt_photo"
@@ -302,7 +302,7 @@ const testVal = (e) => {
             placeholder="請輸入照片"
             maxlength="300"
           ></textarea>
-          <h6>請加入文字</h6>
+          <h6>內容</h6>
           <textarea
             name="cpt_txt"
             v-model="newcpt_txt"

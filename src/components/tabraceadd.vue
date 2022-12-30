@@ -116,7 +116,7 @@ function fileChange() {
               type="text"
               name="cpt_start"
               id="start"
-              placeholder="請輸入開始日期"
+              placeholder="Ex:2022-01-01"
               v-model="cpt_start"
               required
             />
@@ -128,7 +128,7 @@ function fileChange() {
               type="text"
               name="cpt_end"
               id="end"
-              placeholder="請輸入結束日期"
+              placeholder="Ex:2022-01-01"
               v-model="cpt_end"
               required
             />
@@ -140,19 +140,23 @@ function fileChange() {
               type="text"
               name="cpt_aboard"
               id="aboard"
-              placeholder="請輸入地點"
+              placeholder="Ex:Taiwan"
               v-model="cpt_aboard"
               required
             />
           </div>
 
-          <div class="imgBox">
-            <h3>圖片</h3>
-            <p>
-              <img id="image" />
-            </p>
+          <div class="aboard">
+            <h3>地點</h3>
+            <input
+              type="text"
+              name="cpt_photo"
+              id="photo"
+              placeholder="Ex:contest01.png"
+              v-model="cpt_photo"
+              required
+            />
           </div>
-          <input type="file" id="theFile" @change="fileChange" />
 
           <div class="txt">
             <h3>比賽內容</h3>
