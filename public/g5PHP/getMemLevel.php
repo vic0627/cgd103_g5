@@ -40,7 +40,12 @@ try{
         $member4->bindValue(":mem_no", $_SESSION["MemberNo"]);
         $member4->execute();
         $memRow4 = $member4->fetch(PDO::FETCH_ASSOC);
-        if($memRow4["mem_points"]>=3000 && $memRow4["mem_points"]<10000){
+        if($memRow4["mem_points"]>=0 && $memRow4["mem_points"]<3000){
+            $sql8 = "UPDATE `member` SET `mem_grade` = '1' WHERE `member`.`mem_no` = :mem_no";
+            $member8 = $pdo->prepare($sql8);
+            $member8->bindValue(":mem_no", $_SESSION["MemberNo"]);
+            $member8->execute();
+        }else if($memRow4["mem_points"]>=3000 && $memRow4["mem_points"]<10000){
             $sql5 = "UPDATE `member` SET `mem_grade` = '2' WHERE `member`.`mem_no` = :mem_no";
             $member5 = $pdo->prepare($sql5);
             $member5->bindValue(":mem_no", $_SESSION["MemberNo"]);

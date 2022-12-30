@@ -8,118 +8,117 @@ import { reactive, ref, onMounted } from "vue";
 import emailjs from "emailjs-com";
 
 onMounted(() => {
-  function getMemberInfo() {
-    let xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      let member = JSON.parse(xhr.responseText);
-      // console.log(member);
-      if (member.Account) {
-        //有帳密資料
-        // $id("memName").innerText = member.memName;
-        // $id("spanLogin").innerText = "登出";
-      }
-    };
-    // xhr.open("get", "/dist/g5PHP/getMemberInfo.php", true); //查看使用者是否有登入
-    xhr.open("get", `${BIND_URL("getMemberInfo.php", "g5PHP")}`, true); //查看使用者是否有登入
-    xhr.withCredentials = true;
-    xhr.send(null);
-  }
+function getMemberInfo() {
+	let xhr = new XMLHttpRequest();
+	xhr.onload = function () {
+		let member = JSON.parse(xhr.responseText);
+		// console.log(member);
+		if (member.Account) {
+			//有帳密資料
+			// $id("memName").innerText = member.memName;
+			// $id("spanLogin").innerText = "登出";
+		}
+	};
+	// xhr.open("get", "/dist/g5PHP/getMemberInfo.php", true); //查看使用者是否有登入
+	xhr.open("get", `${BIND_URL("getMemberInfo.php", "g5PHP")}`, true); //查看使用者是否有登入
+	xhr.withCredentials = true;
+	xhr.send(null);
+}
 
-  getMemberInfo();
+getMemberInfo();
 
-  function $id(id) {
-    return document.getElementById(id);
-  }
+function $id(id) {
+	return document.getElementById(id);
+}
+	
+function sendForm() {
+	if (!verifyuname() || !verifypsw()) {
+		alert("wrong username or password!");
+		return false;
+	}
+		// fetch("http://localhost:8888/cgd103_g5/public/g5PHP/memLogin.php",{
+			//     method : "POST",
+			//     body : JSON.stringify({
+				//         username : document.getElementById("username").value,
+				//         password : document.getElementById("password").value,
+				//     })
+				// }).then(res => console.log(res));
+				
+				//-----------------------------------使用Ajax 回server端,取回登入者姓名, 放到頁面上
+	let xhr = new XMLHttpRequest();
+	xhr.onload = function () {
+		let member = JSON.parse(xhr.responseText);
+		// console.log(member);
+		if (member.Account) {
+			//帳密正確
+		} else {
+			alert("wrong username or password!~");
+		}
+	};
+	// xhr.open("post", "/dist/g5PHP/memLogin.php", true); //連接到php
+	xhr.open("post", `${BIND_URL("memLogin.php", "g5PHP")}`, true);
+	xhr.withCredentials = true;
+	xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded"); //php格式
+	
+	let datas = {};
+	datas.username = $id("username").value; //將資料打包進datas物件中
+	datas.password = $id("password").value;
+	let data_info = `datas=${JSON.stringify(datas)}`; //將datas轉為json字串
+	xhr.send(data_info); //post送出
+}
+			
+$id("btnLogin").onclick = sendForm;
 
-  function sendForm() {
-    if (!verifyuname() || !verifypsw()) {
-      alert("wrong username or password!");
-      return false;
-    }
-    // fetch("http://localhost:8888/cgd103_g5/public/g5PHP/memLogin.php",{
-    //     method : "POST",
-    //     body : JSON.stringify({
-    //         username : document.getElementById("username").value,
-    //         password : document.getElementById("password").value,
-    //     })
-    // }).then(res => console.log(res));
 
-    //-----------------------------------使用Ajax 回server端,取回登入者姓名, 放到頁面上
-    let xhr = new XMLHttpRequest();
-    xhr.onload = function () {
-      let member = JSON.parse(xhr.responseText);
-      // console.log(member);
-      if (member.Account) {
-        //帳密正確
-        document.getElementById("username").value = "";
-        document.getElementById("password").value = "";
-        document.querySelector(".unameinfo").innerHTML = "";
-        document.querySelector(".pswinfo").innerHTML = "";
-      } else {
-        alert("wrong username or password!~");
-      }
-    };
-    // xhr.open("post", "/dist/g5PHP/memLogin.php", true); //連接到php
-    xhr.open("post", `${BIND_URL("memLogin.php", "g5PHP")}`, true);
-    xhr.withCredentials = true;
-    xhr.setRequestHeader("content-type", "application/x-www-form-urlencoded"); //php格式
+//email verify
+const uname = document.querySelector("#username");
+uname.addEventListener("input", function () {
+	verifyuname();
+});
 
-    let datas = {};
-    datas.username = $id("username").value; //將資料打包進datas物件中
-    datas.password = $id("password").value;
-    let data_info = `datas=${JSON.stringify(datas)}`; //將datas轉為json字串
-    xhr.send(data_info); //post送出
-  }
+function verifyuname() {
+	let regex_psw = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+	if (uname.value != "") {
+		if (regex_psw.test(uname.value) == false) {
+			document.querySelector(".unameinfo").textContent =
+			"Incorrect email address format";
+			document.querySelector(".unameinfo").style["color"] = "red";
+		} else if (regex_psw.test(uname.value)) {
+			document.querySelector(".unameinfo").textContent = " Good!";
+			document.querySelector(".unameinfo").style["color"] = "lightgreen";
+			return true;
+		}
+	} else {
+		document.querySelector(".unameinfo").textContent = "";
+	}
+	return false;
+}
 
-  $id("btnLogin").onclick = sendForm;
 
-  //email verify
-  const uname = document.querySelector("#username");
-  uname.addEventListener("input", function () {
-    verifyuname();
-  });
-
-  function verifyuname() {
-    let regex_psw = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-    if (uname.value != "") {
-      if (regex_psw.test(uname.value) == false) {
-        document.querySelector(".unameinfo").textContent =
-          "Incorrect email address format";
-        document.querySelector(".unameinfo").style["color"] = "red";
-      } else if (regex_psw.test(uname.value)) {
-        document.querySelector(".unameinfo").textContent = " Good!";
-        document.querySelector(".unameinfo").style["color"] = "lightgreen";
-        return true;
-      }
-    } else {
-      document.querySelector(".unameinfo").textContent = "";
-    }
-    return false;
-  }
-  //password verify
-  const psw = document.querySelector("#password");
-  psw.addEventListener("input", function () {
-    verifypsw();
-  });
+//password verify
+const psw = document.querySelector("#password");
+psw.addEventListener("input", function () {
+	verifypsw();
+});
   function verifypsw() {
-    let regex_psw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-    if (psw.value != "") {
-      if (regex_psw.test(psw.value) == false) {
-        document.querySelector(".pswinfo").textContent =
-          "Incorrect password format";
-        document.querySelector(".pswinfo").style["color"] = "red";
-      } else if (regex_psw.test(psw.value)) {
-        document.querySelector(".pswinfo").textContent = " Good!";
-        document.querySelector(".pswinfo").style["color"] = "lightgreen";
-        return true;
-      }
-    } else {
-      document.querySelector(".pswinfo").textContent =
-        "The password must be eight characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.";
-      document.querySelector(".pswinfo").style["color"] = "#888";
-    }
-    return false;
-  }
+	  let regex_psw = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+	  if (psw.value != "") {
+		  if (regex_psw.test(psw.value) == false) {
+			  document.querySelector(".pswinfo").textContent =
+			  "Incorrect password format";
+			  document.querySelector(".pswinfo").style["color"] = "red";
+			} else if (regex_psw.test(psw.value)) {
+				document.querySelector(".pswinfo").textContent = " Good!";
+				document.querySelector(".pswinfo").style["color"] = "lightgreen";
+				return true;
+			}
+		} else {
+			document.querySelector(".pswinfo").textContent =
+			"The password must be eight characters or more and contain at least one uppercase character, at least one lowercase character and at least one number.";
+			document.querySelector(".pswinfo").style["color"] = "#888";
+		}
+		return false;
+	}
 });
 
 //忘記密碼 燈箱
@@ -128,10 +127,10 @@ const lightBoxShow = ref(false);
 const formShow = ref(true);
 
 const forgetPW = () => {
-  lightBoxShow.value = true;
+	lightBoxShow.value = true;
 };
 const lightBoxClose = () => {
-  lightBoxShow.value = false;
+	lightBoxShow.value = false;
 };
 
 // ========== 寄 Email  ========== //
@@ -139,78 +138,79 @@ const forget_password_account = ref("");
 const mem_pw = ref("");
 
 const sendEmail = () => {
-  // ============== 把忘記的密碼撈出來  =============== //
-  fetch(
-    `${BIND_URL(
-      `getMemberPassword.php?mem_acc=${forget_password_account.value}`,
-      "g5PHP"
-    )}`
-  )
-    .then((res) => res.json())
-    .then((json) => {
-      mem_pw.value = json.mem_pw;
-      emailjs
-        .send(
-          "service_0fkz7ii",
-          "template_ojh6tgp",
-          {
-            user_email: forget_password_account.value,
-            mem_pw: mem_pw.value,
-          },
-          "TWzj5YZjjnkHkkv1N"
-        )
-        .then(
-          (result) => {
-            console.log("SUCCESS!", result.text);
-          },
-          (error) => {
-            console.log("FAILED...", error.text);
+	// ============== 把忘記的密碼撈出來  =============== //
+	fetch(
+		`${BIND_URL(
+			`getMemberPassword.php?mem_acc=${forget_password_account.value}`,
+			"g5PHP"
+			)}`
+			)
+			.then((res) => res.json())
+			.then((json) => {
+				mem_pw.value = json.mem_pw;
+				emailjs
+				.send(
+					"service_0fkz7ii",
+					"template_ojh6tgp",
+					{
+						user_email: forget_password_account.value,
+						mem_pw: mem_pw.value,
+					},
+					"TWzj5YZjjnkHkkv1N"
+					)
+					.then(
+						(result) => {
+							console.log("SUCCESS!", result.text);
+						},
+						(error) => {
+							console.log("FAILED...", error.text);
           }
-        );
-    });
-    formShow.value = false;
-    hintShow.value = true;
-  /* var xhr = new XMLHttpRequest();
-  xhr.onload = function () {
-    if (xhr.status == 200) {
-      //modify here
-      showMember();
-    } else {
-      alert(xhr.status);
-    }
+		  );
+		});
+		formShow.value = false;
+		hintShow.value = true;
+		/* var xhr = new XMLHttpRequest();
+		xhr.onload = function () {
+			if (xhr.status == 200) {
+				//modify here
+				showMember();
+			} else {
+				alert(xhr.status);
+			}
   };
   function showMember(json) {
-    var url =
+	  var url =
       "http://localhost/cgd103_g5/public/g5PHP/getMemberPassword.php?mem_acc=" +
       forget_password_account.value;
-    xhr.open("get", url, true);
-    xhr.send(null);
-    let member = JSON.parse(xhr.responseText);
-    mem_pw.value = member.mem_pw;
-    console.log(mem_pw.value);
-    console.log(forget_password_account.value);
-    emailjs
+	  xhr.open("get", url, true);
+	  xhr.send(null);
+	  let member = JSON.parse(xhr.responseText);
+	  mem_pw.value = member.mem_pw;
+	  console.log(mem_pw.value);
+	  console.log(forget_password_account.value);
+	  emailjs
       .send(
-        "service_0fkz7ii",
-        "template_ojh6tgp",
-        {
-          user_email: forget_password_account.value,
-          mem_pw: mem_pw.value,
-        },
-        "TWzj5YZjjnkHkkv1N"
-      )
-      .then(
-        (result) => {
-          console.log("SUCCESS!", result.text);
-        },
-        (error) => {
-          console.log("FAILED...", error.text);
-        }
-      );
-  } */
-  console.log(sendEmail);
-  // ========== 忘記密碼的 EmailJs ========== //
-};
+		  "service_0fkz7ii",
+		  "template_ojh6tgp",
+		  {
+			  user_email: forget_password_account.value,
+			  mem_pw: mem_pw.value,
+			},
+			"TWzj5YZjjnkHkkv1N"
+			)
+			.then(
+				(result) => {
+					console.log("SUCCESS!", result.text);
+				},
+				(error) => {
+					console.log("FAILED...", error.text);
+				}
+				);
+			} */
+			console.log(sendEmail);
+			// ========== 忘記密碼的 EmailJs ========== //
+		};
+
 </script>
 
 <template>
@@ -229,22 +229,10 @@ const sendEmail = () => {
           <!-- <form class="tab_panel" action="/member" method="get"> -->
           <form class="tab_panel">
             <label for="username">Email Address</label>
-            <input
-              type="text"
-              name="username"
-              class="input-s"
-              id="username"
-              maxlength="35"
-            />
+            <input type="text" name="username" class="input-s" id="username" maxlength="35"/>
             <span class="unameinfo"></span>
             <label for="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              class="input-s"
-              id="password"
-              maxlength="20"
-            />
+            <input type="password" name="password" class="input-s" id="password" maxlength="20"/>
             <span class="pswinfo"></span>
             <div class="login_info">
               <!-- <input type="checkbox" name="remember" id="remember" /> -->
