@@ -38,7 +38,7 @@ animation();
                     <p>We are highly motivated to present GOOD SLEEP to as many people aspossible. Our task is not just selling pillows.We are fully committed to provide fulfilling sleep. Good sleep bringshappiness, energy, and smiles. It is a simple fact.</p>
                     <div class="aboutBtn">
                 <router-link to="/about" class="btnFirst" id="btn1" data-title="Learn">
-                    <span>Learn</span>
+                    <span>More</span>
                 </router-link>
             </div>
                 </div>

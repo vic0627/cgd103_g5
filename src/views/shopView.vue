@@ -381,7 +381,7 @@ $(document).ready(() => {
           <div v-if="prodRow.sale == 1" class="sale"><span>Sale</span></div>
             <div class="product_box">
               <div class="img_box">
-                <img :src="`${BIND_URL(prodRow.src)}`" alt="product_img"/>
+                <img :src="`${BIND_URL(prodRow.src,'images/shop')}`" alt="product_img"/>
               </div>
               <div class="detail_box">
                 <h5 class="title">{{ prodRow.title}}</h5>
@@ -425,7 +425,7 @@ $(document).ready(() => {
           <div v-if="assRow.sale == 1" class="sale"><span>Sale</span></div>
           <div class="product_box">
             <div class="img_box">
-              <img :src="`${BIND_URL(assRow.src)}`" alt="product_img" />
+              <img :src="`${BIND_URL(assRow.src,'images/shop')}`" alt="product_img" />
             </div>
             <div class="detail_box">
               <h5 class="title">{{assRow.title}}</h5>
@@ -475,7 +475,7 @@ $(document).ready(() => {
           >
           <div v-if="bundleRow1.sale == true " class="sale"><span>Sale</span></div>
             <div class="pic">
-              <img :src="`${BIND_URL(bundleRow1.src)}`" alt="beginner" />
+              <img :src="`${BIND_URL(bundleRow1.src,'images/shop')}`" alt="beginner" />
             </div>
             <h5>
               <span>{{bundleRow1.title}}</span>
@@ -508,7 +508,7 @@ $(document).ready(() => {
           >
           <div v-if="bundleRow2.sale == true " class="sale"><span>Sale</span></div>
             <div class="pic">
-              <img :src="`${BIND_URL(bundleRow2.src)}`" alt="veteran" />
+              <img :src="`${BIND_URL(bundleRow2.src,'images/shop')}`" alt="veteran" />
             </div>
             <h5>
               <span>{{bundleRow2.title}}</span>
@@ -582,9 +582,10 @@ $(document).ready(() => {
 
 //banner
 .banner {
-  width: 100%;
+  // width: 100%;
   position: relative;
   margin-top: 0;
+  overflow: hidden;
   h2 {
     width: 100%;
     text-align: center;
@@ -592,6 +593,7 @@ $(document).ready(() => {
     top: 40%;
     right: 0;
     background-color: #ffffff80;
+    overflow: hidden;
     @include m($m-breakpoint) {
       background-color: #12181e80;
     }

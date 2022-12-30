@@ -22,6 +22,8 @@ const addCard = ()=>{
         body: new URLSearchParams(payload),
     }).then((res) => {
         res.text();
+    }).then((res)=>{
+        alert(res);
     })
 };
 onMounted(()=> {
@@ -46,11 +48,6 @@ $(document).ready(()=>{
     $('#credit').blur(()=>{
         $('.remindTxt span').css('color','white');
     })
-    // $('.btn').click(()=>{
-    //     setTimeout(()=>{
-    //         $('#credit').text("");
-    //     },2000)
-    // })
 })
 </script>
 
