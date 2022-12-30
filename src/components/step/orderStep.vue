@@ -42,7 +42,6 @@ const orderStep = reactive(
 <style scoped lang="scss">
 @import '@/sass/style.scss';
 .step_box{
-    width: 100%;
     height: 150px;
     overflow: hidden;
     padding: 20px;

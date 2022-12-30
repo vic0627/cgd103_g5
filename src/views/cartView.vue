@@ -20,9 +20,6 @@ onMounted(() =>{
                 }else{
                   alert("Please log in before checkout!");
                   router.push('/signin');
-                  setTimeout(()=>{
-                    window.location.reload()
-                  },1000)
                 }
             }
             // /dist/g5PHP/getMemberInfo.php
