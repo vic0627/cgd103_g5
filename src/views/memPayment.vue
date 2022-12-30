@@ -46,11 +46,6 @@ $(document).ready(()=>{
     $('#credit').blur(()=>{
         $('.remindTxt span').css('color','white');
     })
-    // $('.btn').click(()=>{
-    //     setTimeout(()=>{
-    //         $('#credit').text("");
-    //     },2000)
-    // })
 })
 </script>
 
