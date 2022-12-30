@@ -139,7 +139,7 @@ const confirmPay =()=>{
             </table>
             <div class="buttons">
                 <div class="btnSecond" data-title="Back" @click="props.prevStep()"><span>Back</span></div>
-                <div class="btnPrimary" data-title="Pay" @click="lightBoxShow.value = true"><span>Pay</span></div>
+                <div class="btnPrimary" data-title="Pay" @click="lightBoxShow = true"><span>Pay</span></div>
                 <!-- props.nextStep();submitOrder() -->
             </div>
     </section>     
