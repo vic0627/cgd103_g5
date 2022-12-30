@@ -1,9 +1,10 @@
 <script setup>
 import { ref, onMounted, reactive, computed,onBeforeUpdate} from 'vue';
 import {bodyInit} from '@/composables/useOnunmounted';
-import { BIND_URL, getCartLength } from "../../composables/useCommon";
+import { BIND_URL, getCartLength, log } from "../../composables/useCommon";
 import axios from 'axios';
 import router from '@/router';
+import { now } from 'lodash';
 bodyInit();
 const explode = ref('');
 const cusBtn = ref(true);
@@ -137,31 +138,75 @@ const clearSession = ()=>{
 }
 //discount 
 const discount = ref('');
+const discUse = ref(false);
 const discPercent = ref('0');
 const discConfirm = () => {
     if(sessionStorage['cartList'] === ''){
         alert('Please purchase products');
         router.push('/shop');
     }else{
-        for(let i=0;i<=discRows.value.length;i++){
-        if(discount.value === discRows.value[i].disc_code){
-            discPercent.value = discRows.value[i].disc_off;
-            sessionStorage.setItem('discount',discPercent.value)
-            sessionStorage.setItem('disc_no',discRows.value[i].disc_no)
-            discount.value = '';
-            alert('Congratulations discount !');
-            break;         
-        }else{
-            alert('No such offer number')
-            discount.value = '';
-            sessionStorage.setItem('discount',discPercent.value)
-            sessionStorage.setItem('disc_no', discount.value)
-            discount.value = '';
-            break;                    
+        fetch(`${BIND_URL("getDiscNum.php", "g5PHP")}`, {
+            method: "POST",
+            body: new URLSearchParams({ disc_code: discount.value }),
+        })
+        .then(res => res.json())
+        .then(e => {
+            if(e.disc_start==undefined){
+                alert('No such offer number')
+            }else{
+                let date = nowToDate(Date());
+                if(date>=e.disc_start && date<=e.disc_end){
+                    discPercent.value = e.disc_off;
+                    discount.value = '';
+                    sessionStorage.setItem('discount',discPercent.value);
+                    sessionStorage.setItem('disc_no', e.disc_no);
+                    discUse.value = true;
+                    alert(`You have use the ${e.disc_title} discount!`);
+                }else{
+                    alert('This discount has expired!');
+                };
+            };
+        });
+    };
+};
+const nowToDate = (e) => {
+    let dateWrap = String(e).split(' ');
+    let date = dateWrap[4].split(':')
+    let yy = Number(dateWrap[3]);
+    let mm = () => {
+        switch(dateWrap[1]){
+            case 'Jan':
+                return 1;
+            case 'Feb':
+                return 2;
+            case 'Mar':
+                return 3;
+            case 'Apr':
+                return 4;
+            case 'May':
+                return 5;
+            case 'Jun':
+                return 6;
+            case 'Jul':
+                return 7;
+            case 'Aug':
+                return 8;
+            case 'Sep':
+                return 9;
+            case 'Oct':
+                return 10;
+            case 'Nov':
+                return 11;
+            case 'Dec':
+                return 12;
         }
-    } 
-    }
-}
+    };
+    let dd = Number(dateWrap[2]);
+    let h = Number(date[0]);
+    let m = Number(date[1]);
+    let s = Number(date[2]);
+    return `${yy}-${mm()}-${dd} ${h}:${m}:${s}`;
+};
 //下一步確認
 const check = ()=> {
     if(sessionStorage.getItem('cartList') === ''){
@@ -183,8 +228,6 @@ const discRows = ref([]);
 }
 const count = ref(0);
 onMounted(()=>{
-    //mounted裡面不要使用const去做定義 有區域問題
-    getDisc();
     session();
 });
 </script>
@@ -238,8 +281,8 @@ onMounted(()=>{
             </div>
             <div class="discount"  v-if="storgeNull() != null">
                 <p>Discount code :</p>
-                <input type="text" v-model="discount">
-                <button class="discount-btn" @click="discConfirm()">Confirm</button>
+                <input type="text" v-model="discount" :disabled="discUse">
+                <button class="discount-btn" @click="discConfirm" :disabled="discUse">Confirm</button>
             </div>
         </div>
         <div class="total">
