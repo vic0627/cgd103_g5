@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, reactive, computed,onBeforeUpdate} from 'vue';
+import { ref, onMounted, reactive, computed,onBeforeUpdate, onUpdated} from 'vue';
 import {bodyInit} from '@/composables/useOnunmounted';
 import { BIND_URL, getCartLength, log } from "../../composables/useCommon";
 import axios from 'axios';
@@ -8,7 +8,7 @@ import { now } from 'lodash';
 bodyInit();
 const explode = ref('');
 const cusBtn = ref(true);
-const props = defineProps(['nextStep','step']);
+const props = defineProps(['nextStep','step','memGrade']);
 const cartItem = ref([]);
 const cartList = computed(() => cartItem.value)
 const emit = defineEmits(["updateCart"]);
@@ -74,9 +74,10 @@ const final = computed(()=>{
             }
         }
     }
-    sessionStorage.setItem('final', totalprice.value)
-    finalprice.value = totalprice.value
-    return totalprice
+    
+    finalprice.value = totalprice.value*memDisc.value;
+    sessionStorage.setItem('final', finalprice.value)
+    return finalprice
 })
 //組裝費
 const assemblyfee = ref(0);
@@ -139,7 +140,7 @@ const clearSession = ()=>{
 //discount 
 const discount = ref('');
 const discUse = ref(false);
-const discPercent = ref('0');
+const discPercent = ref(1);
 const discConfirm = () => {
     if(sessionStorage['cartList'] === ''){
         alert('Please purchase products');
@@ -217,26 +218,36 @@ const check = ()=> {
 }
 
 //取得資料庫資料
-const discRows = ref([]);
-    const getDisc = () => {
-    fetch(`${BIND_URL('getDiscCart.php','g5PHP')}`)
+const memDisc = ref(1);
+const getDisc = () => {
+    fetch(`${BIND_URL('getMemberDisc.php','g5PHP')}`, {
+        method: "POST",
+        body: new URLSearchParams({ mem_grade: props.memGrade }),
+    })
     .then(res => res.json())
     .then(json => {
-        discRows.value = json;
-    }
-    )
-}
+        memDisc.value = Number(json.mem_discount);
+    })
+};
+const finDisc = computed(() => {
+    let trueDisc = 100 - memDisc.value*discPercent.value*100;
+    return `${trueDisc}% off`
+})
 const count = ref(0);
 onMounted(()=>{
     session();
+    
 });
+onUpdated(() => {
+    getDisc();
+})
 </script>
 <template>
 
     <section>
         <div class="shopCart">
             <!-- <div v-if="storgeNull == null"> -->
-            <div v-if="storgeNull() == ''">
+            <div v-if="getCartLength() == 0">
                 <div class="empty">
                     <h3>Your bag is empty.</h3>
                     <p>Sign in to see if you have any saved items. Or continue shopping.</p>
@@ -279,7 +290,7 @@ onMounted(()=>{
                     </div>
                 </div>
             </div>
-            <div class="discount"  v-if="storgeNull() != null">
+            <div class="discount"  v-if="getCartLength() != 0">
                 <p>Discount code :</p>
                 <input type="text" v-model="discount" :disabled="discUse">
                 <button class="discount-btn" @click="discConfirm" :disabled="discUse">Confirm</button>
@@ -300,17 +311,19 @@ onMounted(()=>{
                 </div>  
                 <div class="summaryPrice">
                     <p>Discount</p>
-                    <p>{{discPercent}}</p>
+                    <p>{{finDisc}}</p>
                 </div>
                 <div class="summaryPrice">
                     <p>Total Price</p>
                     <p>${{final}}</p>
                 </div>
                 <div class="cartBtn">
-                    <router-link to="/shop" class="btnFirst" id="btn1" data-title="Shop">
+                    <router-link to="/shop" id="btn1" data-title="Shop">
                         <span>Shop</span>
                     </router-link>
-                    <button @click="check()" class="button"><a class="btnSecond" id="btn2" data-title="Next">Next</a></button>
+                    <div @click="check" data-title="Next" id="btn2">
+                        <span>Next</span>
+                    </div>
                 </div>
             </div>
         </div>
