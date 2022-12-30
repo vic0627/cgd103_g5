@@ -86,9 +86,9 @@ onMounted(()=> {
                 {{((memberinfo.mem_points/memberinfo.upgrade_point)*100).toFixed(0)}}%
             </div>
             <div class="showper" v-else-if="memberinfo.mem_points>=10000">
-                MAX LEVEL
+                LEVEL MAX.
             </div>
-            <div class="showper" v-else-if="memberinfo.mem_points='0'">
+            <div class="showper" v-else-if="memberinfo.mem_points=0">
                 You Haven't Buy Anything~
             </div>
             
