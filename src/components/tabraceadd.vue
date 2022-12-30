@@ -145,10 +145,9 @@ function fileChange() {
               required
             />
           </div>
-        </div>
 
-        <div>
           <div class="imgBox">
+            <h3>圖片</h3>
             <p>
               <img id="image" />
             </p>
@@ -156,7 +155,7 @@ function fileChange() {
           <input type="file" id="theFile" @change="fileChange" />
 
           <div class="txt">
-            <h3>內容</h3>
+            <h3>比賽內容</h3>
             <textarea
               type="text"
               name="cpt_txt"
@@ -262,6 +261,7 @@ h3 {
 .btn {
   display: flex;
   margin: 50px;
+  margin-left: 20px;
   input {
     width: 150px;
     font-size: 20px;
