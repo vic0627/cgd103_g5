@@ -170,6 +170,7 @@ const confirmPay =()=>{
 <style scoped lang="scss">
 @import '@/css/reset.css';
 @import '@/sass/style.scss';
+@import "@/sass/component/_lightBox.scss";
 @import '@/sass/base/_color.scss';
 @import '@/sass/base/_common.scss';
 @import '@/sass/base/_font.scss';
