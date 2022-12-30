@@ -183,9 +183,12 @@ onMounted(()=>{
                 <n-modal
                     v-model:show="showModal2"
                     preset="dialog"
-                    title="確認"
-                    content="你確定嗎?"
+                    title="確認刪除"
+                    content=""
                 >
+                <label for="cat_no">確認刪除以下類別:</label>
+                <input type="text" name="cat_id" disabled>
+
                 <n-button @click="showModal2 = true; deleteCate(index)" type="error">
                     確認
                 </n-button>
