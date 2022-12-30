@@ -156,8 +156,6 @@ const submitOrder = ()=>{
 @import '@/sass/component/_btn.scss';
 
     .detail_box{
-        // height: 500px;
-        width: 100%;
         background-color: rgba(142, 142, 142, 0.19);
         display: flex;
         flex-direction: column;
@@ -183,9 +181,8 @@ const submitOrder = ()=>{
         }
         .confirm_detail{
             background-color: rgba(217, 217, 217, 0.32);
-            // width: 100%;
-            padding: 20px;
-            // margin: 20px;
+            box-sizing: border-box;
+            padding: 10px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             border-bottom-left-radius: 10px;

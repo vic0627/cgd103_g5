@@ -10,6 +10,9 @@ const no = ref("");
 const newFaq_des = ref("");
 const newFaq_no = ref('');
 const newFaq_ans = ref('');
+const delFaq_des = ref("");
+const delFaq_no = ref('');
+const delFaq_ans = ref('');
 const showModal = ref(false);
 const showModal2 = ref(false);
 
@@ -73,7 +76,9 @@ const column = createColumns({
   },
   showModal2(rowData,index){
     showModal2.value = true
-    newFaq_no.value = rowData.faq_no;
+    delFaq_no.value = rowData.faq_no;
+    delFaq_des.value = rowData.faq_des;
+    delFaq_ans.value = rowData.faq_ans;
   }
 })
 
@@ -129,7 +134,9 @@ const updateFaq = (user)=>{
 // 刪除資料
 const deleteFaq = (user)=>{
   const delFaq = {
-    faq_no: Number(newFaq_no.value)
+    faq_no: Number(delFaq_no.value),
+    faq_des: delFaq_des.value, 
+    faq_ans: delFaq_ans.value
   }
   fetch(`${BIND_URL('deleteFaq.php','g5PHP')}`,{
     method: "POST",
@@ -203,30 +210,33 @@ const testVal = (e) => {
  
   <div class="tables" id="products" align="center">
     <form action="" method="post">
-      <n-data-table :columns="column" :data="returnFaq" :pagination="pagination"  :bordered="true" :single-line="false" />
-      <n-modal
-        v-model:show="showModal"
-        preset="dialog"
-        title="確認"
-        content="你確定嗎?"
-      >
-            <label for="faq_des"> 修改問題 : </label>
-            <textarea name="faq_des" v-model="newFaq_des" rows="10" cols="50" placeholder="請輸入問題" maxlength="200"></textarea>
-            <textarea name="faq_ans" v-model="newFaq_ans" rows="10" cols="50" placeholder="請輸入回答" maxlength="300" ></textarea>
-            <n-button @click="showModal = true; updateFaq(index)" type="error">
-              確認
-            </n-button>
-      </n-modal>
-      <n-modal
-          v-model:show="showModal2"
-          preset="dialog"
-          title="確認"
-          content="你確定嗎?"
-        >
+    <n-data-table :columns="column" :data="returnFaq" :pagination="pagination"  :bordered="true" :single-line="false" />
+    <n-modal
+      v-model:show="showModal"
+      preset="dialog"
+      title="確認"
+      content="你確定嗎?"
+    >
+      <label for="faq_des"> 修改問題 : </label>
+      <textarea name="faq_des" v-model="newFaq_des" rows="10" cols="50" placeholder="請輸入問題" maxlength="200"></textarea>
+      <textarea name="faq_ans" v-model="newFaq_ans" rows="10" cols="50" placeholder="請輸入回答" maxlength="300" ></textarea>
+      <n-button @click="showModal = true; updateFaq(index)" type="error">
+        確認
+      </n-button>
+    </n-modal>
+    <n-modal
+      v-model:show="showModal2"
+      preset="dialog"
+      title="確認刪除"
+      content=""
+    >
+      <label for="faq_des"> 確認刪除以下資訊: </label>
+      <textarea name="faq_des" v-model="delFaq_des" rows="10" cols="50" disabled></textarea>
+      <textarea name="faq_ans" v-model="delFaq_ans" rows="10" cols="50" disabled></textarea>
       <n-button @click="showModal2 = true; deleteFaq(index)" type="error">
         刪除
       </n-button>
-      </n-modal>
+    </n-modal>
   </form>
   </div>
 </div>

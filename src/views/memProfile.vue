@@ -224,7 +224,7 @@ function showinfo3(){
                     <!-- {{ memberinfo.address }} -->
 
                     <div class="action">
-                        <button type="">Cancel</button>
+                        <router-link to="/member"><button type="">Cancel</button></router-link>
                         <!-- <button type="submit">Confirmed</button> -->
                         <router-link to="/member"><button type="submit" id="updateMemberInfo">Confirmed</button></router-link>
                     </div>

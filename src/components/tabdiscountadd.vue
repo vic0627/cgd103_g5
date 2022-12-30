@@ -171,12 +171,12 @@ const addProduct = () => {
 @import "@/sass/style.scss";
 
 .top {
-  width: 100%;
+  width: 85%;
+  height: 100%;
   display: block;
+  overflow-y: scroll;
 }
-// div {
-//   margin: 10px;
-// }
+
 h2 {
   font-size: 40px;
   color: #fff;

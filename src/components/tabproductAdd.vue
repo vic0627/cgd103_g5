@@ -6,13 +6,16 @@ const prd_name = ref("");
 const prd_price = ref("");
 const cat_no = ref("");
 const color = ref("");
+const images = ref("");
 
 const addProduct = () => {
   const payload = {
-    prd_name: prd_name.value,
-    prd_price: prd_price.value,
-    cat_no: cat_no.value,
-    color: color.value,
+    prd_name: String(prd_name.value),
+    prd_price: Number(prd_price.value),
+    cat_no: Number(cat_no.value),
+    color: String(color.value),
+    images: String(images.value)
+
   };
   
   fetch(`${BIND_URL('insertProducts.php','g5PHP')}`, {
@@ -77,7 +80,7 @@ function fileChange() {
           <input
             type="text"
             name="prd_name"
-            placeholder="請輸入"
+            placeholder="EX:body_04"
             v-model="prd_name"
           />
         </div>
@@ -95,7 +98,7 @@ function fileChange() {
           <input
             type="text"
             name="prd_price"
-            placeholder="請輸入"
+            placeholder="請輸入$USD"
             v-model="prd_price"
           />
         </div>
@@ -104,17 +107,27 @@ function fileChange() {
           <input
             type="text"
             name="color"
-            placeholder="請輸入"
+            placeholder="Ex:green"
             v-model="color"
           />
         </div>
+        <div>
+          <label for="">商品圖片路徑</label>
+          <input
+            type="text"
+            name="color"
+            placeholder="Ex:body_01.png"
+            v-model="images"
+          />
+        </div>
       </form>
-      <div class="imgBox">
+
+      <!-- <div class="imgBox">
         <p>
           <img id="image" />
         </p>
       </div>
-      <input type="file" id="theFile" @change="fileChange" />
+      <input type="file" id="theFile" @change="fileChange" /> -->
       <div class="btn">
         <input
           type="button"
@@ -152,7 +165,8 @@ label{
 }
 input {
   margin: 10px 0;
-  width: 50%;
+  margin-left: 10px;
+  width: 200px;
   height: 40px;
   border: 1px solid rgb(124, 124, 124);
   border-radius: 5px;
@@ -172,11 +186,11 @@ input {
   }
 }
 select {
-  width: 50%;
+  width: 200px;
   height: 40px;
   border-radius: 5px;
   margin-top: 10px;
-  margin-left: 50px;
+  margin-left: 20px;
   border: 1px solid rgb(124, 124, 124);
   font-size: 20px;
 }

@@ -216,7 +216,6 @@ const selectRace = (id, row) => {
 
           <div class="cardPic">
             <img :src="areaText[e.id].src" alt="aerialPoint" />
-            areaText[e.id].src
           </div>
 
           <div class="cardContent">
