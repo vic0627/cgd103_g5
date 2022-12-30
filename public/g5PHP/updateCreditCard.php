@@ -15,8 +15,7 @@ try {
 		$cdn-> bindValue(":mem_acc", $_SESSION["Account"]);
 		$cdn->bindValue(":credit_no",$_POST["credit_no"]);
 		$cdn->execute();
-		$msg = "success add card number ! you can continue shopping.";
-		echo json_encode($msg);
+		echo '<script>alert("success add card number ! you can continue shopping.")</script>';
 	}else{
 		echo "{}";
 	}
