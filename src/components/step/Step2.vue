@@ -44,6 +44,7 @@ const final = ref('');
 const discount_price = ref('');
 const disc_no = ref('');
 const fee = ref('');
+const lightBoxShow = ref(false);
 onMounted(()=>{
     getMemberInfo();
 })
@@ -95,6 +96,13 @@ const submitOrder = ()=>{
         })
     }
 }
+const lightBoxClose = () => {
+    lightBoxShow.value = false;
+};
+const confirmPay =()=>{
+    lightBoxShow.value = false;
+    submitOrder();   
+}
 </script>
 <template>   
     <section class="detail_box">
@@ -131,7 +139,8 @@ const submitOrder = ()=>{
             </table>
             <div class="buttons">
                 <div class="btnSecond" data-title="Back" @click="props.prevStep()"><span>Back</span></div>
-                <div class="btnPrimary" data-title="Pay" @click="props.nextStep();submitOrder()"><span>Pay</span></div>
+                <div class="btnPrimary" data-title="Pay" @click="lightBoxShow.value = true"><span>Pay</span></div>
+                <!-- props.nextStep();submitOrder() -->
             </div>
     </section>     
     <form action="post">
@@ -143,7 +152,19 @@ const submitOrder = ()=>{
         <input type="hidden" v-model="memberInfo.orders_location" name="orders_location">
         <input type="hidden" v-model="memberInfo.credit_no" name="credit_no">
         <input type="hidden" v-model="fee" name="fee">
-    </form>      
+    </form> 
+    <div class="lightBox" v-if="lightBoxShow">
+                <div class="lightBoxContent">
+                    <div class="close" @click="lightBoxClose"></div>
+                    <div class="clearAll">
+                        <h2>Confirm payment</h2>
+                        <p>Confirm the information is correct,if correct, the order will be save.</p>
+                        <div class="btnFirst" id="btn1" data-title="Confirm" @click="confirmPay();props.nextStep();">
+                        <span>Confirm</span>
+                        </div>
+                    </div>
+                </div>
+            </div>     
 </template>
 
 <style scoped lang="scss">
@@ -154,7 +175,22 @@ const submitOrder = ()=>{
 @import '@/sass/base/_font.scss';
 @import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
-
+.lightBox {
+  @include lightBox();
+  .lightBoxContent {
+    max-height: 700px;
+    .clearAll {
+        text-align: left;
+        margin: 30px;
+        P {
+            margin: 10px 0;
+        }
+        // button {
+        //     background: transparent;
+        // }
+    }
+  }
+}
     .detail_box{
         background-color: rgba(142, 142, 142, 0.19);
         display: flex;

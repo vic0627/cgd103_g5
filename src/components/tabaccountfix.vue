@@ -249,7 +249,7 @@ const testVal = (e) => {
             <input type="text" name="admin_acc" v-model="newAdmin_acc" />
           </div>
           <div class="input">
-            <label for="admin_acc"> 編輯密碼 : </label>
+            <label for="admin_pw"> 編輯密碼 : </label>
             <input type="text" name="admin_pw" v-model="newAdmin_pw" />
           </div>
           <div class="input">
