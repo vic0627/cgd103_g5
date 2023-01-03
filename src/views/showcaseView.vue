@@ -1,12 +1,10 @@
 <script setup>
 import gsap from 'gsap';
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, onUpdated, onBeforeUpdate } from 'vue';
 import * as PRO from './js/ShopInfoThree';
 import { useMousePosition, x, y } from '@/composables/useMousePosition';
 import { log, $$, $all } from '../composables/useCommon';
 import { fpv } from './js/ShopInfoItem';
-
-
 import { bodyInit } from '../composables/useOnunmounted';
 bodyInit();
 
@@ -586,10 +584,55 @@ const allFloat = () => {
         float(i, `.specLi${i}`);
     }
 };
+
+onBeforeUpdate(() => {
+    let progress = PRO.modelLoading.value/2
+    gsap.to('.loadingLine', {
+        clipPath: `polygon(0 ${50-progress}%, 100% ${50-progress}%, 100% ${50+progress}%, 0 ${50+progress}%)`,
+        duration: .2,
+    })
+});
+onUpdated(() => {
+    if(PRO.modelLoading.value===100){
+        gsap.to('.loadContent', {
+            opacity: 0,
+            duration: .3,
+        })
+        gsap.to('.loadProgress', {
+            opacity: 0,
+            duration: .3,
+        })
+        gsap.to('.loadingLine', {
+            width: '100%',
+            left: 0,
+            duration: .3,
+            delay: .3,
+        })
+        gsap.to('.loadingLine', {
+            background: `#12181E`,
+            duration: .3,
+            delay: .6,
+        })
+        gsap.to('.loading', {
+            opacity: 0,
+            display: 'none',
+            duration: .3,
+            delay: .9,
+        })
+    }
+})
 </script>
 
 <template>
     <nav-component />
+    <div class="loading">
+        <div class="loadingLine"></div>
+        <div class="loadContent">
+            <p>Loading 3D Model</p>
+            <p>If the load progress stuck, try refreshing the page and use cache.</p>
+        </div>
+        <p class="loadProgress">{{ PRO.modelLoading }}%</p>
+    </div>
     <section class="productInfoWrap">
         <canvas id="product3d" class="product3d"></canvas>
         <ol  class="containerInfo">
@@ -633,7 +676,41 @@ const allFloat = () => {
 @import '@/sass/base/_font.scss';
 @import '@/sass/mixin/_mixin.scss';
 @import '@/sass/component/_btn.scss';
-
+.loading{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    background: $bg-color;
+    .loadingLine{
+        width: 2px;
+        height: 100%;
+        background: #eee;
+        position: absolute;
+        left: 50%;
+    }
+    .loadContent{
+        width: 100px;
+        display: flex;
+        flex-direction: row-reverse;
+        position: absolute;
+        top: 80px;
+        right: 50%;
+        p{
+            writing-mode: vertical-lr;
+        }
+        p:nth-child(2){
+            font-size: 16px;
+        }
+    }
+    .loadProgress{
+        position: absolute;
+        bottom: 80px;
+        left: 51%;
+    }
+}
 .productInfoWrap{
     width: 100%;
     height: 100vh;

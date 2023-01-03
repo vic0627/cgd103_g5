@@ -166,7 +166,7 @@ export const droneModels = ref({
       3: {
         id: 3,
         src: body03green,
-        png: "body_02_green_1.png"
+        png: "body_03_green_1.png"
       },
       4: {
         id: 4,
@@ -277,7 +277,7 @@ export const propellorModels = ref({
       5: {
         id: 5,
         src: propellor03white,
-        png: "propellor_02_white_1.png"
+        png: "propellor_03_white_1.png"
       },
     },
   },

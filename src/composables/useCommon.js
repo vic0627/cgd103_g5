@@ -9,7 +9,7 @@ export const getW = e => Number(window.getComputedStyle($$(e),null).getPropertyV
 export const getCartLength = () => {
     let cartItem = sessionStorage["cartList"];
     let cartLength = [];
-    if(cartItem != undefined){
+    if(cartItem != undefined && cartItem != ""){
         cartLength = cartItem.split(",");
     }
     return cartLength.length;

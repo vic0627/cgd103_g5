@@ -208,7 +208,7 @@ const toCart = () => {
   <div class="main">
     <!-- 商品大圖 -->
     <div id="mainPic">
-      <img :src="`${BIND_URL(prodin.img)}`" />
+      <img :src="`${BIND_URL(prodin.img, 'images/shop')}`" />
       <div class="button" id="left" @click="btnLeft">&lt;</div>
       <div class="button" id="right" @click="btnRight">&gt;</div>
     </div>
@@ -343,7 +343,7 @@ const toCart = () => {
     <div class="cardRow" v-for="i in returnMore" :key="i.prd_no">
       <div class="card">
         <div class="cardPic">
-          <img :src="`${BIND_URL(i.images)}`" :alt="i.images" />
+          <img :src="`${BIND_URL(i.images, 'images/shop')}`" :alt="i.images" />
         </div>
         <div class="cardInfo">
           <h5>{{ i.prd_name }}</h5>

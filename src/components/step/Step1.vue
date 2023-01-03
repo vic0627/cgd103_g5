@@ -269,7 +269,7 @@ onUpdated(() => {
                 <div class="cartItem">
                     <div class="cartProduct">
                         <div class="cartProduct-pic">
-                            <img v-if="item.img != ''" :src="`${BIND_URL(item.img)}`" alt="">
+                            <img v-if="item.img != ''" :src="`${BIND_URL(item.img, 'images/shop')}`" alt="">
                         </div>
                         <div class="cartProduct-txt">
                             <h5>{{item.name}}</h5>

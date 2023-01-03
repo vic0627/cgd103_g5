@@ -14,8 +14,9 @@ const ww = window.innerWidth;
         box-shadow: 0 0 20px 4px #fff;
         backdrop-filter: invert(100%);
         position: absolute;
+        top: -8px;
+        left: -8px;
         z-index: 99;
-        pointer-events: none;
-        transform-style: preserve-3d;      
+        pointer-events: none;    
     }
 </style>

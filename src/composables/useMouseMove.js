@@ -2,15 +2,26 @@ import gsap from "gsap";
 const ww = window.innerWidth;
 export const useMouseMove = (e) => {
     if (ww>1024) {
+        let x,y;
         window.addEventListener('mousemove', (e)=> {
+            x = `${e.pageX}px`, y = e.clientY;
             gsap.to('#mouse', {
-                top: e.pageY-8+'px',
-                left: e.pageX-8+'px',
-                duration: .2,
+                y: e.pageY+'px',
+                x,
+                duration: 0,
             });
         });
+        window.addEventListener('scroll', () => {
+            console.log(window)
+            gsap.to('#mouse', {
+                y: y+window.scrollY+'px',
+                x,
+                duration: 0,
+            });
+        })
     };
 };
+requestAnimationFrame(useMouseMove);
 export const mouseFocus = () => {
     if (ww>1024) {
         gsap.to('#mouse', {

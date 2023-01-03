@@ -1,5 +1,7 @@
 <?php
 $dbname = "tibamefe_cgd103g5";
+//$user = "root";
+//$password = "t/6vul3fu/6";
 $user = "tibamefe_since2021";
 $password = "vwRBSb.j&K#E";
 $port = "3306";

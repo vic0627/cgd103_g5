@@ -1,5 +1,6 @@
 /* import { onMounted } from 'vue'; */
 import * as THREE from 'three';
+import { ref } from 'vue';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
@@ -19,7 +20,7 @@ export let clipHover, clipExplode, clipStep;
 
 let composer, glitchPass, afterimagePass;
 
-
+export const modelLoading = ref(0);
 
 let ww = window.innerWidth, wh = window.innerHeight;
 
@@ -119,7 +120,9 @@ export function sceneInit () {
             }
         })
         scene.add( gltf.scene );
-    }, undefined, function ( error ) {
+    }, function ( xhr ) {
+        modelLoading.value = parseInt( xhr.loaded / xhr.total * 100 )
+	}, function ( error ) {
         console.error( error );
     });
     /* -------------------- */
