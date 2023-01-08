@@ -4,13 +4,14 @@
 try {
 	require_once("./connect_cgd103g5.php");
 	$sql = "
-    insert into tibamefe_cgd103g5.products (prd_name,cat_no,prd_price,color)        
-    values (:prd_name,:cat_no,:prd_price,:color)";
+    insert into tibamefe_cgd103g5.products (prd_name,cat_no,prd_price,color,images)        
+    values (:prd_name,:cat_no,:prd_price,:color,:images)";
 	$products = $pdo->prepare($sql);
     $products->bindValue(":prd_name", $_POST["prd_name"]);
     $products->bindValue(":cat_no", $_POST["cat_no"]);
     $products->bindValue(":prd_price", $_POST["prd_price"]);
     $products->bindValue(":color", $_POST["color"]);
+    $products->bindValue(":images", $_POST["images"]);
 	$products->execute();
     $msg = "success";
 } catch (PDOException $e) {

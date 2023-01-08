@@ -12,9 +12,8 @@ const faqRows = ref([]);
 
 const getProducts = () => {
 			//取得管理員資料
-       axios.get(`${BIND_URL('getFaq.php','g5PHP')}`,)
+       axios.get(`${BIND_URL('getFaqs.php','g5PHP')}`,)
       .then(res=> {
-        console.log(res.data)
         faqRows.value = res.data
       })
 		}
@@ -34,7 +33,7 @@ const add =()=>{
         alert("不可空白");
         break;
       }else if(des.value != faqRows.value[i].faq_des && ans.value != faqRows.value[i].faq_ans){
-        fetch(`${BIND_URL('insertaddFaq.php','g5PHP')}`, {
+        fetch(`${BIND_URL('insertaddFaqs.php','g5PHP')}`, {
           method: "POST",
           body: new URLSearchParams(payload),
         }).then(res=>{

@@ -195,7 +195,7 @@ const toCart = () => {
   <navComponentsVue />
   <!-- 跑馬燈 -->
   <article class="saleBar">
-    <p>X'MAS SALE! 15%off on all products. <span>12/11-12/25</span></p>
+    <p>NEW YEAR SALE ! ENTER NEWYEAR888 TO GET 10%OFF. <span>12/25-2/25</span></p>
   </article>
 
   <div class="ham">
